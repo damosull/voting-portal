@@ -1,0 +1,9 @@
+{
+    "baseUrl": "https://viewpoint.aqua.glasslewis.com/",
+    "chromeWebSecurity": false,
+
+    "env": {
+        "test_user_name": "legan@glasslewis.com",
+        "test_user_password": "Test12345%"
+      }
+}
