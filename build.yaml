@@ -17,20 +17,6 @@ schedules:
         - master
 
 steps:
-- task: InvokeRESTAPI@1
-  inputs:
-    connectionType: 'connectedServiceName'
-    serviceConnection: 'Voting Portal QA'
-    method: 'GET'
-    headers: |
-      {
-      }
-    waitForCompletion: 'true'
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-   
 - script: |
     npm install
     export cypress_Internal_Admin_Username=$(InternalAdminUsername)
