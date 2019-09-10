@@ -21,17 +21,11 @@ steps:
     export cypress_Internal_Admin_Password=$(InternalAdminPassword)
     npm run cypress:run
   displayName: 'npm install and running cypress'
+
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/*.xml'
-    mergeTestResults: true
-    failTaskOnFailedTests: true
-
-- task: PublishTestResults@2
-  displayName: 'Publish Test Results $(votingCypress.testResultsPath)'
-  inputs:
-    testResultsFiles: '$(votingCypress.testResultsPath)'
+    testResultsFiles: '/results/*.xml'
     mergeTestResults: true
     failTaskOnFailedTests: true
   condition: succeededOrFailed()
