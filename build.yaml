@@ -25,7 +25,7 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '/results/*.xml'
+    testResultsFiles: 'results/voting-test*.xml'
     mergeTestResults: true
     failTaskOnFailedTests: true
   condition: succeededOrFailed()

@@ -2,7 +2,6 @@
     "chromeWebSecurity": false,
     "reporter": "junit",
     "reporterOptions": {
-      "mochaFile": "results/voting-test-output.xml",
-      "toConsole": true
+        "mochaFile": "results/voting-test-output-[hash].xml"
     }
 }
