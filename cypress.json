@@ -1,4 +1,9 @@
 {
     "chromeWebSecurity": false,
-    "video":false
+    "video":false,
+    "reporter": "junit",
+    "reporterOptions": {
+        "mochaFile": "voting-test-result.xml",
+        "toConsole": true
+    }
 }

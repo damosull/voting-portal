@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --reporter junit --reporter-options mochaFile=voting-test-result.xml,toConsole=true"
+    "cypress:run": "cypress run"
   },
   "repository": {
     "type": "git",
