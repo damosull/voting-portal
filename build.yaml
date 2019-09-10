@@ -25,7 +25,7 @@ steps:
     headers: |
       {
       }
-    waitForCompletion: 'false'
+    waitForCompletion: 'true'
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
