@@ -16,7 +16,7 @@ schedules:
 steps:
 - script: |
     npm install
-    export cypress_baseUrl=$(BaseUrl)
+    export cypress_baseUrl=$(BaseUrlTest)
     export cypress_Internal_Admin_Username=$(InternalAdminUsername)
     export cypress_Internal_Admin_Password=$(InternalAdminPassword)
     npm run cypress:run
