@@ -12,9 +12,9 @@ describe('Login Page',function(){
         cy.get("#btn-submit-login").click();
 
         //Assert:
-        //1. Verify if session exists
-        cy.getCookie('DEV-session').should('exist');
-        //2. Verify if it lands in the Workflow page
+        //1. Verify if it lands in the Workflow page
         cy.url().should('include','Workflow');
+        //2. Verify if session exists
+        cy.getCookie('DEV-session').should('exist');
     })
 })
