@@ -1,4 +1,3 @@
 {
-    "baseUrl": "Cypress.env('Base_Url')",
     "chromeWebSecurity": false
 }
