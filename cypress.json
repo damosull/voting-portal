@@ -1,4 +1,4 @@
 {
-    "baseUrl": "http://10.71.2.10/",
+    "baseUrl": "Cypress.env('Base_Url')",
     "chromeWebSecurity": false
 }
