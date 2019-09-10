@@ -1,4 +1,4 @@
-resources:
+Base_Urlresources:
 - repo: self
 queue:
   name: Build
