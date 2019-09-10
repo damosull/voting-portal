@@ -22,10 +22,10 @@ steps:
     npm run cypress:run
   displayName: 'npm install and running cypress'
 
-# - task: PublishTestResults@2
-#   inputs:
-#     testResultsFormat: 'JUnit'
-#     testResultsFiles: '**/voting-test*.xml'
-#     mergeTestResults: true
-#     failTaskOnFailedTests: true
-#   condition: succeededOrFailed()
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/voting-test-result.xml'
+    mergeTestResults: true
+    failTaskOnFailedTests: true
+  condition: succeededOrFailed()
