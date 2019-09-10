@@ -17,6 +17,15 @@ schedules:
         - master
 
 steps:
+- task: InvokeRESTAPI@1
+  inputs:
+    connectionType: 'connectedServiceName'
+    serviceConnection: 'Voting Portal QA'
+    method: 'GET'
+    headers: |
+      {
+      }
+    waitForCompletion: 'false'
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
