@@ -1,4 +1,4 @@
 {
-    "baseUrl": "https://viewpoint.aqua.glasslewis.com/",
+    "baseUrl": "http://10.71.2.10/",
     "chromeWebSecurity": false
 }
