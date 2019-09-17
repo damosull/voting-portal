@@ -1,3 +1,4 @@
 # Ignore the videos and screenshots
 /screenshots
 /videos
+node_modules
