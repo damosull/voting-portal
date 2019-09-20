@@ -13,7 +13,8 @@ describe('Login Page',function(){
 
         //Assert:
         //1. Verify if it lands in the Workflow page
-        cy.url().should('include','Workflow');
+        cy.get('#workflow-link.active').should('exist');
+
         //2. Verify if session exists
         cy.getCookie('DEV-session').should('exist');
     })
