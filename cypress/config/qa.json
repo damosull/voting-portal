@@ -1,8 +1,7 @@
 {
   "reporter": "junit",
   "reporterOptions": {
-      "mochaFile": "test-results/test-output.xml",
-      "toConsole": true
+    "mochaFile": "test-results/tests-output/result-[hash].xml"
   },
   "video": false
 }

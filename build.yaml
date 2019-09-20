@@ -2,7 +2,7 @@ resources:
 - repo: self
 queue:
   name: Build
-  demands: 
+  demands:
   - cypress
 trigger: none
 schedules:
@@ -15,17 +15,35 @@ schedules:
 
 steps:
 - script: |
-    npm install
+    npm ci
     export cypress_baseUrl=$(BaseUrlTest)
     export cypress_Internal_Admin_Username=$(InternalAdminUsername)
     export cypress_Internal_Admin_Password=$(InternalAdminPassword)
-    npm run cypress:run
+    npx cypress run --env configFile=qa
   displayName: 'npm install and running cypress'
 
+- task: ArchiveFiles@2
+  displayName: 'Archive $(System.DefaultWorkingDirectory)/test-results'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/test-results'
+    archiveType: tar
+    archiveFile: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
+    verbose: true
+  condition: failed()
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: Tests Screenshots'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
+    ArtifactName: TestResults
+  condition: failed()
+
 - task: PublishTestResults@2
+  displayName: 'Publish Test Results'
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/voting-test-result.xml'
+    testResultsFiles: '**/result-*.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)/test-results/tests-output'
     mergeTestResults: true
     failTaskOnFailedTests: true
   condition: succeededOrFailed()
