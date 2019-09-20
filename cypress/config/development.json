@@ -1,0 +1,6 @@
+{
+  "baseUrl": "https://viewpoint.aqua.glasslewis.com",
+  "env": {
+    "configFile": "development"
+  }
+}

@@ -1,9 +1,8 @@
 {
-    "chromeWebSecurity": false,
-    "video":false,
-    "reporter": "junit",
-    "reporterOptions": {
-        "mochaFile": "voting-test-result.xml",
-        "toConsole": true
-    }
+  "chromeWebSecurity": false,
+  "screenshotsFolder": "test-results/screenshots",
+  "videosFolder": "test-results/videos",
+  "viewportWidth": 1100,
+  "viewportHeight": 900,
+  "watchForFileChanges": false
 }

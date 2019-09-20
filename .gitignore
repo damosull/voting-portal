@@ -1,4 +1,4 @@
 # Ignore the videos and screenshots
-/screenshots
-/videos
+/**/test-results
 node_modules
+cypress.env.json
