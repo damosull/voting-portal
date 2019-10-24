@@ -16,11 +16,15 @@ schedules:
 steps:
 - script: |
     npm ci
+    npm run lint
+  displayName: 'npm install and linting'
+
+- script: |
     export cypress_baseUrl=$(BaseUrlTest)
     export cypress_Internal_Admin_Username=$(InternalAdminUsername)
     export cypress_Internal_Admin_Password=$(InternalAdminPassword)
     npx cypress run --env configFile=qa
-  displayName: 'npm install and running cypress'
+  displayName: 'Running cypress'
 
 - task: ArchiveFiles@2
   displayName: 'Archive $(System.DefaultWorkingDirectory)/test-results'
