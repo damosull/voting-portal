@@ -23,3 +23,30 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("login", (username = Cypress.env('Internal_Admin_Username'), password = Cypress.env('Internal_Admin_Password')) => {
+    cy.request('/')
+        .its('body')
+        .then((body) => {
+            // we can use Cypress.$ to parse the string body
+            // thus enabling us to query into it easily
+            const $html = Cypress.$(body);
+            const csrf = $html.find("input[name=csrf-token]").val();
+
+            cy.request({
+                method: 'POST',
+                url: '/Home/Authenticate/',
+                headers: {
+                    'CSRFToken': csrf
+                },
+                body: {
+                    Username: username,
+                    Password: password,
+                }
+
+            }).then((resp) => {
+                expect(resp.status).to.eq(200);
+                expect(resp.body.Succeded).to.be.true;
+            });
+        });
+});
