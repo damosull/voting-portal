@@ -13,9 +13,9 @@ describe('Login Page',function(){
 
         //Assert:
         //1. Verify if it lands in the Workflow page
-        cy.get('#workflow-link.active').should('exist');
+        cy.get('#workflow-link.active', {timeout: 10000}).should('exist');
 
         //2. Verify if session exists
-        // cy.getCookie('DEV-session').should('exist');
+        //cy.getCookie('DEV-session').should('exist');
     })
 })

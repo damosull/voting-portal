@@ -23,6 +23,7 @@ steps:
     export cypress_baseUrl=$(BaseUrlTest)
     export cypress_Internal_Admin_Username=$(InternalAdminUsername)
     export cypress_Internal_Admin_Password=$(InternalAdminPassword)
+    export HTTP_PROXY=http://10.71.1.42:3128
     npx cypress run --env configFile=qa
   displayName: 'Running cypress'
 
