@@ -16,6 +16,6 @@ describe('Login Page',function(){
         cy.get('#workflow-link.active', {timeout: 10000}).should('exist');
 
         //2. Verify if session exists
-        //cy.getCookie('DEV-session').should('exist');
+        cy.getCookie('DEV-session').should('exist');
     })
 })
