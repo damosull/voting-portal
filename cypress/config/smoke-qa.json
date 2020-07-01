@@ -1,6 +1,10 @@
 {
-  "reporter": "junit",
+  "testFiles": "smoke_tests/*",
   "baseUrl": "https://viewpoint.aqua.glasslewis.com",
+  "env": {
+    "RETRIES": 1
+  },
+  "reporter": "junit",
   "reporterOptions": {
     "mochaFile": "test-results/tests-output/result-[hash].xml"
   },
