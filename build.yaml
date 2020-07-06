@@ -4,7 +4,18 @@ queue:
   name: Build
   demands:
   - cypress
-  
+
+parameters:
+- name: configuration
+  displayName: Configuration
+  type: string
+  default: qa
+  values:
+  - qa
+  - smoke-qa
+  - smoke-ultra
+  - smoke-prod
+
 trigger: 
   branches:
     include:
@@ -25,11 +36,10 @@ steps:
   displayName: 'npm install and linting'
 
 - script: |
-    export cypress_baseUrl=$(BaseUrlTest)
     export cypress_Internal_Admin_Username=$(InternalAdminUsername)
     export cypress_Internal_Admin_Password=$(InternalAdminPassword)
     export HTTP_PROXY=http://10.71.1.42:3128
-    npx cypress run --env configFile=qa
+    npx cypress run --env configFile=${{ parameters.configuration }}
   displayName: 'Running cypress'
 
 - task: ArchiveFiles@2
