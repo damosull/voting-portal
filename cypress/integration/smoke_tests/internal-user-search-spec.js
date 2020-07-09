@@ -19,21 +19,17 @@ describe('Internal user', function () {
     //2. Verify if session exists
     cy.getCookie('DEV-session').should('exist');
 
-    //cy.get('.customerName-Search > .k-widget > .k-dropdown-wrap > .k-input').type("CAL"); 
-    cy.server()
-    cy.route('POST', '/Api/Data/WorkflowExpansion').as('post')
+    cy.server();
+    cy.route('POST', '/Api/Data/WorkflowExpansion').as('post');
 
+    // Search for customer
+    //'California Public Employee Retirement System (CalPERS)'
     cy.get('.customerName-Search .k-input').type("CAL");
     cy.get('#kendoCustomers-list .k-item').first().click();
-    //'California Public Employee Retirement System (CalPERS)'
-
-
-    cy.wait('@post').then((xhr) => {
-      assert.isNotNull(xhr.response.body)
-    })
-    cy.get('@post').its('response.body.items').each((item) => {
-      assert.equal(item.Summaries.CustomerID.Value, 196)
-
-    })
-  })
-})
+    
+    // check all meetings in response have CalPERS customer id
+    cy.wait('@post').its('response.body.items').each((item) => {
+      expect(item.Summaries.CustomerID.Value).to.equal(196);
+    });
+  });
+});
