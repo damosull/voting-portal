@@ -1,15 +1,13 @@
 describe('ballot status report meeting detail page ', function () {
 
     beforeEach(function () {
-        cy.server();
-        cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
         cy.login(Cypress.env('External_Username'));
 
     });
 
     it(`ballot status export PDF report`, function () {
 
-        cy.visit('https://viewpoint.aqua.glasslewis.com/MeetingDetails/Index/975457');
+        cy.visit('/MeetingDetails/Index/975457');
 
         // export the ballot status report
         cy.get('#exportMeetingDetails > .nav > .dropdown > .dropdown-toggle').click();
