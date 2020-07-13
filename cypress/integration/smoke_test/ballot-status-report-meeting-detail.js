@@ -22,10 +22,9 @@ describe('ballot status report meeting detail page ', function () {
         cy.get('.notify-count').click();
 
         //Ballot Status Report is queued
-        cy.get('#inbox-container .msg-txt').first().should('contain.text', "'Ballot Status Report' export request has been queued");
-        cy.get('#inbox-container > [data-bind="if: InboxItems.length > 0"] > ul > :nth-child(1) > .inboxmsg > .msg-txt', { timeout: 30000 })
+        cy.get('#inbox-container .msg-txt', { timeout: 30000 })
             .should(($msg) => {
-                expect($msg.text()).to.equal("'Ballot Status Report' export is ready to download");
+                expect($msg.first().text()).to.equal("'Ballot Status Report' export is ready to download");
             });
 
         // download PDF & verify
