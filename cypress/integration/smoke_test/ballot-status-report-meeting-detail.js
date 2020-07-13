@@ -3,15 +3,12 @@ describe('ballot status report meeting detail page ', function () {
     beforeEach(function () {
         cy.server();
         cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
-
         cy.login(Cypress.env('External_Username'));
-        // cy.visit("/Workflow");
-        // cy.wait('@WorkflowExpansion');
+
     });
 
     it(`ballot status export PDF report`, function () {
 
-        // cy.visit('https://viewpoint.aqua.glasslewis.com/MeetingDetails/Index/967348');
         cy.visit('https://viewpoint.aqua.glasslewis.com/MeetingDetails/Index/975457');
 
         // export the ballot status report
@@ -26,19 +23,8 @@ describe('ballot status report meeting detail page ', function () {
 
         //Ballot Status Report is queued
         cy.get('#inbox-container .msg-txt').first().should('contain.text', "'Ballot Status Report' export request has been queued");
-        //cy.reload();
-        //cy.get('.notify-count').click();
-        //cy.wait(20000);
-
-        //Ballot Status Report is available for download
-        //cy.get('#inbox-container .msg-txt', { timeout: 30000 }).first().should('contain.text', "'Ballot Status Report' export is ready to download");
-        //cy.get('#inbox-container > [data-bind="if: InboxItems.length > 0"] > ul > :nth-child(1) > .inboxmsg > .msg-txt', { timeout: 30000 }).should('contain.text', "'Ballot Status Report' export is ready to download");
-        //cy.get('#inbox-container .msg-txt').first()
-        //cy.get('#inbox-container .msg-txt', { timeout: 30000 }).first({ timeout: 30000 })
         cy.get('#inbox-container > [data-bind="if: InboxItems.length > 0"] > ul > :nth-child(1) > .inboxmsg > .msg-txt', { timeout: 30000 })
             .should(($msg) => {
-                // all the code inside here will retry
-                // until it passes or times out
                 expect($msg.text()).to.equal("'Ballot Status Report' export is ready to download");
             });
 
