@@ -2,7 +2,6 @@ describe('ballot status report meeting detail page ', function () {
 
     beforeEach(function () {
         cy.login(Cypress.env('External_Username'));
-
     });
 
     it(`ballot status export PDF report`, function () {
@@ -20,7 +19,7 @@ describe('ballot status report meeting detail page ', function () {
         cy.get('.notify-count').click();
 
         //Ballot Status Report is queued
-        cy.get('#inbox-container .msg-txt', { timeout: 30000 })
+        cy.get('#inbox-container .msg-txt', { timeout: 40000 })
             .should(($msg) => {
                 expect($msg.first().text()).to.equal("'Ballot Status Report' export is ready to download");
             });
