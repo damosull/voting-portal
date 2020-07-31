@@ -20,14 +20,14 @@ describe('External user', function () {
 
 
         cy.server();
-        cy.route('POST', '/Api/Data/WorkflowExpansion').as('post');
+        cy.route('GET', '**/Api/Data/ToolbarSearch/?QueryValue=I&SearchType=0&_=1594992857887').as('get');
         // Search for customer
         //'California Public Employee Retirement System (CalPERS)'
-        cy.get('.customerName-Search .k-input').type("CAL");
-        cy.get('#kendoCustomers-list .k-item').first().click();
+        cy.get('#toolbarSearchFieldInput').type("I");
+        //cy.get('#kendoCustomers-list .k-item').first().click();
 
         // check all meetings in response have CalPERS customer id
-        cy.wait('@post').its('response.body.items').each((item) => {
+        cy.wait('@get').its('response.body.items').each((item) => {
             expect(item.Summaries.CustomerID.Value).to.equal(196);
         });
     });
