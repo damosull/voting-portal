@@ -24,8 +24,8 @@ describe('External user', function () {
         //'California Public Employee Retirement System (CalPERS)'
         cy.get('#toolbarSearchFieldInput').type("Int");
         //cy.get('#kendoCustomers-list .k-item').first().click();
-        cy.get('#toolbarSearchResultWindow').first().click();
-
+    cy.route('GET', '/Api/Data/ToolbarSearch/?QueryValue=in&SearchType=0&_=1596799387414/').as('querysearch')
+      //  cy.get('.searchResultContent clearfix toolbar-icon-meetings-blue').first().click();
 
         // check all meetings in response have CalPERS customer id
         cy.wait('@WorkflowExpansion').its('response.body.items').each((item) => {
