@@ -4,7 +4,7 @@ describe('External user', function () {
   beforeEach(function () {
       cy.server();
       cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
-      cy.login();
+      cy.login(Cypress.env('External_Username'));
       cy.visit("/Workflow");
       cy.wait('@WorkflowExpansion');
   })
