@@ -9,11 +9,11 @@ describe('Configure columns', function () {
         cy.wait('@WorkflowExpansion');
     });
 
-    const esgColumns = ['ESG Risk Rating Assessment', 'ESG Risk Exposure Assessment', 'ESG Risk Management Assessment',
-        'ESG Risk Rating Percentile Global', 'ESG Risk Rating Percentile Industry', 'ESG Risk Rating Percentile Sub Industry',
-        'ESG Risk Rating Highest Controversy'];
-
     it(`adds Sustainalytics ESG columns`, function () {
+
+        const esgColumns = ['ESG Risk Rating Assessment', 'ESG Risk Exposure Assessment', 'ESG Risk Management Assessment',
+            'ESG Risk Rating Percentile Global', 'ESG Risk Rating Percentile Industry', 'ESG Risk Rating Percentile Sub Industry',
+            'ESG Risk Rating Highest Controversy'];
 
         cy.get('#btn-workflow-config-columns').click();
 
@@ -25,7 +25,7 @@ describe('Configure columns', function () {
         cy.get('#btn-apply-configure-columns').click();
 
         cy.wait('@WorkflowExpansion');
-        cy.get('#btn-scroll-end').click();
+        cy.get('#btn-scroll-end').click({waitForAnimations: false});
 
         esgColumns.forEach((column) => { cy.get(`th[data-title='${column}']`).should('be.visible'); });
     });

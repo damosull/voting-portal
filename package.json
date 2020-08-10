@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "In this repo will be developed cypress tests for Voting Portal.",
   "main": "index.js",
-  "dependencies": {
-    "cypress": "^3.4.1"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "eslint": "^6.5.1",
-    "eslint-plugin-cypress": "^2.7.0"
+    "cypress": "^4.11.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-cypress": "^2.11.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

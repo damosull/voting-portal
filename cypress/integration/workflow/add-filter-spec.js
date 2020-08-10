@@ -25,7 +25,7 @@ describe('Add Filters', function () {
             cy.get(filter.editorButton).should('not.exist');
             cy.get(filter.editorModal).should('not.exist');
 
-            cy.get('#btn-add-criteria').click();
+            cy.get('#btn-add-criteria').click({waitForAnimations: false});
             cy.get('#txt-filter-criteria').type(filter.criteria);
             cy.get(`input[value='${filter.criteria}']`).check({ force: true });
             cy.get('#btn-apply-criteria').click();

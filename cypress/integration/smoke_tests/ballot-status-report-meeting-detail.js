@@ -32,8 +32,8 @@ describe('ballot status report meeting detail page ', function () {
                     expect(resp.status).to.eq(200);
                     expect(resp.headers).to.have.property('content-disposition').eql('attachment; filename=BallotStatusReport.pdf');
                     expect(resp.headers).to.have.property('content-type').eql('application/pdf');
-                    expect(resp.headers).to.have.property('content-length').greaterThan(1);
-
+                    
+                    expect(resp.body).to.have.length.greaterThan(1);
                     expect(resp.body).include('%PDF');
                 });
             });
