@@ -26,7 +26,8 @@ describe('external user', function () {
     cy.contains("International Business Machines Corp. | US").click();
 
     //Verify user is navigated to Meeting Detail page of that specific oganisation
-    
+    cy.visit('/MeetingDetails/Index/941712?fromToolbar=true')
+    cy.contains('International Business Machines Corp. | US');
   });
 });
 
