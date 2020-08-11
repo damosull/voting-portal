@@ -3,7 +3,7 @@
 describe('external user', function () {
 
   beforeEach(function () {
-    cy.login(Cypress.env('External_Admin_Username'));
+    cy.login(Cypress.env('External_Username'));
   })
 
   it('Toolbar search', function () {
