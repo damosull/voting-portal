@@ -4,7 +4,7 @@ describe('select a meeting and download a research link', function () {
         cy.login(Cypress.env('External_Username'));
     });
 
-    it(`download research link on meeting detail page`, function () {
+    it.skip(`download research link on meeting detail page`, function () {
         cy.visit('/MeetingDetails/Index/980900');
 
         // changing the target attribute for the form which will be used in the next click
