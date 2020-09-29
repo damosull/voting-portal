@@ -4,5 +4,8 @@
   "videosFolder": "test-results/videos",
   "viewportWidth": 1100,
   "viewportHeight": 900,
-  "watchForFileChanges": false
+  "watchForFileChanges": false,
+  "env": {
+    "RETRIES": 2
+  }
 }
