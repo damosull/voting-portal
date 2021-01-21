@@ -22,8 +22,8 @@ trigger:
       - master
 
 schedules:
-  - cron: '0 23 * * *'
-    displayName: 'Nightly Build at 23:00'
+  - cron: '0 18 * * *'
+    displayName: 'Nightly Build at 18:00'
     always: true
     branches:
       include:
