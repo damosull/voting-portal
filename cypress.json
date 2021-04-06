@@ -5,7 +5,6 @@
   "viewportWidth": 1100,
   "viewportHeight": 900,
   "watchForFileChanges": false,
-  "video": true,
   "env": {
     "RETRIES": 2
   }

@@ -9,7 +9,7 @@ describe('Configure columns', function () {
         cy.wait('@WorkflowExpansion');
     });
 
-    it(`adds Sustainalytics ESG columns part1`, function () {
+    it(`adds and verifies the first four available Sustainalytics ESG columns`, function () {
 
         const esgColumns = ['ESG Risk Rating Percentile Global', 'ESG Risk Rating Percentile Industry', 'ESG Risk Rating Percentile Sub Industry',
             'ESG Risk Rating Highest Controversy'];
@@ -29,7 +29,7 @@ describe('Configure columns', function () {
         esgColumns.forEach((column) => { cy.get(`th[data-title='${column}']`).should('be.visible'); });
     });
 
-    it(`adds Sustainalytics ESG columns part2`, function () {
+    it(`adds and verifies the remaining three Sustainalytics ESG columns `, function () {
 
         const esgColumns = ['ESG Risk Rating Assessment', 'ESG Risk Exposure Assessment', 'ESG Risk Management Assessment'];
 
