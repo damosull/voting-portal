@@ -12,7 +12,7 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.wait('@WorkflowSecuritiesWatchlists');
 });
 
-//
+
 it(`QuickVote on first Recommended Pending meeting`, function () {
 
 
@@ -30,7 +30,7 @@ it(`QuickVote on first Recommended Pending meeting`, function () {
     cy.get('#editorDiv10').click()
     cy.get(`input[value='AwaitingResearch']`).check({ force: true });
     cy.get('#btn-update-DecisionStatus').click({force: true});
-    //cy.get('#remove-editorDiv10').click();
+    
 
 
 
