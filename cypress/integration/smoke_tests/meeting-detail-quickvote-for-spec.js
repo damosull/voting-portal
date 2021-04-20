@@ -6,7 +6,7 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
     cy.route('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
 
-    cy.login();
+    cy.loginExternal();
     cy.visit("/Workflow");
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');

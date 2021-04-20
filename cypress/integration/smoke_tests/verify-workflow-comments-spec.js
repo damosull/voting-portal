@@ -6,7 +6,7 @@ describe('Verify comments on the Workflow page', function () {
     cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
     cy.route('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
 
-    cy.login();
+    cy.loginExternal();
     cy.visit("/Workflow");
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
@@ -46,7 +46,11 @@ describe('Verify comments on the Workflow page', function () {
        .get(`tr:nth-child(${$index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`).clear({force: true})
        .get(`tr:nth-child(${$index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`).type('test',{force: true})
        .get(`tr:nth-child(${$index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`).click({force: true})
-       cy.get('.toast-message').should('contain.text', 'Rationale saved');
+       cy.get('.toast-message',{timeout: 4000}).should('contain.text', 'Rationale saved');
+       if ($index > 2)
+       {
+           return false
+       }
        
     })
        cy.get('#meeting-note')
