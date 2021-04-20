@@ -24,6 +24,16 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+Cypress.Commands.add('randomString', (length) => { 
+    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let result = ' ';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return cy.wrap(result); 
+});
+
 Cypress.Commands.add("login", (username = Cypress.env('Internal_Admin_Username'), password = Cypress.env('Internal_Admin_Password')) => {
     cy.request('/')
         .its('body')
@@ -77,4 +87,8 @@ Cypress.Commands.add("loginExternal", (username = Cypress.env('External_Username
             });
         });
 });
+
+
+
+
 
