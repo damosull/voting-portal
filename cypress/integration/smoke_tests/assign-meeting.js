@@ -32,7 +32,7 @@ describe('Watchlist Assignment tests',function(){
     });  //end it
 
     it('Check assigned watchlist is in Assignees list',function(){
-        debugger
+    
         cy.get('#btn-watchlists').click({force: true})
         cy.get('.watchlist-search-input').type('Test Watchlist',{force:true});
         cy.wait('@AvailableAssigneesForCustomer')
@@ -40,7 +40,7 @@ describe('Watchlist Assignment tests',function(){
     });
     
     it('cleanup',function(){
-                debugger
+             
         //cleanup remove the watchlist
         cy.get('#btn-watchlists').click()
         cy.get('#btn-manage-watchlists').click({force: true})
