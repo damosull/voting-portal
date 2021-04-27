@@ -19,7 +19,7 @@ describe('ballot status report meeting detail page ', function () {
         cy.get('.notify-count').click();
 
         //Ballot Status Report is queued
-        cy.get('#inbox-container .msg-txt', { timeout: 40000 })
+        cy.get('#inbox-container .msg-txt', { timeout: 60000 })
             .should(($msg) => {
                 expect($msg.first().text()).to.equal("'Ballot Status Report' export is ready to download");
             });
