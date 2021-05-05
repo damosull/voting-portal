@@ -46,7 +46,7 @@ describe('Verify comments on the Workflow page', function () {
     
     //Iterate through Rationales,add text entry,Save and verify Toast message after each entry 
 
-    cy.get('#md-votecard-grid-results > tr').each(($ele,$idx,$list) => {
+    cy.get('#md-votecard-grid-results > tr').each(($ele,$idx) => {
          
         cy.get(`#md-votecard-grid-results > tr:nth-child(${$idx + 1}) > td:nth-child(3)`)
 

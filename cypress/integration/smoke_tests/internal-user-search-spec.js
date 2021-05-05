@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-import "../../support/commands.js";
+
 
 describe('Internal user', function () {
   sessionStorage.clear()

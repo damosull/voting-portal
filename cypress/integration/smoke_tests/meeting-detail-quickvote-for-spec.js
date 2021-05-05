@@ -50,7 +50,7 @@ it(`QuickVote on first Recommended Pending meeting`, function () {
     cy.get('#quick-vote-container > span > span').click({force: true})
     cy.get('#quickVoteSelect').select('For',{force: true})
     cy.get('#btn-vote-now').click({force: true})
-    cy.get('.app-wrapper').then(($body) => {
+    cy.get('.app-wrapper').then(() => {
         
         cy.get('#vote-warnings-and-errors-modal',{timeout: 3000}).then($header => {
             if($header.is(':visible'))
