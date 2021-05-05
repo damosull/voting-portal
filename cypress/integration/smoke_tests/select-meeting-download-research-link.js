@@ -1,6 +1,7 @@
 describe('select a meeting and download a research link', function () {
 
     beforeEach(function () {
+        sessionStorage.clear()
         cy.login(Cypress.env('External_Username'));
     });
 

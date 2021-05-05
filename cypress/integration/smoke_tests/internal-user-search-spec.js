@@ -1,7 +1,9 @@
 /// <reference types="Cypress" />
-
+import "../../support/commands.js";
 
 describe('Internal user', function () {
+  sessionStorage.clear()
+  
   it('Search for client', function () {
     cy.visit("/");
 

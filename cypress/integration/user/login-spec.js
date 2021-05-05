@@ -1,6 +1,10 @@
 /// <reference types="Cypress" />
 
 describe('Login Page',function(){
+    
+    beforeEach(function () {
+        sessionStorage.clear()
+    })
     it('LogIn with a Internal Admin user',function(){
         cy.visit("/");
 
