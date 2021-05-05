@@ -1,10 +1,13 @@
 
+
 describe('Verify comments on the Workflow page', function () {
 
     beforeEach(function () {
+    sessionStorage.clear()
     cy.server();
     cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
     cy.route('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
+    cy.route('POST', "**/Api/Data/Filters/CreateDraftFilter").as('filter')
 
     cy.loginExternal();
     cy.visit("/Workflow");
@@ -26,34 +29,45 @@ describe('Verify comments on the Workflow page', function () {
     cy.get(`input[value='AwaitingResearch']`).check({ force: true });
     cy.get('#btn-update-DecisionStatus').click({force: true});
 
-    //then select first Recommendations Pending Meeting
-    cy.contains('td', 'Recommendations Pending').first()
-    .siblings().find('[data-js="meeting-details-link"]').first().click({force: true});    
+    //taking 2nd one down on list as first has double decision status
+    cy.get('table > tbody > tr').eq(2).within(() => {
+        cy.get('[data-js="meeting-details-link"]').first().click({force: true});
+        })
+        cy.wait('@filter')
     
-});
+    });
+    
   it(`Add Comment to each Rationale,Save and verify toast message`, function () {
     
     cy.get('#btn-vote-now').should('be.visible');
     cy.get('#btn-take-no-action').should('be.visible');
     cy.get('#btn-instruct').should('be.visible');	
 
+    
     //Iterate through Rationales,add text entry,Save and verify Toast message after each entry 
-    cy.get('#md-votecard-grid-results > tr')
-    .find('td.cell-with-rationale')
-    .each(($el, $index) => {
-       cy.wrap($el)
-       .get(`tr:nth-child(${$index + 1}) > td.cell-with-rationale > div > div > span`).scrollIntoView().click({force: true})
-       .get(`tr:nth-child(${$index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`).clear({force: true})
-       .get(`tr:nth-child(${$index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`).type('test',{force: true})
-       .get(`tr:nth-child(${$index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`).click({force: true})
-       cy.get('.toast-message',{timeout: 4000}).should('contain.text', 'Rationale saved');
-       if ($index > 2)
-       {
-           return false
-       }
-       
+
+    cy.get('#md-votecard-grid-results > tr').each(($ele,$idx,$list) => {
+         
+        cy.get(`#md-votecard-grid-results > tr:nth-child(${$idx + 1}) > td:nth-child(3)`)
+
+        const voting = $ele.text();
+        if(voting.includes('Non Voting'))
+        {
+            //do nothing
+        } else
+        {
+            cy.get(`tr:nth-child(${$idx + 1}) > td.cell-with-rationale > div > div > span`).scrollIntoView().click({force: true})
+            cy.get(`tr:nth-child(${$idx + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`).clear({force: true})
+            cy.get(`tr:nth-child(${$idx + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`).type('test',{force: true})
+            cy.get(`tr:nth-child(${$idx + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`).click({force: true})
+        }
+        if ($idx > 4)
+        {
+            return false
+        } 
     })
-       cy.get('#meeting-note')
+ 
+    
 });
  
 it(`Add Meeting Note and Post Private Comment`, function () {

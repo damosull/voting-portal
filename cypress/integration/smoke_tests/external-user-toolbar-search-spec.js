@@ -3,6 +3,7 @@
 describe('external user', function () {
 
   beforeEach(function () {
+    sessionStorage.clear()
     cy.login(Cypress.env('External_Username'));
   })
 
