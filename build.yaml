@@ -1,9 +1,8 @@
 resources:
 - repo: self
-queue:
-  name: Build
-  demands:
-  - cypress
+  containers:
+  - container: builder
+    image: cypress-4:latest  
 
 parameters:
 - name: configuration
@@ -68,3 +67,8 @@ steps:
     mergeTestResults: true
     failTaskOnFailedTests: true
   condition: succeededOrFailed()
+
+- task: Docker@2
+  inputs:
+    command: stop
+    container: builder
