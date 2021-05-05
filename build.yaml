@@ -1,8 +1,9 @@
 resources:
-- repo: self
   containers:
   - container: builder
-    image: cypress-4:latest  
+    image: cypress-4:latest
+  repositories:
+  - repository: self
 
 parameters:
 - name: configuration
