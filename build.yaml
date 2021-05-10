@@ -1,7 +1,6 @@
+pools: 'Build Pipelines VMSS'
+
 resources:
-  containers:
-  - container: builder
-    image: cypress-4:latest
   repositories:
   - repository: self
 
