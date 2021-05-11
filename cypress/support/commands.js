@@ -34,6 +34,28 @@ Cypress.Commands.add('randomString', (length) => {
     return cy.wrap(result); 
 });
 
+Cypress.Commands.add('handleErrorModal',() => {
+    cy.get('.app-wrapper').then(() => {
+    cy.get('#vote-warnings-and-errors-modal',{timeout: 3000}).then($header => {
+        if($header.is(':visible'))
+        {
+          
+          cy.get('div.row.clearfix.floatright > button.btn.primary.gray').click({force: true},{timeout: 3000})
+        cy.get('#btn-take-no-action').click({force: true})
+        }
+        
+    })
+})
+
+})
+
+Cypress.Commands.add('verifyMeetingOptionButtons',() => {
+    cy.get('#btn-vote-now').should('be.visible');
+    cy.get('#btn-take-no-action').should('be.visible');
+    cy.get('#btn-instruct').should('be.visible');	
+})
+
+
 Cypress.Commands.add("login", (username = Cypress.env('Internal_Admin_Username'), password = Cypress.env('Internal_Admin_Password')) => {
     cy.request('/')
         .its('body')
