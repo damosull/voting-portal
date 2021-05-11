@@ -39,9 +39,7 @@ describe('Verify comments on the Workflow page', function () {
     
   it(`Add Comment to each Rationale,Save and verify toast message`, function () {
     
-    cy.get('#btn-vote-now').should('be.visible');
-    cy.get('#btn-take-no-action').should('be.visible');
-    cy.get('#btn-instruct').should('be.visible');	
+    cy.verifyMeetingOptionButtons();
 
     
     //Iterate through Rationales,add text entry,Save and verify Toast message after each entry 
@@ -74,9 +72,7 @@ it(`Add Meeting Note and Post Private Comment`, function () {
 
 
   
-    cy.get('#btn-vote-now').should('be.visible');
-    cy.get('#btn-take-no-action').should('be.visible');
-    cy.get('#btn-instruct').should('be.visible');	
+    cy.verifyMeetingOptionButtons();
     
     //Test Meeting note entry
     cy.get('#meeting-note').click();

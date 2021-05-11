@@ -2,12 +2,40 @@ describe('ballot status report meeting detail page ', function () {
 
     beforeEach(function () {
         sessionStorage.clear()
-        cy.login(Cypress.env('External_Username'));
+    cy.server();
+    cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
+    cy.route('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
+    cy.route('POST', "**/Api/Data/Filters/CreateDraftFilter").as('filter')
+
+    cy.loginExternal();
+    cy.visit("/Workflow");
+    cy.wait('@WorkflowExpansion');
+    cy.wait('@WorkflowSecuritiesWatchlists');
     });
 
     it(`ballot status export PDF report`, function () {
 
-        cy.visit('/MeetingDetails/Index/975457');
+    //in the case where there may be no Recommendations Pending on the 
+    //first page..filter Decisions for Recommendations Pending
+    cy.get("body").then($body => {
+        if ($body.find('#editorDiv10').length > 0) {   
+           cy.get('#remove-editorDiv10').click(); 
+        }
+    });
+    cy.get('#btn-add-criteria').click({waitForAnimations: false});
+    cy.get('#txt-filter-criteria').type('decision');
+    cy.get(`input[value='Decision Status']`).check({ force: true });
+    cy.get('#btn-apply-criteria').click();
+    cy.get('#editorDiv10').click()
+    cy.get(`input[value='AwaitingResearch']`).check({ force: true });
+    cy.get('#btn-update-DecisionStatus').click({force: true});
+    
+
+
+    cy.get('table > tbody > tr').eq(2).within(() => {
+    cy.get('[data-js="meeting-details-link"]').first().click({force: true});
+    })
+    cy.wait('@filter')
 
         // export the ballot status report
         cy.get('#exportMeetingDetails > .nav > .dropdown > .dropdown-toggle').click();
@@ -20,7 +48,7 @@ describe('ballot status report meeting detail page ', function () {
         cy.get('.notify-count').click();
 
         //Ballot Status Report is queued
-        cy.get('#inbox-container .msg-txt', { timeout: 60000 })
+        cy.get('#inbox-container .msg-txt', { timeout: 120000 })
             .should(($msg) => {
                 expect($msg.first().text()).to.equal("'Ballot Status Report' export is ready to download");
             });
