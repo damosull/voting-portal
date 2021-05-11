@@ -109,11 +109,7 @@ it(`QuickVote on Recommendations Pending meeting`, function () {
     cy.get('table > tbody > tr').eq(2).within(() => {
     cy.get('[data-js="meeting-details-link"]').first().click({force: true});
     })
-    //cy.wait('@filter')
-
     cy.verifyMeetingOptionButtons();	
-    
-
     
     //Do a Quickvote For to move meeting status to Voted
     cy.get('#quick-vote-container > span > span').click({force: true})

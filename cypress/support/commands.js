@@ -39,13 +39,11 @@ Cypress.Commands.add('handleErrorModal',() => {
     cy.get('#vote-warnings-and-errors-modal',{timeout: 3000}).then($header => {
         if($header.is(':visible'))
         {
-          cy.log('visible')
+          
           cy.get('div.row.clearfix.floatright > button.btn.primary.gray').click({force: true},{timeout: 3000})
         cy.get('#btn-take-no-action').click({force: true})
         }
-        else {
-            cy.log('not visible')
-        }
+        
     })
 })
 
