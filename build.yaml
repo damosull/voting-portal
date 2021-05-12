@@ -1,4 +1,4 @@
-pool: 'Build Pipelines VMSS'
+pool: 'Build Pipelines VMSS - QAUAT'
 
 resources:
   repositories:
