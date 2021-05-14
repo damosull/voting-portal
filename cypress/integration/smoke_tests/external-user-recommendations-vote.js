@@ -39,7 +39,9 @@ it(`Recommendations Available - Vote against each Polcy Recommendation`, functio
         $rows.each((index, value) => {
         const rec = Cypress.$(value).find('td.vote-card-policy-rec').text()
         if(rec.includes('Non Voting'))
-        {} else
+        {
+            //do nothing
+        } else
         {
         var selected = Cypress.$(value).find(':selected').text();
         var option1 = Cypress.$(value).find('option').eq(1).text()
@@ -61,7 +63,7 @@ it(`Recommendations Available - Vote against each Polcy Recommendation`, functio
         cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale',{timeout: 7000});
         cy.get('#btn-unlock').click({force:true});
         cy.verifyMeetingOptionButtons();
-        debugger
+    
         cy.get('#quick-vote-container > span > span').click({force: true})
         cy.get('#quickVoteSelect').select('Policy Rec',{force: true})
 
@@ -70,7 +72,9 @@ it(`Recommendations Available - Vote against each Polcy Recommendation`, functio
             const rec = Cypress.$(value).find('td.vote-card-policy-rec').text()
             var selected = Cypress.$(value).find(':selected').text();
             if(rec.includes('Non Voting') || rec.includes('N/A'))
-            {} else
+            {
+              //do nothing
+            } else
             { 
                 
                 expect(rec).to.equal(selected);
