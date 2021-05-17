@@ -59,7 +59,6 @@ it(`Verify Instruct functionality on Recommendations Pending meeting`, function 
     cy.get('table > tbody > tr').eq(2).within(() => {
     cy.get('[data-js="meeting-details-link"]').first().click({force: true});
     })
-    //cy.wait('@filter')
 
     cy.verifyMeetingOptionButtons();
 
