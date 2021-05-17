@@ -8,7 +8,7 @@ describe('Add Filters', function () {
 
         cy.login();
         cy.visit("/Workflow");
-        cy.wait('@WorkflowExpansion');
+        cy.wait('@WorkflowExpansion',{timeout: 7000});
     });
 
     const esgFilters = [{ 'criteria': 'ESG Risk Rating Assessment', 'editorButton': '#editorDiv1050', 'editorModal': '#sustainalytics-target-RiskCategory' },
