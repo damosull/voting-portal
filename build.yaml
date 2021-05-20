@@ -67,8 +67,3 @@ steps:
     mergeTestResults: true
     failTaskOnFailedTests: true
   condition: succeededOrFailed()
-
-- task: Docker@2
-  inputs:
-    command: stop
-    container: builder
