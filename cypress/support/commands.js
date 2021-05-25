@@ -22,7 +22,16 @@
 //
 //
 // -- This is will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... }
+
+
+Cypress.Commands.add('RemoveCriteriaIfExists',(id,removeId) => {
+    cy.get("body").then($body => {
+        if ($body.find(id).length > 0) {   
+           cy.get(removeId).click(); 
+        }
+    });
+})
 
 Cypress.Commands.add('randomString', (length) => { 
     const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -47,6 +56,15 @@ Cypress.Commands.add('handleErrorModal',() => {
     })
 })
 
+})
+Cypress.Commands.add('selectAddCriteriaOption',(name,identifier,txt,value,updatebtn) => {
+    cy.get('#btn-add-criteria').click({force:true});
+    cy.get('#txt-filter-criteria').type(name);
+    cy.get(`input[value='${value}']`).check({ force: true });
+    cy.get('#btn-apply-criteria').click();
+    cy.get('#editorDiv10').click()
+    cy.get(`input[${identifier}='${txt}']`).check({force:true});
+    cy.get(`${updatebtn}`).click({force:true});
 })
 
 Cypress.Commands.add('verifyMeetingOptionButtons',() => {
@@ -110,7 +128,18 @@ Cypress.Commands.add("loginExternal", (username = Cypress.env('External_Username
         });
 });
 
-
-
-
+Cypress.Commands.add("checkIfExists", (ele) => {
+    return new Promise((resolve,reject)=>{
+        /// here if  ele exists or not
+        cy.get('body').find( ele ).its('length').then(res=>{
+            if(res > 0){
+                //// do task that you want to perform
+                cy.get(ele).check();
+                resolve();
+            }else{
+                reject();
+            }
+        });
+    })
+})
 
