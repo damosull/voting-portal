@@ -27,37 +27,35 @@ describe('Watchlist Assignment tests',function(){
     cy.get('#btn-scroll-end').click({waitForAnimations: false});
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
-
     cy.get('table > tbody >tr').then(($rows) => {
         $rows.each((index, value) => {
         const wlist = Cypress.$(value).find('td#metaname-SystemWatchlistsName > div > span').text()
         if(wlist === ''){
             cy.get(`.mCSB_container >table > tbody >tr:nth-child(${index + 1}) > td:nth-child(2) > div > span > a`).then(meet => {
                 meetingName = meet.text()
-                
             })
             cy.get(`.mCSB_container >table > tbody >tr:nth-child(${index + 1}) > td:nth-child(2) > div > span > a`).click()
-            return false
+                return false
             }
         });
     })
+    //save meeting url
     cy.url().then(url => {
         meetingId = url;
-      });
+    });
 
-       cy.log(meetingName)
-       cy.get('#md-btn-watchlists').click({force:true})
-       cy.get('div.clearfix.scrollableContainer.systemListOfWatchlists').each((el) => {
+    cy.log(meetingName)
+    cy.get('#md-btn-watchlists').click({force:true})
+    cy.get('div.clearfix.scrollableContainer.systemListOfWatchlists').each((el) => {
         cy.wrap(el).find(':checkbox').uncheck({force:true})
-       })
-       cy.get('#md-watchlistsEditorItem2783').check({force:true})
-       cy.get('#divEditorWl2783 > label').then(function(el){
-           
-           const syswl = el.text()
-       expect(syswl.includes(`2020 Pay-for-Performance 'F' Grades`)).to.be.true
-       })
-     cy.get('#md-btn-update-security-watchlists').click({force:true})
-     cy.get('span[data-bind="text: SecurityWatchlistsCount"]').eq(1).should('have.text','1')
+        })
+    cy.get('#md-watchlistsEditorItem2783').check({force:true})
+    cy.get('#divEditorWl2783 > label').then(function(el){
+        const syswl = el.text()
+        expect(syswl.includes(`2020 Pay-for-Performance 'F' Grades`)).to.be.true
+        })
+    cy.get('#md-btn-update-security-watchlists').click({force:true})
+    cy.get('span[data-bind="text: SecurityWatchlistsCount"]').eq(1).should('have.text','1')
     
     });  //end it
 
@@ -91,9 +89,8 @@ describe('Watchlist Assignment tests',function(){
                 cy.get(`.mCSB_container >table > tbody >tr:nth-child(${index + 1}) > td:nth-child(2) > div > span > a`).click()
                 return false
                 }
-           // })
             });
-        })
+            })
         cy.get('#btn-watchlists').click({force:true})
         cy.get('#md-watchlistsEditorItem2783').should('be.checked')
         cy.get('span[data-bind="text: SecurityWatchlistsCount"]').eq(1).should('have.text','1')
@@ -112,8 +109,6 @@ describe('Watchlist Assignment tests',function(){
         cy.get('#md-watchlistsEditorItem2783').should('not.be.checked');
         cy.get('#md-btn-update-security-watchlists').click({force:true})
         cy.get('span[data-bind="text: SecurityWatchlistsCount"]').should('have.text','0')
-
-
-    });
+     });
     
     });  //end describe 
