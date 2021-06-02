@@ -1,13 +1,13 @@
 {
   "name": "votingportal-app-tests",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "In this repo will be developed cypress tests for Voting Portal.",
   "main": "index.js",
-  "dependencies": {},
   "devDependencies": {
     "cypress": "^7.4.0",
-    "eslint": "^6.8.0",
-    "eslint-plugin-cypress": "^2.11.1"
+    "cypress-plugin-retries": "^1.5.2",
+    "eslint": "^7.27.0",
+    "eslint-plugin-cypress": "^2.11.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,5 +21,6 @@
     "url": "https://glasslewis@dev.azure.com/glasslewis/Development/_git/VotingPortal-app-tests"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "keywords": []
 }
