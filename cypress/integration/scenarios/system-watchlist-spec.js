@@ -109,6 +109,16 @@ describe('Watchlist Assignment tests',function(){
         cy.get('#md-watchlistsEditorItem2783').should('not.be.checked');
         cy.get('#md-btn-update-security-watchlists').click({force:true})
         cy.get('span[data-bind="text: SecurityWatchlistsCount"]').should('have.text','0')
+
+        //uncheck system watchlist column
+        cy.visit("/Workflow");
+        cy.wait('@WorkflowExpansion');
+        cy.wait('@WorkflowSecuritiesWatchlists');
+        cy.get('#btn-workflow-config-columns').click();
+        cy.get('#txt-filter-col-name').type('System Watch List(s)');
+        cy.get('input[value="System Watch List(s)"]').uncheck({ force: true });
+        cy.get('#txt-filter-col-name').clear();
+        cy.get('#btn-apply-configure-columns').click();
      });
     
     });  //end describe 
