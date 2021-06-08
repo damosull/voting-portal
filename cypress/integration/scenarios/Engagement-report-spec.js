@@ -34,7 +34,7 @@ describe('Generate Engagement report,download and verify file headers', function
         cy.get('#btn-InteractionDate-update').click({force:true})
         cy.get('#rpt-columns > div > h3').click({force:true})
         cy.get('div.btn-container.clearfix > button.blue.small').click({force:true})
-        cy.get('#rpt-selected-columns > div > table > tbody > tr').each((tr, index) => {
+        cy.get('#rpt-selected-columns > div > table > tbody > tr').each((tr) => {
             cy.wrap(tr)
             .find('input[type="checkbox"]').should('be.checked')
           });
