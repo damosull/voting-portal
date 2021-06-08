@@ -27,7 +27,7 @@ describe('Internal user', function () {
     // Search for customer
     //'California Public Employee Retirement System (CalPERS)'
     cy.get('.customerName-Search .k-input').type("CAL",{force:true});
-    cy.get('#kendoCustomers-list .k-item').first().click();
+    cy.get('#kendoCustomers-list .k-item').first().click({force:true});
     
     // check all meetings in response have CalPERS customer id
     cy.wait('@post').its('response.body.items').each((item) => {
