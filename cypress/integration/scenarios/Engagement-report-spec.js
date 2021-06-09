@@ -29,7 +29,7 @@ describe('Generate Engagement report,download and verify file headers', function
         cy.get('[type="radio"]#rdo-date-range-discrete-InteractionDate').check({force:true})
         cy.get('#discrete-date-start-InteractionDate').clear()
         cy.get('#discrete-date-start-InteractionDate').type('05/07/2021')
-        cy.get('#discrete-date-end-InteractionDate').clear()
+        cy.get('#discrete-date-end-InteractionDate').clear({force:true})
         cy.get('#discrete-date-end-InteractionDate').type('05/28/2021')
         cy.get('#btn-InteractionDate-update').click({force:true})
         cy.get('#rpt-columns > div > h3').click({force:true})
