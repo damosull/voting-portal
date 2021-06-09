@@ -25,55 +25,54 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... }
 
 
-Cypress.Commands.add('RemoveCriteriaIfExists',(id,removeId) => {
+Cypress.Commands.add('RemoveCriteriaIfExists', (id, removeId) => {
     cy.get("body").then($body => {
-        if ($body.find(id).length > 0) {   
-           cy.get(removeId).click(); 
+        if ($body.find(id).length > 0) {
+            cy.get(removeId).click();
         }
     });
 })
 
-Cypress.Commands.add('randomString', (length) => { 
-    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+Cypress.Commands.add('randomString', (length) => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let result = ' ';
     const charactersLength = characters.length;
-    for ( let i = 0; i < length; i++ ) {
-       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-    return cy.wrap(result); 
+    return cy.wrap(result);
 });
 
-Cypress.Commands.add('handleErrorModal',() => {
+Cypress.Commands.add('handleErrorModal', () => {
     cy.get('.app-wrapper').then(() => {
-    cy.get('#vote-warnings-and-errors-modal',{timeout: 3000}).then($header => {
-        if($header.is(':visible'))
-        {
-          
-          cy.get('div.row.clearfix.floatright > button.btn.primary.gray').click({force: true},{timeout: 3000})
-        cy.get('#btn-take-no-action').click({force: true})
-        }
-        
+        cy.get('#vote-warnings-and-errors-modal', { timeout: 3000 }).then($header => {
+            if ($header.is(':visible')) {
+
+                cy.get('div.row.clearfix.floatright > button.btn.primary.gray').click({ force: true }, { timeout: 3000 })
+                cy.get('#btn-take-no-action').click({ force: true })
+            }
+
+        })
     })
-})
 
 })
 
-Cypress.Commands.add('selectValueFromCriteriaOption',(id,inputVal,object,updatebtn) => {
+Cypress.Commands.add('selectValueFromCriteriaOption', (id, inputVal, object, updatebtn) => {
     cy.get(`${id}`).click()
-    cy.get(`input[${inputVal}='${object}']`).check({force:true});
-    cy.get(`${updatebtn}`).click({force:true});
+    cy.get(`input[${inputVal}='${object}']`).check({ force: true });
+    cy.get(`${updatebtn}`).click({ force: true });
 })
-Cypress.Commands.add('AddCriteriaOption',(searchText,inputValue) => {
-    cy.get('#btn-add-criteria').click({force:true});
-    cy.get('#txt-filter-criteria').type(searchText,{force:true});
+Cypress.Commands.add('AddCriteriaOption', (searchText, inputValue) => {
+    cy.get('#btn-add-criteria').click({ force: true });
+    cy.get('#txt-filter-criteria').type(searchText, { force: true });
     cy.get(`input[value='${inputValue}']`).check({ force: true });
     cy.get('#btn-apply-criteria').click();
 })
 
-Cypress.Commands.add('verifyMeetingOptionButtons',() => {
+Cypress.Commands.add('verifyMeetingOptionButtons', () => {
     cy.get('#btn-vote-now').should('be.visible');
     cy.get('#btn-take-no-action').should('be.visible');
-    cy.get('#btn-instruct').should('be.visible');	
+    cy.get('#btn-instruct').should('be.visible');
 })
 
 
@@ -132,14 +131,14 @@ Cypress.Commands.add("loginExternal", (username = Cypress.env('External_Username
 });
 
 Cypress.Commands.add("checkIfExists", (ele) => {
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve, reject) => {
         /// here if  ele exists or not
-        cy.get('body').find( ele ).its('length').then(res=>{
-            if(res > 0){
+        cy.get('body').find(ele).its('length').then(res => {
+            if (res > 0) {
                 //// do task that you want to perform
                 cy.get(ele).check();
                 resolve();
-            }else{
+            } else {
                 reject();
             }
         });

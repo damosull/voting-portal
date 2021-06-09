@@ -2,9 +2,8 @@ describe('Add Filters', function () {
 
     beforeEach(function () {
         sessionStorage.clear()
-        cy.server();
-        cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
-        cy.route('GET', "**/Scripts/EditorControls/Sustainalytics/**").as('SustainalyticsFilter');
+        cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
+        cy.intercept('GET', "**/Scripts/EditorControls/Sustainalytics/**").as('SustainalyticsFilter');
 
         cy.login();
         cy.visit("/Workflow");

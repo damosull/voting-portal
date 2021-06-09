@@ -1,3 +1,4 @@
+//Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
 describe('Watchlist Assignment tests',function(){
 
     let meetingId
@@ -8,10 +9,9 @@ describe('Watchlist Assignment tests',function(){
     })
 
     it('Internal User - Select Calpers meeting and add System Watch list',function(){
-    cy.server();
-    cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
-    cy.route('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
-    cy.route('POST',"**/Api/Data/Assignee/GetAvailableAssigneesForCustomer").as('AvailableAssigneesForCustomer')
+    cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
+    cy.intercept('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
+    cy.intercept('POST',"**/Api/Data/Assignee/GetAvailableAssigneesForCustomer").as('AvailableAssigneesForCustomer')
     cy.login();
     cy.visit("/Workflow");
     cy.wait('@WorkflowExpansion');
@@ -60,10 +60,9 @@ describe('Watchlist Assignment tests',function(){
     });  //end it
 
     it('External User - Verify System watch list',function(){
-        cy.server();
-        cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
-        cy.route('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
-        cy.route('POST',"**/Api/Data/Assignee/GetAvailableAssigneesForCustomer").as('AvailableAssigneesForCustomer')
+        cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
+        cy.intercept('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
+        cy.intercept('POST',"**/Api/Data/Assignee/GetAvailableAssigneesForCustomer").as('AvailableAssigneesForCustomer')
         cy.loginExternal();
         cy.visit("/Workflow");
         cy.wait('@WorkflowExpansion');
@@ -98,10 +97,9 @@ describe('Watchlist Assignment tests',function(){
     });
 
     it('Internal User - verify meeting system watch list and deselect',function(){
-        cy.server();
-        cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
-        cy.route('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
-        cy.route('POST',"**/Api/Data/Assignee/GetAvailableAssigneesForCustomer").as('AvailableAssigneesForCustomer')
+        cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
+        cy.intercept('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
+        cy.intercept('POST',"**/Api/Data/Assignee/GetAvailableAssigneesForCustomer").as('AvailableAssigneesForCustomer')
         cy.login();
         cy.visit(meetingId);
         cy.get('#md-btn-watchlists').click({force:true})
