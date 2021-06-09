@@ -57,14 +57,17 @@ Cypress.Commands.add('handleErrorModal',() => {
 })
 
 })
-Cypress.Commands.add('selectAddCriteriaOption',(name,identifier,txt,value,updatebtn) => {
-    cy.get('#btn-add-criteria').click({force:true});
-    cy.get('#txt-filter-criteria').type(name);
-    cy.get(`input[value='${value}']`).check({ force: true });
-    cy.get('#btn-apply-criteria').click();
-    cy.get('#editorDiv10').click()
-    cy.get(`input[${identifier}='${txt}']`).check({force:true});
+
+Cypress.Commands.add('selectValueFromCriteriaOption',(id,inputVal,object,updatebtn) => {
+    cy.get(`${id}`).click()
+    cy.get(`input[${inputVal}='${object}']`).check({force:true});
     cy.get(`${updatebtn}`).click({force:true});
+})
+Cypress.Commands.add('AddCriteriaOption',(searchText,inputValue) => {
+    cy.get('#btn-add-criteria').click({force:true});
+    cy.get('#txt-filter-criteria').type(searchText,{force:true});
+    cy.get(`input[value='${inputValue}']`).check({ force: true });
+    cy.get('#btn-apply-criteria').click();
 })
 
 Cypress.Commands.add('verifyMeetingOptionButtons',() => {

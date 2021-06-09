@@ -3,10 +3,9 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
   
     beforeEach(function () {
     sessionStorage.clear()
-    cy.server();
-    cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
-    cy.route('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
-    cy.route('POST', "**/Api/Data/Filters/CreateDraftFilter").as('filter')
+    cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
+    cy.intercept('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
+    cy.intercept('POST', "**/Api/Data/Filters/CreateDraftFilter").as('filter')
 
     cy.loginExternal();
     cy.visit("/Workflow");

@@ -14,11 +14,9 @@ describe('Meeting Recommendation vote tests', function () {
     cy.wait('@WorkflowSecuritiesWatchlists');
       //in the case where there may be no Recommendations Pending on the 
     //first page..filter Decisions for Recommendations Pending
-    cy.get("body").then($body => {
-        if ($body.find('#editorDiv10').length > 0) {   
-           cy.get('#remove-editorDiv10').click(); 
-        }
-    });
+    cy.RemoveCriteriaIfExists('.DecisionStatusEditor','#remove-editorDiv10')
+    cy.RemoveCriteriaIfExists('.WithAgainstManagementEditor','#remove-editorDiv49')
+    cy.RemoveCriteriaIfExists('.WithAgainstGlassLewisEditor','#remove-editorDiv51')
     cy.get('#btn-add-criteria').click({waitForAnimations: false});
     cy.get('#txt-filter-criteria').type('decision');
     cy.get(`input[value='Decision Status']`).check({ force: true });

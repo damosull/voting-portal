@@ -3,10 +3,9 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
 
     beforeEach(function () {
     sessionStorage.clear()
-    cy.server();
-    cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
-    cy.route('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
-    cy.route('POST', "**/Api/Data/Filters/CreateDraftFilter").as('filter')
+    cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
+    cy.intercept('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
+    cy.intercept('POST', "**/Api/Data/Filters/CreateDraftFilter").as('filter')
 
     cy.loginExternal();
     cy.visit("/Workflow");
@@ -14,16 +13,18 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
     cy.wait('@WorkflowSecuritiesWatchlists');
    
 
-    cy.RemoveCriteriaIfExists('#editorDiv10','#remove-editorDiv10')
+    cy.RemoveCriteriaIfExists('.DecisionStatusEditor','#remove-editorDiv10')
     cy.RemoveCriteriaIfExists('#editorDiv49','#remove-editorDiv49')
     cy.RemoveCriteriaIfExists('#editorDiv51','#remove-editorDiv51')
  
 });
  
-    it('Confirm votes against GL captured in filter criteria',function(){
+  it('Confirm votes against GL captured in filter criteria',function(){
 
-    cy.selectAddCriteriaOption('decision','value','Approved','Decision Status','#btn-apply-criteria');
-    cy.selectAddCriteriaOption('With','name','opt-WithAgainstGlassLewis','With/Against Glass Lewis','#btn-update-WithAgainstGlassLewis');
+    cy.AddCriteriaOption('decision','Decision Status')
+    cy.selectValueFromCriteriaOption('.DecisionStatusEditor','value','Approved','#btn-apply-criteria')
+    cy.AddCriteriaOption('With','With/Against Glass Lewis')
+    cy.selectValueFromCriteriaOption('.WithAgainstGlassLewisEditor','name','opt-WithAgainstGlassLewis','#btn-update-WithAgainstGlassLewis')
 
     //arrays to store GL recommendations and vote decisons
     let GLvals = []
@@ -55,19 +56,21 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
            cy.wait('@WorkflowExpansion');
            cy.wait('@WorkflowSecuritiesWatchlists');
            cy.wait(3000)
-           cy.RemoveCriteriaIfExists('#editorDiv10','#remove-editorDiv10')
+           cy.RemoveCriteriaIfExists('.DecisionStatusEditor','#remove-editorDiv10')
            cy.RemoveCriteriaIfExists('#editorDiv51','#remove-editorDiv51')
 
     }); 
        
     }); //end it
+ 
 
-it('Confirm votes against Management captured in filter criteria',function(){
-    cy.RemoveCriteriaIfExists('#editorDiv10','#remove-editorDiv10')
-    cy.RemoveCriteriaIfExists('#editorDiv49','#remove-editorDiv49')
+ it('Confirm votes against Management captured in filter criteria',function(){
 
-    cy.selectAddCriteriaOption('decision','value','Approved','Decision Status','#btn-apply-criteria');
-    cy.selectAddCriteriaOption('With','value','With/Against Management','With/Against Management','#btn-apply-criteria');
+    cy.AddCriteriaOption('decision','Decision Status')
+    cy.selectValueFromCriteriaOption('.DecisionStatusEditor','value','Approved','#btn-apply-criteria')
+    cy.AddCriteriaOption('With','With/Against Management')
+    cy.selectValueFromCriteriaOption('.WithAgainstManagementEditor','name','opt-WithAgainstManagement','#btn-update-WithAgainstManagement')
+  
 
     //arrays to store Management recommendations and vote decisons
     let Mgmtvals = []
@@ -90,23 +93,31 @@ it('Confirm votes against Management captured in filter criteria',function(){
             }     
         })
 
+        if (Mgmtvals == null || Selected == null)
+        {
+            cy.log('nulls')
+        } else {
+           cy.log(Mgmtvals)
+           cy.log(Selected)
            var diff = arraysEqual(Mgmtvals,Selected);
            expect(diff).to.be.false
-    
+        }
            //teardown 
            cy.visit("/Workflow");
            cy.wait('@WorkflowExpansion');
            cy.wait('@WorkflowSecuritiesWatchlists');
            cy.wait(3000)
-           cy.RemoveCriteriaIfExists('#editorDiv10','#remove-editorDiv10')
-           cy.RemoveCriteriaIfExists('#editorDiv49','#remove-editorDiv49')
+           cy.RemoveCriteriaIfExists('.DecisionStatusEditor','#remove-editorDiv10')
+           cy.RemoveCriteriaIfExists('.WithAgainstManagementEditor','#remove-editorDiv49')
+           cy.RemoveCriteriaIfExists('.WithAgainstGlassLewisEditor','#remove-editorDiv51')
+
 
     }); //end it
 
-}); // end describe
+}); // end describe */
 
-//compare arrays
-function arraysEqual(a1,a2) {
+   //compare arrays
+   function arraysEqual(a1,a2) {
     return JSON.stringify(a1)==JSON.stringify(a2);
 }
 });
