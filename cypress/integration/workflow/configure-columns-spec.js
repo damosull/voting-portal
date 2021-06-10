@@ -2,8 +2,7 @@ describe('Configure columns', function () {
 
     beforeEach(function () {
         sessionStorage.clear()
-        cy.server();
-        cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
+        cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
 
         cy.login();
         cy.visit("/Workflow");

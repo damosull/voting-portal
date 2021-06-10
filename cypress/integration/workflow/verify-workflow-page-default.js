@@ -2,9 +2,8 @@ describe('verify workflow page elements (TestCase - 28351)', function () {
 
     beforeEach(function () {
         sessionStorage.clear()
-        cy.server();
-        cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
-        cy.route('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
+        cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
+        cy.intercept('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
 
         cy.login();
         cy.visit("/Workflow");

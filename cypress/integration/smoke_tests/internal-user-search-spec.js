@@ -3,7 +3,7 @@
 
 describe('Internal user', function () {
   sessionStorage.clear()
-  
+
   it('Search for client', function () {
     cy.visit("/");
 
@@ -20,15 +20,15 @@ describe('Internal user', function () {
 
     //2. Verify if session exists
     cy.getCookie('DEV-session').should('exist');
-
-    cy.server();
+    
+    cy.server()
     cy.route('POST', '/Api/Data/WorkflowExpansion').as('post');
 
     // Search for customer
     //'California Public Employee Retirement System (CalPERS)'
-    cy.get('.customerName-Search .k-input').type("CAL",{force:true});
-    cy.get('#kendoCustomers-list .k-item').first().click();
-    
+    cy.get('.customerName-Search .k-input').type("CAL", { force: true });
+    cy.get('#kendoCustomers-list .k-item').first().click({ force: true });
+
     // check all meetings in response have CalPERS customer id
     cy.wait('@post').its('response.body.items').each((item) => {
       expect(item.Summaries.CustomerID.Value).to.equal(196);

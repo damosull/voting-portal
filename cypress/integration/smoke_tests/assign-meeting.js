@@ -6,10 +6,9 @@ describe('Watchlist Assignment tests',function(){
 
     beforeEach(function () {
         sessionStorage.clear()
-        cy.server();
-        cy.route('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
-        cy.route('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
-        cy.route('POST',"**/Api/Data/Assignee/GetAvailableAssigneesForCustomer").as('AvailableAssigneesForCustomer')
+        cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
+        cy.intercept('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
+        cy.intercept('POST',"**/Api/Data/Assignee/GetAvailableAssigneesForCustomer").as('AvailableAssigneesForCustomer')
         cy.loginExternal();
         cy.visit("/Workflow");
         cy.wait('@WorkflowExpansion');
