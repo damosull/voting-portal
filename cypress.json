@@ -1,6 +1,6 @@
 {
-  "defaultCommandTimeout": 20000,
-  "requestTimeout": 15000,
+  "defaultCommandTimeout": 25000,
+  "requestTimeout": 20000,
   "chromeWebSecurity": false,
   "screenshotsFolder": "test-results/screenshots",
   "videosFolder": "test-results/videos",
