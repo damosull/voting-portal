@@ -38,7 +38,7 @@ describe('Generate Policy report,download and verify file headers', function () 
         cy.wait('@policy')
         cy.get("body").then($body => {
             if ($body.find('#workflow-filter-list > div > div > ul > li').length > 0) {
-                cy.get('#workflow-filter-list > div > div > ul > li').each(($rows) => {
+                cy.get('#workflow-filter-list > div > div > ul > li').each(() => {
                     cy.get('#workflow-filter-list > div > div > ul > li:nth-child(1) > a').click({ force: true })
                     cy.wait('@getPolicy')
                     cy.get('.dark-red.small.delete-btn').click({ force: true })
@@ -78,7 +78,6 @@ describe('Generate Policy report,download and verify file headers', function () 
         cy.get('#inbox-container [data-pagelink1]').first().invoke('attr', 'data-pagelink1').should('contain', '/Downloads/DownloadExportFromUrl/?requestID=')
 
             .then((downloadLink) => {
-                debugger
                 cy.request(downloadLink).then((resp) => {
                     expect(resp.status).to.eq(200);
                     expect(resp.headers).to.have.property('content-disposition').contains(rnd);
