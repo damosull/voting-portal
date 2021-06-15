@@ -24,7 +24,7 @@ describe('Configure columns', function () {
         cy.get('#btn-apply-configure-columns').click();
 
         cy.wait('@WorkflowExpansion');
-        cy.get('#btn-scroll-end').click({waitForAnimations: false});
+        cy.get('#btn-scroll-end').click({force:true},{waitForAnimations: false});
 
         esgColumns.forEach((column) => { cy.get(`th[data-title='${column}']`).should('be.visible'); });
     });
