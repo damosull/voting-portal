@@ -4,8 +4,7 @@
   "description": "In this repo will be developed cypress tests for Voting Portal.",
   "main": "index.js",
   "devDependencies": {
-    "cypress": "^7.4.0",
-    "cypress-plugin-retries": "^1.5.2",
+    "cypress": "^7.5.0",
     "eslint": "^7.27.0",
     "eslint-plugin-cypress": "^2.11.3"
   },
