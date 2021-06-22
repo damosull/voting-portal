@@ -28,7 +28,7 @@ describe('Generate Engagement report,download and verify file headers', function
         cy.wait('@Engagement')
         cy.get('#report-criteria-controls >div > h4').first().click({ force: true })
         cy.get('[type="radio"]#rdo-date-range-discrete-InteractionDate').check({ force: true }).should('be.checked')
-        cy.get('#-date-start-InteractionDate').clear({force:true}).type('05/07/2021',{force:true})
+        cy.get('#discrete-date-start-InteractionDate').clear({force:true}).type('05/07/2021',{force:true})
         cy.get('#discrete-date-end-InteractionDate').clear({ force: true }).type('05/28/2021',{force:true})
         cy.contains('Update').click()
         cy.get('#rpt-columns > div > h3').click({ force: true })
