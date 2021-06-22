@@ -3,6 +3,7 @@ describe('Configure columns', function () {
     beforeEach(function () {
         sessionStorage.clear()
         cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
+        cy.intercept('GET', "**/Api/Data/Inbox/**").as('InboxLoad');
 
         cy.login();
         cy.visit("/Workflow");
@@ -43,7 +44,8 @@ describe('Configure columns', function () {
         cy.get('#btn-apply-configure-columns').click();
 
         cy.wait('@WorkflowExpansion');
-        cy.get('#btn-scroll-end').click({waitForAnimations: false});
+        cy.wait('@InboxLoad');
+        cy.get('#btn-scroll-end').click({waitForAnimations: false},{force:true});
 
         esgColumns.forEach((column) => { cy.get(`th[data-title='${column}']`).should('be.visible'); });
     });
