@@ -13,6 +13,7 @@
 
 const fs = require('fs-extra');
 const path = require('path');
+const xlsx = require('node-xlsx').default;
 
 function getConfigurationByFile(file) {
   const pathToConfigFile = path.resolve('cypress', 'config', `${file}.json`);
@@ -23,6 +24,18 @@ function getConfigurationByFile(file) {
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+  on('task', {
+    parseXlsx({ filePath }) {
+      return new Promise((resolve, reject) => {
+        try {
+          const jsonData = xlsx.parse(fs.readFileSync(filePath));
+          resolve(jsonData);
+        } catch (e) {
+          reject(e);
+        }
+      });
+    },
+  });
 
   const file = config.env.configFile || 'development';
   return getConfigurationByFile(file);

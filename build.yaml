@@ -2,20 +2,20 @@ pool: 'Build Pipelines VMSS - QAUAT'
 
 resources:
   repositories:
-  - repository: self
+    - repository: self
 
 parameters:
-- name: configuration
-  displayName: Configuration
-  type: string
-  default: qa
-  values:
-  - qa
-  - smoke-qa
-  - smoke-ultra
-  - smoke-prod
+  - name: configuration
+    displayName: Configuration
+    type: string
+    default: qa
+    values:
+      - qa
+      - smoke-qa
+      - smoke-ultra
+      - smoke-prod
 
-trigger: 
+trigger:
   branches:
     include:
       - master
@@ -29,41 +29,41 @@ schedules:
         - master
 
 steps:
-- script: |
-    npm ci
-    npm run lint
-  displayName: 'npm install and linting'
+  - script: |
+      npm ci
+      npm run lint
+    displayName: 'npm install and linting'
 
-- script: |
-    export cypress_Internal_Admin_Username=$(InternalAdminUsername)
-    export cypress_Internal_Admin_Password=$(InternalAdminPassword)
-    export cypress_External_Username=$(ExternalUsername)
-    export HTTP_PROXY=http://10.71.1.42:3128
-    npx cypress run --env configFile=${{ parameters.configuration }}
-  displayName: 'Running cypress'
+  - script: |
+      export cypress_Internal_Admin_Username=$(InternalAdminUsername)
+      export cypress_Internal_Admin_Password=$(InternalAdminPassword)
+      export cypress_External_Username=$(ExternalUsername)
+      export HTTP_PROXY=http://10.71.1.42:3128
+      npx cypress run --env configFile=${{ parameters.configuration }}
+    displayName: 'Running cypress'
 
-- task: ArchiveFiles@2
-  displayName: 'Archive $(System.DefaultWorkingDirectory)/test-results'
-  inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/test-results'
-    archiveType: tar
-    archiveFile: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
-    verbose: true
-  condition: failed()
+  - task: ArchiveFiles@2
+    displayName: 'Archive $(System.DefaultWorkingDirectory)/test-results'
+    inputs:
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/test-results'
+      archiveType: tar
+      archiveFile: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
+      verbose: true
+    condition: failed()
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: Tests Screenshots'
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
-    ArtifactName: TestResults
-  condition: failed()
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: Tests Screenshots'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
+      ArtifactName: TestResults
+    condition: failed()
 
-- task: PublishTestResults@2
-  displayName: 'Publish Test Results'
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/result-*.xml'
-    searchFolder: '$(System.DefaultWorkingDirectory)/test-results/tests-output'
-    mergeTestResults: true
-    failTaskOnFailedTests: true
-  condition: succeededOrFailed()
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/result-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)/test-results/tests-output'
+      mergeTestResults: true
+      failTaskOnFailedTests: true
+    condition: succeededOrFailed()
