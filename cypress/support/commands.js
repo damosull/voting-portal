@@ -96,7 +96,11 @@ Cypress.Commands.add(
           },
         }).then((resp) => {
           expect(resp.status).to.eq(200);
-          expect(resp.body.Succeded).to.be.true;
+          const success = resp.body.Succeded;
+          if (!success) {
+            console.log('Check console for details => ' + JSON.stringify(resp.body));
+          }
+          expect(success).to.be.true;
         });
       });
   }
@@ -125,7 +129,11 @@ Cypress.Commands.add(
           },
         }).then((resp) => {
           expect(resp.status).to.eq(200);
-          expect(resp.body.Succeded).to.be.true;
+          const success = resp.body.Succeded;
+          if (!success) {
+            console.log('Check console for details => ' + JSON.stringify(resp.body));
+          }
+          expect(success).to.be.true;
         });
       });
   }
@@ -168,4 +176,8 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText) => {
   cy.get('#report-criteria-controls > div > div > h4').each((h4) => {
     expect(h4.text()).to.be.oneOf(searchText);
   });
+});
+
+Cypress.Commands.add('parseXlsx', (inputFile) => {
+  return cy.task('parseXlsx', { filePath: inputFile });
 });
