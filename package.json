@@ -6,14 +6,15 @@
   "devDependencies": {
     "cypress": "^7.5.0",
     "eslint": "^7.27.0",
-    "eslint-plugin-cypress": "^2.11.3"
+    "eslint-plugin-cypress": "^2.11.3",
+    "node-xlsx": "^0.16.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:run:qa": "cypress run --env configFile=qa",
-    "lint": "eslint cypress"
+    "lint": "eslint cypress",
+    "cy:clean": "rmdir /s /q cypress\\downloads"
   },
   "repository": {
     "type": "git",
