@@ -63,7 +63,6 @@ Cypress.Commands.add('AddCriteriaOption', (searchText, inputValue) => {
   cy.get('#btn-add-criteria').click({ force: true });
   cy.get('#txt-filter-criteria').type(searchText, { force: true });
   cy.get(`input[value='${inputValue}']`).check({ force: true });
-  //cy.get('#btn-apply-criteria').click();
   cy.contains('Apply').click();
 });
 
@@ -180,4 +179,18 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText) => {
 
 Cypress.Commands.add('parseXlsx', (inputFile) => {
   return cy.task('parseXlsx', { filePath: inputFile });
+});
+
+Cypress.Commands.add('selectReportType', (report) => {
+  cy.get('#workflow-filter-list > div > ul > li').then(($rows) => {
+    $rows.each((index, value) => {
+      const input = report;
+      const reportType = Cypress.$(value).find(`a > span`).text();
+      if (reportType === input) {
+        cy.log(reportType);
+        cy.get(`#workflow-filter-list > div > ul > li:nth-child(${index + 1}) > a > span`).click();
+        return false;
+      }
+    });
+  });
 });

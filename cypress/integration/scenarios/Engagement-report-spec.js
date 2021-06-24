@@ -1,29 +1,16 @@
 // Test scenario 37963 : https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
 describe('Generate Engagement report,download and verify file headers', function () {
   beforeEach(function () {
-    sessionStorage.clear();
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-    cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
-    cy.intercept('GET', '**/Api/Data/Inbox/?Top=0&IsNew=true&IsQueryOnly=true&**').as('Engagement');
+    cy.intercept('GET', '**/Api/Data/Inbox/?Top=0&IsNew=true&IsQueryOnly=true&**').as('engagement');
 
     cy.loginExternal();
     cy.visit('/Reporting');
   });
 
   it(`Generate Report`, function () {
-    cy.get('#workflow-filter-list > div > ul > li').then(($rows) => {
-      $rows.each((index, value) => {
-        const input = 'Engagement';
-        const reportType = Cypress.$(value).find(`a > span`).text();
-        if (reportType === input) {
-          cy.log(reportType);
-          cy.get(`#workflow-filter-list > div > ul > li:nth-child(${index + 1}) > a > span`).click();
-          return false;
-        }
-      });
-    });
-    cy.wait('@Engagement');
+    cy.selectReportType('Engagement');
+
+    cy.wait('@engagement');
     cy.get('#report-criteria-controls >div > h4').first().click({ force: true });
     cy.get('[type="radio"]#rdo-date-range-discrete-InteractionDate').check({ force: true }).should('be.checked');
     cy.get('#discrete-date-start-InteractionDate').clear({ force: true }).type('05/07/2021', { force: true });
