@@ -26,23 +26,6 @@ describe('Regression Viewpoint', () => {
     cy.visit('/Reporting').url().should('include', 'Reporting');
   });
 
-  afterEach(() => {
-    // Delete the report
-    cy.contains('My configurations')
-      .siblings()
-      .find('span')
-      .then((myconfig) => {
-        cy.wrap(myconfig).each((value, index) => {
-          const found = value.text();
-          if (found == configName) {
-            cy.wrap(myconfig).eq(index).click();
-            cy.contains('Delete').click();
-            cy.get('.toast-message').should('contain.text', 'Report configuration deleted.');
-          }
-        });
-      });
-  });
-
   context('Workflow 3 - Original', () => {
     it(`Viewpoint Reporting - Create, download and verify ${upperFileExt} voting-activity report`, () => {
       cy.log('Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939');
@@ -115,7 +98,8 @@ describe('Regression Viewpoint', () => {
       });
 
       // step 2 (these are the steps referenced in the test case)
-      cy.contains('Voting Activity').click();
+      cy.selectReportType('Voting Activity');
+
       cy.wait('@AVAReport');
       cy.wait('@AVACriteria');
 
@@ -269,6 +253,21 @@ describe('Regression Viewpoint', () => {
       } else {
         cy.log('Please select a .xlsx file type to verify the content.');
       }
+
+      // Delete the report
+      cy.contains('My configurations')
+        .siblings()
+        .find('span')
+        .then((myconfig) => {
+          cy.wrap(myconfig).each((value, index) => {
+            const found = value.text();
+            if (found == configName) {
+              cy.wrap(myconfig).eq(index).click();
+              cy.contains('Delete').click();
+              cy.get('.toast-message').should('contain.text', 'Report configuration deleted.');
+            }
+          });
+        });
     });
   });
 });
