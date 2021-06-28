@@ -1,5 +1,9 @@
 //Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
 
+import { messages } from '../../support/constants';
+const report = messages.reports;
+const toast = messages.toast;
+
 describe('Regression Viewpoint', () => {
   const pastDays = 1;
   const arrCriteria = ['Decision Status'];
@@ -26,8 +30,8 @@ describe('Regression Viewpoint', () => {
     cy.visit('/Reporting').url().should('include', 'Reporting');
   });
 
-  context('Workflow 3 - Original', () => {
-    it(`Viewpoint Reporting - Create, download and verify ${upperFileExt} voting-activity report`, () => {
+  context('Report - Voting Activity', () => {
+    it(`Create, download and verify ${upperFileExt} Voting Activity report`, () => {
       cy.log('Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939');
 
       // I added this block of code to get the current CSRF token and wrap into the variable csrftoken so it can be re-used across the script
@@ -39,7 +43,7 @@ describe('Regression Viewpoint', () => {
       // Access the token and send as a header in the request
       cy.get('@csrftoken').then((token) => {
         // The total number of votes in the report should match the number shown in the workflow, when using the same filters. The reason of the request
-        // is to obtain that total number and stored into a variable so then the number of votes can be checked in the report
+        // is to obtain that total number and store into a variable so then the number of votes can be checked in the report
         cy.request({
           method: 'POST',
           url: '/Api/Data/WorkflowExpansion',
@@ -117,8 +121,7 @@ describe('Regression Viewpoint', () => {
       // step 4
       cy.get('.MeetingDateRangeEditor').contains(`Past ${pastDays} Days`);
 
-      // step 5
-      // Select Criteria
+      // step 5 - Select Criteria
       cy.AddMultipleCriteria(arrCriteria);
 
       // Select option "Voted"
@@ -179,10 +182,7 @@ describe('Regression Viewpoint', () => {
         cy.wrap(subscriptions).find('div').invoke('attr', 'style', 'display: block');
         cy.contains('Add Subscription').click();
 
-        cy.get('.toast-message').should(
-          'contain.text',
-          'Please review the fields selection, there are invalid fields.'
-        );
+        cy.get('.toast-message').should('contain.text', toast.REVIEW_FIELDS);
         cy.get('#ava-presentation-input-header').type('Test - Header').should('have.value', 'Test - Header');
         cy.get('#ava-presentation-input-footer').type('Test - Footer').should('have.value', 'Test - Footer');
 
@@ -196,23 +196,20 @@ describe('Regression Viewpoint', () => {
       cy.get('#popupTextContainer').should('be.visible').type(configName);
       cy.get('#apprise-btn-undefined').should('be.visible'); //the ID of this button should be fixed
       cy.get('#apprise-btn-confirm').click();
-      cy.get('.toast-message').should('contain.text', 'Report Saved');
+      cy.get('.toast-message').should('contain.text', toast.REPORT_SAVED);
       cy.contains('My configurations').siblings().find('span').should('contain', configName);
 
-      //download and verify
+      // Download and verify
       cy.contains('Download').click();
-      cy.get('.toast-message').should(
-        'contain.text',
-        'Your download was initiated. It will appear in the toolbar shortly.'
-      );
+      cy.get('.toast-message').should('contain.text', toast.DOWNLOAD_STARTED);
       cy.get('.notify-count').click();
       cy.get('#inbox-container .msg-txt', { timeout: 120000 }).should(($msg) => {
-        expect($msg.first().text()).to.include(configName + `.${fileExtension} report is ready for download`);
+        expect($msg.first().text()).to.include(configName + `.${fileExtension} ${report.READY}`);
       });
 
       if (fileExtension == 'xlsx') {
         cy.get('#inbox-container .msg-txt').first().click();
-        cy.get('.notify-count').click();
+        cy.get('.notify-count').click().should('be.visible');
       }
 
       cy.get('#inbox-container [data-pagelink1]')
@@ -238,6 +235,9 @@ describe('Regression Viewpoint', () => {
           });
         });
 
+      // Delete the report. Moved this block to occur before the XLSX parsing since the download of the file already happened
+      cy.deleteMyConfiguration(configName);
+
       // Parsing happens only if it's xlsx. It's using a custom library called node-xlsx
       if (fileExtension == 'xlsx') {
         cy.parseXlsx(`cypress/downloads/${configName}.xlsx`).then((xlxsData) => {
@@ -253,21 +253,6 @@ describe('Regression Viewpoint', () => {
       } else {
         cy.log('Please select a .xlsx file type to verify the content.');
       }
-
-      // Delete the report
-      cy.contains('My configurations')
-        .siblings()
-        .find('span')
-        .then((myconfig) => {
-          cy.wrap(myconfig).each((value, index) => {
-            const found = value.text();
-            if (found == configName) {
-              cy.wrap(myconfig).eq(index).click();
-              cy.contains('Delete').click();
-              cy.get('.toast-message').should('contain.text', 'Report configuration deleted.');
-            }
-          });
-        });
     });
   });
 });
