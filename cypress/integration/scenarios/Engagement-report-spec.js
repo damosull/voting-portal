@@ -7,7 +7,6 @@ describe('Generate Engagement report,download and verify file headers', function
     cy.visit('/Reporting');
   });
 
-  //generate report
   it(`Generate Report`, function () {
     cy.selectReportType('Engagement');
 
