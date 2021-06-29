@@ -6,6 +6,7 @@ describe('Generate basic excel report,download and verify file headers', functio
     cy.visit('/Reporting');
   });
 
+  //Gererate report
   it(`Generate Report`, function () {
     cy.wait('@BallotRecon');
     cy.AddMultipleCriteria(['Policy ID']);
