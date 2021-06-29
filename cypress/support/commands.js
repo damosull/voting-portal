@@ -24,6 +24,10 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... }
 
+import { messages } from '../support/constants';
+
+const toast = messages.toast;
+
 Cypress.Commands.add('RemoveCriteriaIfExists', (id, removeId) => {
   cy.get('body').then(($body) => {
     if ($body.find(id).length > 0) {
@@ -193,4 +197,21 @@ Cypress.Commands.add('selectReportType', (report) => {
       }
     });
   });
+});
+
+Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
+  cy.contains('My configurations')
+    .siblings()
+    .find('span')
+    .then((myconfig) => {
+      cy.wrap(myconfig).each((value, index) => {
+        const found = value.text();
+        // It compares the existing file name with the ones available under My Configurations.
+        if (found == reportToDelete) {
+          cy.wrap(myconfig).eq(index).click();
+          cy.contains('Delete').click();
+          cy.get('.toast-message').should('contain.text', toast.REPORT_DELETED);
+        }
+      });
+    });
 });
