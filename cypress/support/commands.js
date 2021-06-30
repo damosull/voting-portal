@@ -215,3 +215,17 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
       });
     });
 });
+
+Cypress.Commands.add('removeAllExistingSelectedCriteria', () => {
+  cy.get('body').then(($body) => {
+    if ($body.find('[class="remove"]').length > 0) {
+      const len = $body.find('[class="remove"]').length;
+      for (let i = len - 1; i >= 0; i--) {
+        if (i > 2) {
+          cy.get('[class="remove"]').eq(i).click({ force: true });
+        }
+      }
+      cy.get('[class="remove"]').should('have.length', 3);
+    }
+  });
+});
