@@ -2,6 +2,7 @@
 describe('Confirm votes against Recommendations captured in filter criteria', function () {
 
     beforeEach(function () {
+        cy.viewport(1100, 900);
         sessionStorage.clear()
         cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
         cy.intercept('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
@@ -12,15 +13,12 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
         cy.visit("/Workflow");
         cy.wait('@WorkflowExpansion');
         cy.wait('@WorkflowSecuritiesWatchlists');
+        cy.removeAllExistingSelectedCriteria()
 
-
-        cy.RemoveCriteriaIfExists('.DecisionStatusEditor', '#remove-editorDiv10')
-        cy.RemoveCriteriaIfExists('#editorDiv49', '#remove-editorDiv49')
-        cy.RemoveCriteriaIfExists('#editorDiv51', '#remove-editorDiv51')
 
     });
 
-    it('Confirm votes against GL captured in filter criteria', function () {
+    it.skip('Confirm votes against GL captured in filter criteria', function () {
 
         cy.AddCriteriaOption('decision', 'Decision Status')
         cy.selectValueFromCriteriaOption('.DecisionStatusEditor', 'value', 'Approved', '#btn-apply-criteria')
@@ -51,20 +49,15 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
             var diff = arraysEqual(GLvals, Selected);
             expect(diff).to.be.false
 
-            //teardown 
-            cy.visit("/Workflow");
-            cy.wait('@WorkflowExpansion');
-            cy.wait('@WorkflowSecuritiesWatchlists');
-            cy.RemoveCriteriaIfExists('.DecisionStatusEditor', '#remove-editorDiv10')
-            cy.RemoveCriteriaIfExists('#editorDiv51', '#remove-editorDiv51')
-
+         
         });
 
     }); //end it
 
 
-    it('Confirm votes against Management captured in filter criteria', function () {
+    it.skip('Confirm votes against Management captured in filter criteria', function () {
 
+    
         cy.AddCriteriaOption('decision', 'Decision Status')
         cy.selectValueFromCriteriaOption('.DecisionStatusEditor', 'value', 'Approved', '#btn-apply-criteria')
         cy.AddCriteriaOption('With', 'With/Against Management')
@@ -113,9 +106,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
         cy.visit("/Workflow");
         cy.wait('@WorkflowExpansion');
         cy.wait('@WorkflowSecuritiesWatchlists');
-        cy.RemoveCriteriaIfExists('.DecisionStatusEditor', '#remove-editorDiv10')
-        cy.RemoveCriteriaIfExists('.WithAgainstManagementEditor', '#remove-editorDiv49')
-        cy.RemoveCriteriaIfExists('.WithAgainstGlassLewisEditor', '#remove-editorDiv51')
+        cy.removeAllExistingSelectedCriteria()
     })
 
     //compare arrays
