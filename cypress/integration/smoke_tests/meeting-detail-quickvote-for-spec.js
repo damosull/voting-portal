@@ -2,6 +2,7 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
 
 
   beforeEach(function () {
+    cy.viewport(1100, 900);
     sessionStorage.clear()
     cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
     cy.intercept('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
@@ -11,20 +12,7 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.visit("/Workflow");
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
-    //in the case where there may be no Recommendations Pending on the 
-    //first page..filter Decisions for Recommendations Pending
-    cy.get("body").then($body => {
-      if ($body.find('#editorDiv10').length > 0) {
-        cy.get('#remove-editorDiv10').click();
-      }
-    });
-    cy.get('#btn-add-criteria').click({ waitForAnimations: false });
-    cy.get('#txt-filter-criteria').type('decision');
-    cy.get(`input[value='Decision Status']`).check({ force: true });
-    cy.get('#btn-apply-criteria').click();
-    cy.get('#editorDiv10').click()
-    cy.get(`input[value='AwaitingResearch']`).check({ force: true });
-    cy.get('#btn-update-DecisionStatus').click({ force: true });
+    
   });
 
   it.skip(`vote on US meeting on Recommendations Pending meeting`, function () {
@@ -45,6 +33,7 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
 
     cy.verifyMeetingOptionButtons();
 
+    
     cy.get('#quick-vote-container > span > span').click({ force: true })
     cy.get('#quickVoteSelect').select('For', { force: true })
     cy.get('#btn-vote-now').click({ force: true })
@@ -55,6 +44,14 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
 
   it(`Verify Instruct functionality on Recommendations Pending meeting`, function () {
 
+    cy.removeAllExistingSelectedCriteria()
+    cy.get('#btn-add-criteria').click({ waitForAnimations: false });
+    cy.get('#txt-filter-criteria').type('decision');
+    cy.get(`input[value='Decision Status']`).check({ force: true });
+    cy.get('#btn-apply-criteria').click();
+    cy.get('#editorDiv10').click()
+    cy.get(`input[value='AwaitingResearch']`).check({ force: true });
+    cy.get('#btn-update-DecisionStatus').click({ force: true });
     cy.get('table > tbody > tr').eq(2).within(() => {
       cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
     })

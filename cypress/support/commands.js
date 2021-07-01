@@ -67,7 +67,7 @@ Cypress.Commands.add('AddCriteriaOption', (searchText, inputValue) => {
   cy.get('#btn-add-criteria').click({ force: true });
   cy.get('#txt-filter-criteria').type(searchText, { force: true });
   cy.get(`input[value='${inputValue}']`).check({ force: true });
-  cy.contains('Apply').click();
+  cy.contains('Apply').click({force:true});
 });
 
 Cypress.Commands.add('verifyMeetingOptionButtons', () => {
@@ -220,12 +220,12 @@ Cypress.Commands.add('removeAllExistingSelectedCriteria', () => {
   cy.get('body').then(($body) => {
     if ($body.find('[class="remove"]').length > 0) {
       const len = $body.find('[class="remove"]').length;
-      for (let i = len - 1; i >= 0; i--) {
+      for (let i = len; i >= 0; i--) {
         if (i > 2) {
-          cy.get('[class="remove"]').eq(i).click({ force: true });
+          cy.get('[class="remove"]').eq(i-1).click({ force: true });
         }
       }
-      cy.get('[class="remove"]').should('have.length', 3);
+      cy.get('[class="remove"]').should('have.length', 2);
     }
   });
 });
