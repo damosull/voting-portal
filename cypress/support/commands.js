@@ -67,7 +67,7 @@ Cypress.Commands.add('AddCriteriaOption', (searchText, inputValue) => {
   cy.get('#btn-add-criteria').click({ force: true });
   cy.get('#txt-filter-criteria').type(searchText, { force: true });
   cy.get(`input[value='${inputValue}']`).check({ force: true });
-  cy.contains('Apply').click();
+  cy.contains('Apply').click({ force: true });
 });
 
 // Verify header buttons [Vote], [Take no Action] and [Instruct]
@@ -242,4 +242,19 @@ Cypress.Commands.add('saveFilter', (filterName) => {
   cy.get('#popupTextContainer').should('be.visible').type(filterName);
   cy.get('#apprise-btn-undefined').should('be.visible'); //the ID of this button should be fixed
   cy.get('#apprise-btn-confirm').click();
+});
+Cypress.Commands.add('removeAllExistingSelectedCriteria', () => {
+  cy.get('body').then(($body) => {
+    if ($body.find('[class="remove"]').length > 0) {
+      const len = $body.find('[class="remove"]').length;
+      for (let i = len; i >= 0; i--) {
+        if (i > 2) {
+          cy.get('[class="remove"]')
+            .eq(i - 1)
+            .click({ force: true });
+        }
+      }
+      cy.get('[class="remove"]').should('have.length', 2);
+    }
+  });
 });
