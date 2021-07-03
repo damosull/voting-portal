@@ -70,6 +70,7 @@ Cypress.Commands.add('AddCriteriaOption', (searchText, inputValue) => {
   cy.contains('Apply').click();
 });
 
+// Verify header buttons [Vote], [Take no Action] and [Instruct]
 Cypress.Commands.add('verifyMeetingOptionButtons', () => {
   cy.get('#btn-vote-now').should('be.visible');
   cy.get('#btn-take-no-action').should('be.visible');
@@ -214,4 +215,31 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
         }
       });
     });
+});
+
+Cypress.Commands.add('logout', () => {
+  cy.intercept('DELETE', '**/Home/RemoveDraftFilter/').as('RemoveDraft');
+  cy.intercept('GET', '**/Home/Logout?type=UserLoggedOutButton&_=**').as('LoggedOut');
+
+  cy.get('#logged-in-user').click();
+  cy.contains('Log out').should('have.attr', 'href', '#Logout').click();
+
+  cy.wait('@RemoveDraft');
+  cy.wait('@LoggedOut');
+});
+
+Cypress.Commands.add('removeDraft', () => {
+  cy.request({
+    method: 'DELETE',
+    url: '/Home/RemoveDraftFilter/',
+  }).then((resp) => {
+    console.log('resp => ' + JSON.stringify(resp.body));
+  });
+});
+
+Cypress.Commands.add('saveFilter', (filterName) => {
+  cy.contains('Save As').click();
+  cy.get('#popupTextContainer').should('be.visible').type(filterName);
+  cy.get('#apprise-btn-undefined').should('be.visible'); //the ID of this button should be fixed
+  cy.get('#apprise-btn-confirm').click();
 });
