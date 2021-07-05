@@ -67,9 +67,10 @@ Cypress.Commands.add('AddCriteriaOption', (searchText, inputValue) => {
   cy.get('#btn-add-criteria').click({ force: true });
   cy.get('#txt-filter-criteria').type(searchText, { force: true });
   cy.get(`input[value='${inputValue}']`).check({ force: true });
-  cy.contains('Apply').click({force:true});
+  cy.contains('Apply').click({ force: true });
 });
 
+// Verify header buttons [Vote], [Take no Action] and [Instruct]
 Cypress.Commands.add('verifyMeetingOptionButtons', () => {
   cy.get('#btn-vote-now').should('be.visible');
   cy.get('#btn-take-no-action').should('be.visible');
@@ -160,27 +161,6 @@ Cypress.Commands.add('checkIfExists', (ele) => {
   });
 });
 
-Cypress.Commands.add('AddMultipleCriteria', (searchText) => {
-  cy.get('#btn-add-criteria').click({ force: true });
-  searchText.forEach((value) => {
-    cy.then(() => {
-      cy.get('#txt-filter-criteria')
-        .clear()
-        .type(value)
-        .parent()
-        .siblings()
-        .children()
-        .find('input[type="checkbox"]')
-        .check({ force: true });
-    });
-  });
-
-  cy.contains('Apply').click();
-  cy.get('#report-criteria-controls > div > div > h4').each((h4) => {
-    expect(h4.text()).to.be.oneOf(searchText);
-  });
-});
-
 Cypress.Commands.add('parseXlsx', (inputFile) => {
   return cy.task('parseXlsx', { filePath: inputFile });
 });
@@ -216,16 +196,81 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
     });
 });
 
-Cypress.Commands.add('removeAllExistingSelectedCriteria', () => {
+Cypress.Commands.add('logout', () => {
+  cy.intercept('DELETE', '**/Home/RemoveDraftFilter/').as('RemoveDraft');
+  cy.intercept('GET', '**/Home/Logout?type=UserLoggedOutButton&_=**').as('LoggedOut');
+
+  cy.get('#logged-in-user').click();
+  cy.contains('Log out').should('have.attr', 'href', '#Logout').click();
+
+  cy.wait('@RemoveDraft');
+  cy.wait('@LoggedOut');
+});
+
+Cypress.Commands.add('removeDraft', () => {
+  cy.request({
+    method: 'DELETE',
+    url: '/Home/RemoveDraftFilter/',
+  }).then((resp) => {
+    console.log('resp => ' + JSON.stringify(resp.body));
+  });
+});
+
+Cypress.Commands.add('saveFilter', (filterName) => {
+  cy.contains('Save As').click();
+  cy.get('#popupTextContainer').should('be.visible').type(filterName);
+  cy.get('#apprise-btn-undefined').should('be.visible'); //the ID of this button should be fixed
+  cy.get('#apprise-btn-confirm').click();
+});
+
+Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
   cy.get('body').then(($body) => {
     if ($body.find('[class="remove"]').length > 0) {
       const len = $body.find('[class="remove"]').length;
-      for (let i = len; i >= 0; i--) {
-        if (i > 2) {
-          cy.get('[class="remove"]').eq(i-1).click({ force: true });
+      if (!isInternal) {
+        for (let i = len; i >= 0; i--) {
+          if (i > 2) {
+            cy.get('[class="remove"]')
+              .eq(i - 1)
+              .click({ force: true });
+          }
+        }
+      } else {
+        for (let i = len - 1; i >= 0; i--) {
+          if (i > 2) {
+            cy.get('[class="remove"]').eq(i).click({ force: true });
+          }
         }
       }
       cy.get('[class="remove"]').should('have.length', 2);
     }
   });
+});
+
+Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
+  cy.get('#btn-add-criteria').click({ force: true });
+  searchText.forEach((value) => {
+    cy.then(() => {
+      cy.get('#txt-filter-criteria')
+        .clear()
+        .type(value)
+        .parent()
+        .siblings()
+        .children()
+        .find('input[type="checkbox"]')
+        .check({ force: true });
+    });
+  });
+
+  cy.contains('Apply').click();
+
+  if (!isReporting) {
+    cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').each((h4) => {
+      expect(h4.text()).to.be.oneOf(searchText);
+    });
+  } else {
+    cy.get('#report-criteria-controls > div > div > h4').each((h4) => {
+      expect(h4.text()).to.be.oneOf(searchText);
+    });
+  }
 });
