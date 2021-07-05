@@ -161,27 +161,6 @@ Cypress.Commands.add('checkIfExists', (ele) => {
   });
 });
 
-Cypress.Commands.add('AddMultipleCriteria', (searchText) => {
-  cy.get('#btn-add-criteria').click({ force: true });
-  searchText.forEach((value) => {
-    cy.then(() => {
-      cy.get('#txt-filter-criteria')
-        .clear()
-        .type(value)
-        .parent()
-        .siblings()
-        .children()
-        .find('input[type="checkbox"]')
-        .check({ force: true });
-    });
-  });
-
-  cy.contains('Apply').click();
-  cy.get('#report-criteria-controls > div > div > h4').each((h4) => {
-    expect(h4.text()).to.be.oneOf(searchText);
-  });
-});
-
 Cypress.Commands.add('parseXlsx', (inputFile) => {
   return cy.task('parseXlsx', { filePath: inputFile });
 });
@@ -243,18 +222,55 @@ Cypress.Commands.add('saveFilter', (filterName) => {
   cy.get('#apprise-btn-undefined').should('be.visible'); //the ID of this button should be fixed
   cy.get('#apprise-btn-confirm').click();
 });
-Cypress.Commands.add('removeAllExistingSelectedCriteria', () => {
+
+Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
   cy.get('body').then(($body) => {
     if ($body.find('[class="remove"]').length > 0) {
       const len = $body.find('[class="remove"]').length;
-      for (let i = len; i >= 0; i--) {
-        if (i > 2) {
-          cy.get('[class="remove"]')
-            .eq(i - 1)
-            .click({ force: true });
+      if (!isInternal) {
+        for (let i = len; i >= 0; i--) {
+          if (i > 2) {
+            cy.get('[class="remove"]')
+              .eq(i - 1)
+              .click({ force: true });
+          }
+        }
+      } else {
+        for (let i = len - 1; i >= 0; i--) {
+          if (i > 2) {
+            cy.get('[class="remove"]').eq(i).click({ force: true });
+          }
         }
       }
       cy.get('[class="remove"]').should('have.length', 2);
     }
   });
+});
+
+Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
+  cy.get('#btn-add-criteria').click({ force: true });
+  searchText.forEach((value) => {
+    cy.then(() => {
+      cy.get('#txt-filter-criteria')
+        .clear()
+        .type(value)
+        .parent()
+        .siblings()
+        .children()
+        .find('input[type="checkbox"]')
+        .check({ force: true });
+    });
+  });
+
+  cy.contains('Apply').click();
+
+  if (!isReporting) {
+    cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').each((h4) => {
+      expect(h4.text()).to.be.oneOf(searchText);
+    });
+  } else {
+    cy.get('#report-criteria-controls > div > div > h4').each((h4) => {
+      expect(h4.text()).to.be.oneOf(searchText);
+    });
+  }
 });

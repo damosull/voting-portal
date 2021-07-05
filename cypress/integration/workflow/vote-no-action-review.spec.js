@@ -3,18 +3,12 @@
 import { messages, API } from '../../support/constants';
 const pastDays = 10;
 const api = API;
-const arrCriteria = ['Decision Status'];
+const arrCriteria = ['Decision Status', 'Agenda Key'];
 const unixTime = Math.floor(Date.now() / 1000);
 const filterName = `MyFilter_${unixTime}`;
 const toast = messages.toast;
 
 describe('Report - Voting Activity', () => {
-  //   const arrCriteria = ['Decision Status'];
-  //   const unixTime = Math.floor(Date.now() / 1000);
-  //   const filterName = `RegressionWorklow3_${unixTime}`;
-  //   const fileExtension = 'xlsx'; /* options: pdf, xls or xlsx */
-  //   const upperFileExt = fileExtension.toUpperCase();
-
   beforeEach(() => {
     cy.intercept('POST', api.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
     cy.intercept('POST', api.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
@@ -44,52 +38,37 @@ describe('Report - Voting Activity', () => {
     cy.wait('@WorkflowSecuritiesWatchlists');
 
     // Step 1 - Click on "Meeting Date"
-    // cy.get('#rdo-meeting-date').check().should('be.checked');
+    cy.get('#rdo-meeting-date').check().should('be.checked');
 
-    // // Wait for meeting date grouping
-    // cy.wait('@AvailableAssigneesForCustomer');
-    // cy.wait('@GetStatus');
+    // Wait for meeting date grouping
+    cy.wait('@AvailableAssigneesForCustomer');
+    cy.wait('@GetStatus');
 
     // Step 2 - Change Next 30 days to 10 Days
-    // cy.get('#date-range-target-meeting-deadline').invoke('attr', 'style', 'display: block');
-    // cy.get('.k-formatted-value').first().invoke('attr', 'style', 'display: block').clear();
-    // cy.get('.k-formatted-value').first().invoke('attr', 'style', 'display: block').type(pastDays);
-    // cy.get('#btn-meeting-deadline-date-update').click({ force: true });
+    cy.get('#date-range-target-meeting-deadline').invoke('attr', 'style', 'display: block');
+    cy.get('.k-formatted-value').first().invoke('attr', 'style', 'display: block').clear();
+    cy.get('.k-formatted-value').first().invoke('attr', 'style', 'display: block').type(pastDays);
+    cy.get('#btn-meeting-deadline-date-update').click({ force: true });
 
     // Step 3 - Select Decision Status and Recommendations Pending
-    // cy.get('#btn-add-criteria').click({ force: true });
-    // arrCriteria.forEach((value) => {
-    //   cy.then(() => {
-    //     cy.get('#txt-filter-criteria')
-    //       .clear()
-    //       .type(value)
-    //       .parent()
-    //       .siblings()
-    //       .children()
-    //       .find('input[type="checkbox"]')
-    //       .check({ force: true });
-    //   });
-    // });
+    cy.AddMultipleCriteria(arrCriteria);
 
-    // cy.contains('Apply').click();
-
-    // cy.get('#multiselect-static-target-DecisionStatus').invoke('attr', 'style', 'display: block');
-    // cy.get('#AwaitingResearch-cb-DecisionStatus').check({ force: true });
-    // cy.get('#btn-update-DecisionStatus').click({ force: true });
-    // cy.contains('Decision Status (1)');
+    cy.get('#multiselect-static-target-DecisionStatus').invoke('attr', 'style', 'display: block');
+    cy.get('#AwaitingResearch-cb-DecisionStatus').check({ force: true });
+    cy.get('#btn-update-DecisionStatus').click({ force: true });
+    cy.contains('Decision Status (1)');
 
     // Step 4 - Save filter
-    // cy.saveFilter(filterName);
-    // cy.get('.toast-message').should('contain.text', toast.FILTER_CREATED);
-    // cy.contains('My Filters').siblings().find('span').should('contain', filterName);
+    cy.saveFilter(filterName);
+    cy.get('.toast-message').should('contain.text', toast.FILTER_CREATED);
+    cy.contains('My Filters').siblings().find('span').should('contain', filterName);
 
     // Step 5 - Select first meeting
-    // cy.get('table > tbody > tr')
-    //   .eq(2)
-    //   .within(() => {
-    //     cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
-    //   });
-    cy.visit('/MeetingDetails/Index/1050379');
+    cy.get('table > tbody > tr')
+      .eq(2)
+      .within(() => {
+        cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
+      });
 
     cy.wait('@GetMeetingID');
     cy.wait('@RelatedMeetings');
@@ -99,171 +78,181 @@ describe('Report - Voting Activity', () => {
     cy.wait('@AssignedMeetingID');
     cy.wait('@VoteTally');
 
-    // Store Total Not Voted in order to compare with Total Voted after voting takes place
-
     // Verify header buttons [Vote], [Take no Action] and [Instruct]
-    // cy.verifyMeetingOptionButtons();
+    cy.verifyMeetingOptionButtons();
 
-    // // In the field "Quick Vote" select the option "For"
-    // cy.get('#quick-vote-container > span > span').click({ force: true });
-    // cy.get('#quickVoteSelect').select('For', { force: true });
+    // Step 6 - Select 'Quick Vote' option For
+    cy.get('#quick-vote-container > span > span').click({ force: true });
+    cy.get('#quickVoteSelect').select('For', { force: true });
 
-    // // Assert that all records have the option "For"
-    // cy.get('#md-votecard-grid-results > tr').then(($rows) => {
-    //   $rows.each((index, value) => {
-    //     var selected = Cypress.$(value).find(':selected').text();
-    //     // I ignore the first line because it's the header of the table
-    //     if (selected !== '') {
-    //       expect(selected).to.include('For');
-    //     }
-    //   });
-    // });
+    // Assert that all records have the option "For"
+    cy.get('#md-votecard-grid-results > tr').then(($rows) => {
+      $rows.each((index, value) => {
+        var selected = Cypress.$(value).find(':selected').text();
+        // I ignore the first line because it's the header of the table
+        if (selected !== '') {
+          expect(selected).to.include('For');
+        }
+      });
+    });
 
-    // // Assert Total Vote is 0 before the vote starts
-    // cy.get('#launch-ballots-voted-modal').should('have.text', 0);
+    // Assert Total Vote is 0 before the vote starts
+    cy.get('#launch-ballots-voted-modal').should('have.text', 0);
 
-    // // Store the "Total Not Voted" to later compare with the "Total Voted"
-    // cy.get('#launch-ballots-not-voted-modal')
-    //   .invoke('text')
-    //   .then((text) => {
-    //     cy.wrap(text).as('totalNotVoted');
-    //   });
+    // Store the "Total Not Voted" to later compare with the "Total Voted"
+    cy.get('#launch-ballots-not-voted-modal')
+      .invoke('text')
+      .then((text) => {
+        cy.wrap(text).as('totalNotVoted');
+      });
 
-    // // Click on [Vote]
-    // cy.get('#btn-vote-now').click({ force: true });
+    // Step 7 - Click on [Vote]
+    cy.get('#btn-vote-now').click({ force: true });
 
-    // cy.wait('@MeetingDetails');
-    // cy.wait('@GetAgenda');
-    // cy.wait('@WFResearch');
-    // cy.wait('@GetFilings');
-    // cy.wait('@VoteTally');
+    cy.wait('@MeetingDetails');
+    cy.wait('@GetAgenda');
+    cy.wait('@WFResearch');
+    cy.wait('@GetFilings');
+    cy.wait('@VoteTally');
 
-    // // Compare the total shown previously in Not Voted with the total shown in Total Voted
-    // cy.get('@totalNotVoted').then((vote) => {
-    //   cy.get('#launch-ballots-voted-modal').should('have.text', vote).siblings().contains('Total Voted:');
-    //   cy.contains(`Voted (${vote})`);
-    // });
+    // Step 7 - Verify Vote Tally gets updated
+    // Compare the total shown previously in Not Voted with the total shown in Total Voted
+    cy.get('@totalNotVoted').then((vote) => {
+      cy.get('#launch-ballots-voted-modal').should('have.text', vote).siblings().contains('Total Voted:');
+      cy.contains(`Voted (${vote})`);
+    });
 
-    // // Assert Total Not Voted is 0
-    // cy.get('#launch-ballots-not-voted-modal').should('have.text', 0);
+    // Assert Total Not Voted is 0
+    cy.get('#launch-ballots-not-voted-modal').should('have.text', 0);
 
-    // //Click on Change Vote or Rationale
-    // cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale').click({ force: true });
-    // cy.verifyMeetingOptionButtons();
+    // Step 8 - Click on Change Vote or Rationale
+    cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale').click({ force: true });
+    cy.verifyMeetingOptionButtons();
 
-    // // Click on Take no Action
-    // cy.get('#btn-take-no-action').should('be.visible').should('have.text', 'Take No Action').click({ force: true });
+    // Step 9 - Select Take No Action
+    cy.get('#btn-take-no-action').should('be.visible').should('have.text', 'Take No Action').click({ force: true });
 
-    // // Proceed with the override
-    // cy.get('#vote-warnings-and-errors-modal').should('be.visible');
-    // cy.contains('Do you want to override the existing vote decisions? Select ballots to override');
-    // cy.get('#override-voted').check({ force: true }).should('be.checked');
-    // cy.get('.floatright > .green').should('have.text', 'Proceed').click({ force: true });
+    // Proceed with the override
+    cy.get('#vote-warnings-and-errors-modal').should('be.visible');
+    cy.contains('Do you want to override the existing vote decisions? Select ballots to override');
+    cy.get('#override-voted').check({ force: true }).should('be.checked');
+    cy.get('.floatright > .green').should('have.text', 'Proceed').click({ force: true });
 
-    // cy.wait('@MeetingDetails');
-    // cy.wait('@GetAgenda');
-    // cy.wait('@WFResearch');
-    // cy.wait('@GetFilings');
-    // cy.wait('@VoteTally');
+    cy.wait('@MeetingDetails');
+    cy.wait('@GetAgenda');
+    cy.wait('@WFResearch');
+    cy.wait('@GetFilings');
+    cy.wait('@VoteTally');
 
-    // cy.get('@totalNotVoted').then((vote) => {
-    //   cy.contains(`TNA (${vote})`);
-    // });
+    // Step 9 - Assert Vote tally changes to TNA
+    cy.get('@totalNotVoted').then((vote) => {
+      cy.contains(`TNA (${vote})`);
+    });
 
-    // //Click on Change Vote or Rationale
-    // cy.get('#btn-unlock').click({ force: true });
-    // cy.verifyMeetingOptionButtons();
+    // Step 10 - Click on Change Vote or Rationale
+    cy.get('#btn-unlock').click({ force: true });
+    cy.verifyMeetingOptionButtons();
 
-    // //Click on Instruct
-    // cy.get('#btn-instruct').should('have.text', 'Instruct').click({ force: true });
+    // Step 11 - Click on Instruct
+    cy.get('#btn-instruct').should('have.text', 'Instruct').click({ force: true });
 
-    // // Proceed with the override
-    // cy.get('#vote-warnings-and-errors-modal').should('be.visible');
-    // cy.contains('Do you want to override the existing vote decisions? Select ballots to override');
-    // cy.get('#override-tnaed').check({ force: true }).should('be.checked');
-    // cy.get('.floatright > .green').should('have.text', 'Proceed').click({ force: true });
+    // Proceed with the override
+    cy.get('#vote-warnings-and-errors-modal').should('be.visible');
+    cy.contains('Do you want to override the existing vote decisions? Select ballots to override');
+    cy.get('#override-tnaed').check({ force: true }).should('be.checked');
+    cy.get('.floatright > .green').should('have.text', 'Proceed').click({ force: true });
 
-    // cy.wait('@MeetingDetails');
-    // cy.wait('@GetAgenda');
-    // cy.wait('@WFResearch');
-    // cy.wait('@GetFilings');
-    // cy.wait('@VoteTally');
+    cy.wait('@MeetingDetails');
+    cy.wait('@GetAgenda');
+    cy.wait('@WFResearch');
+    cy.wait('@GetFilings');
+    cy.wait('@VoteTally');
 
-    // cy.get('@totalNotVoted').then((vote) => {
-    //   cy.contains(`Review Required (${vote})`);
-    //   cy.get('#launch-ballots-not-voted-modal').should('have.text', vote);
-    //   cy.get('#launch-ballots-voted-modal').should('have.text', 0);
-    // });
+    // Step 11 - Verify Vote Tally gets updated
+    cy.get('@totalNotVoted').then((vote) => {
+      cy.contains(`Review Required (${vote})`);
+      cy.get('#launch-ballots-not-voted-modal').should('have.text', vote);
+      cy.get('#launch-ballots-voted-modal').should('have.text', 0);
+    });
 
-    // ------------------------------------------------- //
-
-    const commonMeetingAction = '#meeting-details-activity > div > div > table > tbody > tr:nth-child(n+2) >';
-    const logMeetingAction = `${commonMeetingAction} td:nth-child(1)`;
-    const logMeetingUser = `${commonMeetingAction} td:nth-child(2)`;
-    const logMeetingDate = `${commonMeetingAction} td:nth-child(3)`;
-
-    // const logMeetingAction =
-    //   `#meeting-details-activity > div > div > table > tbody > tr:nth-child(n+2) > td:nth-child(1)`;
-    // const logMeetingUser =
-    //   '#meeting-details-activity > div > div > table > tbody > tr:nth-child(n+2) > td:nth-child(2)';
-    // const logMeetingDate =
-    //   '#meeting-details-activity > div > div > table > tbody > tr:nth-child(n+2) > td:nth-child(3)';
-
-    let arrMeetingAction = [];
+    // Step 12 - Verify the activity section and match the activity against the Ballot activity log by clicking on the control number hyperlink
+    let arrMeetingActivity = [];
     let arrMeetingUser = [];
     let arrMeetingDate = [];
+    let arrMeetingFinal = [];
 
-    cy.get(logMeetingAction).each(($rows) => {
-      arrMeetingAction.push($rows.text());
-    });
-    console.log('arrMeetingAction ' + arrMeetingAction);
-    console.log('JSON arrMeetingAction ' + JSON.stringify(arrMeetingAction));
-
-    cy.get(logMeetingUser).each(($rows) => {
-      arrMeetingUser.push($rows.text());
-    });
-    console.log('arrMeetingUser ' + arrMeetingUser);
-    console.log('JSON arrMeetingUser ' + JSON.stringify(arrMeetingUser));
-
-    cy.get(logMeetingDate).each(($rows) => {
-      arrMeetingDate.push($rows.text());
-    });
-    console.log('arrMeetingDate ' + arrMeetingDate);
-    console.log('JSON arrMeetingDate ' + JSON.stringify(arrMeetingDate));
-
-    // cy.get('#meeting-details-activity');
-    // cy.get('.ballots-grid-control-number-link').first().click();
-    // cy.wait('@BallotActivity');
-
-    // const logBallotAction = '#ballotActivityLogGrid > div > table > tbody > tr:not(:last-child) > td:nth-child(1)';
-    // const logBallotUser = '#ballotActivityLogGrid > div > table > tbody > tr:not(:last-child) > td:nth-child(2)';
-    // const logBallotDate = '#ballotActivityLogGrid > div > table > tbody > tr:not(:last-child) > td:nth-child(3)';
-
-    let arrBallotAction = [];
-    let arrBallotUser = [];
-    let arrBallotDate = [];
-
-    // cy.get(logBallotAction).each(($rows, index) => {
-    //   console.log(`Ballot #${index} ${$rows.text()}`);
-    // });
-
-    // ------------------------------------------------- //
-
+    // tr:nth-child(n+2) => this block of code is to ignore the first line, which is "First Ballot Received"
     cy.get('#meeting-details-activity > div > div > table > tbody > tr:nth-child(n+2)').then(($rows) => {
       $rows.each((index, value) => {
         const action = Cypress.$(value).find(`td:nth-child(1)`).text();
+        // The string, for the same status, is different in each list. So I'm manually altering to "Instructed"
         if (action.includes('Edited(Fully)')) {
-          arrMeetingAction.push('Instructed');
+          arrMeetingActivity.push('Instructed');
         } else {
-          arrMeetingAction.push(action);
+          arrMeetingActivity.push(action);
         }
 
         const user = Cypress.$(value).find(`td:nth-child(2)`).text();
-        newUser = user.substring(str.indexOf("'"));
+        // substring is to remove the text "Ballot(s) intructed by" from the string. Replace All is 'remove' the single quotes
+        const newUser = user.substring(user.indexOf("'")).replaceAll("'", '');
         arrMeetingUser.push(newUser);
 
         const date = Cypress.$(value).find(`td:nth-child(3)`).text();
         arrMeetingDate.push(date);
+
+        // Concat all the arrays into a single one
+        arrMeetingFinal = arrMeetingActivity.concat(arrMeetingUser, arrMeetingDate);
+        cy.wrap(arrMeetingFinal).as('objMeetingFinal');
+      });
+    });
+
+    cy.get('#meeting-details-activity');
+    cy.get('.ballots-grid-control-number-link').first().click();
+    cy.wait('@BallotActivity');
+
+    cy.get('#ballot-activitylog-modal').should('be.visible');
+
+    let arrBallotActivity = [];
+    let arrBallotUser = [];
+    let arrBallotDate = [];
+    let arrBallotFinal = [];
+
+    // tr:not(:last-child) => this block of code is to ignore the last line, which is "Created"
+    cy.get('#ballotActivityLogGrid > div > table > tbody > tr:not(:last-child)').then(($rows) => {
+      $rows.each((index, value) => {
+        const action = Cypress.$(value).find(`td:nth-child(1)`).text();
+        if (action.includes('Edited(Fully)')) {
+          arrBallotActivity.push('Instructed');
+        } else {
+          arrBallotActivity.push(action);
+        }
+
+        const user = Cypress.$(value).find(`td:nth-child(2)`).text();
+        const newUser = user.substring(user.indexOf("'")).replaceAll("'", '');
+        arrBallotUser.push(newUser);
+
+        const date = Cypress.$(value).find(`td:nth-child(3)`).text();
+        arrBallotDate.push(date);
+
+        /* The Ballot activity log popup displays the list ordered by desc, so when the array has found the last position it thens reserve the list.
+        So its stored ordered by asc, which can be use used to compare with the meeting list
+        */
+        if (index == $rows.length - 1) {
+          arrBallotActivity.reverse();
+          arrBallotUser.reverse();
+          arrBallotDate.reverse();
+        }
+
+        arrBallotFinal = arrBallotActivity.concat(arrBallotUser, arrBallotDate);
+        cy.wrap(arrBallotFinal).as('objBallotFinal');
+      });
+    });
+
+    // Access both lists and then compare one with the other. The resul must be "true"
+    cy.get('@objBallotFinal').then((ballotFinal) => {
+      cy.get('@objMeetingFinal').then((meetingFinal) => {
+        var isArrEqual = JSON.stringify(ballotFinal) == JSON.stringify(meetingFinal);
+        expect(isArrEqual).to.be.true;
       });
     });
   });

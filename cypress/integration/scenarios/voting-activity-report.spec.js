@@ -121,7 +121,7 @@ describe('Report - Voting Activity', () => {
     cy.get('.MeetingDateRangeEditor').contains(`Past ${pastDays} Days`);
 
     // step 5 - Select Criteria
-    cy.AddMultipleCriteria(arrCriteria);
+    cy.AddMultipleCriteria(arrCriteria, true);
 
     // Select option "Voted"
     cy.get('#multiselect-static-target-DecisionStatus').invoke('attr', 'style', 'display: block');
