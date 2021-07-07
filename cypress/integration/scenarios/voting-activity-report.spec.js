@@ -124,9 +124,7 @@ describe('Report - Voting Activity', () => {
     cy.AddMultipleCriteria(arrCriteria, true);
 
     // Select option "Voted"
-    cy.get('#multiselect-static-target-DecisionStatus').invoke('attr', 'style', 'display: block');
-    cy.get('#Approved-cb-DecisionStatus').check({ force: true });
-    cy.get('#btn-update-DecisionStatus').click({ force: true });
+    cy.addCriteriaStatus(['Voted'], true);
     cy.contains('Decision Status (1)');
 
     // step 6 - Stats & Columns

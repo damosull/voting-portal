@@ -183,12 +183,12 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
   cy.contains('My configurations')
     .siblings()
     .find('span')
-    .then((myconfig) => {
-      cy.wrap(myconfig).each((value, index) => {
+    .then((myConfig) => {
+      cy.wrap(myConfig).each((value, index) => {
         const found = value.text();
         // It compares the existing file name with the ones available under My Configurations.
         if (found == reportToDelete) {
-          cy.wrap(myconfig).eq(index).click();
+          cy.wrap(myConfig).eq(index).click();
           cy.contains('Delete').click();
           cy.get('.toast-message').should('contain.text', toast.REPORT_DELETED);
         }
@@ -299,13 +299,13 @@ Cypress.Commands.add('deleteMyFilter', (filterToDelete) => {
   cy.contains('My Filters')
     .siblings()
     .find('li')
-    .then((myconfig) => {
-      cy.wrap(myconfig).each((value, index) => {
+    .then((myFilter) => {
+      cy.wrap(myFilter).each((value, index) => {
         const found = value.text().trim();
         // It compares the existing filter name with the ones available under My Filters.
         if (found == filterToDelete) {
           cy.wait('@getByID');
-          cy.wrap(myconfig).eq(index).click();
+          cy.wrap(myFilter).eq(index).click();
           cy.contains('Delete Filter').click();
           cy.wait('@filterDeleted');
           cy.get('.toast-message').should('contain.text', toast.FILTER_DELETED);
@@ -317,4 +317,18 @@ Cypress.Commands.add('deleteMyFilter', (filterToDelete) => {
         }
       });
     });
+});
+
+Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
+  if (!isReporting) {
+    cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').click();
+  } else {
+    cy.get('#report-criteria-controls > div > div > h4').click();
+  }
+
+  statusToSearch.forEach((value) => {
+    cy.get('.editor-modal > input').clear().type(value);
+    cy.get('.editor-modal > div > div > label').contains(value).click();
+  });
+  cy.get('.editor-modal > div > button').eq(0).click();
 });
