@@ -8,6 +8,8 @@ export const messages = {
     REPORT_SAVED: 'Report Saved',
     REPORT_DELETED: 'Report configuration deleted.',
     FILTER_CREATED: 'Filter created successfully',
+    FILTER_DELETED: 'Filter deleted',
+    EXPORT_INITIATED: 'Your export was initiated. It will appear in the toolbar shortly.',
   },
 };
 

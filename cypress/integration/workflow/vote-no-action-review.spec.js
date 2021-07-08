@@ -3,12 +3,12 @@
 import { messages, API } from '../../support/constants';
 const pastDays = 10;
 const api = API;
-const arrCriteria = ['Decision Status', 'Agenda Key'];
+const arrCriteria = ['Decision Status'];
 const unixTime = Math.floor(Date.now() / 1000);
 const filterName = `MyFilter_${unixTime}`;
 const toast = messages.toast;
 
-describe('Report - Voting Activity', () => {
+describe('Workflow', () => {
   beforeEach(() => {
     cy.intercept('POST', api.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
     cy.intercept('POST', api.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
@@ -30,7 +30,7 @@ describe('Report - Voting Activity', () => {
     cy.visit('/').url().should('include', '/Workflow');
   });
 
-  it(`Create, download and verify Voting Activity report`, () => {
+  it('Vote, Take No Action and Review Required', () => {
     cy.log('Test scenario 37790 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37790');
 
     // Wait for initial page to load
@@ -64,11 +64,7 @@ describe('Report - Voting Activity', () => {
     cy.contains('My Filters').siblings().find('span').should('contain', filterName);
 
     // Step 5 - Select first meeting
-    cy.get('table > tbody > tr')
-      .eq(2)
-      .within(() => {
-        cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
-      });
+    cy.selectFirstMeeting();
 
     cy.wait('@GetMeetingID');
     cy.wait('@RelatedMeetings');
@@ -81,7 +77,7 @@ describe('Report - Voting Activity', () => {
     // Verify header buttons [Vote], [Take no Action] and [Instruct]
     cy.verifyMeetingOptionButtons();
 
-    // Step 6 - Select 'Quick Vote' option For
+    // Step 6 - Select 'For' in the option 'Quick Vote'
     cy.get('#quick-vote-container > span > span').click({ force: true });
     cy.get('#quickVoteSelect').select('For', { force: true });
 
@@ -193,7 +189,7 @@ describe('Report - Voting Activity', () => {
         }
 
         const user = Cypress.$(value).find(`td:nth-child(2)`).text();
-        // substring is to remove the text "Ballot(s) intructed by" from the string. Replace All is 'remove' the single quotes
+        // substring is to remove the text "Ballot(s) intructed by" from the string. Replace All is to remove the single quotes
         const newUser = user.substring(user.indexOf("'")).replaceAll("'", '');
         arrMeetingUser.push(newUser);
 
@@ -234,8 +230,9 @@ describe('Report - Voting Activity', () => {
         const date = Cypress.$(value).find(`td:nth-child(3)`).text();
         arrBallotDate.push(date);
 
-        /* The Ballot activity log popup displays the list ordered by desc, so when the array has found the last position it thens reserve the list.
-        So its stored ordered by asc, which can be use used to compare with the meeting list
+        /* The Ballot activity log popup displays the list ordered by desc, whereas the activity table displays ordered by asc.
+        The block below is triggered when the array has found the last position. It then reverses the list so its
+         'ordered' by asc, which can be use used to compare with the activity list
         */
         if (index == $rows.length - 1) {
           arrBallotActivity.reverse();
