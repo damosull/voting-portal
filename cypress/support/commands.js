@@ -332,3 +332,41 @@ Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
   });
   cy.get('.editor-modal > div > button').eq(0).click();
 });
+
+Cypress.Commands.add('assertFileProperties', (configName, fileExtension) => {
+  cy.get('#inbox-container [data-pagelink1]')
+    .first()
+    .invoke('attr', 'data-pagelink1')
+    .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=')
+    .then((downloadLink) => {
+      cy.request(downloadLink).then((resp) => {
+        expect(resp.status).to.eq(200);
+        expect(resp.headers)
+          .to.have.property('content-disposition')
+          .contains(`attachment; filename=${configName}.${fileExtension}`);
+        if (fileExtension == 'pdf') {
+          expect(resp.headers).to.have.property('content-type').eql('application/pdf');
+        } else if (fileExtension == 'xls') {
+          expect(resp.headers).to.have.property('content-type').eql('application/vnd.ms-excel');
+        } else if (fileExtension == 'xlsx') {
+          expect(resp.headers)
+            .to.have.property('content-type')
+            .eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        } else {
+          expect(resp.headers).to.have.property('content-type').eql('text/csv');
+        }
+      });
+    });
+});
+
+Cypress.Commands.add('donwloadFileLocal', () => {
+  cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
+  cy.intercept('GET', '**/Downloads/DownloadExportFromUrl/?requestID=**').as('DownloadReport');
+
+  cy.get('#inbox-container .msg-txt').first().click();
+  // The following two waits are for the API's triggered by the donwload
+  cy.wait('@InboxReport');
+  cy.wait('@DownloadReport');
+  // It opens the notification bar again, since its closed while downloading the file
+  cy.get('.notify-count').click().should('be.visible');
+});
