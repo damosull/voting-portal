@@ -1,3 +1,5 @@
+/// <reference path="../../support/index.d.ts" />
+
 describe('Verify comments on the Workflow page', function () {
   beforeEach(function () {
     cy.viewport(1110, 900);
@@ -28,9 +30,7 @@ describe('Verify comments on the Workflow page', function () {
       cy.get(`#md-votecard-grid-results > tr:nth-child(${$idx + 1}) > td:nth-child(3)`);
 
       const voting = $ele.text();
-      if (voting.includes('Non Voting')) {
-        //do nothing
-      } else {
+      if (!voting.includes('Non Voting')) {
         cy.get(`tr:nth-child(${$idx + 1}) > td.cell-with-rationale > div > div > span`)
           .scrollIntoView()
           .click({ force: true });
@@ -50,6 +50,8 @@ describe('Verify comments on the Workflow page', function () {
         return false;
       }
     });
+
+    cy.logout();
   });
 
   it(`Add Meeting Note and Post Private Comment`, function () {
