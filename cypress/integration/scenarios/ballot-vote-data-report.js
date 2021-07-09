@@ -5,8 +5,6 @@ describe('Generate ballot vote data report, download and verify file', function 
     const unixTime = Math.floor(Date.now() / 1000);
     const configName = `BallotVoteData_${unixTime}`;
 
-
-
     beforeEach(function () {
         cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
         cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
