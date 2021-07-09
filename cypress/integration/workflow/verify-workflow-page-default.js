@@ -34,7 +34,7 @@ describe('verify workflow page elements (TestCase - 28351)', function () {
 
     filterColumns.forEach((column, index) => {
       cy.get(`th[data-title='${column}']`).should('be.visible');
-      if (index == 7) {
+      if (index == filterColumns.length / 2) {
         cy.get('#btn-scroll-end').click();
       }
     });
