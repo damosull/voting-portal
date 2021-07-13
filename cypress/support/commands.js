@@ -252,7 +252,7 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
   searchText.forEach((value) => {
     cy.then(() => {
       cy.get('#txt-filter-criteria')
-        .clear()
+        .clear({ force: true })
         .type(value)
         .parent()
         .siblings()
@@ -310,7 +310,7 @@ Cypress.Commands.add('deleteMyFilter', (filterToDelete) => {
           cy.wait('@filterDeleted');
           cy.get('.toast-message').should('contain.text', toast.FILTER_DELETED);
         } else {
-          if (index == value.length - 1) {
+          if (index == myFilter.length - 1) {
             cy.log('No filter was found');
             return false;
           }
@@ -327,7 +327,7 @@ Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
   }
 
   statusToSearch.forEach((value) => {
-    cy.get('.editor-modal > input').clear().type(value);
+    cy.get('.editor-modal > input').clear({ force: true }).type(value);
     cy.get('.editor-modal > div > div > label').contains(value).click();
   });
   cy.get('.editor-modal > div > button').eq(0).click();
@@ -369,4 +369,13 @@ Cypress.Commands.add('donwloadFileLocal', () => {
   cy.wait('@DownloadReport');
   // It opens the notification bar again, since its closed while downloading the file
   cy.get('.notify-count').click().should('be.visible');
+});
+
+Cypress.Commands.add('executeQuery', (query) => {
+  // Execute the query only if a SELECT is sent as a parameter
+  if (query.includes('SELECT')) {
+    cy.sqlServer(query);
+  } else {
+    cy.log('Enter a valid query');
+  }
 });

@@ -8,15 +8,15 @@ declare namespace Cypress {
      * * Add a new status for the recently added criteria. E.g: "Voted", for criteria Decision Status.
      * @param statusToSearch Status(es) to be selected. It needs to be an array of strings
      * @param isReporting Flag indicating that you are calling the method in the Reporting option. Default option is False
-     * @example Workflow => addCriteriaStatus(['Decision Status', 'Agenda Key'])
-     * Reporting => addCriteriaStatus(['Decision Status', 'Agenda Key']], true)
+     * @example Workflow => cy.addCriteriaStatus(['Decision Status', 'Agenda Key'])
+     * Reporting => cy.addCriteriaStatus(['Decision Status', 'Agenda Key']], true)
      */
     addCriteriaStatus(statusToSearch?: object, isReporting?: boolean): Chainable<Element>;
 
     /**
      * * Delete an existing workflow filter.
      *  @param filterToDelete Filter to be deleted
-     *  @example deleteMyFilter('Test Filter')
+     *  @example cy.deleteMyFilter('Test Filter')
      */
     deleteMyFilter(filterToDelete?: string): Chainable<Element>;
 
@@ -29,30 +29,30 @@ declare namespace Cypress {
      * * Add new criteria(s) to the search
      * @param searchText Criteria(s) to be selected. It needs to be an array of strings
      * @param isReporting Flag indicating that you are calling the method in the Reporting option. Default option is False (workflow)
-     * @example Workflow => AddMultipleCriteria(['Voted', 'Recommendations Pending'])
-     * Reporting => AddMultipleCriteria(['Voted', 'Recommendations Pending'], true)
+     * @example Workflow => cy.AddMultipleCriteria(['Voted', 'Recommendations Pending'])
+     * Reporting => cy.AddMultipleCriteria(['Voted', 'Recommendations Pending'], true)
      */
     AddMultipleCriteria(searchText?: object, isReporting?: boolean): Chainable<Element>;
 
     /**
      * * Used to remove all the existing criteria
      * @param isInternal Flag indicating whether its an internal or external user. Default is False (external)
-     * @example External User => removeAllExistingSelectedCriteria()
-     * Internal User => removeAllExistingSelectedCriteria(true)
+     * @example External User => cy.removeAllExistingSelectedCriteria()
+     * Internal User => cy.removeAllExistingSelectedCriteria(true)
      */
     removeAllExistingSelectedCriteria(isInternal?: boolean): Chainable<Element>;
 
     /**
      * * Method used to save a new filter
      * @param filterName Name to be used in the new filter
-     * @example saveFilter('Test Filter')
+     * @example cy.saveFilter('Test Filter')
      */
     saveFilter(filterName?: string): Chainable<Element>;
 
     /**
      * * Delete an existing report configuration
      *  @param reportToDelete Report to be deleted
-     *  @example deleteMyConfiguration('Test Configuration')
+     *  @example cy.deleteMyConfiguration('Test Configuration')
      */
     deleteMyConfiguration(reportToDelete?: string): Chainable<Element>;
 
@@ -64,7 +64,7 @@ declare namespace Cypress {
     /**
      * * Click on the report type
      * @param report Name of the report to be used
-     * @example selectReportType('Proxy Voting Activity')
+     * @example cy.selectReportType('Proxy Voting Activity')
      */
     selectReportType(report?: string): Chainable<Element>;
 
@@ -93,7 +93,7 @@ declare namespace Cypress {
      * * Method to verify the headers of the API request to start the download of a file
      * @param configName Name of the report
      * @param fileExtension Extension of the report
-     * @example assertFileProperties('ProxyVoteReport', 'xlsx')
+     * @example cy.assertFileProperties('ProxyVoteReport', 'xlsx')
      */
     assertFileProperties(configName?: string, fileExtension?: string): Chainable<Element>;
 
@@ -106,5 +106,12 @@ declare namespace Cypress {
      * * Verify header buttons [Vote], [Take no Action] and [Instruct]
      */
     verifyMeetingOptionButtons(): Chainable<Element>;
+
+    /**
+     * * Execute a query against the "GLP" database
+     * @param query Query to be exeucted. You use a then() to wrap up the result and use in the tests.
+     * @example cy.executeQuery('SELECT * FROM AA_Account WHERE AccountID = 1').then((result) => {console.log(result)})
+     */
+    executeQuery(query?: string): Chainable<Element>;
   }
 }

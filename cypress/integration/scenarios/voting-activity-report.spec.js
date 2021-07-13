@@ -1,5 +1,3 @@
-/// <reference path="../../support/index.d.ts" />
-
 //Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
 
 import { messages } from '../../support/constants';

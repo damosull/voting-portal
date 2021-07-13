@@ -15,6 +15,9 @@ const fs = require('fs-extra');
 const path = require('path');
 const xlsx = require('node-xlsx').default;
 
+const sqlServer = require('cypress-sql-server');
+const dbConfig = require('../../cypress.json');
+
 function getConfigurationByFile(file) {
   const pathToConfigFile = path.resolve('cypress', 'config', `${file}.json`);
 
@@ -36,6 +39,9 @@ module.exports = (on, config) => {
       });
     },
   });
+
+  tasks = sqlServer.loadDBPlugin(dbConfig.db);
+  on('task', tasks);
 
   const file = config.env.configFile || 'development';
   return getConfigurationByFile(file);
