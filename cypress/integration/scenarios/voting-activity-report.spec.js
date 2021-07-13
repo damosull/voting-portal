@@ -1,3 +1,5 @@
+/// <reference path="../../support/index.d.ts" />
+
 //Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
 
 import { messages } from '../../support/constants';
@@ -24,6 +26,8 @@ describe('Report - Voting Activity', () => {
   beforeEach(() => {
     cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
     cy.intercept('GET', '**/Api/Data/AVA/?PageInfo%5BIgnorePagesize%5D=true&ReportType=AVA&_=**').as('AVAReport');
+    cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
+    cy.intercept('GET', '**/Downloads/DownloadExportFromUrl/?requestID=**').as('DownloadReport');
     cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=AVAReport').as('AVACriteria');
 
     cy.loginExternal();
@@ -189,10 +193,8 @@ describe('Report - Voting Activity', () => {
       cy.get('#apprise-btn-undefined').click(); //the ID of this button should be fixed
     });
 
-    cy.contains('Save As').click();
-    cy.get('#popupTextContainer').should('be.visible').type(configName);
-    cy.get('#apprise-btn-undefined').should('be.visible'); //the ID of this button should be fixed
-    cy.get('#apprise-btn-confirm').click();
+    cy.saveFilter(configName);
+
     cy.get('.toast-message').should('contain.text', toast.REPORT_SAVED);
     cy.contains('My configurations').siblings().find('span').should('contain', configName);
 
@@ -205,32 +207,10 @@ describe('Report - Voting Activity', () => {
     });
 
     if (fileExtension == 'xlsx') {
-      cy.get('#inbox-container .msg-txt').first().click();
-      cy.get('.notify-count').click().should('be.visible');
+      cy.donwloadFileLocal();
     }
 
-    cy.get('#inbox-container [data-pagelink1]')
-      .first()
-      .invoke('attr', 'data-pagelink1')
-      .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=')
-
-      .then((downloadLink) => {
-        cy.request(downloadLink).then((resp) => {
-          expect(resp.status).to.eq(200);
-          expect(resp.headers)
-            .to.have.property('content-disposition')
-            .contains(`attachment; filename=${configName}.${fileExtension}`);
-          if (fileExtension == 'pdf') {
-            expect(resp.headers).to.have.property('content-type').eql('application/pdf');
-          } else if (fileExtension == 'xls') {
-            expect(resp.headers).to.have.property('content-type').eql('application/vnd.ms-excel');
-          } else {
-            expect(resp.headers)
-              .to.have.property('content-type')
-              .eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-          }
-        });
-      });
+    cy.assertFileProperties(configName, fileExtension);
 
     // Delete the report. Moved this block to occur before the XLSX parsing since the download of the file already happened
     cy.deleteMyConfiguration(configName);
@@ -250,5 +230,8 @@ describe('Report - Voting Activity', () => {
     } else {
       cy.log('Please select a .xlsx file type to verify the content.');
     }
+
+    // Run the task to delete the folder "Download"
+    cy.exec('npm run cy:clean');
   });
 });
