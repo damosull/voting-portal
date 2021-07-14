@@ -252,5 +252,8 @@ describe('Workflow', () => {
         expect(isArrEqual).to.be.true;
       });
     });
+
+    cy.visit('/').url().should('include', '/Workflow');
+    cy.deleteMyFilter(filterName);
   });
 });

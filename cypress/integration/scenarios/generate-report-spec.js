@@ -9,7 +9,7 @@ describe('Generate basic excel report,download and verify file headers', functio
   //Gererate report additional
   it(`Generate Report`, function () {
     cy.wait('@BallotRecon');
-    cy.AddMultipleCriteria(['Policy ID']);
+    cy.AddMultipleCriteria(['Policy ID'], true);
 
     cy.get('#rpt-columns > .section > .toggle').click({ force: true });
     cy.get('#rpt-available-columns-header').should('be.visible');

@@ -9,5 +9,15 @@
   "watchForFileChanges": false,
   "env": {
     "RETRIES": 2
+  },
+  "db": {
+    "userName": "TestHarnessUser",
+    "password": "t3$t4@12ness#aQua#0932",
+    "server": "10.71.5.55",
+    "options": {
+      "database": "GLP",
+      "encrypt": true,
+      "rowCollectionOnRequestCompletion": true
+    }
   }
 }
