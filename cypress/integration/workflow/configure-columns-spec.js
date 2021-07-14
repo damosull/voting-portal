@@ -32,11 +32,9 @@ describe('Configure columns', function () {
     cy.get('.k-loading-text').should('not.exist');
 
     // Moves the horizontal sidebar to the far right
-    cy.get('.k-grid-header-wrap').invoke('attr', 'style', 'overflow: visible; margin-left: -648px;');
+    cy.get('.k-grid-header-wrap').invoke('attr', 'style', 'overflow: visible; margin-left: -748px;');
 
-    cy.get('#btn-scroll-end').click({ force: true });
-
-    esgColumns.forEach((column, index) => {
+    esgColumns.forEach((column) => {
       cy.get(`th[data-title='${column}']`).should('be.visible');
     });
   });
