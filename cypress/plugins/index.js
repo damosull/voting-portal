@@ -17,6 +17,7 @@ const xlsx = require('node-xlsx').default;
 
 const sqlServer = require('cypress-sql-server');
 const dbConfig = require('../../cypress.json');
+var tasks;
 
 function getConfigurationByFile(file) {
   const pathToConfigFile = path.resolve('cypress', 'config', `${file}.json`);
