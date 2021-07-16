@@ -379,3 +379,7 @@ Cypress.Commands.add('executeQuery', (query) => {
     cy.log('Enter a valid query');
   }
 });
+
+Cypress.Commands.add('selectReportExtension', (extension) => {
+  cy.get('#rpt-report').children().find('select').select(extension.toUpperCase());
+});

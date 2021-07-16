@@ -113,5 +113,12 @@ declare namespace Cypress {
      * @example cy.executeQuery('SELECT * FROM AA_Account WHERE AccountID = 1').then((result) => {console.log(result)})
      */
     executeQuery(query?: string): Chainable<Element>;
+
+    /**
+     * * It selects a file type/extension for the Reports
+     * @param extension "PDF", "CSV", "XLS", "XLSX", "DOC"
+     * @example cy.selectReportExtension('xls')
+     */
+    selectReportExtension(extension?: string): Chainable<Element>;
   }
 }
