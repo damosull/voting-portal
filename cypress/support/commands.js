@@ -361,7 +361,7 @@ Cypress.Commands.add('assertFileProperties', (configName, fileExtension) => {
     });
 });
 
-Cypress.Commands.add('donwloadFileLocal', () => {
+Cypress.Commands.add('donwloadFileLocal', (report) => {
   cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
   cy.intercept('GET', '**/Downloads/DownloadExportFromUrl/?requestID=**').as('DownloadReport');
   cy.intercept('GET', '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**').as('LoadInbox');
@@ -371,9 +371,14 @@ Cypress.Commands.add('donwloadFileLocal', () => {
   cy.wait('@InboxReport');
   cy.wait('@DownloadReport');
 
-  // It opens the notification bar again, since its closed while downloading the file
-  //cy.get('#notification-window').click({ force: true });
-  cy.selectReportType('Voting Activity');
+  /* In some cases the notify-count click fails in the pipeline. I'm adding this click to ensure the modal is closed before opening again
+   The only "common" option I found between all the reports is the report name. So if the parameter is sent then it will click in the 
+   appropriate report. If not sent it will carry on with the normal flow
+  */
+  if (report) {
+    cy.selectReportType(report);
+  }
+
   cy.get('.notify-count').click();
   cy.wait('@LoadInbox');
 });

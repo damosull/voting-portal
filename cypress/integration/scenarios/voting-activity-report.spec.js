@@ -205,7 +205,7 @@ describe('Report - Voting Activity', () => {
       expect($msg.first().text()).to.include(configName + `.${fileExtension} ${report.READY}`);
     });
 
-    cy.donwloadFileLocal();
+    cy.donwloadFileLocal('Voting Activity');
 
     cy.assertFileProperties(configName, fileExtension);
 
