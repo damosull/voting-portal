@@ -54,7 +54,7 @@ describe('Report', () => {
     cy.visit('/Reporting').url().should('include', 'Reporting');
   });
 
-  it('Proxy Voting', () => {
+  it.skip('Proxy Voting', () => {
     cy.log('Test scenario 38014 - https://dev.azure.com/glasslewis/Development/_workitems/edit/38014');
 
     cy.wait('@BallotRecon');

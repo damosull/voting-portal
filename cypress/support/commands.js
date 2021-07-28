@@ -323,7 +323,7 @@ Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
   if (!isReporting) {
     cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').click();
   } else {
-    cy.get('#report-criteria-controls > div > div > h4').click();
+    cy.get('.editor-modal').invoke('attr', 'style', 'display: block');
   }
 
   statusToSearch.forEach((value) => {
