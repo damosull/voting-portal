@@ -51,9 +51,6 @@ describe('Generate ballot vote data report, download and verify file', function 
             .should(($msg) => {
                 expect($msg.first().text()).to.include(`${configName}.csv report is ready for download`);
             });
-        cy.get('#inbox-container .msg-txt').first().click();
-        cy.wait('@InboxReport');
-        cy.get('.notify-count').click().should('be.visible');
 
         cy.get('#inbox-container [data-pagelink1]')
             .first()
