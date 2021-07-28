@@ -33,7 +33,7 @@ describe('Report - Voting Activity', () => {
     cy.visit('/Reporting').url().should('include', 'Reporting');
   });
 
-  it(`Create, download and verify ${upperFileExt} Voting Activity report`, () => {
+  it(`- Voting Activity ${upperFileExt}`, () => {
     cy.log('Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939');
 
     // I added this block of code to get the current CSRF token and wrap into the variable csrftoken so it can be re-used across the script
@@ -205,9 +205,7 @@ describe('Report - Voting Activity', () => {
       expect($msg.first().text()).to.include(configName + `.${fileExtension} ${report.READY}`);
     });
 
-    if (fileExtension == 'xlsx') {
-      cy.donwloadFileLocal();
-    }
+    cy.donwloadFileLocal();
 
     cy.assertFileProperties(configName, fileExtension);
 
