@@ -373,7 +373,7 @@ Cypress.Commands.add('donwloadFileLocal', () => {
 
   // It opens the notification bar again, since its closed while downloading the file
   //cy.get('#notification-window').click({ force: true });
-  cy.wait(2000);
+  cy.selectReportType('Voting Activity');
   cy.get('.notify-count').click();
   cy.wait('@LoadInbox');
 });
