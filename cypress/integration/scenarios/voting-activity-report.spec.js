@@ -26,6 +26,7 @@ describe('Report - Voting Activity', () => {
     cy.intercept('GET', '**/Api/Data/AVA/?PageInfo%5BIgnorePagesize%5D=true&ReportType=AVA&_=**').as('AVAReport');
     cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
     cy.intercept('GET', '**/Downloads/DownloadExportFromUrl/?requestID=**').as('DownloadReport');
+    cy.intercept('GET', '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**').as('LoadInbox');
     cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=AVAReport').as('AVACriteria');
 
     cy.loginExternal();
@@ -96,8 +97,7 @@ describe('Report - Voting Activity', () => {
       }).then((resp) => {
         expect(resp.status).to.eq(200);
         // Parsing and storing the total number into a variable
-        const body = JSON.parse(resp.body);
-        const totalCount = body.totalCount;
+        const totalCount = resp.body.totalCount;
         cy.wrap(totalCount).as('totalCount');
       });
     });
@@ -127,7 +127,7 @@ describe('Report - Voting Activity', () => {
 
     // Select option "Voted"
     cy.addCriteriaStatus(['Voted'], true);
-    cy.contains('Decision Status (1)');
+    cy.contains(`${arrCriteria.toString()} (1)`);
 
     // step 6 - Stats & Columns
     cy.get('#rpt-columns').then((columns) => {
@@ -200,6 +200,7 @@ describe('Report - Voting Activity', () => {
     cy.contains('Download').click();
     cy.get('.toast-message').should('contain.text', toast.DOWNLOAD_STARTED);
     cy.get('.notify-count').click();
+    cy.wait('@LoadInbox');
     cy.get('#inbox-container .msg-txt', { timeout: 120000 }).should(($msg) => {
       expect($msg.first().text()).to.include(configName + `.${fileExtension} ${report.READY}`);
     });
