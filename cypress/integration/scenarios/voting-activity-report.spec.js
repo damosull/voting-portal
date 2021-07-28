@@ -4,7 +4,7 @@ import { messages } from '../../support/constants';
 const report = messages.reports;
 const toast = messages.toast;
 
-describe('Report - Voting Activity', () => {
+describe('Report', () => {
   const pastDays = 1;
   const arrCriteria = ['Decision Status'];
   const unixTime = Math.floor(Date.now() / 1000);
