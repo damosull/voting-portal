@@ -19,5 +19,6 @@
       "encrypt": true,
       "rowCollectionOnRequestCompletion": true
     }
-  }
+  },
+  "testFiles": ["**/voting-activity-report.spec.js"]
 }

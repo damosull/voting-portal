@@ -336,6 +336,9 @@ Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
 });
 
 Cypress.Commands.add('assertFileProperties', (configName, fileExtension) => {
+  cy.get('.notify-count').click().should('be.visible');
+  cy.wait('@LoadInbox');
+
   cy.get('#inbox-container [data-pagelink1]')
     .first()
     .invoke('attr', 'data-pagelink1')
@@ -371,8 +374,6 @@ Cypress.Commands.add('donwloadFileLocal', () => {
   cy.wait('@InboxReport');
   cy.wait('@DownloadReport');
   // It opens the notification bar again, since its closed while downloading the file
-  cy.get('.notify-count').click().should('be.visible');
-  cy.wait('@LoadInbox');
 });
 
 Cypress.Commands.add('executeQuery', (query) => {
