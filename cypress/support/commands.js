@@ -320,15 +320,17 @@ Cypress.Commands.add('deleteMyFilter', (filterToDelete) => {
 });
 
 Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
+  cy.get('.editor-modal').invoke('attr', 'style', 'display: block');
+
   if (!isReporting) {
-    cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').click();
+    cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').click({ force: true });
   } else {
-    cy.get('.editor-modal').invoke('attr', 'style', 'display: block');
+    cy.get('#report-criteria-controls > div > div > h4').click({ force: true });
   }
 
   statusToSearch.forEach((value) => {
     cy.get('.editor-modal > input').clear({ force: true }).type(value);
-    cy.get('.editor-modal > div > div > label').contains(value).click();
+    cy.get('.editor-modal > div > div > label').contains(value).click({ force: true });
   });
   cy.get('.editor-modal > div > button').eq(0).click();
 });
@@ -359,16 +361,26 @@ Cypress.Commands.add('assertFileProperties', (configName, fileExtension) => {
     });
 });
 
-Cypress.Commands.add('donwloadFileLocal', () => {
+Cypress.Commands.add('donwloadFileLocal', (report) => {
   cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
   cy.intercept('GET', '**/Downloads/DownloadExportFromUrl/?requestID=**').as('DownloadReport');
+  cy.intercept('GET', '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**').as('LoadInbox');
 
   cy.get('#inbox-container .msg-txt').first().click();
   // The following two waits are for the API's triggered by the donwload
   cy.wait('@InboxReport');
   cy.wait('@DownloadReport');
-  // It opens the notification bar again, since its closed while downloading the file
-  cy.get('.notify-count').click().should('be.visible');
+
+  /* In some cases the notify-count click fails in the pipeline. I'm adding this click to ensure the modal is closed before opening again
+   The only "common" option I found between all the reports is the report name. So if the parameter is sent then it will click in the 
+   appropriate report. If not sent it will carry on with the normal flow
+  */
+  if (report) {
+    cy.selectReportType(report);
+  }
+
+  cy.get('.notify-count').click();
+  cy.wait('@LoadInbox');
 });
 
 Cypress.Commands.add('executeQuery', (query) => {
