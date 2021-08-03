@@ -1,5 +1,5 @@
 // Test scenario:39541 https://dev.azure.com/glasslewis/Development/_workitems/edit/39541
-describe('Verify elements on Dashbard page', function () {
+describe('Verify elements on Dashboard page', function () {
 
 
     beforeEach(function () {
@@ -95,11 +95,6 @@ describe('Verify elements on Dashbard page', function () {
 
             cy.wrap(wdgt).find('div > a[title="Settings"]').should('be.visible')
             cy.wrap(wdgt).find('div > a[title="Remove"]').should('be.visible').click()
-
-
-
-
-
         })
     })
 
