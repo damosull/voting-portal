@@ -62,7 +62,6 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
 
         //Step 10 - Connect to Aqua Database and verify new row has been added 
         cy.executeQuery('SELECT TOP 1 * FROM SB_Subscription ORDER BY SubscriptionID DESC').then((result) => {
-            debugger
             var cols = [];
             for (var j = 0; j < result.length; j++) {
                 cols.push(result[j])
