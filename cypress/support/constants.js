@@ -10,6 +10,8 @@ export const messages = {
     FILTER_CREATED: 'Filter created successfully',
     FILTER_DELETED: 'Filter deleted',
     EXPORT_INITIATED: 'Your export was initiated. It will appear in the toolbar shortly.',
+    SUBSCRIPTION_ADDED: 'Subscription added',
+    SUBSCRIPTION_DELETED: 'Subscription deleted',
   },
 };
 
