@@ -30,16 +30,17 @@ describe('Share meeting with User - Comment', function () {
         cy.AddMultipleCriteria(['Decision Status']);
         cy.addCriteriaStatus(['Recommendations Pending']);
 
+        cy.wait('@GetStatus').then((interception) => {
+            const meeting = JSON.stringify(interception.response.body[2].MeetingId)
+            cy.wrap(meeting).as('meetingid')
+        })
         //Step 4 - Select meeting from list and save meetingID from Getstatus API call
         cy.get('table > tbody > tr')
             .eq(2)
             .within(() => {
-                cy.wait('@GetStatus').then((interception) => {
-                    const meeting = JSON.stringify(interception.response.body[2].MeetingId)
-                    cy.wrap(meeting).as('meetingid')
-                })
+
                 cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
-                
+
             });
         cy.verifyMeetingOptionButtons();
 

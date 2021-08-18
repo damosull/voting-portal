@@ -8,7 +8,13 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
     const unixTime = Math.floor(Date.now() / 1000);
     const configName = `BallotVoteData_${unixTime}`;
 
+
+
     beforeEach(function () {
+
+        //since db refresh changes user id of automation user,need to grab the userid from the DB on the fly
+        cy.GetAutomationUserIDFromDB().as('userid')
+
         cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
         cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
         cy.intercept('GET', '**/Api/Data/BallotVoteData/?PageInfo%5BIgnorePagesize%5D=true&ReportType=BallotVoteData&_=**').as('BallotVote');
@@ -60,6 +66,8 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
         cy.get('#current-subscribers-list > tbody > tr > td').eq(3).should('include.text', 'Run at: 8:00AM, on: Sun')
         cy.get('#current-subscribers-list > tbody > tr > td').eq(4).should('include.text', 'SubscribeTest')
 
+
+
         //Step 10 - Connect to Aqua Database and verify new row has been added 
         cy.executeQuery('SELECT TOP 1 * FROM SB_Subscription ORDER BY SubscriptionID DESC').then((result) => {
             var cols = [];
@@ -69,12 +77,16 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
 
             //Step 11 - Verify Column data for UserIds and Filename 
             assert.equal(cols[2], 1);                //verify Active
-            assert.equal(cols[3], 10916);            //SubscriberID
+            cy.get('@userid').then(function (uid) {
+                assert.equal(cols[3], uid);          //SubscriberID
+            })
             assert.equal(cols[7], 0);                //Deliver to Everyone = false
             assert.equal(cols[12], 'SubscribeTest'); //Filename
-            assert.equal(cols[13], 10916);           //Created by
+            cy.get('@userid').then(function (uid) {
+                assert.equal(cols[13], uid);         //Created by  
+            })
             assert.equal(cols[17], 196);             //Customer ID
-            expect(cols).to.have.length(19)         //Total Fields
+            expect(cols).to.have.length(19)          //Total Fields
 
         })
 
