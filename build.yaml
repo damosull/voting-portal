@@ -31,8 +31,7 @@ schedules:
 steps:
   - script: |
       npm ci
-      npm run lint
-    displayName: 'npm install and linting'
+    displayName: 'npm ci'
 
   - script: |
       export cypress_Internal_Admin_Username=$(InternalAdminUsername)
