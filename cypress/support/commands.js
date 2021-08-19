@@ -196,6 +196,15 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
     });
 });
 
+Cypress.Commands.add('GetAutomationUserIDFromDB', () => {
+  let usrid
+  cy.executeQuery(`SELECT[UserID] FROM[GLP].[dbo].[UM_User] where LoginID = 'automation_calpers@glasslewis.com'`).then((result) => {
+    const usrid = cy.wrap(result)
+    return usrid
+  })
+})
+
+
 Cypress.Commands.add('logout', () => {
   cy.intercept('DELETE', '**/Home/RemoveDraftFilter/').as('RemoveDraft');
   cy.intercept('GET', '**/Home/Logout?type=UserLoggedOutButton&_=**').as('LoggedOut');
