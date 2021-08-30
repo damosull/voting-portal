@@ -35,12 +35,7 @@ describe('Report', () => {
   it(`- Voting Activity ${upperFileExt}`, () => {
     cy.log('Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939');
 
-    // I added this block of code to get the current CSRF token and wrap into the variable csrftoken so it can be re-used across the script
-    cy.wait('@BallotRecon').then((resp) => {
-      var csrftoken = resp.request.headers.csrftoken;
-      cy.wrap(csrftoken).as('csrftoken');
-    });
-
+    cy.wait('@BallotRecon')
 
     // step 2 (these are the steps referenced in the test case)
     cy.selectReportType('Voting Activity');
