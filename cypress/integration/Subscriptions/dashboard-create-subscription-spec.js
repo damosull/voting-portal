@@ -7,6 +7,7 @@ let today = new Date().toISOString().slice(0, 10)
 describe('Create Dashboard Subscription entry and validate in SB_Subscription Database table', function () {
 
     beforeEach(function () {
+        cy.GetAutomationUserIDFromDB().as('userid')
         cy.intercept('GET', '**/Api/Data/Inbox/**').as('InboxReport');
         cy.intercept('GET', '**/Api/Data/IdentitySearch/**').as('IdentitySearch')
         cy.intercept('GET', '**/Api/WebUI/Subscriptions/**').as('Subscriptions')
@@ -74,13 +75,17 @@ describe('Create Dashboard Subscription entry and validate in SB_Subscription Da
 
             //Step 12 - Verify SB_Subscription table Column data for correct data
             assert.equal(cols[2], 1);                //verify Active
-            assert.equal(cols[3], 10916);            //SubscriberID
+            cy.get('@userid').then(function (uid) {
+                assert.equal(cols[3], uid);          //SubscriberID
+            })
             expect(cols[9]).to.include('<EveryHours>5</EveryHours>') //check Frequency xml for schedule 
             assert.equal(cols[17], 196);              //Customer ID
             assert.equal(cols[7], 0);                //Deliver to Everyone = false
             expect(cols[14]).to.include(today);     //Created date
             expect(cols[16]).to.include(today);     //Last Modified date
-            assert.equal(cols[13], 10916);           //Created by
+            cy.get('@userid').then(function (uid) {
+                assert.equal(cols[13], uid);         //Created by  
+            })
             assert.equal(cols[12], 'DashboardTest')   //verify Filename
             //check emailsettings table for Subject,header & footer 
             expect(cols[18]).to.include('{"Subject":"DashboardSubjectTest","Header":"TestHeader","Footer":"TestFooter"}')
