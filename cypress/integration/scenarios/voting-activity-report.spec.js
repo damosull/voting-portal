@@ -17,11 +17,10 @@ describe('Report', () => {
     'Proposal Statistics Report',
     'Proposal Category Report',
     'Proposal Type Report',
-    'Test - Header',
-    'Test - Footer',
+    'Test - Header'
   ];
 
-  beforeEach(() => {
+  before(() => {
     cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
     cy.intercept('GET', '**/Api/Data/AVA/?PageInfo%5BIgnorePagesize%5D=true&ReportType=AVA&_=**').as('AVAReport');
     cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
@@ -42,65 +41,6 @@ describe('Report', () => {
       cy.wrap(csrftoken).as('csrftoken');
     });
 
-    // Access the token and send as a header in the request
-    cy.get('@csrftoken').then((token) => {
-      // The total number of votes in the report should match the number shown in the workflow, when using the same filters. The reason of the request
-      // is to obtain that total number and store into a variable so then the number of votes can be checked in the report
-      cy.request({
-        method: 'POST',
-        url: '/Api/Data/WorkflowExpansion',
-        headers: {
-          CSRFToken: token,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: {
-          'PageInfo[IgnorePagesize]': 'false',
-          'PageInfo[Page]': '1',
-          'PageInfo[PageSize]': '20',
-          'SortInfo[0][FieldName]': 'DeadlineDate',
-          'SortInfo[0][SortDirection]': 'asc',
-          'FilterInfo[0][FieldName]': 'DeadlineDate',
-          'FilterInfo[0][ValueType]': '0',
-          'FilterInfo[0][Expressions][0][Operator]': 'Between',
-          'FilterInfo[0][Expressions][0][Value]': `-${pastDays},0`,
-          'FilterInfo[0][Expressions][0][ValueSemantics]': '1',
-          'FilterInfo[0][Expressions][0][SiblingJoin]': 'and',
-          'FilterInfo[0][IsPreprocessorFilter]': 'false',
-          'FilterInfo[1][FieldName]': 'BallotID',
-          'FilterInfo[1][ValueType]': '0',
-          'FilterInfo[1][Expressions][0][Operator]': 'IsGreaterThan',
-          'FilterInfo[1][Expressions][0][Value]': '0',
-          'FilterInfo[1][Expressions][0][ValueSemantics]': '0',
-          'FilterInfo[1][Expressions][0][SiblingJoin]': 'and',
-          'FilterInfo[1][IsPreprocessorFilter]': 'false',
-          'FilterInfo[2][FieldName]': 'DecisionStatus',
-          'FilterInfo[2][ValueType]': '0',
-          'FilterInfo[2][Expressions][0][Operator]': 'IN',
-          'FilterInfo[2][Expressions][0][Value]': 'Approved',
-          'FilterInfo[2][Expressions][0][ValueSemantics]': '0',
-          'FilterInfo[2][Expressions][0][SiblingJoin]': 'and',
-          'FilterInfo[2][IsPreprocessorFilter]': 'false',
-          'SelectedFields[Fields][0][ID]': '1',
-          'SelectedFields[Fields][1][ID]': '2',
-          'SelectedFields[Fields][2][ID]': '15',
-          'SelectedFields[Fields][3][ID]': '39',
-          'SelectedFields[Fields][4][ID]': '17',
-          'SelectedFields[Fields][5][ID]': '10',
-          'SelectedFields[Fields][6][ID]': '8',
-          'SelectedFields[Fields][7][ID]': '3',
-          'SelectedFields[Fields][8][ID]': '7',
-          'SelectedFields[Fields][9][ID]': '4',
-          'SelectedFields[Fields][10][ID]': '5',
-          'SelectedFields[Fields][11][ID]': '6',
-          'SelectedFields[Fields][12][ID]': '11',
-        },
-      }).then((resp) => {
-        expect(resp.status).to.eq(200);
-        // Parsing and storing the total number into a variable
-        const totalCount = resp.body.totalCount;
-        cy.wrap(totalCount).as('totalCount');
-      });
-    });
 
     // step 2 (these are the steps referenced in the test case)
     cy.selectReportType('Voting Activity');
@@ -201,7 +141,7 @@ describe('Report', () => {
     cy.get('.toast-message').should('contain.text', toast.DOWNLOAD_STARTED);
     cy.get('.notify-count').click();
     cy.wait('@LoadInbox');
-    cy.get('#inbox-container .msg-txt', { timeout: 120000 }).should(($msg) => {
+    cy.get('#inbox-container .msg-txt', { timeout: 180000 }).should(($msg) => {
       expect($msg.first().text()).to.include(configName + `.${fileExtension} ${report.READY}`);
     });
 
@@ -212,6 +152,7 @@ describe('Report', () => {
     // Delete the report. Moved this block to occur before the XLSX parsing since the download of the file already happened
     cy.deleteMyConfiguration(configName);
 
+
     // Parsing happens only if it's xlsx. It's using a custom library called node-xlsx
     if (fileExtension == 'xlsx') {
       cy.parseXlsx(`cypress/downloads/${configName}.xlsx`).then((xlxsData) => {
@@ -219,10 +160,6 @@ describe('Report', () => {
           expect(JSON.stringify(xlxsData)).to.include(fields);
         });
 
-        // Its checking the total number of records, obtained from the Workflow API, is present in the file
-        cy.get('@totalCount').then((count) => {
-          expect(JSON.stringify(xlxsData)).include(count);
-        });
       });
     } else {
       cy.log('Please select a .xlsx file type to verify the content.');
