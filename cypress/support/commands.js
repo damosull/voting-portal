@@ -23,7 +23,6 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... }
-
 import { messages } from '../support/constants';
 
 const toast = messages.toast;
@@ -143,6 +142,8 @@ Cypress.Commands.add(
   }
 );
 
+
+
 Cypress.Commands.add('checkIfExists', (ele) => {
   return new Promise((resolve, reject) => {
     /// here if  ele exists or not
@@ -197,7 +198,6 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
 });
 
 Cypress.Commands.add('GetAutomationUserIDFromDB', () => {
-  let usrid
   cy.executeQuery(`SELECT[UserID] FROM[GLP].[dbo].[UM_User] where LoginID = 'automation_calpers@glasslewis.com'`).then((result) => {
     const usrid = cy.wrap(result)
     return usrid
@@ -403,4 +403,22 @@ Cypress.Commands.add('executeQuery', (query) => {
 
 Cypress.Commands.add('selectReportExtension', (extension) => {
   cy.get('#rpt-report').children().find('select').select(extension.toUpperCase());
+});
+
+Cypress.Commands.add('checkColumnFieldApplyAndVerifyIsChecked', (value) => {
+  cy.get('#btn-workflow-config-columns').click();
+  cy.get('#txt-filter-col-name').type(value);
+  cy.get(`input[value='${value}']`).check({ force: true });
+  cy.get(`input[value='${value}']`).should('be.checked')
+  cy.get('#txt-filter-col-name').clear();
+  cy.get('#btn-apply-configure-columns').click();
+});
+
+Cypress.Commands.add('uncheckColumnFieldApplyAndVerifyNotChecked', (value) => {
+  cy.get('#btn-workflow-config-columns').click();
+  cy.get('#txt-filter-col-name').type(value);
+  cy.get(`input[value='${value}']`).uncheck({ force: true });
+  cy.get(`input[value='${value}']`).should('not.be.checked')
+  cy.get('#txt-filter-col-name').clear();
+  cy.get('#btn-apply-configure-columns').click();
 });
