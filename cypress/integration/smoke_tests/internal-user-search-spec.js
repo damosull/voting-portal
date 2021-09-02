@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-
+import { USER } from '../../support/constants';
 
 describe('Internal user', function () {
   sessionStorage.clear()
@@ -7,8 +7,8 @@ describe('Internal user', function () {
   it('Search for client', function () {
     cy.visit("/");
 
-    var username = Cypress.env('Internal_Admin_Username');
-    var userpwd = Cypress.env('Internal_Admin_Password');
+    var username = USER.AUTOMATIONINTERNAL
+    var userpwd = "Test12345%"
     cy.get("input#username").type(username).should('have.value', username);
 
     cy.get("input#password").type(userpwd);
@@ -20,7 +20,7 @@ describe('Internal user', function () {
 
     //2. Verify if session exists
     cy.getCookie('DEV-session').should('exist');
-    
+
     cy.server()
     cy.route('POST', '/Api/Data/WorkflowExpansion').as('post');
 

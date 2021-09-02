@@ -7,7 +7,7 @@ describe('Verify comments on the Workflow page', function () {
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
     cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
 
-    cy.loginExternal();
+    cy.loginExtAdm('Calpers');
     cy.visit('/Workflow');
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
@@ -41,8 +41,7 @@ describe('Verify comments on the Workflow page', function () {
           `tr:nth-child(${$idx + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
         ).type('test', { force: true });
         cy.get(
-          `tr:nth-child(${
-            $idx + 1
+          `tr:nth-child(${$idx + 1
           }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
         ).click({ force: true });
       }

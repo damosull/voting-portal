@@ -4,7 +4,7 @@ describe('Configure columns', function () {
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists/').as('WorklowWatchlist');
     cy.intercept('GET', '**/Api/Data/Inbox/**').as('InboxLoad');
 
-    cy.login();
+    cy.loginInternalAdm('AutomationInternal');
     cy.visit('/Workflow');
     cy.wait('@WorkflowExpansion');
   });

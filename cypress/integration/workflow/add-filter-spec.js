@@ -46,7 +46,7 @@ describe('Add Filters', function () {
 
   esgFilters.forEach((filter) => {
     it(`sustainalytics "${filter.criteria}"`, function () {
-      cy.loginExternal();
+      cy.loginExtAdm('Calpers');
       cy.visit('/').url().should('include', '/Workflow');
 
       cy.wait('@WorkflowExpansion');

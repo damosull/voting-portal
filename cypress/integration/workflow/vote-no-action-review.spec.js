@@ -26,7 +26,7 @@ describe('Workflow', () => {
     cy.intercept('GET', api.GET.WORKFLOW_RESEARCH_INFO).as('WFResearch');
     cy.intercept('GET', api.GET.BALLOT_ACTIVITY_LOG).as('BallotActivity');
 
-    cy.loginExternal();
+    cy.loginExtAdm('Calpers');
     cy.visit('/').url().should('include', '/Workflow');
   });
 

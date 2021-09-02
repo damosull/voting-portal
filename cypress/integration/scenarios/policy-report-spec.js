@@ -10,7 +10,7 @@ describe('Generate Policy report,download and verify file headers', function () 
     cy.intercept('GET', '**/Api/Data/Policy/**').as('policy');
     cy.intercept('GET', '**/Api/Data/Policy/GetById/**').as('getPolicy');
     cy.intercept('DELETE', '**/Api/Data/Policy/**').as('remove');
-    cy.loginExternal();
+    cy.loginExtAdm('Calpers');
     cy.visit('/Reporting');
   });
 

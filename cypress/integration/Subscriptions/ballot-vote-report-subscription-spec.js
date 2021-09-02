@@ -21,7 +21,7 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
         cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotVoteData').as('BallotCriteria');
 
         // Step 1 - Login to viewpoint as External user
-        cy.loginExternal();
+        cy.loginExtAdm('Calpers');
 
         //Step 2 - Navigate to the Reporting tab 
         cy.visit("/Reporting");

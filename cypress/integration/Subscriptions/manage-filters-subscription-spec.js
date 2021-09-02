@@ -4,14 +4,14 @@ const toast = messages.toast;
 let today = new Date().toISOString().slice(0, 10)
 
 describe('Create Manage Filters Subscription entry and validate in FL_Subscription Database table', function () {
-   
+
     beforeEach(function () {
         cy.intercept('GET', '**/Api/Data/Inbox/**').as('InboxReport');
-        cy.intercept('GET','**/Api/Data/IdentitySearch/**').as('IdentitySearch')
-        cy.intercept('GET','**/Api/WebUI/Subscriptions/**').as('Subscriptions')
+        cy.intercept('GET', '**/Api/Data/IdentitySearch/**').as('IdentitySearch')
+        cy.intercept('GET', '**/Api/WebUI/Subscriptions/**').as('Subscriptions')
 
         // Step 1 - Login to viewpoint as External user
-        cy.loginExternal();
+        cy.loginExtAdm('Calpers');
 
         //Step 2 - Navigate to the Reporting tab 
         cy.visit("/Workflow");
@@ -19,28 +19,28 @@ describe('Create Manage Filters Subscription entry and validate in FL_Subscripti
 
     it(`Create Manage Filters Subscription`, function () {
 
-       // Step 3 - Select Manage Filters link 
-       cy.get('#btn-manage-filters').click()
-       cy.get('#filter-name-edit').should('have.text','Upcoming Meetings')
-       cy.get('body').then(($body) => {
-        if ($body.find('#current-subscribers-list > tbody > tr > td > i[class="fa fa-times"]').length > 0) {
-            cy.get('#current-subscribers-list > tbody > tr > td > i[class="fa fa-times"]').click()
-            cy.get('#apprise-btn-confirm').click()
-        }
+        // Step 3 - Select Manage Filters link 
+        cy.get('#btn-manage-filters').click()
+        cy.get('#filter-name-edit').should('have.text', 'Upcoming Meetings')
+        cy.get('body').then(($body) => {
+            if ($body.find('#current-subscribers-list > tbody > tr > td > i[class="fa fa-times"]').length > 0) {
+                cy.get('#current-subscribers-list > tbody > tr > td > i[class="fa fa-times"]').click()
+                cy.get('#apprise-btn-confirm').click()
+            }
         })
-       //Step 4 - Click "Add Subscription" button
-       cy.get('#add-subscription').click()
-       cy.wait('@Subscriptions')
+        //Step 4 - Click "Add Subscription" button
+        cy.get('#add-subscription').click()
+        cy.wait('@Subscriptions')
 
-       //Step 5 - Select 'Calpers External Admin' from Users list 
-       cy.get('#subscriptions-modal-content > h3')
-       cy.get('#users').click().type('Cal')
-       cy.get('#users_listbox > li').focus().blur().click({force:true})
-       
+        //Step 5 - Select 'Calpers External Admin' from Users list 
+        cy.get('#subscriptions-modal-content > h3')
+        cy.get('#users').click().type('Cal')
+        cy.get('#users_listbox > li').focus().blur().click({ force: true })
 
-       //Step 6 - Enter Schedule to run Subscription
-       //Weekly,8 AM every Saturday
-       cy.get('#schedule-type').select('1')
+
+        //Step 6 - Enter Schedule to run Subscription
+        //Weekly,8 AM every Saturday
+        cy.get('#schedule-type').select('1')
         cy.get('#Sat').check({ force: true })
         cy.get('input#IncludeCSVResultset').invoke('attr', 'style', 'display: block');
         cy.get('#IncludeCSVResultset').check()
@@ -66,7 +66,7 @@ describe('Create Manage Filters Subscription entry and validate in FL_Subscripti
             expect(cols[14]).to.include(today);     //Created date
             expect(cols[16]).to.include(today);     //Last Modified date
             assert.equal(cols[13], 10916);           //Created by
-            
+
             expect(cols).to.have.length(19)         //Total Fields
 
         })

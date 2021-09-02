@@ -2,7 +2,7 @@ describe('Generate basic excel report,download and verify file headers', functio
   beforeEach(function () {
     cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
 
-    cy.loginExternal();
+    cy.loginExtAdm('Calpers');
     cy.visit('/Reporting');
   });
 

@@ -50,7 +50,7 @@ describe('Report', () => {
     );
     cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=ProxyVoting').as('ProxyVoting');
 
-    cy.loginExternal();
+    cy.loginExtAdm('Calpers');
     cy.visit('/Reporting').url().should('include', 'Reporting');
   });
 

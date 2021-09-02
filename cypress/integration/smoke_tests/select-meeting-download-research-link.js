@@ -2,7 +2,7 @@ describe('select a meeting and download a research link', function () {
 
     beforeEach(function () {
         sessionStorage.clear()
-        cy.login(Cypress.env('External_Username'));
+        cy.loginExtAdm('Calpers');
     });
 
     it.skip(`download research link on meeting detail page`, function () {
