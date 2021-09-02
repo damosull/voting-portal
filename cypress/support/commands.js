@@ -24,6 +24,7 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... }
 import { messages } from '../support/constants';
+import { USER } from '../support/constants';
 
 const toast = messages.toast;
 
@@ -76,73 +77,128 @@ Cypress.Commands.add('verifyMeetingOptionButtons', () => {
   cy.get('#btn-instruct').should('be.visible');
 });
 
-Cypress.Commands.add(
-  'login',
-  (username = Cypress.env('Internal_Admin_Username'), password = Cypress.env('Internal_Admin_Password')) => {
-    cy.request('/')
-      .its('body')
-      .then((body) => {
-        // we can use Cypress.$ to parse the string body
-        // thus enabling us to query into it easily
-        const $html = Cypress.$(body);
-        const csrf = $html.find('input[name=csrf-token]').val();
+Cypress.Commands.add('loginExtAdm', (user) => {
+  let username;
+  let password;
 
-        cy.request({
-          method: 'POST',
-          url: '/Home/Authenticate/',
-          headers: {
-            CSRFToken: csrf,
-          },
-          body: {
-            Username: username,
-            Password: password,
-          },
-        }).then((resp) => {
-          expect(resp.status).to.eq(200);
-          const success = resp.body.Succeded;
-          if (!success) {
-            console.log('Check console for details => ' + JSON.stringify(resp.body));
-          }
-          expect(success).to.be.true;
-        });
-      });
+  const PASSWORD = 'Test12345%'
+  switch (user) {
+    case 'Internal':
+      username = USER.INTERNAL;
+      break;
+    case 'Wellington':
+      username = USER.WELLINGTON;
+      break;
+    case 'Calpers':
+      username = USER.CALPERS;
+      break;
+    case 'Russell':
+      username = USER.RUSSELL;
+      break;
+    case 'Opers':
+      username = USER.OPERS;
+      break;
+    case 'Robeco':
+      username = USER.ROBECO;
+      break;
+    case 'RoyalLondon':
+      username = USER.ROYALLONDON;
+      break;
+    case 'CharlesSchwab':
+      username = USER.CHARLESSCHWAB;
+      break;
+    case 'Putnam':
+      username = USER.PUTNAM;
+      break;
+    case 'IMF':
+      username = USER.IMF;
+      break;
+    case 'Federated':
+      username = USER.FEDERATED;
+      break;
+    case 'Neuberger':
+      username = USER.NEUBERGER;
+      break;
+    default: cy.log('User not found')
+
   }
-);
+  password = PASSWORD;
 
-Cypress.Commands.add(
-  'loginExternal',
-  (username = Cypress.env('External_Username'), password = Cypress.env('Internal_Admin_Password')) => {
-    cy.request('/')
-      .its('body')
-      .then((body) => {
-        // we can use Cypress.$ to parse the string body
-        // thus enabling us to query into it easily
-        const $html = Cypress.$(body);
-        const csrf = $html.find('input[name=csrf-token]').val();
+  cy.request('/')
+    .its('body')
+    .then((body) => {
+      // we can use Cypress.$ to parse the string body
+      // thus enabling us to query into it easily
+      const $html = Cypress.$(body);
+      const csrf = $html.find('input[name=csrf-token]').val();
 
-        cy.request({
-          method: 'POST',
-          url: '/Home/Authenticate/',
-          headers: {
-            CSRFToken: csrf,
-          },
-          body: {
-            Username: username,
-            Password: password,
-          },
-        }).then((resp) => {
-          expect(resp.status).to.eq(200);
-          const success = resp.body.Succeded;
-          if (!success) {
-            console.log('Check console for details => ' + JSON.stringify(resp.body));
-          }
-          expect(success).to.be.true;
-        });
+      cy.request({
+        method: 'POST',
+        url: '/Home/Authenticate/',
+        headers: {
+          CSRFToken: csrf,
+        },
+        body: {
+          Username: username,
+          Password: password,
+        },
+      }).then((resp) => {
+        expect(resp.status).to.eq(200);
+        const success = resp.body.Succeded;
+        if (!success) {
+          console.log('Check console for details => ' + JSON.stringify(resp.body));
+        }
+        expect(success).to.be.true;
       });
+    });
+})
+
+
+Cypress.Commands.add('loginInternalAdm', (user) => {
+  let username;
+  let password;
+
+  const PASSWORD = 'Test12345%'
+  switch (user) {
+    case 'AutomationInternal':
+      username = USER.AUTOMATIONINTERNAL;
+      break;
+    case 'PaddyInternal':
+      username = USER.PADDYINTERNAL;
+      break;
+    default: cy.log('User not found')
+
   }
-);
+  password = PASSWORD;
 
+  cy.request('/')
+    .its('body')
+    .then((body) => {
+      // we can use Cypress.$ to parse the string body
+      // thus enabling us to query into it easily
+      const $html = Cypress.$(body);
+      const csrf = $html.find('input[name=csrf-token]').val();
 
+      cy.request({
+        method: 'POST',
+        url: '/Home/Authenticate/',
+        headers: {
+          CSRFToken: csrf,
+        },
+        body: {
+          Username: username,
+          Password: password,
+        },
+      }).then((resp) => {
+        expect(resp.status).to.eq(200);
+        const success = resp.body.Succeded;
+        if (!success) {
+          console.log('Check console for details => ' + JSON.stringify(resp.body));
+        }
+        expect(success).to.be.true;
+      });
+    });
+})
 
 Cypress.Commands.add('checkIfExists', (ele) => {
   return new Promise((resolve, reject) => {
@@ -391,6 +447,16 @@ Cypress.Commands.add('donwloadFileLocal', (report) => {
   cy.get('.notify-count').click();
   cy.wait('@LoadInbox');
 });
+
+Cypress.Commands.add('executeUpdateQuery', (query) => {
+  // Execute the query only if a SELECT is sent as a parameter
+  if (query.includes('UPDATE')) {
+    cy.sqlServer(query);
+  } else {
+    cy.log('Enter a valid query');
+  }
+});
+
 
 Cypress.Commands.add('executeQuery', (query) => {
   // Execute the query only if a SELECT is sent as a parameter

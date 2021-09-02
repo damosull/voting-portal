@@ -9,7 +9,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
         cy.intercept('POST', "**/Api/Data/Filters/CreateDraftFilter").as('filter')
         cy.intercept('POST', "**/Api/Logger").as('controls')
 
-        cy.loginExternal();
+        cy.loginExtAdm('Calpers');
         cy.visit("/Workflow");
         cy.wait('@WorkflowExpansion');
         cy.wait('@WorkflowSecuritiesWatchlists');
@@ -49,7 +49,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
             var diff = arraysEqual(GLvals, Selected);
             expect(diff).to.be.false
 
-         
+
         });
 
     }); //end it
@@ -57,7 +57,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
 
     it.skip('Confirm votes against Management captured in filter criteria', function () {
 
-    
+
         cy.AddCriteriaOption('decision', 'Decision Status')
         cy.selectValueFromCriteriaOption('.DecisionStatusEditor', 'value', 'Approved', '#btn-apply-criteria')
         cy.AddCriteriaOption('With', 'With/Against Management')
@@ -102,7 +102,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
     it('teardown', function () {
 
         //teardown 
-        cy.loginExternal();
+        cy.loginExtAdm('Calpers');
         cy.visit("/Workflow");
         cy.wait('@WorkflowExpansion');
         cy.wait('@WorkflowSecuritiesWatchlists');

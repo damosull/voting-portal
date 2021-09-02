@@ -3,7 +3,7 @@ describe('Generate Engagement report,download and verify file headers', function
   beforeEach(function () {
     cy.intercept('GET', '**/Api/Data/Inbox/?Top=0&IsNew=true&IsQueryOnly=true&**').as('engagement');
 
-    cy.loginExternal();
+    cy.loginExtAdm('Calpers');
     cy.visit('/Reporting');
   });
 

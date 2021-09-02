@@ -1,3 +1,20 @@
+export const USER = {
+  WELLINGTON: 'WellingtonAutomation@glasslewis.com',
+  CALPERS: 'CalpersAutomation@glasslewis.com',
+  RUSSELL: 'RussellAutomation@glasslewis.com',
+  OPERS: 'OpersAutomation@glasslewis.com',
+  ROBECO: 'RobecoAutomation@glasslewis.com',
+  ROYALLONDON: 'RoyalLondonAutomation@glasslewis.com',
+  CHARLESSCHWAB: 'CharlesSchwabAutomation@glasslewis.com',
+  PUTNAM: 'PutnamAutomation@glasslewis.com',
+  IMF: 'IFMAutomation@glasslewis.com',
+  FEDERATED: 'FederatedAutomation@glasslewis.com',
+  NEUBERGER: 'autoextadmin_neuberger@glasslewis.com',
+  AUTOMATIONINTERNAL: 'automation@glasslewis.com',
+  PADDYINTERNAL: 'pcorcoran@glasslewis.com'
+}
+
+
 export const messages = {
   reports: {
     READY: 'report is ready for download',
@@ -12,9 +29,23 @@ export const messages = {
     EXPORT_INITIATED: 'Your export was initiated. It will appear in the toolbar shortly.',
     SUBSCRIPTION_ADDED: 'Subscription added',
     SUBSCRIPTION_DELETED: 'Subscription deleted',
-    SHARE_MEETING_REQUEST_SAVED:'Share meeting request saved'
+    SHARE_MEETING_REQUEST_SAVED: 'Share meeting request saved'
   },
 };
+
+export const MEETINGID = {
+  // first 2 chars = company (NB = Neuberger)
+  // second 2 chars = meeting type - Contested = CO,RA = Recommendations Available,RP Recommendations Pending 
+  // additional chars  = Agenda (M = Management,O = Opposition) MMO = 2 management agendas,one Opposition
+
+  NBCOMMO: '982955',
+  NBCOMMO_AGENDA1: '935288666',
+  NBCOMMO_AGENDA2: '935279833',
+  NBCOMMO_AGENDA3: '935281206',
+  NBCOMMO_CTRLNUM1: '8193294880136089',
+  NBCOMMO_CTRLNUM2: '8193294880360709',
+  NBCOMMO_CTRLNUM3: '8193294880595329'
+}
 
 export const API = {
   POST: {

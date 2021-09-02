@@ -6,6 +6,7 @@ let today = new Date().toISOString().slice(0, 10)
 describe('Share meeting with User - Comment', function () {
     //let meetingid
     beforeEach(function () {
+        sessionStorage.clear()
         cy.viewport(1100, 900);
         cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
         cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
@@ -15,7 +16,7 @@ describe('Share meeting with User - Comment', function () {
         cy.intercept('POST', 'https://viewpoint.aqua.glasslewis.com/Api/Data//SubscribeToMeeting/GetStatus').as('GetStatus')
 
         //step 1 - Login to viewpoint as External user
-        cy.loginExternal();
+        cy.loginExtAdm('Calpers');
 
         //Step 2 - Navigate to the Workflow tab 
         cy.visit('/Workflow');
@@ -26,14 +27,15 @@ describe('Share meeting with User - Comment', function () {
     it(`Verify User can share meeting with another user`, function () {
 
         //Step 3 - Add Decision Status Criteria and filter meetings by Recommendations Pending
+
         cy.removeAllExistingSelectedCriteria();
         cy.AddMultipleCriteria(['Decision Status']);
         cy.addCriteriaStatus(['Recommendations Pending']);
-
         cy.wait('@GetStatus').then((interception) => {
             const meeting = JSON.stringify(interception.response.body[2].MeetingId)
             cy.wrap(meeting).as('meetingid')
         })
+
         //Step 4 - Select meeting from list and save meetingID from Getstatus API call
         cy.get('table > tbody > tr')
             .eq(2)

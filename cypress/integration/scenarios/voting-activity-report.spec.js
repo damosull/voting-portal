@@ -28,7 +28,7 @@ describe('Report', () => {
     cy.intercept('GET', '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**').as('LoadInbox');
     cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=AVAReport').as('AVACriteria');
 
-    cy.loginExternal();
+    cy.loginExtAdm('Calpers');
     cy.visit('/Reporting').url().should('include', 'Reporting');
   });
 
