@@ -28,6 +28,14 @@ import { USER } from '../support/constants';
 
 const toast = messages.toast;
 
+Cypress.Commands.add('RemoveAnyExistingSubscriptions', () => {
+  cy.get('body').then(($body) => {
+    if ($body.find('fa fa-times').length > 0) {
+      cy.get('fa fa-times').click();
+    }
+  });
+});
+
 Cypress.Commands.add('RemoveCriteriaIfExists', (id, removeId) => {
   cy.get('body').then(($body) => {
     if ($body.find(id).length > 0) {
@@ -254,7 +262,7 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
 });
 
 Cypress.Commands.add('GetAutomationUserIDFromDB', () => {
-  cy.executeQuery(`SELECT[UserID] FROM[GLP].[dbo].[UM_User] where LoginID = 'automation_calpers@glasslewis.com'`).then((result) => {
+  cy.executeQuery(`SELECT[UserID] FROM[GLP].[dbo].[UM_User] where LoginID = 'CalpersAutomation@glasslewis.com'`).then((result) => {
     const usrid = cy.wrap(result)
     return usrid
   })

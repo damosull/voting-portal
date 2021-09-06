@@ -7,6 +7,7 @@ describe('Share meeting with User - Comment', function () {
     //let meetingid
     beforeEach(function () {
         sessionStorage.clear()
+        cy.GetAutomationUserIDFromDB().as('userid')
         cy.viewport(1100, 900);
         cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
         cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
@@ -75,7 +76,9 @@ describe('Share meeting with User - Comment', function () {
             }
 
             //Step 12 - Verify PX_ShareMeeting table Column data for correct data
-            assert.equal(cols[1], 10938);  //verify Auatomation QaUat User id (10938)
+            cy.get('@userid').then(function (uid) {
+                assert.equal(cols[1], uid);          //verify Auatomation QaUat User id
+            })
             cy.get('@meetingid').then(function (meetid) {
                 assert.equal(cols[2], meetid);            //Verify Meeting ID correct
             })

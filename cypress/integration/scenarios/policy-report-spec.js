@@ -10,6 +10,7 @@ describe('Generate Policy report,download and verify file headers', function () 
     cy.intercept('GET', '**/Api/Data/Policy/**').as('policy');
     cy.intercept('GET', '**/Api/Data/Policy/GetById/**').as('getPolicy');
     cy.intercept('DELETE', '**/Api/Data/Policy/**').as('remove');
+    cy.intercept('POST', '**/Api/Data/Policy/Add').as('fileAdd')
     cy.loginExtAdm('Calpers');
     cy.visit('/Reporting');
   });
@@ -23,9 +24,9 @@ describe('Generate Policy report,download and verify file headers', function () 
     cy.wait('@ReportType');
     cy.wait('@policy');
     cy.get('body').then(($body) => {
-      if ($body.find('#workflow-filter-list > div > div > ul > li').length > 0) {
+      if ($body.find('#workflow-filter-list > div > div > ul > li').eq(0).length > 0) {
         cy.get('#workflow-filter-list > div > div > ul > li').each(() => {
-          cy.get('#workflow-filter-list > div > div > ul > li:nth-child(1) > a').click({ force: true });
+          cy.get('#workflow-filter-list > div > div > ul > li:nth-child(1) > a').first().click({ force: true });
           cy.wait('@getPolicy');
           cy.get('.dark-red.small.delete-btn').click({ force: true });
           cy.wait('@remove');
@@ -48,16 +49,20 @@ describe('Generate Policy report,download and verify file headers', function () 
     cy.get('#btn-update-PolicyId').click({ force: true });
     cy.get('#btn-report-save-as').click({ force: true });
     cy.randomString(3).then((data) => {
+      debugger
       cy.get('#popupTextContainer > input[type=text]').type('Test' + data);
       filename = 'Test' + data;
       rnd = data.trim() + '.xlsx';
     });
     cy.get('#apprise-btn-confirm').click({ force: true });
     cy.wait('@FileUpdate');
-    cy.get('.scrollableContainer > ul  >li')
+    cy.wait('@fileAdd');
+    cy.get('.scrollableContainer > ul  >li').first()
       .find('span[data-bind="text: Name"]')
       .then(($name) => {
         const fname = $name.text();
+        cy.log(fname)
+        cy.log(filename)
         expect(fname.includes(filename)).to.be.true;
       });
 
