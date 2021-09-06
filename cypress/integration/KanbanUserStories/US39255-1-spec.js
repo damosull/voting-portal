@@ -8,7 +8,7 @@ describe('US39255 tests - Test 1', function () {
         cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('assignees')
         cy.intercept('POST', '**/Api/Data//SubscribeToMeeting/GetStatus').as('getstatus')
 
-        cy.loginExternal();
+        cy.loginExtAdm('Calpers');
         cy.visit('/Workflow');
         cy.wait('@WorkflowExpansion');
         cy.wait('@WorkflowSecuritiesWatchlists');

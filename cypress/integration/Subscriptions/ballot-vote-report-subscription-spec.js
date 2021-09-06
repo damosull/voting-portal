@@ -47,7 +47,7 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
         cy.get('#add-subscription-kendo-modal-123abc456xyz').should('be.visible')
 
         //Step 5 - Select 'Calpers External Admin' from Users list 
-        cy.get('.k-multiselect-wrap > .k-input').click().type('{downarrow}{downarrow}{enter}').blur();
+        cy.get('.k-multiselect-wrap > .k-input').click().wait(500).type('{downarrow}{downarrow}{downarrow}{enter}').blur();
 
         //Step 6 - Enter Filename for Subscription Report
         cy.get('#subscribed-file-name').type('SubscribeTest')
@@ -61,7 +61,7 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
         cy.get('.toast-message').should('contain.text', toast.SUBSCRIPTION_ADDED);
 
         //Step 9 - Verify UI table entries for newly created Subscription
-        cy.get('#current-subscribers-list > tbody > tr > td').eq(1).should('include.text', 'ExtAdmin Automation QaUat')
+        cy.get('#current-subscribers-list > tbody > tr > td').eq(1).should('include.text', 'CalpersAutomation External Admin')
         cy.get('#current-subscribers-list > tbody > tr > td').eq(2).should('include.text', 'Weekly')
         cy.get('#current-subscribers-list > tbody > tr > td').eq(3).should('include.text', 'Run at: 8:00AM, on: Sun')
         cy.get('#current-subscribers-list > tbody > tr > td').eq(4).should('include.text', 'SubscribeTest')

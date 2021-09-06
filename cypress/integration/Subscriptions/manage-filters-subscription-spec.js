@@ -6,6 +6,7 @@ let today = new Date().toISOString().slice(0, 10)
 describe('Create Manage Filters Subscription entry and validate in FL_Subscription Database table', function () {
 
     beforeEach(function () {
+        cy.GetAutomationUserIDFromDB().as('userid')
         cy.intercept('GET', '**/Api/Data/Inbox/**').as('InboxReport');
         cy.intercept('GET', '**/Api/Data/IdentitySearch/**').as('IdentitySearch')
         cy.intercept('GET', '**/Api/WebUI/Subscriptions/**').as('Subscriptions')
@@ -41,7 +42,7 @@ describe('Create Manage Filters Subscription entry and validate in FL_Subscripti
         //Step 6 - Enter Schedule to run Subscription
         //Weekly,8 AM every Saturday
         cy.get('#schedule-type').select('1')
-        cy.get('#Sat').check({ force: true })
+        cy.get('#Mon').check({ force: true })
         cy.get('input#IncludeCSVResultset').invoke('attr', 'style', 'display: block');
         cy.get('#IncludeCSVResultset').check()
 
@@ -60,7 +61,9 @@ describe('Create Manage Filters Subscription entry and validate in FL_Subscripti
 
             //Step 10 - Verify FL_Subscription table Column data for correct data 
             assert.equal(cols[2], 1);                //verify Active
-            assert.equal(cols[3], 10916);            //SubscriberID
+            cy.get('@userid').then(function (uid) {
+                assert.equal(cols[3], uid);          //SubscriberID
+            })
             assert.equal(cols[4], 196);              //Customer ID
             assert.equal(cols[7], 0);                //Deliver to Everyone = false
             expect(cols[14]).to.include(today);     //Created date
