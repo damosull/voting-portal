@@ -49,7 +49,6 @@ describe('Generate Policy report,download and verify file headers', function () 
     cy.get('#btn-update-PolicyId').click({ force: true });
     cy.get('#btn-report-save-as').click({ force: true });
     cy.randomString(3).then((data) => {
-      debugger
       cy.get('#popupTextContainer > input[type=text]').type('Test' + data);
       filename = 'Test' + data;
       rnd = data.trim() + '.xlsx';
