@@ -11,9 +11,8 @@ export const USER = {
   FEDERATED: 'FederatedAutomation@glasslewis.com',
   NEUBERGER: 'autoextadmin_neuberger@glasslewis.com',
   AUTOMATIONINTERNAL: 'automation@glasslewis.com',
-  PADDYINTERNAL: 'pcorcoran@glasslewis.com'
-}
-
+  PADDYINTERNAL: 'pcorcoran@glasslewis.com',
+};
 
 export const messages = {
   reports: {
@@ -29,13 +28,13 @@ export const messages = {
     EXPORT_INITIATED: 'Your export was initiated. It will appear in the toolbar shortly.',
     SUBSCRIPTION_ADDED: 'Subscription added',
     SUBSCRIPTION_DELETED: 'Subscription deleted',
-    SHARE_MEETING_REQUEST_SAVED: 'Share meeting request saved'
+    SHARE_MEETING_REQUEST_SAVED: 'Share meeting request saved',
   },
 };
 
 export const MEETINGID = {
   // first 2 chars = company (NB = Neuberger)
-  // second 2 chars = meeting type - Contested = CO,RA = Recommendations Available,RP Recommendations Pending 
+  // second 2 chars = meeting type - Contested = CO,RA = Recommendations Available,RP Recommendations Pending
   // additional chars  = Agenda (M = Management,O = Opposition) MMO = 2 management agendas,one Opposition
 
   NBCOMMO: '982955',
@@ -44,8 +43,8 @@ export const MEETINGID = {
   NBCOMMO_AGENDA3: '935281206',
   NBCOMMO_CTRLNUM1: '8193294880136089',
   NBCOMMO_CTRLNUM2: '8193294880360709',
-  NBCOMMO_CTRLNUM3: '8193294880595329'
-}
+  NBCOMMO_CTRLNUM3: '8193294880595329',
+};
 
 export const API = {
   POST: {
@@ -75,5 +74,10 @@ export const API = {
     ASSIGNED_MEETING_ID: '**/Api/Data/Assignee/?MeetingIDs%5B%5D=**',
     GET_FILINGS: '**/Api/Data/MeetingMaterials/GetFilings?MeetingId=**',
     BALLOT_ACTIVITY_LOG: '**/Api/Data/BallotActivityLog/?BallotID=**',
+    FILTER_CRITERIA_FOR_FIELDS:
+      '**/Api/WebUI//WorkflowFilterCriteriaEditors/ForField?fields=**&objectType=WorkflowExpansion&customerId=**&_=**',
+  },
+  PUT: {
+    BALLOT_GRID_STATE: '**/Api/Data/BallotsGridState',
   },
 };
