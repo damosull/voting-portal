@@ -89,7 +89,7 @@ Cypress.Commands.add('loginExtAdm', (user) => {
   let username;
   let password;
 
-  const PASSWORD = 'Test12345%'
+  const PASSWORD = 'Test12345%';
   switch (user) {
     case 'Internal':
       username = USER.INTERNAL;
@@ -127,8 +127,8 @@ Cypress.Commands.add('loginExtAdm', (user) => {
     case 'Neuberger':
       username = USER.NEUBERGER;
       break;
-    default: cy.log('User not found')
-
+    default:
+      cy.log('User not found');
   }
   password = PASSWORD;
 
@@ -159,14 +159,13 @@ Cypress.Commands.add('loginExtAdm', (user) => {
         expect(success).to.be.true;
       });
     });
-})
-
+});
 
 Cypress.Commands.add('loginInternalAdm', (user) => {
   let username;
   let password;
 
-  const PASSWORD = 'Test12345%'
+  const PASSWORD = 'Test12345%';
   switch (user) {
     case 'AutomationInternal':
       username = USER.AUTOMATIONINTERNAL;
@@ -174,8 +173,8 @@ Cypress.Commands.add('loginInternalAdm', (user) => {
     case 'PaddyInternal':
       username = USER.PADDYINTERNAL;
       break;
-    default: cy.log('User not found')
-
+    default:
+      cy.log('User not found');
   }
   password = PASSWORD;
 
@@ -206,7 +205,7 @@ Cypress.Commands.add('loginInternalAdm', (user) => {
         expect(success).to.be.true;
       });
     });
-})
+});
 
 Cypress.Commands.add('checkIfExists', (ele) => {
   return new Promise((resolve, reject) => {
@@ -262,12 +261,13 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
 });
 
 Cypress.Commands.add('GetAutomationUserIDFromDB', () => {
-  cy.executeQuery(`SELECT[UserID] FROM[GLP].[dbo].[UM_User] where LoginID = 'CalpersAutomation@glasslewis.com'`).then((result) => {
-    const usrid = cy.wrap(result)
-    return usrid
-  })
-})
-
+  cy.executeQuery(`SELECT[UserID] FROM[GLP].[dbo].[UM_User] where LoginID = 'CalpersAutomation@glasslewis.com'`).then(
+    (result) => {
+      const usrid = cy.wrap(result);
+      return usrid;
+    }
+  );
+});
 
 Cypress.Commands.add('logout', () => {
   cy.intercept('DELETE', '**/Home/RemoveDraftFilter/').as('RemoveDraft');
@@ -393,13 +393,13 @@ Cypress.Commands.add('deleteMyFilter', (filterToDelete) => {
 });
 
 Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
-  cy.get('.editor-modal').invoke('attr', 'style', 'display: block');
-
   if (!isReporting) {
     cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').click({ force: true });
   } else {
     cy.get('#report-criteria-controls > div > div > h4').click({ force: true });
   }
+
+  cy.get('.editor-modal').invoke('attr', 'style', 'display: block');
 
   statusToSearch.forEach((value) => {
     cy.get('.editor-modal > input').clear({ force: true }).type(value);
@@ -465,7 +465,6 @@ Cypress.Commands.add('executeUpdateQuery', (query) => {
   }
 });
 
-
 Cypress.Commands.add('executeQuery', (query) => {
   // Execute the query only if a SELECT is sent as a parameter
   if (query.includes('SELECT')) {
@@ -483,7 +482,7 @@ Cypress.Commands.add('checkColumnFieldApplyAndVerifyIsChecked', (value) => {
   cy.get('#btn-workflow-config-columns').click();
   cy.get('#txt-filter-col-name').type(value);
   cy.get(`input[value='${value}']`).check({ force: true });
-  cy.get(`input[value='${value}']`).should('be.checked')
+  cy.get(`input[value='${value}']`).should('be.checked');
   cy.get('#txt-filter-col-name').clear();
   cy.get('#btn-apply-configure-columns').click();
 });
@@ -492,7 +491,7 @@ Cypress.Commands.add('uncheckColumnFieldApplyAndVerifyNotChecked', (value) => {
   cy.get('#btn-workflow-config-columns').click();
   cy.get('#txt-filter-col-name').type(value);
   cy.get(`input[value='${value}']`).uncheck({ force: true });
-  cy.get(`input[value='${value}']`).should('not.be.checked')
+  cy.get(`input[value='${value}']`).should('not.be.checked');
   cy.get('#txt-filter-col-name').clear();
   cy.get('#btn-apply-configure-columns').click();
 });
