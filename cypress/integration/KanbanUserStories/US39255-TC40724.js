@@ -13,6 +13,7 @@ describe('US39255 tests', function () {
         cy.intercept('POST', '**/Api/Data/MeetingDetailsActivity/').as('activity')
         cy.intercept('POST', '**/Api/Data/VoteTally').as('votetally')
         cy.intercept('GET', '**/Api/Data/MeetingMaterials/**').as('materials')
+        cy
 
         cy.loginExtAdm('Russell');
         cy.visit('/Workflow');
@@ -23,15 +24,7 @@ describe('US39255 tests', function () {
     it(`Verify Ballot section Pagination`, function () {
 
         //make sure all dates are current with this meeting id 
-        cy.executeUpdateQuery(`UPDATE PX_Meeting SET
-        MeetingDate = DATEADD(DAY, 10, getdatE()),
-        FileProcessingDate = DATEADD(DAY, -1, getdatE()),
-        HoldReconciliationDate = DATEADD(DAY, 10, getdatE()),
-        LastModifiedDate = DATEADD(DAY, 10, getdatE()),
-        RecordDate = DATEADD(DAY, 10, getdatE()),
-        SharesDependentChangeDate = DATEADD(DAY, 10, getdatE()),
-        VoteDeadlineDate = DATEADD(DAY, 10, getdatE())
-        WHERE MeetingID IN (` + MEETINGID.RLNCDRP + `)`)
+        cy.AddTenDaysToMeetingDates(MEETINGID.RLNCDRP)
 
         //Step 4 - User Clicks on the valid company in the Workflow page
         cy.visit('MeetingDetails/Index/' + MEETINGID.RLNCDRP)
@@ -50,17 +43,12 @@ describe('US39255 tests', function () {
 
         cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').find(':selected').should('have.text', '10')
 
-        //Step 3 -Now click the pagination dropdown and change the pagination to 50
-        cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').invoke('attr', 'style', 'display: block');
-        cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').select('50', { timeout: 50000 })
-        cy.get('#md-ballots-grid-results').find('tr').its('length').should('eq', 50)
-        cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').find(':selected').should('have.text', '50')
+        //Step 3 -Now click the pagination dropdown and change the pagination to 
+        //cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span').invoke('attr', 'style', 'display: block');
+        cy.SetPaginationAndVerify('50', 50);
 
         //Step 5 - Now click the pagination dropdown and change the pagination to 20 and log out of the application.
-        cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').invoke('attr', 'style', 'display: block');
-        cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').select('20', { timeout: 50000 })
-        cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').find(':selected').should('have.text', '20')
-        cy.get('#md-ballots-grid-results').find('tr').its('length').should('eq', 20)
+        cy.SetPaginationAndVerify('20', 20);
 
         cy.get('#logged-in-user').click()
         cy.get('#navlink--logout').click()
@@ -80,16 +68,10 @@ describe('US39255 tests', function () {
 
 
         //Step7 - Set pagination to 50 and verify ballot displayed row count
-        cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').invoke('attr', 'style', 'display: block');
-        cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').select('50', { timeout: 50000 })
-        cy.get('#md-ballots-grid-results').find('tr').its('length').should('eq', 50)
-        cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').find(':selected').should('have.text', '50')
+        cy.SetPaginationAndVerify('50', 50);
 
         //Step 8 - Now change pagination  to "10" 
-        cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').invoke('attr', 'style', 'display: block');
-        cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').select('10', { timeout: 50000 })
-        cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').find(':selected').should('have.text', '10')
-        cy.get('#md-ballots-grid-results').find('tr').its('length').should('eq', 10)
+        cy.SetPaginationAndVerify('10', 10);
 
         cy.get('#logged-in-user').click()
         cy.get('#navlink--logout').click()

@@ -22,15 +22,8 @@ describe('US39255 tests', function () {
     it(`Verify Ballot section Pagination`, function () {
 
         //make sure all dates are current with this meeting id 
-        cy.executeUpdateQuery(`UPDATE PX_Meeting SET
-        MeetingDate = DATEADD(DAY, 10, getdatE()),
-        FileProcessingDate = DATEADD(DAY, -1, getdatE()),
-        HoldReconciliationDate = DATEADD(DAY, 10, getdatE()),
-        LastModifiedDate = DATEADD(DAY, 10, getdatE()),
-        RecordDate = DATEADD(DAY, 10, getdatE()),
-        SharesDependentChangeDate = DATEADD(DAY, 10, getdatE()),
-        VoteDeadlineDate = DATEADD(DAY, 10, getdatE())
-        WHERE MeetingID IN (` + MEETINGID.RBNCRP + `)`)
+        cy.AddTenDaysToMeetingDates(MEETINGID.RBNCRP)
+
 
         //Step 4 - User Clicks on the valid company in the Workflow page
         cy.visit('MeetingDetails/Index/' + MEETINGID.RBNCRP)
