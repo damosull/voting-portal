@@ -14,6 +14,8 @@ export const USER = {
   PADDYINTERNAL: 'pcorcoran@glasslewis.com',
 };
 
+
+
 export const messages = {
   reports: {
     READY: 'report is ready for download',
@@ -32,10 +34,12 @@ export const messages = {
   },
 };
 
+
 export const MEETINGID = {
   // first 2 chars = company (NB = Neuberger)
   // second 2 chars = meeting type - Contested = CO,RA = Recommendations Available,RP Recommendations Pending
-  // additional chars  = Agenda (M = Management,O = Opposition) MMO = 2 management agendas,one Opposition
+  // additional chars  = Agenda (M = Management,O = Opposition) MMO = 2 management agendas,one Opposition 
+  // AG has Account Group associated
 
   NBCOMMO: '982955',
   NBCOMMO_AGENDA1: '935288666',
@@ -44,6 +48,13 @@ export const MEETINGID = {
   NBCOMMO_CTRLNUM1: '8193294880136089',
   NBCOMMO_CTRLNUM2: '8193294880360709',
   NBCOMMO_CTRLNUM3: '8193294880595329',
+
+
+  RLNCDRP: '1057618',     //Russell - Non Contested -  Recommendations Pending 
+
+  RBNCRP: '1058810',       //Robeco - Non Contested -  Recommendations Pending 
+  RBNCAG: '1061320'
+
 };
 
 export const API = {

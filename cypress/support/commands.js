@@ -36,6 +36,25 @@ Cypress.Commands.add('RemoveAnyExistingSubscriptions', () => {
   });
 });
 
+Cypress.Commands.add('SetPaginationAndVerify', (numItemsPerPage, num) => {
+  cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').invoke('attr', 'style', 'display: block');
+  cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').select(numItemsPerPage, { timeout: 50000 })
+  cy.get('#md-ballots-grid-results').find('tr').its('length').should('eq', num)
+  cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').find(':selected').should('have.text', numItemsPerPage)
+});
+
+Cypress.Commands.add('AddTenDaysToMeetingDates', (meetingId) => {
+  cy.executeUpdateQuery(`UPDATE PX_Meeting SET
+        MeetingDate = DATEADD(DAY, 10, getdatE()),
+        FileProcessingDate = DATEADD(DAY, -1, getdatE()),
+        HoldReconciliationDate = DATEADD(DAY, 10, getdatE()),
+        LastModifiedDate = DATEADD(DAY, 10, getdatE()),
+        RecordDate = DATEADD(DAY, 10, getdatE()),
+        SharesDependentChangeDate = DATEADD(DAY, 10, getdatE()),
+        VoteDeadlineDate = DATEADD(DAY, 10, getdatE())
+        WHERE MeetingID IN (` + meetingId + `)`)
+})
+
 Cypress.Commands.add('RemoveCriteriaIfExists', (id, removeId) => {
   cy.get('body').then(($body) => {
     if ($body.find(id).length > 0) {
