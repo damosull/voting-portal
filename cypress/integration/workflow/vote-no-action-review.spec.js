@@ -1,4 +1,5 @@
 //Test scenario 37790 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37790
+//Test scenario 40741 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40741
 
 import { messages, API } from '../../support/constants';
 const pastDays = 10;
@@ -32,6 +33,7 @@ describe('Workflow', () => {
 
   it('Vote, Take No Action and Review Required', () => {
     cy.log('Test scenario 37790 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37790');
+    cy.log('Test scenario 40741 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40741');
 
     // Wait for initial page to load
     cy.wait('@WorkflowExpansion');
@@ -111,6 +113,8 @@ describe('Workflow', () => {
     cy.wait('@GetFilings');
     cy.wait('@VoteTally');
 
+    cy.contains('Vote success');
+
     // Step 7 - Verify Vote Tally gets updated
     // Compare the total shown previously in Not Voted with the total shown in Total Voted
     cy.get('@totalNotVoted').then((vote) => {
@@ -140,6 +144,8 @@ describe('Workflow', () => {
     cy.wait('@GetFilings');
     cy.wait('@VoteTally');
 
+    cy.contains('Vote success');
+
     // Step 9 - Assert Vote tally changes to TNA
     cy.get('@totalNotVoted').then((vote) => {
       cy.contains(`TNA (${vote})`);
@@ -163,6 +169,8 @@ describe('Workflow', () => {
     cy.wait('@WFResearch');
     cy.wait('@GetFilings');
     cy.wait('@VoteTally');
+
+    cy.contains('Instructed successfully');
 
     // Step 11 - Verify Vote Tally gets updated
     cy.get('@totalNotVoted').then((vote) => {
