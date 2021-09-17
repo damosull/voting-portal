@@ -37,14 +37,24 @@ Cypress.Commands.add('RemoveAnyExistingSubscriptions', () => {
 });
 
 Cypress.Commands.add('SetPaginationAndVerify', (numItemsPerPage, num) => {
-  cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').invoke('attr', 'style', 'display: block');
-  cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').select(numItemsPerPage, { timeout: 50000 })
-  cy.get('#md-ballots-grid-results').find('tr').its('length').should('eq', num)
-  cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').find(':selected').should('have.text', numItemsPerPage)
+  cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').invoke(
+    'attr',
+    'style',
+    'display: block'
+  );
+  cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').select(
+    numItemsPerPage,
+    { timeout: 50000 }
+  );
+  cy.get('#md-ballots-grid-results').find('tr').its('length').should('eq', num);
+  cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select')
+    .find(':selected')
+    .should('have.text', numItemsPerPage);
 });
 
 Cypress.Commands.add('AddTenDaysToMeetingDates', (meetingId) => {
-  cy.executeUpdateQuery(`UPDATE PX_Meeting SET
+  cy.executeUpdateQuery(
+    `UPDATE PX_Meeting SET
         MeetingDate = DATEADD(DAY, 10, getdatE()),
         FileProcessingDate = DATEADD(DAY, -1, getdatE()),
         HoldReconciliationDate = DATEADD(DAY, 10, getdatE()),
@@ -52,8 +62,11 @@ Cypress.Commands.add('AddTenDaysToMeetingDates', (meetingId) => {
         RecordDate = DATEADD(DAY, 10, getdatE()),
         SharesDependentChangeDate = DATEADD(DAY, 10, getdatE()),
         VoteDeadlineDate = DATEADD(DAY, 10, getdatE())
-        WHERE MeetingID IN (` + meetingId + `)`)
-})
+        WHERE MeetingID IN (` +
+      meetingId +
+      `)`
+  );
+});
 
 Cypress.Commands.add('RemoveCriteriaIfExists', (id, removeId) => {
   cy.get('body').then(($body) => {
@@ -111,7 +124,10 @@ Cypress.Commands.add('loginExtAdm', (user) => {
   const PASSWORD = 'Test12345%';
   switch (user) {
     case 'Internal':
-      username = USER.INTERNAL;
+      username = USER.AUTOMATIONINTERNAL;
+      break;
+    case 'External':
+      username = USER.AUTOMATIONEXTERNAL;
       break;
     case 'Wellington':
       username = USER.WELLINGTON;
@@ -228,13 +244,13 @@ Cypress.Commands.add('loginInternalAdm', (user) => {
 
 Cypress.Commands.add('checkIfExists', (ele) => {
   return new Promise((resolve, reject) => {
-    /// here if  ele exists or not
+    // here if  ele exists or not
     cy.get('body')
       .find(ele)
       .its('length')
       .then((res) => {
         if (res > 0) {
-          //// do task that you want to perform
+          // do task that you want to perform
           cy.get(ele).check();
           resolve();
         } else {
@@ -279,11 +295,16 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
     });
 });
 
-Cypress.Commands.add('GetAutomationUserIDFromDB', () => {
-  cy.executeQuery(`SELECT[UserID] FROM[GLP].[dbo].[UM_User] where LoginID = 'CalpersAutomation@glasslewis.com'`).then(
+Cypress.Commands.add('GetAutomationUserIDFromDB', (user) => {
+  cy.executeQuery(`SELECT[UserID] FROM[GLP].[dbo].[UM_User] where LoginID = '${user}'`).then((result) => {
+    return result;
+  });
+});
+
+Cypress.Commands.add('GetAutomationUsernameFromDB', (user) => {
+  cy.executeQuery(`SELECT UserFirstName + ' ' + UserLastName FROM[GLP].[dbo].[UM_User] where LoginID = '${user}'`).then(
     (result) => {
-      const usrid = cy.wrap(result);
-      return usrid;
+      return result;
     }
   );
 });
@@ -297,15 +318,6 @@ Cypress.Commands.add('logout', () => {
 
   cy.wait('@RemoveDraft');
   cy.wait('@LoggedOut');
-});
-
-Cypress.Commands.add('removeDraft', () => {
-  cy.request({
-    method: 'DELETE',
-    url: '/Home/RemoveDraftFilter/',
-  }).then((resp) => {
-    console.log('resp => ' + JSON.stringify(resp.body));
-  });
 });
 
 Cypress.Commands.add('saveFilter', (filterName) => {

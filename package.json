@@ -23,5 +23,8 @@
   },
   "author": "",
   "license": "ISC",
-  "keywords": []
+  "keywords": [],
+  "dependencies": {
+    "moment": "^2.29.1"
+  }
 }

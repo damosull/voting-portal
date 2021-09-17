@@ -3,7 +3,7 @@ describe('verify workflow page elements (TestCase - 28351)', function () {
     cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
 
-    cy.loginInternalAdm(USER.AUTOMATIONINTERNAL);
+    cy.loginInternalAdm('AutomationInternal');
     cy.visit('/Workflow');
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
