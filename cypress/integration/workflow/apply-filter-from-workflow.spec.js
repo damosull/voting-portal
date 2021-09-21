@@ -1,7 +1,6 @@
 //Test Case 40729 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40729
 
 import { API } from '../../support/constants';
-const api = API;
 
 const data = {
   company: 'SK Innovation',
@@ -10,19 +9,19 @@ const data = {
 
 describe('US39254 - ', () => {
   beforeEach(() => {
-    cy.intercept('POST', api.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
-    cy.intercept('POST', api.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', api.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
-    cy.intercept('POST', api.POST.GET_AGENDA).as('GetAgenda');
-    cy.intercept('POST', api.POST.VOTE_TALLY).as('VoteTally');
-    cy.intercept('POST', api.POST.GET_STATUS).as('GetStatus');
-    cy.intercept('GET', api.GET.GET_MEETING_ID).as('GetMeetingID');
-    cy.intercept('GET', api.GET.RELATED_MEETINGS).as('RelatedMeetings');
-    cy.intercept('GET', api.GET.PAGE_SECTION_ORDER).as('PageSectionOrder');
-    cy.intercept('GET', api.GET.MEETING_SECURITY_WATCHLIST).as('MeetingSecurityWatchlist');
-    cy.intercept('GET', api.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
-    cy.intercept('GET', api.GET.FILTER_CRITERIA_FOR_FIELDS).as('FilterCriteriaFields');
-    cy.intercept('GET', '**/Api/Data//ListService/PolicyID?CustomerID=**').as('ListService');
+    cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
+    cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
+    cy.intercept('POST', API.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
+    cy.intercept('POST', API.POST.GET_AGENDA).as('GetAgenda');
+    cy.intercept('POST', API.POST.VOTE_TALLY).as('VoteTally');
+    cy.intercept('POST', API.POST.GET_STATUS).as('GetStatus');
+    cy.intercept('GET', API.GET.GET_MEETING_ID).as('GetMeetingID');
+    cy.intercept('GET', API.GET.RELATED_MEETINGS).as('RelatedMeetings');
+    cy.intercept('GET', API.GET.PAGE_SECTION_ORDER).as('PageSectionOrder');
+    cy.intercept('GET', API.GET.MEETING_SECURITY_WATCHLIST).as('MeetingSecurityWatchlist');
+    cy.intercept('GET', API.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
+    cy.intercept('GET', API.GET.FILTER_CRITERIA_FOR_FIELDS).as('FilterCriteriaFields');
+    cy.intercept('GET', API.GET.LIST_SERVICE).as('ListService');
 
     cy.loginExtAdm('Wellington');
     cy.visit('/').url().should('include', '/Workflow');
@@ -58,6 +57,8 @@ describe('US39254 - ', () => {
       cy.get('table > tbody > tr > td:nth-child(4)').each(($list, index) => {
         if ($list.text() == policy) {
           cy.get('table > tbody > tr > td:nth-child(5)').eq(index).find('a').click({ force: true });
+
+          return false;
         }
       });
 
@@ -97,9 +98,21 @@ describe('US39254 - ', () => {
 
       cy.get('#configure-columns-modal > button.secondary.gray').eq(1).click();
 
-      // Step 9 - User adds Policy ID to the grid
-      cy.get('#md-ballots-grid-results > tr > td:nth-child(9)').each(($ballot) => {
-        expect(policy).to.eq($ballot.text().trim());
+      // Check which position the column "Policy ID" is and wrapped into the object index
+      cy.get('#ballots-grid > div > div > table > thead > tr > th').each(($headers, index) => {
+        if ($headers.text().trim() == 'Policy ID') {
+          cy.wrap(index).as('index');
+
+          // Ends the loop when the column is found
+          return false;
+        }
+      });
+
+      // Check that the "Policy ID" column will display the expected value
+      cy.get('@index').then((pos) => {
+        cy.get(`#md-ballots-grid-results > tr > td:nth-child(${pos + 1})`).each(($ballot) => {
+          expect(policy).to.eq($ballot.text().trim());
+        });
       });
     });
   });

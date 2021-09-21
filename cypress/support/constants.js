@@ -88,6 +88,7 @@ export const API = {
     BALLOT_ACTIVITY_LOG: '**/Api/Data/BallotActivityLog/?BallotID=**',
     FILTER_CRITERIA_FOR_FIELDS:
       '**/Api/WebUI//WorkflowFilterCriteriaEditors/ForField?fields=**&objectType=WorkflowExpansion&customerId=**&_=**',
+    LIST_SERVICE: '**/Api/Data//ListService/PolicyID?CustomerID=**',
   },
   PUT: {
     BALLOT_GRID_STATE: '**/Api/Data/BallotsGridState',
