@@ -63,7 +63,7 @@ describe('US39255 tests', function () {
 
         cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > span > span.k-input').then(function (val) {
             const numBallots = val.text()
-            expect(numBallots).to.equal('20')
+            expect(numBallots).to.equal('10')
         })
 
 

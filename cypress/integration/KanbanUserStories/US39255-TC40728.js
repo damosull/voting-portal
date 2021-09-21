@@ -23,7 +23,8 @@ describe('US28436 - Test 6', () => {
     cy.intercept('PUT', api.PUT.BALLOT_GRID_STATE).as('BallotsGridState');
 
     cy.loginExtAdm('Neuberger');
-    cy.visit('/').url().should('include', '/Workflow');
+    cy.visit('/Workflow');
+    cy.wait('@WorkflowSecuritiesWatchlists');
   });
 
   it('Verify ballot section display the correct results when filter is applied', () => {
