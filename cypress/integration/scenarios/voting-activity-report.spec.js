@@ -160,7 +160,5 @@ describe('Report', () => {
       cy.log('Please select a .xlsx file type to verify the content.');
     }
 
-    // Run the task to delete the folder "Download"
-    cy.exec('npm run cy:clean');
   });
 });
