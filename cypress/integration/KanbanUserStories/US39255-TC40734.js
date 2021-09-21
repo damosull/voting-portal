@@ -7,13 +7,9 @@ describe('US39255 tests', function () {
         cy.viewport(1100, 900);
         cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
         cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-        cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
         cy.intercept('POST', '**/Api/Data//MdData/GetAgenda').as('getagenda')
-        cy.intercept('GET', '**/Api/Data/WorkflowResearchInfo/**').as('info')
-        cy.intercept('GET', '**/Api/Data/MeetingDetails/GetFilters**').as('getfilters')
-        cy.intercept('POST', '**/Api/Data/MeetingDetailsActivity/').as('activity')
-        cy.intercept('GET', '**/Api/Data/Inbox/**').as('inbox')
-        cy.intercept('POST', '**/Api/Data/VoteTally').as('votetally')
+        cy.intercept('GET', '**/Api/Data/**').as('GetData')
+        cy.intercept('POST', '**/Api/Data/**').as('PostData')
 
         cy.loginExtAdm('Neuberger');
         cy.visit('/Workflow');
@@ -50,12 +46,11 @@ describe('US39255 tests', function () {
         //Step 6 - Select another 'Management' Vote card in the dropdown list[Eg: Management -934050915]
         //Expected - Vote Card page gets refreshed and 'Ballots' section gets updated with the 'Agenda Type' as 'Management' and 'Ballot Control Number' as different to that of previous 'Management' number
         cy.get('#agendas-list > ul > li > ul > li:nth-child(3) > a > span').click()
+        //wait required - VP very slow to respond on this
+        cy.wait(5000)
         cy.wait('@getagenda')
-        cy.wait('@info')
-        cy.wait('@getfilters')
-        cy.wait('@activity')
-        cy.wait('@inbox')
-        cy.wait('@votetally')
+        cy.wait('@GetData')
+        cy.wait('@PostData')
 
         cy.get('#agendas-list > ul > li > ul > li > div > span').then(function (val) {
             const agenda = val.text()
@@ -69,12 +64,11 @@ describe('US39255 tests', function () {
         //verify all agendas can can be listed
         cy.get('#agendas-list > ul > li').invoke('attr', 'class', 'dropdown related-meetings-list open')
         cy.get('#agendas-list > ul > li > ul > li:nth-child(4) > a > span').click()
+        //wait required - VP very slow to respond on this
+        cy.wait(5000)
         cy.wait('@getagenda')
-        cy.wait('@info')
-        cy.wait('@getfilters')
-        cy.wait('@activity')
-        cy.wait('@inbox')
-        cy.wait('@votetally')
+        cy.wait('@GetData')
+        cy.wait('@PostData')
 
 
         cy.get('#agendas-list > ul > li > ul > li > div > span').then(function (val) {
