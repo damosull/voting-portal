@@ -1,31 +1,30 @@
 //Test scenario 40744 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40744
 
 const moment = require('moment');
-const { MEETINGID, API, USER } = require('../../support/constants');
-const api = API;
+import { MEETINGID, API, USER } from '../../support/constants';
 const selector = '#ballotActivityLogGrid > div > table > tbody > tr:nth-child(1) > td';
 const statusToChange = 'Received';
 const glassAPI = 'https://aqua-issuer-vote-confirmation-api.azurewebsites.net/api/Ballot/';
 
-describe('Workflow', () => {
+describe('US26145', () => {
   beforeEach(() => {
-    cy.intercept('POST', api.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
-    cy.intercept('POST', api.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', api.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
-    cy.intercept('POST', api.POST.GET_AGENDA).as('GetAgenda');
-    cy.intercept('POST', api.POST.VOTE_TALLY).as('VoteTally');
-    cy.intercept('POST', api.POST.MEETING_DETAILS).as('MeetingDetails');
-    cy.intercept('GET', api.GET.GET_MEETING_ID).as('GetMeetingID');
-    cy.intercept('GET', api.GET.RELATED_MEETINGS).as('RelatedMeetings');
-    cy.intercept('GET', api.GET.PAGE_SECTION_ORDER).as('PageSectionOrder');
-    cy.intercept('GET', api.GET.MEETING_SECURITY_WATCHLIST).as('MeetingSecurityWatchlist');
-    cy.intercept('GET', api.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
-    cy.intercept('GET', api.GET.BALLOT_ACTIVITY_LOG).as('BallotActivity');
+    cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
+    cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
+    cy.intercept('POST', API.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
+    cy.intercept('POST', API.POST.GET_AGENDA).as('GetAgenda');
+    cy.intercept('POST', API.POST.VOTE_TALLY).as('VoteTally');
+    cy.intercept('POST', API.POST.MEETING_DETAILS).as('MeetingDetails');
+    cy.intercept('GET', API.GET.GET_MEETING_ID).as('GetMeetingID');
+    cy.intercept('GET', API.GET.RELATED_MEETINGS).as('RelatedMeetings');
+    cy.intercept('GET', API.GET.PAGE_SECTION_ORDER).as('PageSectionOrder');
+    cy.intercept('GET', API.GET.MEETING_SECURITY_WATCHLIST).as('MeetingSecurityWatchlist');
+    cy.intercept('GET', API.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
+    cy.intercept('GET', API.GET.BALLOT_ACTIVITY_LOG).as('BallotActivity');
     cy.loginExtAdm('Wellington');
     cy.visit('/').url().should('include', '/Workflow');
   });
 
-  it('Vote on GLASS', () => {
+  it('TC40744 - Vote on GLASS', () => {
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
     cy.wait('@AvailableAssigneesForCustomer');

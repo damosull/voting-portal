@@ -430,7 +430,7 @@ Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
     cy.get('#report-criteria-controls > div > div > h4').click({ force: true });
   }
 
-  cy.get('.editor-modal').invoke('attr', 'style', 'display: block');
+  cy.get('.editor-modal').invoke('attr', 'style', 'display: block', { timeout: 1000 });
 
   statusToSearch.forEach((value) => {
     cy.get('.editor-modal > input').clear({ force: true }).type(value);

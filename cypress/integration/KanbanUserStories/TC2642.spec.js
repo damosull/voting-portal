@@ -1,26 +1,25 @@
 //Test Case 2642 - https://dev.azure.com/glasslewis/Development/_workitems/edit/2642
 
 import { API } from '../../support/constants';
-const api = API;
 var arrAPIPolicy = [];
 var arrUIPolicy = [];
 
 describe('US28436 - Test 6', () => {
   beforeEach(() => {
-    cy.intercept('POST', api.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
-    cy.intercept('POST', api.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', api.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
-    cy.intercept('POST', api.POST.GET_AGENDA).as('GetAgenda');
-    cy.intercept('POST', api.POST.VOTE_TALLY).as('VoteTally');
-    cy.intercept('POST', api.POST.MEETING_DETAILS).as('MeetingDetails');
-    cy.intercept('GET', api.GET.GET_MEETING_ID).as('GetMeetingID');
-    cy.intercept('GET', api.GET.RELATED_MEETINGS).as('RelatedMeetings');
-    cy.intercept('GET', api.GET.PAGE_SECTION_ORDER).as('PageSectionOrder');
-    cy.intercept('GET', api.GET.MEETING_SECURITY_WATCHLIST).as('MeetingSecurityWatchlist');
-    cy.intercept('GET', api.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
-    cy.intercept('GET', api.GET.GET_FILINGS).as('GetFilings');
-    cy.intercept('GET', api.GET.WORKFLOW_RESEARCH_INFO).as('WFResearch');
-    cy.intercept('PUT', api.PUT.BALLOT_GRID_STATE).as('BallotsGridState');
+    cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
+    cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
+    cy.intercept('POST', API.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
+    cy.intercept('POST', API.POST.GET_AGENDA).as('GetAgenda');
+    cy.intercept('POST', API.POST.VOTE_TALLY).as('VoteTally');
+    cy.intercept('POST', API.POST.MEETING_DETAILS).as('MeetingDetails');
+    cy.intercept('GET', API.GET.GET_MEETING_ID).as('GetMeetingID');
+    cy.intercept('GET', API.GET.RELATED_MEETINGS).as('RelatedMeetings');
+    cy.intercept('GET', API.GET.PAGE_SECTION_ORDER).as('PageSectionOrder');
+    cy.intercept('GET', API.GET.MEETING_SECURITY_WATCHLIST).as('MeetingSecurityWatchlist');
+    cy.intercept('GET', API.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
+    cy.intercept('GET', API.GET.GET_FILINGS).as('GetFilings');
+    cy.intercept('GET', API.GET.WORKFLOW_RESEARCH_INFO).as('WFResearch');
+    cy.intercept('PUT', API.PUT.BALLOT_GRID_STATE).as('BallotsGridState');
 
     cy.loginExtAdm('Neuberger');
     cy.visit('/').url().should('include', '/Workflow');

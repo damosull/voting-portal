@@ -17,10 +17,11 @@ describe('Report', () => {
     'Proposal Statistics Report',
     'Proposal Category Report',
     'Proposal Type Report',
-    'Test - Header'
+    'Test - Header',
   ];
 
   before(() => {
+    cy.viewport(1100, 900);
     cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
     cy.intercept('GET', '**/Api/Data/AVA/?PageInfo%5BIgnorePagesize%5D=true&ReportType=AVA&_=**').as('AVAReport');
     cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
@@ -35,7 +36,7 @@ describe('Report', () => {
   it(`- Voting Activity ${upperFileExt}`, () => {
     cy.log('Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939');
 
-    cy.wait('@BallotRecon')
+    cy.wait('@BallotRecon');
 
     // step 2 (these are the steps referenced in the test case)
     cy.selectReportType('Voting Activity');
@@ -147,20 +148,15 @@ describe('Report', () => {
     // Delete the report. Moved this block to occur before the XLSX parsing since the download of the file already happened
     cy.deleteMyConfiguration(configName);
 
-
     // Parsing happens only if it's xlsx. It's using a custom library called node-xlsx
     if (fileExtension == 'xlsx') {
       cy.parseXlsx(`cypress/downloads/${configName}.xlsx`).then((xlxsData) => {
         reportColumns.forEach((fields) => {
           expect(JSON.stringify(xlxsData)).to.include(fields);
         });
-
       });
     } else {
       cy.log('Please select a .xlsx file type to verify the content.');
     }
-
-    // Run the task to delete the folder "Download"
-    cy.exec('npm run cy:clean');
   });
 });
