@@ -33,7 +33,7 @@ describe('Report', () => {
     cy.visit('/Reporting').url().should('include', 'Reporting');
   });
 
-  it(`- Voting Activity ${upperFileExt}`, () => {
+  it.only(`- Voting Activity ${upperFileExt}`, () => {
     cy.log('Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939');
 
     cy.wait('@BallotRecon');
