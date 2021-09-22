@@ -19,7 +19,7 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
       '**/Api/Data/BallotVoteData/?PageInfo%5BIgnorePagesize%5D=true&ReportType=BallotVoteData&_=**'
     ).as('BallotVote');
     cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotVoteData').as('BallotCriteria');
-    cy.intercept('POST', '**/Api/Data/BallotVoteData/Add').as('Add')
+    cy.intercept('POST', '**/Api/Data/BallotVoteData/Add').as('Add');
 
     // Step 1 - Login to viewpoint as External user
     cy.loginExtAdm('Calpers');
@@ -39,7 +39,7 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
     cy.get('#popupTextContainer').should('be.visible').type(configName);
     cy.get('#apprise-btn-undefined').should('be.visible');
     cy.get('#apprise-btn-confirm').click();
-    cy.wait('@Add')
+    cy.wait('@Add');
     cy.contains('My configurations').siblings().find('span').should('contain', configName);
 
     // Step 4 Add Subscription

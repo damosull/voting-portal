@@ -70,7 +70,7 @@ describe('Report', () => {
     // step 5 - Select past days
     cy.get('#date-range-target-MeetingDate').invoke('attr', 'style', 'display: block');
     cy.get('.k-formatted-value').invoke('attr', 'style', 'display: block').clear();
-    cy.get('.k-formatted-value').invoke('attr', 'style', 'display: block').type(pastDays);
+    cy.get('.k-formatted-value').invoke('attr', 'style', 'display: block').fill(pastDays);
     cy.contains('Update').click();
     cy.get('.MeetingDateEditor').contains(`Past ${pastDays} Days`);
 
@@ -90,7 +90,7 @@ describe('Report', () => {
     cy.get('.toast-message').should('contain.text', toast.REPORT_SAVED);
     cy.contains('My configurations').siblings().find('span').should('contain', configName);
 
-    // // Download and verify
+    // Download and verify
     cy.contains('Download').click();
     cy.get('.toast-message').should('contain.text', toast.DOWNLOAD_STARTED);
     cy.get('.notify-count').click();

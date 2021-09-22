@@ -5,16 +5,14 @@ let today = new Date().toISOString().slice(0, 10);
 
 describe('Create Manage Filters Subscription entry and validate in FL_Subscription Database table', function () {
   beforeEach(function () {
-
     cy.intercept('GET', '**/Api/Data/Inbox/**').as('InboxReport');
     cy.intercept('GET', '**/Api/Data/IdentitySearch/**').as('IdentitySearch');
     cy.intercept('GET', '**/Api/WebUI/Subscriptions/**').as('Subscriptions');
-    cy.intercept('POST', '**/api/Logger/').as('Logger')
-    cy.intercept('POST', '**/Api/Data/Subscription/').as('Data')
-    cy.intercept('GET', '**/Api/Data/CurrentUser/**').as('CurrentUser')
-    cy.intercept('GET', '**/Api/Data/FiltersDirectories**').as('Directories')
-    cy.intercept('GET', '**/Api/Data/**').as('Data')
-
+    cy.intercept('POST', '**/api/Logger/').as('Logger');
+    cy.intercept('POST', '**/Api/Data/Subscription/').as('Data');
+    cy.intercept('GET', '**/Api/Data/CurrentUser/**').as('CurrentUser');
+    cy.intercept('GET', '**/Api/Data/FiltersDirectories**').as('Directories');
+    cy.intercept('GET', '**/Api/Data/**').as('Data');
 
     // Step 1 - Login to viewpoint as External user
     cy.loginExtAdm('Calpers');
@@ -27,21 +25,23 @@ describe('Create Manage Filters Subscription entry and validate in FL_Subscripti
     // Step 3 - Select Manage Filters link
     cy.get('#btn-manage-filters').click();
     cy.get('#filter-name-edit').should('have.text', 'Upcoming Meetings');
-    cy.wait('@CurrentUser')
-    cy.wait('@Directories')
-    cy.wait('@InboxReport')
-    cy.wait('@Data')
+    cy.wait('@CurrentUser');
+    cy.wait('@Directories');
+    cy.wait('@InboxReport');
+    cy.wait('@Data');
 
     cy.get('body').then(($body) => {
       /* if ($body.find('#current-subscribers-list > tbody > tr > td > i[class="fa fa-times"]').length > 0) {
         cy.get('#current-subscribers-list > tbody > tr > td > i[class="fa fa-times"]').click(); */
       if ($body.find('[class="fa fa-times"]').length > 0) {
-        debugger
+        debugger;
         const len = $body.find('[class="fa fa-times"]').length;
 
         for (let i = len; i >= 0; i--) {
           if (i > 0) {
-            cy.get('[class="fa fa-times"]').eq(i - 1).click({ force: true });
+            cy.get('[class="fa fa-times"]')
+              .eq(i - 1)
+              .click({ force: true });
             cy.get('#apprise-btn-confirm').click();
           }
         }
@@ -67,8 +67,8 @@ describe('Create Manage Filters Subscription entry and validate in FL_Subscripti
 
     //Step 7 - Click OK
     cy.get('#ok').click();
-    cy.wait('@Logger')
-    cy.wait('@Data')
+    cy.wait('@Logger');
+    cy.wait('@Data');
 
     //Step 8 - Verify Toast message - Subscription added
     cy.get('.toast-message').should('contain.text', toast.SUBSCRIPTION_ADDED);
@@ -91,8 +91,8 @@ describe('Create Manage Filters Subscription entry and validate in FL_Subscripti
       expect(cols[14]).to.include(today); //Created date
       expect(cols[16]).to.include(today); //Last Modified date
       cy.get('@userid').then(function (uid) {
-        assert.equal(cols[13], uid);          //Created By
-      })
+        assert.equal(cols[13], uid); //Created By
+      });
 
       expect(cols).to.have.length(19); //Total Fields
     });

@@ -10,7 +10,7 @@ describe('Generate Policy report,download and verify file headers', function () 
     cy.intercept('GET', '**/Api/Data/Policy/**').as('policy');
     cy.intercept('GET', '**/Api/Data/Policy/GetById/**').as('getPolicy');
     cy.intercept('DELETE', '**/Api/Data/Policy/**').as('remove');
-    cy.intercept('POST', '**/Api/Data/Policy/Add').as('fileAdd')
+    cy.intercept('POST', '**/Api/Data/Policy/Add').as('fileAdd');
     cy.loginExtAdm('Calpers');
     cy.visit('/Reporting');
   });
@@ -56,12 +56,13 @@ describe('Generate Policy report,download and verify file headers', function () 
     cy.get('#apprise-btn-confirm').click({ force: true });
     cy.wait('@FileUpdate');
     cy.wait('@fileAdd');
-    cy.get('.scrollableContainer > ul  >li').first()
+    cy.get('.scrollableContainer > ul  >li')
+      .first()
       .find('span[data-bind="text: Name"]')
       .then(($name) => {
         const fname = $name.text();
-        cy.log(fname)
-        cy.log(filename)
+        cy.log(fname);
+        cy.log(filename);
         expect(fname.includes(filename)).to.be.true;
       });
 

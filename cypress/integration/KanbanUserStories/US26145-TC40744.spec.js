@@ -5,6 +5,7 @@ import { MEETINGID, API, USER } from '../../support/constants';
 const selector = '#ballotActivityLogGrid > div > table > tbody > tr:nth-child(1) > td';
 const statusToChange = 'Received';
 const glassAPI = 'https://aqua-issuer-vote-confirmation-api.azurewebsites.net/api/Ballot/';
+let userDetails, jwtToken;
 
 describe('US26145', () => {
   beforeEach(() => {
@@ -37,50 +38,81 @@ describe('US26145', () => {
     cy.GetAutomationUsernameFromDB(USER.WELLINGTON).as('fullname');
 
     // Mimic the API calls done on GLASS to change the meeting to the correct status
-    cy.get('@userid').then((uid) => {
-      cy.request({
-        method: 'POST',
-        url: `${glassAPI}/GetByControllerNumbers`,
-        body: [MEETINGID.WLNCVTD_CTRLNUM],
-      }).then((resp) => {
-        expect(resp.status).to.eq(200);
-        const lastModDate = resp.body[0].lastModifiedDate;
-        const custName = resp.body[0].customerName;
-        const compName = resp.body[0].companyName;
-
-        cy.request({
-          method: 'PATCH',
-          url: `${glassAPI}/StatusReason`,
-          body: [
-            {
-              controlNumber: MEETINGID.WLNCVTD_CTRLNUM,
-              status: statusToChange,
-              lastModifiedBy: uid,
-              lastModifiedDate: lastModDate,
-              reason: '',
-              customerName: custName,
-              companyName: compName,
-              found: true,
-              canCurrentStatusBeChanged: true,
-            },
-          ],
-        }).then((resp) => {
-          expect(resp.status).to.eq(204);
-        });
-      });
-    });
-
+    // Added the authentication as an attempt to fix the 403 error, that happens only when the script in run in the CI.
     cy.request({
       method: 'POST',
-      url: `${glassAPI}/GetByControllerNumbers`,
-      body: [MEETINGID.WLNCVTD_CTRLNUM],
+      url: `https://ip-glass.aqua.glasslewis.net/api/auth`,
+      body: {
+        username: USER.WELLINGTON,
+        password: 'Test12345%',
+      },
     }).then((resp) => {
       expect(resp.status).to.eq(200);
-      const originalDate = resp.body[0].lastModifiedDate;
-      // Convert the date to the Offset and format that Viewpoint shows in the UI
-      const formattedDate = moment(originalDate).utcOffset('+0900').format('MM/DD/YYYY HH:mm:ss');
 
-      cy.wrap(formattedDate).as('lastModifiedDate');
+      userDetails = {
+        id: resp.body.userId,
+        firstName: resp.body.userFirstName,
+        lastName: resp.body.userLastName,
+        loginId: USER.WELLINGTON,
+      };
+
+      jwtToken = resp.body.jwtToken;
+      cy.wrap(jwtToken).as('jwtToken');
+    });
+
+    cy.get('@jwtToken').then((token) => {
+      cy.get('@userid').then((uid) => {
+        cy.request({
+          method: 'POST',
+          url: `${glassAPI}/GetByControllerNumbers`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: [MEETINGID.WLNCVTD_CTRLNUM],
+        }).then((resp) => {
+          expect(resp.status).to.eq(200);
+          const lastModDate = resp.body[0].lastModifiedDate;
+          const custName = resp.body[0].customerName;
+          const compName = resp.body[0].companyName;
+
+          cy.request({
+            method: 'PATCH',
+            url: `${glassAPI}/StatusReason`,
+            body: [
+              {
+                controlNumber: MEETINGID.WLNCVTD_CTRLNUM,
+                status: statusToChange,
+                lastModifiedBy: uid,
+                lastModifiedDate: lastModDate,
+                reason: '',
+                customerName: custName,
+                companyName: compName,
+                found: true,
+                canCurrentStatusBeChanged: true,
+              },
+            ],
+          }).then((resp) => {
+            expect(resp.status).to.eq(204);
+
+            // This request has to be inside the "then" promise, otherwise it could run asyncronous and get the formattedDate before the actual update
+            cy.request({
+              method: 'POST',
+              url: `${glassAPI}/GetByControllerNumbers`,
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: [MEETINGID.WLNCVTD_CTRLNUM],
+            }).then((resp) => {
+              expect(resp.status).to.eq(200);
+              const originalDate = resp.body[0].lastModifiedDate;
+              // Convert the date to the offset and format that Viewpoint shows in the UI
+              const formattedDate = moment(originalDate).utcOffset('+0900').format('MM/DD/YYYY HH:mm:ss');
+
+              cy.wrap(formattedDate).as('lastModifiedDate');
+            });
+          });
+        });
+      });
     });
 
     cy.visit(`/MeetingDetails/Index/${MEETINGID.WLNCVTD}`);
@@ -93,9 +125,7 @@ describe('US26145', () => {
     cy.wait('@AssignedMeetingID');
     cy.wait('@VoteTally');
 
-    cy.get('#ballots-grid > div:nth-child(2) > table > tbody > tr > td:nth-child(1)')
-      .contains(MEETINGID.WLNCVTD_CTRLNUM)
-      .click();
+    cy.get('#ballots-grid div:nth-child(2) td:nth-child(1)').contains(MEETINGID.WLNCVTD_CTRLNUM).click();
 
     cy.wait('@BallotActivity');
     cy.get('#ballot-activitylog-modal').should('be.visible');

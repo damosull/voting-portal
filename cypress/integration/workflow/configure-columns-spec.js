@@ -20,7 +20,7 @@ describe('Configure columns', function () {
     cy.get('#btn-workflow-config-columns').click();
 
     esgColumns.forEach((column) => {
-      cy.get('#txt-filter-col-name').type(column);
+      cy.get('#txt-filter-col-name').fill(column);
       cy.get(`input[value='${column}']`).check({ force: true });
       cy.get('#txt-filter-col-name').clear();
     });
@@ -45,7 +45,7 @@ describe('Configure columns', function () {
     cy.get('#btn-workflow-config-columns').click();
 
     esgColumns.forEach((column) => {
-      cy.get('#txt-filter-col-name').type(column);
+      cy.get('#txt-filter-col-name').fill(column);
       cy.get(`input[value='${column}']`).check({ force: true });
       cy.get('#txt-filter-col-name').clear();
     });

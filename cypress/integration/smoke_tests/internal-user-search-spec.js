@@ -2,17 +2,17 @@
 import { USER } from '../../support/constants';
 
 describe('Internal user', function () {
-  sessionStorage.clear()
+  sessionStorage.clear();
 
   it('Search for client', function () {
-    cy.visit("/");
+    cy.visit('/');
 
-    var username = USER.AUTOMATIONINTERNAL
-    var userpwd = "Test12345%"
-    cy.get("input#username").type(username).should('have.value', username);
+    var username = USER.AUTOMATIONINTERNAL;
+    var userpwd = 'Test12345%';
+    cy.get('input#username').type(username).should('have.value', username);
 
-    cy.get("input#password").type(userpwd);
-    cy.get("#btn-submit-login").click();
+    cy.get('input#password').type(userpwd);
+    cy.get('#btn-submit-login').click();
 
     //Assert:
     //1. Verify if it lands in the Workflow page
@@ -21,17 +21,19 @@ describe('Internal user', function () {
     //2. Verify if session exists
     cy.getCookie('DEV-session').should('exist');
 
-    cy.server()
+    cy.server();
     cy.route('POST', '/Api/Data/WorkflowExpansion').as('post');
 
     // Search for customer
     //'California Public Employee Retirement System (CalPERS)'
-    cy.get('.customerName-Search .k-input').type("CAL", { force: true });
+    cy.get('.customerName-Search .k-input').type('CAL', { force: true });
     cy.get('#kendoCustomers-list .k-item').first().click({ force: true });
 
     // check all meetings in response have CalPERS customer id
-    cy.wait('@post').its('response.body.items').each((item) => {
-      expect(item.Summaries.CustomerID.Value).to.equal(196);
-    });
+    cy.wait('@post')
+      .its('response.body.items')
+      .each((item) => {
+        expect(item.Summaries.CustomerID.Value).to.equal(196);
+      });
   });
 });

@@ -1,28 +1,4 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This is will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... }
+import 'cypress-fill-command';
 import { messages } from '../support/constants';
 import { USER } from '../support/constants';
 
@@ -328,6 +304,10 @@ Cypress.Commands.add('saveFilter', (filterName) => {
 });
 
 Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
+  cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
+  cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists/').as('WorkflowSecuritiesWatchlists');
+  cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('GetAvailableAssigneesForCustomer');
+
   cy.get('body').then(($body) => {
     if ($body.find('[class="remove"]').length > 0) {
       const len = $body.find('[class="remove"]').length;
@@ -337,12 +317,20 @@ Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
             cy.get('[class="remove"]')
               .eq(i - 1)
               .click({ force: true });
+
+            cy.wait('@WorkflowExpansion');
+            cy.wait('@WorkflowSecuritiesWatchlists');
+            cy.wait('@GetAvailableAssigneesForCustomer');
           }
         }
       } else {
         for (let i = len - 1; i >= 0; i--) {
           if (i > 2) {
             cy.get('[class="remove"]').eq(i).click({ force: true });
+
+            cy.wait('@WorkflowExpansion');
+            cy.wait('@WorkflowSecuritiesWatchlists');
+            cy.wait('@GetAvailableAssigneesForCustomer');
           }
         }
       }
@@ -352,6 +340,15 @@ Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
 });
 
 Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
+  cy.intercept(
+    'GET',
+    '**/Api/WebUI//WorkflowFilterCriteriaEditors/ForField?fields=**&objectType=WorkflowExpansion&customerId=0&_=**'
+  ).as('WorkflowFilter');
+  cy.intercept('GET', '**//Api/WebUI/FilterCriteriaEditors/ForField?fields=**&objectType=**&customerId=0&_=**').as(
+    'ReportFilter'
+  );
+  cy.intercept('GET', '**/Api/Data//ListService/**?CustomerID=0').as('ListService');
+
   cy.get('#btn-add-criteria').click({ force: true });
   searchText.forEach((value) => {
     cy.then(() => {
@@ -372,11 +369,17 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
     cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').each((h4) => {
       expect(h4.text()).to.be.oneOf(searchText);
     });
+
+    cy.wait('@WorkflowFilter');
   } else {
     cy.get('#report-criteria-controls > div > div > h4').each((h4) => {
       expect(h4.text()).to.be.oneOf(searchText);
     });
+
+    cy.wait('@ReportFilter');
   }
+
+  cy.wait('@ListService');
 });
 
 Cypress.Commands.add('selectFirstMeeting', () => {
@@ -424,6 +427,10 @@ Cypress.Commands.add('deleteMyFilter', (filterToDelete) => {
 });
 
 Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
+  cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
+  cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists/').as('WorkflowSecuritiesWatchlists');
+  cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('GetAvailableAssigneesForCustomer');
+
   if (!isReporting) {
     cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').click({ force: true });
   } else {
@@ -437,6 +444,12 @@ Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
     cy.get('.editor-modal > div > div > label').contains(value).click({ force: true });
   });
   cy.get('.editor-modal > div > button').eq(0).click();
+
+  if (!isReporting) {
+    cy.wait('@WorkflowExpansion');
+    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@GetAvailableAssigneesForCustomer');
+  }
 });
 
 Cypress.Commands.add('assertFileProperties', (configName, fileExtension) => {
