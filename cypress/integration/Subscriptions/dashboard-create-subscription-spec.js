@@ -39,10 +39,10 @@ describe('Create Dashboard Subscription entry and validate in SB_Subscription Da
     cy.get('#subscriptions-container-modal-dyn_wnd_title').should('have.text', 'ADD SUBSCRIPTION');
 
     //Step 5 - Select 'Calpers External Admin' from Users list
-    cy.get('.k-multiselect-wrap.k-floatwrap').type('Cal{downarrow}{enter}');
+    cy.get('.k-multiselect-wrap.k-floatwrap').fill('Cal{downarrow}{enter}');
 
     //Step 6 - Enter Filename (DashboardTest)
-    cy.get('#subscribed-file-name').type('DashboardTest');
+    cy.get('#subscribed-file-name').fill('DashboardTest');
 
     //Step 7 - Enter Schedule to run Subscription
     //Daily,every 5 hours,9AM to 6PM
@@ -56,9 +56,9 @@ describe('Create Dashboard Subscription entry and validate in SB_Subscription Da
     cy.get('#end-time-hour').find(':selected').should('include.text', '6PM');
 
     //Step 8 - Enter Subject,header & footer
-    cy.get('#dashboard-scubscription-detail-subject').type('DashboardSubjectTest');
-    cy.get('#dashboard-scubscription-detail-header').type('TestHeader');
-    cy.get('#dashboard-scubscription-detail-footer').type('TestFooter');
+    cy.get('#dashboard-scubscription-detail-subject').fill('DashboardSubjectTest');
+    cy.get('#dashboard-scubscription-detail-header').fill('TestHeader');
+    cy.get('#dashboard-scubscription-detail-footer').fill('TestFooter');
 
     //Step 9 - Click OK
     cy.get('#ok').click();

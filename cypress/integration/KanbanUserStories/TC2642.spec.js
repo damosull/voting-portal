@@ -114,7 +114,7 @@ describe('US28436 - Test 6', () => {
               cy.get('#btn-mdballots-details-config-columns').click();
               cy.get('#ballots-configure-columns-target').invoke('attr', 'style', 'display: block');
 
-              cy.get('.company-name-search > input').last().type('Policy ID');
+              cy.get('.company-name-search > input').last().fill('Policy ID');
               cy.get('[data-js="md-ballots-section"]').find('#mytable > ul > li > div > input').check({ force: true });
               cy.get('#configure-columns-modal > button.secondary.blue').eq(1).click();
               cy.wait('@BallotsGridState');

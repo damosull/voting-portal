@@ -16,10 +16,10 @@ describe('Watchlist Assignment tests', function () {
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
 
-    cy.get('.customerName-Search .k-input').type('CAL', { force: true });
+    cy.get('.customerName-Search .k-input').fill('CAL', { force: true });
     cy.get('#kendoCustomers-list .k-item').first().click({ force: true });
     cy.get('#btn-workflow-config-columns').click();
-    cy.get('#txt-filter-col-name').type('System Watch List(s)');
+    cy.get('#txt-filter-col-name').fill('System Watch List(s)');
     cy.get('input[value="System Watch List(s)"]').check({ force: true });
     cy.get('#txt-filter-col-name').clear();
     cy.get('#btn-apply-configure-columns').click();
@@ -72,7 +72,7 @@ describe('Watchlist Assignment tests', function () {
     cy.wait('@WorkflowSecuritiesWatchlists');
 
     cy.get('#btn-workflow-config-columns').click();
-    cy.get('#txt-filter-col-name').type('System Watch List(s)');
+    cy.get('#txt-filter-col-name').fill('System Watch List(s)');
     cy.get('input[value="System Watch List(s)"]').check({ force: true });
     cy.get('#txt-filter-col-name').clear();
     cy.get('#btn-apply-configure-columns').click({ force: true });
@@ -118,7 +118,7 @@ describe('Watchlist Assignment tests', function () {
     cy.wait('@WorkflowSecuritiesWatchlists');
 
     cy.get('#btn-workflow-config-columns').click();
-    cy.get('#txt-filter-col-name').type('System Watch List(s)');
+    cy.get('#txt-filter-col-name').fill('System Watch List(s)');
     cy.get('input[value="System Watch List(s)"]').uncheck({ force: true });
     cy.get('#txt-filter-col-name').clear();
     cy.get('#btn-apply-configure-columns').click();

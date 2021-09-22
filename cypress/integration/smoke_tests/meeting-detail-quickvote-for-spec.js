@@ -15,7 +15,7 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.get(
       '#workflow-grid-kendo > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > span > span.k-input'
     )
-      .type('50')
+      .fill('50')
       .click({ force: true });
     cy.get('table > tbody > tr').then(($rows) => {
       $rows.each((index, value) => {

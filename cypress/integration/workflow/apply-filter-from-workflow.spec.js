@@ -88,7 +88,7 @@ describe('US39254 - ', () => {
         });
 
       // Step 8 - Verify that the user enter a character (e.g.: 'Custodian') in the responsive search of the "Columns" Modal
-      cy.get('.company-name-search > input').last().type('Custodian');
+      cy.get('.company-name-search > input').last().fill('Custodian');
 
       cy.get('[data-js="md-ballots-section"]')
         .find('#mytable > ul > li')

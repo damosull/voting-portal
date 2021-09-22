@@ -5,6 +5,7 @@
   "main": "index.js",
   "devDependencies": {
     "cypress": "^7.5.0",
+    "cypress-fill-command": "^1.0.2",
     "cypress-sql-server": "^1.0.0",
     "eslint": "^7.27.0",
     "eslint-plugin-cypress": "^2.11.3",

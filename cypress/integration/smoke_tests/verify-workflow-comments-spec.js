@@ -39,9 +39,10 @@ describe('Verify comments on the Workflow page', function () {
         ).clear({ force: true });
         cy.get(
           `tr:nth-child(${$idx + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
-        ).type('test', { force: true });
+        ).fill('test', { force: true });
         cy.get(
-          `tr:nth-child(${$idx + 1
+          `tr:nth-child(${
+            $idx + 1
           }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
         ).click({ force: true });
       }
@@ -59,7 +60,7 @@ describe('Verify comments on the Workflow page', function () {
     //Test Meeting note entry
     cy.get('#meeting-note').click();
     cy.get('#meeting-notes-input').clear();
-    cy.get('#meeting-notes-input').type('The quick brown fox jumps over a lazy dog - ~!@#$%^&*-_=+[]|;,./<>? +');
+    cy.get('#meeting-notes-input').fill('The quick brown fox jumps over a lazy dog - ~!@#$%^&*-_=+[]|;,./<>? +');
     cy.get(`button[type='submit'`).click();
     cy.get('.toast-message').should('contain.text', 'Meeting note saved');
 
@@ -70,7 +71,7 @@ describe('Verify comments on the Workflow page', function () {
       cy.get(`#adhoc-users-search-reply-comment_taglist > li > span.k-icon.k-delete`).click({ force: true });
     });
 
-    cy.get(`textarea[name='Comment'`).type('hello CalPERS | ExtUser Patrick Corcoran');
+    cy.get(`textarea[name='Comment'`).fill('hello CalPERS | ExtUser Patrick Corcoran');
     cy.get('#comment-viewable-type').select('Private');
     cy.get('#btn-post-comment').click({ force: true });
     cy.get('.toast-message').should('contain.text', 'Comment saved');

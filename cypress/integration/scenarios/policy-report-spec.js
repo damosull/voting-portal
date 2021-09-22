@@ -10,7 +10,7 @@ describe('Generate Policy report,download and verify file headers', function () 
     cy.intercept('GET', '**/Api/Data/Policy/**').as('policy');
     cy.intercept('GET', '**/Api/Data/Policy/GetById/**').as('getPolicy');
     cy.intercept('DELETE', '**/Api/Data/Policy/**').as('remove');
-    cy.intercept('POST', '**/Api/Data/Policy/Add').as('fileAdd')
+    cy.intercept('POST', '**/Api/Data/Policy/Add').as('fileAdd');
     cy.loginExtAdm('Calpers');
     cy.visit('/Reporting');
   });
@@ -49,19 +49,20 @@ describe('Generate Policy report,download and verify file headers', function () 
     cy.get('#btn-update-PolicyId').click({ force: true });
     cy.get('#btn-report-save-as').click({ force: true });
     cy.randomString(3).then((data) => {
-      cy.get('#popupTextContainer > input[type=text]').type('Test' + data);
+      cy.get('#popupTextContainer > input[type=text]').fill('Test' + data);
       filename = 'Test' + data;
       rnd = data.trim() + '.xlsx';
     });
     cy.get('#apprise-btn-confirm').click({ force: true });
     cy.wait('@FileUpdate');
     cy.wait('@fileAdd');
-    cy.get('.scrollableContainer > ul  >li').first()
+    cy.get('.scrollableContainer > ul  >li')
+      .first()
       .find('span[data-bind="text: Name"]')
       .then(($name) => {
         const fname = $name.text();
-        cy.log(fname)
-        cy.log(filename)
+        cy.log(fname);
+        cy.log(filename);
         expect(fname.includes(filename)).to.be.true;
       });
 
