@@ -52,7 +52,7 @@ describe('Report', () => {
     // The reason I have two actions for the same input is because for some reason it takes roughly 5 seconds to type the past days, whereas with two actions is straight away
     // step 3
     cy.get('.k-formatted-value').invoke('attr', 'style', 'display: block').clear();
-    cy.get('.k-formatted-value').invoke('attr', 'style', 'display: block').fill(pastDays);
+    cy.get('.k-formatted-value').invoke('attr', 'style', 'display: block').type(pastDays);
     cy.contains('Update').click();
 
     // step 4
@@ -118,8 +118,8 @@ describe('Report', () => {
       cy.contains('Add Subscription').click();
 
       cy.get('.toast-message').should('contain.text', toast.REVIEW_FIELDS);
-      cy.get('#ava-presentation-input-header').fill('Test - Header').should('have.value', 'Test - Header');
-      cy.get('#ava-presentation-input-footer').fill('Test - Footer').should('have.value', 'Test - Footer');
+      cy.get('#ava-presentation-input-header').type('Test - Header').should('have.value', 'Test - Header');
+      cy.get('#ava-presentation-input-footer').type('Test - Footer').should('have.value', 'Test - Footer');
 
       cy.contains('Add Subscription').click();
       cy.get('#popupTextContainer').should('be.visible');

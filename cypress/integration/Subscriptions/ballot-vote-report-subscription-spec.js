@@ -36,7 +36,7 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
 
     // Step 3 save configuraiton
     cy.contains('Save As').click();
-    cy.get('#popupTextContainer').should('be.visible').fill(configName);
+    cy.get('#popupTextContainer').should('be.visible').type(configName);
     cy.get('#apprise-btn-undefined').should('be.visible');
     cy.get('#apprise-btn-confirm').click();
     cy.wait('@Add');
@@ -48,10 +48,10 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
     cy.get('#add-subscription-kendo-modal-123abc456xyz').should('be.visible');
 
     //Step 5 - Select 'Calpers External Admin' from Users list
-    cy.get('.k-multiselect-wrap > .k-input').click().wait(500).fill('{downarrow}{downarrow}{downarrow}{enter}').blur();
+    cy.get('.k-multiselect-wrap > .k-input').click().wait(500).type('{downarrow}{downarrow}{downarrow}{enter}').blur();
 
     //Step 6 - Enter Filename for Subscription Report
-    cy.get('#subscribed-file-name').fill('SubscribeTest');
+    cy.get('#subscribed-file-name').type('SubscribeTest');
 
     //Step 7 - Enter Schedule to run Subscription (Weekly/8AM/Sunday)
     cy.get('#schedule-type').select('1');

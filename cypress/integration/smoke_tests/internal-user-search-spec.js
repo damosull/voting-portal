@@ -9,9 +9,9 @@ describe('Internal user', function () {
 
     var username = USER.AUTOMATIONINTERNAL;
     var userpwd = 'Test12345%';
-    cy.get('input#username').fill(username).should('have.value', username);
+    cy.get('input#username').type(username).should('have.value', username);
 
-    cy.get('input#password').fill(userpwd);
+    cy.get('input#password').type(userpwd);
     cy.get('#btn-submit-login').click();
 
     //Assert:
@@ -26,7 +26,7 @@ describe('Internal user', function () {
 
     // Search for customer
     //'California Public Employee Retirement System (CalPERS)'
-    cy.get('.customerName-Search .k-input').fill('CAL', { force: true });
+    cy.get('.customerName-Search .k-input').type('CAL', { force: true });
     cy.get('#kendoCustomers-list .k-item').first().click({ force: true });
 
     // check all meetings in response have CalPERS customer id

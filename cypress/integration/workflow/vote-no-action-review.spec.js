@@ -49,7 +49,7 @@ describe('Workflow', () => {
     // Step 2 - Change Next 30 days to 10 Days
     cy.get('#date-range-target-meeting-deadline').invoke('attr', 'style', 'display: block');
     cy.get('.k-formatted-value').first().invoke('attr', 'style', 'display: block').clear();
-    cy.get('.k-formatted-value').first().invoke('attr', 'style', 'display: block').fill(pastDays);
+    cy.get('.k-formatted-value').first().invoke('attr', 'style', 'display: block').type(pastDays);
     cy.get('#btn-meeting-deadline-date-update').click({ force: true });
 
     // Step 3 - Select Decision Status and Recommendations Pending

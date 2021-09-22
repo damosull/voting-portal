@@ -18,9 +18,9 @@ describe('Admin User functionality tests', function () {
     cy.get('.gl-btn').contains('Add New User').trigger('mouseover').click();
     cy.get('#btn-add-new-user', { timeout: 40000 }).click({ force: true });
     cy.randomString(6).then((data) => {
-      cy.get('#UserFirstName').fill(data);
-      cy.get('#UserLastName').fill(data);
-      cy.get('#ContactEmail').fill(data + '@abc.com');
+      cy.get('#UserFirstName').type(data);
+      cy.get('#UserLastName').type(data);
+      cy.get('#ContactEmail').type(data + '@abc.com');
     });
     cy.get('#UserType').select('External', { force: true });
     cy.get('tbody > tr > td > select')

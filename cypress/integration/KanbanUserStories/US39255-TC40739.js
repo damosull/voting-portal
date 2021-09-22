@@ -7,6 +7,24 @@ describe('US39255 tests', function () {
     cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
     cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('assignees');
     cy.intercept('POST', '**/Api/Data//SubscribeToMeeting/GetStatus').as('getstatus');
+    cy.intercept('GET', '**/Api/Data//MdPermissions/GetUserPermissions?_=**').as('GetUserPermissions');
+    cy.intercept('GET', '**/Api/Data/CurrentUser/?_=**').as('CurrentUser');
+    cy.intercept('GET', '**/Api/Data//Spa?_=**').as('Spa');
+    cy.intercept('GET', '**/Workflow/GetMarkup?_=**').as('WorkflowMarkup');
+    cy.intercept('GET', '**/Dashboard/GetMarkup?_=**').as('DashboardMarkup');
+    cy.intercept('GET', '**/Api/WebUI//Workflow/WorkflowConfigureColumns?_=**').as('WorkflowConfigureColumns');
+    cy.intercept('GET', '**/Api/Data/WorkflowMetaData/?typeName=WorkflowExpansion&customerId=0&_=**').as(
+      'WorkflowMetaData'
+    );
+    cy.intercept(
+      'GET',
+      '**/Api/Data/WorkflowMetaData/?typeName=WorkflowExpansion&showDenied=true&customerId=0&_=**'
+    ).as('showDenied');
+    cy.intercept('GET', '**/Api/Data/Filters/GetForUser?_=**').as('GetForUser');
+    cy.intercept(
+      'GET',
+      '**/Api/WebUI/WorkflowFilterCriteriaEditors?filterPreferenceID=**&objectType=WorkflowExpansion&customerId=0&_=**'
+    ).as('filterPreferenceID');
 
     cy.loginExtAdm('Calpers');
     cy.visit('/Workflow');
@@ -94,6 +112,18 @@ describe('US39255 tests', function () {
     cy.wait('@WorkflowSecuritiesWatchlists');
     cy.wait('@assignees');
     cy.wait('@getstatus');
+    cy.wait('@GetUserPermissions');
+    cy.wait('@CurrentUser');
+    cy.wait('@Spa');
+    cy.wait('@WorkflowMarkup');
+    cy.wait('@DashboardMarkup');
+    cy.wait('@WorkflowConfigureColumns');
+    cy.wait('@WorkflowMetaData');
+    cy.wait('@GetForUser');
+    cy.wait('@showDenied');
+
+    cy.get('div#controls').should('be.visible');
+    cy.get('[data-js="meeting-details-link"]').should('be.visible');
 
     cy.removeAllExistingSelectedCriteria();
     cy.AddMultipleCriteria(['Decision Status']);

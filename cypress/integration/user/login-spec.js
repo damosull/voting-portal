@@ -9,9 +9,9 @@ describe('Login Page', function () {
 
     var username = Cypress.env('Internal_Admin_Username');
     var userpwd = Cypress.env('Internal_Admin_Password');
-    cy.get('input#username').fill(username).should('have.value', username);
+    cy.get('input#username').type(username).should('have.value', username);
 
-    cy.get('input#password').fill(userpwd);
+    cy.get('input#password').type(userpwd);
     cy.get('#btn-submit-login').click();
 
     //Assert:

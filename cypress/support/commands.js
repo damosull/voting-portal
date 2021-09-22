@@ -81,7 +81,7 @@ Cypress.Commands.add('selectValueFromCriteriaOption', (id, inputVal, object, upd
 
 Cypress.Commands.add('AddCriteriaOption', (searchText, inputValue) => {
   cy.get('#btn-add-criteria').click({ force: true });
-  cy.get('#txt-filter-criteria').fill(searchText, { force: true });
+  cy.get('#txt-filter-criteria').type(searchText, { force: true });
   cy.get(`input[value='${inputValue}']`).check({ force: true });
   cy.contains('Apply').click({ force: true });
 });
@@ -298,7 +298,7 @@ Cypress.Commands.add('logout', () => {
 
 Cypress.Commands.add('saveFilter', (filterName) => {
   cy.contains('Save As').click();
-  cy.get('#popupTextContainer').should('be.visible').fill(filterName);
+  cy.get('#popupTextContainer').should('be.visible').type(filterName);
   cy.get('#apprise-btn-undefined').should('be.visible'); //the ID of this button should be fixed
   cy.get('#apprise-btn-confirm').click();
 });
@@ -342,8 +342,11 @@ Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
 Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
   cy.intercept(
     'GET',
-    '**/Api/WebUI//WorkflowFilterCriteriaEditors/ForField?fields=**&objectType=WorkflowExpansion*&customerId=0&_=**'
-  ).as('WorkflowFilterCriteriaEditors');
+    '**/Api/WebUI//WorkflowFilterCriteriaEditors/ForField?fields=**&objectType=WorkflowExpansion&customerId=0&_=**'
+  ).as('WorkflowFilter');
+  cy.intercept('GET', '**//Api/WebUI/FilterCriteriaEditors/ForField?fields=**&objectType=**&customerId=0&_=**').as(
+    'ReportFilter'
+  );
   cy.intercept('GET', '**/Api/Data//ListService/**?CustomerID=0').as('ListService');
 
   cy.get('#btn-add-criteria').click({ force: true });
@@ -351,7 +354,7 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
     cy.then(() => {
       cy.get('#txt-filter-criteria')
         .clear({ force: true })
-        .fill(value)
+        .type(value)
         .parent()
         .siblings()
         .children()
@@ -366,13 +369,16 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
     cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').each((h4) => {
       expect(h4.text()).to.be.oneOf(searchText);
     });
+
+    cy.wait('@WorkflowFilter');
   } else {
     cy.get('#report-criteria-controls > div > div > h4').each((h4) => {
       expect(h4.text()).to.be.oneOf(searchText);
     });
+
+    cy.wait('@ReportFilter');
   }
 
-  cy.wait('@WorkflowFilterCriteriaEditors');
   cy.wait('@ListService');
 });
 
@@ -434,14 +440,16 @@ Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
   cy.get('.editor-modal').invoke('attr', 'style', 'display: block', { timeout: 1000 });
 
   statusToSearch.forEach((value) => {
-    cy.get('.editor-modal > input').clear({ force: true }).fill(value);
+    cy.get('.editor-modal > input').clear({ force: true }).type(value);
     cy.get('.editor-modal > div > div > label').contains(value).click({ force: true });
   });
   cy.get('.editor-modal > div > button').eq(0).click();
 
-  cy.wait('@WorkflowExpansion');
-  cy.wait('@WorkflowSecuritiesWatchlists');
-  cy.wait('@GetAvailableAssigneesForCustomer');
+  if (!isReporting) {
+    cy.wait('@WorkflowExpansion');
+    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@GetAvailableAssigneesForCustomer');
+  }
 });
 
 Cypress.Commands.add('assertFileProperties', (configName, fileExtension) => {
@@ -516,7 +524,7 @@ Cypress.Commands.add('selectReportExtension', (extension) => {
 
 Cypress.Commands.add('checkColumnFieldApplyAndVerifyIsChecked', (value) => {
   cy.get('#btn-workflow-config-columns').click();
-  cy.get('#txt-filter-col-name').fill(value);
+  cy.get('#txt-filter-col-name').type(value);
   cy.get(`input[value='${value}']`).check({ force: true });
   cy.get(`input[value='${value}']`).should('be.checked');
   cy.get('#txt-filter-col-name').clear();
@@ -525,7 +533,7 @@ Cypress.Commands.add('checkColumnFieldApplyAndVerifyIsChecked', (value) => {
 
 Cypress.Commands.add('uncheckColumnFieldApplyAndVerifyNotChecked', (value) => {
   cy.get('#btn-workflow-config-columns').click();
-  cy.get('#txt-filter-col-name').fill(value);
+  cy.get('#txt-filter-col-name').type(value);
   cy.get(`input[value='${value}']`).uncheck({ force: true });
   cy.get(`input[value='${value}']`).should('not.be.checked');
   cy.get('#txt-filter-col-name').clear();

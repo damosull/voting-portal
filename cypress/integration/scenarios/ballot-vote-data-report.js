@@ -42,7 +42,7 @@ describe('Generate ballot vote data report, download and verify file', function 
 
     // Step 6 save configuraiton
     cy.contains('Save As').click();
-    cy.get('#popupTextContainer').should('be.visible').fill(configName);
+    cy.get('#popupTextContainer').should('be.visible').type(configName);
     cy.get('#apprise-btn-undefined').should('be.visible');
     cy.get('#apprise-btn-confirm').click();
     cy.contains('My configurations').siblings().find('span').should('contain', configName);

@@ -52,16 +52,16 @@ describe('Share meeting with User - Comment', function () {
     cy.wait('@ShareMeetingLists');
 
     //Step 6 - Select 'Calpers External Admin' from Users list
-    cy.get('#in-share-meeting-user-name').fill('cal');
+    cy.get('#in-share-meeting-user-name').type('cal');
     cy.wait('@IdentitySearch');
-    cy.get('#in-share-meeting-user-name').fill('{downarrow}');
-    cy.get('#in-share-meeting-user-name').fill('{enter}');
+    cy.get('#in-share-meeting-user-name').type('{downarrow}');
+    cy.get('#in-share-meeting-user-name').type('{enter}');
 
     //Step 8 - Click Add button
     cy.get('#btn-share-meeting-add').click();
 
     //Step 9 - Add Comment "This is a test comment"
-    cy.get('#txt-share-meeting-comment').fill('This is a test comment');
+    cy.get('#txt-share-meeting-comment').type('This is a test comment');
 
     //Step 10 - Click Share button
     cy.get('#btn-share-meeting-confirm').click();

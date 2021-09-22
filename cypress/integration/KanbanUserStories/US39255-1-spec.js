@@ -123,6 +123,9 @@ describe('US39255 tests - Test 1', function () {
     cy.wait('@GetForUser');
     cy.wait('@showDenied');
 
+    cy.get('div#controls').should('be.visible');
+    cy.get('[data-js="meeting-details-link"]').should('be.visible');
+
     cy.removeAllExistingSelectedCriteria();
     cy.AddMultipleCriteria(['Decision Status']);
     cy.addCriteriaStatus(['Recommendations Available']);

@@ -45,7 +45,7 @@ describe('US39255 tests', function () {
     //Step 4 - Verify that the user enter a character(Eg : Say 'Cus') in the responsive search of the "Columns" Modal
     cy.get(
       '#ballots-configure-columns-target-dynamic > .clearfix > #configure-columns-modal > .input > #txt-filter-col-name'
-    ).fill('Cus');
+    ).type('Cus');
 
     columnLabels.forEach((column) => {
       cy.get(`label[for='${column}']`).should('be.visible');

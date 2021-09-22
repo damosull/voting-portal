@@ -90,7 +90,7 @@ describe('Report', () => {
     cy.get('.toast-message').should('contain.text', toast.REPORT_SAVED);
     cy.contains('My configurations').siblings().find('span').should('contain', configName);
 
-    // // Download and verify
+    // Download and verify
     cy.contains('Download').click();
     cy.get('.toast-message').should('contain.text', toast.DOWNLOAD_STARTED);
     cy.get('.notify-count').click();

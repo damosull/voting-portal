@@ -55,7 +55,7 @@ describe('Create Manage Filters Subscription entry and validate in FL_Subscripti
 
     //Step 5 - Select 'Calpers External Admin' from Users list
     cy.get('#subscriptions-modal-content > h3');
-    cy.get('#users').click().fill('Cal');
+    cy.get('#users').click().type('Cal');
     cy.get('#users_listbox > li').focus().blur().click({ force: true });
 
     //Step 6 - Enter Schedule to run Subscription

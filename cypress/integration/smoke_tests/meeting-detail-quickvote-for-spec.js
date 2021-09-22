@@ -11,11 +11,15 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.wait('@WorkflowSecuritiesWatchlists');
   });
 
+  afterEach(() => {
+    cy.logout();
+  });
+
   it.skip(`vote on US meeting on Recommendations Pending meeting`, function () {
     cy.get(
       '#workflow-grid-kendo > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > span > span.k-input'
     )
-      .fill('50')
+      .type('50')
       .click({ force: true });
     cy.get('table > tbody > tr').then(($rows) => {
       $rows.each((index, value) => {
