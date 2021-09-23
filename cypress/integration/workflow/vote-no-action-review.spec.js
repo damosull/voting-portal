@@ -3,7 +3,6 @@
 
 import { messages, API } from '../../support/constants';
 const pastDays = 10;
-const api = API;
 const arrCriteria = ['Decision Status'];
 const unixTime = Math.floor(Date.now() / 1000);
 const filterName = `MyFilter_${unixTime}`;
@@ -11,21 +10,21 @@ const toast = messages.toast;
 
 describe('Workflow', () => {
   beforeEach(() => {
-    cy.intercept('POST', api.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
-    cy.intercept('POST', api.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', api.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
-    cy.intercept('POST', api.POST.GET_AGENDA).as('GetAgenda');
-    cy.intercept('POST', api.POST.GET_STATUS).as('GetStatus');
-    cy.intercept('POST', api.POST.VOTE_TALLY).as('VoteTally');
-    cy.intercept('POST', api.POST.MEETING_DETAILS).as('MeetingDetails');
-    cy.intercept('GET', api.GET.GET_MEETING_ID).as('GetMeetingID');
-    cy.intercept('GET', api.GET.RELATED_MEETINGS).as('RelatedMeetings');
-    cy.intercept('GET', api.GET.PAGE_SECTION_ORDER).as('PageSectionOrder');
-    cy.intercept('GET', api.GET.MEETING_SECURITY_WATCHLIST).as('MeetingSecurityWatchlist');
-    cy.intercept('GET', api.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
-    cy.intercept('GET', api.GET.GET_FILINGS).as('GetFilings');
-    cy.intercept('GET', api.GET.WORKFLOW_RESEARCH_INFO).as('WFResearch');
-    cy.intercept('GET', api.GET.BALLOT_ACTIVITY_LOG).as('BallotActivity');
+    cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
+    cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
+    cy.intercept('POST', API.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
+    cy.intercept('POST', API.POST.GET_AGENDA).as('GetAgenda');
+    cy.intercept('POST', API.POST.GET_STATUS).as('GetStatus');
+    cy.intercept('POST', API.POST.VOTE_TALLY).as('VoteTally');
+    cy.intercept('POST', API.POST.MEETING_DETAILS).as('MeetingDetails');
+    cy.intercept('GET', API.GET.GET_MEETING_ID).as('GetMeetingID');
+    cy.intercept('GET', API.GET.RELATED_MEETINGS).as('RelatedMeetings');
+    cy.intercept('GET', API.GET.PAGE_SECTION_ORDER).as('PageSectionOrder');
+    cy.intercept('GET', API.GET.MEETING_SECURITY_WATCHLIST).as('MeetingSecurityWatchlist');
+    cy.intercept('GET', API.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
+    cy.intercept('GET', API.GET.GET_FILINGS).as('GetFilings');
+    cy.intercept('GET', API.GET.WORKFLOW_RESEARCH_INFO).as('WFResearch');
+    cy.intercept('GET', API.GET.BALLOT_ACTIVITY_LOG).as('BallotActivity');
 
     cy.loginExtAdm('Calpers');
     cy.visit('/').url().should('include', '/Workflow');

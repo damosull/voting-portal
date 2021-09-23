@@ -364,22 +364,20 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
   });
 
   cy.contains('Apply').click();
+  cy.wait('@ListService');
 
   if (!isReporting) {
-    cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').each((h4) => {
-      expect(h4.text()).to.be.oneOf(searchText);
-    });
-
     cy.wait('@WorkflowFilter');
-  } else {
-    cy.get('#report-criteria-controls > div > div > h4').each((h4) => {
-      expect(h4.text()).to.be.oneOf(searchText);
+
+    cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').each((h4) => {
+      expect(h4.text().trim()).to.be.oneOf(searchText);
     });
-
+  } else {
     cy.wait('@ReportFilter');
+    cy.get('#report-criteria-controls > div > div > h4').each((h4) => {
+      expect(h4.text().trim()).to.be.oneOf(searchText);
+    });
   }
-
-  cy.wait('@ListService');
 });
 
 Cypress.Commands.add('selectFirstMeeting', () => {
@@ -538,4 +536,42 @@ Cypress.Commands.add('uncheckColumnFieldApplyAndVerifyNotChecked', (value) => {
   cy.get(`input[value='${value}']`).should('not.be.checked');
   cy.get('#txt-filter-col-name').clear();
   cy.get('#btn-apply-configure-columns').click();
+});
+
+Cypress.Commands.add('loadWorkflowPage', (user) => {
+  cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
+  cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
+  cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
+  cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('assignees');
+  cy.intercept('POST', '**/Api/Data//SubscribeToMeeting/GetStatus').as('getstatus');
+  cy.intercept('GET', '**/Api/Data//MdPermissions/GetUserPermissions?_=**').as('GetUserPermissions');
+  cy.intercept('GET', '**/Api/Data/CurrentUser/?_=**').as('CurrentUser');
+  cy.intercept('GET', '**/Api/Data//Spa?_=**').as('Spa');
+  cy.intercept('GET', '**/Workflow/GetMarkup?_=**').as('WorkflowMarkup');
+  cy.intercept('GET', '**/Dashboard/GetMarkup?_=**').as('DashboardMarkup');
+  cy.intercept('GET', '**/Api/WebUI//Workflow/WorkflowConfigureColumns?_=**').as('WorkflowConfigureColumns');
+  cy.intercept('GET', '**/Api/Data/Filters/GetForUser?_=**').as('GetForUser');
+  cy.intercept('GET', '**/?typeName=WorkflowExpansion&customerId=0&_=**').as('WorkflowMetaData');
+  cy.intercept('GET', '**/?typeName=WorkflowExpansion&showDenied=true&customerId=0&_=**').as('showDenied');
+  cy.intercept('GET', '**?filterPreferenceID=**&objectType=WorkflowExpansion**').as('filterPreferenceID');
+
+  cy.loginExtAdm(user);
+  cy.visit('/Workflow');
+
+  cy.wait([
+    '@WorkflowExpansion',
+    '@WorkflowSecuritiesWatchlists',
+    '@assignees',
+    '@getstatus',
+    '@filterPreferenceID',
+    '@GetUserPermissions',
+    '@CurrentUser',
+    '@Spa',
+    '@WorkflowMarkup',
+    '@DashboardMarkup',
+    '@WorkflowConfigureColumns',
+    '@WorkflowMetaData',
+    '@GetForUser',
+    '@showDenied',
+  ]);
 });
