@@ -55,7 +55,19 @@ export const MEETINGID = {
   RBNCRP: '1058810', //Robeco - Non Contested -  Recommendations Pending
   RBNCAG: '1061320',
   //Calpers
-  CANCRA: '1066065'
+  CANCRA: '1066065',
+
+  //Russell (at least one against policy past 30 days)
+  RSNCVAP: '1061109',
+
+  //Basic Recommendations pending meeting for Calpers
+  CPRP1: '1066197',
+  CPRP2: '1065713',
+  CPRP3: '1063534',
+  CPRP5: '1066044',
+
+  //Calpers Recommendations Pending (US meeting)
+  CPRP4: '1057963'
 };
 
 export const API = {
