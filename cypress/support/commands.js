@@ -39,8 +39,8 @@ Cypress.Commands.add('AddTenDaysToMeetingDates', (meetingId) => {
         SharesDependentChangeDate = DATEADD(DAY, 10, getdatE()),
         VoteDeadlineDate = DATEADD(DAY, 10, getdatE())
         WHERE MeetingID IN (` +
-      meetingId +
-      `)`
+    meetingId +
+    `)`
   );
 });
 
@@ -67,7 +67,6 @@ Cypress.Commands.add('handleErrorModal', () => {
     cy.get('#vote-warnings-and-errors-modal').then(($header) => {
       if ($header.is(':visible')) {
         cy.get('div.row.clearfix.floatright > button.btn.primary.gray').click({ force: true });
-        cy.get('#btn-take-no-action').click({ force: true });
       }
     });
   });
