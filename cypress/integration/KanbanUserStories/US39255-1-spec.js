@@ -107,21 +107,22 @@ describe('US39255 tests - Test 1', function () {
     });
     cy.get('#btn-cancel-configure-columns').click();
 
-    cy.visit('/Workflow');
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
-    cy.wait('@assignees');
-    cy.wait('@getstatus');
-    cy.wait('@filterPreferenceID');
-    cy.wait('@GetUserPermissions');
-    cy.wait('@CurrentUser');
-    cy.wait('@Spa');
-    cy.wait('@WorkflowMarkup');
-    cy.wait('@DashboardMarkup');
-    cy.wait('@WorkflowConfigureColumns');
-    cy.wait('@WorkflowMetaData');
-    cy.wait('@GetForUser');
-    cy.wait('@showDenied');
+    cy.wait([
+      '@WorkflowExpansion',
+      '@WorkflowSecuritiesWatchlists',
+      '@assignees',
+      '@getstatus',
+      '@filterPreferenceID',
+      '@GetUserPermissions',
+      '@CurrentUser',
+      '@Spa',
+      '@WorkflowMarkup',
+      '@DashboardMarkup',
+      '@WorkflowConfigureColumns',
+      '@WorkflowMetaData',
+      '@GetForUser',
+      '@showDenied',
+    ]);
 
     cy.get('div#controls').should('be.visible');
     cy.get('[data-js="meeting-details-link"]').should('be.visible');
