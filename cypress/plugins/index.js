@@ -14,6 +14,8 @@
 const fs = require('fs-extra');
 const path = require('path');
 const xlsx = require('node-xlsx').default;
+const _ = require('lodash');
+const del = require('del');
 
 const sqlServer = require('cypress-sql-server');
 const dbConfig = require('../../cypress.json');
@@ -43,6 +45,19 @@ module.exports = (on, config) => {
 
   tasks = sqlServer.loadDBPlugin(dbConfig.db);
   on('task', tasks);
+
+  on('after:spec', (spec, results) => {
+    if (results && results.video) {
+      // Do we have failures for any retry attempts?
+      const failures = _.some(results.tests, (test) => {
+        return _.some(test.attempts, { state: 'failed' });
+      });
+      if (!failures) {
+        // delete the video if the spec passed and no tests retried
+        return del(results.video);
+      }
+    }
+  });
 
   const file = config.env.configFile || 'development';
   return getConfigurationByFile(file);
