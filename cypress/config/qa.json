@@ -4,5 +4,9 @@
   "reporterOptions": {
     "mochaFile": "test-results/tests-output/result-[hash].xml"
   },
-  "video": false
+  "video": false,
+  "retries": {
+    "runMode": 2,
+    "openMode": 0
+  }
 }

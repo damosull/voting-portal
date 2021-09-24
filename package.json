@@ -7,8 +7,10 @@
     "cypress": "^7.5.0",
     "cypress-fill-command": "^1.0.2",
     "cypress-sql-server": "^1.0.0",
+    "del": "^6.0.0",
     "eslint": "^7.27.0",
     "eslint-plugin-cypress": "^2.11.3",
+    "lodash": "^4.17.21",
     "node-xlsx": "^0.16.1"
   },
   "scripts": {

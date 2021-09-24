@@ -49,13 +49,6 @@ describe('US26145', () => {
     }).then((resp) => {
       expect(resp.status).to.eq(200);
 
-      userDetails = {
-        id: resp.body.userId,
-        firstName: resp.body.userFirstName,
-        lastName: resp.body.userLastName,
-        loginId: USER.WELLINGTON,
-      };
-
       jwtToken = resp.body.jwtToken;
       cy.wrap(jwtToken).as('jwtToken');
     });

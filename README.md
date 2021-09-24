@@ -40,4 +40,5 @@ To run the tests in the CI, you need to:
 
 # Other packages
 
-https://www.npmjs.com/package/cypress-fill-command
+`npm i cypress-fill-command` (https://www.npmjs.com/package/cypress-fill-command)
+`npm i lodash del --save-dev`
