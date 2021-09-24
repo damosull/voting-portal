@@ -1,4 +1,8 @@
-pool: 'Build Pipelines VMSS - QAUAT'
+pool:
+  name: Build
+  demands:
+    - Agent.Name -equals cypress_A
+    - npm
 
 resources:
   repositories:
