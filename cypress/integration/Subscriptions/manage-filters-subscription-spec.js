@@ -34,7 +34,6 @@ describe('Create Manage Filters Subscription entry and validate in FL_Subscripti
       /* if ($body.find('#current-subscribers-list > tbody > tr > td > i[class="fa fa-times"]').length > 0) {
         cy.get('#current-subscribers-list > tbody > tr > td > i[class="fa fa-times"]').click(); */
       if ($body.find('[class="fa fa-times"]').length > 0) {
-        debugger;
         const len = $body.find('[class="fa fa-times"]').length;
 
         for (let i = len; i >= 0; i--) {
