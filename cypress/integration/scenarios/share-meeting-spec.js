@@ -1,6 +1,7 @@
 // Test scenario: 40545 https://dev.azure.com/glasslewis/Development/_workitems/edit/40545
 import { USER, messages } from '../../support/constants';
 const toast = messages.toast;
+const { MEETINGID } = require("../../support/constants");
 let today = new Date().toISOString().slice(0, 10);
 
 describe('Share meeting with User - Comment', function () {
@@ -17,6 +18,8 @@ describe('Share meeting with User - Comment', function () {
     cy.intercept('POST', 'https://viewpoint.aqua.glasslewis.com/Api/Data//SubscribeToMeeting/GetStatus').as(
       'GetStatus'
     );
+    cy.intercept('GET', '/Api/Data/**').as('GetData')
+    cy.intercept('POST', '/api/Logger/**').as('logger')
 
     //step 1 - Login to viewpoint as External user
     cy.loginExtAdm('Calpers');
@@ -25,25 +28,23 @@ describe('Share meeting with User - Comment', function () {
     cy.visit('/Workflow');
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@GetStatus')
+    cy.removeAllExistingSelectedCriteria();
   });
 
   it(`Verify User can share meeting with another user`, function () {
-    //Step 3 - Add Decision Status Criteria and filter meetings by Recommendations Pending
+    //make sure all dates are current with this meeting id 
+    cy.AddTenDaysToMeetingDates(MEETINGID.CPRP6)
 
-    cy.removeAllExistingSelectedCriteria();
-    cy.AddMultipleCriteria(['Decision Status']);
-    cy.addCriteriaStatus(['Recommendations Pending']);
+    //Step 4 - navigate to Calpers meeting ID 
+    cy.visit('MeetingDetails/Index/' + MEETINGID.CPRP6)
     cy.wait('@GetStatus').then((interception) => {
-      const meeting = JSON.stringify(interception.response.body[2].MeetingId);
+      const meeting = JSON.stringify(interception.response.body[0].MeetingId);
       cy.wrap(meeting).as('meetingid');
     });
+    cy.wait('@GetData')
+    cy.wait('@logger')
 
-    //Step 4 - Select meeting from list and save meetingID from Getstatus API call
-    cy.get('table > tbody > tr')
-      .eq(2)
-      .within(() => {
-        cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
-      });
     cy.verifyMeetingOptionButtons();
 
     //Step 5 - Click "Share meeting" button
