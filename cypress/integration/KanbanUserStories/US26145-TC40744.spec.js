@@ -83,26 +83,21 @@ describe('US26145', () => {
 
     cy.get('#ballots-grid div:nth-child(2) td:nth-child(1)').contains(MEETINGID.WLNCVTD_CTRLNUM).click();
 
-    cy.wait('@BallotActivity');
-    cy.get('#ballot-activitylog-modal').should('be.visible');
+    cy.wait('@BallotActivity').then(() => {
+      cy.request({
+        method: 'POST',
+        url: `${glassAPI}/GetByControllerNumbers`,
+        body: [MEETINGID.WLNCVTD_CTRLNUM],
+      }).then((resp) => {
+        expect(resp.status).to.eq(200);
+        const originalDate = resp.body[0].lastModifiedDate;
+        // Convert the date to the offset and format that Viewpoint shows in the UI
+        const formattedDate = moment(originalDate).utcOffset('+0900').format('MM/DD/YYYY HH:mm:ss');
 
-    cy.request({
-      method: 'POST',
-      url: `${glassAPI}/GetByControllerNumbers`,
-      body: [MEETINGID.WLNCVTD_CTRLNUM],
-    }).then((resp) => {
-      expect(resp.status).to.eq(200);
-      const originalDate = resp.body[0].lastModifiedDate;
-      // Convert the date to the offset and format that Viewpoint shows in the UI
-      const formattedDate = moment(originalDate).utcOffset('+0900').format('MM/DD/YYYY HH:mm:ss');
-
-      // It checks that the date shown is correcct
-      cy.get(selector)
-        .eq(2)
-        .then((dateUI) => {
-          expect(formattedDate).to.include(dateUI.text());
-        });
+        cy.wrap(formattedDate).as('lastModifiedDate');
+      });
     });
+    cy.get('#ballot-activitylog-modal').should('be.visible');
 
     // It checks that the status shown is correcct
     cy.get(selector)
@@ -117,6 +112,15 @@ describe('US26145', () => {
         .eq(1)
         .then((userUI) => {
           expect(fullname).to.include(userUI.text());
+        });
+    });
+
+    // It checks that the date shown is correcct
+    cy.get('@lastModifiedDate').then((glassDate) => {
+      cy.get(selector)
+        .eq(2)
+        .then((dateUI) => {
+          expect(glassDate).to.include(dateUI.text());
         });
     });
   });
