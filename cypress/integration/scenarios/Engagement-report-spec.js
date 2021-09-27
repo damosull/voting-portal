@@ -16,7 +16,7 @@ describe('Generate Engagement report,download and verify file headers', function
     cy.get('[type="radio"]#rdo-date-range-discrete-InteractionDate').check({ force: true }).should('be.checked');
     cy.get('#discrete-date-start-InteractionDate').clear({ force: true }).fill('05/07/2021', { force: true });
     cy.get('#discrete-date-end-InteractionDate').clear({ force: true }).fill('05/28/2021', { force: true });
-    cy.contains('Update').click();
+    cy.contains('Update').click({ force: true });
     cy.get('#rpt-columns > div > h3').click({ force: true });
     cy.get('div.btn-container.clearfix > button.blue.small').click({ force: true });
     cy.get('#rpt-selected-columns > div > table > tbody > tr').each((tr) => {
@@ -47,7 +47,7 @@ describe('Generate Engagement report,download and verify file headers', function
 
           expect(resp.body).to.have.length.greaterThan(1);
           cy.log(resp.body);
-          expect(resp.body).include('Company Name,Interaction Date,Description,Participant Name,Role,Subject');
+          expect(resp.body).include('Company Name,Created Date,Notes,Participant Name,Role,Title');
         });
       });
   }); // end it
