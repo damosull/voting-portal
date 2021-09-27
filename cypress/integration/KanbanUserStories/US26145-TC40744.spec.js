@@ -5,7 +5,6 @@ import { MEETINGID, API, USER } from '../../support/constants';
 const selector = '#ballotActivityLogGrid > div > table > tbody > tr:nth-child(1) > td';
 const statusToChange = 'Received';
 const glassAPI = 'https://aqua-issuer-vote-confirmation-api.azurewebsites.net/api/Ballot/';
-let userDetails, jwtToken;
 
 describe('US26145', () => {
   beforeEach(() => {

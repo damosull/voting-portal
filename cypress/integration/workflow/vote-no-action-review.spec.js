@@ -2,7 +2,7 @@
 //Test scenario 40741 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40741
 
 import { messages, API } from '../../support/constants';
-const pastDays = 10;
+const pastDays = 30;
 const arrCriteria = ['Decision Status'];
 const unixTime = Math.floor(Date.now() / 1000);
 const filterName = `MyFilter_${unixTime}`;
