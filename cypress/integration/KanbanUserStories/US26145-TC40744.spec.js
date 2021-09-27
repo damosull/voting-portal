@@ -92,7 +92,7 @@ describe('US26145', () => {
         expect(resp.status).to.eq(200);
         const originalDate = resp.body[0].lastModifiedDate;
         // Convert the date to the offset and format that Viewpoint shows in the UI
-        const formattedDate = moment(originalDate).utcOffset('+0900').format('MM/DD/YYYY HH:mm:ss');
+        const formattedDate = moment(originalDate).utcOffset('+0700').format('MM/DD/YYYY HH:mm:ss');
 
         cy.wrap(formattedDate).as('lastModifiedDate');
       });
