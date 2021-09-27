@@ -65,6 +65,7 @@ export const MEETINGID = {
   CPRP2: '1065713',
   CPRP3: '1063534',
   CPRP5: '1066044',
+  CPRP6: '1066180',
 
   //Calpers Recommendations Pending (US meeting)
   CPRP4: '1057963'
