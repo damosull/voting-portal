@@ -1,6 +1,6 @@
 import 'cypress-fill-command';
 import { messages } from '../support/constants';
-import { USER } from '../support/constants';
+import { USER, API } from '../support/constants';
 
 const toast = messages.toast;
 
@@ -39,8 +39,8 @@ Cypress.Commands.add('AddTenDaysToMeetingDates', (meetingId) => {
         SharesDependentChangeDate = DATEADD(DAY, 10, getdatE()),
         VoteDeadlineDate = DATEADD(DAY, 10, getdatE())
         WHERE MeetingID IN (` +
-    meetingId +
-    `)`
+      meetingId +
+      `)`
   );
 });
 
@@ -573,4 +573,20 @@ Cypress.Commands.add('loadWorkflowPage', (user) => {
     '@GetForUser',
     '@showDenied',
   ]);
+});
+
+Cypress.Commands.add('waitForMeetingToLoad', () => {
+  cy.intercept('POST', API.POST.MEETING_DETAILS).as('MeetingDetails');
+  cy.intercept('GET', API.GET.GET_FILINGS).as('GetFilings');
+  cy.intercept('POST', API.POST.VOTE_TALLY).as('VoteTally');
+  cy.intercept('POST', API.POST.SHARE_MEETING_MODAL).as('ShareMeetingModal');
+  cy.intercept('GET', API.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
+
+  cy.wait('@MeetingDetails');
+  cy.wait('@GetFilings');
+  cy.wait('@VoteTally');
+  //cy.wait('@ShareMeetingModal');
+  //cy.wait('@AssignedMeetingID');
+
+  cy.get('#launch-ballots-voted-modal').should('be.visible');
 });

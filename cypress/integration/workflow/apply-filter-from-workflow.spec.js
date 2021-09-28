@@ -14,7 +14,6 @@ describe('US39254 - ', () => {
     cy.intercept('POST', API.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
     cy.intercept('POST', API.POST.GET_AGENDA).as('GetAgenda');
     cy.intercept('POST', API.POST.VOTE_TALLY).as('VoteTally');
-    cy.intercept('POST', API.POST.GET_STATUS).as('GetStatus');
     cy.intercept('GET', API.GET.GET_MEETING_ID).as('GetMeetingID');
     cy.intercept('GET', API.GET.RELATED_MEETINGS).as('RelatedMeetings');
     cy.intercept('GET', API.GET.PAGE_SECTION_ORDER).as('PageSectionOrder');
@@ -50,7 +49,6 @@ describe('US39254 - ', () => {
       cy.wait('@WorkflowExpansion');
       cy.wait('@WorkflowSecuritiesWatchlists');
       cy.wait('@AvailableAssigneesForCustomer');
-      cy.wait('@GetStatus');
 
       // Step 4 - User clicks on the Control Number hyperlink on the workflow page
       // Go through the list of meetings and click in the record that matches the name
