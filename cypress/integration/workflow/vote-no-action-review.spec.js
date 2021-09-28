@@ -14,7 +14,6 @@ describe('Workflow', () => {
     cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
     cy.intercept('POST', API.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
     cy.intercept('POST', API.POST.GET_AGENDA).as('GetAgenda');
-    cy.intercept('POST', API.POST.GET_STATUS).as('GetStatus');
     cy.intercept('POST', API.POST.VOTE_TALLY).as('VoteTally');
     cy.intercept('POST', API.POST.MEETING_DETAILS).as('MeetingDetails');
     cy.intercept('GET', API.GET.GET_MEETING_ID).as('GetMeetingID');
@@ -43,7 +42,6 @@ describe('Workflow', () => {
 
     // Wait for meeting date grouping
     cy.wait('@AvailableAssigneesForCustomer');
-    cy.wait('@GetStatus');
 
     // Step 2 - Change Next 30 days to 10 Days
     cy.get('#date-range-target-meeting-deadline').invoke('attr', 'style', 'display: block');

@@ -1,4 +1,3 @@
-/// <reference types="Cypress" />
 import { USER } from '../../support/constants';
 
 describe('Internal user', function () {
@@ -21,8 +20,7 @@ describe('Internal user', function () {
     //2. Verify if session exists
     cy.getCookie('DEV-session').should('exist');
 
-    cy.server();
-    cy.route('POST', '/Api/Data/WorkflowExpansion').as('post');
+    cy.intercept('POST', '/Api/Data/WorkflowExpansion').as('post');
 
     // Search for customer
     //'California Public Employee Retirement System (CalPERS)'

@@ -80,6 +80,8 @@ export const API = {
     GET_AGENDA: '**/Api/Data//MdData/GetAgenda',
     VOTE_TALLY: '**/Api/Data/VoteTally',
     MEETING_DETAILS: '**/Api/Data/MeetingDetailsActivity/',
+    VOTE_RESULTS: '**/Api/Data/MdVoteResults',
+    SHARE_MEETING_MODAL: '**/ShareMeeting/AddShareMeetingModal/',
   },
   GET: {
     BALLOT_RECONCILIATION: '**/Api/Data/BallotReconciliation/**',
@@ -89,9 +91,9 @@ export const API = {
     FILTERS_DIRECTORY: '**/Api/Data/FiltersDirectories?_=**',
     GET_MARKUP: '**/Workflow/GetMarkup?_=**',
     WORKLOW_FILTER_CRITERIA_EDITORS:
-      '**/Api/WebUI/WorkflowFilterCriteriaEditors?filterPreferenceID=1&objectType=WorkflowExpansion&customerId=0&_=**',
+      '**/Api/WebUI/WorkflowFilterCriteriaEditors?filterPreferenceID=**&objectType=WorkflowExpansion&customerId=0&_=**',
     GET_MEETING_ID:
-      '**/Api/Data/MdData/GetAFD?MeetingId=**&AccountIds%5B%5D=-1&AgendaId=0&isContested=false&CustomerId=0&_=**',
+      '**/Api/Data/MdData/GetAFD?MeetingId=**&AccountIds%5B%5D=**&AgendaId=**&isContested=false&CustomerId=0&_=**',
     WORKFLOW_RESEARCH_INFO: '**/Api/Data/WorkflowResearchInfo/GetWFResearch?CustomerID=0&_=**',
     RELATED_MEETINGS: '**/Api/Data/RelatedMeetings/?QueryValue=**',
     PAGE_SECTION_ORDER: '**/Api/Data/PageSectionOrder?Page=1&_=**',
@@ -102,6 +104,7 @@ export const API = {
     FILTER_CRITERIA_FOR_FIELDS:
       '**/Api/WebUI//WorkflowFilterCriteriaEditors/ForField?fields=**&objectType=WorkflowExpansion&customerId=**&_=**',
     LIST_SERVICE: '**/Api/Data//ListService/PolicyID?CustomerID=**',
+    META_BALLOTS_GRID: '**/Api/Data/MetaData/?typeName=BallotsGrid&customerId=**&_=**',
   },
   PUT: {
     BALLOT_GRID_STATE: '**/Api/Data/BallotsGridState',
