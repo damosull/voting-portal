@@ -1,18 +1,18 @@
 export const USER = {
-  WELLINGTON: 'WellingtonAutomation@glasslewis.com',
+  AUTOMATIONEXTERNAL: 'automation_calpers@glasslewis.com',
+  AUTOMATIONINTERNAL: 'automation@glasslewis.com',
   CALPERS: 'CalpersAutomation@glasslewis.com',
-  RUSSELL: 'RussellAutomation@glasslewis.com',
+  CHARLESSCHWAB: 'CharlesSchwabAutomation@glasslewis.com',
+  FEDERATED: 'FederatedAutomation@glasslewis.com',
+  IMF: 'IFMAutomation@glasslewis.com',
+  NEUBERGER: 'autoextadmin_neuberger@glasslewis.com',
   OPERS: 'OpersAutomation@glasslewis.com',
+  PADDYINTERNAL: 'pcorcoran@glasslewis.com',
+  PUTNAM: 'PutnamAutomation@glasslewis.com',
   ROBECO: 'RobecoAutomation@glasslewis.com',
   ROYALLONDON: 'RoyalLondonAutomation@glasslewis.com',
-  CHARLESSCHWAB: 'CharlesSchwabAutomation@glasslewis.com',
-  PUTNAM: 'PutnamAutomation@glasslewis.com',
-  IMF: 'IFMAutomation@glasslewis.com',
-  FEDERATED: 'FederatedAutomation@glasslewis.com',
-  NEUBERGER: 'autoextadmin_neuberger@glasslewis.com',
-  AUTOMATIONINTERNAL: 'automation@glasslewis.com',
-  AUTOMATIONEXTERNAL: 'automation_calpers@glasslewis.com',
-  PADDYINTERNAL: 'pcorcoran@glasslewis.com',
+  RUSSELL: 'RussellAutomation@glasslewis.com',
+  WELLINGTON: 'WellingtonAutomation@glasslewis.com',
 };
 
 export const messages = {
@@ -68,7 +68,7 @@ export const MEETINGID = {
   CPRP6: '1066180',
 
   //Calpers Recommendations Pending (US meeting)
-  CPRP4: '1057963'
+  CPRP4: '1057963',
 };
 
 export const API = {
