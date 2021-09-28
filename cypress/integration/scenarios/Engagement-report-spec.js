@@ -1,7 +1,13 @@
 // Test scenario 37963 : https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
+
+import { messages } from '../../support/constants';
+const report = messages.reports;
+const toast = messages.toast;
+
 describe('Generate Engagement report,download and verify file headers', function () {
   beforeEach(function () {
-    cy.intercept('GET', '**/Api/Data/Inbox/?Top=0&IsNew=true&IsQueryOnly=true&**').as('engagement');
+    cy.intercept('GET', '**/Engagement/?PageInfo%5BIgnorePagesize%5D=true&ReportType=Engagement&_=**').as('engagement');
+    cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=Engagement').as('criteriaEngagement');
 
     cy.loginExtAdm('Calpers');
     cy.visit('/Reporting');
@@ -12,6 +18,8 @@ describe('Generate Engagement report,download and verify file headers', function
     cy.selectReportType('Engagement');
 
     cy.wait('@engagement');
+    cy.wait('@criteriaEngagement');
+
     cy.get('#report-criteria-controls >div > h4').first().click({ force: true });
     cy.get('[type="radio"]#rdo-date-range-discrete-InteractionDate').check({ force: true }).should('be.checked');
     cy.get('#discrete-date-start-InteractionDate').clear({ force: true }).fill('05/07/2021', { force: true });
@@ -23,15 +31,12 @@ describe('Generate Engagement report,download and verify file headers', function
       cy.wrap(tr).find('input[type="checkbox"]').should('be.checked');
     });
     cy.get('#rpt-download-btn').click();
-    cy.get('.toast-message').should(
-      'contain.text',
-      'Your download was initiated. It will appear in the toolbar shortly.'
-    );
+    cy.get('.toast-message').should('contain.text', toast.DOWNLOAD_STARTED);
     cy.get('.notify-count').click();
 
     //Engagement Report is queued
     cy.get('#inbox-container .msg-txt').should(($msg) => {
-      expect($msg.first().text()).to.include('New Configuration.csv report is ready for download');
+      expect($msg.first().text()).to.include(`New Configuration.csv ${report.READY}`);
     });
     cy.get('#inbox-container [data-pagelink1]')
       .first()
@@ -47,7 +52,9 @@ describe('Generate Engagement report,download and verify file headers', function
 
           expect(resp.body).to.have.length.greaterThan(1);
           cy.log(resp.body);
-          expect(resp.body).include('Company Name,Created Date,Notes,Participant Name,Role,Title');
+          expect(resp.body).include(
+            'Company Name,Created Date,Date of Engagement,Other Participants,Themes,Type,Notes,Participant Name,Role,Title'
+          );
         });
       });
   }); // end it
