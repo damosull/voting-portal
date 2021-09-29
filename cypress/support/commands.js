@@ -164,7 +164,7 @@ Cypress.Commands.add('loginExtAdm', (user) => {
         expect(resp.status).to.eq(200);
         const success = resp.body.Succeded;
         if (!success) {
-          console.log('Check console for details => ' + JSON.stringify(resp.body));
+          console.log(`Check console for details => User: ${username} ${JSON.stringify(resp.body)}`);
         }
         expect(success).to.be.true;
       });
@@ -210,7 +210,7 @@ Cypress.Commands.add('loginInternalAdm', (user) => {
         expect(resp.status).to.eq(200);
         const success = resp.body.Succeded;
         if (!success) {
-          console.log('Check console for details => ' + JSON.stringify(resp.body));
+          console.log(`Check console for details => User: ${username} ${JSON.stringify(resp.body)}`);
         }
         expect(success).to.be.true;
       });

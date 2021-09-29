@@ -125,7 +125,7 @@ describe('US39255 tests - Test 1', function () {
     ]);
 
     cy.get('div#controls').should('be.visible');
-    cy.get('[data-js="meeting-details-link"]').should('be.visible');
+    cy.get('#workflow-link.active').should('exist');
 
     cy.removeAllExistingSelectedCriteria();
     cy.AddMultipleCriteria(['Decision Status']);
