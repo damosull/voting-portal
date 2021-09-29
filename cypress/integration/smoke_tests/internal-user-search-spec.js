@@ -15,12 +15,12 @@ describe('Internal user', function () {
 
     //Assert:
     //1. Verify if it lands in the Workflow page
-    cy.get('#workflow-link.active', { timeout: 10000 }).should('exist');
+    cy.get('#workflow-link.active').should('exist');
 
     //2. Verify if session exists
     cy.getCookie('DEV-session').should('exist');
 
-    cy.intercept('POST', '/Api/Data/WorkflowExpansion').as('post');
+    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
 
     // Search for customer
     //'California Public Employee Retirement System (CalPERS)'
@@ -28,10 +28,17 @@ describe('Internal user', function () {
     cy.get('#kendoCustomers-list .k-item').first().click({ force: true });
 
     // check all meetings in response have CalPERS customer id
-    cy.wait('@post')
-      .its('response.body.items')
-      .each((item) => {
-        expect(item.Summaries.CustomerID.Value).to.equal(196);
+    cy.wait('@WorkflowExpansion').then((xhr) => {
+      const data = JSON.parse(xhr.response.body);
+      const items = data.items;
+
+      items.forEach((item) => {
+        const ballots = item.Agendas[0].Policies[0].Ballots;
+        ballots.forEach((ballot) => {
+          const value = ballot.Summaries.CustomerID.Value;
+          expect(value).to.equal(196);
+        });
       });
+    });
   });
 });
