@@ -1,4 +1,5 @@
 const { MEETINGID } = require("../../support/constants");
+const time = 3000
 
 describe('Test QuickVote functionality in MeetingDetails page', function () {
   beforeEach(function () {
@@ -31,7 +32,7 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.wait('@GetData')
     cy.wait('@logger')
     //neccessary for meeting to fully load
-    cy.wait(2000)
+    cy.wait(time)
 
     cy.get('#btn-unlock').click({ force: true });
     cy.verifyMeetingOptionButtons();
@@ -59,14 +60,14 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.wait('@GetData')
     cy.wait('@logger')
     //neccessary for meeting to fully load
-    cy.wait(2000)
+    cy.wait(time)
 
 
     cy.get('#btn-unlock').click({ force: true });
     cy.verifyMeetingOptionButtons();
 
     cy.get('#btn-instruct').click({ force: true });
-    cy.get('#-kendo-modal-123abc456xyz').then(($header) => {
+    /* cy.get('#-kendo-modal-123abc456xyz').then(($header) => {
       if ($header.is(':visible')) {
         cy.log('visible');
         cy.get(' button.btn.primary.gray').click({ force: true });
@@ -74,7 +75,7 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
         cy.log('not visible');
       }
     });
-    cy.handleErrorModal();
+    cy.handleErrorModal(); */
   });
 
   it(`vote on Global meeting on Recommendedations Pending meeting`, function () {
@@ -88,7 +89,7 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.wait('@GetData')
     cy.wait('@logger')
     //neccessary for meeting to fully load
-    cy.wait(2000)
+    cy.wait(time)
 
     cy.get('#btn-unlock').click({ force: true });
     cy.verifyMeetingOptionButtons();
@@ -113,7 +114,7 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.wait('@GetData')
     cy.wait('@logger')
     //neccessary for meeting to fully load
-    cy.wait(2000)
+    cy.wait(time)
     cy.get('#btn-unlock').click({ force: true });
     cy.verifyMeetingOptionButtons();
 
@@ -136,7 +137,7 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.wait('@PostData')
     cy.wait('@GetData')
     cy.wait('@logger')
-    cy.wait(2000)
+    cy.wait(time)
 
     cy.get('#btn-unlock').click({ force: true });
     cy.verifyMeetingOptionButtons();
