@@ -1,6 +1,6 @@
 //Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
 
-import { messages } from '../../support/constants';
+import { messages, USER } from '../../support/constants';
 const report = messages.reports;
 const toast = messages.toast;
 
@@ -29,11 +29,11 @@ describe('Report', () => {
     cy.intercept('GET', '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**').as('LoadInbox');
     cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=AVAReport').as('AVACriteria');
 
-    cy.loginExtAdm('Calpers');
+    cy.loginSession(USER.CALPERS);
     cy.visit('/Reporting').url().should('include', 'Reporting');
   });
 
-  it.only(`- Voting Activity ${upperFileExt}`, () => {
+  it(`- Voting Activity ${upperFileExt}`, () => {
     cy.log('Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939');
 
     cy.wait('@BallotRecon');

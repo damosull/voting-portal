@@ -104,6 +104,7 @@ declare namespace Cypress {
 
     /**
      * * Verify header buttons [Vote], [Take no Action] and [Instruct]
+     * @param none
      */
     verifyMeetingOptionButtons(): Chainable<Element>;
 
@@ -120,5 +121,19 @@ declare namespace Cypress {
      * @example cy.selectReportExtension('xls')
      */
     selectReportExtension(extension?: string): Chainable<Element>;
+
+    /**
+     * * Log in the application using cy.session (stores the cookie for subsequent executions)
+     * @param username Username to log in the application
+     * @example cy.loginSession(USER.CALPERS)
+     */
+    loginSession(user?: string): Chainable<Element>;
+
+    /**
+     * * Basic method to ensure a meeting has loaded (not applicable in all cases).
+     * * It could fail depending on the data the meeting loaded, hence, two lines commented out
+     * @param none
+     */
+    waitForMeetingToLoad(): Chainable<Element>;
   }
 }

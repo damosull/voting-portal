@@ -1,3 +1,5 @@
+import { USER } from '../../support/constants';
+
 describe('Add Filters', function () {
   beforeEach(function () {
     cy.viewport(1100, 900);
@@ -46,7 +48,7 @@ describe('Add Filters', function () {
 
   esgFilters.forEach((filter) => {
     it(`sustainalytics "${filter.criteria}"`, function () {
-      cy.loginExtAdm('Calpers');
+      cy.loginSession(USER.CALPERS);
       cy.visit('/').url().should('include', '/Workflow');
 
       cy.wait('@WorkflowExpansion');
@@ -64,8 +66,6 @@ describe('Add Filters', function () {
 
       cy.get(filter.editorButton).click();
       cy.get(filter.editorModal).should('be.visible');
-
-      cy.logout();
     });
   });
 });

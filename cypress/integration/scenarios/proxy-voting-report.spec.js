@@ -1,6 +1,6 @@
 //Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
 
-import { messages } from '../../support/constants';
+import { messages, USER } from '../../support/constants';
 const report = messages.reports;
 const toast = messages.toast;
 const pastDays = 3;
@@ -50,7 +50,7 @@ describe('Report', () => {
     );
     cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=ProxyVoting').as('ProxyVoting');
 
-    cy.loginExtAdm('Calpers');
+    cy.loginSession(USER.CALPERS);
     cy.visit('/Reporting').url().should('include', 'Reporting');
   });
 

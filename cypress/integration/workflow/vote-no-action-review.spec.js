@@ -1,7 +1,7 @@
 //Test scenario 37790 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37790
 //Test scenario 40741 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40741
 
-import { messages, API } from '../../support/constants';
+import { messages, API, USER } from '../../support/constants';
 const pastDays = 30;
 const arrCriteria = ['Decision Status'];
 const unixTime = Math.floor(Date.now() / 1000);
@@ -25,7 +25,7 @@ describe('Workflow', () => {
     cy.intercept('GET', API.GET.WORKFLOW_RESEARCH_INFO).as('WFResearch');
     cy.intercept('GET', API.GET.BALLOT_ACTIVITY_LOG).as('BallotActivity');
 
-    cy.loginExtAdm('Calpers');
+    cy.loginSession(USER.CALPERS);
     cy.visit('/').url().should('include', '/Workflow');
   });
 
@@ -36,6 +36,9 @@ describe('Workflow', () => {
     // Wait for initial page to load
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
+
+    // Remove any pre-existing filter from the page
+    cy.removeAllExistingSelectedCriteria();
 
     // Step 1 - Click on "Meeting Date"
     cy.get('#rdo-meeting-date').check().should('be.checked');
