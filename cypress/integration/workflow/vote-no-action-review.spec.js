@@ -37,6 +37,9 @@ describe('Workflow', () => {
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
 
+    // Remove any pre-existing filter from the page
+    cy.removeAllExistingSelectedCriteria();
+
     // Step 1 - Click on "Meeting Date"
     cy.get('#rdo-meeting-date').check().should('be.checked');
 
