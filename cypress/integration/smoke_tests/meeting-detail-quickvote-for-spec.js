@@ -1,5 +1,4 @@
 const { MEETINGID, USER } = require('../../support/constants');
-const time = 3000;
 
 describe('Test QuickVote functionality in MeetingDetails page', function () {
   beforeEach(function () {
@@ -11,9 +10,11 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.intercept('POST', '/Api/Data/**').as('PostData');
     cy.intercept('GET', '/Api/Data/**').as('GetData');
     cy.intercept('POST', '/api/Logger/**').as('logger');
+    cy.intercept('GET', '**/Api/Data/MeetingMaterials/GetFilings?MeetingId=**').as('GetFilings');
+    cy.intercept('POST', '**/Api/Data/VoteTally').as('VoteTally');
 
     cy.loginSession(USER.CALPERS);
-    cy.visit('/Workflow');
+    cy.visit('/').url().should('include', '/Workflow');
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
     cy.removeAllExistingSelectedCriteria();
@@ -29,7 +30,10 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.wait('@GetData');
     cy.wait('@logger');
     //neccessary for meeting to fully load
-    cy.waitForMeetingToLoad();
+    cy.wait('@GetFilings');
+    cy.wait('@VoteTally');
+
+    cy.get('#launch-ballots-voted-modal').should('be.visible');
 
     cy.get('#btn-unlock').click({ force: true });
     cy.verifyMeetingOptionButtons();
@@ -55,7 +59,10 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.wait('@GetData');
     cy.wait('@logger');
     //neccessary for meeting to fully load
-    cy.waitForMeetingToLoad();
+    cy.wait('@GetFilings');
+    cy.wait('@VoteTally');
+
+    cy.get('#launch-ballots-voted-modal').should('be.visible');
 
     cy.get('#btn-unlock').click({ force: true });
     cy.verifyMeetingOptionButtons();
@@ -82,7 +89,10 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.wait('@GetData');
     cy.wait('@logger');
     //neccessary for meeting to fully load
-    cy.waitForMeetingToLoad();
+    cy.wait('@GetFilings');
+    cy.wait('@VoteTally');
+
+    cy.get('#launch-ballots-voted-modal').should('be.visible');
 
     cy.get('#btn-unlock').click({ force: true });
     cy.verifyMeetingOptionButtons();
@@ -130,7 +140,10 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.wait('@PostData');
     cy.wait('@GetData');
     cy.wait('@logger');
-    cy.waitForMeetingToLoad();
+    cy.wait('@GetFilings');
+    cy.wait('@VoteTally');
+
+    cy.get('#launch-ballots-voted-modal').should('be.visible');
 
     cy.get('#btn-unlock').click({ force: true });
     cy.verifyMeetingOptionButtons();
