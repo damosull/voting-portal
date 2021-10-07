@@ -171,6 +171,38 @@ Cypress.Commands.add('loginExtAdm', (user) => {
     });
 });
 
+Cypress.Commands.add('loginSession', (username) => {
+  cy.session([username], () => {
+    cy.request('/')
+      .its('body')
+      .then((body) => {
+        // we can use Cypress.$ to parse the string body
+        // thus enabling us to query into it easily
+        const $html = Cypress.$(body);
+        const csrf = $html.find('input[name=csrf-token]').val();
+
+        cy.request({
+          method: 'POST',
+          url: '/Home/Authenticate/',
+          headers: {
+            CSRFToken: csrf,
+          },
+          body: {
+            Username: username,
+            Password: 'Test12345%',
+          },
+        }).then((resp) => {
+          expect(resp.status).to.eq(200);
+          const success = resp.body.Succeded;
+          if (!success) {
+            console.log(`Check console for details => User: ${username} ${JSON.stringify(resp.body)}`);
+          }
+          expect(success).to.be.true;
+        });
+      });
+  });
+});
+
 Cypress.Commands.add('loginInternalAdm', (user) => {
   let username;
   let password;

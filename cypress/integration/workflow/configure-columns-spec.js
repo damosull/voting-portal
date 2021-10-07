@@ -1,10 +1,12 @@
+import { USER } from '../../support/constants';
+
 describe('Configure columns', function () {
   beforeEach(function () {
     cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists/').as('WorklowWatchlist');
     cy.intercept('GET', '**/Api/Data/Inbox/**').as('InboxLoad');
 
-    cy.loginInternalAdm('AutomationInternal');
+    cy.loginSession(USER.AUTOMATIONINTERNAL);
     cy.visit('/Workflow');
     cy.wait('@WorkflowExpansion');
   });

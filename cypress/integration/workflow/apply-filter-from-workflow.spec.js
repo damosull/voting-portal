@@ -1,6 +1,6 @@
 //Test Case 40729 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40729
 
-import { API } from '../../support/constants';
+import { API, USER } from '../../support/constants';
 
 const data = {
   company: 'SK Innovation',
@@ -22,7 +22,7 @@ describe('US39254 - ', () => {
     cy.intercept('GET', API.GET.FILTER_CRITERIA_FOR_FIELDS).as('FilterCriteriaFields');
     cy.intercept('GET', API.GET.LIST_SERVICE).as('ListService');
 
-    cy.loginExtAdm('Wellington');
+    cy.loginSession(USER.WELLINGTON);
     cy.visit('/').url().should('include', '/Workflow');
   });
 

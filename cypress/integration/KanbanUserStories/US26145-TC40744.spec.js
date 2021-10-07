@@ -20,19 +20,24 @@ describe('US26145', () => {
     cy.intercept('GET', API.GET.MEETING_SECURITY_WATCHLIST).as('MeetingSecurityWatchlist');
     cy.intercept('GET', API.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
     cy.intercept('GET', API.GET.BALLOT_ACTIVITY_LOG).as('BallotActivity');
-    cy.loginExtAdm('Wellington');
+
+    cy.loginSession(USER.WELLINGTON);
     cy.visit('/').url().should('include', '/Workflow');
   });
 
   it('TC40744 - Vote on GLASS', () => {
+    //Wait initial page to load
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
     cy.wait('@AvailableAssigneesForCustomer');
 
+    // CLick on Upcoming meetings
     cy.contains('Upcoming Meetings').click();
 
+    // Remove any pre-existing filter from the page
     cy.removeAllExistingSelectedCriteria();
 
+    // Get the user's name and ID from the database
     cy.GetAutomationUserIDFromDB(USER.WELLINGTON).as('userid');
     cy.GetAutomationUsernameFromDB(USER.WELLINGTON).as('fullname');
 
@@ -70,6 +75,7 @@ describe('US26145', () => {
       });
     });
 
+    // Load the meeting in Viewpoint
     cy.visit(`/MeetingDetails/Index/${MEETINGID.WLNCVTD}`);
 
     cy.wait('@GetMeetingID');
@@ -80,6 +86,7 @@ describe('US26145', () => {
     cy.wait('@AssignedMeetingID');
     cy.wait('@VoteTally');
 
+    // Click on the Control Number link
     cy.get('#ballots-grid div:nth-child(2) td:nth-child(1)').contains(MEETINGID.WLNCVTD_CTRLNUM).click();
 
     cy.wait('@BallotActivity').then(() => {
@@ -91,9 +98,13 @@ describe('US26145', () => {
         expect(resp.status).to.eq(200);
         const originalDate = resp.body[0].lastModifiedDate;
         // Convert the date to the offset and format that Viewpoint shows in the UI
-        const formattedDate = moment(originalDate).utcOffset('+0700').format('MM/DD/YYYY HH:mm:ss');
+        //const formattedDate = moment(originalDate).utcOffset('+0700').format('MM/DD/YYYY HH:mm:ss');
+        const formattedDate = moment(originalDate).format('MM/DD/YYYY');
+        const formattedTime = moment(originalDate).utcOffset('+0700').format('HH:mm:ss');
+        let leadingZeros = formattedDate.replace(/\b0/g, '');
+        let finalDate = `${leadingZeros} ${formattedTime}`;
 
-        cy.wrap(formattedDate).as('lastModifiedDate');
+        cy.wrap(finalDate).as('lastModifiedDate');
       });
     });
     cy.get('#ballot-activitylog-modal').should('be.visible');
