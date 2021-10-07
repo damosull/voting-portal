@@ -44,7 +44,7 @@ describe('Share meeting with User - Comment', function () {
     });
     cy.wait('@GetData')
     cy.wait('@logger')
-
+    cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale').click({ force: true });
     cy.verifyMeetingOptionButtons();
 
     //Step 5 - Click "Share meeting" button
