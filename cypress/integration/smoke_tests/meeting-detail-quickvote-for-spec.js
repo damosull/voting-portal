@@ -1,4 +1,6 @@
 const { MEETINGID, USER } = require('../../support/constants');
+import '../../support/commands.js';
+//import { USER } from '../../support/constants';
 
 describe('Test QuickVote functionality in MeetingDetails page', function () {
   beforeEach(function () {
@@ -12,6 +14,7 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.intercept('POST', '/api/Logger/**').as('logger');
     cy.intercept('GET', '**/Api/Data/MeetingMaterials/GetFilings?MeetingId=**').as('GetFilings');
     cy.intercept('POST', '**/Api/Data/VoteTally').as('VoteTally');
+    cy.intercept('POST', '**/Api/Data/VoteRequestValidation').as('validate')
 
     cy.loginSession(USER.CALPERS);
     cy.visit('/').url().should('include', '/Workflow');
@@ -43,7 +46,8 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.get('#btn-vote-now').click({ force: true });
 
     //check override checkbox and Proceed
-    cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').click();
+    cy.wait('@validate')
+    cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').click({ force: true });
     cy.get('.floatright > .green').click();
 
     cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale');
@@ -68,15 +72,6 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.verifyMeetingOptionButtons();
 
     cy.get('#btn-instruct').click({ force: true });
-    /* cy.get('#-kendo-modal-123abc456xyz').then(($header) => {
-      if ($header.is(':visible')) {
-        cy.log('visible');
-        cy.get(' button.btn.primary.gray').click({ force: true });
-      } else {
-        cy.log('not visible');
-      }
-    });
-    cy.handleErrorModal(); */
   });
 
   it(`Vote on Global meeting on Recommendations Pending meeting`, function () {
