@@ -28,8 +28,8 @@ function getConfigurationByFile(file) {
 }
 
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+  require('cypress-grep/src/plugin')(config);
+
   on('task', {
     parseXlsx({ filePath }) {
       return new Promise((resolve, reject) => {
@@ -42,7 +42,6 @@ module.exports = (on, config) => {
       });
     },
   });
-
   tasks = sqlServer.loadDBPlugin(dbConfig.db);
   on('task', tasks);
 

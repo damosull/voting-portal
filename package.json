@@ -6,6 +6,7 @@
   "devDependencies": {
     "cypress": "^8.5.0",
     "cypress-fill-command": "^1.0.2",
+    "cypress-grep": "^2.5.3",
     "cypress-sql-server": "^1.0.0",
     "del": "^6.0.0",
     "eslint": "^7.27.0",
@@ -18,7 +19,8 @@
     "cy:run": "cypress run",
     "cy:run:qa": "cypress run --env configFile=qa",
     "lint": "eslint cypress",
-    "cy:clean": "rmdir /s /q cypress\\downloads"
+    "cy:clean": "rmdir /s /q cypress\\downloads",
+    "cy:run:smoke": "cypress run --env grepTags=@smoke"
   },
   "repository": {
     "type": "git",

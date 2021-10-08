@@ -7,7 +7,7 @@ const data = {
   policies: ['WEL-NYSCR'],
 };
 
-describe('US39254 - ', () => {
+describe('US39254 - ', { tags: '@smoke' }, () => {
   beforeEach(() => {
     cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
     cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
