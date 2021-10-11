@@ -42,3 +42,29 @@ To run the tests in the CI, you need to:
 
 `npm i cypress-fill-command` (https://www.npmjs.com/package/cypress-fill-command)
 `npm i lodash del --save-dev`
+`npm i -D cypress-grep` (https://github.com/cypress-io/cypress-grep)
+
+# Tagging tests
+
+When running tagged tests, Cypress will invoke the complete suite, but it will skipped the tests not tagged.
+
+// ✅ good practice
+describe('auth', { tags: '@critical' }, () => ...)
+it('works', { tags: '@smoke' }, () => ...)
+it('works quickly', { tags: ['@smoke', '@fast'] }, () => ...)
+
+// 🚨 NOT GOING TO WORK
+// ERROR: treated as a single tag,
+// probably want an array instead
+it('works', { tags: '@smoke @fast' }, () => ...)
+
+Test:
+`describe('block with config tag', { tags: '@smoke' }, () => {})`
+
+How to run:
+`npx cypress run --env grepTags=@smoke`
+
+Two tags at the same time:
+`npx cypress run --env grepTags=@smoke+@regression`
+
+For more information: https://github.com/cypress-io/cypress-grep
