@@ -38,8 +38,8 @@ describe('US26145', () => {
     cy.removeAllExistingSelectedCriteria();
 
     // Get the user's name and ID from the database
-    cy.GetAutomationUserIDFromDB(USER.WELLINGTON).as('userid');
-    cy.GetAutomationUsernameFromDB(USER.WELLINGTON).as('fullname');
+    cy.getAutomationUserIDFromDB(USER.WELLINGTON).as('userid');
+    cy.getAutomationUsernameFromDB(USER.WELLINGTON).as('fullname');
 
     // Mimic the API calls done on GLASS to change the meeting to the correct status
     cy.get('@userid').then((uid) => {

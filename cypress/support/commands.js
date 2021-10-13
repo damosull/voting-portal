@@ -44,6 +44,53 @@ Cypress.Commands.add('AddTenDaysToMeetingDates', (meetingId) => {
   );
 });
 
+Cypress.Commands.add('SetMeetingDateXdaysFromCurrent', (meetingId, days) => {
+  cy.executeUpdateQuery(
+    `UPDATE PX_Meeting SET
+        MeetingDate = DATEADD(DAY, ${days}, getdatE()),
+        FileProcessingDate = DATEADD(DAY, -1, getdatE()),
+        HoldReconciliationDate = DATEADD(DAY, 10, getdatE()),
+        LastModifiedDate = DATEADD(DAY, 10, getdatE()),
+        RecordDate = DATEADD(DAY, 10, getdatE()),
+        SharesDependentChangeDate = DATEADD(DAY, 10, getdatE()),
+        VoteDeadlineDate = DATEADD(DAY, 10, getdatE())
+        WHERE MeetingID IN (` +
+    meetingId +
+    `)`
+  );
+});
+
+Cypress.Commands.add('TurnOnCustomerSetting', (settings, parameter) => {
+  cy.get('@csrftoken').then((token) => {
+    cy.request({
+      method: 'GET',
+      url: `https://viewpoint.aqua.glasslewis.com/Api/Data/CustomerDetails//GetByID${settings}`,
+      headers: {
+        CSRFToken: token,
+      },
+    }).then((resp) => {
+      expect(resp.status).to.eq(200);
+      const custPermissions = resp.body;
+      custPermissions.SettingsViewModel[parameter] = true;
+
+      const newBody = custPermissions;
+      cy.request({
+        method: 'PUT',
+        url: 'https://viewpoint.aqua.glasslewis.com/Api/Data/CustomerDetailsUpdate/',
+        headers: {
+          CSRFToken: token,
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: newBody,
+      }).then((resp) => {
+        expect(resp.status).to.eq(200);
+      });
+
+    });
+  });
+});
+
+
 Cypress.Commands.add('RemoveCriteriaIfExists', (id, removeId) => {
   cy.get('body').then(($body) => {
     if ($body.find(id).length > 0) {
@@ -302,14 +349,22 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
     });
 });
 
-Cypress.Commands.add('GetAutomationUserIDFromDB', (user) => {
+Cypress.Commands.add('getAutomationUserIDFromDB', (user) => {
   cy.executeQuery(`SELECT[UserID] FROM[GLP].[dbo].[UM_User] where LoginID = '${user}'`).then((result) => {
     return result;
   });
 });
 
-Cypress.Commands.add('GetAutomationUsernameFromDB', (user) => {
+Cypress.Commands.add('getAutomationUsernameFromDB', (user) => {
   cy.executeQuery(`SELECT UserFirstName + ' ' + UserLastName FROM[GLP].[dbo].[UM_User] where LoginID = '${user}'`).then(
+    (result) => {
+      return result;
+    }
+  );
+});
+
+Cypress.Commands.add('getCustomerIDFromDB', (user) => {
+  cy.executeQuery(`SELECT CustomerID FROM [GLP].[dbo].[AA_Customer] where CustomerName = '${user}'`).then(
     (result) => {
       return result;
     }
@@ -369,7 +424,6 @@ Cypress.Commands.add('saveFilter', (filterName) => {
   cy.get('#apprise-btn-undefined').should('be.visible'); //the ID of this button should be fixed
   cy.get('#apprise-btn-confirm').click();
 });
-
 Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
   cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
   cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists/').as('WorkflowSecuritiesWatchlists');

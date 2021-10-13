@@ -6,7 +6,7 @@ let today = new Date().toISOString().slice(0, 10);
 
 describe('Create Dashboard Subscription entry and validate in SB_Subscription Database table', function () {
   beforeEach(function () {
-    cy.GetAutomationUserIDFromDB(USER.CALPERS).as('userid');
+    cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid');
     cy.intercept('GET', '**/Api/Data/Inbox/**').as('InboxReport');
     cy.intercept('GET', '**/Api/Data/IdentitySearch/**').as('IdentitySearch');
     cy.intercept('GET', '**/Api/WebUI/Subscriptions/**').as('Subscriptions');

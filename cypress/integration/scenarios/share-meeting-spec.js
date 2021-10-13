@@ -8,7 +8,7 @@ describe('Share meeting with User - Comment', function () {
   //let meetingid
   beforeEach(function () {
     sessionStorage.clear();
-    cy.GetAutomationUserIDFromDB(USER.CALPERS).as('userid');
+    cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid');
     cy.viewport(1100, 900);
     cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');

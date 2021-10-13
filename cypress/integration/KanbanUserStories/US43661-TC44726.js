@@ -1,6 +1,8 @@
-// Test Case 44721 : https://dev.azure.com/glasslewis/Development/_workitems/edit/44721
+// Test Case 44726 : https://dev.azure.com/glasslewis/Development/_workitems/edit/44726
 import { MEETINGID } from "../../support/constants";
+import '../../support/commands.js';
 const unixTime = Math.floor(Date.now() / 1000);
+//var settings //= `?&pCustomerID=544&_=${unixTime}`;
 
 describe('User Story US43661 tests', function () {
     beforeEach(function () {
@@ -13,8 +15,7 @@ describe('User Story US43661 tests', function () {
 
 
     });
-    it(`Live ballots with meeting date for future ballots whose meeting date has passed/Revote and no rationale entered for vote against policy`, function () {
-
+    it(`Live ballots with meeting date for past ballots whose meeting date has passed/Revote and no rationale entered for vote against policy`, function () {
 
         cy.loginInternalAdm('AutomationInternal');
         cy.visit('/Workflow');
@@ -38,34 +39,34 @@ describe('User Story US43661 tests', function () {
         });
         cy.logout()
 
-        //Step 1
+        //Step 2 Login as Russell Ext Admin User
         cy.loginExtAdm('Russell');
         cy.visit('/Workflow');
         cy.wait('@WorkflowSecuritiesWatchlists');
         cy.removeAllExistingSelectedCriteria();
-        //Step 2 - Open VAP meeting and change meeting date to today+10 days
-        cy.AddTenDaysToMeetingDates(MEETINGID.RSNCVAP)
 
-        //User Clicks on the valid company in the Workflow page
-        cy.visit('MeetingDetails/Index/' + MEETINGID.RSNCVAP)
+        //Step 3 - Open VAP meeting and change meeting date to today -10 days
+        cy.SetMeetingDateXdaysFromCurrent(MEETINGID.RSNCVAP2, -10)
+
+        cy.visit('MeetingDetails/Index/' + MEETINGID.RSNCVAP2)
         cy.wait('@getagenda')
         cy.wait('@MeetingSecurityWatchlists');
 
         cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale').click({ force: true });
         cy.verifyMeetingOptionButtons();
 
-        //Step 3 -
+        //Step 4 -
         //For any proposals that the vote option is against policy,clear the rational field and enter rationales for all
         //other votes - Note : Always ignore Non-Voting proposals
         cy.ClearRationaleForVAPEntriesAndAddRationaleVotingWithPolicy()
 
-        //Step 4 - user clicks on vote/revote button
+        //Step 5 - user clicks on vote/revote button
         cy.get('#btn-vote-now').click()
-        cy.wait('@validation')
+        //cy.wait('@validation')
         //check override checkbox 
         cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').click()
 
-        // Step 5 - Proceed button should be disabled
+        // Step 6 - Proceed button should be disabled
         cy.get('.floatright > .green').should('be.not.visible')
 
         //Then there should be a warning message that states "You are voting against policy for proposal X"

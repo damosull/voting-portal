@@ -109,6 +109,12 @@ declare namespace Cypress {
     verifyMeetingOptionButtons(): Chainable<Element>;
 
     /**
+     * * Database script to add 10 days to all date entries in the meeting ID passed in
+     * @param none
+     */
+    AddTenDaysToMeetingDates(query?: string): Chainable<Element>;
+
+    /**
      * * Execute a query against the "GLP" database
      * @param query Query to be exeucted. You use a then() to wrap up the result and use in the tests.
      * @example cy.executeQuery('SELECT * FROM AA_Account WHERE AccountID = 1').then((result) => {console.log(result)})

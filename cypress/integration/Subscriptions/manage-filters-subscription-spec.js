@@ -71,7 +71,7 @@ describe('Create Manage Filters Subscription entry and validate in FL_Subscripti
 
     //Step 8 - Verify Toast message - Subscription added
     cy.get('.toast-message').should('contain.text', toast.SUBSCRIPTION_ADDED);
-    cy.GetAutomationUserIDFromDB(USER.CALPERS).as('userid');
+    cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid');
 
     //Step 9 - Connect to Aqua Database and verify new row has been added
     cy.executeQuery('SELECT TOP 1 * FROM FL_Subscription ORDER BY SubscriptionID DESC').then((result) => {
