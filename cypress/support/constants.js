@@ -59,6 +59,7 @@ export const MEETINGID = {
 
   //Russell (at least one against policy past 30 days)
   RSNCVAP: '1061109',
+  RSNCVAP2: '981568',
 
   //Basic Recommendations pending meeting for Calpers
   CPRP1: '1066197',

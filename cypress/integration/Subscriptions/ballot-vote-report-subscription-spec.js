@@ -10,7 +10,7 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
 
   beforeEach(function () {
     //since db refresh changes user id of automation user,need to grab the userid from the DB on the fly
-    cy.GetAutomationUserIDFromDB(USER.CALPERS).as('userid');
+    cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid');
 
     cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
     cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
