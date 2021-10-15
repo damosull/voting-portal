@@ -14,7 +14,6 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.intercept('POST', '/api/Logger/**').as('logger');
     cy.intercept('GET', '**/Api/Data/MeetingMaterials/GetFilings?MeetingId=**').as('GetFilings');
     cy.intercept('POST', '**/Api/Data/VoteTally').as('VoteTally');
-    cy.intercept('POST', '**/Api/Data/VoteRequestValidation').as('validate')
 
     cy.loginSession(USER.CALPERS);
     cy.visit('/').url().should('include', '/Workflow');
@@ -46,7 +45,6 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.get('#btn-vote-now').click({ force: true });
 
     //check override checkbox and Proceed
-    cy.wait('@validate')
     cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').click({ force: true });
     cy.get('.floatright > .green').click();
 
@@ -111,8 +109,6 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.wait('@PostData');
     cy.wait('@GetData');
     cy.wait('@logger');
-    //neccessary for meeting to fully load
-    cy.waitForMeetingToLoad();
     cy.get('#btn-unlock').click({ force: true });
     cy.verifyMeetingOptionButtons();
 
