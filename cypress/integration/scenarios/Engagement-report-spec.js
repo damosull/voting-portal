@@ -53,7 +53,7 @@ describe('Generate Engagement report,download and verify file headers', function
           expect(resp.body).to.have.length.greaterThan(1);
           cy.log(resp.body);
           expect(resp.body).include(
-            'Company Name,Created Date,Date of Engagement,Other Participants,Themes,Type,Notes,Participant Name,Role,Title'
+            'Created Date,Date of Engagement,Decision Status,Other Participants,Themes,Type,Notes,Participant Name,Role,Title'
           );
         });
       });
