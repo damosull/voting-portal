@@ -418,6 +418,46 @@ Cypress.Commands.add('ClearRationaleForVAPEntriesAndAddRationaleVotingWithPolicy
     })
   })
 })
+
+Cypress.Commands.add('ClearRationaleForVAMEntriesAndAddRationaleVotingWithManagement', () => {
+  cy.get('#md-votecard-grid-results > tr').then(($rows) => {
+    $rows.each((index, value) => {
+      const rec = Cypress.$(value).find('td:nth-child(3)').text();
+      var selected = Cypress.$(value).find(':selected').text();
+      if (!rec.includes('Non Voting')) {
+        if (rec.toLowerCase() !== selected.toLowerCase()) {
+          cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+            .scrollIntoView()
+            .click({ force: true });
+          cy.get(
+            `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+          ).clear({ force: true });
+          cy.get(
+            `#md-votecard-grid-results > tr:nth-child(${index + 1
+            }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+          ).click({ force: true });
+        } else {
+          cy.get(`tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+            .scrollIntoView()
+            .click({ force: true });
+          cy.get(
+            `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+          ).clear({ force: true });
+          cy.get(
+            `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+          ).type('test', { force: true });
+          cy.get(
+            `#md-votecard-grid-results > tr:nth-child(${index + 1
+            }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+          ).click({ force: true });
+        }
+      }
+    })
+  })
+})
+
+
+
 Cypress.Commands.add('saveFilter', (filterName) => {
   cy.contains('Save As').click();
   cy.get('#popupTextContainer').should('be.visible').type(filterName);

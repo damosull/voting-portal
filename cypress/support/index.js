@@ -19,12 +19,11 @@ require('cypress-grep')();
 import sqlServer from 'cypress-sql-server';
 sqlServer.loadDBCommands();
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
-
 /* eslint-disable no-unused-vars */
 Cypress.on('uncaught:exception', (err, runnable) => {
   // returning false here prevents Cypress from
   // failing the test
   return false;
 });
+
+

@@ -5,6 +5,7 @@
   "main": "index.js",
   "devDependencies": {
     "cypress": "^8.5.0",
+    "cypress-cucumber-preprocessor": "^4.3.0",
     "cypress-fill-command": "^1.0.2",
     "cypress-grep": "^2.5.3",
     "cypress-sql-server": "^1.0.0",
@@ -12,7 +13,16 @@
     "eslint": "^7.27.0",
     "eslint-plugin-cypress": "^2.11.3",
     "lodash": "^4.17.21",
-    "node-xlsx": "^0.16.1"
+    "node-xlsx": "^0.17.2"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "cucumberJson": {
+      "generate": true,
+      "outputFolder": "cypress/cucumber-json",
+      "filePrefix": "",
+      "fileSuffix": ".cucumber"
+    }
   },
   "scripts": {
     "cy:open": "cypress open",
@@ -30,6 +40,7 @@
   "license": "ISC",
   "keywords": [],
   "dependencies": {
+    "cosmiconfig": "^7.0.1",
     "moment": "^2.29.1"
   }
 }
