@@ -25,9 +25,5 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   // failing the test
   return false;
 });
-function getConfigurationByFile(file) {
-  const pathToConfigFile = path.resolve('cypress', 'config', `${file}.json`);
 
-  return fs.readJson(pathToConfigFile);
-}
 

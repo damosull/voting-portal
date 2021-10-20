@@ -3,3 +3,5 @@
 node_modules
 cypress.env.json
 downloads
+# Cucumber Test Results
+cucumber-json/
