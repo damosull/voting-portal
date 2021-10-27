@@ -30,18 +30,19 @@ Given('I login as Internal User and retrieve Customer ID for {string}', (custome
     cy.getCustomerIDFromDB(customer).as('custid')
 
 });
-When('I verify customer settings for VAP', () => {
+When('I verify customer settings for VAM and VAP', () => {
     //verify CanModifyVotesRationaleAfterMeetingDate = true
     //& RequireRationaleVap = true for Customer
     cy.get('@custid').then(function (cid) {
         const settings = `?&pCustomerID=${cid}&_=${unixTime}`;
         cy.TurnOnCustomerSetting(settings, 'CanModifyVotesRationaleAfterMeetingDate')
         cy.TurnOnCustomerSetting(settings, 'RequireRationaleVap')
+        cy.TurnOnCustomerSetting(settings, 'RequireRationaleVam')
     });
     cy.logout()
 });
 
-When('I verify customer settings for VAM', () => {
+/* When('I verify customer settings for VAM', () => {
     //verify CanModifyVotesRationaleAfterMeetingDate = true
     //& RequireRationaleVap = true for Customer
     cy.get('@custid').then(function (cid) {
@@ -50,11 +51,11 @@ When('I verify customer settings for VAM', () => {
         cy.TurnOnCustomerSetting(settings, 'RequireRationaleVam')
     });
     cy.logout()
-});
+}); */
 
 
 
-And('I login as External User {string}', (extadm) => {
+When('I login as External User {string}', (extadm) => {
     cy.loginExtAdm(extadm);
     cy.visit('/Workflow');
     cy.wait('@WorkflowSecuritiesWatchlists');
@@ -83,12 +84,31 @@ And('I change meeting date on Russell meeting id 1068747 to 10 days in the futur
     cy.verifyMeetingOptionButtons();
 });
 
+And('I change meeting date on Russell meeting id {string} to 10 days in the future and navigate to it', (meetid) => {
+
+    cy.AddTenDaysToMeetingDates(meetid)
+    cy.visit('MeetingDetails/Index/' + meetid)
+    cy.wait('@getagenda')
+    cy.wait('@MeetingSecurityWatchlists');
+
+    cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale').click({ force: true });
+    cy.verifyMeetingOptionButtons();
+});
+
 And('I clear the rationales for VAP entries and add rationales for other proposals', () => {
     cy.ClearRationaleForVAPEntriesAndAddRationaleVotingWithPolicy()
 });
 
 And('I clear the rationales for VAM entries and add rationales for other proposals', () => {
     cy.ClearRationaleForVAMEntriesAndAddRationaleVotingWithManagement()
+});
+
+And('I enter rationales for all proposals in the meeting', () => {
+    cy.EnterRationaleTextForAllProposals()
+});
+
+And('I clear the rationales for VAM entries and VAP entries and add rationales for remaining proposals', () => {
+    cy.ClearRationaleForVAMAndVAPEntriesAndAddRationaleForOtherProposals()
 });
 
 And('I click the vote button and check the override checkbox', () => {
@@ -98,19 +118,21 @@ And('I click the vote button and check the override checkbox', () => {
 });
 
 Then('the Proceed button should be disabled', () => {
-
-    // Step 6 - Proceed button should be disabled
     cy.get('.floatright > .green').should('be.not.visible')
+});
+
+Then('the Proceed button should be enabled', () => {
+    cy.get('.floatright > .green').should('be.visible')
 });
 
 And('there should be a warning message that states "You are voting against policy for proposal X"', () => {
     cy.get('[data-bind="visible: requireNoteOnVam|| requireNoteOnVap"] > :nth-child(1)').should('include.text', 'Please enter a rationale for all mentioned items and for all selected ballots in order to vote this meeting:')
     cy.get('[data-bind="visible: requireNoteOnVap"]').should('include.text', 'Vote(s) against policy without a rationale for proposal')
-    cy.get('.floatright > .gray').should('be.visible').click();
+    cy.get('.floatright > .gray').should('be.visible')
 });
 
 And('there should be a warning message that states "You are voting against management for proposal X"', () => {
     cy.get('[data-bind="visible: requireNoteOnVam|| requireNoteOnVap"] > :nth-child(1)').should('include.text', 'Please enter a rationale for all mentioned items and for all selected ballots in order to vote this meeting:')
     cy.get('[data-bind="visible: requireNoteOnVam"]').should('include.text', 'Vote(s) against management without a rationale for proposal')
-    cy.get('.floatright > .gray').should('be.visible').click();
+    cy.get('.floatright > .gray').should('be.visible')
 });

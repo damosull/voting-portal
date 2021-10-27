@@ -419,6 +419,29 @@ Cypress.Commands.add('ClearRationaleForVAPEntriesAndAddRationaleVotingWithPolicy
   })
 })
 
+Cypress.Commands.add('EnterRationaleTextForAllProposals', () => {
+  cy.get('#md-votecard-grid-results > tr').then(($rows) => {
+    $rows.each((index, value) => {
+      const rec = Cypress.$(value).find('td.vote-card-policy-rec').text();
+      if (!rec.includes('Non Voting')) {
+        cy.get(`tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+          .scrollIntoView()
+          .click({ force: true });
+        cy.get(
+          `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+        ).clear({ force: true });
+        cy.get(
+          `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+        ).type('test rationale', { force: true });
+        cy.get(
+          `#md-votecard-grid-results > tr:nth-child(${index + 1
+          }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+        ).click({ force: true });
+      }
+    })
+  })
+})
+
 Cypress.Commands.add('ClearRationaleForVAMEntriesAndAddRationaleVotingWithManagement', () => {
   cy.get('#md-votecard-grid-results > tr').then(($rows) => {
     $rows.each((index, value) => {
@@ -426,6 +449,44 @@ Cypress.Commands.add('ClearRationaleForVAMEntriesAndAddRationaleVotingWithManage
       var selected = Cypress.$(value).find(':selected').text();
       if (!rec.includes('Non Voting')) {
         if (rec.toLowerCase() !== selected.toLowerCase()) {
+          cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+            .scrollIntoView()
+            .click({ force: true });
+          cy.get(
+            `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+          ).clear({ force: true });
+          cy.get(
+            `#md-votecard-grid-results > tr:nth-child(${index + 1
+            }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+          ).click({ force: true });
+        } else {
+          cy.get(`tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+            .scrollIntoView()
+            .click({ force: true });
+          cy.get(
+            `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+          ).clear({ force: true });
+          cy.get(
+            `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+          ).type('test', { force: true });
+          cy.get(
+            `#md-votecard-grid-results > tr:nth-child(${index + 1
+            }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+          ).click({ force: true });
+        }
+      }
+    })
+  })
+})
+
+Cypress.Commands.add('ClearRationaleForVAMAndVAPEntriesAndAddRationaleForOtherProposals', () => {
+  cy.get('#md-votecard-grid-results > tr').then(($rows) => {
+    $rows.each((index, value) => {
+      const vamrec = Cypress.$(value).find('td:nth-child(3)').text();
+      const vaprec = Cypress.$(value).find('td.vote-card-policy-rec').text();
+      var selected = Cypress.$(value).find(':selected').text();
+      if (!vaprec.includes('Non Voting')) {
+        if ((vaprec.toLowerCase() !== selected.toLowerCase()) || (vamrec.toLowerCase() !== selected.toLowerCase())) {
           cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
             .scrollIntoView()
             .click({ force: true });
