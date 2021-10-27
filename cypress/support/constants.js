@@ -63,6 +63,7 @@ export const MEETINGID = {
 
   //Russell (at least one against management past 30 days)
   RSNCVAM1: '1068747',
+  RSNCVAM2: '1070063',
 
   //Basic Recommendations pending meeting for Calpers
   CPRP1: '1066197',
