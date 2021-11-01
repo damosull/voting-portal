@@ -22,7 +22,7 @@ describe('Report', () => {
 
   before(() => {
     cy.viewport(1100, 900);
-    cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
+    //cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
     cy.intercept('GET', '**/Api/Data/AVA/?PageInfo%5BIgnorePagesize%5D=true&ReportType=AVA&_=**').as('AVAReport');
     cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
     cy.intercept('GET', '**/Downloads/DownloadExportFromUrl/?requestID=**').as('DownloadReport');
@@ -36,7 +36,7 @@ describe('Report', () => {
   it(`- Voting Activity ${upperFileExt}`, () => {
     cy.log('Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939');
 
-    cy.wait('@BallotRecon');
+    //cy.wait('@BallotRecon');
 
     // step 2 (these are the steps referenced in the test case)
     cy.selectReportType('Voting Activity');

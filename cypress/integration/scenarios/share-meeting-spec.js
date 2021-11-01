@@ -33,15 +33,14 @@ describe('Share meeting with User - Comment', function () {
   });
 
   it(`Verify User can share meeting with another user`, function () {
+    debugger
     //make sure all dates are current with this meeting id 
     cy.AddTenDaysToMeetingDates(MEETINGID.CPRP6)
 
     //Step 4 - navigate to Calpers meeting ID 
     cy.visit('MeetingDetails/Index/' + MEETINGID.CPRP6)
-    cy.wait('@GetStatus').then((interception) => {
-      const meeting = JSON.stringify(interception.response.body[0].MeetingId);
-      cy.wrap(meeting).as('meetingid');
-    });
+
+    cy.wait('@GetStatus')
     cy.wait('@GetData')
     cy.wait('@logger')
     cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale').click({ force: true });
@@ -51,6 +50,7 @@ describe('Share meeting with User - Comment', function () {
     cy.get('#btn-share-meeting').click();
     cy.get('#sharemeeting-modal_wnd_title').should('be.visible');
     cy.wait('@ShareMeetingLists');
+
 
     //Step 6 - Select 'Calpers External Admin' from Users list
     cy.get('#in-share-meeting-user-name').type('cal');
@@ -68,6 +68,11 @@ describe('Share meeting with User - Comment', function () {
     cy.get('#btn-share-meeting-confirm').click();
     cy.get('.toast-message').should('contain.text', toast.SHARE_MEETING_REQUEST_SAVED);
 
+    cy.wait('@GetStatus').then((interception) => {
+      const meeting = JSON.stringify(interception.response.body[0].MeetingId);
+      debugger
+      cy.wrap(meeting).as('meetingid');
+    });
     //Step 11 - Connect to Aqua GLP Database and verify new row has been added to PX_ShareMeeting table
     cy.executeQuery('SELECT TOP 1 * FROM PX_ShareMeeting ORDER BY ShareMeetingID DESC').then((result) => {
       var cols = [];
