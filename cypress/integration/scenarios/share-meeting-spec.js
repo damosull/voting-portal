@@ -33,7 +33,6 @@ describe('Share meeting with User - Comment', function () {
   });
 
   it(`Verify User can share meeting with another user`, function () {
-    debugger
     //make sure all dates are current with this meeting id 
     cy.AddTenDaysToMeetingDates(MEETINGID.CPRP6)
 
@@ -70,7 +69,6 @@ describe('Share meeting with User - Comment', function () {
 
     cy.wait('@GetStatus').then((interception) => {
       const meeting = JSON.stringify(interception.response.body[0].MeetingId);
-      debugger
       cy.wrap(meeting).as('meetingid');
     });
     //Step 11 - Connect to Aqua GLP Database and verify new row has been added to PX_ShareMeeting table

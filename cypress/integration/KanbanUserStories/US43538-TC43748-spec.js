@@ -143,7 +143,6 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column - Customer pe
                             }]
                     },
                 }).then((resp) => {
-                    debugger
                     expect(resp.status).to.eq(200);
                 });
             });
