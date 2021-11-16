@@ -12,6 +12,10 @@ Cypress.Commands.add('RemoveAnyExistingSubscriptions', () => {
   });
 });
 
+Cypress.Commands.add("get$", (selector) => {
+  return cy.wrap(Cypress.$(selector)).should("have.length.gte", 1);
+});
+
 Cypress.Commands.add('SetPaginationAndVerify', (numItemsPerPage, num) => {
   cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').invoke(
     'attr',
