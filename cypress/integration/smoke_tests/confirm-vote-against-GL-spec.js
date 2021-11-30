@@ -18,7 +18,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
 
     });
 
-    it.skip('Confirm votes against GL captured in filter criteria', function () {
+    it('Confirm votes against GL captured in filter criteria', function () {
 
         cy.AddCriteriaOption('decision', 'Decision Status')
         cy.selectValueFromCriteriaOption('.DecisionStatusEditor', 'value', 'Approved', '#btn-apply-criteria')
@@ -29,7 +29,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
         let GLvals = []
         let Selected = []
 
-        cy.get('table > tbody > tr').eq(2).within(() => {
+        cy.get('table > tbody > tr').eq(1).within(() => {
             cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
         })
 
@@ -55,7 +55,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
     }); //end it
 
 
-    it.skip('Confirm votes against Management captured in filter criteria', function () {
+    it('Confirm votes against Management captured in filter criteria', function () {
 
 
         cy.AddCriteriaOption('decision', 'Decision Status')
@@ -68,7 +68,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
         let Mgmtvals = []
         let Selected = []
 
-        cy.get('table > tbody > tr').eq(2).within(() => {
+        cy.get('table > tbody > tr').eq(1).within(() => {
             cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
         })
 
