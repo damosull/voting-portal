@@ -1,8 +1,11 @@
 const { MEETINGID, USER } = require('../../support/constants');
 import '../../support/commands.js';
-//import { USER } from '../../support/constants';
+import workflowPageItems from '../../elements/pages/workflowIPageItems'
 
 describe('Test QuickVote functionality in MeetingDetails page', function () {
+
+  const workflowPage = new workflowPageItems();
+
   beforeEach(function () {
     cy.viewport(1100, 900);
     cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
@@ -22,127 +25,128 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.removeAllExistingSelectedCriteria();
   });
 
-  it(`Vote on US meeting on Recommendations Pending meeting`, function () {
-    //make sure all dates are current with this meeting id
-    cy.AddTenDaysToMeetingDates(MEETINGID.CPRP4);
+  it.only(`Vote on US meeting on Recommendations Pending meeting`, function () {
 
-    //Step 4 - navigate to Calpers meeting ID
-    cy.visit('MeetingDetails/Index/' + MEETINGID.CPRP4);
-    cy.wait('@PostData');
-    cy.wait('@GetData');
-    cy.wait('@logger');
-    //neccessary for meeting to fully load
-    cy.wait('@GetFilings');
-    cy.wait('@VoteTally');
-
-    cy.get('#launch-ballots-voted-modal').should('be.visible');
-
-    cy.get('#btn-unlock').click({ force: true });
-    cy.verifyMeetingOptionButtons();
-
-    cy.get('#quick-vote-container > span > span').click({ force: true });
-    cy.get('#quickVoteSelect').select('For', { force: true });
-    cy.get('#btn-vote-now').click({ force: true });
-
-    //check override checkbox and Proceed
-    cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').click({ force: true });
-    cy.get('.floatright > .green').click();
-
-    cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale');
+    addTenDaysToMeetingDates(MEETINGID.CPRP4);
+    visitMeeting('MeetingDetails/Index/',MEETINGID.CPRP4);
+    waitForAPICalls();
+    clickOnChangeVoteOrRationaleButton();
+    verifyMeetingOptionButtons();  
+    clickOntheVoteDropDownButton();
+    selectForAsAllVote();
+    clickonVoteNowButton();
+    tickTheBallotCheckbox();
+    clickOnTheProceedButton();
+    checkVoteButtonStatus('Change Vote or Rationale');  
+      
   });
 
   it(`Verify Instruct functionality on Recommendations Pending meeting`, function () {
-    //make sure all dates are current with this meeting id
-    cy.AddTenDaysToMeetingDates(MEETINGID.CPRP1);
-
-    //Step 4 - navigate to Calpers meeting
-    cy.visit('MeetingDetails/Index/' + MEETINGID.CPRP1);
-    cy.wait('@PostData');
-    cy.wait('@GetData');
-    cy.wait('@logger');
-    //neccessary for meeting to fully load
-    cy.wait('@GetFilings');
-    cy.wait('@VoteTally');
-
-    cy.get('#launch-ballots-voted-modal').should('be.visible');
-
-    cy.get('#btn-unlock').click({ force: true });
-    cy.verifyMeetingOptionButtons();
-
-    cy.get('#btn-instruct').click({ force: true });
+    
+    addTenDaysToMeetingDates(MEETINGID.CPRP1);
+    visitMeeting('MeetingDetails/Index/',MEETINGID.CPRP1);
+    waitForAPICalls();
+    clickOnChangeVoteOrRationaleButton();
+    verifyMeetingOptionButtons();
+    clickOnInstructButton();
+  
   });
 
   it(`Vote on Global meeting on Recommendations Pending meeting`, function () {
-    //make sure all dates are current with this meeting id
     cy.AddTenDaysToMeetingDates(MEETINGID.CPRP2);
-
-    //Step 4 - navigate to Calpers meeting
     cy.visit('MeetingDetails/Index/' + MEETINGID.CPRP2);
-    cy.wait('@PostData');
-    cy.wait('@GetData');
-    cy.wait('@logger');
-    //neccessary for meeting to fully load
-    cy.wait('@GetFilings');
-    cy.wait('@VoteTally');
-
-    cy.get('#launch-ballots-voted-modal').should('be.visible');
-
-    cy.get('#btn-unlock').click({ force: true });
-    cy.verifyMeetingOptionButtons();
-
-    cy.get('#quick-vote-container > span > span').click({ force: true });
-    cy.get('#quickVoteSelect').select('For', { force: true });
-    cy.get('#btn-vote-now').click({ force: true });
-    cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').click({ force: true });
-    cy.get('.floatright > .green').click();
-
-    cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale');
+    waitForAPICalls();
+    workflowPage.unlockButton().click({ force: true });
+    verifyMeetingOptionButtons();
+    workflowPage.quickVoteDropdown().click({ force: true });
+    workflowPage.quickVoteSelect().select('For', { force: true });
+    workflowPage.voteNowButton().click({ force: true });
+    workflowPage.votedBallots().click({ force: true });
+    workflowPage.proceedButton().click();
+    workflowPage.unlockButton().should('have.text', 'Change Vote or Rationale');
   });
 
   it(`QuickVote on Recommendations Pending meeting`, function () {
-    //make sure all dates are current with this meeting id
     cy.AddTenDaysToMeetingDates(MEETINGID.CPRP3);
-
-    //Step 4 - navigate to Calpers meeting ID 1066197
     cy.visit('MeetingDetails/Index/' + MEETINGID.CPRP3);
-
-    cy.wait('@PostData');
-    cy.wait('@GetData');
-    cy.wait('@logger');
-    cy.get('#btn-unlock').click({ force: true });
-    cy.verifyMeetingOptionButtons();
-
-    //Do a Quickvote For to move meeting status to Voted
-    cy.get('#quick-vote-container > span > span').click({ force: true });
-    cy.get('#quickVoteSelect').select('For', { force: true });
-    cy.get('#btn-vote-now').click({ force: true });
-    cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').click({ force: true });
-    cy.get('.floatright > .green').click();
-
-    cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale');
+    waitForAPICalls();
+    workflowPage.unlockButton().click({ force: true });
+    verifyMeetingOptionButtons();
+    workflowPage.quickVoteDropdown().click({ force: true });
+    workflowPage.quickVoteSelect().select('For', { force: true });
+    workflowPage.voteNowButton().click({ force: true });
+    workflowPage.votedBallots().click({ force: true });
+    workflowPage.proceedButton().click();
+    workflowPage.unlockButton().should('have.text', 'Change Vote or Rationale');
   });
 
   it(`Take No Action on first Recommendations Pending meeting`, function () {
-    //make sure all dates are current with this meeting id
     cy.AddTenDaysToMeetingDates(MEETINGID.CPRP5);
-
-    //Step 4 - navigate to Calpers meeting
     cy.visit('MeetingDetails/Index/' + MEETINGID.CPRP5);
+    waitForAPICalls();
+    workflowPage.unlockButton().click({ force: true });
+    verifyMeetingOptionButtons();
+    workflowPage.takeNoActionButton().click({ force: true });
+    workflowPage.takeNoActionBallots().click({ force: true });
+    workflowPage.proceedButton().click();
+    workflowPage.unlockButton().should('have.text', 'Change Vote or Rationale');
+  });
+
+  /*Functions*/
+
+  function clickOntheVoteDropDownButton() {
+    workflowPage.quickVoteDropdown().click({ force: true });
+  }
+
+  function selectForAsAllVote() {
+    workflowPage.quickVoteSelect().select('For', { force: true });
+  }
+
+  function clickonVoteNowButton() {
+    workflowPage.voteNowButton().click({ force: true });
+  }
+
+  function tickTheBallotCheckbox() {
+    workflowPage.votedBallots().click({ force: true });
+  }
+
+  function clickOnTheProceedButton() {
+    workflowPage.proceedButton().click();
+  }
+
+  function checkVoteButtonStatus(buttonName) {
+    workflowPage.unlockButton().should('have.text', buttonName);
+  }
+
+  function clickOnChangeVoteOrRationaleButton() {
+    workflowPage.unlockButton().click({ force: true });
+  }
+
+  function clickOnInstructButton() {
+    workflowPage.instructButton().click({ force: true });
+  }
+
+  function visitMeeting(url,meetingID) {
+    cy.visit(url + meetingID);
+  }
+
+  function addTenDaysToMeetingDates(meetingID) {
+    cy.AddTenDaysToMeetingDates(meetingID);
+  }
+
+  function waitForAPICalls() {
     cy.wait('@PostData');
     cy.wait('@GetData');
     cy.wait('@logger');
     cy.wait('@GetFilings');
     cy.wait('@VoteTally');
+  }
+  
+  function verifyMeetingOptionButtons() {
+    workflowPage.voteNowButton();
+    workflowPage.takeNoActionButton();
+    workflowPage.instructButton();
+  }
 
-    cy.get('#launch-ballots-voted-modal').should('be.visible');
-
-    cy.get('#btn-unlock').click({ force: true });
-    cy.verifyMeetingOptionButtons();
-
-    cy.get('#btn-take-no-action').click({ force: true });
-    cy.get('[data-bind="visible: override.tnaBallotsBoxVisible"] > .ccb').click({ force: true });
-    cy.get('.floatright > .green').click();
-
-    cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale');
-  });
 }); // end describe
+

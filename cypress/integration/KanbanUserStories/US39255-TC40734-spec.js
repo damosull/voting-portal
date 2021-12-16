@@ -14,7 +14,7 @@ describe('US39255 tests', function () {
     cy.loginExtAdm('Neuberger');
     cy.visit('/Workflow');
     cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    //cy.wait('@WorkflowSecuritiesWatchlists');
 
     cy.removeAllExistingSelectedCriteria();
   });

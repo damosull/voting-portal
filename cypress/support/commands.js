@@ -32,6 +32,7 @@ Cypress.Commands.add('SetPaginationAndVerify', (numItemsPerPage, num) => {
     .should('have.text', numItemsPerPage);
 });
 
+//make sure all dates are current with this meeting id
 Cypress.Commands.add('AddTenDaysToMeetingDates', (meetingId) => {
   cy.executeUpdateQuery(
     `UPDATE PX_Meeting SET

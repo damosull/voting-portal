@@ -23,7 +23,7 @@ describe('US28436 - Test 6', () => {
 
     cy.loginExtAdm('Neuberger');
     cy.visit('/Workflow');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    //cy.wait('@WorkflowSecuritiesWatchlists');
   });
 
   it('Verify ballot section display the correct results when filter is applied', () => {
@@ -31,8 +31,8 @@ describe('US28436 - Test 6', () => {
 
     // Wait for initial page to load
     cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
-    cy.wait('@AvailableAssigneesForCustomer');
+    //cy.wait('@WorkflowSecuritiesWatchlists');
+    //cy.wait('@AvailableAssigneesForCustomer');
 
     cy.contains('Upcoming Meetings').click();
 
@@ -57,8 +57,8 @@ describe('US28436 - Test 6', () => {
     });
 
     cy.wait('@PageSectionOrder');
-    cy.wait('@MeetingSecurityWatchlist');
-    cy.wait('@AssignedMeetingID');
+    //cy.wait('@MeetingSecurityWatchlist');
+    //cy.wait('@AssignedMeetingID');
     cy.wait('@VoteTally');
 
     // Click on Filters: Policy
