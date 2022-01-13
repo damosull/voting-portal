@@ -19,7 +19,7 @@
   "db": {
     "userName": "TestHarnessUser",
     "password": "t3$t4@12ness#aQua#0932",
-    "server": "10.71.5.55",
+    "server": "10.71.5.53",
     "options": {
       "database": "GLP",
       "encrypt": true,
