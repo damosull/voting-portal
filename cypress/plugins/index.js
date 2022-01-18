@@ -20,7 +20,6 @@ const del = require('del');
 const sqlServer = require('cypress-sql-server');
 const dbConfig = require('../../cypress.json');
 const cucumber = require('cypress-cucumber-preprocessor').default
-var tasks;
 
 function getConfigurationByFile(file) {
   const pathToConfigFile = path.resolve('cypress', 'config', `${file}.json`);
@@ -43,8 +42,10 @@ module.exports = (on, config) => {
       });
     },
   });
-  tasks = sqlServer.loadDBPlugin(dbConfig.db);
-  on('task', tasks);
+  
+  on('task', sqlServer.loadDBPlugin(dbConfig.db));
+
+  on('file:preprocessor', cucumber());
 
   on('after:spec', (spec, results) => {
     if (results && results.video) {
@@ -60,20 +61,5 @@ module.exports = (on, config) => {
   });
 
   const file = config.env.configFile || 'development';
-  return getConfigurationByFile(file);
-};
-
-
-
-module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
-
-  on('file:preprocessor', cucumber());
-
-  tasks = sqlServer.loadDBPlugin(dbConfig.db);
-  on('task', tasks);
-
-  const file = config.env.configFile || 'qa';
   return getConfigurationByFile(file);
 };

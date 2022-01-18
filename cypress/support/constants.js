@@ -5,7 +5,7 @@ export const USER = {
   CHARLESSCHWAB: 'CharlesSchwabAutomation@glasslewis.com',
   FEDERATED: 'FederatedAutomation@glasslewis.com',
   IMF: 'IFMAutomation@glasslewis.com',
-  NEUBERGER: 'autoextadmin_neuberger@glasslewis.com',
+  NEUBERGER: 'neubergerexternal@glasslewis.com',
   OPERS: 'OpersAutomation@glasslewis.com',
   PADDYINTERNAL: 'pcorcoran@glasslewis.com',
   PUTNAM: 'PutnamAutomation@glasslewis.com',

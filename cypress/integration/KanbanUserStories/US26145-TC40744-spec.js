@@ -100,7 +100,7 @@ describe('US26145', () => {
         // Convert the date to the offset and format that Viewpoint shows in the UI
         //const formattedDate = moment(originalDate).utcOffset('+0700').format('MM/DD/YYYY HH:mm:ss');
         const formattedDate = moment(originalDate).format('MM/DD/YYYY');
-        const formattedTime = moment(originalDate).utcOffset('+0700').format('HH:mm:ss');
+        const formattedTime = moment(originalDate).utcOffset('+0800').format('HH:mm:ss');
         let leadingZeros = formattedDate.replace(/\b0/g, '');
         let finalDate = `${leadingZeros} ${formattedTime}`;
 

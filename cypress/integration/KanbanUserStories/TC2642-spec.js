@@ -30,8 +30,8 @@ describe('US28436 - Test 6', () => {
 
     // Wait for initial page to load
     cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
-    cy.wait('@AvailableAssigneesForCustomer');
+    //cy.wait('@WorkflowSecuritiesWatchlists');
+    //cy.wait('@AvailableAssigneesForCustomer');
 
     // Click on Upcoming Meetings link
     cy.contains('Upcoming Meetings').click();
@@ -56,8 +56,8 @@ describe('US28436 - Test 6', () => {
       cy.wrap(arrAPIPolicy).as('arrAPIPolicy');
     });
     cy.wait('@PageSectionOrder');
-    cy.wait('@MeetingSecurityWatchlist');
-    cy.wait('@AssignedMeetingID');
+    //cy.wait('@MeetingSecurityWatchlist');
+    //cy.wait('@AssignedMeetingID');
     cy.wait('@VoteTally');
 
     // Click on Filters: Policy
