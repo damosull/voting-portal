@@ -15,7 +15,7 @@ describe('User Story US43661 tests', function () {
 
 
     });
-    it(`Live ballots with meeting date for past ballots whose meeting date has passed/Revote and no rationale entered for vote against policy`, function () {
+    it.skip(`Live ballots with meeting date for past ballots whose meeting date has passed/Revote and no rationale entered for vote against policy`, function () {
 
         cy.loginInternalAdm('AutomationInternal');
         cy.visit('/Workflow');
