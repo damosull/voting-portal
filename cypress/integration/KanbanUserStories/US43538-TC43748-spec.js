@@ -2,7 +2,8 @@
 const { USER, MEETINGID } = require('../../support/constants');
 import '../../support/commands.js';
 const unixTime = Math.floor(Date.now() / 1000);
-const configName = `?byCategory=true&userID=11335&_=${unixTime}`;
+//Fix it to collect the ID automatically -> UserID is a primary key which could change after reload
+const configName = `?byCategory=true&userID=11862&_=${unixTime}`;
 const settings = `?&pCustomerID=544&_=${unixTime}`;
 const ballotConfigName = `BallotVoteData_${unixTime}`;
 const nextDays = 2;
@@ -63,7 +64,7 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column - Customer pe
         cy.get('@csrftoken').then((token) => {
             cy.request({
                 method: 'GET',
-                url: `https://viewpoint.aqua.glasslewis.com/Api/Data/CustomerDetails//GetByID${settings}`,
+                url: `https://viewpoint.aqua.glasslewis.com/Api/Data/CustomerDetails/GetByID${settings}`,
                 headers: {
                     CSRFToken: token,
                 },
@@ -77,7 +78,6 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column - Customer pe
                 cy.request({
                     method: 'PUT',
                     url: 'https://viewpoint.aqua.glasslewis.com/Api/Data/CustomerDetailsUpdate/',
-                    //url: 'https://viewpoint.aqua.glasslewis.com/Api/Data/CustomerDetails/544',
                     headers: {
                         CSRFToken: token,
                         'Content-Type': 'application/json; charset=utf-8',

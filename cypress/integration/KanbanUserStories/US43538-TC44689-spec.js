@@ -1,8 +1,8 @@
 //Test scenario 44689 - https://dev.azure.com/glasslewis/Development/_workitems/edit/44689
-const { MEETINGID } = require('../../support/constants');
+const { USER, MEETINGID } = require('../../support/constants');
 import '../../support/commands.js';
 const unixTime = Math.floor(Date.now() / 1000);
-const configName = `?byCategory=true&userID=11335&_=${unixTime}`;
+const configName = `?byCategory=true&userID=11862&_=${unixTime}`;
 const settings = `?&pCustomerID=544&_=${unixTime}`;
 const ballotConfigName = `BallotVoteData_${unixTime}`;
 const nextDays = 2;
@@ -121,36 +121,38 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column - Customer pe
 
         });
 
+        cy.getAutomationUserIDFromDB(USER.RUSSELL).as('userid');
         //Step 10 - Update RussellAutomation External Admin permissions from Denied 
         //to Explicitally Allowed for Permission.Workflow.Meeting.VoteCard.ViewAcsiRecs 
-        cy.get('body').then(($body) => {
-            // we can use Cypress.$ to parse the string body
-            // thus enabling us to query into it easily
-            const $html = Cypress.$($body);
-            const csrf = $html.find('input[name=csrf-token]').val();
-            cy.log(csrf)
-            cy.request({
-                method: 'POST',
-                url: `https://viewpoint.aqua.glasslewis.com/Api/Data/Permissions/UpdateUserPermissions`,
-                headers: {
-                    CSRFToken: csrf,
-                },
-                body:
-                {
-                    UserID: 11335,
-                    Changes:
-                        [{
-                            ID: 322,
-                            Name: "Permission.Workflow.Meeting.VoteCard.ViewAcsiRecs",
-                            Access: "RoleDefault"
-                        }]
-                },
+        cy.get('@userid').then((uid) => {
+            cy.get('body').then(($body) => {
+                // we can use Cypress.$ to parse the string body
+                // thus enabling us to query into it easily
+                const $html = Cypress.$($body);
+                const csrf = $html.find('input[name=csrf-token]').val();
+                cy.log(csrf)
+                cy.request({
+                    method: 'POST',
+                    url: `https://viewpoint.aqua.glasslewis.com/Api/Data/Permissions/UpdateUserPermissions`,
+                    headers: {
+                        CSRFToken: csrf,
+                    },
+                    body:
+                    {
+                        UserID: uid,
+                        Changes:
+                            [{
+                                ID: 322,
+                                Name: "Permission.Workflow.Meeting.VoteCard.ViewAcsiRecs",
+                                Access: "RoleDefault"
+                            }]
+                    },
 
-            }).then((resp) => {
-                expect(resp.status).to.eq(200);
+                }).then((resp) => {
+                    expect(resp.status).to.eq(200);
+                });
             });
         });
-
         //Step 11 - Log out Internal User
         cy.logout()
 
