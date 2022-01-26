@@ -7,7 +7,8 @@ const ballotConfigName = `BallotVoteData_${unixTime}`;
 const nextDays = 2;
 const pastDays = 2;
 
-describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column - Customer permission Enabled,User Enabled', function () {
+//US 43538 - https://dev.azure.com/glasslewis/Development/_workitems/edit/43538/
+describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function () {
     beforeEach(function () {
         cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
         cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
