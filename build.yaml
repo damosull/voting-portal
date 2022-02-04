@@ -34,6 +34,10 @@ schedules:
 
 steps:
   - script: |
+      npm install chrome -g
+    displayName: 'Install browsers'
+
+  - script: |
       npx cypress cache clear
     displayName: 'Cypress cache clear'
 
