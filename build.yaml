@@ -34,10 +34,6 @@ schedules:
 
 steps:
   - script: |
-      npm install puppeteer
-    displayName: 'Install browsers'
-
-  - script: |
       npx cypress cache clear
     displayName: 'Cypress cache clear'
 
@@ -50,7 +46,7 @@ steps:
       export cypress_Internal_Admin_Password=$(InternalAdminPassword)
       export cypress_External_Username=$(ExternalUsername)
       export HTTP_PROXY=http://10.71.1.42:3128
-      npx cypress run --browser chrome --headless --env configFile=${{ parameters.configuration }}
+      npx cypress run --env configFile=${{ parameters.configuration }}
     displayName: 'Running cypress'
 
   - task: ArchiveFiles@2
