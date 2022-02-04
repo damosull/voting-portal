@@ -27,6 +27,8 @@
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
+    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:run:firefox": "cypress run --browser firefox",
     "cy:run:qa": "cypress run --env configFile=qa",
     "lint": "eslint cypress",
     "cy:clean": "rmdir /s /q cypress\\downloads",
