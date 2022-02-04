@@ -34,7 +34,7 @@ schedules:
 
 steps:
   - script: |
-      npm install chrome -g
+      npm install puppeteer
     displayName: 'Install browsers'
 
   - script: |
