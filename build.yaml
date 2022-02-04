@@ -33,6 +33,9 @@ schedules:
         - master
 
 steps:
+- script: |
+      cypress cache clear
+    displayName: 'Cypress cache clear'
   - script: |
       npm ci
     displayName: 'npm ci'
