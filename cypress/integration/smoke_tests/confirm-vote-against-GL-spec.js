@@ -22,7 +22,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
 
         cy.AddCriteriaOption('decision', 'Decision Status')
         cy.selectValueFromCriteriaOption('.DecisionStatusEditor', 'value', 'Approved', '#btn-apply-criteria')
-        cy.AddCriteriaOption('With', 'With/Against Glass Lewis')
+        cy.AddCriteriaOption('With', 'Votes With/Against Glass Lewis')
         cy.selectValueFromCriteriaOption('.WithAgainstGlassLewisEditor', 'name', 'opt-WithAgainstGlassLewis', '#btn-update-WithAgainstGlassLewis')
 
         //arrays to store GL recommendations and vote decisons
@@ -60,7 +60,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
 
         cy.AddCriteriaOption('decision', 'Decision Status')
         cy.selectValueFromCriteriaOption('.DecisionStatusEditor', 'value', 'Approved', '#btn-apply-criteria')
-        cy.AddCriteriaOption('With', 'With/Against Management')
+        cy.AddCriteriaOption('With', 'Votes With/Against Management')
         cy.selectValueFromCriteriaOption('.WithAgainstManagementEditor', 'name', 'opt-WithAgainstManagement', '#btn-update-WithAgainstManagement')
 
 
