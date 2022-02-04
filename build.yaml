@@ -46,7 +46,7 @@ steps:
       export cypress_Internal_Admin_Password=$(InternalAdminPassword)
       export cypress_External_Username=$(ExternalUsername)
       export HTTP_PROXY=http://10.71.1.42:3128
-      npx cypress run --env configFile=${{ parameters.configuration }}
+      npx cypress run --env configFile=${{ parameters.configuration }} --browser chrome
     displayName: 'Running cypress'
 
   - task: ArchiveFiles@2
