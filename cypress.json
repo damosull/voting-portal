@@ -17,14 +17,9 @@
     "openMode": 0
   },
   "db": {
+    "userName": "TestHarnessUser",
+    "password": "t3$t4@12ness#aQua#0932",
     "server": "10.71.5.53",
-    "authentication": {
-      "type": "default",
-      "options": {
-        "userName": "TestHarnessUser",
-        "password": "t3$t4@12ness#aQua#0932"
-      }
-    },
     "options": {
       "database": "GLP",
       "encrypt": true,
