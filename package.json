@@ -4,7 +4,7 @@
   "description": "In this repo will be developed cypress tests for Voting Portal.",
   "main": "index.js",
   "devDependencies": {
-    "cypress": "^9.4.1",
+    "cypress": "^9.0.0",
     "cypress-cucumber-preprocessor": "^4.3.0",
     "cypress-fill-command": "^1.0.2",
     "cypress-grep": "^2.5.3",
