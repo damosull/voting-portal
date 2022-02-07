@@ -39,7 +39,6 @@ steps:
     displayName: 'Cypress cache clear'
 
   - script: |
-      npm install --save-dev cypress-sql-server
       npm ci
     displayName: 'npm ci'
 
