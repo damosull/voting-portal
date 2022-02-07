@@ -20,7 +20,6 @@
     "userName": "TestHarnessUser",
     "password": "t3$t4@12ness#aQua#0932",
     "server": "10.71.5.53",
-    "port": "8080",
     "options": {
       "database": "GLP",
       "encrypt": true,
