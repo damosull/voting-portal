@@ -18,6 +18,7 @@ parameters:
       - smoke-qa
       - smoke-ultra
       - smoke-prod
+      - sql_fix
 
 trigger:
   branches:
