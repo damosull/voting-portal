@@ -34,9 +34,11 @@ schedules:
         - master
 
 steps:
-#  - script: |
-#      npx cypress cache clear
-#    displayName: 'Cypress cache clear'
+  - script: |
+      npx cypress cache clear
+      npm update
+      npm audit fix
+    displayName: 'Cypress cache clear'
 
   - script: |
       npm ci
