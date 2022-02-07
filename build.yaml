@@ -36,6 +36,7 @@ schedules:
 steps:
   - script: |
       npx cypress cache clear
+      npm audit fix
     displayName: 'Cypress cache clear'
 
   - script: |
