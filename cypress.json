@@ -23,7 +23,9 @@
     "options": {
       "database": "GLP",
       "encrypt": true,
-      "rowCollectionOnRequestCompletion": true
+      "rowCollectionOnRequestCompletion": true,
+      "trustServerCertificate": true,
+      "validateBulkLoadParameters": true
     }
   }
 }
