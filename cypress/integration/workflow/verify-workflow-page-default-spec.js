@@ -11,6 +11,7 @@ describe('verify workflow page elements (TestCase - 28351)', function () {
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
   });
+
   it('verify pre-set filters', function () {
     cy.get('#btn-date-modal').contains('Next 30 Days').should('be.visible');
     cy.get('#editorDiv1000 > h4').contains('Number of Ballots > 0').should('be.visible');

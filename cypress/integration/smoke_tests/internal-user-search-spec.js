@@ -3,7 +3,7 @@ import { USER } from '../../support/constants';
 describe('Internal user', function () {
   sessionStorage.clear();
 
-  it('Search for client', function () {
+  it.skip('Search for client', function () {
     cy.visit('/');
 
     var username = USER.AUTOMATIONINTERNAL;
@@ -36,7 +36,7 @@ describe('Internal user', function () {
         const ballots = item.Agendas[0].Policies[0].Ballots;
         ballots.forEach((ballot) => {
           const value = ballot.Summaries.CustomerID.Value;
-          expect(value).to.equal(196);
+          expect(value).to.equal(620);
         });
       });
     });

@@ -13,10 +13,12 @@ beforeEach(function () {
     cy.intercept('POST', '**/Api/Data//MdData/GetAgenda').as('getagenda')
     cy.intercept('POST', '**/Api/Data/VoteRequestValidation').as('validation')
     cy.intercept('GET', '**/Api/Data/Filters/**').as('filters')
-    cy.intercept('GET', '**/Api/Data/Inbox/**').as('inbox')
     cy.intercept('GET', '/Api/Data/CustomField**').as('customfield')
-    cy.intercept('GET', '/Api/**').as('getData')
+    cy.intercept('GET', '**/Api/Data/**').as('getData')
+    cy.intercept('POST', '**/Api/Data/**').as('postData')
     cy.intercept('GET', '**/Api/Data/CustomFields/GetDetails**').as('getDetails')
+    cy.intercept('GET', '**/Api/Data/CustomFieldCRUDWithFilterCheck/SetFieldActiveFlag**').as('activeflag')
+    cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('assignees')
 });
 
 Given('I login as Internal User and retrieve Customer ID for {string}', (customer) => {
@@ -190,7 +192,7 @@ And('I navigate to the Workflow page', () => {
     cy.visit('/Workflow');
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
-
+    cy.wait('@assignees');
 });
 
 
@@ -199,23 +201,15 @@ Then('There is no reference to my picklist {string} on the workflow page', (lbl)
 });
 
 Then('I delete the {string} picklist', (pl) => {
-    cy.get('#admin-link-container > a > span').click({ force: true })
-    cy.get('#navlink--customer-profile').click({ force: true })
-    cy.wait('@filters')
-    cy.get('#leftcol > nav > ul:nth-child(6) > li:nth-child(1) > a').click()
+    cy.visit('https://viewpoint.aqua.glasslewis.com/CustomerDetails/CustomFields/');
     cy.contains(pl).click({ force: true })
-    cy.wait('@inbox')
-    cy.wait('@getDetails')
     cy.get('#cf-btn-delete').should('have.text', 'Delete')
-    cy.wait(6000)
     cy.get("#cf-btn-delete").click({ force: true });
     cy.contains(pl).should('not.exist')
 });
 
 And('I open the Columns dropdown', () => {
-
     cy.get('#btn-workflow-config-columns').click({ force: true });
-    cy.wait('@inbox')
 });
 
 Then('The picklist created {string} should be present in the column list unchecked', (name) => {
@@ -225,16 +219,10 @@ Then('The picklist created {string} should be present in the column list uncheck
 });
 
 Then('I delete the active {string} picklist', (plst) => {
-    cy.get('#admin-link-container > a > span').click({ force: true })
-    cy.get('#navlink--customer-profile').click({ force: true })
-    cy.wait('@filters')
-    cy.get('#leftcol > nav > ul:nth-child(6) > li:nth-child(1) > a').click()
+    cy.visit('https://viewpoint.aqua.glasslewis.com/CustomerDetails/CustomFields/');
     cy.contains(plst).click({ force: true })
-
     cy.get('#check-active').uncheck({ force: true })
-    cy.wait('@inbox')
-    cy.wait('@getDetails')
-    cy.wait(5000)
+    cy.wait('@activeflag');
     cy.get('#cf-btn-delete').click({ force: true })
     cy.contains(plst).should('not.exist')
 });
@@ -245,7 +233,6 @@ Then('the third picklist value should have an arrow up icon visible', () => {
 
 Then('The picklist created {string} should be orange in colour', (name) => {
     cy.get('#txt-filter-col-name').fill(name);
-    cy.wait(500)
     cy.get(`#results-list > li:nth-child(1) > div > label`).should('have.css', 'color', 'rgb(122, 134, 138)')
     cy.get(`#results-list > li:nth-child(29) > div > label`).should('have.css', 'color', 'rgb(255, 83, 13)')
     cy.get('#txt-filter-col-name').clear();
