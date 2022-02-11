@@ -15,9 +15,7 @@ describe('Share meeting with User - Comment', function () {
     cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
     cy.intercept('GET', '**/Api/Data/ShareMeetingIdentitySearch/**').as('IdentitySearch');
     cy.intercept('GET', '**/Api/Data//ShareMeetingLists/**').as('ShareMeetingLists');
-    cy.intercept('POST', 'https://viewpoint.aqua.glasslewis.com/Api/Data//SubscribeToMeeting/GetStatus').as(
-      'GetStatus'
-    );
+
     cy.intercept('GET', '/Api/Data/**').as('GetData')
     cy.intercept('POST', '/api/Logger/**').as('logger')
 
@@ -28,7 +26,6 @@ describe('Share meeting with User - Comment', function () {
     cy.visit('/Workflow');
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
-    cy.wait('@GetStatus')
     cy.removeAllExistingSelectedCriteria();
   });
 
@@ -66,10 +63,6 @@ describe('Share meeting with User - Comment', function () {
     cy.get('#btn-share-meeting-confirm').click();
     cy.get('.toast-message').should('contain.text', toast.SHARE_MEETING_REQUEST_SAVED);
 
-    cy.wait('@GetStatus').then((interception) => {
-      const meeting = JSON.stringify(interception.response.body[0].MeetingId);
-      cy.wrap(meeting).as('meetingid');
-    });
     //Step 11 - Connect to Aqua GLP Database and verify new row has been added to PX_ShareMeeting table
     cy.executeQuery('SELECT TOP 1 * FROM PX_ShareMeeting ORDER BY ShareMeetingID DESC').then((result) => {
       var cols = [];
@@ -80,9 +73,6 @@ describe('Share meeting with User - Comment', function () {
       //Step 12 - Verify PX_ShareMeeting table Column data for correct data
       cy.get('@userid').then(function (uid) {
         assert.equal(cols[1], uid); //verify Auatomation QaUat User id
-      });
-      cy.get('@meetingid').then(function (meetid) {
-        assert.equal(cols[2], meetid); //Verify Meeting ID correct
       });
       expect(cols[3]).to.include(today); //Created date
       assert.equal(cols[4], 'This is a test comment'); //verify Comment
