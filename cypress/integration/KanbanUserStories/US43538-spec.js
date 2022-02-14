@@ -17,7 +17,6 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
         cy.intercept('POST', '/Api/Data/CustomerDynamic').as('PostCustomerDynamic')
         cy.intercept('GET', '/Api/Data//ListService/**').as('ListService')
         cy.intercept('GET', '/Api/Data/**').as('GetApiData')
-        cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
         cy.intercept(
             'GET',
             '**/Api/Data/BallotVoteData/?PageInfo%5BIgnorePagesize%5D=true&ReportType=BallotVoteData&_=**'
@@ -339,7 +338,6 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
     //Step 13 - Click Reporting tab
     function navigateToReporting() {
         cy.visit('/Reporting');
-        cy.wait('@BallotRecon');
     }           
 
     //Step 14 - Select Ballot Vote Data report

@@ -130,7 +130,7 @@ describe('US39255 tests - Test 1', function () {
     cy.addCriteriaStatus(['Recommendations Available']);
 
     //Step 9 - Go Back to the Workflow Page, Verify Removed Columns are not displayed/Auto Saved [Eg : Decision Status, Ballot Status etc]
-    cy.get('#btn-workflow-config-columns').click({ timeout: 1000 });
+    cy.get('#btn-workflow-config-columns').click({ timeout: 10000 });
     columns.forEach((column) => {
       cy.get('#txt-filter-col-name').fill(column);
       cy.get(`input[value='${column}']`).should('be.checked');

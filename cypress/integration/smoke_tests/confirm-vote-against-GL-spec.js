@@ -29,7 +29,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
         let GLvals = []
         let Selected = []
 
-        cy.get('table > tbody > tr').eq(1).within(() => {
+        cy.get('table > tbody > tr').eq(0).within(() => {
             cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
         })
 
@@ -68,7 +68,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
         let Mgmtvals = []
         let Selected = []
 
-        cy.get('table > tbody > tr').eq(1).within(() => {
+        cy.get('table > tbody > tr').eq(0).within(() => {
             cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
         })
 
