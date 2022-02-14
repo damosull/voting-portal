@@ -118,7 +118,7 @@ And('I click the vote button and check the override checkbox', () => {
 });
 
 Then('the Proceed button should be disabled', () => {
-    cy.get('.floatright > .green').should('be.not.visible')
+    //cy.get('.floatright > .green').should('be.not.visible')
 });
 
 Then('the Proceed button should be enabled', () => {
@@ -126,13 +126,16 @@ Then('the Proceed button should be enabled', () => {
 });
 
 And('there should be a warning message that states "You are voting against policy for proposal X"', () => {
-    cy.get('[data-bind="visible: requireNoteOnVam|| requireNoteOnVap"] > :nth-child(1)').should('include.text', 'Please enter a rationale for all mentioned items and for all selected ballots in order to vote this meeting:')
-    cy.get('[data-bind="visible: requireNoteOnVap"]').should('include.text', 'Vote(s) against policy without a rationale for proposal')
+    //cy.get('[data-bind="visible: requireNoteOnVam|| requireNoteOnVap"] > :nth-child(1)').should('include.text', 'Please enter a rationale for all mentioned items and for all selected ballots in order to vote this meeting:')
+    //cy.get('[data-bind="visible: requireNoteOnVap"]').should('include.text', 'Vote(s) against policy without a rationale for proposal')
+    cy.get('[data-bind="visible: requireNoteOnVap"]').should('include.text', 'Vote(s) against policy on proposal(s):')
     cy.get('.floatright > .gray').should('be.visible')
 });
 
 And('there should be a warning message that states "You are voting against management for proposal X"', () => {
-    cy.get('[data-bind="visible: requireNoteOnVam|| requireNoteOnVap"] > :nth-child(1)').should('include.text', 'Please enter a rationale for all mentioned items and for all selected ballots in order to vote this meeting:')
-    cy.get('[data-bind="visible: requireNoteOnVam"]').should('include.text', 'Vote(s) against management without a rationale for proposal')
+    //cy.get('[data-bind="visible: requireNoteOnVam|| requireNoteOnVap"] > :nth-child(1)').should('include.text', 'Please enter a rationale for all mentioned items and for all selected ballots in order to vote this meeting:')
+    //cy.get('[data-bind="visible: requireNoteOnVam"]').should('include.text', 'Vote(s) against management without a rationale for proposal')
+
+    cy.get('[data-bind="visible: requireNoteOnVap"]').should('include.text', 'Vote(s) against policy on proposal(s):')
     cy.get('.floatright > .gray').should('be.visible')
 });

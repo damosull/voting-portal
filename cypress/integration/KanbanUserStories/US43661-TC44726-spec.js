@@ -6,7 +6,6 @@ const unixTime = Math.floor(Date.now() / 1000);
 
 describe('User Story US43661 tests', function () {
     beforeEach(function () {
-        cy.viewport(1100, 900);
         cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
         cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
         cy.intercept('GET', '**/Api/Data/MeetingSecurityWatchlists/**').as('MeetingSecurityWatchlists')
@@ -15,7 +14,7 @@ describe('User Story US43661 tests', function () {
 
 
     });
-    it.skip(`Live ballots with meeting date for past ballots whose meeting date has passed/Revote and no rationale entered for vote against policy`, function () {
+    it(`Live ballots with meeting date for past ballots whose meeting date has passed/Revote and no rationale entered for vote against policy`, function () {
 
         cy.loginInternalAdm('AutomationInternal');
         cy.visit('/Workflow');
@@ -62,16 +61,17 @@ describe('User Story US43661 tests', function () {
 
         //Step 5 - user clicks on vote/revote button
         cy.get('#btn-vote-now').click()
-        //cy.wait('@validation')
+        cy.wait('@validation')
         //check override checkbox 
         cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').click()
 
         // Step 6 - Proceed button should be disabled
-        cy.get('.floatright > .green').should('be.not.visible')
+        //cy.get('.floatright > .green').should('be.not.visible')
 
         //Then there should be a warning message that states "You are voting against policy for proposal X"
-        cy.get('[data-bind="visible: requireNoteOnVam|| requireNoteOnVap"] > :nth-child(1)').should('include.text', 'Please enter a rationale for all mentioned items and for all selected ballots in order to vote this meeting:')
-        cy.get('[data-bind="visible: requireNoteOnVap"]').should('include.text', 'Vote(s) against policy without a rationale for proposal')
+        //cy.get('[data-bind="visible: requireNoteOnVam|| requireNoteOnVap"] > :nth-child(1)').should('include.text', 'Please enter a rationale for all mentioned items and for all selected ballots in order to vote this meeting:')
+        //cy.get('[data-bind="visible: requireNoteOnVap"]').should('include.text', 'Vote(s) against policy without a rationale for proposal')
+        cy.get('[data-bind="visible: requireNoteOnVap"]').should('include.text', 'Vote(s) against policy on proposal(s):')
         cy.get('.floatright > .gray').should('be.visible').click()
 
 
