@@ -6,7 +6,7 @@ import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 const unixTime = Math.floor(Date.now() / 1000);
 
 beforeEach(function () {
-    cy.viewport(1100, 900);
+//    cy.viewport(1100, 900);
     cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
     cy.intercept('GET', '**/Api/Data/MeetingSecurityWatchlists/**').as('MeetingSecurityWatchlists')
