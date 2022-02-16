@@ -32,7 +32,7 @@ describe('TC43760', () => {
     }); // end BeforeEach
 
 
-    it('Verify user can navigate from meeting page to company page and the Meetings dropdown on the Company page associated Research links and Materials of the selected meeting are displayed.', () => {
+    it.skip('Verify user can navigate from meeting page to company page and the Meetings dropdown on the Company page associated Research links and Materials of the selected meeting are displayed.', () => {
         cy.log('Test Case 43760 - https://dev.azure.com/glasslewis/Development/_workitems/edit/43760');
 
         /* Click 'Next' button, get Meeting ID for that meeting and verify it is same meeting id as stored in a variable
