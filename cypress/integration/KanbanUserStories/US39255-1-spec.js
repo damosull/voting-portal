@@ -6,7 +6,6 @@ describe('US39255 tests - Test 1', function () {
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
     cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
     cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('assignees');
-    cy.intercept('POST', '**/Api/Data//SubscribeToMeeting/GetStatus').as('getstatus');
     cy.intercept('GET', '**/Api/Data//MdPermissions/GetUserPermissions?_=**').as('GetUserPermissions');
     cy.intercept('GET', '**/Api/Data/CurrentUser/?_=**').as('CurrentUser');
     cy.intercept('GET', '**/Api/Data//Spa?_=**').as('Spa');
@@ -111,7 +110,6 @@ describe('US39255 tests - Test 1', function () {
       '@WorkflowExpansion',
       '@WorkflowSecuritiesWatchlists',
       '@assignees',
-      '@getstatus',
       '@filterPreferenceID',
       '@GetUserPermissions',
       '@CurrentUser',
@@ -132,7 +130,7 @@ describe('US39255 tests - Test 1', function () {
     cy.addCriteriaStatus(['Recommendations Available']);
 
     //Step 9 - Go Back to the Workflow Page, Verify Removed Columns are not displayed/Auto Saved [Eg : Decision Status, Ballot Status etc]
-    cy.get('#btn-workflow-config-columns').click({ timeout: 1000 });
+    cy.get('#btn-workflow-config-columns').click({ timeout: 10000 });
     columns.forEach((column) => {
       cy.get('#txt-filter-col-name').fill(column);
       cy.get(`input[value='${column}']`).should('be.checked');

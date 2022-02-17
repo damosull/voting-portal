@@ -3,7 +3,7 @@ import { USER } from '../../support/constants';
 describe('Internal user', function () {
   sessionStorage.clear();
 
-  it('Search for client', function () {
+  it.skip('Search for client', function () {
     cy.visit('/');
 
     var username = USER.AUTOMATIONINTERNAL;
@@ -30,6 +30,7 @@ describe('Internal user', function () {
     // check all meetings in response have CalPERS customer id
     cy.wait('@WorkflowExpansion').then((xhr) => {
       const data = JSON.parse(xhr.response.body);
+      //const parsed = JSON.parse(data); 
       const items = data.items;
 
       items.forEach((item) => {

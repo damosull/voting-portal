@@ -11,6 +11,7 @@ describe('verify workflow page elements (TestCase - 28351)', function () {
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
   });
+
   it('verify pre-set filters', function () {
     cy.get('#btn-date-modal').contains('Next 30 Days').should('be.visible');
     cy.get('#editorDiv1000 > h4').contains('Number of Ballots > 0').should('be.visible');
@@ -35,11 +36,10 @@ describe('verify workflow page elements (TestCase - 28351)', function () {
       'Ballot Blocking',
     ];
 
-    filterColumns.forEach((column, index) => {
-      cy.get(`th[data-title='${column}']`).should('be.visible');
-      if (index == filterColumns.length / 2) {
-        cy.get('#btn-scroll-end').click();
-      }
+    filterColumns.forEach((column) => {
+      cy.get(`th[data-title='${column}']`);
+      filterColumns.index == column;
     });
+
   });
 });

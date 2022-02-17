@@ -6,7 +6,6 @@ describe('US39255 tests', function () {
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
     cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
     cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('assignees');
-    cy.intercept('POST', '**/Api/Data//SubscribeToMeeting/GetStatus').as('getstatus');
     cy.intercept('GET', '**/Api/Data//MdPermissions/GetUserPermissions?_=**').as('GetUserPermissions');
     cy.intercept('GET', '**/Api/Data/CurrentUser/?_=**').as('CurrentUser');
     cy.intercept('GET', '**/Api/Data//Spa?_=**').as('Spa');
@@ -111,7 +110,6 @@ describe('US39255 tests', function () {
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');
     cy.wait('@assignees');
-    cy.wait('@getstatus');
     cy.wait('@GetUserPermissions');
     cy.wait('@CurrentUser');
     cy.wait('@Spa');
