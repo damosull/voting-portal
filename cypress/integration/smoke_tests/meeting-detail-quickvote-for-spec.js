@@ -1,13 +1,12 @@
 const { MEETINGID, USER } = require('../../support/constants');
 import '../../support/commands.js';
-import workflowPageItems from '../../elements/pages/workflowIPageItems'
+import workflowPageItems from '../../elements/pages/workflow/workflowPageItems'
 
 describe('Test QuickVote functionality in MeetingDetails page', function () {
 
   const workflowPage = new workflowPageItems();
 
   beforeEach(function () {
-    cy.viewport(1100, 900);
     cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
     cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');

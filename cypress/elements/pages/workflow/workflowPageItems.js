@@ -1,4 +1,4 @@
-class workflowItemPage{
+class workflowPageItems{
     
     launchBallotsButtonID = "#launch-ballots-voted-modal"
     voteNowbuttonID = '#btn-vote-now'
@@ -47,4 +47,4 @@ class workflowItemPage{
     
 }
 
-export default workflowItemPage;
+export default workflowPageItems;
