@@ -1,6 +1,6 @@
 //Test Case 40729 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40729
 
-import { API, USER } from '../../support/constants';
+import { API, USER } from '../../../support/constants';
 
 const data = {
   company: 'SK Innovation',

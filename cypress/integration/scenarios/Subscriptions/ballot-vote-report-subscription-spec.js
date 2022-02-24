@@ -1,5 +1,5 @@
 // Test scenario: 40409 https://dev.azure.com/glasslewis/Development/_workitems/edit/40409
-import { USER, messages } from '../../support/constants';
+import { USER, messages } from '../../../support/constants';
 const toast = messages.toast;
 
 describe('Create Ballot Vote Subscription entry and validate in SB_Subscription Database table', function () {

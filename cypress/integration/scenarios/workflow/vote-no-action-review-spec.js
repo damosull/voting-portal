@@ -1,7 +1,7 @@
 //Test scenario 37790 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37790
 //Test scenario 40741 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40741
 
-import { messages, API, USER } from '../../support/constants';
+import { messages, API, USER } from '../../../support/constants';
 const pastDays = 30;
 const arrCriteria = ['Decision Status'];
 const unixTime = Math.floor(Date.now() / 1000);

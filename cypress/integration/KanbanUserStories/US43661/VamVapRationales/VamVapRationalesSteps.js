@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
-import '../../../support/commands.js';
-import { MEETINGID } from "../../../support/constants";
+import '../../../../support/commands.js';
+import { MEETINGID } from "../../../../support/constants";
 
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 const unixTime = Math.floor(Date.now() / 1000);

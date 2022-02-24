@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-import '../../support/commands.js';
+import '../../../support/commands.js';
 
 describe('Admin User functionality tests', function () {
   beforeEach(function () {

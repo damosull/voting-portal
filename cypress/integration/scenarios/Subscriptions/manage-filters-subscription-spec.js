@@ -1,5 +1,5 @@
 // Test scenario: 40482 https://dev.azure.com/glasslewis/Development/_workitems/edit/40482
-import { USER, messages } from '../../support/constants';
+import { USER, messages } from '../../../support/constants';
 const toast = messages.toast;
 let today = new Date().toISOString().slice(0, 10);
 
