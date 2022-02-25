@@ -21,7 +21,7 @@ describe('US26145', () => {
     cy.intercept('GET', API.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
     cy.intercept('GET', API.GET.BALLOT_ACTIVITY_LOG).as('BallotActivity');
 
-    cy.loginSession(USER.WELLINGTON);
+    cy.loginWithAdmin("WELLINGTON");
     cy.visit('/').url().should('include', '/Workflow');
   });
 

@@ -1,4 +1,4 @@
-const { MEETINGID, USER } = require('../../support/constants');
+const { MEETINGID, USER, API } = require('../../support/constants');
 import '../../support/commands.js';
 import workflowPageItems from '../../elements/pages/workflow/workflowPageItems'
 
@@ -7,20 +7,10 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
   const workflowPage = new workflowPageItems();
 
   beforeEach(function () {
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-    cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
-    cy.intercept('POST', '**/Api/Data/Meeting**').as('meeting');
-    cy.intercept('POST', '/Api/Data/**').as('PostData');
-    cy.intercept('GET', '/Api/Data/**').as('GetData');
-    cy.intercept('POST', '/api/Logger/**').as('logger');
-    cy.intercept('GET', '**/Api/Data/MeetingMaterials/GetFilings?MeetingId=**').as('GetFilings');
-    cy.intercept('POST', '**/Api/Data/VoteTally').as('VoteTally');
-
     cy.loginSession(USER.CALPERS);
     cy.visit('/').url().should('include', '/Workflow');
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
     cy.removeAllExistingSelectedCriteria();
   });
 
@@ -134,11 +124,9 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
   }
 
   function waitForAPICalls() {
-    cy.wait('@PostData');
-    cy.wait('@GetData');
-    cy.wait('@logger');
-    cy.wait('@GetFilings');
-    cy.wait('@VoteTally');
+    cy.wait('@LOGGER');
+    cy.wait('@GET_FILINGS');
+    cy.wait('@VOTE_TALLY');
   }
   
   function verifyMeetingOptionButtons() {

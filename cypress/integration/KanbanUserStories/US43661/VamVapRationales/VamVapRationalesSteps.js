@@ -1,4 +1,3 @@
-/// <reference types="Cypress" />
 import '../../../../support/commands.js';
 import { MEETINGID } from "../../../../support/constants";
 
@@ -6,7 +5,6 @@ import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 const unixTime = Math.floor(Date.now() / 1000);
 
 beforeEach(function () {
-    cy.viewport(1100, 900);
     cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
     cy.intercept('GET', '**/Api/Data/MeetingSecurityWatchlists/**').as('MeetingSecurityWatchlists')
@@ -16,7 +14,7 @@ beforeEach(function () {
 
 Given('I login as Internal User and retrieve Customer ID for {string}', (customer) => {
 
-    cy.loginInternalAdm('AutomationInternal');
+    cy.loginWithAdmin('AUTOMATIONINTERNAL');
     cy.visit('/Workflow');
 
     //Alias csrf token
@@ -30,6 +28,7 @@ Given('I login as Internal User and retrieve Customer ID for {string}', (custome
     cy.getCustomerIDFromDB(customer).as('custid')
 
 });
+
 When('I verify customer settings for VAM and VAP', () => {
     //verify CanModifyVotesRationaleAfterMeetingDate = true
     //& RequireRationaleVap = true for Customer
@@ -56,7 +55,7 @@ When('I verify customer settings for VAM and VAP', () => {
 
 
 When('I login as External User {string}', (extadm) => {
-    cy.loginExtAdm(extadm);
+    cy.loginWithAdmin(extadm);
     cy.visit('/Workflow');
     cy.wait('@WorkflowSecuritiesWatchlists');
     cy.removeAllExistingSelectedCriteria();
@@ -96,19 +95,19 @@ And('I change meeting date on Russell meeting id {string} to 10 days in the futu
 });
 
 And('I clear the rationales for VAP entries and add rationales for other proposals', () => {
-    cy.ClearRationaleForVAPEntriesAndAddRationaleVotingWithPolicy()
+    ClearRationaleForVAPEntriesAndAddRationaleVotingWithPolicy();
 });
 
 And('I clear the rationales for VAM entries and add rationales for other proposals', () => {
-    cy.ClearRationaleForVAMEntriesAndAddRationaleVotingWithManagement()
+    ClearRationaleForVAMEntriesAndAddRationaleVotingWithManagement();
 });
 
 And('I enter rationales for all proposals in the meeting', () => {
-    cy.EnterRationaleTextForAllProposals()
+    EnterRationaleTextForAllProposals();
 });
 
 And('I clear the rationales for VAM entries and VAP entries and add rationales for remaining proposals', () => {
-    cy.ClearRationaleForVAMAndVAPEntriesAndAddRationaleForOtherProposals()
+    ClearRationaleForVAMAndVAPEntriesAndAddRationaleForOtherProposals();
 });
 
 And('I click the vote button and check the override checkbox', () => {
@@ -139,3 +138,139 @@ And('there should be a warning message that states "You are voting against manag
     cy.get('[data-bind="visible: requireNoteOnVap"]').should('include.text', 'Vote(s) against policy on proposal(s):')
     cy.get('.floatright > .gray').should('be.visible')
 });
+
+
+function ClearRationaleForVAMAndVAPEntriesAndAddRationaleForOtherProposals(){
+    cy.get('#md-votecard-grid-results > tr').then(($rows) => {
+        $rows.each((index, value) => {
+          const vamrec = Cypress.$(value).find('td:nth-child(3)').text();
+          const vaprec = Cypress.$(value).find('td.vote-card-policy-rec').text();
+          var selected = Cypress.$(value).find(':selected').text();
+          if (!vaprec.includes('Non Voting')) {
+            if ((vaprec.toLowerCase() !== selected.toLowerCase()) || (vamrec.toLowerCase() !== selected.toLowerCase())) {
+              cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+                .scrollIntoView()
+                .click({ force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+              ).clear({ force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1
+                }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+              ).click({ force: true });
+            } else {
+              cy.get(`tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+                .scrollIntoView()
+                .click({ force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+              ).clear({ force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+              ).type('test', { force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1
+                }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+              ).click({ force: true });
+            }
+          }
+        })
+      })
+    };
+
+    function ClearRationaleForVAMEntriesAndAddRationaleVotingWithManagement(){
+      cy.get('#md-votecard-grid-results > tr').then(($rows) => {
+        $rows.each((index, value) => {
+          const rec = Cypress.$(value).find('td:nth-child(3)').text();
+          var selected = Cypress.$(value).find(':selected').text();
+          if (!rec.includes('Non Voting')) {
+            if (rec.toLowerCase() !== selected.toLowerCase()) {
+              cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+                .scrollIntoView()
+                .click({ force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+              ).clear({ force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1
+                }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+              ).click({ force: true });
+            } else {
+              cy.get(`tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+                .scrollIntoView()
+                .click({ force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+              ).clear({ force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+              ).type('test', { force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1
+                }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+              ).click({ force: true });
+            }
+          }
+        })
+      })
+    };
+
+    function EnterRationaleTextForAllProposals(){
+      cy.get('#md-votecard-grid-results > tr').then(($rows) => {
+        $rows.each((index, value) => {
+          const rec = Cypress.$(value).find('td.vote-card-policy-rec').text();
+          if (!rec.includes('Non Voting')) {
+            cy.get(`tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+              .scrollIntoView()
+              .click({ force: true });
+            cy.get(
+              `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+            ).clear({ force: true });
+            cy.get(
+              `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+            ).type('test rationale', { force: true });
+            cy.get(
+              `#md-votecard-grid-results > tr:nth-child(${index + 1
+              }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+            ).click({ force: true });
+          }
+        })
+      })
+    }
+
+    function ClearRationaleForVAPEntriesAndAddRationaleVotingWithPolicy() {
+      cy.get('#md-votecard-grid-results > tr').then(($rows) => {
+        $rows.each((index, value) => {
+          const rec = Cypress.$(value).find('td.vote-card-policy-rec').text();
+          var selected = Cypress.$(value).find(':selected').text();
+          if (!rec.includes('Non Voting')) {
+            if (rec.toLowerCase() !== selected.toLowerCase()) {
+              cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+                .scrollIntoView()
+                .click({ force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+              ).clear({ force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1
+                }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+              ).click({ force: true });
+            } else {
+              cy.get(`tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+                .scrollIntoView()
+                .click({ force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+              ).clear({ force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+              ).type('test', { force: true });
+              cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1
+                }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+              ).click({ force: true });
+            }
+          }
+        })
+      })
+    }

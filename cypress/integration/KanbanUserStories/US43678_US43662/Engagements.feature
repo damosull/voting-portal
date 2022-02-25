@@ -1,12 +1,12 @@
 Feature: Engagement permissions
 
     Background:
-        Given I login as Internal User and retrieve Customer ID for "Robeco"
+        Given I login as Internal User and retrieve Customer ID for "ROBECO"
 
     #test case 3728
     Scenario:Verify External Admin user cannot view Engagements in the company page when the system permission "View Interaction" is turned off for External Admin role
         When I set View Interactions permissions to "Deny" for RobecoAutomation External Admin
-        When I login as External User "Robeco"
+        When I login as External User "ROBECO"
         And I select the first meeting on the Workflow page
         And I click the Company link on the Mettings detail page
         Then The anchor bar should not contain a link to Engagements
@@ -15,7 +15,7 @@ Feature: Engagement permissions
     #test case 4573
     Scenario:Verify a user can create a Custom Field Type of Picklist Multi Select & verify the Label Name is not displayed on workflow grid
         When I set View Interactions permissions to "Allow" for RobecoAutomation External Admin
-        And I login as External User "Robeco"
+        And I login as External User "ROBECO"
         And I select Customer Profile from the Admin dropdown
         And I select Custom Fields from The Customer Settings panel
         And I click Add Custom Field
@@ -39,7 +39,7 @@ Feature: Engagement permissions
     #test case 4573
     Scenario:Verify a user can Create a Multi Select Custom Field Picklist & Verify user can Add/Sort/Remove the Multi Select custom field on the Workflow page
         When I set View Interactions permissions to "Allow" for RobecoAutomation External Admin
-        And I login as External User "Robeco"
+        And I login as External User "ROBECO"
         And I select Customer Profile from the Admin dropdown
         And I select Custom Fields from The Customer Settings panel
         And I click Add Custom Field
@@ -59,7 +59,7 @@ Feature: Engagement permissions
     #test case 4575
     Scenario: Verify a user can create a Custom Field Type Multi Select with Existing Workflow field Label Name & 2 same Label Names are displayed in Workflow grid & in Add Criteria dropdown
         When I set View Interactions permissions to "Allow" for RobecoAutomation External Admin
-        And I login as External User "Robeco"
+        And I login as External User "ROBECO"
         And I select Customer Profile from the Admin dropdown
         And I select Custom Fields from The Customer Settings panel
         And I click Add Custom Field

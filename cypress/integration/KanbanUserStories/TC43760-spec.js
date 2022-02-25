@@ -22,7 +22,7 @@ describe('TC43760', () => {
         cy.intercept('GET', '**/Api/Data/CompanyMeeting/**').as('CompanyMeeting');
         cy.intercept('POST', '**/Api/Data//MdData/GetAgenda').as('GetAgenda');
 
-        cy.loginExtAdm('Calpers');
+        cy.loginWithAdmin('CALPERS');
         cy.visit('/Workflow');
         cy.wait('@WorkflowExpansion');
         cy.wait('@WorkflowSecuritiesWatchlists');

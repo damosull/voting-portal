@@ -1,5 +1,5 @@
-import { MEETINGID } from "../../support/constants";
-import '../../support/commands.js';
+import { MEETINGID } from "../../../support/constants";
+import '../../../support/commands.js';
 const unixTime = Math.floor(Date.now() / 1000);
 
 describe('User Story US43661 tests', function () {
@@ -14,7 +14,7 @@ describe('User Story US43661 tests', function () {
     // Test Case 44721 : https://dev.azure.com/glasslewis/Development/_workitems/edit/44721
     it(`Live ballots with meeting date for future ballots whose meeting date has passed/Revote and no rationale entered for vote against policy`, function () {
 
-        cy.loginInternalAdm('AutomationInternal');
+        cy.loginWithAdmin('AUTOMATIONINTERNAL');
         cy.visit('/Workflow');
 
         //Alias csrf token
@@ -37,7 +37,7 @@ describe('User Story US43661 tests', function () {
         cy.logout()
 
         //Step 1
-        cy.loginExtAdm('Russell');
+        cy.loginWithAdmin('RUSSELL');
         cy.visit('/Workflow');
         cy.wait('@WorkflowSecuritiesWatchlists');
         cy.removeAllExistingSelectedCriteria();
@@ -55,7 +55,7 @@ describe('User Story US43661 tests', function () {
         //Step 3 -
         //For any proposals that the vote option is against policy,clear the rational field and enter rationales for all
         //other votes - Note : Always ignore Non-Voting proposals
-        cy.ClearRationaleForVAPEntriesAndAddRationaleVotingWithPolicy()
+        ClearRationaleForVAPEntriesAndAddRationaleVotingWithPolicy();
 
         //Step 4 - user clicks on vote/revote button
         cy.get('#btn-vote-now').click()
@@ -78,7 +78,7 @@ describe('User Story US43661 tests', function () {
     // Test Case 44726 : https://dev.azure.com/glasslewis/Development/_workitems/edit/44726
     it(`Live ballots with meeting date for past ballots whose meeting date has passed/Revote and no rationale entered for vote against policy`, function () {
 
-        cy.loginInternalAdm('AutomationInternal');
+        cy.loginWithAdmin('AUTOMATIONINTERNAL');
         cy.visit('/Workflow');
 
         //Alias csrf token
@@ -101,7 +101,7 @@ describe('User Story US43661 tests', function () {
         cy.logout()
 
         //Step 2 Login as Russell Ext Admin User
-        cy.loginExtAdm('Russell');
+        cy.loginWithAdmin('RUSSELL');
         cy.visit('/Workflow');
         cy.wait('@WorkflowSecuritiesWatchlists');
         cy.removeAllExistingSelectedCriteria();
@@ -119,7 +119,7 @@ describe('User Story US43661 tests', function () {
         //Step 4 -
         //For any proposals that the vote option is against policy,clear the rational field and enter rationales for all
         //other votes - Note : Always ignore Non-Voting proposals
-        cy.ClearRationaleForVAPEntriesAndAddRationaleVotingWithPolicy()
+        ClearRationaleForVAPEntriesAndAddRationaleVotingWithPolicy();
 
         //Step 5 - user clicks on vote/revote button
         cy.get('#btn-vote-now').click()
@@ -138,5 +138,42 @@ describe('User Story US43661 tests', function () {
 
 
     })
+
+    function ClearRationaleForVAPEntriesAndAddRationaleVotingWithPolicy(){
+        cy.get('#md-votecard-grid-results > tr').then(($rows) => {
+            $rows.each((index, value) => {
+              const rec = Cypress.$(value).find('td.vote-card-policy-rec').text();
+              var selected = Cypress.$(value).find(':selected').text();
+              if (!rec.includes('Non Voting')) {
+                if (rec.toLowerCase() !== selected.toLowerCase()) {
+                  cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+                    .scrollIntoView()
+                    .click({ force: true });
+                  cy.get(
+                    `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+                  ).clear({ force: true });
+                  cy.get(
+                    `#md-votecard-grid-results > tr:nth-child(${index + 1
+                    }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+                  ).click({ force: true });
+                } else {
+                  cy.get(`tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+                    .scrollIntoView()
+                    .click({ force: true });
+                  cy.get(
+                    `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+                  ).clear({ force: true });
+                  cy.get(
+                    `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+                  ).type('test', { force: true });
+                  cy.get(
+                    `#md-votecard-grid-results > tr:nth-child(${index + 1
+                    }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+                  ).click({ force: true });
+                }
+              }
+            })
+          })
+    }
 
 })

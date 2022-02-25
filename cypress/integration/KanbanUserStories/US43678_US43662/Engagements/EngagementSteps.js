@@ -1,12 +1,11 @@
 /// <reference types="Cypress" />
 import '../../../support/commands.js';
-import { USER, MEETINGID } from "../../../support/constants";
+import { USER } from "../../../support/constants";
 
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 const unixTime = Math.floor(Date.now() / 1000);
 
 beforeEach(function () {
-//    cy.viewport(1100, 900);
     cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
     cy.intercept('GET', '**/Api/Data/MeetingSecurityWatchlists/**').as('MeetingSecurityWatchlists')
@@ -21,9 +20,10 @@ beforeEach(function () {
     cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('assignees')
 });
 
+// TODO: Unnecesary step
 Given('I login as Internal User and retrieve Customer ID for {string}', (customer) => {
 
-    cy.loginInternalAdm('AutomationInternal');
+    cy.loginWithAdmin('AUTOMATIONINTERNAL');
     cy.visit('/Workflow');
 
     //Alias csrf token
@@ -74,7 +74,7 @@ When('I set View Interactions permissions to {string} for RobecoAutomation Exter
 });
 
 And('I login as External User {string}', (extadm) => {
-    cy.loginExtAdm(extadm);
+    cy.loginWithAdmin(extadm);
     cy.visit('/Workflow');
     cy.wait('@WorkflowSecuritiesWatchlists');
     cy.removeAllExistingSelectedCriteria();

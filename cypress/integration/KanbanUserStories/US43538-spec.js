@@ -24,7 +24,7 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
         cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotVoteData').as('BallotCriteria');
         
         //Step 1 - Login as Internal user
-        cy.loginInternalAdm('AutomationInternal');
+        cy.loginWithAdmin('AUTOMATIONINTERNAL');
         cy.visit('/Workflow');
 
         //Alias csrf token
@@ -68,7 +68,7 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
         cy.logout()
 
         //Step 12 - Log in as "Russell" Investments user
-        loginAsExternalAdminAndVisitWorkflow('Russell');
+        loginAsExternalAdminAndVisitWorkflow('RUSSELL');
 
         //Step 13 - Click Reporting tab
         navigateToReporting();
@@ -122,7 +122,7 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
         cy.logout()
 
         //step 12 - Log in as "Russell" Investments user
-        loginAsExternalAdminAndVisitWorkflow('Russell');
+        loginAsExternalAdminAndVisitWorkflow('RUSSELL');
 
         //Step 13 - Click Reporting tab
         navigateToReporting();
@@ -176,7 +176,7 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
         cy.logout()
 
         //Step 12 - Log in as "Russell" Investments user
-        loginAsExternalAdminAndVisitWorkflow('Russell');
+        loginAsExternalAdminAndVisitWorkflow('RUSSELL');
 
         //Step 13 - Click Reporting tab
         navigateToReporting();
@@ -330,7 +330,7 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
 
     //Step 12 - Log in as "Russell" Investments user
     function loginAsExternalAdminAndVisitWorkflow(user) {
-        cy.loginExtAdm(user);
+        cy.loginWithAdmin(user);
         cy.visit('/Workflow');
         cy.wait('@WorkflowSecuritiesWatchlists');
     }

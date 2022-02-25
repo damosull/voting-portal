@@ -1,6 +1,6 @@
 //Test Case 2642 - https://dev.azure.com/glasslewis/Development/_workitems/edit/2642
 
-import { API, USER } from '../../support/constants';
+import { API } from '../../support/constants';
 var arrAPIPolicy = [];
 var arrUIPolicy = [];
 
@@ -21,7 +21,7 @@ describe('US28436 - Test 6', () => {
     cy.intercept('GET', API.GET.WORKFLOW_RESEARCH_INFO).as('WFResearch');
     cy.intercept('PUT', API.PUT.BALLOT_GRID_STATE).as('BallotsGridState');
 
-    cy.loginSession(USER.NEUBERGER);
+    cy.loginWithAdmin("NEUBERGER");
     cy.visit('/').url().should('include', '/Workflow');
   });
 
@@ -30,8 +30,7 @@ describe('US28436 - Test 6', () => {
 
     // Wait for initial page to load
     cy.wait('@WorkflowExpansion');
-    //cy.wait('@WorkflowSecuritiesWatchlists');
-    //cy.wait('@AvailableAssigneesForCustomer');
+    cy.wait('@WorkflowSecuritiesWatchlists');
 
     // Click on Upcoming Meetings link
     cy.contains('Upcoming Meetings').click();

@@ -1,15 +1,11 @@
-import { USER } from '../../support/constants';
+import { USER, API } from '../../support/constants';
 
 describe('verify workflow page elements (TestCase - 28351)', function () {
   beforeEach(function () {
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-    cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-
     cy.loginSession(USER.AUTOMATIONINTERNAL);
-    cy.loginInternalAdm('AutomationInternal');
     cy.visit('/Workflow');
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
   });
 
   it('verify pre-set filters', function () {

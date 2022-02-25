@@ -1,16 +1,11 @@
-/// <reference path="../../support/index.d.ts" />
+import { API } from '../../support/constants';
 
 describe('Verify comments on the Workflow page', function () {
   beforeEach(function () {
-    cy.viewport(1110, 900);
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-    cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
-
     cy.loginExtAdm('Calpers');
     cy.visit('/Workflow');
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
     cy.removeAllExistingSelectedCriteria();
     cy.AddMultipleCriteria(['Decision Status']);
@@ -18,7 +13,7 @@ describe('Verify comments on the Workflow page', function () {
 
     cy.selectFirstMeeting();
 
-    cy.wait('@filter');
+    cy.wait('@CREATE_DRAFT_FILTER');
   });
 
   it(`Add Comment to each Rationale,Save and verify toast message`, function () {

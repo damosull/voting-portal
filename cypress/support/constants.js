@@ -7,7 +7,7 @@ export const USER = {
   IMF: 'IFMAutomation@glasslewis.com',
   NEUBERGER: 'neubergerexternal@glasslewis.com',
   OPERS: 'OpersAutomation@glasslewis.com',
-  PADDYINTERNAL: 'pcorcoran@glasslewis.com',
+  ADDYINTERNAL: 'pcorcoran@glasslewis.com',
   PUTNAM: 'PutnamAutomation@glasslewis.com',
   ROBECO: 'RobecoAutomation@glasslewis.com',
   ROYALLONDON: 'RoyalLondonAutomation@glasslewis.com',
@@ -89,6 +89,8 @@ export const API = {
     MEETING_DETAILS: '**/Api/Data/MeetingDetailsActivity/',
     VOTE_RESULTS: '**/Api/Data/MdVoteResults',
     SHARE_MEETING_MODAL: '**/ShareMeeting/AddShareMeetingModal/',
+    CREATE_DRAFT_FILTER: '**/Api/Data/Filters/CreateDraftFilter',
+    LOGGER: '/api/Logger/**'
   },
   GET: {
     BALLOT_RECONCILIATION: '**/Api/Data/BallotReconciliation/**',
@@ -97,21 +99,19 @@ export const API = {
     WORKFLOW_CONFIGURE_COLUMNS: '**/Api/WebUI//Workflow/WorkflowConfigureColumns?_=**',
     FILTERS_DIRECTORY: '**/Api/Data/FiltersDirectories?_=**',
     GET_MARKUP: '**/Workflow/GetMarkup?_=**',
-    WORKLOW_FILTER_CRITERIA_EDITORS:
-      '**/Api/WebUI/WorkflowFilterCriteriaEditors?filterPreferenceID=**&objectType=WorkflowExpansion&customerId=0&_=**',
-    GET_MEETING_ID:
-      '**/Api/Data/MdData/GetAFD?MeetingId=**&AccountIds%5B%5D=**&AgendaId=**&isContested=false&CustomerId=0&_=**',
+    WORKLOW_FILTER_CRITERIA_EDITORS: '**/Api/WebUI/WorkflowFilterCriteriaEditors?filterPreferenceID=**&objectType=WorkflowExpansion&customerId=0&_=**',
+    GET_MEETING_ID: '**/Api/Data/MdData/GetAFD?MeetingId=**&AccountIds%5B%5D=**&AgendaId=**&isContested=false&CustomerId=0&_=**',
     WORKFLOW_RESEARCH_INFO: '**/Api/Data/WorkflowResearchInfo/GetWFResearch?CustomerID=0&_=**',
     RELATED_MEETINGS: '**/Api/Data/RelatedMeetings/?QueryValue=**',
     PAGE_SECTION_ORDER: '**/Api/Data/PageSectionOrder?Page=1&_=**',
-    MEETING_SECURITY_WATCHLIST: '**/Api/Data/MeetingSecurityWatchlists/?MeetingIDs%5B%5D=**',
+    MEETING_SECURITY_WATCHLIST: '**/Api/Data/MeetingSecurityWatchlists/**',
     ASSIGNED_MEETING_ID: '**/Api/Data/Assignee/?MeetingIDs%5B%5D=**',
     GET_FILINGS: '**/Api/Data/MeetingMaterials/GetFilings?MeetingId=**',
     BALLOT_ACTIVITY_LOG: '**/Api/Data/BallotActivityLog/?BallotID=**',
-    FILTER_CRITERIA_FOR_FIELDS:
-      '**/Api/WebUI//WorkflowFilterCriteriaEditors/ForField?fields=**&objectType=WorkflowExpansion&customerId=**&_=**',
+    FILTER_CRITERIA_FOR_FIELDS: '**/Api/WebUI//WorkflowFilterCriteriaEditors/ForField?fields=**&objectType=WorkflowExpansion&customerId=**&_=**',
     LIST_SERVICE: '**/Api/Data//ListService/PolicyID?CustomerID=**',
     META_BALLOTS_GRID: '**/Api/Data/MetaData/?typeName=BallotsGrid&customerId=**&_=**',
+    MEETING_MATERIALS: '**/Api/Data/MeetingMaterials/**'
   },
   PUT: {
     BALLOT_GRID_STATE: '**/Api/Data/BallotsGridState',
