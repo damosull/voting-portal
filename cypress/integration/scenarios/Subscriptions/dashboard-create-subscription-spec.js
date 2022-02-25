@@ -12,7 +12,7 @@ describe('Create Dashboard Subscription entry and validate in SB_Subscription Da
     cy.intercept('GET', '**/Api/WebUI/Subscriptions/**').as('Subscriptions');
 
     // Step 1 - Login to viewpoint as External user
-    cy.loginExtAdm('Calpers');
+    cy.loginWithAdmin('CALPERS');
 
     //Step 2 - Navigate to the Reporting tab
     cy.visit('/Dashboard');

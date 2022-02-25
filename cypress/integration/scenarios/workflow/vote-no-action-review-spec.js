@@ -262,6 +262,43 @@ describe('Workflow', () => {
     });
 
     cy.visit('/').url().should('include', '/Workflow');
-    cy.deleteMyFilter(filterName);
+    deleteMyFilter(filterName);
   });
+
+  function deleteMyFilter (filterToDelete){
+    cy.intercept('GET', '**/ManageFilters').as('manageFilters');
+    cy.intercept('GET', '**/Api/Data/Subscription/?FilterId=**').as('subscriptionFilter');
+    cy.intercept('GET', '**/Api/Data/FilterPreference/SharedUsers/?FilterToShareID=**').as('filterToShare');
+    cy.intercept('GET', '**/Api/Data/Filters/GetByID?Id=**').as('getByID');
+    cy.intercept('DELETE', '**/Api/Data/WorkflowFilters/**?isConfirmed=false').as('filterDeleted');
+
+    cy.get('#btn-manage-filters').click();
+
+    cy.wait('@manageFilters');
+    cy.wait('@subscriptionFilter');
+    cy.wait('@filterToShare');
+
+    cy.contains('My Filters')
+      .siblings()
+      .find('li')
+      .then((myFilter) => {
+        cy.wrap(myFilter).each((value, index) => {
+          const found = value.text().trim();
+          // It compares the existing filter name with the ones available under My Filters.
+          if (found == filterToDelete) {
+            cy.wait('@getByID');
+            cy.wrap(myFilter).eq(index).click();
+            cy.contains('Delete Filter').click();
+            cy.wait('@filterDeleted');
+            cy.get('.toast-message').should('contain.text', toast.FILTER_DELETED);
+          } else {
+            if (index == myFilter.length - 1) {
+              cy.log('No filter was found');
+              return false;
+            }
+        }
+      });
+    });
+  }
+
 });

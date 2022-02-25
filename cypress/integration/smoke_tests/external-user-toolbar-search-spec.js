@@ -3,7 +3,7 @@
 describe('external user', function () {
   beforeEach(function () {
     sessionStorage.clear();
-    cy.loginExtAdm('Calpers');
+    cy.loginWithAdmin('CALPERS');
   });
 
   it('Toolbar search', function () {

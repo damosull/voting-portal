@@ -5,7 +5,7 @@ describe('Verify elements on Dashboard page', function () {
     beforeEach(function () {
 
         // step 1 - Log in External
-        cy.loginExtAdm('Calpers');
+        cy.loginWithAdmin('CALPERS');
 
         //step 2 - select Dashboard link
         cy.visit("/Dashboard");

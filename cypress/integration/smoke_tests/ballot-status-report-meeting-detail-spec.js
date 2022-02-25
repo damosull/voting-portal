@@ -8,7 +8,7 @@ describe('ballot status report meeting detail page ', function () {
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
     cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
 
-    cy.loginExtAdm('Calpers');
+    cy.loginWithAdmin('CALPERS');
     cy.visit('/');
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');

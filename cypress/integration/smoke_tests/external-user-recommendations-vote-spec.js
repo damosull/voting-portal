@@ -5,7 +5,7 @@ describe('Meeting Recommendation vote tests', function () {
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
     cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
 
-    cy.loginExtAdm('Calpers');
+    cy.loginWithAdmin('CALPERS');
     cy.visit('/Workflow');
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');

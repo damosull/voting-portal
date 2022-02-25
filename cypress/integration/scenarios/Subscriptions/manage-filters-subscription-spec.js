@@ -15,7 +15,7 @@ describe('Create Manage Filters Subscription entry and validate in FL_Subscripti
     cy.intercept('GET', '**/Api/Data/**').as('Data');
 
     // Step 1 - Login to viewpoint as External user
-    cy.loginExtAdm('Calpers');
+    cy.loginWithAdmin('CALPERS');
 
     //Step 2 - Navigate to the Reporting tab
     cy.visit('/Workflow');

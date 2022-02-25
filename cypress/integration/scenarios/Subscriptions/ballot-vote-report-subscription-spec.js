@@ -22,7 +22,7 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
     cy.intercept('POST', '**/Api/Data/BallotVoteData/Add').as('Add');
 
     // Step 1 - Login to viewpoint as External user
-    cy.loginExtAdm('Calpers');
+    cy.loginWithAdmin('CALPERS');
 
     //Step 2 - Navigate to the Reporting tab
     cy.visit('/Reporting');

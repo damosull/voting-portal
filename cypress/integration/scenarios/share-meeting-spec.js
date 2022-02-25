@@ -20,7 +20,7 @@ describe('Share meeting with User - Comment', function () {
     cy.intercept('POST', '/api/Logger/**').as('logger')
 
     //step 1 - Login to viewpoint as External user
-    cy.loginExtAdm('Calpers');
+    cy.loginWithAdmin('CALPERS');
 
     //Step 2 - Navigate to the Workflow tab
     cy.visit('/Workflow');

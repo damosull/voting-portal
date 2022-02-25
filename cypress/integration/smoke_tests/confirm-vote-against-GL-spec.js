@@ -2,14 +2,13 @@
 describe('Confirm votes against Recommendations captured in filter criteria', function () {
 
     beforeEach(function () {
-        cy.viewport(1100, 900);
         sessionStorage.clear()
         cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
         cy.intercept('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
         cy.intercept('POST', "**/Api/Data/Filters/CreateDraftFilter").as('filter')
         cy.intercept('POST', "**/Api/Logger").as('controls')
 
-        cy.loginExtAdm('Calpers');
+        cy.loginWithAdmin('CALPERS');
         cy.visit("/Workflow");
         cy.wait('@WorkflowExpansion');
         cy.wait('@WorkflowSecuritiesWatchlists');
@@ -102,7 +101,7 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
     it('teardown', function () {
 
         //teardown 
-        cy.loginExtAdm('Calpers');
+        cy.loginWithAdmin('CALPERS');
         cy.visit("/Workflow");
         cy.wait('@WorkflowExpansion');
         cy.wait('@WorkflowSecuritiesWatchlists');

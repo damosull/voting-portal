@@ -9,7 +9,7 @@ describe('Generate Engagement report,download and verify file headers', function
     cy.intercept('GET', '**/Engagement/?PageInfo%5BIgnorePagesize%5D=true&ReportType=Engagement&_=**').as('engagement');
     cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=Engagement').as('criteriaEngagement');
 
-    cy.loginExtAdm('Calpers');
+    cy.loginWithAdmin('CALPERS');
     cy.visit('/Reporting');
   });
 

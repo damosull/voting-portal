@@ -358,3 +358,134 @@ Cypress.Commands.add('uncheckColumnFieldApplyAndVerifyNotChecked', (value) => {
   cy.get('#txt-filter-col-name').clear();
   cy.get('#btn-apply-configure-columns').click();
 });
+
+Cypress.Commands.add('RemoveCriteriaIfExists', (id, removeId) => {
+  cy.get('body').then(($body) => {
+    if ($body.find(id).length > 0) {
+      cy.get(removeId).click();
+    }
+  });
+});
+
+Cypress.Commands.add('randomString', (length) => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  let result = ' ';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return cy.wrap(result);
+});
+
+Cypress.Commands.add('handleErrorModal', () => {
+  cy.get('.app-wrapper').then(() => {
+    cy.get('#vote-warnings-and-errors-modal').then(($header) => {
+      if ($header.is(':visible')) {
+        cy.get('div.row.clearfix.floatright > button.btn.primary.gray').click({ force: true });
+      }
+    });
+  });
+});
+
+Cypress.Commands.add('selectValueFromCriteriaOption', (id, inputVal, object, updatebtn) => {
+  cy.get(`${id}`).click();
+  cy.get(`input[${inputVal}='${object}']`).check({ force: true });
+  cy.get(`${updatebtn}`).click({ force: true });
+});
+
+Cypress.Commands.add('AddCriteriaOption', (searchText, inputValue) => {
+  cy.get('#btn-add-criteria').click({ force: true });
+  cy.get('#txt-filter-criteria').type(searchText, { force: true });
+  cy.get(`input[value='${inputValue}']`).check({ force: true });
+  cy.contains('Apply').click({ force: true });
+});
+
+Cypress.Commands.add('parseXlsx', (inputFile) => {
+  return cy.task('parseXlsx', { filePath: inputFile });
+});
+
+Cypress.Commands.add('selectReportType', (report) => {
+  cy.get('#workflow-filter-list > div > ul > li').then(($rows) => {
+    $rows.each((index, value) => {
+      const input = report;
+      const reportType = Cypress.$(value).find(`a > span`).text();
+      if (reportType === input) {
+        cy.log(reportType);
+        cy.get(`#workflow-filter-list > div > ul > li:nth-child(${index + 1}) > a > span`).click();
+        return false;
+      }
+    });
+  });
+});
+
+Cypress.Commands.add('saveFilter', (filterName) => {
+  cy.contains('Save As').click();
+  cy.get('#popupTextContainer').should('be.visible').type(filterName);
+  cy.get('#apprise-btn-undefined').should('be.visible'); //the ID of this button should be fixed
+  cy.get('#apprise-btn-confirm').click();
+});
+
+Cypress.Commands.add('selectFirstMeeting', () => {
+  cy.get('table > tbody > tr')
+    .eq(2)
+    .within(() => {
+      cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
+    });
+});
+
+Cypress.Commands.add('assertFileProperties', (configName, fileExtension) => {
+  cy.get('#inbox-container [data-pagelink1]')
+    .first()
+    .invoke('attr', 'data-pagelink1')
+    .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=')
+    .then((downloadLink) => {
+      cy.request(downloadLink).then((resp) => {
+        expect(resp.status).to.eq(200);
+        expect(resp.headers)
+          .to.have.property('content-disposition')
+          .contains(`attachment; filename=${configName}.${fileExtension}`);
+        if (fileExtension == 'pdf') {
+          expect(resp.headers).to.have.property('content-type').eql('application/pdf');
+        } else if (fileExtension == 'xls') {
+          expect(resp.headers).to.have.property('content-type').eql('application/vnd.ms-excel');
+        } else if (fileExtension == 'xlsx') {
+          expect(resp.headers)
+            .to.have.property('content-type')
+            .eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        } else {
+          expect(resp.headers).to.have.property('content-type').eql('text/csv');
+        }
+      });
+    });
+});
+
+Cypress.Commands.add('donwloadFileLocal', (report) => {
+  cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
+  cy.intercept('GET', '**/Downloads/DownloadExportFromUrl/?requestID=**').as('DownloadReport');
+  cy.intercept('GET', '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**').as('LoadInbox');
+
+  cy.get('#inbox-container .msg-txt').first().click();
+  // The following two waits are for the API's triggered by the donwload
+  cy.wait('@InboxReport');
+  cy.wait('@DownloadReport');
+
+  /* In some cases the notify-count click fails in the pipeline. I'm adding this click to ensure the modal is closed before opening again
+   The only "common" option I found between all the reports is the report name. So if the parameter is sent then it will click in the 
+   appropriate report. If not sent it will carry on with the normal flow
+  */
+  if (report) {
+    cy.selectReportType(report);
+  }
+
+  cy.get('.notify-count').click();
+  cy.wait('@LoadInbox');
+});
+
+Cypress.Commands.add('executeQuery', (query) => {
+  // Execute the query only if a SELECT is sent as a parameter
+  if (query.includes('SELECT')) {
+    cy.sqlServer(query);
+  } else {
+    cy.log('Enter a valid query');
+  }
+});

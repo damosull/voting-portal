@@ -64,7 +64,7 @@ describe('Report', () => {
     cy.wait('@ProxyVoting');
 
     // Step 4 - Select file type Excel (.xls)
-    cy.selectReportExtension('xls');
+    selectReportExtension('xls');
 
     // The reason I have two actions for the same input is because for some reason it takes roughly 5 seconds to type the past days, whereas with two actions is straight away
     // step 5 - Select past days
@@ -122,4 +122,9 @@ describe('Report', () => {
     // Run the task to delete the folder "Download"
     cy.exec('npm run cy:clean');
   });
+
+  function selectReportExtension (extension){
+    cy.get('#rpt-report').children().find('select').select(extension.toUpperCase());
+  }
+
 });

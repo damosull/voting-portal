@@ -7,7 +7,7 @@ describe('Admin User functionality tests', function () {
     cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
     cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
 
-    cy.loginInternalAdm('AutomationInternal');
+    cy.loginWithAdmin('AUTOMATIONINTERNAL');
     cy.visit('/Workflow');
     cy.wait('@WorkflowExpansion');
     cy.wait('@WorkflowSecuritiesWatchlists');

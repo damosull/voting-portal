@@ -2,7 +2,7 @@ import { API } from '../../support/constants';
 
 describe('Verify comments on the Workflow page', function () {
   beforeEach(function () {
-    cy.loginExtAdm('Calpers');
+    cy.loginWithAdmin('CALPERS');
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_EXPANSION');
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');

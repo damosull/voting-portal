@@ -9,7 +9,7 @@ describe('Watchlist Assignment tests', function () {
   });
 
   it('Internal User - Select Calpers meeting and add System Watch list', function () {
-    cy.loginInternalAdm('AutomationInternal');
+    cy.loginWithAdmin('AUTOMATIONINTERNAL');
 
     cy.visit('/Workflow');
 
@@ -64,7 +64,7 @@ describe('Watchlist Assignment tests', function () {
   }); //end it
 
   it('External User - Verify System watch list', function () {
-    cy.loginExtAdm('Calpers');
+    cy.loginWithAdmin('CALPERS');
 
     cy.visit('/Workflow');
 
@@ -101,7 +101,7 @@ describe('Watchlist Assignment tests', function () {
   });
 
   it('Internal User - verify meeting system watch list and deselect', function () {
-    cy.loginInternalAdm('AutomationInternal');
+    cy.loginWithAdmin('AUTOMATIONINTERNAL');
 
     cy.visit(meetingId);
 

@@ -14,7 +14,7 @@ describe('Generate ballot vote data report, download and verify file', function 
     ).as('BallotVote');
     cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotVoteData').as('BallotCriteria');
 
-    cy.loginExtAdm('Calpers');
+    cy.loginWithAdmin('CALPERS');
     cy.visit('/Reporting');
   });
 
