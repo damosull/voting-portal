@@ -4,11 +4,10 @@ Feature: ac1
     Given I login as Internal User and retrieve Customer ID for "Russell Investments"
     When I verify customer settings for VAM and VAP
 
-  @focus
   Scenario: Live ballots with meeting date for future ballots whose meeting date has passed/Revote and no rationale entered for vote against management and vote against policy
     Given I login as Internal User and retrieve Customer ID for "Russell Investments"
     When I verify customer settings for VAM and VAP
-    When I login as External User "RUSSELL"
+    When I login as External User "USER.RUSSELL"
     And I change meeting date on Russell meeting id "1016711" to 10 days in the future and navigate to it
     And I clear the rationales for VAM entries and VAP entries and add rationales for remaining proposals
     And I click the vote button and check the override checkbox

@@ -46,8 +46,8 @@ When('I verify customer settings for VAM and VAP', () => {
 
 
 
-When('I login as External User {string}', (extadm) => {
-    cy.loginWithAdmin(extadm);
+When('I login as External User {string}', () => {
+    cy.loginWithAdmin(USER.RUSSELL);
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
     cy.removeAllExistingSelectedCriteria();

@@ -76,7 +76,7 @@ describe('US26145', () => {
     // Click on the Control Number link
     cy.get('#ballots-grid div:nth-child(2) td:nth-child(1)').contains(MEETINGID.WLNCVTD_CTRLNUM).click();
 
-    cy.wait('@BALLOT_ACTIVITY').then(() => {
+    cy.wait('@BALLOT_ACTIVITY_LOG').then(() => {
       cy.request({
         method: 'POST',
         url: `${glassAPI}/GetByControllerNumbers`,
