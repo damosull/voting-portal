@@ -106,6 +106,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('POST', API.POST.BALLOT_CRITERIA).as('BALLOT_CRITERIA');
   cy.intercept('POST', API.POST.CREATE_DRAFT_FILTER).as('CREATE_DRAFT_FILTER');
   cy.intercept('POST', API.POST.CRITERIA_ENGAGEMENT).as('CRITERIA_ENGAGEMENT');
+  cy.intercept('POST', API.POST.DOCUMENTS_DATA).as('DOCUMENTS_DATA');
   cy.intercept('POST', API.POST.FILE_ADD).as('FILE_ADD');
   cy.intercept('POST', API.POST.GET_AGENDA).as('GET_AGENDA');
   cy.intercept('POST', API.POST.MEETING_DETAILS).as('MEETING_DETAILS');
@@ -145,6 +146,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('GET', API.GET.REPORT_TYPE).as('REPORT_TYPE');
   cy.intercept('GET', API.GET.SHARE_MEETING_LISTS).as('SHARE_MEETING_LISTS');
   cy.intercept('GET', API.GET.SUBSCRIPTIONS).as('SUBSCRIPTIONS');  
+  cy.intercept('GET', API.GET.SUSTAIN_ANALYTICS).as('SUSTAIN_ANALYTICS'); 
   cy.intercept('GET', API.GET.WORKFLOW_RESEARCH_INFO).as('WORKFLOW_RESEARCH_INFO');
 
   cy.intercept('PUT', API.PUT.BALLOT_GRID_STATE).as('BALLOT_GRID_STATE');
@@ -156,46 +158,46 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 
   const PASSWORD = 'Test12345%';
   switch (user) {
-    case 'AUTOMATIONINTERNAL':
+    case USER.AUTOMATIONINTERNAL:
       username = USER.AUTOMATIONINTERNAL;
       break;
-    case 'AUTOMATIONEXTERNAL':
+    case USER.AUTOMATIONEXTERNAL:
       username = USER.AUTOMATIONEXTERNAL;
       break;
-    case 'WELLINGTON':
+    case USER.WELLINGTON:
       username = USER.WELLINGTON;
       break;
-    case 'CALPERS':
+    case USER.CALPERS:
       username = USER.CALPERS;
       break;
-    case 'RUSSELL':
+    case USER.RUSSELL:
       username = USER.RUSSELL;
       break;
-    case 'OPERS':
+    case USER.OPERS:
       username = USER.OPERS;
       break;
-    case 'ROBECO':
+    case USER.ROBECO:
       username = USER.ROBECO;
       break;
-    case 'ROYALLONDON':
+    case USER.ROYALLONDON:
       username = USER.ROYALLONDON;
       break;
-    case 'CHARLESSCHWAB':
+    case USER.CHARLESSCHWAB:
       username = USER.CHARLESSCHWAB;
       break;
-    case 'PUTNAM':
+    case USER.PUTNAM:
       username = USER.PUTNAM;
       break;
-    case 'IMF':
+    case USER.IMF:
       username = USER.IMF;
       break;
-    case 'FEDERATED':
+    case USER.FEDERATED:
       username = USER.FEDERATED;
       break;
-    case 'NEUBERGER':
+    case USER.NEUBERGER:
       username = USER.NEUBERGER;
       break;
-    case 'PADDYINTERNAL':
+    case  USER.PADDYINTERNAL:
       username = USER.PADDYINTERNAL;
       break;
     default:

@@ -11,7 +11,7 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
     cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid');
 
     // Step 1 - Login to viewpoint as External user
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
 
     //Step 2 - Navigate to the Reporting tab
     cy.visit('/Reporting');

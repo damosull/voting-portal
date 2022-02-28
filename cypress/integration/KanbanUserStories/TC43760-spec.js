@@ -1,10 +1,12 @@
+const { USER } = require("../../support/constants");
+
 var idMeeting = [1085172,1082343];
 var idCompany = [564097];
 
 describe('TC43760', () => {
 
     beforeEach(function () {
-        cy.loginWithAdmin('CALPERS');
+        cy.loginWithAdmin(USER.CALPERS);
         cy.visit('/Workflow');
         cy.wait('@WORKFLOW_EXPANSION');
         cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');

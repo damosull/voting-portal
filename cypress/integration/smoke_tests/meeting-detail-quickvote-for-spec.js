@@ -1,13 +1,13 @@
-const { MEETINGID, USER, API } = require('../../support/constants');
 import '../../support/commands.js';
 import workflowPageItems from '../../elements/pages/workflow/workflowPageItems'
 
+const { MEETINGID, USER } = require('../../support/constants');
+const workflowPage = new workflowPageItems();
+
 describe('Test QuickVote functionality in MeetingDetails page', function () {
 
-  const workflowPage = new workflowPageItems();
-
   beforeEach(function () {
-    cy.loginSession(USER.CALPERS);
+    cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/').url().should('include', '/Workflow');
     cy.wait('@WORKFLOW_EXPANSION');
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');

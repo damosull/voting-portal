@@ -1,19 +1,18 @@
-// Test scenario:39541 https://dev.azure.com/glasslewis/Development/_workitems/edit/39541
-describe('Verify elements on Dashboard page', function () {
+const { USER } = require("../../support/constants");
 
+describe('Verify elements on Dashboard page', function () {
 
     beforeEach(function () {
 
         // step 1 - Log in External
-        cy.loginWithAdmin('CALPERS');
+        cy.loginWithAdmin(USER.CALPERS);
 
         //step 2 - select Dashboard link
         cy.visit("/Dashboard");
     })
 
+    // Test scenario:39541 https://dev.azure.com/glasslewis/Development/_workitems/edit/39541
     it(`Dashboard check`, function () {
-
-        cy.intercept('POST', '/Api/Data/DocumentsData').as('DocumentsData');
 
         //step 3 verify sidebar links
         cy.get('#workflow-filter-list > div > h5').eq(0).should('include.text', 'My dashboards')
@@ -80,7 +79,7 @@ describe('Verify elements on Dashboard page', function () {
 
         //step 11 - select certain values
         cy.get('div.row.center > button.secondary.blue').eq(4).click({ force: true })
-        cy.wait('@DocumentsData')
+        cy.wait('@DOCUMENTS_DATA')
 
         //step 12 - check returned table headers
         cy.get('.dashboard-documents-content > table >thead >tr').within(() => {

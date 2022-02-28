@@ -1,16 +1,14 @@
-/// <reference types="Cypress" />
 import '../../support/commands.js';
+
+const { USER } = require("../../support/constants");
 
 describe('Watchlist Assignment tests', function () {
   beforeEach(function () {
     sessionStorage.clear();
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-    cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('AvailableAssigneesForCustomer');
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Workflow');
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
   });
 
   afterEach(() => {
@@ -35,7 +33,7 @@ describe('Watchlist Assignment tests', function () {
   it('Check assigned watchlist is in Assignees list', function () {
     cy.get('#btn-watchlists').click({ force: true });
     cy.get('.watchlist-search-input').type('Test Watchlist', { force: true });
-    cy.wait('@AvailableAssigneesForCustomer');
+    cy.wait('@AVAILABLE_ASSIGNEES_CUSTOMER');
     cy.get('.floatleft > .scrollableContainer').should('include.text', 'Test Watchlist');
   });
 

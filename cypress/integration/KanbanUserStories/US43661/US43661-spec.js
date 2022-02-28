@@ -1,4 +1,4 @@
-import { MEETINGID } from "../../../support/constants";
+import { MEETINGID, USER } from "../../../support/constants";
 import '../../../support/commands.js';
 const unixTime = Math.floor(Date.now() / 1000);
 
@@ -14,7 +14,7 @@ describe('User Story US43661 tests', function () {
     // Test Case 44721 : https://dev.azure.com/glasslewis/Development/_workitems/edit/44721
     it(`Live ballots with meeting date for future ballots whose meeting date has passed/Revote and no rationale entered for vote against policy`, function () {
 
-        cy.loginWithAdmin('AUTOMATIONINTERNAL');
+        cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
         cy.visit('/Workflow');
 
         //Alias csrf token
@@ -37,7 +37,7 @@ describe('User Story US43661 tests', function () {
         cy.logout()
 
         //Step 1
-        cy.loginWithAdmin('RUSSELL');
+        cy.loginWithAdmin(USER.RUSSELL);
         cy.visit('/Workflow');
         cy.wait('@WorkflowSecuritiesWatchlists');
         cy.removeAllExistingSelectedCriteria();
@@ -78,7 +78,7 @@ describe('User Story US43661 tests', function () {
     // Test Case 44726 : https://dev.azure.com/glasslewis/Development/_workitems/edit/44726
     it(`Live ballots with meeting date for past ballots whose meeting date has passed/Revote and no rationale entered for vote against policy`, function () {
 
-        cy.loginWithAdmin('AUTOMATIONINTERNAL');
+        cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
         cy.visit('/Workflow');
 
         //Alias csrf token
@@ -101,7 +101,7 @@ describe('User Story US43661 tests', function () {
         cy.logout()
 
         //Step 2 Login as Russell Ext Admin User
-        cy.loginWithAdmin('RUSSELL');
+        cy.loginWithAdmin(USER.RUSSELL);
         cy.visit('/Workflow');
         cy.wait('@WorkflowSecuritiesWatchlists');
         cy.removeAllExistingSelectedCriteria();

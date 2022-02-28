@@ -1,8 +1,8 @@
-import { USER, API } from '../../support/constants';
+import { USER } from '../../support/constants';
 
 describe('verify workflow page elements (TestCase - 28351)', function () {
   beforeEach(function () {
-    cy.loginSession(USER.AUTOMATIONINTERNAL);
+    cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_EXPANSION');
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');

@@ -1,9 +1,11 @@
+const { USER } = require("../../support/constants");
+
 describe('Generate Policy report,download and verify file headers', function () {
   let filename;
   let rnd;
 
   beforeEach(function () {
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Reporting');
   });
 

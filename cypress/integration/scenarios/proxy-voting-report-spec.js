@@ -41,7 +41,7 @@ const percentages = [
 
 describe('Report', () => {
   beforeEach(() => {
-    cy.loginSession(USER.CALPERS);
+    cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Reporting').url().should('include', 'Reporting');
   });
 

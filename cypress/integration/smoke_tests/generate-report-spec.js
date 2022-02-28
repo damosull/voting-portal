@@ -1,14 +1,14 @@
+const { USER } = require("../../support/constants");
+
 describe('Generate basic excel report,download and verify file headers', function () {
   beforeEach(function () {
-    cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
-
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Reporting');
   });
 
   //Gererate report additional
   it(`Generate Report`, function () {
-    cy.wait('@BallotRecon');
+    cy.wait('@BALLOT_RECONCILIATION');
     cy.AddMultipleCriteria(['Policy ID'], true);
 
     cy.get('#rpt-columns > .section > .toggle').click({ force: true });

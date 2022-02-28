@@ -1,17 +1,13 @@
-import { messages } from '../../support/constants';
+import { messages, USER } from '../../support/constants';
+
 const toast = messages.toast;
 
 describe('ballot status report meeting detail page ', function () {
   beforeEach(function () {
-    cy.viewport(1110, 900);
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-    cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
-
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/');
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
   });
 
   it(`ballot status export PDF report`, function () {
@@ -22,7 +18,7 @@ describe('ballot status report meeting detail page ', function () {
 
     cy.selectFirstMeeting();
 
-    cy.wait('@filter');
+    cy.wait('@FILTER');
 
     // export the ballot status report
     cy.get('#exportMeetingDetails > .nav > .dropdown > .dropdown-toggle').click();

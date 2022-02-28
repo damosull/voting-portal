@@ -1,16 +1,13 @@
-/// <reference types="Cypress" />
 import '../../../support/commands.js';
+import { USER } from '../../../support/constants.js';
 
 describe('Admin User functionality tests', function () {
   beforeEach(function () {
     sessionStorage.clear();
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-    cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-
-    cy.loginWithAdmin('AUTOMATIONINTERNAL');
+    cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
     cy.visit('/Workflow');
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
   });
   it('Create Calpers User', function () {
     cy.get('#admin-link-container > a > span').click({ force: true });

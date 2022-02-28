@@ -1,4 +1,4 @@
-import { MEETINGID } from '../../support/constants';
+import { MEETINGID, USER } from '../../support/constants';
 
 //TC 2642
 var arrAPIPolicy = [];
@@ -30,7 +30,7 @@ describe('US39255 tests - Test 1', function () {
   //Test case 40606 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40606
   it(`TC1 40606 - Configure Column actions`, function () {
     
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_EXPANSION');
 
@@ -111,7 +111,7 @@ describe('US39255 tests - Test 1', function () {
 
   //Test case 40606 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40606
   it(`TC2 - 40606 - Verify Ballot section Pagination`, function () {
-    cy.loginWithAdmin('RUSSELL');
+    cy.loginWithAdmin(USER.RUSSELL);
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_EXPANSION');
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
@@ -150,7 +150,7 @@ describe('US39255 tests - Test 1', function () {
   //Test Case 40724 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40724
   it(`TC - 40724 - Verify Ballot section Pagination`, function () {
 
-    cy.loginWithAdmin('RUSSELL');
+    cy.loginWithAdmin(USER.RUSSELL);
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
     cy.removeAllExistingSelectedCriteria();
@@ -201,7 +201,7 @@ describe('US39255 tests - Test 1', function () {
 
   //Test Case 40724 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40724
   it(`TC 40724 - Verify Ballot section Pagination after`, function () {
-    cy.loginWithAdmin('RUSSELL');
+    cy.loginWithAdmin(USER.RUSSELL);
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_EXPANSION');
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
@@ -232,7 +232,7 @@ describe('US39255 tests - Test 1', function () {
   it('TC 2642 - Verify ballot section display the correct results when filter is applied', () => {
     cy.log('Test Case 2642 - https://dev.azure.com/glasslewis/Development/_workitems/edit/2642');
 
-    cy.loginWithAdmin('NEUBERGER');
+    cy.loginWithAdmin(USER.NEUBERGER);
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_EXPANSION');
 
@@ -345,7 +345,7 @@ describe('US39255 tests - Test 1', function () {
   //TC 40734 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40734
   it(`TC - 40734 - Verify User can Toggle between 'Management' Multiple Agendas in the Vote card page for specific meeting type`, function () {
     
-    cy.loginWithAdmin('NEUBERGER');
+    cy.loginWithAdmin(USER.NEUBERGER);
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_EXPANSION');
 
@@ -407,7 +407,7 @@ describe('US39255 tests - Test 1', function () {
   //Test case 40739 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40739
   it(`TC 40739 - Configure Column actions`, function () {
     
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_EXPANSION');
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');

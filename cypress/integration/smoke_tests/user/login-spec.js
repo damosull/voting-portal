@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 describe('Login Page', function () {
   beforeEach(function () {
     sessionStorage.clear();

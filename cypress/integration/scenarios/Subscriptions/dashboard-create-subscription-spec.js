@@ -8,7 +8,7 @@ describe('Create Dashboard Subscription entry and validate in SB_Subscription Da
     cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid');
 
     // Step 1 - Login to viewpoint as External user
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
 
     //Step 2 - Navigate to the Reporting tab
     cy.visit('/Dashboard');

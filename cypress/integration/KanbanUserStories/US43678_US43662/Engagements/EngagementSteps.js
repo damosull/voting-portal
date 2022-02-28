@@ -1,12 +1,12 @@
 import '../../../support/commands.js';
-import { USER } from "../../../support/constants";
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { USER } from '../../../../support/constants.js';
 
 
 // TODO: Unnecesary step
 Given('I login as Internal User and retrieve Customer ID for {string}', (customer) => {
 
-    cy.loginWithAdmin('AUTOMATIONINTERNAL');
+    cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
     cy.visit('/Workflow');
 
     //Alias csrf token

@@ -1,12 +1,12 @@
 import '../../../../support/commands.js';
-import { MEETINGID } from "../../../../support/constants";
+import { MEETINGID, USER } from "../../../../support/constants";
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 
 const unixTime = Math.floor(Date.now() / 1000);
 
 Given('I login as Internal User and retrieve Customer ID for {string}', (customer) => {
 
-    cy.loginWithAdmin('AUTOMATIONINTERNAL');
+    cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
     cy.visit('/Workflow');
 
     //Alias csrf token

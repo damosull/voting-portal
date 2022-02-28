@@ -11,7 +11,7 @@ describe('Share meeting with User - Comment', function () {
     cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid');    
     
     //step 1 - Login to viewpoint as External user
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
 
     //Step 2 - Navigate to the Workflow tab
     cy.visit('/Workflow');

@@ -1,8 +1,10 @@
+const { USER } = require("../../support/constants");
+
 describe('select a meeting and download a research link', function () {
 
     beforeEach(function () {
         sessionStorage.clear()
-        cy.loginWithAdmin('CALPERS');
+        cy.loginWithAdmin(USER.CALPERS);
     });
 
     it.skip(`download research link on meeting detail page`, function () {

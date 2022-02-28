@@ -8,7 +8,7 @@ const toast = messages.toast;
 
 describe('Workflow', () => {
   beforeEach(() => {
-    cy.loginSession(USER.CALPERS);
+    cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/').url().should('include', '/Workflow');
   });
   

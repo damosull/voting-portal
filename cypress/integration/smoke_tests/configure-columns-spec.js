@@ -2,13 +2,9 @@ import { USER } from '../../support/constants';
 
 describe('Configure columns', function () {
   beforeEach(function () {
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-    cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists/').as('WorklowWatchlist');
-    cy.intercept('GET', '**/Api/Data/Inbox/**').as('InboxLoad');
-
-    cy.loginSession(USER.AUTOMATIONINTERNAL);
+    cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
     cy.visit('/Workflow');
-    cy.wait('@WorkflowExpansion');
+    cy.wait('@WORKFLOW_EXPANSION');
   });
 
   it(`adds and verifies the first four available Sustainalytics ESG columns`, function () {
@@ -28,9 +24,9 @@ describe('Configure columns', function () {
     });
     cy.get('#btn-apply-configure-columns').click();
 
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorklowWatchlist');
-    cy.wait('@InboxLoad');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
+    cy.wait('@INBOX_REPORT');
     cy.get('.k-loading-text').should('not.exist');
 
     // Moves the horizontal sidebar to the far right

@@ -1,20 +1,14 @@
-/* eslint-disable cypress/no-unnecessary-waiting */
+const { USER } = require("../../support/constants");
+
 describe('Confirm votes against Recommendations captured in filter criteria', function () {
 
     beforeEach(function () {
         sessionStorage.clear()
-        cy.intercept('POST', "**/Api/Data/WorkflowExpansion").as('WorkflowExpansion');
-        cy.intercept('POST', "**/Api/Data/WorkflowSecuritiesWatchlists").as('WorkflowSecuritiesWatchlists')
-        cy.intercept('POST', "**/Api/Data/Filters/CreateDraftFilter").as('filter')
-        cy.intercept('POST', "**/Api/Logger").as('controls')
-
-        cy.loginWithAdmin('CALPERS');
+        cy.loginWithAdmin(USER.CALPERS);
         cy.visit("/Workflow");
-        cy.wait('@WorkflowExpansion');
-        cy.wait('@WorkflowSecuritiesWatchlists');
+        cy.wait('@WORKFLOW_EXPANSION');
+        cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
         cy.removeAllExistingSelectedCriteria()
-
-
     });
 
     it('Confirm votes against GL captured in filter criteria', function () {
@@ -42,26 +36,19 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
                     var selected = Cypress.$(value).find(':selected').text();
                     Selected.push(selected)
                 }
-
             })
-
             var diff = arraysEqual(GLvals, Selected);
             expect(diff).to.be.false
-
-
         });
 
-    }); //end it
-
+    });
 
     it('Confirm votes against Management captured in filter criteria', function () {
-
 
         cy.AddCriteriaOption('decision', 'Decision Status')
         cy.selectValueFromCriteriaOption('.DecisionStatusEditor', 'value', 'Approved', '#btn-apply-criteria')
         cy.AddCriteriaOption('With', 'Votes With/Against Management')
         cy.selectValueFromCriteriaOption('.WithAgainstManagementEditor', 'name', 'opt-WithAgainstManagement', '#btn-update-WithAgainstManagement')
-
 
         //arrays to store Management recommendations and vote decisons
         let Mgmtvals = []
@@ -91,23 +78,17 @@ describe('Confirm votes against Recommendations captured in filter criteria', fu
                 var diff = arraysEqual(Mgmtvals, Selected);
                 expect(diff).to.be.false
             }
-
-
-
-        }); //end it
-
+        });
 
     }); // end describe */
     it('teardown', function () {
-
         //teardown 
-        cy.loginWithAdmin('CALPERS');
+        cy.loginWithAdmin(USER.CALPERS);
         cy.visit("/Workflow");
-        cy.wait('@WorkflowExpansion');
-        cy.wait('@WorkflowSecuritiesWatchlists');
+        cy.wait('@WORKFLOW_EXPANSION');
+        cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
         cy.removeAllExistingSelectedCriteria()
     })
-
     //compare arrays
     function arraysEqual(a1, a2) {
         return JSON.stringify(a1) == JSON.stringify(a2);

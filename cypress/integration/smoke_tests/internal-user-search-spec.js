@@ -4,6 +4,7 @@ describe('Internal user', function () {
   sessionStorage.clear();
 
   it.skip('Search for client', function () {
+    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
     cy.visit('/');
 
     var username = USER.AUTOMATIONINTERNAL;
@@ -20,15 +21,13 @@ describe('Internal user', function () {
     //2. Verify if session exists
     cy.getCookie('DEV-session').should('exist');
 
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-
     // Search for customer
     //'California Public Employee Retirement System (CalPERS)'
     cy.get('.customerName-Search .k-input').type('CAL', { force: true });
     cy.get('#kendoCustomers-list .k-item').first().click({ force: true });
 
     // check all meetings in response have CalPERS customer id
-    cy.wait('@WorkflowExpansion').then((xhr) => {
+    cy.wait('@WORKFLOW_EXPANSION').then((xhr) => {
       const data = JSON.parse(xhr.response.body);
       //const parsed = JSON.parse(data); 
       const items = data.items;

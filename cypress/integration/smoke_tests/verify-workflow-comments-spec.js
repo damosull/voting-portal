@@ -1,8 +1,8 @@
-import { API } from '../../support/constants';
+const { USER } = require("../../support/constants");
 
 describe('Verify comments on the Workflow page', function () {
   beforeEach(function () {
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_EXPANSION');
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');

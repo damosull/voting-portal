@@ -1,9 +1,11 @@
+const { USER } = require("../../support/constants");
+
 var arrAPIPolicy = [];
 var arrUIPolicy = [];
 
 describe('US28436 - Test 6', () => {
   beforeEach(() => {
-    cy.loginWithAdmin("NEUBERGER");
+    cy.loginWithAdmin(USER.NEUBERGER);
     cy.visit('/').url().should('include', '/Workflow');
   });
 

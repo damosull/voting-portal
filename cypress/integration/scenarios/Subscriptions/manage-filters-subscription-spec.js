@@ -6,7 +6,7 @@ const today = new Date().toISOString().slice(0, 10);
 describe('Create Manage Filters Subscription entry and validate in FL_Subscription Database table', function () {
   beforeEach(function () {
     // Step 1 - Login to viewpoint as External user
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
 
     //Step 2 - Navigate to the Reporting tab
     cy.visit('/Workflow');

@@ -1,3 +1,4 @@
+const { USER } = require("../../support/constants");
 const nextDays = 2;
 const pastDays = 2;
 const unixTime = Math.floor(Date.now() / 1000);
@@ -5,7 +6,7 @@ const configName = `BallotVoteData_${unixTime}`;
 
 describe('Generate ballot vote data report, download and verify file', function () {
   beforeEach(function () {
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Reporting');
   });
 

@@ -12,7 +12,7 @@ const pastDays = 2;
 describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function () {
     beforeEach(function () {   
         //Step 1 - Login as Internal user
-        cy.loginWithAdmin('AUTOMATIONINTERNAL');
+        cy.loginWithAdmin(USER.AUTOMATIONEXTERNAL);
         cy.visit('/Workflow');
 
         //Alias csrf token

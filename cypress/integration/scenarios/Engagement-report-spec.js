@@ -1,11 +1,11 @@
-import { messages } from '../../support/constants';
+import { messages, USER } from '../../support/constants';
 
 const report = messages.reports;
 const toast = messages.toast;
 
 describe('Generate Engagement report,download and verify file headers', function () {
   beforeEach(function () {
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Reporting');
   });
 

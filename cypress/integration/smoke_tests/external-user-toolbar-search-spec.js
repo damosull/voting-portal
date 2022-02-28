@@ -1,9 +1,9 @@
-/// <reference types="Cypress" />
+const { USER } = require("../../support/constants");
 
 describe('external user', function () {
   beforeEach(function () {
     sessionStorage.clear();
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
   });
 
   it('Toolbar search', function () {

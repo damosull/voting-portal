@@ -7,7 +7,7 @@ const glassAPI = 'https://aqua-issuer-vote-confirmation-api.azurewebsites.net/ap
 
 describe('US26145', () => {
   beforeEach(() => {
-    cy.loginWithAdmin("WELLINGTON");
+    cy.loginWithAdmin(USER.WELLINGTON);
     cy.visit('/').url().should('include', '/Workflow');
   });
 

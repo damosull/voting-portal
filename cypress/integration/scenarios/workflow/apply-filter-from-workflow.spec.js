@@ -7,7 +7,7 @@ const data = {
 
 describe('US39254 - ', { tags: '@smoke' }, () => {
   beforeEach(() => {
-    cy.loginSession(USER.WELLINGTON);
+    cy.loginWithAdmin(USER.WELLINGTON);
     cy.visit('/').url().should('include', '/Workflow');
   });
 

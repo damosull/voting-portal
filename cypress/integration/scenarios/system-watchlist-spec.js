@@ -1,3 +1,5 @@
+const { USER } = require("../../support/constants");
+
 let meetingId;
 let meetingName;
 
@@ -5,7 +7,7 @@ describe('Watchlist Assignment tests', function () {
 
   //Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
   it('Internal User - Select Calpers meeting and add System Watch list', function () {
-    cy.loginWithAdmin('AUTOMATIONINTERNAL');
+    cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
 
     cy.visit('/Workflow');
 
@@ -61,7 +63,7 @@ describe('Watchlist Assignment tests', function () {
 
   //Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
   it('External User - Verify System watch list', function () {
-    cy.loginWithAdmin('CALPERS');
+    cy.loginWithAdmin(USER.CALPERS);
 
     cy.visit('/Workflow');
 
@@ -99,7 +101,7 @@ describe('Watchlist Assignment tests', function () {
 
   //Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
   it('Internal User - verify meeting system watch list and deselect', function () {
-    cy.loginWithAdmin('AUTOMATIONINTERNAL');
+    cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
 
     cy.visit(meetingId);
 
