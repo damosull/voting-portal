@@ -18,8 +18,8 @@ describe('Create Manage Filters Subscription entry and validate in FL_Subscripti
     cy.get('#btn-manage-filters').click();
     cy.get('#filter-name-edit').should('have.text', 'Upcoming Meetings');
     cy.wait('@CURRENT_USER');
-    cy.wait('@DIRECTORIES');
-    cy.wait('@INBOX_REPORT');
+    cy.wait('@FILTERS_DIRECTORY');
+    cy.wait('@INBOX');
     cy.wait('@DATA');
 
     cy.get('body').then(($body) => {

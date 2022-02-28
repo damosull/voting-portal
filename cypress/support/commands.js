@@ -101,6 +101,7 @@ Cypress.Commands.add('verifyMeetingOptionButtons', () => {
 
 Cypress.Commands.add('loginWithAdmin', (user) => {
   
+  cy.intercept('POST', API.POST.ADD).as('ADD');
   cy.intercept('POST', API.POST.AVA_CRITERIA).as('AVA_CRITERIA');
   cy.intercept('POST', API.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AVAILABLE_ASSIGNEES_CUSTOMER');
   cy.intercept('POST', API.POST.BALLOT_CRITERIA).as('BALLOT_CRITERIA');
@@ -135,7 +136,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('GET', API.GET.GET_FILINGS).as('GET_FILINGS');
   cy.intercept('GET', API.GET.GET_POLICY).as('GET_POLICY');
   cy.intercept('GET', API.GET.IDENTITY_SEARCH).as('IDENTITY_SEARCH');
-  cy.intercept('GET', API.GET.INBOX_REPORT).as('INBOX_REPORT');
+  cy.intercept('GET', API.GET.INBOX).as('INBOX');
   cy.intercept('GET', API.GET.LIST_SERVICE).as('LIST_SERVICE');
   cy.intercept('GET', API.GET.LOAD_INBOX).as('LOAD_INBOX');
   cy.intercept('GET', API.GET.MEETING_SECURITY_WATCHLIST).as('MEETING_SECURITY_WATCHLIST');

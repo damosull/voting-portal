@@ -27,7 +27,7 @@ describe('Share meeting with User - Comment', function () {
     //Step 4 - navigate to Calpers meeting ID 
     cy.visit('MeetingDetails/Index/' + MEETINGID.CPRP6)
 
-    cy.wait('@GET_DATA')
+    cy.wait('@DATA')
     cy.wait('@LOGGER')
     cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale').click({ force: true });
     cy.verifyMeetingOptionButtons();

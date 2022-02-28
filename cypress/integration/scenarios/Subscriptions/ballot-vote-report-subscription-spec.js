@@ -29,7 +29,7 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
     cy.get('#popupTextContainer').should('be.visible').type(configName);
     cy.get('#apprise-btn-undefined').should('be.visible');
     cy.get('#apprise-btn-confirm').click();
-    cy.wait('@MEETING_DETAILS');
+    cy.wait('@ADD');
     cy.contains('My configurations').siblings().find('span').should('contain', configName);
 
     // Step 4 Add Subscription

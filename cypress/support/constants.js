@@ -81,6 +81,7 @@ export const MEETINGID = {
 
 export const API = {
   POST: {
+    ADD: '**/Api/Data/BallotVoteData/Add',
     AVA_CRITERIA: '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=AVAReport',
     AVAILABLE_ASSIGNEES_CUSTOMER: '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer',
     BALLOT_CRITERIA: '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotVoteData',
@@ -122,7 +123,7 @@ export const API = {
     GET_USER_PERMISSIONS: '**/Api/Data//MdPermissions/GetUserPermissions?_=**',
     GET_POLICY: '**/Api/Data/Policy/GetById/**',
     IDENTITY_SEARCH: '**/Api/Data/ShareMeetingIdentitySearch/**',
-    INBOX_REPORT: '**/Api/Data/Inbox/**',
+    INBOX: '**/Api/Data/Inbox/**',
     LIST_SERVICE: '/Api/Data//ListService/**',
     LOAD_INBOX: '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**',
     MEETING_MATERIALS: '**/Api/Data/MeetingMaterials/**',

@@ -11,11 +11,9 @@ describe('US28436 - Test 6', () => {
 
   //Test Case 2642 - https://dev.azure.com/glasslewis/Development/_workitems/edit/2642
   it('Verify ballot section display the correct results when filter is applied', () => {
-    cy.log('Test Case 2642 - https://dev.azure.com/glasslewis/Development/_workitems/edit/2642');
-
     // Wait for initial page to load
     cy.wait('@WORKFLOW_EXPANSION');
-    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
+    //cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
     // Click on Upcoming Meetings link
     cy.contains('Upcoming Meetings').click();
@@ -82,7 +80,7 @@ describe('US28436 - Test 6', () => {
 
       cy.wait('@MEETING_DETAILS');
       cy.wait('@GET_AGENDA');
-      cy.wait('@GET_FILLINGS');
+      cy.wait('@GET_FILINGS');
       cy.wait('@WORKFLOW_RESEARCH_INFO');
       cy.wait('@VOTE_TALLY');
 

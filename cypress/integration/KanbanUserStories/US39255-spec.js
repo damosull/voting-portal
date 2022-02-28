@@ -230,7 +230,6 @@ describe('US39255 tests - Test 1', function () {
 
   //Test Case 2642 - https://dev.azure.com/glasslewis/Development/_workitems/edit/2642
   it('TC 2642 - Verify ballot section display the correct results when filter is applied', () => {
-    cy.log('Test Case 2642 - https://dev.azure.com/glasslewis/Development/_workitems/edit/2642');
 
     cy.loginWithAdmin(USER.NEUBERGER);
     cy.visit('/Workflow');
