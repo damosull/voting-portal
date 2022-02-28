@@ -1,4 +1,4 @@
-import '../../../support/commands.js';
+import '../../../../support/commands.js';
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER } from '../../../../support/constants.js';
 
@@ -56,8 +56,8 @@ When('I set View Interactions permissions to {string} for RobecoAutomation Exter
 
 });
 
-And('I login as External User {string}', (extadm) => {
-    cy.loginWithAdmin(extadm);
+And('I login as External User {string}', () => {
+    cy.loginWithAdmin(USER.ROBECO);
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
     cy.removeAllExistingSelectedCriteria();
