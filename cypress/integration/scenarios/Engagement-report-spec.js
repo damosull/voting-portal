@@ -1,24 +1,20 @@
-// Test scenario 37963 : https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
-
 import { messages } from '../../support/constants';
+
 const report = messages.reports;
 const toast = messages.toast;
 
 describe('Generate Engagement report,download and verify file headers', function () {
   beforeEach(function () {
-    cy.intercept('GET', '**/Engagement/?PageInfo%5BIgnorePagesize%5D=true&ReportType=Engagement&_=**').as('engagement');
-    cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=Engagement').as('criteriaEngagement');
-
     cy.loginWithAdmin('CALPERS');
     cy.visit('/Reporting');
   });
 
-  // Generate report
+  // Test scenario 37963 : https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
   it(`Generate Report`, function () {
     cy.selectReportType('Engagement');
 
-    cy.wait('@engagement');
-    cy.wait('@criteriaEngagement');
+    cy.wait('@ENGAGEMENT');
+    cy.wait('@CRITERIA_ENGAGEMENT');
 
     cy.get('#report-criteria-controls >div > h4').first().click({ force: true });
     cy.get('[type="radio"]#rdo-date-range-discrete-InteractionDate').check({ force: true }).should('be.checked');
@@ -59,5 +55,5 @@ describe('Generate Engagement report,download and verify file headers', function
           );
         });
       });
-  }); // end it
-}); //end describe
+  });
+});

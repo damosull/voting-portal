@@ -1,16 +1,8 @@
 import '../../../../support/commands.js';
 import { MEETINGID } from "../../../../support/constants";
-
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-const unixTime = Math.floor(Date.now() / 1000);
 
-beforeEach(function () {
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-    cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-    cy.intercept('GET', '**/Api/Data/MeetingSecurityWatchlists/**').as('MeetingSecurityWatchlists')
-    cy.intercept('POST', '**/Api/Data//MdData/GetAgenda').as('getagenda')
-    cy.intercept('POST', '**/Api/Data/VoteRequestValidation').as('validation')
-});
+const unixTime = Math.floor(Date.now() / 1000);
 
 Given('I login as Internal User and retrieve Customer ID for {string}', (customer) => {
 
@@ -18,11 +10,11 @@ Given('I login as Internal User and retrieve Customer ID for {string}', (custome
     cy.visit('/Workflow');
 
     //Alias csrf token
-    cy.wait('@WorkflowExpansion').then((resp) => {
+    cy.wait('@WORKFLOW_EXPANSION').then((resp) => {
         var csrftoken = resp.request.headers.csrftoken;
         cy.wrap(csrftoken).as('csrftoken');
     });
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
     //get customer ID
     cy.getCustomerIDFromDB(customer).as('custid')
@@ -57,7 +49,7 @@ When('I verify customer settings for VAM and VAP', () => {
 When('I login as External User {string}', (extadm) => {
     cy.loginWithAdmin(extadm);
     cy.visit('/Workflow');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
     cy.removeAllExistingSelectedCriteria();
 });
 
@@ -65,8 +57,8 @@ And('I change meeting date on Russell meeting id 981568 to 10 days in the past a
 
     cy.SetMeetingDateXdaysFromCurrent(MEETINGID.RSNCVAP2, -10)
     cy.visit('MeetingDetails/Index/' + MEETINGID.RSNCVAP2)
-    cy.wait('@getagenda')
-    cy.wait('@MeetingSecurityWatchlists');
+    cy.wait('@GET_AGENDA')
+    cy.wait('@MEETING_SECURITY_WATCHLIST');
 
     cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale').click({ force: true });
     cy.verifyMeetingOptionButtons();
@@ -76,8 +68,8 @@ And('I change meeting date on Russell meeting id 1068747 to 10 days in the futur
 
     cy.AddTenDaysToMeetingDates(MEETINGID.RSNCVAM1)
     cy.visit('MeetingDetails/Index/' + MEETINGID.RSNCVAM1)
-    cy.wait('@getagenda')
-    cy.wait('@MeetingSecurityWatchlists');
+    cy.wait('@GET_AGENDA')
+    cy.wait('@MEETING_SECURITY_WATCHLIST');
 
     cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale').click({ force: true });
     cy.verifyMeetingOptionButtons();
@@ -87,8 +79,8 @@ And('I change meeting date on Russell meeting id {string} to 10 days in the futu
 
     cy.AddTenDaysToMeetingDates(meetid)
     cy.visit('MeetingDetails/Index/' + meetid)
-    cy.wait('@getagenda')
-    cy.wait('@MeetingSecurityWatchlists');
+    cy.wait('@GET_AGENDA')
+    cy.wait('@MEETING_SECURITY_WATCHLIST');
 
     cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale').click({ force: true });
     cy.verifyMeetingOptionButtons();

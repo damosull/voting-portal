@@ -1,28 +1,20 @@
-// Test scenario: 37962 https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
+const nextDays = 2;
+const pastDays = 2;
+const unixTime = Math.floor(Date.now() / 1000);
+const configName = `BallotVoteData_${unixTime}`;
+
 describe('Generate ballot vote data report, download and verify file', function () {
-  const nextDays = 2;
-  const pastDays = 2;
-  const unixTime = Math.floor(Date.now() / 1000);
-  const configName = `BallotVoteData_${unixTime}`;
-
   beforeEach(function () {
-    cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
-    cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
-    cy.intercept(
-      'GET',
-      '**/Api/Data/BallotVoteData/?PageInfo%5BIgnorePagesize%5D=true&ReportType=BallotVoteData&_=**'
-    ).as('BallotVote');
-    cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotVoteData').as('BallotCriteria');
-
     cy.loginWithAdmin('CALPERS');
     cy.visit('/Reporting');
   });
 
+  // Test scenario: 37962 https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
   it(`Generate Report`, function () {
-    cy.wait('@BallotRecon');
+    cy.wait('@BALLOT_RECONCILIATION');
     cy.contains('Ballot Vote Data').click();
-    cy.wait('@BallotVote');
-    cy.wait('@BallotCriteria');
+    cy.wait('@BALLOT_VOTE');
+    cy.wait('@BALLOT_CRITERIA');
 
     // Step 4 meeting date next 2/past 2 days
     cy.get('#date-range-target-MeetingDate').invoke('attr', 'style', 'display: block');
@@ -77,5 +69,5 @@ describe('Generate ballot vote data report, download and verify file', function 
       });
 
     cy.deleteMyConfiguration(configName);
-  }); // end it
-}); //end describe
+  });
+});

@@ -1,25 +1,14 @@
-// Test scenario: 40409 https://dev.azure.com/glasslewis/Development/_workitems/edit/40409
 import { USER, messages } from '../../../support/constants';
+
 const toast = messages.toast;
+const unixTime = Math.floor(Date.now() / 1000);
+const configName = `BallotVoteData_${unixTime}`;
 
 describe('Create Ballot Vote Subscription entry and validate in SB_Subscription Database table', function () {
-  /*  const nextDays = 2;
-     const pastDays = 2; */
-  const unixTime = Math.floor(Date.now() / 1000);
-  const configName = `BallotVoteData_${unixTime}`;
 
   beforeEach(function () {
     //since db refresh changes user id of automation user,need to grab the userid from the DB on the fly
     cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid');
-
-    cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
-    cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
-    cy.intercept(
-      'GET',
-      '**/Api/Data/BallotVoteData/?PageInfo%5BIgnorePagesize%5D=true&ReportType=BallotVoteData&_=**'
-    ).as('BallotVote');
-    cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotVoteData').as('BallotCriteria');
-    cy.intercept('POST', '**/Api/Data/BallotVoteData/Add').as('Add');
 
     // Step 1 - Login to viewpoint as External user
     cy.loginWithAdmin('CALPERS');
@@ -28,18 +17,19 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
     cy.visit('/Reporting');
   });
 
+  // Test scenario: 40409 https://dev.azure.com/glasslewis/Development/_workitems/edit/40409
   it(`Save Configuration and create Subscription`, function () {
-    cy.wait('@BallotRecon');
+    cy.wait('@BALLOT_RECONCILIATION');
     cy.contains('Ballot Vote Data').click();
-    cy.wait('@BallotVote');
-    cy.wait('@BallotCriteria');
+    cy.wait('@BALLOT_VOTE');
+    cy.wait('@BALLOT_CRITERIA');
 
     // Step 3 save configuraiton
     cy.contains('Save As').click();
     cy.get('#popupTextContainer').should('be.visible').type(configName);
     cy.get('#apprise-btn-undefined').should('be.visible');
     cy.get('#apprise-btn-confirm').click();
-    cy.wait('@Add');
+    cy.wait('@MEETING_DETAILS');
     cy.contains('My configurations').siblings().find('span').should('contain', configName);
 
     // Step 4 Add Subscription
@@ -96,5 +86,5 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
     cy.get('.toast-message').should('contain.text', toast.SUBSCRIPTION_DELETED);
 
     cy.deleteMyConfiguration(configName);
-  }); // end it
-}); //end describe
+  });
+});

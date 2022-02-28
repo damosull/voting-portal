@@ -1,35 +1,22 @@
-//Test scenario 40744 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40744
+import { MEETINGID, USER } from '../../support/constants';
 
 const moment = require('moment');
-import { MEETINGID, API, USER } from '../../support/constants';
 const selector = '#ballotActivityLogGrid > div > table > tbody > tr:nth-child(1) > td';
 const statusToChange = 'Received';
 const glassAPI = 'https://aqua-issuer-vote-confirmation-api.azurewebsites.net/api/Ballot/';
 
 describe('US26145', () => {
   beforeEach(() => {
-    cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
-    cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', API.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
-    cy.intercept('POST', API.POST.GET_AGENDA).as('GetAgenda');
-    cy.intercept('POST', API.POST.VOTE_TALLY).as('VoteTally');
-    cy.intercept('POST', API.POST.MEETING_DETAILS).as('MeetingDetails');
-    cy.intercept('GET', API.GET.GET_MEETING_ID).as('GetMeetingID');
-    cy.intercept('GET', API.GET.RELATED_MEETINGS).as('RelatedMeetings');
-    cy.intercept('GET', API.GET.PAGE_SECTION_ORDER).as('PageSectionOrder');
-    cy.intercept('GET', API.GET.MEETING_SECURITY_WATCHLIST).as('MeetingSecurityWatchlist');
-    cy.intercept('GET', API.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
-    cy.intercept('GET', API.GET.BALLOT_ACTIVITY_LOG).as('BallotActivity');
-
     cy.loginWithAdmin("WELLINGTON");
     cy.visit('/').url().should('include', '/Workflow');
   });
 
+  //Test scenario 40744 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40744
   it('TC40744 - Vote on GLASS', () => {
     //Wait initial page to load
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
-    cy.wait('@AvailableAssigneesForCustomer');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
+    cy.wait('@AVAILABLE_ASSIGNEES_CUSTOMER');
 
     // CLick on Upcoming meetings
     cy.contains('Upcoming Meetings').click();
@@ -78,18 +65,18 @@ describe('US26145', () => {
     // Load the meeting in Viewpoint
     cy.visit(`/MeetingDetails/Index/${MEETINGID.WLNCVTD}`);
 
-    cy.wait('@GetMeetingID');
-    cy.wait('@RelatedMeetings');
-    cy.wait('@GetAgenda');
-    cy.wait('@PageSectionOrder');
-    cy.wait('@MeetingSecurityWatchlist');
-    cy.wait('@AssignedMeetingID');
-    cy.wait('@VoteTally');
+    cy.wait('@GET_MEETING_ID');
+    cy.wait('@RELATED_MEETINGS');
+    cy.wait('@GET_AGENDA');
+    cy.wait('@PAGE_SECTION_ORDER');
+    cy.wait('@MEETING_SECURITY_WATCHLIST');
+    cy.wait('@ASSIGNED_MEETING_ID');
+    cy.wait('@VOTE_TALLY');
 
     // Click on the Control Number link
     cy.get('#ballots-grid div:nth-child(2) td:nth-child(1)').contains(MEETINGID.WLNCVTD_CTRLNUM).click();
 
-    cy.wait('@BallotActivity').then(() => {
+    cy.wait('@BALLOT_ACTIVITY').then(() => {
       cy.request({
         method: 'POST',
         url: `${glassAPI}/GetByControllerNumbers`,

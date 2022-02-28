@@ -1,67 +1,57 @@
-//Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
-
 import { messages, USER } from '../../support/constants';
+
 const report = messages.reports;
 const toast = messages.toast;
 const pastDays = 3;
 const unixTime = Math.floor(Date.now() / 1000);
 const configName = `ProxyVoting_${unixTime}`;
+const votes = [
+  'Proxy Voting Report',
+  'Vote Against Management (VAM) Summary',
+  'Votes Against Policy (VAP) Summary',
+  'Number of Meetings',
+  'Number of Meetings With VAM',
+  'Number of Proposals With VAM',
+  'Number of Meetings With Votes For Mgmt',
+  'Number of Proposals With Votes For Mgmt',
+  'Number of No Votes Cast',
+];
+const proposalSummary = [
+  'Proposal Summary',
+  'Mgmt Proposals Voted FOR',
+  'Mgmt Proposals Voted Against/Withold',
+  'Mgmt Proposals Voted Abstain',
+  'Mgmt Proposals With No Votes Cast',
+  'Mgmt Proposals Voted 1 Year',
+  'Mgmt Proposals Voted 2 Years',
+  'Mgmt Proposals Voted 3 Years',
+  'ShrHldr Proposal Voted FOR',
+  'ShrHldr Proposals Voted Against/Withold',
+  'ShrHldr Proposals Voted Abstain',
+  'ShrHldr Proposals With No Votes Cast',
+];
+const percentages = [
+  'Number of Proposals',
+  'Number of Countries (Country of Trade)',
+  '% of All Meetings Voted',
+  '% of All Proposals Voted',
+  '% of All Mgmt Proposals',
+  '% of All ShrHldr Proposals',
+];
 
 describe('Report', () => {
-  const votes = [
-    'Proxy Voting Report',
-    'Vote Against Management (VAM) Summary',
-    'Votes Against Policy (VAP) Summary',
-    'Number of Meetings',
-    'Number of Meetings With VAM',
-    'Number of Proposals With VAM',
-    'Number of Meetings With Votes For Mgmt',
-    'Number of Proposals With Votes For Mgmt',
-    'Number of No Votes Cast',
-  ];
-
-  const proposalSummary = [
-    'Proposal Summary',
-    'Mgmt Proposals Voted FOR',
-    'Mgmt Proposals Voted Against/Withold',
-    'Mgmt Proposals Voted Abstain',
-    'Mgmt Proposals With No Votes Cast',
-    'Mgmt Proposals Voted 1 Year',
-    'Mgmt Proposals Voted 2 Years',
-    'Mgmt Proposals Voted 3 Years',
-    'ShrHldr Proposal Voted FOR',
-    'ShrHldr Proposals Voted Against/Withold',
-    'ShrHldr Proposals Voted Abstain',
-    'ShrHldr Proposals With No Votes Cast',
-  ];
-
-  const percentages = [
-    'Number of Proposals',
-    'Number of Countries (Country of Trade)',
-    '% of All Meetings Voted',
-    '% of All Proposals Voted',
-    '% of All Mgmt Proposals',
-    '% of All ShrHldr Proposals',
-  ];
-
   beforeEach(() => {
-    cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotReconciliation').as(
-      'BallotRecon'
-    );
-    cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=ProxyVoting').as('ProxyVoting');
-
     cy.loginSession(USER.CALPERS);
     cy.visit('/Reporting').url().should('include', 'Reporting');
   });
 
+  //Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
   it.skip('Proxy Voting', () => {
-    cy.log('Test scenario 38014 - https://dev.azure.com/glasslewis/Development/_workitems/edit/38014');
-
-    cy.wait('@BallotRecon');
+    cy.wait('@BALLOT_RECONCILIATION');
 
     // Step 3 - Select report type = Proxy Voting
     cy.selectReportType('Proxy Voting');
-    cy.wait('@ProxyVoting');
+    cy.wait('@PROXY_VOTING');
 
     // Step 4 - Select file type Excel (.xls)
     selectReportExtension('xls');

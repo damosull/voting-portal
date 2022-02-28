@@ -1,15 +1,11 @@
-// Test scenario: 40490 https://dev.azure.com/glasslewis/Development/_workitems/edit/40490
-
 import { USER, messages } from '../../../support/constants';
+
 const toast = messages.toast;
-let today = new Date().toISOString().slice(0, 10);
+const today = new Date().toISOString().slice(0, 10);
 
 describe('Create Dashboard Subscription entry and validate in SB_Subscription Database table', function () {
   beforeEach(function () {
     cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid');
-    cy.intercept('GET', '**/Api/Data/Inbox/**').as('InboxReport');
-    cy.intercept('GET', '**/Api/Data/IdentitySearch/**').as('IdentitySearch');
-    cy.intercept('GET', '**/Api/WebUI/Subscriptions/**').as('Subscriptions');
 
     // Step 1 - Login to viewpoint as External user
     cy.loginWithAdmin('CALPERS');
@@ -18,6 +14,7 @@ describe('Create Dashboard Subscription entry and validate in SB_Subscription Da
     cy.visit('/Dashboard');
   });
 
+  // Test scenario: 40490 https://dev.azure.com/glasslewis/Development/_workitems/edit/40490
   it(`Create Dashboard Subscription`, function () {
     //Step 3 - select Subscriptions link
     cy.get('#subscriptions-container > h3').should('include.text', 'Subscriptions').click();
@@ -95,5 +92,5 @@ describe('Create Dashboard Subscription entry and validate in SB_Subscription Da
     //Remove Subscription entry from Viewpoint
     cy.get('#current-subscribers-list > tbody > tr > td > i[class="fa fa-times"]').eq(1).click();
     cy.get('#apprise-btn-confirm').click();
-  }); // end it
-}); //end describe
+  });
+});

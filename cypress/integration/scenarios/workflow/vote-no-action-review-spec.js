@@ -1,7 +1,5 @@
-//Test scenario 37790 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37790
-//Test scenario 40741 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40741
+import { messages, USER } from '../../../support/constants';
 
-import { messages, API, USER } from '../../../support/constants';
 const pastDays = 30;
 const arrCriteria = ['Decision Status'];
 const unixTime = Math.floor(Date.now() / 1000);
@@ -10,32 +8,16 @@ const toast = messages.toast;
 
 describe('Workflow', () => {
   beforeEach(() => {
-    cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
-    cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', API.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
-    cy.intercept('POST', API.POST.GET_AGENDA).as('GetAgenda');
-    cy.intercept('POST', API.POST.VOTE_TALLY).as('VoteTally');
-    cy.intercept('POST', API.POST.MEETING_DETAILS).as('MeetingDetails');
-    cy.intercept('GET', API.GET.GET_MEETING_ID).as('GetMeetingID');
-    cy.intercept('GET', API.GET.RELATED_MEETINGS).as('RelatedMeetings');
-    cy.intercept('GET', API.GET.PAGE_SECTION_ORDER).as('PageSectionOrder');
-    cy.intercept('GET', API.GET.MEETING_SECURITY_WATCHLIST).as('MeetingSecurityWatchlist');
-    cy.intercept('GET', API.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
-    cy.intercept('GET', API.GET.GET_FILINGS).as('GetFilings');
-    cy.intercept('GET', API.GET.WORKFLOW_RESEARCH_INFO).as('WFResearch');
-    cy.intercept('GET', API.GET.BALLOT_ACTIVITY_LOG).as('BallotActivity');
-
     cy.loginSession(USER.CALPERS);
     cy.visit('/').url().should('include', '/Workflow');
   });
-
+  
+  //Test scenario 37790 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37790
+  //Test scenario 40741 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40741
   it('Vote, Take No Action and Review Required', () => {
-    cy.log('Test scenario 37790 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37790');
-    cy.log('Test scenario 40741 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40741');
-
     // Wait for initial page to load
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
     // Remove any pre-existing filter from the page
     cy.removeAllExistingSelectedCriteria();
@@ -44,7 +26,7 @@ describe('Workflow', () => {
     cy.get('#rdo-meeting-date').check().should('be.checked');
 
     // Wait for meeting date grouping
-    cy.wait('@AvailableAssigneesForCustomer');
+    cy.wait('@AVAILABLE_ASSIGNEES_CUSTOMER');
 
     // Step 2 - Change Next 30 days to 10 Days
     cy.get('#date-range-target-meeting-deadline').invoke('attr', 'style', 'display: block');
@@ -68,13 +50,13 @@ describe('Workflow', () => {
     // Step 5 - Select first meeting
     cy.selectFirstMeeting();
 
-    cy.wait('@GetMeetingID');
-    cy.wait('@RelatedMeetings');
-    cy.wait('@GetAgenda');
-    cy.wait('@PageSectionOrder');
-    cy.wait('@MeetingSecurityWatchlist');
-    cy.wait('@AssignedMeetingID');
-    cy.wait('@VoteTally');
+    cy.wait('@GET_MEETING_ID');
+    cy.wait('@RELATED_MEETINGS');
+    cy.wait('@GET_AGENDA');
+    cy.wait('@PAGE_SECTION_ORDER');
+    cy.wait('@MEETING_SECURITY_WATCHLIST');
+    cy.wait('@ASSIGNED_MEETING_ID');
+    cy.wait('@VOTE_TALLY');
 
     // Verify header buttons [Vote], [Take no Action] and [Instruct]
     cy.verifyMeetingOptionButtons();
@@ -107,11 +89,11 @@ describe('Workflow', () => {
     // Step 7 - Click on [Vote]
     cy.get('#btn-vote-now').click({ force: true });
 
-    cy.wait('@MeetingDetails');
-    cy.wait('@GetAgenda');
-    cy.wait('@WFResearch');
-    cy.wait('@GetFilings');
-    cy.wait('@VoteTally');
+    cy.wait('@MEETING_DETAILS');
+    cy.wait('@GET_AGENDA');
+    cy.wait('@WORKFLOW_RESEARCH_INFO');
+    cy.wait('@GET_FILLINGS');
+    cy.wait('@VOTE_TALLY');
 
     cy.contains('Vote success');
 
@@ -138,11 +120,11 @@ describe('Workflow', () => {
     cy.get('#override-voted').check({ force: true }).should('be.checked');
     cy.get('.floatright > .green').should('have.text', 'Proceed').click({ force: true });
 
-    cy.wait('@MeetingDetails');
-    cy.wait('@GetAgenda');
-    cy.wait('@WFResearch');
-    cy.wait('@GetFilings');
-    cy.wait('@VoteTally');
+    cy.wait('@MEETING_DETAILS');
+    cy.wait('@GET_AGENDA');
+    cy.wait('@WORKFLOW_RESEARCH_INFO');
+    cy.wait('@GET_FILLINGS');
+    cy.wait('@VOTE_TALLY');
 
     cy.contains('Vote success');
 
@@ -164,11 +146,11 @@ describe('Workflow', () => {
     cy.get('#override-tnaed').check({ force: true }).should('be.checked');
     cy.get('.floatright > .green').should('have.text', 'Proceed').click({ force: true });
 
-    cy.wait('@MeetingDetails');
-    cy.wait('@GetAgenda');
-    cy.wait('@WFResearch');
-    cy.wait('@GetFilings');
-    cy.wait('@VoteTally');
+    cy.wait('@MEETING_DETAILS');
+    cy.wait('@GET_AGENDA');
+    cy.wait('@WORKFLOW_RESEARCH_INFO');
+    cy.wait('@GET_FILINGS');
+    cy.wait('@VOTE_TALLY');
 
     cy.contains('Instructed successfully');
 
@@ -212,7 +194,7 @@ describe('Workflow', () => {
 
     cy.get('#meeting-details-activity');
     cy.get('.ballots-grid-control-number-link').first().click();
-    cy.wait('@BallotActivity');
+    cy.wait('@BALLOT_ACTIVITY_LOG');
 
     cy.get('#ballot-activitylog-modal').should('be.visible');
 

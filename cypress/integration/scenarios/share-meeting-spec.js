@@ -1,31 +1,22 @@
-// Test scenario: 40545 https://dev.azure.com/glasslewis/Development/_workitems/edit/40545
 import { USER, messages } from '../../support/constants';
+
 const toast = messages.toast;
 const { MEETINGID } = require("../../support/constants");
+
 let today = new Date().toISOString().slice(0, 10);
 
 describe('Share meeting with User - Comment', function () {
-  //let meetingid
   beforeEach(function () {
     sessionStorage.clear();
-    cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid');
-    cy.viewport(1100, 900);
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-    cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
-    cy.intercept('GET', '**/Api/Data/ShareMeetingIdentitySearch/**').as('IdentitySearch');
-    cy.intercept('GET', '**/Api/Data//ShareMeetingLists/**').as('ShareMeetingLists');
-
-    cy.intercept('GET', '/Api/Data/**').as('GetData')
-    cy.intercept('POST', '/api/Logger/**').as('logger')
-
+    cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid');    
+    
     //step 1 - Login to viewpoint as External user
     cy.loginWithAdmin('CALPERS');
 
     //Step 2 - Navigate to the Workflow tab
     cy.visit('/Workflow');
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
     cy.removeAllExistingSelectedCriteria();
   });
 
@@ -36,20 +27,20 @@ describe('Share meeting with User - Comment', function () {
     //Step 4 - navigate to Calpers meeting ID 
     cy.visit('MeetingDetails/Index/' + MEETINGID.CPRP6)
 
-    cy.wait('@GetData')
-    cy.wait('@logger')
+    cy.wait('@GET_DATA')
+    cy.wait('@LOGGER')
     cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale').click({ force: true });
     cy.verifyMeetingOptionButtons();
 
     //Step 5 - Click "Share meeting" button
     cy.get('#btn-share-meeting').click();
     cy.get('#sharemeeting-modal_wnd_title').should('be.visible');
-    cy.wait('@ShareMeetingLists');
+    cy.wait('@SHARE_MEETING_LISTS');
 
 
     //Step 6 - Select 'Calpers External Admin' from Users list
     cy.get('#in-share-meeting-user-name').type('cal');
-    cy.wait('@IdentitySearch');
+    cy.wait('@IDENTITY_SEARCH');
     cy.get('#in-share-meeting-user-name').type('{downarrow}');
     cy.get('#in-share-meeting-user-name').type('{enter}');
 

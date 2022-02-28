@@ -1,6 +1,5 @@
-//Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
-
 import { messages, USER } from '../../support/constants';
+
 const report = messages.reports;
 const toast = messages.toast;
 
@@ -21,28 +20,19 @@ describe('Report', () => {
   ];
 
   before(() => {
-    cy.viewport(1100, 900);
-    //cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
-    cy.intercept('GET', '**/Api/Data/AVA/?PageInfo%5BIgnorePagesize%5D=true&ReportType=AVA&_=**').as('AVAReport');
-    cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
-    cy.intercept('GET', '**/Downloads/DownloadExportFromUrl/?requestID=**').as('DownloadReport');
-    cy.intercept('GET', '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**').as('LoadInbox');
-    cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=AVAReport').as('AVACriteria');
-
     cy.loginSession(USER.CALPERS);
     cy.visit('/Reporting').url().should('include', 'Reporting');
   });
 
+  //Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
   it(`- Voting Activity ${upperFileExt}`, () => {
-    cy.log('Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939');
-
     //cy.wait('@BallotRecon');
 
     // step 2 (these are the steps referenced in the test case)
     cy.selectReportType('Voting Activity');
 
-    cy.wait('@AVAReport');
-    cy.wait('@AVACriteria');
+    cy.wait('@AVA_REPORT');
+    cy.wait('@AVA_CRITERIA');
 
     // Filter the report type
     cy.get('#rpt-report').children().find('select').select(upperFileExt);
@@ -136,7 +126,7 @@ describe('Report', () => {
     cy.contains('Download').click();
     cy.get('.toast-message').should('contain.text', toast.DOWNLOAD_STARTED);
     cy.get('.notify-count').click();
-    cy.wait('@LoadInbox');
+    cy.wait('@LOAD_INBOX');
     cy.get('#inbox-container .msg-txt', { timeout: 180000 }).should(($msg) => {
       expect($msg.first().text()).to.include(configName + `.${fileExtension} ${report.READY}`);
     });

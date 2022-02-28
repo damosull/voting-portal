@@ -1,36 +1,19 @@
-//Test Case 2642 - https://dev.azure.com/glasslewis/Development/_workitems/edit/2642
-
-import { API } from '../../support/constants';
 var arrAPIPolicy = [];
 var arrUIPolicy = [];
 
 describe('US28436 - Test 6', () => {
   beforeEach(() => {
-    cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
-    cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', API.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
-    cy.intercept('POST', API.POST.GET_AGENDA).as('GetAgenda');
-    cy.intercept('POST', API.POST.VOTE_TALLY).as('VoteTally');
-    cy.intercept('POST', API.POST.MEETING_DETAILS).as('MeetingDetails');
-    cy.intercept('GET', API.GET.GET_MEETING_ID).as('GetMeetingID');
-    cy.intercept('GET', API.GET.RELATED_MEETINGS).as('RelatedMeetings');
-    cy.intercept('GET', API.GET.PAGE_SECTION_ORDER).as('PageSectionOrder');
-    cy.intercept('GET', API.GET.MEETING_SECURITY_WATCHLIST).as('MeetingSecurityWatchlist');
-    cy.intercept('GET', API.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
-    cy.intercept('GET', API.GET.GET_FILINGS).as('GetFilings');
-    cy.intercept('GET', API.GET.WORKFLOW_RESEARCH_INFO).as('WFResearch');
-    cy.intercept('PUT', API.PUT.BALLOT_GRID_STATE).as('BallotsGridState');
-
     cy.loginWithAdmin("NEUBERGER");
     cy.visit('/').url().should('include', '/Workflow');
   });
 
+  //Test Case 2642 - https://dev.azure.com/glasslewis/Development/_workitems/edit/2642
   it('Verify ballot section display the correct results when filter is applied', () => {
     cy.log('Test Case 2642 - https://dev.azure.com/glasslewis/Development/_workitems/edit/2642');
 
     // Wait for initial page to load
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
     // Click on Upcoming Meetings link
     cy.contains('Upcoming Meetings').click();
@@ -46,18 +29,18 @@ describe('US28436 - Test 6', () => {
       }
     });
 
-    cy.wait('@GetMeetingID');
-    cy.wait('@RelatedMeetings');
+    cy.wait('@GET_MEETING_ID');
+    cy.wait('@RELATED_MEETINGS');
     // Store the policies returned by the API
-    cy.wait('@GetAgenda').then((xhr) => {
+    cy.wait('@GET_AGENDA').then((xhr) => {
       arrAPIPolicy = xhr.response.body.AgendaVotes[0].PolicyIds;
       arrAPIPolicy.sort();
       cy.wrap(arrAPIPolicy).as('arrAPIPolicy');
     });
-    cy.wait('@PageSectionOrder');
-    //cy.wait('@MeetingSecurityWatchlist');
-    //cy.wait('@AssignedMeetingID');
-    cy.wait('@VoteTally');
+    cy.wait('@PAGE_SECTION_ORDER');
+    //cy.wait('@MEETING_SECURITY_WATCHLIST');
+    //cy.wait('@ASSIGNED_MEETING_ID');
+    cy.wait('@VOTE_TALLY');
 
     // Click on Filters: Policy
     cy.get(':nth-child(2) > .darkgrey').click();
@@ -95,11 +78,11 @@ describe('US28436 - Test 6', () => {
       cy.get('#meeting-detail-policy > li > div > label').eq(index).click({ force: true });
       cy.get('#add-policy-target > div button.btn-update').click({ force: true });
 
-      cy.wait('@MeetingDetails');
-      cy.wait('@GetAgenda');
-      cy.wait('@GetFilings');
-      cy.wait('@WFResearch');
-      cy.wait('@VoteTally');
+      cy.wait('@MEETING_DETAILS');
+      cy.wait('@GET_AGENDA');
+      cy.wait('@GET_FILLINGS');
+      cy.wait('@WORKFLOW_RESEARCH_INFO');
+      cy.wait('@VOTE_TALLY');
 
       // It gets the size of the list
       cy.get('#ballots-grid > div > div > table > thead > tr > th > a').then((size) => {
@@ -117,7 +100,7 @@ describe('US28436 - Test 6', () => {
               cy.get('.company-name-search > input').last().fill('Policy ID');
               cy.get('[data-js="md-ballots-section"]').find('#mytable > ul > li > div > input').check({ force: true });
               cy.get('#configure-columns-modal > button.secondary.blue').eq(1).click();
-              cy.wait('@BallotsGridState');
+              cy.wait('@BALLOT_GRID_STATE');
 
               cy.get('#ballots-grid > div > div > table > thead > tr > th').each(($columns, index) => {
                 if ($columns.text().trim() == 'Policy ID') {

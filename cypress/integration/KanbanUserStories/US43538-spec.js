@@ -1,5 +1,6 @@
-const { USER, MEETINGID } = require('../../support/constants');
 import '../../support/commands.js';
+
+const { USER } = require('../../support/constants');
 const unixTime = Math.floor(Date.now() / 1000);
 const configName = `?byCategory=true&userID=`;
 const settings = `?&pCustomerID=544&_=${unixTime}`;
@@ -9,30 +10,17 @@ const pastDays = 2;
 
 //US 43538 - https://dev.azure.com/glasslewis/Development/_workitems/edit/43538/
 describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function () {
-    beforeEach(function () {
-        cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-        cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-        cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('AvailableAssigneesForCustomer');
-        cy.intercept('GET', '/Api/Data/CustomerDynamic/**').as('CustomerDynamic')
-        cy.intercept('POST', '/Api/Data/CustomerDynamic').as('PostCustomerDynamic')
-        cy.intercept('GET', '/Api/Data//ListService/**').as('ListService')
-        cy.intercept('GET', '/Api/Data/**').as('GetApiData')
-        cy.intercept(
-            'GET',
-            '**/Api/Data/BallotVoteData/?PageInfo%5BIgnorePagesize%5D=true&ReportType=BallotVoteData&_=**'
-        ).as('BallotVote');
-        cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotVoteData').as('BallotCriteria');
-        
+    beforeEach(function () {   
         //Step 1 - Login as Internal user
         cy.loginWithAdmin('AUTOMATIONINTERNAL');
         cy.visit('/Workflow');
 
         //Alias csrf token
-        cy.wait('@WorkflowExpansion').then((resp) => {
+        cy.wait('@WORKFLOW_EXPANSION').then((resp) => {
             var csrftoken = resp.request.headers.csrftoken;
             cy.wrap(csrftoken).as('csrftoken');
             });
-        cy.wait('@WorkflowSecuritiesWatchlists');
+        cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
         cy.getAutomationUserIDFromDB(USER.RUSSELL).as('userid');
     });
@@ -205,15 +193,15 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
         //Step 2 - From Settings,open Customer from dropdown menu
         cy.get('#admin-link-container > a > span').click({ force: true })
         cy.get('#navlink--customers').click()
-        cy.wait('@CustomerDynamic')
+        cy.wait('@GET_CUSTOMER_DYNAMIC')
         cy.get('#company-name-target-CustomerName').invoke('attr', 'style', 'display: block');
     }
 
     //Step 3 - Enter Russell Investments in the Customer search field
     function enterRussellInvestmentsInTheCustomerSearchField() {
         cy.get('#company-name-target-CustomerName > div.k-widget.k-multiselect.k-header > div > input').type('Russell Investments')
-        cy.wait('@ListService')
-        cy.wait('@PostCustomerDynamic')
+        cy.wait('@LIST_SERVICE')
+        cy.wait('@POST_CUSTOMER_DYNAMIC')
         cy.get('select#txt-company-name-CustomerName').invoke('attr', 'style', 'display: block');
         cy.get('#txt-company-name-CustomerName > option').first().click({ force: true })
         cy.get('#company-name-target-CustomerName > div.k-widget.k-multiselect.k-header > div > input').type('{ENTER}')
@@ -228,7 +216,6 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
     function clickRussellInvestmentsLinkUnderCustomerName() {
         cy.get('#customer-grid-kendo > div.k-grid-content > table > tbody > tr > td:nth-child(2) > a').click()
         cy.get('input#ckb-view-acsi.vgcheckbox').invoke('attr', 'style', 'display: block');
-        cy.wait('@GetApiData')
     }
 
     //Step 6 - turn on ACSI checkbox via API
@@ -332,7 +319,7 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
     function loginAsExternalAdminAndVisitWorkflow(user) {
         cy.loginWithAdmin(user);
         cy.visit('/Workflow');
-        cy.wait('@WorkflowSecuritiesWatchlists');
+        cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
     }
 
     //Step 13 - Click Reporting tab
@@ -343,8 +330,8 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
     //Step 14 - Select Ballot Vote Data report
     function selectBallotVoteDatareport() {
         cy.contains('Ballot Vote Data').click();
-        cy.wait('@BallotVote');
-        cy.wait('@BallotCriteria');
+        cy.wait('@BALLOT_VOTE');
+        cy.wait('@BALLOT_CRITERIA');
     }
 
     //Limit report size to 4 days

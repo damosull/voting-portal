@@ -1,24 +1,7 @@
-/// <reference types="Cypress" />
 import '../../../support/commands.js';
 import { USER } from "../../../support/constants";
-
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-const unixTime = Math.floor(Date.now() / 1000);
 
-beforeEach(function () {
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-    cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-    cy.intercept('GET', '**/Api/Data/MeetingSecurityWatchlists/**').as('MeetingSecurityWatchlists')
-    cy.intercept('POST', '**/Api/Data//MdData/GetAgenda').as('getagenda')
-    cy.intercept('POST', '**/Api/Data/VoteRequestValidation').as('validation')
-    cy.intercept('GET', '**/Api/Data/Filters/**').as('filters')
-    cy.intercept('GET', '/Api/Data/CustomField**').as('customfield')
-    cy.intercept('GET', '**/Api/Data/**').as('getData')
-    cy.intercept('POST', '**/Api/Data/**').as('postData')
-    cy.intercept('GET', '**/Api/Data/CustomFields/GetDetails**').as('getDetails')
-    cy.intercept('GET', '**/Api/Data/CustomFieldCRUDWithFilterCheck/SetFieldActiveFlag**').as('activeflag')
-    cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('assignees')
-});
 
 // TODO: Unnecesary step
 Given('I login as Internal User and retrieve Customer ID for {string}', (customer) => {
@@ -27,11 +10,11 @@ Given('I login as Internal User and retrieve Customer ID for {string}', (custome
     cy.visit('/Workflow');
 
     //Alias csrf token
-    cy.wait('@WorkflowExpansion').then((resp) => {
+    cy.wait('@WORKFLOW_EXPANSION').then((resp) => {
         var csrftoken = resp.request.headers.csrftoken;
         cy.wrap(csrftoken).as('csrftoken');
     });
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
     //get customer ID
     cy.getCustomerIDFromDB(customer).as('custid')
@@ -76,7 +59,7 @@ When('I set View Interactions permissions to {string} for RobecoAutomation Exter
 And('I login as External User {string}', (extadm) => {
     cy.loginWithAdmin(extadm);
     cy.visit('/Workflow');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
     cy.removeAllExistingSelectedCriteria();
 });
 
@@ -104,11 +87,10 @@ And('There is no Engagements section on the Company page', () => {
 And('I select Customer Profile from the Admin dropdown', () => {
     cy.get('#admin-link-container > a > span').click({ force: true })
     cy.get('#navlink--customer-profile').click()
-    cy.wait('@getData')
 });
 
 And('I select Custom Fields from The Customer Settings panel', () => {
-    cy.wait('@filters')
+    cy.wait('@FILTERS')
     cy.get('#leftcol > nav > ul:nth-child(6) > li:nth-child(1) > a').click()
 });
 
@@ -190,9 +172,9 @@ And('I save the picklist', () => {
 
 And('I navigate to the Workflow page', () => {
     cy.visit('/Workflow');
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
-    cy.wait('@assignees');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
+    cy.wait('@AVAILABLE_ASSIGNEES_CUSTOMER');
 });
 
 
@@ -222,7 +204,7 @@ Then('I delete the active {string} picklist', (plst) => {
     cy.visit('https://viewpoint.aqua.glasslewis.com/CustomerDetails/CustomFields/');
     cy.contains(plst).click({ force: true })
     cy.get('#check-active').uncheck({ force: true })
-    cy.wait('@activeflag');
+    cy.wait('@ACTIVE_FLAG');
     cy.get('#cf-btn-delete').click({ force: true })
     cy.contains(plst).should('not.exist')
 });

@@ -1,4 +1,4 @@
-import { MEETINGID, API } from '../../support/constants';
+import { MEETINGID } from '../../support/constants';
 
 //TC 2642
 var arrAPIPolicy = [];
@@ -26,22 +26,6 @@ const custColumns = ['Custodian Account Number','Custodian Id','Custodian Name',
 const columnLabels = ['BallotsGrid3', 'BallotsGrid17', 'BallotsGrid18', 'BallotsGrid2', 'BallotsGrid11'];
 
 describe('US39255 tests - Test 1', function () {
-  
-  beforeEach(function () {
-    cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WORKFLOW_EXPANSION');
-    cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WORKFLOW_SECURITIES_WATCHLIST');
-    cy.intercept('POST', API.POST.GET_AGENDA).as('GET_AGENDA');
-    cy.intercept('POST', API.POST.VOTE_TALLY).as('VOTE_TALLY');
-    cy.intercept('POST', API.POST.MEETING_DETAILS).as('MEETING_DETAILS');
-    cy.intercept('GET', API.GET.MEETING_SECURITY_WATCHLIST).as('MEETING_SECURITY_WATCHLIST');
-    cy.intercept('GET', API.GET.MEETING_MATERIALS).as('MEETING_MATERIALS');
-    cy.intercept('GET', API.GET.GET_MEETING_ID).as('GET_MEETING_ID');
-    cy.intercept('GET', API.GET.RELATED_MEETINGS).as('RELATED_MEETINGS');
-    cy.intercept('GET', API.GET.PAGE_SECTION_ORDER).as('PAGE_SECTION_ORDER');
-    cy.intercept('GET', API.GET.GET_FILINGS).as('GET_FILINGS');
-    cy.intercept('GET', API.GET.WORKFLOW_RESEARCH_INFO).as('WORKFLOW_RESEARCH_INFO');
-    cy.intercept('PUT', API.PUT.BALLOT_GRID_STATE).as('BALLOT_GRID_STATE');
-  });
 
   //Test case 40606 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40606
   it(`TC1 40606 - Configure Column actions`, function () {

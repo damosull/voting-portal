@@ -1,6 +1,4 @@
-//Test Case 40729 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40729
-
-import { API, USER } from '../../../support/constants';
+import { USER } from '../../../support/constants';
 
 const data = {
   company: 'SK Innovation',
@@ -9,29 +7,17 @@ const data = {
 
 describe('US39254 - ', { tags: '@smoke' }, () => {
   beforeEach(() => {
-    cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WorkflowExpansion');
-    cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', API.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AvailableAssigneesForCustomer');
-    cy.intercept('POST', API.POST.GET_AGENDA).as('GetAgenda');
-    cy.intercept('POST', API.POST.VOTE_TALLY).as('VoteTally');
-    cy.intercept('GET', API.GET.GET_MEETING_ID).as('GetMeetingID');
-    cy.intercept('GET', API.GET.RELATED_MEETINGS).as('RelatedMeetings');
-    cy.intercept('GET', API.GET.PAGE_SECTION_ORDER).as('PageSectionOrder');
-    cy.intercept('GET', API.GET.MEETING_SECURITY_WATCHLIST).as('MeetingSecurityWatchlist');
-    cy.intercept('GET', API.GET.ASSIGNED_MEETING_ID).as('AssignedMeetingID');
-    cy.intercept('GET', API.GET.FILTER_CRITERIA_FOR_FIELDS).as('FilterCriteriaFields');
-    cy.intercept('GET', API.GET.LIST_SERVICE).as('ListService');
-
     cy.loginSession(USER.WELLINGTON);
     cy.visit('/').url().should('include', '/Workflow');
   });
 
   data.policies.forEach((policy) => {
+    //Test Case 40729 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40729
     it('Verify ballot section display the correct results when filter is applied from the workflow page', () => {
       // Wait for initial page to load
-      cy.wait('@WorkflowExpansion');
-      cy.wait('@WorkflowSecuritiesWatchlists');
-      cy.wait('@AvailableAssigneesForCustomer');
+      cy.wait('@WORKFLOW_EXPANSION');
+      cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
+      cy.wait('@AVAILABLE_ASSIGNEES_CUSTOMER');
 
       cy.contains('Upcoming Meetings').click();
 
@@ -40,15 +26,15 @@ describe('US39254 - ', { tags: '@smoke' }, () => {
       // Step 2 - User clicks on Add Criteria & selects Policy ID
       cy.AddMultipleCriteria(['Policy ID']);
 
-      cy.wait('@ListService');
-      cy.wait('@FilterCriteriaFields');
+      cy.wait('@LIST_SERVICE');
+      cy.wait('@FILTER_CRITERIA_FOR_FIELDS');
 
       // Step 3 - User selects one policy from the list (e.g. TCW-TH) & clicks Update
       cy.addCriteriaStatus([`${policy}`]);
 
-      cy.wait('@WorkflowExpansion');
-      cy.wait('@WorkflowSecuritiesWatchlists');
-      cy.wait('@AvailableAssigneesForCustomer');
+      cy.wait('@WORKFLOW_EXPANSION');
+      cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
+      cy.wait('@AVAILABLE_ASSIGNEES_CUSTOMER');
 
       // Step 4 - User clicks on the Control Number hyperlink on the workflow page
       // Go through the list of meetings and click in the record that matches the name
@@ -60,13 +46,13 @@ describe('US39254 - ', { tags: '@smoke' }, () => {
         }
       });
 
-      cy.wait('@GetMeetingID');
-      cy.wait('@RelatedMeetings');
-      cy.wait('@GetAgenda');
-      cy.wait('@PageSectionOrder');
-      cy.wait('@MeetingSecurityWatchlist');
-      cy.wait('@AssignedMeetingID');
-      cy.wait('@VoteTally');
+      cy.wait('@GET_MEETING_ID');
+      cy.wait('@RELATED_MEETINGS');
+      cy.wait('@GET_AGENDA');
+      cy.wait('@PAGE_SECTION_ORDER');
+      cy.wait('@MEETING_SECURITY_WATCHLIST');
+      cy.wait('@ASSIGNED_MEETING_ID');
+      cy.wait('@VOTE_TALLY');
 
       // Step 5 - Verify User can see Ballot Section under the Comments section
       cy.get('div #ballots-section').should('be.visible');

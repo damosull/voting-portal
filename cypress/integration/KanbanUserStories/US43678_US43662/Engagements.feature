@@ -1,7 +1,7 @@
 Feature: Engagement permissions
 
     Background:
-        Given I login as Internal User and retrieve Customer ID for "ROBECO"
+        Given I login as Internal User and retrieve Customer ID for "Robeco"
 
     #test case 3728
     Scenario:Verify External Admin user cannot view Engagements in the company page when the system permission "View Interaction" is turned off for External Admin role

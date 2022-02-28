@@ -53,6 +53,15 @@ Cypress.Commands.add('SetMeetingDateXdaysFromCurrent', (meetingId, days) => {
   );
 });
 
+Cypress.Commands.add('executeUpdateQuery', (query) => {
+  // Execute the query only if a SELECT is sent as a parameter
+  if (query.includes('UPDATE')) {
+    cy.sqlServer(query);
+  } else {
+    cy.log('Enter a valid query');
+  }
+});
+
 Cypress.Commands.add('TurnOnCustomerSetting', (settings, parameter) => {
   cy.get('@csrftoken').then((token) => {
     cy.request({
@@ -92,22 +101,56 @@ Cypress.Commands.add('verifyMeetingOptionButtons', () => {
 
 Cypress.Commands.add('loginWithAdmin', (user) => {
   
-  cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WORKFLOW_EXPANSION');
-  cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WORKFLOW_SECURITIES_WATCHLIST');
-  cy.intercept('POST', API.POST.LOGGER).as('LOGGER');
-  cy.intercept('POST', API.POST.VOTE_TALLY).as('VOTE_TALLY');
-  cy.intercept('POST', API.POST.CREATE_DRAFT_FILTER).as('CREATE_DRAFT_FILTER');  
+  cy.intercept('POST', API.POST.AVA_CRITERIA).as('AVA_CRITERIA');
+  cy.intercept('POST', API.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AVAILABLE_ASSIGNEES_CUSTOMER');
+  cy.intercept('POST', API.POST.BALLOT_CRITERIA).as('BALLOT_CRITERIA');
+  cy.intercept('POST', API.POST.CREATE_DRAFT_FILTER).as('CREATE_DRAFT_FILTER');
+  cy.intercept('POST', API.POST.CRITERIA_ENGAGEMENT).as('CRITERIA_ENGAGEMENT');
+  cy.intercept('POST', API.POST.FILE_ADD).as('FILE_ADD');
   cy.intercept('POST', API.POST.GET_AGENDA).as('GET_AGENDA');
   cy.intercept('POST', API.POST.MEETING_DETAILS).as('MEETING_DETAILS');
+  cy.intercept('POST', API.POST.LOGGER).as('LOGGER');
+  cy.intercept('POST', API.POST.POST_CUSTOMER_DYNAMIC).as('POST_CUSTOMER_DYNAMIC')
+  cy.intercept('POST', API.POST.PROXY_VOTING).as('PROXY_VOTING');
+  cy.intercept('POST', API.POST.VOTE_TALLY).as('VOTE_TALLY');
+  cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WORKFLOW_EXPANSION');
+  cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WORKFLOW_SECURITIES_WATCHLIST');
+
+  cy.intercept('GET', API.GET.ACTIVE_FLAG).as('ACTIVE_FLAG')
+  cy.intercept('GET', API.GET.AVA_REPORT).as('AVA_REPORT');
+  cy.intercept('GET', API.GET.ASSIGNED_MEETING_ID).as('ASSIGNED_MEETING_ID');
+  cy.intercept('GET', API.GET.BALLOT_ACTIVITY_LOG).as('BALLOT_ACTIVITY');
+  cy.intercept('GET', API.GET.BALLOT_RECONCILIATION).as('BALLOT_RECONCILIATION');
+  cy.intercept('GET', API.GET.BALLOT_VOTE).as('BALLOT_VOTE');
+  cy.intercept('GET', API.GET.CURRENT_USER).as('CURRENT_USER');
+  cy.intercept('GET', API.GET.DATA).as('DATA');
+  cy.intercept('GET', API.GET.ENGAGEMENT).as('ENGAGEMENT');
+  cy.intercept('GET', API.GET.FILE_UPDATE).as('FILE_UPDATE');
+  cy.intercept('GET', API.GET.FILTERS).as('FILTERS')
+  cy.intercept('GET', API.GET.FILTER_CRITERIA_FOR_FIELDS).as('FilterCriteriaFields');
+  cy.intercept('GET', API.GET.FILTERS_DIRECTORY).as('FILTERS_DIRECTORY');
+  cy.intercept('GET', API.GET.GET_MEETING_ID).as('GET_MEETING_ID');
+  cy.intercept('GET', API.GET.GET_CUSTOMER_DYNAMIC).as('GET_CUSTOMER_DYNAMIC')
   cy.intercept('GET', API.GET.GET_FILINGS).as('GET_FILINGS');
+  cy.intercept('GET', API.GET.GET_POLICY).as('GET_POLICY');
+  cy.intercept('GET', API.GET.IDENTITY_SEARCH).as('IDENTITY_SEARCH');
+  cy.intercept('GET', API.GET.INBOX_REPORT).as('INBOX_REPORT');
+  cy.intercept('GET', API.GET.LIST_SERVICE).as('LIST_SERVICE');
+  cy.intercept('GET', API.GET.LOAD_INBOX).as('LOAD_INBOX');
   cy.intercept('GET', API.GET.MEETING_SECURITY_WATCHLIST).as('MEETING_SECURITY_WATCHLIST');
   cy.intercept('GET', API.GET.MEETING_MATERIALS).as('MEETING_MATERIALS');
-  cy.intercept('GET', API.GET.GET_MEETING_ID).as('GET_MEETING_ID');
-  cy.intercept('GET', API.GET.RELATED_MEETINGS).as('RELATED_MEETINGS');
   cy.intercept('GET', API.GET.PAGE_SECTION_ORDER).as('PAGE_SECTION_ORDER');
+  cy.intercept('GET', API.GET.POLICY).as('POLICY');
+  cy.intercept('GET', API.GET.RELATED_MEETINGS).as('RELATED_MEETINGS');
+  cy.intercept('GET', API.GET.REPORT_TYPE).as('REPORT_TYPE');
+  cy.intercept('GET', API.GET.SHARE_MEETING_LISTS).as('SHARE_MEETING_LISTS');
+  cy.intercept('GET', API.GET.SUBSCRIPTIONS).as('SUBSCRIPTIONS');  
   cy.intercept('GET', API.GET.WORKFLOW_RESEARCH_INFO).as('WORKFLOW_RESEARCH_INFO');
+
   cy.intercept('PUT', API.PUT.BALLOT_GRID_STATE).as('BALLOT_GRID_STATE');
-  
+
+  cy.intercept('DELETE', API.DELETE.REMOVE).as('REMOVE');
+
   let username;
   let password;
 
@@ -151,6 +194,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
       break;
     case 'NEUBERGER':
       username = USER.NEUBERGER;
+      break;
     case 'PADDYINTERNAL':
       username = USER.PADDYINTERNAL;
       break;

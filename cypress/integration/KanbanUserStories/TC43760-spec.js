@@ -1,40 +1,20 @@
-// Test Case 43760 - https://dev.azure.com/glasslewis/Development/_workitems/edit/43760
-
-const { MEETINGID } = require('../../support/constants');
 var idMeeting = [1085172,1082343];
 var idCompany = [564097];
-var issuerName = [];
 
 describe('TC43760', () => {
 
     beforeEach(function () {
-        cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-        cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-        cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('AvailableAssigneesForCustomer');
-        cy.intercept('POST', '**/Api/Data/Filters/CreateDraftFilter').as('filter');
-        cy.intercept('GET', '**/Api/Data/WorkflowResearchInfo/**').as('info');
-        cy.intercept('GET', '**/Api/Data/MeetingDetails/GetFilters**').as('getfilters');
-        cy.intercept('POST', '**/Api/Data/MeetingDetailsActivity/').as('activity');
-        cy.intercept('POST', '**/Api/Data/VoteTally').as('votetally');
-        cy.intercept('GET', '**/Api/Data/MeetingMaterials/**').as('materials');
-        cy.intercept('GET', '**/Api/Data/Inbox/**').as('meetings');
-        cy.intercept('GET', '**/Api/Data/RelatedMeetings/**').as('RelatedMeetings');
-        cy.intercept('GET', '**/Api/Data/CompanyMeeting/**').as('CompanyMeeting');
-        cy.intercept('POST', '**/Api/Data//MdData/GetAgenda').as('GetAgenda');
-
         cy.loginWithAdmin('CALPERS');
         cy.visit('/Workflow');
-        cy.wait('@WorkflowExpansion');
-        cy.wait('@WorkflowSecuritiesWatchlists');
+        cy.wait('@WORKFLOW_EXPANSION');
+        cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
         cy.removeAllExistingSelectedCriteria();
         cy.AddMultipleCriteria(['Decision Status']);
         cy.addCriteriaStatus(['Recommendations Pending']);
-    }); // end BeforeEach
+    });
 
-
+    // Test Case 43760 - https://dev.azure.com/glasslewis/Development/_workitems/edit/43760
     it.skip('Verify user can navigate from meeting page to company page and the Meetings dropdown on the Company page associated Research links and Materials of the selected meeting are displayed.', () => {
-        cy.log('Test Case 43760 - https://dev.azure.com/glasslewis/Development/_workitems/edit/43760');
-
         /* Click 'Next' button, get Meeting ID for that meeting and verify it is same meeting id as stored in a variable
          as second meeting id */
         cy.get('table > tbody > tr')
@@ -69,5 +49,5 @@ describe('TC43760', () => {
                     });
             }
         });
-    }); //end second it 
-});  //end describe
+    });
+});

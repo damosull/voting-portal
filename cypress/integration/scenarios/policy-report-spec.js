@@ -1,41 +1,34 @@
-// Test scenario 37988 Policy report : https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
 describe('Generate Policy report,download and verify file headers', function () {
   let filename;
   let rnd;
 
   beforeEach(function () {
-    cy.intercept('GET', '**/Api/Data/Inbox/?Top=0&IsNew=true&IsQueryOnly=true&**').as('ReportType');
-    cy.intercept('GET', '**/Api/Data/Policy/GetById/**').as('FileUpdate');
-    cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BallotRecon');
-    cy.intercept('GET', '**/Api/Data/Policy/**').as('policy');
-    cy.intercept('GET', '**/Api/Data/Policy/GetById/**').as('getPolicy');
-    cy.intercept('DELETE', '**/Api/Data/Policy/**').as('remove');
-    cy.intercept('POST', '**/Api/Data/Policy/Add').as('fileAdd');
     cy.loginWithAdmin('CALPERS');
     cy.visit('/Reporting');
   });
 
+  // Test scenario 37988 Policy report : https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
   it(`Generate Policy Report`, function () {
     //select Policy report
     cy.selectReportType('Policy');
 
     //remove any existing filters
-    cy.wait('@BallotRecon');
-    cy.wait('@ReportType');
-    cy.wait('@policy');
+    cy.wait('@BALLOT_RECONCILIATION');
+    cy.wait('@REPORT_TYPE');
+    cy.wait('@POLICY');
     cy.get('body').then(($body) => {
       if ($body.find('#workflow-filter-list > div > div > ul > li').eq(0).length > 0) {
         cy.get('#workflow-filter-list > div > div > ul > li').each(() => {
           cy.get('#workflow-filter-list > div > div > ul > li:nth-child(1) > a').first().click({ force: true });
-          cy.wait('@getPolicy');
+          cy.wait('@GET_POLICY');
           cy.get('.dark-red.small.delete-btn').click({ force: true });
-          cy.wait('@remove');
+          cy.wait('@REMOVE');
         });
       }
     });
 
     //verify filters and save new filter
-    cy.wait('@ReportType');
+    cy.wait('@REPORT_TYPE');
     cy.get('#report-adhoc-commands-container > div > select')
       .select('Excel (.xls)')
       .find(':selected')
@@ -54,8 +47,8 @@ describe('Generate Policy report,download and verify file headers', function () 
       rnd = data.trim() + '.xlsx';
     });
     cy.get('#apprise-btn-confirm').click({ force: true });
-    cy.wait('@FileUpdate');
-    cy.wait('@fileAdd');
+    cy.wait('@FILE_UPDATE');
+    cy.wait('@FILE_ADD');
     cy.get('.scrollableContainer > ul  >li')
       .first()
       .find('span[data-bind="text: Name"]')
@@ -91,5 +84,5 @@ describe('Generate Policy report,download and verify file headers', function () 
           expect(resp.body).to.have.length.greaterThan(1);
         });
       });
-  }); // end it
-}); //end describe
+  });
+});
