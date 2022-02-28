@@ -12,7 +12,7 @@ const pastDays = 2;
 describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function () {
     beforeEach(function () {   
         //Step 1 - Login as Internal user
-        cy.loginWithAdmin(USER.AUTOMATIONEXTERNAL);
+        cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
         cy.visit('/Workflow');
 
         //Alias csrf token
@@ -56,7 +56,7 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
         cy.logout()
 
         //Step 12 - Log in as "Russell" Investments user
-        loginAsExternalAdminAndVisitWorkflow('RUSSELL');
+        loginAsExternalAdminAndVisitWorkflow(USER.RUSSELL);
 
         //Step 13 - Click Reporting tab
         navigateToReporting();
@@ -110,7 +110,7 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
         cy.logout()
 
         //step 12 - Log in as "Russell" Investments user
-        loginAsExternalAdminAndVisitWorkflow('RUSSELL');
+        loginAsExternalAdminAndVisitWorkflow(USER.RUSSELL);
 
         //Step 13 - Click Reporting tab
         navigateToReporting();
@@ -164,7 +164,7 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
         cy.logout()
 
         //Step 12 - Log in as "Russell" Investments user
-        loginAsExternalAdminAndVisitWorkflow('RUSSELL');
+        loginAsExternalAdminAndVisitWorkflow(USER.RUSSELL);
 
         //Step 13 - Click Reporting tab
         navigateToReporting();

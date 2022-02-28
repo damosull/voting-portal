@@ -3,14 +3,6 @@ import '../../../support/commands.js';
 const unixTime = Math.floor(Date.now() / 1000);
 
 describe('User Story US43661 tests', function () {
-    beforeEach(function () {
-        cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-        cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-        cy.intercept('GET', '**/Api/Data/MeetingSecurityWatchlists/**').as('MeetingSecurityWatchlists')
-        cy.intercept('POST', '**/Api/Data//MdData/GetAgenda').as('getagenda')
-        cy.intercept('POST', '**/Api/Data/VoteRequestValidation').as('validation')
-    });
-
     // Test Case 44721 : https://dev.azure.com/glasslewis/Development/_workitems/edit/44721
     it(`Live ballots with meeting date for future ballots whose meeting date has passed/Revote and no rationale entered for vote against policy`, function () {
 
@@ -18,11 +10,11 @@ describe('User Story US43661 tests', function () {
         cy.visit('/Workflow');
 
         //Alias csrf token
-        cy.wait('@WorkflowExpansion').then((resp) => {
+        cy.wait('@WORKFLOW_EXPANSION').then((resp) => {
             var csrftoken = resp.request.headers.csrftoken;
             cy.wrap(csrftoken).as('csrftoken');
         });
-        cy.wait('@WorkflowSecuritiesWatchlists');
+        cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
         //get customer ID
         cy.getCustomerIDFromDB('Russell Investments').as('custid')
@@ -39,15 +31,15 @@ describe('User Story US43661 tests', function () {
         //Step 1
         cy.loginWithAdmin(USER.RUSSELL);
         cy.visit('/Workflow');
-        cy.wait('@WorkflowSecuritiesWatchlists');
+        cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
         cy.removeAllExistingSelectedCriteria();
         //Step 2 - Open VAP meeting and change meeting date to today+10 days
         cy.AddTenDaysToMeetingDates(MEETINGID.RSNCVAP)
 
         //User Clicks on the valid company in the Workflow page
         cy.visit('MeetingDetails/Index/' + MEETINGID.RSNCVAP)
-        cy.wait('@getagenda')
-        cy.wait('@MeetingSecurityWatchlists');
+        cy.wait('@GET_AGENDA')
+        cy.wait('@MEETING_SECURITY_WATCHLIST');
 
         cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale').click({ force: true });
         cy.verifyMeetingOptionButtons();
@@ -59,7 +51,7 @@ describe('User Story US43661 tests', function () {
 
         //Step 4 - user clicks on vote/revote button
         cy.get('#btn-vote-now').click()
-        cy.wait('@validation')
+        cy.wait('@VOTE_REQUEST_VALIDATION')
         //check override checkbox 
         //cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').click()
 
@@ -82,11 +74,11 @@ describe('User Story US43661 tests', function () {
         cy.visit('/Workflow');
 
         //Alias csrf token
-        cy.wait('@WorkflowExpansion').then((resp) => {
+        cy.wait('@WORKFLOW_EXPANSION').then((resp) => {
             var csrftoken = resp.request.headers.csrftoken;
             cy.wrap(csrftoken).as('csrftoken');
         });
-        cy.wait('@WorkflowSecuritiesWatchlists');
+        cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
         //get customer ID
         cy.getCustomerIDFromDB('Russell Investments').as('custid')
@@ -103,15 +95,15 @@ describe('User Story US43661 tests', function () {
         //Step 2 Login as Russell Ext Admin User
         cy.loginWithAdmin(USER.RUSSELL);
         cy.visit('/Workflow');
-        cy.wait('@WorkflowSecuritiesWatchlists');
+        cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
         cy.removeAllExistingSelectedCriteria();
 
         //Step 3 - Open VAP meeting and change meeting date to today -10 days
         cy.SetMeetingDateXdaysFromCurrent(MEETINGID.RSNCVAP2, -10)
 
         cy.visit('MeetingDetails/Index/' + MEETINGID.RSNCVAP2)
-        cy.wait('@getagenda')
-        cy.wait('@MeetingSecurityWatchlists');
+        cy.wait('@GET_AGENDA')
+        cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
         cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale').click({ force: true });
         cy.verifyMeetingOptionButtons();
@@ -123,7 +115,7 @@ describe('User Story US43661 tests', function () {
 
         //Step 5 - user clicks on vote/revote button
         cy.get('#btn-vote-now').click()
-        cy.wait('@validation')
+        cy.wait('@VOTE_REQUEST_VALIDATION')
         //check override checkbox 
         cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').click()
 

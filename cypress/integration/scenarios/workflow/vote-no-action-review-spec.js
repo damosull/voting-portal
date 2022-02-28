@@ -92,7 +92,7 @@ describe('Workflow', () => {
     cy.wait('@MEETING_DETAILS');
     cy.wait('@GET_AGENDA');
     cy.wait('@WORKFLOW_RESEARCH_INFO');
-    cy.wait('@GET_FILLINGS');
+    cy.wait('@GET_FILINGS');
     cy.wait('@VOTE_TALLY');
 
     cy.contains('Vote success');
@@ -123,7 +123,7 @@ describe('Workflow', () => {
     cy.wait('@MEETING_DETAILS');
     cy.wait('@GET_AGENDA');
     cy.wait('@WORKFLOW_RESEARCH_INFO');
-    cy.wait('@GET_FILLINGS');
+    cy.wait('@GET_FILINGS');
     cy.wait('@VOTE_TALLY');
 
     cy.contains('Vote success');

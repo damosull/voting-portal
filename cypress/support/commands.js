@@ -115,13 +115,14 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('POST', API.POST.POST_CUSTOMER_DYNAMIC).as('POST_CUSTOMER_DYNAMIC')
   cy.intercept('POST', API.POST.PROXY_VOTING).as('PROXY_VOTING');
   cy.intercept('POST', API.POST.VOTE_TALLY).as('VOTE_TALLY');
+  cy.intercept('POST', API.POST.VOTE_REQUEST_VALIDATION).as('VOTE_REQUEST_VALIDATION');
   cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WORKFLOW_EXPANSION');
   cy.intercept('POST', API.POST.WORKFLOW_SECURITIES_WATCHLIST).as('WORKFLOW_SECURITIES_WATCHLIST');
 
   cy.intercept('GET', API.GET.ACTIVE_FLAG).as('ACTIVE_FLAG')
   cy.intercept('GET', API.GET.AVA_REPORT).as('AVA_REPORT');
   cy.intercept('GET', API.GET.ASSIGNED_MEETING_ID).as('ASSIGNED_MEETING_ID');
-  cy.intercept('GET', API.GET.BALLOT_ACTIVITY_LOG).as('BALLOT_ACTIVITY');
+  cy.intercept('GET', API.GET.BALLOT_ACTIVITY_LOG).as('BALLOT_ACTIVITY_LOG');
   cy.intercept('GET', API.GET.BALLOT_RECONCILIATION).as('BALLOT_RECONCILIATION');
   cy.intercept('GET', API.GET.BALLOT_VOTE).as('BALLOT_VOTE');
   cy.intercept('GET', API.GET.CURRENT_USER).as('CURRENT_USER');
@@ -129,7 +130,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('GET', API.GET.ENGAGEMENT).as('ENGAGEMENT');
   cy.intercept('GET', API.GET.FILE_UPDATE).as('FILE_UPDATE');
   cy.intercept('GET', API.GET.FILTERS).as('FILTERS')
-  cy.intercept('GET', API.GET.FILTER_CRITERIA_FOR_FIELDS).as('FilterCriteriaFields');
+  cy.intercept('GET', API.GET.FILTER_CRITERIA_FOR_FIELDS).as('FILTER_CRITERIA_FOR_FIELDS');
   cy.intercept('GET', API.GET.FILTERS_DIRECTORY).as('FILTERS_DIRECTORY');
   cy.intercept('GET', API.GET.GET_MEETING_ID).as('GET_MEETING_ID');
   cy.intercept('GET', API.GET.GET_CUSTOMER_DYNAMIC).as('GET_CUSTOMER_DYNAMIC')

@@ -404,7 +404,7 @@ describe('US39255 tests - Test 1', function () {
   });
 
   //Test case 40739 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40739
-  it(`TC 40739 - Configure Column actions`, function () {
+  it.only(`TC 40739 - Configure Column actions`, function () {
     
     cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Workflow');

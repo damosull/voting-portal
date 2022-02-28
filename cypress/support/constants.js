@@ -98,8 +98,9 @@ export const API = {
     SHARE_MEETING_MODAL: '**/ShareMeeting/AddShareMeetingModal/',
     POST_CUSTOMER_DYNAMIC: '/Api/Data/CustomerDynamic',
     PROXY_VOTING: '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=ProxyVoting',
+    VOTE_REQUEST_VALIDATION: '**/Api/Data/VoteRequestValidation', 
     WORKFLOW_EXPANSION: '**/Api/Data/WorkflowExpansion',
-    WORKFLOW_SECURITIES_WATCHLIST: '**/Api/Data/WorkflowSecuritiesWatchlists',    
+    WORKFLOW_SECURITIES_WATCHLIST: '**/Api/Data/WorkflowSecuritiesWatchlists', 
   },
   GET: {
     ACTIVE_FLAG: '**/Api/Data/CustomFieldCRUDWithFilterCheck/SetFieldActiveFlag**',

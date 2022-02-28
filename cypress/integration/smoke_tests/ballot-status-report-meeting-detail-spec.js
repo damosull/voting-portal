@@ -18,7 +18,7 @@ describe('ballot status report meeting detail page ', function () {
 
     cy.selectFirstMeeting();
 
-    cy.wait('@FILTER');
+    cy.wait('@FILTERS');
 
     // export the ballot status report
     cy.get('#exportMeetingDetails > .nav > .dropdown > .dropdown-toggle').click();
