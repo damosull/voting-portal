@@ -83,7 +83,7 @@ describe('US39254 - ', { tags: '@smoke' }, () => {
       cy.get('#configure-columns-modal > button.secondary.gray').eq(1).click();
 
       // Check which position the column "Policy ID" is and wrapped into the object index
-      cy.get('#ballots-grid > div > div > table > thead > tr > th').each(($headers, index) => {
+      cy.get('#ballots-grid > div > div > table > thead > tr > th').should('be.visible').each(($headers, index) => {
         if ($headers.text().trim() == 'Policy ID') {
           cy.wrap(index).as('index');
 
