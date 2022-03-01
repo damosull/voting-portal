@@ -1,16 +1,17 @@
 class workflowPageItems{
     
-    launchBallotsButtonID = "#launch-ballots-voted-modal"
-    voteNowbuttonID = '#btn-vote-now'
-    takeNoActionButtonID = '#btn-take-no-action'
-    instructButtonID = '#btn-instruct'
-    unlockButtonID = '#btn-unlock'
-    votedBallotsSelector = '[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb'
-    takeNoActionBallotsSelector = '[data-bind="visible: override.tnaBallotsBoxVisible"] > .ccb'
-    proceedButtonSelector = '.floatright > .green'
-    quickVoteDropdownSelector = '#quick-vote-container > span > span'
-    quickVoteSelectID = '#quickVoteSelect'    
-  
+    launchBallotsButtonID = "#launch-ballots-voted-modal";
+    voteNowbuttonID = '#btn-vote-now';
+    takeNoActionButtonID = '#btn-take-no-action';
+    instructButtonID = '#btn-instruct';
+    unlockButtonID = '#btn-unlock';
+    votedBallotsSelector = '[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb';
+    takeNoActionBallotsSelector = '[data-bind="visible: override.tnaBallotsBoxVisible"] > .ccb';
+    proceedButtonSelector = '.floatright > .green';
+    quickVoteDropdownSelector = '#quick-vote-container > span > span';
+    quickVoteSelectID = '#quickVoteSelect';
+    workflowMenuButtonID = '#workflow-link';
+
     constructor() {
     }
 
@@ -44,7 +45,9 @@ class workflowPageItems{
     takeNoActionBallots() {
         return cy.get(this.takeNoActionBallotsSelector).should('be.visible');
     }
-    
+    workflowMenuButton() {
+        return cy.get(this.workflowMenuButtonID).should('be.visible');
+    }
 }
 
 export default workflowPageItems;

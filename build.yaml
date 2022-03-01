@@ -50,14 +50,14 @@ steps:
     inputs:
       rootFolderOrFile: '$(System.DefaultWorkingDirectory)/test-results'
       archiveType: tar
-      archiveFile: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
       verbose: true
     condition: failed()
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: Tests Screenshots'
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
       ArtifactName: TestResults
     condition: failed()
 
