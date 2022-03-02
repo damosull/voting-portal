@@ -1,22 +1,26 @@
-import { USER } from '../../support/constants';
+import { USER, API } from '../../support/constants';
+import workflowPageItems from '../../elements/pages/workflow/workflowPageItems';
+import loginPageItems from '../../elements/pages/login/loginPageItems';
+
+const workflowPage = new workflowPageItems();
+const loginPage = new loginPageItems();
 
 describe('Internal user', function () {
-  sessionStorage.clear();
+  beforeEach(function () {
+    sessionStorage.clear();
+  })
 
-  it.skip('Search for client', function () {
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
+  it('Search for client', function () {
+    cy.intercept('POST', API.POST.WORKFLOW_EXPANSION).as('WORKFLOW_EXPANSION');
     cy.visit('/');
 
-    var username = USER.AUTOMATIONINTERNAL;
-    var userpwd = 'Test12345%';
-    cy.get('input#username').type(username).should('have.value', username);
-
-    cy.get('input#password').type(userpwd);
-    cy.get('#btn-submit-login').click();
+    loginPage.usernameInput().type(USER.AUTOMATIONINTERNAL);
+    loginPage.passwordInput().type(USER.PASSWORD.TEST_PASSWORD);
+    loginPage.signInButton().click();
 
     //Assert:
     //1. Verify if it lands in the Workflow page
-    cy.get('#workflow-link.active').should('exist');
+    workflowPage.workflowMenuButton().should('exist');
 
     //2. Verify if session exists
     cy.getCookie('DEV-session').should('exist');

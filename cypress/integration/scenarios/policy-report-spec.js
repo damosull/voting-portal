@@ -49,7 +49,7 @@ describe('Generate Policy report,download and verify file headers', function () 
       rnd = data.trim() + '.xlsx';
     });
     cy.get('#apprise-btn-confirm').click({ force: true });
-    cy.wait('@FILE_UPDATE');
+    cy.wait('@GET_POLICY');
     cy.wait('@FILE_ADD');
     cy.get('.scrollableContainer > ul  >li')
       .first()

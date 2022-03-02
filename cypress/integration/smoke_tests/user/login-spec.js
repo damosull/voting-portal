@@ -1,8 +1,10 @@
-import workflowPageItems from '../../../elements/pages/workflow/workflowPageItems'
-import loginPageItems from '../../../elements/pages/login/loginPageItems'
+import workflowPageItems from '../../../elements/pages/workflow/workflowPageItems';
+import loginPageItems from '../../../elements/pages/login/loginPageItems';
 
 const workflowPage = new workflowPageItems();
 const loginPage = new loginPageItems();
+const username = Cypress.env('Internal_Admin_Username');
+const userPassword = Cypress.env('Internal_Admin_Password');
 
 describe('Login Page', function () {
   beforeEach(function () {
@@ -11,11 +13,8 @@ describe('Login Page', function () {
   it('LogIn with a Internal Admin user', function () {
     cy.visit('/');
 
-    var username = Cypress.env('Internal_Admin_Username');
-    var userpassword = Cypress.env('Internal_Admin_Password');
-
     loginPage.usernameInput().type(username);
-    loginPage.passwordInput().type(userpassword);
+    loginPage.passwordInput().type(userPassword);
     loginPage.signInButton().click();
     
     //1. Verify if it lands in the Workflow page

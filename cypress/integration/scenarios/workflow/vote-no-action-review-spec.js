@@ -1,4 +1,4 @@
-import { messages, USER } from '../../../support/constants';
+import { messages, USER, API } from '../../../support/constants';
 
 const pastDays = 30;
 const arrCriteria = ['Decision Status'];
@@ -248,17 +248,17 @@ describe('Workflow', () => {
   });
 
   function deleteMyFilter (filterToDelete){
-    cy.intercept('GET', '**/ManageFilters').as('manageFilters');
-    cy.intercept('GET', '**/Api/Data/Subscription/?FilterId=**').as('subscriptionFilter');
-    cy.intercept('GET', '**/Api/Data/FilterPreference/SharedUsers/?FilterToShareID=**').as('filterToShare');
-    cy.intercept('GET', '**/Api/Data/Filters/GetByID?Id=**').as('getByID');
-    cy.intercept('DELETE', '**/Api/Data/WorkflowFilters/**?isConfirmed=false').as('filterDeleted');
+    cy.intercept('GET', API.GET.MANAGE_FILTERS).as('MANAGE_FILTERS');
+    cy.intercept('GET', API.GET.SUBSCRIPTION_FILTER).as('SUBSCRIPTION_FILTER');
+    cy.intercept('GET', API.GET.FILTER_TO_SHARE).as('FILTER_TO_SHARE');
+    cy.intercept('GET', API.GET.GET_BY_ID).as('GET_BY_ID');
+    cy.intercept('DELETE', API.DELETE.FILTER_DELETED).as('FILTER_DELETED');
 
     cy.get('#btn-manage-filters').click();
 
-    cy.wait('@manageFilters');
-    cy.wait('@subscriptionFilter');
-    cy.wait('@filterToShare');
+    cy.wait('@MANAGE_FILTERS');
+    cy.wait('@SUBSCRIPTION_FILTER');
+    cy.wait('@FILTER_TO_SHARE');
 
     cy.contains('My Filters')
       .siblings()
@@ -268,10 +268,10 @@ describe('Workflow', () => {
           const found = value.text().trim();
           // It compares the existing filter name with the ones available under My Filters.
           if (found == filterToDelete) {
-            cy.wait('@getByID');
+            cy.wait('@GET_BY_ID');
             cy.wrap(myFilter).eq(index).click();
             cy.contains('Delete Filter').click();
-            cy.wait('@filterDeleted');
+            cy.wait('@FILTER_DELETED');
             cy.get('.toast-message').should('contain.text', toast.FILTER_DELETED);
           } else {
             if (index == myFilter.length - 1) {
@@ -282,5 +282,4 @@ describe('Workflow', () => {
       });
     });
   }
-
 });

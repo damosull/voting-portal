@@ -128,7 +128,6 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('GET', API.GET.CURRENT_USER).as('CURRENT_USER');
   cy.intercept('GET', API.GET.DATA).as('DATA');
   cy.intercept('GET', API.GET.ENGAGEMENT).as('ENGAGEMENT');
-  cy.intercept('GET', API.GET.FILE_UPDATE).as('FILE_UPDATE');
   cy.intercept('GET', API.GET.FILTERS).as('FILTERS')
   cy.intercept('GET', API.GET.FILTER_CRITERIA_FOR_FIELDS).as('FILTER_CRITERIA_FOR_FIELDS');
   cy.intercept('GET', API.GET.FILTERS_DIRECTORY).as('FILTERS_DIRECTORY');

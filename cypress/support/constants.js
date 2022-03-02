@@ -14,6 +14,9 @@ export const USER = {
   RUSSELL: 'RussellAutomation@glasslewis.com',
   WELLINGTON: 'WellingtonAutomation@glasslewis.com',
   PADDYINTERNAL: 'pcorcoran@glasslewis.com',
+  PASSWORD:{
+    TEST_PASSWORD: 'Test12345%'
+  }
 };
 
 export const messages = {
@@ -112,10 +115,11 @@ export const API = {
     CURRENT_USER: '**/Api/Data/CurrentUser/**',
     DATA: '**/Api/Data/**',
     ENGAGEMENT: '**/Engagement/?PageInfo%5BIgnorePagesize%5D=true&ReportType=Engagement&_=**',
-    FILE_UPDATE: '**/Api/Data/Policy/GetById/**',
     FILTERS: '**/Api/Data/Filters/**',
     FILTER_CRITERIA_FOR_FIELDS: '**/Api/WebUI//WorkflowFilterCriteriaEditors/ForField?fields=**&objectType=WorkflowExpansion&customerId=**&_=**',
+    FILTER_TO_SHARE: '**/Api/Data/FilterPreference/SharedUsers/?FilterToShareID=**',
     FILTERS_DIRECTORY: '**/Api/Data/FiltersDirectories**',
+    GET_BY_ID: '**/Api/Data/Filters/GetByID?Id=**',
     GET_CUSTOMER_DYNAMIC: '/Api/Data/CustomerDynamic/**',
     GET_FILINGS: '**/Api/Data/MeetingMaterials/GetFilings?MeetingId=**',
     GET_FOR_USER: '**/Api/Data/Filters/GetForUser?_=**',
@@ -127,6 +131,7 @@ export const API = {
     INBOX: '**/Api/Data/Inbox/**',
     LIST_SERVICE: '/Api/Data//ListService/**',
     LOAD_INBOX: '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**',
+    MANAGE_FILTERS: '**/ManageFilters',
     MEETING_MATERIALS: '**/Api/Data/MeetingMaterials/**',
     MEETING_SECURITY_WATCHLIST: '**/Api/Data/MeetingSecurityWatchlists/**',
     META_BALLOTS_GRID: '**/Api/Data/MetaData/?typeName=BallotsGrid&customerId=**&_=**',
@@ -136,6 +141,7 @@ export const API = {
     REPORT_TYPE: '**/Api/Data/Inbox/?Top=0&IsNew=true&IsQueryOnly=true&**',
     SHARE_MEETING_LISTS: '**/Api/Data//ShareMeetingLists/**',
     SUBSCRIPTIONS: '**/Api/WebUI/Subscriptions/**',
+    SUBSCRIPTION_FILTER: '**/Api/Data/Subscription/?FilterId=**',
     SUSTAIN_ANALYTICS: '**/Scripts/EditorControls/Sustainalytics/**',
     WORKFLOW_CONFIGURE_COLUMNS: '**/Api/WebUI//Workflow/WorkflowConfigureColumns?_=**',
     WORKFLOW_RESEARCH_INFO: '**/Api/Data/WorkflowResearchInfo/GetWFResearch?CustomerID=0&_=**',
@@ -144,6 +150,7 @@ export const API = {
     BALLOT_GRID_STATE: '**/Api/Data/BallotsGridState',
   },
   DELETE: {
-    REMOVE: '**/Api/Data/Policy/**'
+    REMOVE: '**/Api/Data/Policy/**',
+    FILTER_DELETED: '**/Api/Data/WorkflowFilters/**?isConfirmed=false'
   }
 };
