@@ -58,7 +58,7 @@ steps:
     displayName: 'Publish Artifact: Tests Screenshots'
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
-      ArtifactName: TestResults
+      ArtifactName: VotingPortal-TestResults
     condition: failed()
 
   - task: PublishTestResults@2
