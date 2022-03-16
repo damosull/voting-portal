@@ -1,6 +1,6 @@
-import { USER, API } from '../../support/constants';
-import workflowPageItems from '../../elements/pages/workflow/workflowPageItems';
-import loginPageItems from '../../elements/pages/login/loginPageItems';
+import { USER, API } from '../../../support/constants';
+import workflowPageItems from '../../../elements/pages/workflow/workflowPageItems';
+import loginPageItems from '../../../elements/pages/login/loginPageItems';
 
 const workflowPage = new workflowPageItems();
 const loginPage = new loginPageItems();

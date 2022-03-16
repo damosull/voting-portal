@@ -1,4 +1,4 @@
-const { USER } = require("../../support/constants");
+const { USER } = require("../../../support/constants");
 const nextDays = 2;
 const pastDays = 2;
 const unixTime = Math.floor(Date.now() / 1000);

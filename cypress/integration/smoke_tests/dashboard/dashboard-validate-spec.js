@@ -1,4 +1,4 @@
-const { USER } = require("../../support/constants");
+const { USER } = require("../../../support/constants");
 
 describe('Verify elements on Dashboard page', function () {
 

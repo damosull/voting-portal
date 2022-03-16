@@ -1,4 +1,4 @@
-import { USER } from '../../support/constants';
+import { USER } from '../../../support/constants';
 
 const esgFilters = [
   {
@@ -41,6 +41,7 @@ const esgFilters = [
 describe('Add Filters', function () {
   esgFilters.forEach((filter) => {
     it(`sustainalytics "${filter.criteria}"`, function () {
+      cy.viewport(1100, 900);
       cy.loginWithAdmin(USER.CALPERS);
       cy.visit('/').url().should('include', '/Workflow');
 

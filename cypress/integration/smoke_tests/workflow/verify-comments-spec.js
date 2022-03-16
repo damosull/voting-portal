@@ -1,7 +1,8 @@
-const { USER } = require("../../support/constants");
+const { USER } = require("../../../support/constants");
 
 describe('Verify comments on the Workflow page', function () {
   beforeEach(function () {
+    cy.viewport(1100, 900);
     cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_EXPANSION');

@@ -1,4 +1,4 @@
-const { USER } = require("../../support/constants");
+const { USER } = require("../../../support/constants");
 
 describe('external user', function () {
   beforeEach(function () {

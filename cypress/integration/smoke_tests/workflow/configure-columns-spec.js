@@ -1,4 +1,4 @@
-import { USER } from '../../support/constants';
+import { USER } from '../../../support/constants';
 
 describe('Configure columns', function () {
   beforeEach(function () {

@@ -27,6 +27,11 @@ const columnLabels = ['BallotsGrid3', 'BallotsGrid17', 'BallotsGrid18', 'Ballots
 
 describe('US39255 tests - Test 1', function () {
 
+  beforeEach(function () {
+     cy.viewport(1100, 900);
+  });
+
+
   //Test case 40606 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40606
   it(`TC1 40606 - Configure Column actions`, function () {
     

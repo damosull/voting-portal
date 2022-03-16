@@ -1,4 +1,4 @@
-import { messages, USER } from '../../support/constants';
+import { messages, USER } from '../../../support/constants';
 
 const toast = messages.toast;
 

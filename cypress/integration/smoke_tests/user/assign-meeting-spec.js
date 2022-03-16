@@ -1,6 +1,6 @@
-import '../../support/commands.js';
+import '../../../support/commands.js';
 
-const { USER } = require("../../support/constants");
+const { USER } = require("../../../support/constants");
 
 describe('Watchlist Assignment tests', function () {
   beforeEach(function () {

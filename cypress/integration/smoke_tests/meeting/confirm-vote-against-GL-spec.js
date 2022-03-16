@@ -1,4 +1,4 @@
-const { USER } = require("../../support/constants");
+const { USER } = require("../../../support/constants");
 
 describe('Confirm votes against Recommendations captured in filter criteria', function () {
 

@@ -17,9 +17,7 @@ describe('Login Page', function () {
     loginPage.passwordInput().type(userPassword);
     loginPage.signInButton().click();
     
-    //1. Verify if it lands in the Workflow page
     workflowPage.workflowMenuButton().should('exist')
-    //2. Verify if session exists
-    //cy.getCookie('DEV-session').should('exist');
+
   });
 });

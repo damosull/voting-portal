@@ -1,7 +1,7 @@
-import { USER, messages } from '../../support/constants';
+import { USER, messages } from '../../../support/constants';
 
 const toast = messages.toast;
-const { MEETINGID } = require("../../support/constants");
+const { MEETINGID } = require("../../../support/constants");
 
 let today = new Date().toISOString().slice(0, 10);
 

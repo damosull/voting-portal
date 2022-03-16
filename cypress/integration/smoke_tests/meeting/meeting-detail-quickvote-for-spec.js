@@ -1,7 +1,7 @@
-import '../../support/commands.js';
-import workflowPageItems from '../../elements/pages/workflow/workflowPageItems'
+import '../../../support/commands.js';
+import workflowPageItems from '../../../elements/pages/workflow/workflowPageItems'
 
-const { MEETINGID, USER } = require('../../support/constants');
+const { MEETINGID, USER } = require('../../../support/constants');
 const workflowPage = new workflowPageItems();
 
 describe('Test QuickVote functionality in MeetingDetails page', function () {

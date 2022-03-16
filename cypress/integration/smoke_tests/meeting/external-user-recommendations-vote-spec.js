@@ -1,7 +1,8 @@
-const { USER } = require("../../support/constants");
+const { USER } = require("../../../support/constants");
 
 describe('Meeting Recommendation vote tests', function () {
   beforeEach(function () {
+    cy.viewport(1100, 900);
     cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Workflow');
     cy.wait('@WORKFLOW_EXPANSION');
@@ -12,7 +13,7 @@ describe('Meeting Recommendation vote tests', function () {
     cy.addCriteriaStatus(['Recommendations Available']);
   });
 
-  it.skip(`Recommendations Available - Vote against each Policy Recommendation`, function () {
+  it(`Recommendations Available - Vote against each Policy Recommendation`, function () {
     cy.selectFirstMeeting();
 
     cy.verifyMeetingOptionButtons();
@@ -72,7 +73,7 @@ describe('Meeting Recommendation vote tests', function () {
     cy.logout();
   });
 
-  it.skip(`QuickVote on Recommendations Available - GL Recommendations`, function () {
+  it(`QuickVote on Recommendations Available - GL Recommendations`, function () {
     cy.selectFirstMeeting();
 
     cy.verifyMeetingOptionButtons();

@@ -1,4 +1,4 @@
-import { USER } from '../../support/constants';
+import { USER } from '../../../support/constants';
 
 describe('verify workflow page elements (TestCase - 28351)', function () {
   beforeEach(function () {
