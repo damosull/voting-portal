@@ -8,12 +8,13 @@ Given('I login as Internal User and retrieve Customer ID for {string}', (custome
 
     cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
     cy.visit('/Workflow');
-
+/*
     //Alias csrf token
     cy.wait('@WORKFLOW_EXPANSION').then((resp) => {
         var csrftoken = resp.request.headers.csrftoken;
         cy.wrap(csrftoken).as('csrftoken');
     });
+    */
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
     //get customer ID
@@ -172,7 +173,7 @@ And('I save the picklist', () => {
 
 And('I navigate to the Workflow page', () => {
     cy.visit('/Workflow');
-    cy.wait('@WORKFLOW_EXPANSION');
+    //cy.wait('@WORKFLOW_EXPANSION');
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
     cy.wait('@AVAILABLE_ASSIGNEES_CUSTOMER');
 });
@@ -191,6 +192,7 @@ Then('I delete the {string} picklist', (pl) => {
 });
 
 And('I open the Columns dropdown', () => {
+    cy.wait(2000);
     cy.get('#btn-workflow-config-columns').click({ force: true });
 });
 

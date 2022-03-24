@@ -217,9 +217,11 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
       cy.request({
         method: 'POST',
         url: '/Home/Authenticate/',
+        
         headers: {
           CSRFToken: csrf,
         },
+        
         body: {
           Username: username,
           Password: password,

@@ -100,7 +100,7 @@ describe('Watchlist Assignment tests', function () {
   });
 
   //Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
-  it('Internal User - verify meeting system watch list and deselect', function () {
+  it.skip('Internal User - verify meeting system watch list and deselect', function () {
     cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
 
     cy.visit(meetingId);

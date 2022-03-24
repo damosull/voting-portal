@@ -57,6 +57,7 @@ Feature: Engagement permissions
         And I delete the active 'Automation12 345"£ $%' picklist
 
     #test case 4575
+    @focus
     Scenario: Verify a user can create a Custom Field Type Multi Select with Existing Workflow field Label Name & 2 same Label Names are displayed in Workflow grid & in Add Criteria dropdown
         When I set View Interactions permissions to "Allow" for RobecoAutomation External Admin
         And I login as External User "ROBECO"

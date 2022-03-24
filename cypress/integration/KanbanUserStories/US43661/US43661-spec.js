@@ -8,15 +8,16 @@ describe('User Story US43661 tests', function () {
 
         cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
         cy.visit('/Workflow');
-
+/*
         //Alias csrf token
         cy.wait('@WORKFLOW_EXPANSION').then((resp) => {
             var csrftoken = resp.request.headers.csrftoken;
             cy.wrap(csrftoken).as('csrftoken');
         });
         cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
-
+*/
         //get customer ID
+        /*
         cy.getCustomerIDFromDB('Russell Investments').as('custid')
 
         //verify CanModifyVotesRationaleAfterMeetingDate = true
@@ -26,6 +27,7 @@ describe('User Story US43661 tests', function () {
             cy.TurnOnCustomerSetting(settings, 'CanModifyVotesRationaleAfterMeetingDate')
             cy.TurnOnCustomerSetting(settings, 'RequireRationaleVap')
         });
+        */
         cy.logout()
 
         //Step 1
@@ -72,24 +74,26 @@ describe('User Story US43661 tests', function () {
 
         cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
         cy.visit('/Workflow');
-
+/*
         //Alias csrf token
         cy.wait('@WORKFLOW_EXPANSION').then((resp) => {
             var csrftoken = resp.request.headers.csrftoken;
             cy.wrap(csrftoken).as('csrftoken');
         });
         cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
-
+*/
         //get customer ID
-        cy.getCustomerIDFromDB('Russell Investments').as('custid')
+        //cy.getCustomerIDFromDB('Russell Investments').as('custid')
 
         //verify CanModifyVotesRationaleAfterMeetingDate = true
         //& RequireRationaleVap = true for Customer
+        /*
         cy.get('@custid').then(function (cid) {
             const settings = `?&pCustomerID=${cid}&_=${unixTime}`;
             cy.TurnOnCustomerSetting(settings, 'CanModifyVotesRationaleAfterMeetingDate')
             cy.TurnOnCustomerSetting(settings, 'RequireRationaleVap')
         });
+        */
         cy.logout()
 
         //Step 2 Login as Russell Ext Admin User

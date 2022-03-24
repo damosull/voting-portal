@@ -1,4 +1,4 @@
-const { USER } = require("../../support/constants");
+const { USER } = require("../../../support/constants");
 
 describe('Generate Policy report,download and verify file headers', function () {
   let filename;

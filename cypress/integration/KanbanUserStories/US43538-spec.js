@@ -14,19 +14,19 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
         //Step 1 - Login as Internal user
         cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
         cy.visit('/Workflow');
-
+/*
         //Alias csrf token
         cy.wait('@WORKFLOW_EXPANSION').then((resp) => {
             var csrftoken = resp.request.headers.csrftoken;
             cy.wrap(csrftoken).as('csrftoken');
             });
         cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
-
+*/
         cy.getAutomationUserIDFromDB(USER.RUSSELL).as('userid');
     });
 
     //Test scenario 43748 - https://dev.azure.com/glasslewis/Development/_workitems/edit/43748
-    it('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function () {
+    it.skip('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function () {
 
         //Step 2 - From Settings,open Customer from dropdown menu
         openCustomerFromDropdownMenu();
@@ -80,7 +80,7 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
     })
 
     //Test scenario 44615 - https://dev.azure.com/glasslewis/Development/_workitems/edit/44615
-    it('US 43538 - Ballot Vote Data Report - Customer access to ACSI disabled', function () {
+    it.skip('US 43538 - Ballot Vote Data Report - Customer access to ACSI disabled', function () {
 
         //Step 2 - From Settings,open Customer from dropdown menu
         openCustomerFromDropdownMenu();
@@ -134,7 +134,7 @@ describe('US 43538 - Ballot Vote Data Report - Add ACSI Rec column', function ()
     })
 
     //Test scenario 44689 - https://dev.azure.com/glasslewis/Development/_workitems/edit/44689
-    it('US 43538 - Ballot Vote Data Report - Customer access to ACSI disabled and User permissions disallowed', function () {
+    it.skip('US 43538 - Ballot Vote Data Report - Customer access to ACSI disabled and User permissions disallowed', function () {
 
         //Step 2 - From Settings,open Customer from dropdown menu
         openCustomerFromDropdownMenu();

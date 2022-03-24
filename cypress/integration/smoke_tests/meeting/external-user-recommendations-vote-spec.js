@@ -13,7 +13,7 @@ describe('Meeting Recommendation vote tests', function () {
     cy.addCriteriaStatus(['Recommendations Available']);
   });
 
-  it(`Recommendations Available - Vote against each Policy Recommendation`, function () {
+  it.skip(`Recommendations Available - Vote against each Policy Recommendation`, function () {
     cy.selectFirstMeeting();
 
     cy.verifyMeetingOptionButtons();
@@ -73,7 +73,7 @@ describe('Meeting Recommendation vote tests', function () {
     cy.logout();
   });
 
-  it(`QuickVote on Recommendations Available - GL Recommendations`, function () {
+  it.skip(`QuickVote on Recommendations Available - GL Recommendations`, function () {
     cy.selectFirstMeeting();
 
     cy.verifyMeetingOptionButtons();
