@@ -14,11 +14,10 @@ describe('US39254 - ', { tags: '@smoke' }, () => {
 
   data.policies.forEach((policy) => {
     //Test Case 40729 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40729
-    it('Verify ballot section display the correct results when filter is applied from the workflow page', () => {
+    it.skip('Verify ballot section display the correct results when filter is applied from the workflow page', () => {
       // Wait for initial page to load
       cy.wait('@WORKFLOW_EXPANSION');
       cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
-      cy.wait('@AVAILABLE_ASSIGNEES_CUSTOMER');
 
       cy.contains('Upcoming Meetings').click();
 
