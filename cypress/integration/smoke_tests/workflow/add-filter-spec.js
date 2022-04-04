@@ -43,10 +43,9 @@ describe('Add Filters', function () {
     it(`sustainalytics "${filter.criteria}"`, function () {
       cy.viewport(1100, 900);
       cy.loginWithAdmin(USER.CALPERS);
-      cy.visit('/').url().should('include', '/Workflow');
-
-      cy.wait('@WORKFLOW_EXPANSION');
-      cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
+      cy.visit('/Workflow');
+      cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER'); // Last loaded API on tha page - ext
+      
 
       cy.get(filter.editorButton).should('not.exist');
       cy.get(filter.editorModal).should('not.exist');

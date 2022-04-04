@@ -9,15 +9,13 @@ describe('US39254 - ', { tags: '@smoke' }, () => {
   beforeEach(() => {
     cy.viewport(1100, 900);
     cy.loginWithAdmin(USER.WELLINGTON);
-    cy.visit('/').url().should('include', '/Workflow');
+    cy.visit('/Workflow');
+    cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER'); // Last loaded API on tha page - ext
   });
 
   data.policies.forEach((policy) => {
     //Test Case 40729 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40729
     it.skip('Verify ballot section display the correct results when filter is applied from the workflow page', () => {
-      // Wait for initial page to load
-      cy.wait('@WORKFLOW_EXPANSION');
-      cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
       cy.contains('Upcoming Meetings').click();
 

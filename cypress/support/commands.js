@@ -109,6 +109,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('POST', API.POST.CRITERIA_ENGAGEMENT).as('CRITERIA_ENGAGEMENT');
   cy.intercept('POST', API.POST.DOCUMENTS_DATA).as('DOCUMENTS_DATA');
   cy.intercept('POST', API.POST.FILE_ADD).as('FILE_ADD');
+  cy.intercept('POST', API.POST.GET_AVAILABLE_ASSIGNEES_CUSTOMER).as('GET_AVAILABLE_ASSIGNEES_CUSTOMER');
   cy.intercept('POST', API.POST.GET_AGENDA).as('GET_AGENDA');
   cy.intercept('POST', API.POST.MEETING_DETAILS).as('MEETING_DETAILS');
   cy.intercept('POST', API.POST.LOGGER).as('LOGGER');
@@ -134,6 +135,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('GET', API.GET.GET_MEETING_ID).as('GET_MEETING_ID');
   cy.intercept('GET', API.GET.GET_CUSTOMER_DYNAMIC).as('GET_CUSTOMER_DYNAMIC')
   cy.intercept('GET', API.GET.GET_FILINGS).as('GET_FILINGS');
+  cy.intercept('GET', API.GET.GET_FOR_USER).as('GET_FOR_USER');
   cy.intercept('GET', API.GET.GET_POLICY).as('GET_POLICY');
   cy.intercept('GET', API.GET.IDENTITY_SEARCH).as('IDENTITY_SEARCH');
   cy.intercept('GET', API.GET.INBOX).as('INBOX');
@@ -147,8 +149,28 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('GET', API.GET.REPORT_TYPE).as('REPORT_TYPE');
   cy.intercept('GET', API.GET.SHARE_MEETING_LISTS).as('SHARE_MEETING_LISTS');
   cy.intercept('GET', API.GET.SUBSCRIPTIONS).as('SUBSCRIPTIONS');  
-  cy.intercept('GET', API.GET.SUSTAIN_ANALYTICS).as('SUSTAIN_ANALYTICS'); 
+  cy.intercept('GET', API.GET.SUSTAIN_ANALYTICS).as('SUSTAIN_ANALYTICS');
+  cy.intercept('GET', API.GET.SPA).as('SPA');
+  cy.intercept('GET', API.GET.WORKFLOW_CONFIGURE_COLUMNS).as('WORKFLOW_CONFIGURE_COLUMNS');
   cy.intercept('GET', API.GET.WORKFLOW_RESEARCH_INFO).as('WORKFLOW_RESEARCH_INFO');
+  // +
+  cy.intercept('GET', API.GET.GET_MARKUP_WORKFLOW).as('GET_MARKUP_WORKFLOW');
+  cy.intercept('GET', API.GET.GET_MARKUP_DASHBOARD).as('GET_MARKUP_DASHBOARD');
+  cy.intercept('GET', API.GET.WORKFLOW_META_DATA_1).as('WORKFLOW_META_DATA_1');
+  cy.intercept('GET', API.GET.WORKFLOW_META_DATA_2).as('WORKFLOW_META_DATA_2');
+  cy.intercept('GET', API.GET.GET_AUTHENTICATED_USER).as('GET_AUTHENTICATED_USER');
+  cy.intercept('GET', API.GET.REPORTS_DEFAULT_DATA).as('REPORTS_DEFAULT_DATA');
+  cy.intercept('GET', API.GET.REPORTS_DEFAULT_DATA).as('REPORTS_DEFAULT_DATA');
+  cy.intercept('GET', API.GET.PASSWORD_VALIDATOR_SETUP).as('PASSWORD_VALIDATOR_SETUP');
+  cy.intercept('GET', API.GET.GET_MARKUP_MEETING_DETAILS).as('GET_MARKUP_MEETING_DETAILS');
+  cy.intercept('GET', API.GET.GET_USER_PERMISSION).as('GET_USER_PERMISSION');
+  cy.intercept('GET', API.GET.WORKFLOW_FILTER_CRITERIA_EDITORS).as('WORKFLOW_FILTER_CRITERIA_EDITORS');
+  cy.intercept('GET', API.GET.DATE_RANGE_KNOCKOUT_BINDINGS).as('DATE_RANGE_KNOCKOUT_BINDINGS');
+  cy.intercept('GET', API.GET.DATE_RANGE).as('DATE_RANGE');
+  
+  
+  cy.intercept('GET', API.GET.WATCHLIST_SECURITIES).as('WATCHLIST_SECURITIES');
+  cy.intercept('GET', API.GET.WATCHLIST_IDENTITY_SEARCH).as('WATCHLIST_IDENTITY_SEARCH');
 
   cy.intercept('PUT', API.PUT.BALLOT_GRID_STATE).as('BALLOT_GRID_STATE');
 
@@ -255,7 +277,7 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
 });
 
 Cypress.Commands.add('getAutomationUserIDFromDB', (user) => {
-  cy.executeQuery(`SELECT[UserID] FROM[GLP].[dbo].[UM_User] where LoginID = '${user}'`).then((result) => {
+  cy.executeQuery(`SELECT TOP 1 [UserID] FROM [GLP].[dbo].[UM_User] WHERE LoginID = '${user}'`).then((result) => {
     return result;
   });
 });
@@ -537,4 +559,12 @@ Cypress.Commands.add('executeQuery', (query) => {
   } else {
     cy.log('Enter a valid query');
   }
+});
+
+Cypress.Commands.add('stausCode200', (param) => {
+    cy.wait(param).its('response.statusCode').should('eq', 200);
+});
+
+Cypress.Commands.add('stausCode204', (param) => {
+    cy.wait(param).its('response.statusCode').should('eq', 204);
 });

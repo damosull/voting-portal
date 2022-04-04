@@ -1,47 +1,79 @@
 import '../../../support/commands.js';
+import  workflowPageItems from '../../../elements/pages/workflow/workflowPageItems'
+import  watchlistPageItems from '../../../elements/pages/watchlist/watchlistPageItems'
 
 const { USER } = require("../../../support/constants");
+const workflowPage = new workflowPageItems();
+const watchlistPage = new watchlistPageItems();
+const testWatchlistName = 'Watchlist_Assignment_tests';
+const testAdministrationUser = "CalPERS | ExtAdmin Automation QaUat"
 
 describe('Watchlist Assignment tests', function () {
-  beforeEach(function () {
-    sessionStorage.clear();
+  before(function () {
     cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Workflow');
-    cy.wait('@WORKFLOW_EXPANSION');
-    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
+    
+    cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER'); // Last loaded API on tha page - ext
+    
+    // Delete created watchlist from the DB in the case of failed test
+    deleteCreatedTestWatchlist();
   });
 
-  afterEach(() => {
+  after(() => {
+    // Delete created watchlist from the DB
+    deleteCreatedTestWatchlist();
     cy.logout();
   });
 
-  it('Create watchlist and assign', function () {
-    cy.get('#btn-watchlists').click();
-    cy.get('#btn-manage-watchlists').click({ force: true });
-    cy.get('#content-wrapper > div.topbar.clearfix > div.floatleft > h1').should('be.visible');
-    cy.get('#btn-create-new > a').click({ force: true });
-    cy.randomString(6).then((data) => {
-      cy.get('#popupTextContainer > input[type=text]').type('Test Watchlist' + data);
-    });
-    cy.get('#apprise-btn-confirm').click();
-    cy.get('#wlName').should('include.text', 'Test Watchlist');
-    cy.get('#txtAddUser').type('CalPERS | ExtAdmin Automation QaUat');
-    cy.get('#WLMain > div:nth-child(2) > div:nth-child(2) > button').click({ force: true });
-    cy.get('#workflow-filter-list > div > div').should('include.text', 'Test Watchlist');
-  }); //end it
+  it.only('Create watchlist and assign', function () {
+    
+    // Workflow page
+    workflowPage.watchListDropDownButton().click();
+    workflowPage.manageWatchListDropDownButton().click({ force: true });
 
-  it('Check assigned watchlist is in Assignees list', function () {
-    cy.get('#btn-watchlists').click({ force: true });
-    cy.get('.watchlist-search-input').type('Test Watchlist', { force: true });
-    cy.wait('@AVAILABLE_ASSIGNEES_CUSTOMER');
-    cy.get('.floatleft > .scrollableContainer').should('include.text', 'Test Watchlist');
+    // Watchlist page
+    cy.stausCode200('@WATCHLIST_SECURITIES'); // Last loaded API on tha page
+  
+    watchlistPage.createNewWatchlistButton().click({ force: true });
+    watchlistPage.popupTextContainer().type(testWatchlistName);
+    watchlistPage.saveButton().click()
+    watchlistPage.newWatchListName().should('include.text', testWatchlistName);
+    watchlistPage.administrationUserTextField().type(testAdministrationUser);
+
+    cy.stausCode200('@WATCHLIST_IDENTITY_SEARCH'); // Waiting for dropdown appers
+
+    watchlistPage.addAdministrationUserButton().click({ force: true });
+    watchlistPage.watchListFilterList().should('include.text', testWatchlistName);
+
+    // Workflow page - Check assigned watchlist is in Assignees list
+    cy.visit('/Workflow');
+    cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER'); // Last loaded API on tha page
+
+    workflowPage.watchListDropDownButton().click({ force: true });
+    workflowPage.watchlistSearchInput().type(testWatchlistName, { force: true });
+    workflowPage.watchlistScrollableContainer().should('include.text', testWatchlistName);
+
   });
 
-  it('Cleanup', function () {
-    //cleanup remove the watchlist
-    cy.get('#btn-watchlists').click();
-    cy.get('#btn-manage-watchlists').click({ force: true });
-    cy.get('.favourite-filters').find('li > a').find('span').contains('Test Watchlist').click();
-    cy.get(':nth-child(1) > :nth-child(3) > .dark-red').click();
-  }); // end cleanup it
-}); //end describe
+  function deleteCreatedTestWatchlist(){
+      cy.sqlServer(
+        `
+        DELETE FROM [GLP].[dbo].[PX_WatchListSecurity]
+        WHERE WatchListID IN (
+          SELECT WatchListID FROM [GLP].[dbo].[PX_WatchList]
+          WHERE WatchListName = '` + testWatchlistName + `'
+        )
+        
+        DELETE FROM [GLP].[dbo].[PX_WatchListUser]
+        WHERE WatchListID in (
+          SELECT WatchListID FROM [GLP].[dbo].[PX_WatchList]
+          WHERE WatchListName = '` + testWatchlistName + `'
+        )
+        
+        DELETE FROM [GLP].[dbo].[PX_WatchList]
+        WHERE WatchListName = '` + testWatchlistName + `'
+        `
+      );
+  };
+
+});

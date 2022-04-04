@@ -1,16 +1,16 @@
 import '../../../support/commands.js';
-import workflowPageItems from '../../../elements/pages/workflow/workflowPageItems'
+import meetingDetailsPageItems from '../../../elements/pages/meetingDetails/meetingDetailsPageItems'
 
 const { MEETINGID, USER } = require('../../../support/constants');
-const workflowPage = new workflowPageItems();
+const meetingDetailsPage = new meetingDetailsPageItems();
 
 describe('Test QuickVote functionality in MeetingDetails page', function () {
 
   beforeEach(function () {
     cy.loginWithAdmin(USER.CALPERS);
-    cy.visit('/').url().should('include', '/Workflow');
-    cy.wait('@WORKFLOW_EXPANSION');
-    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
+    cy.visit('/Workflow');
+    stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER'); // Last loaded API on tha page - ext
+    
     cy.removeAllExistingSelectedCriteria();
   });
 
@@ -45,74 +45,74 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
     cy.AddTenDaysToMeetingDates(MEETINGID.CPRP2);
     cy.visit('MeetingDetails/Index/' + MEETINGID.CPRP2);
     waitForAPICalls();
-    workflowPage.unlockButton().click({ force: true });
+    meetingDetailsPage.unlockButton().click({ force: true });
     verifyMeetingOptionButtons();
-    workflowPage.quickVoteDropdown().click({ force: true });
-    workflowPage.quickVoteSelect().select('For', { force: true });
-    workflowPage.voteNowButton().click({ force: true });
-    workflowPage.votedBallots().click({ force: true });
-    workflowPage.proceedButton().click();
-    workflowPage.unlockButton().should('have.text', 'Change Vote or Rationale');
+    meetingDetailsPage.quickVoteDropdown().click({ force: true });
+    meetingDetailsPage.quickVoteSelect().select('For', { force: true });
+    meetingDetailsPage.voteNowButton().click({ force: true });
+    meetingDetailsPage.votedBallots().click({ force: true });
+    meetingDetailsPage.proceedButton().click();
+    meetingDetailsPage.unlockButton().should('have.text', 'Change Vote or Rationale');
   });
 
   it(`QuickVote on Recommendations Pending meeting`, function () {
     cy.AddTenDaysToMeetingDates(MEETINGID.CPRP3);
     cy.visit('MeetingDetails/Index/' + MEETINGID.CPRP3);
     waitForAPICalls();
-    workflowPage.unlockButton().click({ force: true });
+    meetingDetailsPage.unlockButton().click({ force: true });
     verifyMeetingOptionButtons();
-    workflowPage.quickVoteDropdown().click({ force: true });
-    workflowPage.quickVoteSelect().select('For', { force: true });
-    workflowPage.voteNowButton().click({ force: true });
-    workflowPage.votedBallots().click({ force: true });
-    workflowPage.proceedButton().click();
-    workflowPage.unlockButton().should('have.text', 'Change Vote or Rationale');
+    meetingDetailsPage.quickVoteDropdown().click({ force: true });
+    meetingDetailsPage.quickVoteSelect().select('For', { force: true });
+    meetingDetailsPage.voteNowButton().click({ force: true });
+    meetingDetailsPage.votedBallots().click({ force: true });
+    meetingDetailsPage.proceedButton().click();
+    meetingDetailsPage.unlockButton().should('have.text', 'Change Vote or Rationale');
   });
 
   it(`Take No Action on first Recommendations Pending meeting`, function () {
     cy.AddTenDaysToMeetingDates(MEETINGID.CPRP5);
     cy.visit('MeetingDetails/Index/' + MEETINGID.CPRP5);
     waitForAPICalls();
-    workflowPage.unlockButton().click({ force: true });
+    meetingDetailsPage.unlockButton().click({ force: true });
     verifyMeetingOptionButtons();
-    workflowPage.takeNoActionButton().click({ force: true });
-    workflowPage.takeNoActionBallots().click({ force: true });
-    workflowPage.proceedButton().click();
-    workflowPage.unlockButton().should('have.text', 'Change Vote or Rationale');
+    meetingDetailsPage.takeNoActionButton().click({ force: true });
+    meetingDetailsPage.takeNoActionBallots().click({ force: true });
+    meetingDetailsPage.proceedButton().click();
+    meetingDetailsPage.unlockButton().should('have.text', 'Change Vote or Rationale');
   });
 
   /*Functions*/
 
   function clickOntheVoteDropDownButton() {
-    workflowPage.quickVoteDropdown().click({ force: true });
+    meetingDetailsPage.quickVoteDropdown().click({ force: true });
   }
 
   function selectForAsAllVote() {
-    workflowPage.quickVoteSelect().select('For', { force: true });
+    meetingDetailsPage.quickVoteSelect().select('For', { force: true });
   }
 
   function clickonVoteNowButton() {
-    workflowPage.voteNowButton().click({ force: true });
+    meetingDetailsPage.voteNowButton().click({ force: true });
   }
 
   function tickTheBallotCheckbox() {
-    workflowPage.votedBallots().click({ force: true });
+    meetingDetailsPage.votedBallots().click({ force: true });
   }
 
   function clickOnTheProceedButton() {
-    workflowPage.proceedButton().click();
+    meetingDetailsPage.proceedButton().click();
   }
 
   function checkVoteButtonStatus(buttonName) {
-    workflowPage.unlockButton().should('have.text', buttonName);
+    meetingDetailsPage.unlockButton().should('have.text', buttonName);
   }
 
   function clickOnChangeVoteOrRationaleButton() {
-    workflowPage.unlockButton().click({ force: true });
+    meetingDetailsPage.unlockButton().click({ force: true });
   }
 
   function clickOnInstructButton() {
-    workflowPage.instructButton().click({ force: true });
+    meetingDetailsPage.instructButton().click({ force: true });
   }
 
   function visitMeeting(url,meetingID) {
@@ -130,10 +130,14 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
   }
   
   function verifyMeetingOptionButtons() {
-    workflowPage.voteNowButton();
-    workflowPage.takeNoActionButton();
-    workflowPage.instructButton();
+    meetingDetailsPage.voteNowButton();
+    meetingDetailsPage.takeNoActionButton();
+    meetingDetailsPage.instructButton();
   }
 
-}); // end describe
+  function stausCode200(param) {
+    cy.wait(param).its('response.statusCode').should('eq', 200);
+  }
+
+});
 

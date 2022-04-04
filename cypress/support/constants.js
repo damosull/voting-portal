@@ -35,7 +35,8 @@ export const messages = {
     SUBSCRIPTION_DELETED: 'Subscription deleted',
     SHARE_MEETING_REQUEST_SAVED: 'Share meeting request saved',
     ENGAGEMENT_ADDED: 'Engagement added',
-    ENGAGEMENT_DELETED: 'Engagement Deleted'
+    ENGAGEMENT_DELETED: 'Engagement Deleted',
+    USER_CREATED_SUCCESSFULLY: 'User created successfully'
   },
 };
 
@@ -86,12 +87,12 @@ export const API = {
   POST: {
     ADD: '**/Api/Data/BallotVoteData/Add',
     AVA_CRITERIA: '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=AVAReport',
-    AVAILABLE_ASSIGNEES_CUSTOMER: '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer',
     BALLOT_CRITERIA: '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotVoteData',
     CREATE_DRAFT_FILTER: '**/Api/Data/Filters/CreateDraftFilter',
     CRITERIA_ENGAGEMENT: '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=Engagement',
     DOCUMENTS_DATA: '/Api/Data/DocumentsData',
     FILE_ADD: '**/Api/Data/Policy/Add',
+    GET_AVAILABLE_ASSIGNEES_CUSTOMER: '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer',
     GET_STATUS: '**Api/Data//SubscribeToMeeting/GetStatus',
     GET_AGENDA: '**/Api/Data//MdData/GetAgenda',
     LOGGER: '/api/Logger/**',
@@ -143,8 +144,24 @@ export const API = {
     SUBSCRIPTIONS: '**/Api/WebUI/Subscriptions/**',
     SUBSCRIPTION_FILTER: '**/Api/Data/Subscription/?FilterId=**',
     SUSTAIN_ANALYTICS: '**/Scripts/EditorControls/Sustainalytics/**',
-    WORKFLOW_CONFIGURE_COLUMNS: '**/Api/WebUI//Workflow/WorkflowConfigureColumns?_=**',
+    SPA: '**/Api/Data//Spa**',
+    WORKFLOW_CONFIGURE_COLUMNS: '**/Api/WebUI//Workflow/WorkflowConfigureColumns**',
     WORKFLOW_RESEARCH_INFO: '**/Api/Data/WorkflowResearchInfo/GetWFResearch?CustomerID=0&_=**',
+
+    GET_MARKUP_WORKFLOW: '**/Workflow/GetMarkup**',
+    GET_MARKUP_DASHBOARD: '**/Dashboard/GetMarkup**',
+    WORKFLOW_META_DATA_1: '**/Api/Data/WorkflowMetaData/?typeName=WorkflowExpansion&customerId**',
+    WORKFLOW_META_DATA_2: '**/Api/Data/WorkflowMetaData/?typeName=WorkflowExpansion&showDenied=true&customerId**',
+    GET_AUTHENTICATED_USER: '**/Api/WebUI/Users/GetAuthenticatedUser**',
+    REPORTS_DEFAULT_DATA: '**/Api/Data/ReportsDefaultData/**',
+    PASSWORD_VALIDATOR_SETUP: '**/Api/Data//PasswordValidatorSetup/**',
+    GET_MARKUP_MEETING_DETAILS: '**/MeetingDetails/GetMarkup/**',
+    GET_USER_PERMISSION: '**/Api/Data//MdPermissions/GetUserPermissions**',
+    WORKFLOW_FILTER_CRITERIA_EDITORS: '**/Api/WebUI/WorkflowFilterCriteriaEditors**',
+    DATE_RANGE_KNOCKOUT_BINDINGS: '**/Api/WebUIRes/?path=/Scripts/EditorControls/DateRange/dateRangeKnockoutBindings**',
+    DATE_RANGE: '**/Api/WebUIRes/?path=/Scripts/EditorControls/DateRange/DateRange**',
+    WATCHLIST_SECURITIES: '**/Api/Data/WatchlistSecurities/**',
+    WATCHLIST_IDENTITY_SEARCH: '**/Api/Data/WatchlistIdentitySearch/**'
   },
   PUT: {
     BALLOT_GRID_STATE: '**/Api/Data/BallotsGridState',
@@ -152,5 +169,9 @@ export const API = {
   DELETE: {
     REMOVE: '**/Api/Data/Policy/**',
     FILTER_DELETED: '**/Api/Data/WorkflowFilters/**?isConfirmed=false'
+  },
+  SCRIPT: {
+    POSHYTIP: '**/Scripts/jquery.poshytip.js?_=**',
+    EDITABLE_POSHYTIP: '**/Scripts/jquery-editable-poshytip.min.js?_=**'
   }
 };
