@@ -70,7 +70,7 @@ describe('User Story US43661 tests', function () {
     })
 
     // Test Case 44726 : https://dev.azure.com/glasslewis/Development/_workitems/edit/44726
-    it(`Live ballots with meeting date for past ballots whose meeting date has passed/Revote and no rationale entered for vote against policy`, function () {
+    it.only(`Live ballots with meeting date for past ballots whose meeting date has passed/Revote and no rationale entered for vote against policy`, function () {
 
         cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
         cy.visit('/Workflow');

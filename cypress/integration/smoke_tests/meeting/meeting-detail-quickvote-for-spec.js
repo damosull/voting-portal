@@ -9,7 +9,7 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
   beforeEach(function () {
     cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Workflow');
-    stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER'); // Last loaded API on tha page - ext
+    cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER'); // Last loaded API on tha page - ext
     
     cy.removeAllExistingSelectedCriteria();
   });
@@ -124,19 +124,15 @@ describe('Test QuickVote functionality in MeetingDetails page', function () {
   }
 
   function waitForAPICalls() {
-    cy.wait('@LOGGER');
-    cy.wait('@GET_FILINGS');
-    cy.wait('@VOTE_TALLY');
+    cy.stausCode204('@LOGGER');
+    cy.stausCode200('@GET_FILINGS');
+    cy.stausCode200('@VOTE_TALLY');
   }
   
   function verifyMeetingOptionButtons() {
     meetingDetailsPage.voteNowButton();
     meetingDetailsPage.takeNoActionButton();
     meetingDetailsPage.instructButton();
-  }
-
-  function stausCode200(param) {
-    cy.wait(param).its('response.statusCode').should('eq', 200);
   }
 
 });
