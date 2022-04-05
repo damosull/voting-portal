@@ -6,6 +6,7 @@ class workflowPageItems{
     watchlistScrollableContainerID = '.floatleft > .scrollableContainer'
     cogIconID = '#admin-link-container'
     usersID = '#navlink--users'
+    workflowMenuButtonID = '#workflow-link';
 
     constructor() {
     }
@@ -25,6 +26,9 @@ class workflowPageItems{
     }
 
     // Cog icon dropdown section
+    workflowMenuButton() {
+        return cy.get(this.workflowMenuButtonID).should('be.visible');
+    }
     cogIcon() {
         return cy.get(this.cogIconID); 
     }

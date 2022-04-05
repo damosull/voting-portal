@@ -10,7 +10,7 @@ class meetingDetailsPageItems{
     proceedButtonSelector = '.floatright > .green';
     quickVoteDropdownSelector = '#quick-vote-container > span > span';
     quickVoteSelectID = '#quickVoteSelect';
-    workflowMenuButtonID = '#workflow-link';
+    
   
     constructor() {
     }
@@ -45,10 +45,6 @@ class meetingDetailsPageItems{
     takeNoActionBallots() {
         return cy.get(this.takeNoActionBallotsSelector).should('be.visible');
     }
-    workflowMenuButton() {
-        return cy.get(this.workflowMenuButtonID).should('be.visible');
-    }
-    
 }
 
 export default meetingDetailsPageItems;
