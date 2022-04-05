@@ -32,7 +32,7 @@ describe('US39254 - ', { tags: '@smoke' }, () => {
 
       cy.wait('@WORKFLOW_EXPANSION');
       cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
-      cy.wait('@AVAILABLE_ASSIGNEES_CUSTOMER');
+      cy.wait('@GET_AVAILABLE_ASSIGNEES_CUSTOMER');
 
       // Step 4 - User clicks on the Control Number hyperlink on the workflow page
       // Go through the list of meetings and click in the record that matches the name

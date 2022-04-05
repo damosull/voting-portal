@@ -103,7 +103,6 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   
   cy.intercept('POST', API.POST.ADD).as('ADD');
   cy.intercept('POST', API.POST.AVA_CRITERIA).as('AVA_CRITERIA');
-  cy.intercept('POST', API.POST.AVAILABLE_ASSIGNEES_CUSTOMER).as('AVAILABLE_ASSIGNEES_CUSTOMER');
   cy.intercept('POST', API.POST.BALLOT_CRITERIA).as('BALLOT_CRITERIA');
   cy.intercept('POST', API.POST.CREATE_DRAFT_FILTER).as('CREATE_DRAFT_FILTER');
   cy.intercept('POST', API.POST.CRITERIA_ENGAGEMENT).as('CRITERIA_ENGAGEMENT');

@@ -15,9 +15,7 @@ describe('US26145', () => {
   //Test scenario 40744 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40744
   it('TC40744 - Vote on GLASS', () => {
     //Wait initial page to load
-    cy.wait('@WORKFLOW_EXPANSION');
-    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
-    cy.wait('@AVAILABLE_ASSIGNEES_CUSTOMER');
+    cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER'); // Last loaded API on tha page - ext
 
     // CLick on Upcoming meetings
     cy.contains('Upcoming Meetings').click();

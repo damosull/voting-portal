@@ -9,7 +9,7 @@ const toast = messages.toast;
 describe('Workflow', () => {
   beforeEach(() => {
     cy.loginWithAdmin(USER.CALPERS);
-    cy.visit('/').url().should('include', '/Workflow');
+    cy.visit('/Workflow');
   });
   
   //Test scenario 37790 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37790
@@ -26,7 +26,7 @@ describe('Workflow', () => {
     cy.get('#rdo-meeting-date').check().should('be.checked');
 
     // Wait for meeting date grouping
-    cy.wait('@AVAILABLE_ASSIGNEES_CUSTOMER');
+    cy.wait('@GET_AVAILABLE_ASSIGNEES_CUSTOMER');
 
     // Step 2 - Change Next 30 days to 10 Days
     cy.get('#date-range-target-meeting-deadline').invoke('attr', 'style', 'display: block');
