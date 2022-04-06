@@ -561,9 +561,11 @@ Cypress.Commands.add('executeQuery', (query) => {
 });
 
 Cypress.Commands.add('stausCode200', (param) => {
+    cy.wait(500);
     cy.wait(param).its('response.statusCode').should('eq', 200);
 });
 
 Cypress.Commands.add('stausCode204', (param) => {
+    cy.wait(500);
     cy.wait(param).its('response.statusCode').should('eq', 204);
 });
