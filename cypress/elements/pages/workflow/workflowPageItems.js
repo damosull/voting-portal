@@ -4,9 +4,16 @@ class workflowPageItems{
     manageWatchListDropDownButtonID = '#btn-manage-watchlists';
     watchlistSearchInputID = ".watchlist-search-input"
     watchlistScrollableContainerID = '.floatleft > .scrollableContainer'
+    
+    //  Cog icon dropdown section
     cogIconID = '#admin-link-container'
     usersID = '#navlink--users'
     workflowMenuButtonID = '#workflow-link';
+
+    // Filter section
+    addCriteriaButtonID = '#btn-add-criteria';
+    criteriaInputID = '#txt-filter-criteria'
+    applyCriteriaButtonID = '#btn-apply-criteria'
 
     constructor() {
     }
@@ -34,6 +41,17 @@ class workflowPageItems{
     }
     users() {
         return cy.get(this.usersID); 
+    }
+
+    // Filter section
+    addCriteriaButton() {
+        return cy.get(this.addCriteriaButtonID);
+    }
+    criteriaInput() {
+        return cy.get(this.criteriaInputID);
+    }
+    applyCriteriaButton() {
+        return cy.get(this.applyCriteriaButtonID);
     }
 }
 

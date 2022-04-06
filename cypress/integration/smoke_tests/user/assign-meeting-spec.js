@@ -12,7 +12,7 @@ describe('Watchlist Assignment tests', function () {
   before(function () {
     cy.loginWithAdmin(USER.CALPERS);
     cy.visit('/Workflow');
-    
+    cy.stausCode200('@INBOX');
     cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER'); // Last loaded API on tha page - ext
     
     // Delete created watchlist from the DB in the case of failed test
