@@ -14,7 +14,7 @@ describe('Workflow', () => {
   
   //Test scenario 37790 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37790
   //Test scenario 40741 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40741
-  it('Vote, Take No Action and Review Required', () => {
+  it.skip('Vote, Take No Action and Review Required', () => {
     // Wait for initial page to load
     cy.wait('@WORKFLOW_EXPANSION');
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');

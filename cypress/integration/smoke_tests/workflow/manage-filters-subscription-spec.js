@@ -13,7 +13,7 @@ describe('Create Manage Filters Subscription entry and validate in FL_Subscripti
   });
 
   // Test scenario: 40482 https://dev.azure.com/glasslewis/Development/_workitems/edit/40482
-  it(`Create Manage Filters Subscription`, function () {
+  it.skip(`Create Manage Filters Subscription`, function () {
     // Step 3 - Select Manage Filters link
     cy.get('#btn-manage-filters').click();
     cy.get('#filter-name-edit').should('have.text', 'Upcoming Meetings');
