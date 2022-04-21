@@ -8,6 +8,65 @@ describe('Smoke test - Internal user', function () {
     beforeEach(function () {
         cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
         baseUrl = Cypress.config().baseUrl;
+
+        cy.intercept('GET', '**/Api/Data/Dashboard/**').as('DASHBOARD');
+        cy.intercept('GET', '**/Api/Data/WidgetMeta/**').as('WIDGET_META');
+        cy.intercept('GET', '**/Api/Data/DashboardSettings/**').as('DASHBOARD_SETTINGS');
+        cy.intercept('GET', '**/MeetingDetails/GetMarkup/**').as('GET_MARKUP');
+        cy.intercept('GET', '**/Api/Data//MdPermissions/GetUserPermissions**').as('GET_USER_PERMISSION');
+        cy.intercept('GET', '**/Api/WebUI//Workflow/WorkflowConfigureColumnsWithNoSearch**').as('WORKFLOW_CONFIGURE_COLUMNS_WITH_NO_SEARCH');
+        cy.intercept('GET', '**/Api/Data/DashboardFilters**').as('DASHBOARD_FILTERS');
+        cy.intercept('GET', '**/Api/Data/WorkflowMetaData/**').as('WORKFLOW_META_DATA');
+        cy.intercept('GET', '**/Api/Data/EsgRankingsFields**').as('ESG_RANKINGS_FIELDS');
+        cy.intercept('GET', '**/Api/Data/DashboardDetails/**').as('DASHBOARD_DETAILS');
+        cy.intercept('GET', '**/Api/Data/WorkflowWidgetData**').as('WORKFLOW_WIDGET_DATA');
+        cy.intercept('GET', '**/Api/Data/DashboardFilterDetails**').as('DASHBOARD_FILTER_DETAILS');
+        cy.intercept('GET', '**/Api/Data/GLBlogData**').as('GL_BLOG_DATA');
+        cy.intercept('GET', '**/Api/Data/DashboardSubscription/**').as('DASHBOARD_SUBSCRIPTION');
+        cy.intercept('GET', '**/Api/Data/DashboardPermissions/?_=**').as('DASHBOARD_PERMISSIONS');
+
+        cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BALLOT_RECONCILIATION');
+        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls/DateRange/dateRangeKnockoutBindings.js**').as('DATE_RANGE_KNCOCKOUT_BINDINGS');
+        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls/DateRange/DateRange.js**').as('DATE_RANGE');
+        cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotReconciliation').as('REPORTS_CRITERIA');
+
+        cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BALLOT_RECONCILIATION');
+        cy.intercept('GET', '**/Api/Data/CustomerDynamic//GetCustomerScreenFilters?&ScreenID=2&_=**').as('GetCustomerScreenFilters');
+        cy.intercept('GET', '**/Api/WebUI/FilterCriteriaEditors?filterPreferenceID=6&objectType=Customer&customerId=0&_=**').as('FilterCriteriaEditors');
+        cy.intercept('POST', '**/Api/Data/CustomerDynamic/').as('CustomerDynamic');
+        cy.intercept('GET', '**/Api/Data//ListService/StatusCode?CustomerID=0**').as('ListService');
+        cy.intercept('GET', '/Api/WebUIRes/?path=/Scripts/EditorControls/MultiSelectStatic/MultiSelectStatic.js&_=**').as('MultiSelectStatic');
+        cy.intercept('GET', '/Api/WebUIRes/?path=/Scripts/EditorControls/CompanyNameSpecial/CustomerSpecial.js&_=**').as('CompanyNameSpecial');
+
+        cy.intercept('GET', '**/Api/Data/UserCreatorPermissions/**').as('UserCreatorPermissions');
+        cy.intercept('GET', '**/Api/Data/UserViewModelValidationRules/?_=**').as('UserViewModelValidationRules');
+        cy.intercept('GET', '**/Api/Data/CustomerSearch/**').as('CustomerSearch');
+        cy.intercept('GET', '**/Api/Data/UserScreenFilters/**').as('UserScreenFilters');
+        cy.intercept('GET', '**/Api/WebUI/FilterCriteriaEditors?filterPreferenceID=707&objectType=User&customerId=0&_=**').as('FilterCriteriaEditors');
+        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls/MultiSelectStatic/MultiSelectStatic.js&_=**').as('MultiSelectStatic');
+        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls//UserSpecial/UserSpecial.js&_=**').as('UserSpecial');
+        cy.intercept('POST', '**/Api/Data/UsersLists/**').as('UsersLists');
+        cy.intercept('GET', '**/Api/Data//ListService/StatusCode?CustomerID=**').as('ListService');
+
+        cy.intercept('GET', '**/Api/WebUI/Users/GetUsersList?_=**').as('GetUsersList');
+        cy.intercept('GET', '**/Api/WebUI/Users/UserProfileHtml?_=**').as('UserProfileHtml');
+        cy.intercept('GET', '**/Api/Data/UserCreatorPermissions/?_=**').as('UserCreatorPermissions');
+        cy.intercept('GET', '**/Api/Data/UserViewModelValidationRules/?_=**').as('UserViewModelValidationRules');
+
+        cy.intercept('GET', '**/Api/Data/CustodianGridState//?_=**').as('CustodianGridState');
+        cy.intercept('GET', '**/Api/Data/CustodianList//**').as('GetCustodianScreenFilters');
+        cy.intercept('GET', '**/Api/WebUI/FilterCriteriaEditors?filterPreferenceID=1503&objectType=Custodian&customerId=0&_=**').as('FilterCriteriaEditors');
+        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls/MultiSelectStatic/MultiSelectStatic.js&_=**').as('MultiSelectStatic');
+        cy.intercept('POST', '**/Api/Data/CustodianList/**').as('CustodianList');
+        cy.intercept('GET', '**/Api/Data//ListService/StatusCode?CustomerID=0**').as('ListService');
+
+        cy.intercept('GET', '**/Api/WebUI//Securities/SearchToolbar?_=').as('SEARCH_TOOLBAR');
+        cy.intercept('GET', '**/Api/Data/Watchlist/**').as('WATCHLIST');
+        cy.intercept('GET', '**/Api/Data/WatchlistSecurities/**').as('WATCHLIST_SECURITIES');
+
+        cy.intercept('GET', '**/Api/Data/Permissions/**').as('Permissions');
+
+        
     });
    
     it('Done - Workflow page API loaded', function () {
@@ -76,22 +135,6 @@ describe('Smoke test - Internal user', function () {
 
         cy.visit('/Dashboard');
 
-        cy.intercept('GET', '**/Api/Data/Dashboard/**').as('DASHBOARD');
-        cy.intercept('GET', '**/Api/Data/WidgetMeta/**').as('WIDGET_META');
-        cy.intercept('GET', '**/Api/Data/DashboardSettings/**').as('DASHBOARD_SETTINGS');
-        cy.intercept('GET', '**/MeetingDetails/GetMarkup/**').as('GET_MARKUP');
-        cy.intercept('GET', '**/Api/Data//MdPermissions/GetUserPermissions**').as('GET_USER_PERMISSION');
-        cy.intercept('GET', '**/Api/WebUI//Workflow/WorkflowConfigureColumnsWithNoSearch**').as('WORKFLOW_CONFIGURE_COLUMNS_WITH_NO_SEARCH');
-        cy.intercept('GET', '**/Api/Data/DashboardFilters**').as('DASHBOARD_FILTERS');
-        cy.intercept('GET', '**/Api/Data/WorkflowMetaData/**').as('WORKFLOW_META_DATA');
-        cy.intercept('GET', '**/Api/Data/EsgRankingsFields**').as('ESG_RANKINGS_FIELDS');
-        cy.intercept('GET', '**/Api/Data/DashboardDetails/**').as('DASHBOARD_DETAILS');
-        cy.intercept('GET', '**/Api/Data/WorkflowWidgetData**').as('WORKFLOW_WIDGET_DATA');
-        cy.intercept('GET', '**/Api/Data/DashboardFilterDetails**').as('DASHBOARD_FILTER_DETAILS');
-        cy.intercept('GET', '**/Api/Data/GLBlogData**').as('GL_BLOG_DATA');
-        cy.intercept('GET', '**/Api/Data/DashboardSubscription/**').as('DASHBOARD_SUBSCRIPTION');
-        cy.intercept('GET', '**/Api/Data/DashboardPermissions/?_=**').as('DASHBOARD_PERMISSIONS');
-
         // 23
         cy.stausCode200('@CURRENT_USER')
         cy.stausCode200('@SPA')
@@ -123,11 +166,6 @@ describe('Smoke test - Internal user', function () {
     it('Done - Reporting page API loaded', function () {
 
         cy.visit('/Reporting');
-
-        cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BALLOT_RECONCILIATION');
-        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls/DateRange/dateRangeKnockoutBindings.js**').as('DATE_RANGE_KNCOCKOUT_BINDINGS');
-        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls/DateRange/DateRange.js**').as('DATE_RANGE');
-        cy.intercept('POST', '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotReconciliation').as('REPORTS_CRITERIA');
 
         // 6
         cy.stausCode200('@CURRENT_USER')
@@ -164,15 +202,6 @@ describe('Smoke test - Internal user', function () {
 
         cy.visit('/Customers');
 
-        cy.intercept('GET', '**/Api/Data/BallotReconciliation/**').as('BALLOT_RECONCILIATION');
-
-        cy.intercept('GET', '**/Api/Data/CustomerDynamic//GetCustomerScreenFilters?&ScreenID=2&_=**').as('GetCustomerScreenFilters');
-        cy.intercept('GET', '**/Api/WebUI/FilterCriteriaEditors?filterPreferenceID=6&objectType=Customer&customerId=0&_=**').as('FilterCriteriaEditors');
-        cy.intercept('POST', '**/Api/Data/CustomerDynamic/').as('CustomerDynamic');
-        cy.intercept('GET', '**/Api/Data//ListService/StatusCode?CustomerID=0**').as('ListService');
-        cy.intercept('GET', '/Api/WebUIRes/?path=/Scripts/EditorControls/MultiSelectStatic/MultiSelectStatic.js&_=**').as('MultiSelectStatic');
-        cy.intercept('GET', '/Api/WebUIRes/?path=/Scripts/EditorControls/CompanyNameSpecial/CustomerSpecial.js&_=**').as('CompanyNameSpecial');
-
         // 18
         cy.stausCode200('@CURRENT_USER');
         cy.stausCode204('@LOGGER');
@@ -198,16 +227,6 @@ describe('Smoke test - Internal user', function () {
 
         cy.visit('/Users/Index');
 
-        cy.intercept('GET', '**/Api/Data/UserCreatorPermissions/**').as('UserCreatorPermissions');
-        cy.intercept('GET', '**/Api/Data/UserViewModelValidationRules/?_=**').as('UserViewModelValidationRules');
-        cy.intercept('GET', '**/Api/Data/CustomerSearch/**').as('CustomerSearch');
-        cy.intercept('GET', '**/Api/Data/UserScreenFilters/**').as('UserScreenFilters');
-        cy.intercept('GET', '**/Api/WebUI/FilterCriteriaEditors?filterPreferenceID=707&objectType=User&customerId=0&_=**').as('FilterCriteriaEditors');
-        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls/MultiSelectStatic/MultiSelectStatic.js&_=**').as('MultiSelectStatic');
-        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls//UserSpecial/UserSpecial.js&_=**').as('UserSpecial');
-        cy.intercept('POST', '**/Api/Data/UsersLists/**').as('UsersLists');
-        cy.intercept('GET', '**/Api/Data//ListService/StatusCode?CustomerID=**').as('ListService');
-
         // 11
         cy.stausCode200('@CURRENT_USER');
         //cy.stausCode200('@UserCreatorPermissions')
@@ -227,11 +246,6 @@ describe('Smoke test - Internal user', function () {
 
         cy.visit('/Users/UsersProfiles/');
 
-        cy.intercept('GET', '**/Api/WebUI/Users/GetUsersList?_=**').as('GetUsersList');
-        cy.intercept('GET', '**/Api/WebUI/Users/UserProfileHtml?_=**').as('UserProfileHtml');
-        cy.intercept('GET', '**/Api/Data/UserCreatorPermissions/?_=**').as('UserCreatorPermissions');
-        cy.intercept('GET', '**/Api/Data/UserViewModelValidationRules/?_=**').as('UserViewModelValidationRules');
-
         // 5
         cy.stausCode200('@CURRENT_USER');
         //cy.stausCode200('@GetUsersList')
@@ -243,13 +257,7 @@ describe('Smoke test - Internal user', function () {
     it('Done - Custodians page API loaded', function () {
 
         cy.visit('/Custodians/Index');
-        
-        cy.intercept('GET', '**/Api/Data/CustodianGridState//?_=**').as('CustodianGridState');
-        cy.intercept('GET', '**/Api/Data/CustodianList//**').as('GetCustodianScreenFilters');
-        cy.intercept('GET', '**/Api/WebUI/FilterCriteriaEditors?filterPreferenceID=1503&objectType=Custodian&customerId=0&_=**').as('FilterCriteriaEditors');
-        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls/MultiSelectStatic/MultiSelectStatic.js&_=**').as('MultiSelectStatic');
-        cy.intercept('POST', '**/Api/Data/CustodianList/**').as('CustodianList');
-        cy.intercept('GET', '**/Api/Data//ListService/StatusCode?CustomerID=0**').as('ListService');
+    
 
 
         // 7
@@ -265,8 +273,6 @@ describe('Smoke test - Internal user', function () {
     it('Done - System Permissions page API loaded', function () {
 
         cy.visit('/systempermissions');
-        
-        cy.intercept('GET', '**/Api/Data/Permissions/**').as('Permissions');
 
         // 2
         cy.stausCode200('@CURRENT_USER');
@@ -286,10 +292,6 @@ describe('Smoke test - Internal user', function () {
     it('Done - Watch list(s) page API loaded', function () {
 
         cy.visit('/ManageWatchlists?ref=settings#watchlist2663');
-        
-        cy.intercept('GET', '**/Api/WebUI//Securities/SearchToolbar?_=').as('SEARCH_TOOLBAR');
-        cy.intercept('GET', '**/Api/Data/Watchlist/**').as('WATCHLIST');
-        cy.intercept('GET', '**/Api/Data/WatchlistSecurities/**').as('WATCHLIST_SECURITIES');
 
         // 4
         cy.stausCode200('@CURRENT_USER');
