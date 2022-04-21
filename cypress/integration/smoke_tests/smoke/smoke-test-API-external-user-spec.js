@@ -10,7 +10,7 @@ describe('Smoke test - External user', function () {
         baseUrl = Cypress.config().baseUrl;
     });
    
-    it.only('Done - Workflow page API loaded', function () {
+    it('Done - Workflow page API loaded', function () {
         cy.visit('/Workflow');
         cy.getAutomationUserIDFromDB(USER.AUTOMATIONEXTERNAL).as('userid');
 
@@ -121,7 +121,7 @@ describe('Smoke test - External user', function () {
     });
     
 
-    it.only('Done - Reporting page API loaded', function () {
+    it('Done - Reporting page API loaded', function () {
 
         cy.visit('/Reporting');
 
