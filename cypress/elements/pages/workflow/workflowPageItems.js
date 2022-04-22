@@ -1,10 +1,14 @@
 class workflowPageItems{
       
+    // Meeting section
+    meetingID = '#metaname-CompanyName > div > span > a'
+
+    // Watchlist section
     watchListDropDownButtonID = '#btn-watchlists';
     manageWatchListDropDownButtonID = '#btn-manage-watchlists';
     watchlistSearchInputID = ".watchlist-search-input"
     watchlistScrollableContainerID = '.floatleft > .scrollableContainer'
-    
+
     //  Cog icon dropdown section
     cogIconID = '#admin-link-container'
     usersID = '#navlink--users'
@@ -16,6 +20,11 @@ class workflowPageItems{
     applyCriteriaButtonID = '#btn-apply-criteria'
 
     constructor() {
+    }
+
+    // Meeting section
+    meeting() {
+        return cy.get(this.meetingID);
     }
 
     // Watchlist section

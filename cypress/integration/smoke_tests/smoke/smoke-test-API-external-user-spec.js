@@ -8,25 +8,6 @@ describe('Smoke test - External user', function () {
     beforeEach(function () {
         cy.loginWithAdmin(USER.AUTOMATIONEXTERNAL);
         baseUrl = Cypress.config().baseUrl;
-
-        cy.intercept('GET', '**/Api/Data/CustomerDetails/GetByID?pCustomerID=0&_=**').as('CustomerDetails');
-        cy.intercept('GET', '**/Api/Data/CustomerDetails//GetByID?&pCustomerID=0&_=**').as('Rational_CustomerDetails');
-        cy.intercept('GET', '**/Api/Data/AccountsGridState/**').as('AccountsGridState');
-        cy.intercept('GET', '**/Api/Data/Accounts//GetAccountFiltersByScreenID**').as('GetAccountFiltersByScreenID');
-        cy.intercept('GET', '**/Api/WebUI/FilterCriteriaEditors?filterPreferenceID=193&objectType=AccountsNew&customerId=0&_=**').as('WebUI');
-        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls/MultiSelectStatic/MultiSelectStatic.js&_=**').as('WebUIRes');
-        cy.intercept('GET', '**/Api/Data/CustomerDetails/**').as('CUSTOMER_DETAILS');
-        cy.intercept('GET', '**/Api/Data/FilterPreference/**').as('FILTER_PREFERENCE');
-        cy.intercept('GET', '**/Api/Data/ListService/VpOnlyWatchlists?_=**').as('VP_ONLY_WATCHLIST');
-        cy.intercept('GET', '**/Api/Data/ListService/PolicyId**').as('POLICY_ID');
-        cy.intercept('GET', '**/Api/Data/UsersForCustomer/GetCurrentUsercolleagues**').as('GET_CURRENT_USER_COLLEAGUES');
-        cy.intercept('GET', '**/Scripts/jquery.poshytip.js?_=**').as('poshytip');
-        cy.intercept('GET', '**/Scripts/jquery-editable-poshytip.min.js?_=**').as('editable-poshytip');
-        cy.intercept('GET', '**/Api/Data/RationaleLibrary/**').as('RationaleLibrary');
-        cy.intercept('GET', '**/Api/Data/CustomFields/?customerId=0&_=**').as('CustomFields');
-        cy.intercept('GET', '**/Api/Data/CustomFields/GetDetails?fieldId=**').as('CustomFields_2');
-        cy.intercept('GET', '**/Api/WebUI/Users/GetUsersList?_=**').as('GetUsersList');
-        cy.intercept('GET', '**/Api/WebUI/Users/UserProfileHtml?_=**').as('UserProfileHtml');
     });
    
     it('Done - Workflow page API loaded', function () {
@@ -135,20 +116,49 @@ describe('Smoke test - External user', function () {
         cy.stausCode200('@DATE_RANGE_KNOCKOUT_BINDINGS')
         cy.stausCode200('@DATE_RANGE')
         cy.stausCode200('@REPORTS_CRITERIA')
+
     });
 
-    it('Working on it - MeetingDetails page API loaded', function () {
+  it('Working on it - MeetingDetails page API loaded', function () {
+      
+        cy.visit('https://viewpoint.aqua.glasslewis.com/MeetingDetails/Index/1100577');
         
-        cy.visit('/Workflow');
-        
-        // Click on first meeting in order to arrive to the Meeting page
-        cy.get('#metaname-CompanyName > div > span > a').eq(1).click();
-
-        cy.stausCode200('@CURRENT_USER')
-        cy.stausCode200('@SPA')
-        cy.stausCode200('@GET_MARKUP_WORKFLOW')
-        cy.stausCode200('@DASHBOARD_MARKUP')
-        cy.stausCode200('@WORKFLOW_CONFIGURE_COLUMNS')
+        // 35
+        cy.stausCode200('@CURRENT_USER');
+        cy.stausCode200('@SETTINGS_READ');
+        cy.stausCode200('@GET_CUSTOMER_SETTINGS');
+        cy.stausCode200('@RATIONALE_LIBRARY');
+        cy.stausCode200('@VOTE_CARD');
+        cy.stausCode200('@VOTE_CARD_GRID_STATE');
+        cy.stausCode200('@GET_MEETING_ID');
+        cy.stausCode200('@WORKFLOW_RESEARCH_INFO');
+        cy.stausCode200('@VOTE_RESULTS');
+        cy.stausCode200('@COMMENTS_IDENTITY_SEARCH');
+        cy.stausCode200('@COMMENTS_IDENTITY_SEARCH');
+        cy.stausCode200('@MEETING_DETAILS_ACTIVITY');
+        cy.stausCode200('@GET_AGENDA');
+        cy.stausCode200('@WORKFLOW_RESEARCH_INFO');
+        cy.stausCode200('@RELATED_MEETINGS');
+        cy.stausCode204('@LOGGER');
+        cy.stausCode200('@MEETING_SECURITY_WATCHLIST');
+        cy.stausCode200('@META_BALLOTS_GRID');
+        cy.stausCode200('@BALLOTS_GRID_STATE');
+        cy.stausCode200('@ASSIGNED_MEETING_ID');
+        cy.stausCode200('@VOTE_AGAINST_POLICY_WL');
+        cy.stausCode200('@MEETING_DETAILS_ACTIVITY');
+        cy.stausCode204('@PUT_BALLOTS_GRID_STATE');
+        cy.stausCode200('@GET_FILINGS');
+        cy.stausCode200('@VOTE_TALLY');
+        cy.stausCode200('@VOTE_TALLY_OWNERSHIP');
+        cy.stausCode200('@SEARCH_BALLOTS_WITH_SIMILAR_AGENDAS');
+        cy.stausCode200('@COMMENTS');
+        cy.stausCode200('@SHARE_MEETING_MODAL');
+        cy.stausCode200('@GET_FILINGS');
+        cy.stausCode200('@VOTE_TALLY');
+        cy.stausCode200('@VOTE_TALLY_OWNERSHIP');
+        cy.stausCode200('@SEARCH_BALLOTS_WITH_SIMILAR_AGENDAS');
+        cy.stausCode200('@SHARE_MEETING_LISTS');
+        cy.stausCode200('@COMMENTS');
 
     });
 
@@ -183,12 +193,12 @@ describe('Smoke test - External user', function () {
         cy.stausCode204('@LOGGER');
         cy.stausCode204('@LOGGER');
         cy.stausCode204('@LOGGER');
-        cy.stausCode200('@CustomerDetails')
-        cy.stausCode200('@AccountsGridState')
+        cy.stausCode200('@CUSTOMER_DETAILS')
+        cy.stausCode200('@ACCOUNTS_GRID_STATE')
         cy.stausCode204('@LOGGER');
-        cy.stausCode200('@GetAccountFiltersByScreenID');
-        cy.stausCode200('@WebUI');
-        cy.stausCode200('@WebUIRes')
+        cy.stausCode200('@GET_ACCOUNT_FILTERS_BY_SCREEN_ID');
+        cy.stausCode200('@FILTER_CRITERIA_EDITORS');
+        cy.stausCode200('@WEBUIRES_MULTI_SELECT_STATIC')
         cy.stausCode204('@LOGGER');
         cy.stausCode204('@LOGGER');
         cy.stausCode200('@ACCOUNTS_NEW')
@@ -202,8 +212,8 @@ describe('Smoke test - External user', function () {
 
         // 3
         cy.stausCode200('@CURRENT_USER');
-        cy.stausCode200('@CustomFields')
-        cy.stausCode200('@CustomFields_2')
+        cy.stausCode200('@CUSTOM_FIELDS')
+        cy.stausCode200('@CUSTOM_FIELDS_2')
         
     });
 
@@ -213,23 +223,24 @@ describe('Smoke test - External user', function () {
 
         // 7
         cy.stausCode200('@CURRENT_USER');
-        cy.stausCode200('@poshytip');
-        cy.stausCode200('@editable-poshytip');
-        cy.stausCode200('@Rational_CustomerDetails')
-        cy.stausCode200('@RationaleLibrary')
-        cy.stausCode200('@poshytip')
-        cy.stausCode200('@editable-poshytip')
+        cy.stausCode200('@POSHYTIP');
+        cy.stausCode200('@POSHYTIP_EDITABLE');
+        cy.stausCode200('@CUSTOMER_DETAILS')
+        cy.stausCode200('@RATIONALE_LIBRARY')
+        cy.stausCode200('@POSHYTIP')
+        cy.stausCode200('@POSHYTIP_EDITABLE')
     });
 
     it('Done - Customer profile page API loaded', function () {
+        
         cy.visit('/CustomerDetails/');
 
         // 7
         cy.stausCode200('@CURRENT_USER');
         cy.stausCode200('@CUSTOMER_DETAILS')
         cy.stausCode200('@FILTER_PREFERENCE')
-        cy.stausCode200('@VP_ONLY_WATCHLIST')
-        cy.stausCode200('@POLICY_ID')
+        cy.stausCode200('@LIST_SERVICE_VP_ONLY_WATCHLIST')
+        cy.stausCode200('@LIST_SERVICE_POLICY_ID')
         cy.stausCode200('@GET_CURRENT_USER_COLLEAGUES')
         cy.stausCode200('@CUSTOMER_FORMATS');
         
@@ -241,8 +252,8 @@ describe('Smoke test - External user', function () {
 
         // 3
         cy.stausCode200('@CURRENT_USER');
-        cy.stausCode200('@GetUsersList')
-        cy.stausCode200('@UserProfileHtml')
+        cy.stausCode200('@GET_USER_LIST')
+        cy.stausCode200('@USER_PROFILE_HTML')
         
     });
 

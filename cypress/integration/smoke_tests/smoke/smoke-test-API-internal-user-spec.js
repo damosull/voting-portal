@@ -8,24 +8,6 @@ describe('Smoke test - Internal user', function () {
     beforeEach(function () {
         cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
         baseUrl = Cypress.config().baseUrl;
-
-        cy.intercept('GET', '**/Api/Data/CustomerDynamic//GetCustomerScreenFilters?&ScreenID=2&_=**').as('GetCustomerScreenFilters');
-        cy.intercept('GET', '**/Api/WebUI/FilterCriteriaEditors?filterPreferenceID=6&objectType=Customer&customerId=0&_=**').as('FilterCriteriaEditors');
-        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls/CompanyNameSpecial/CustomerSpecial.js&_=**').as('CompanyNameSpecial');
-        cy.intercept('GET', '**/Api/Data/UserCreatorPermissions/**').as('UserCreatorPermissions');
-        cy.intercept('GET', '**/Api/Data/UserViewModelValidationRules/?_=**').as('UserViewModelValidationRules');
-        cy.intercept('GET', '**/Api/Data/CustomerSearch/**').as('CustomerSearch');
-        cy.intercept('GET', '**/Api/Data/UserScreenFilters/**').as('UserScreenFilters');
-        cy.intercept('GET', '**/Api/WebUI/FilterCriteriaEditors?filterPreferenceID=707&objectType=User&customerId=0&_=**').as('FilterCriteriaEditors');
-        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls//UserSpecial/UserSpecial.js&_=**').as('UserSpecial');
-        cy.intercept('GET', '**/Api/WebUI/Users/GetUsersList?_=**').as('GetUsersList');
-        cy.intercept('GET', '**/Api/WebUI/Users/UserProfileHtml?_=**').as('UserProfileHtml');
-        cy.intercept('GET', '**/Api/Data/CustodianGridState//?_=**').as('CustodianGridState');
-        cy.intercept('GET', '**/Api/Data/CustodianList//**').as('GetCustodianScreenFilters');
-        cy.intercept('GET', '**/Api/WebUI/FilterCriteriaEditors?filterPreferenceID=1503&objectType=Custodian&customerId=0&_=**').as('FilterCriteriaEditors');
-        cy.intercept('GET', '**/Api/WebUIRes/?path=/Scripts/EditorControls/MultiSelectStatic/MultiSelectStatic.js&_=**').as('MultiSelectStatic');
-        cy.intercept('GET', '**/Api/Data/Permissions/**').as('Permissions');
-
     });
    
     it('Done - Workflow page API loaded', function () {
@@ -165,14 +147,14 @@ describe('Smoke test - Internal user', function () {
         cy.stausCode200('@CURRENT_USER');
         cy.stausCode204('@LOGGER');
         cy.stausCode204('@LOGGER');
-        cy.stausCode200('@GetCustomerScreenFilters');
-        cy.stausCode200('@FilterCriteriaEditors');
+        cy.stausCode200('@GET_CUSTOMER_SCREEN_FILTERS');
+        cy.stausCode200('@FILTER_CRITERIA_EDITORS');
         cy.stausCode204('@LOGGER');
         cy.stausCode204('@LOGGER');
-        cy.stausCode200('@MultiSelectStatic');
+        cy.stausCode200('@WEBUIRES_MULTI_SELECT_STATIC');
         cy.stausCode204('@LOGGER');
         cy.stausCode204('@LOGGER');
-        cy.stausCode200('@CompanyNameSpecial');
+        cy.stausCode200('@WEBUIRES_COMPANY_NAME_SPECIAL');
         cy.stausCode204('@LOGGER');
         cy.stausCode204('@LOGGER');
         cy.stausCode204('@LOGGER');
@@ -188,13 +170,13 @@ describe('Smoke test - Internal user', function () {
 
         // 11
         cy.stausCode200('@CURRENT_USER');
-        cy.stausCode200('@UserCreatorPermissions')
-        cy.stausCode200('@UserViewModelValidationRules')
-        cy.stausCode200('@CustomerSearch')
-        cy.stausCode200('@UserScreenFilters')
-        cy.stausCode200('@FilterCriteriaEditors')
-        cy.stausCode200('@MultiSelectStatic')
-        cy.stausCode200('@UserSpecial')
+        cy.stausCode200('@USER_CREATOR_PERMISSIONS')
+        cy.stausCode200('@USER_VIEW_MODEL_VALIDATION_RULES')
+        cy.stausCode200('@CUSTOMER_SEARCH')
+        cy.stausCode200('@USER_SCREEN_FILTERS')
+        cy.stausCode200('@FILTER_CRITERIA_EDITORS')
+        cy.stausCode200('@WEBUIRES_MULTI_SELECT_STATIC')
+        cy.stausCode200('@WEBUIRES_USER_SPECIAL')
         cy.stausCode200('@POST_USER_LISTS')
         cy.stausCode204('@LOGGER')
         cy.stausCode200('@LIST_SERVICE_STATUS_CODE')
@@ -207,10 +189,10 @@ describe('Smoke test - Internal user', function () {
 
         // 5
         cy.stausCode200('@CURRENT_USER');
-        cy.stausCode200('@GetUsersList')
-        cy.stausCode200('@UserProfileHtml')
-        cy.stausCode200('@UserCreatorPermissions');
-        cy.stausCode200('@UserViewModelValidationRules');
+        cy.stausCode200('@GET_USER_LIST')
+        cy.stausCode200('@USER_PROFILE_HTML')
+        cy.stausCode200('@USER_CREATOR_PERMISSIONS');
+        cy.stausCode200('@USER_VIEW_MODEL_VALIDATION_RULES');
     });
 
     it('Done - Custodians page API loaded', function () {
@@ -219,10 +201,10 @@ describe('Smoke test - Internal user', function () {
 
         // 7
         cy.stausCode200('@CURRENT_USER');
-        cy.stausCode200('@CustodianGridState');
-        cy.stausCode200('@GetCustodianScreenFilters');
-        cy.stausCode200('@FilterCriteriaEditors');
-        cy.stausCode200('@MultiSelectStatic');
+        cy.stausCode200('@CUSTODIAN_GRID_STATE');
+        cy.stausCode200('@GET_CUSTODIAN_SCREEN_FILTERS');
+        cy.stausCode200('@FILTER_CRITERIA_EDITORS');
+        cy.stausCode200('@WEBUIRES_MULTI_SELECT_STATIC');
         cy.stausCode200('@POST_CUSTODIAN_LIST');
         cy.stausCode200('@LIST_SERVICE_STATUS_CODE');
     });
@@ -233,7 +215,7 @@ describe('Smoke test - Internal user', function () {
 
         // 2
         cy.stausCode200('@CURRENT_USER');
-        cy.stausCode200('@Permissions');
+        cy.stausCode200('@PERMISSIONS');
 
     });
 

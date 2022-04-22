@@ -25,7 +25,7 @@ describe('US39254 - ', { tags: '@smoke' }, () => {
       cy.AddMultipleCriteria(['Policy ID']);
 
       cy.wait('@LIST_SERVICE');
-      cy.wait('@FILTER_CRITERIA_FOR_FIELDS');
+      cy.wait('@FILTER_CRITERIA_EDITORS');
 
       // Step 3 - User selects one policy from the list (e.g. TCW-TH) & clicks Update
       cy.addCriteriaStatus([`${policy}`]);
