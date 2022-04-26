@@ -4,7 +4,7 @@ describe('Configure columns', function () {
   beforeEach(function () {
     cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
     cy.visit('/Workflow');
-    cy.wait('@WORKFLOW_EXPANSION');
+    cy.stausCode200('@WORKFLOW_EXPANSION');
   });
 
   it(`adds and verifies the first four available Sustainalytics ESG columns`, function () {
@@ -24,9 +24,9 @@ describe('Configure columns', function () {
     });
     cy.get('#btn-apply-configure-columns').click();
 
-    cy.wait('@WORKFLOW_EXPANSION');
-    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
-    cy.wait('@INBOX');
+    cy.stausCode200('@WORKFLOW_EXPANSION');
+    cy.stausCode200('@WORKFLOW_SECURITIES_WATCHLIST');
+    cy.stausCode200('@INBOX');
     cy.get('.k-loading-text').should('not.exist');
 
     // Moves the horizontal sidebar to the far right
@@ -49,9 +49,9 @@ describe('Configure columns', function () {
     });
     cy.get('#btn-apply-configure-columns').click();
 
-    cy.wait('@WORKFLOW_EXPANSION');
-    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
-    cy.wait('@INBOX');
+    cy.stausCode200('@WORKFLOW_EXPANSION');
+    cy.stausCode200('@WORKFLOW_SECURITIES_WATCHLIST');
+    cy.stausCode200('@INBOX');
     cy.get('.k-loading-text').should('not.exist');
 
     // Moves the horizontal sidebar to the far right
@@ -70,7 +70,7 @@ describe('Configure columns', function () {
     cy.get('#btn-workflow-config-columns').click();
     cy.get(`input[value='${column}']`).first().uncheck({ force: true });
     cy.get('#btn-apply-configure-columns').click();
-    cy.wait('@WORKFLOW_EXPANSION');
+    cy.stausCode200('@WORKFLOW_EXPANSION');
 
     cy.get(`th[data-title='${column}']`).should('not.exist');
   });

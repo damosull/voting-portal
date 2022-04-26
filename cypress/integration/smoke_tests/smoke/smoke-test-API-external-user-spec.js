@@ -2,6 +2,7 @@ import '../../../support/commands.js';
 const { USER } = require("../../../support/constants");
 const unixTime = Math.floor(Date.now() / 1000);
 var baseUrl;
+var token;
 
 //Go through the pages to check if the proper API loading without interaction.
 describe('Smoke test - External user', function () {
@@ -10,11 +11,32 @@ describe('Smoke test - External user', function () {
         baseUrl = Cypress.config().baseUrl;
     });
    
-    it('Done - Workflow page API loaded', function () {
+    it.only('Done - Workflow page API loaded', function () {
         cy.visit('/Workflow');
-        cy.getAutomationUserIDFromDB(USER.AUTOMATIONEXTERNAL).as('userid');
+        
+        cy.request('/Workflow').its('body').then((body) => {
+            const $html = Cypress.$(body);
+            token = $html.find('input[name=csrf-token]').val();
+            cy.log("1.token: " + token);
+        });
 
-        cy.wait('@CURRENT_USER').then((response) => {
+        /*
+        cy.get('#csrf-token').invoke('attr', 'value').then(csrftoken =>{
+            cy.log(csrftoken);
+            token = csrftoken;
+        });
+        */
+
+        cy.log("2.token: " + token);
+
+        cy.getAutomationUserIDFromDB(USER.AUTOMATIONEXTERNAL).as('userid');
+        cy.stausCode200('@CURRENT_USER');
+
+        cy.get("@CURRENT_USER").should(xhr => {
+            cy.log(xhr.response.body.LoginId);
+        });
+
+        cy.get('@CURRENT_USER').then((response) => {
 
             var csrftoken = response.request.headers.csrftoken;
             cy.wrap(csrftoken).as('csrftoken');
@@ -64,8 +86,17 @@ describe('Smoke test - External user', function () {
         cy.stausCode200('@WORKFLOW_FILTER_CRITERIA_EDITORS')
         cy.stausCode200('@DATE_RANGE_KNOCKOUT_BINDINGS')
         cy.stausCode200('@DATE_RANGE')
+        
         cy.stausCode204('@LOGGER')
         cy.stausCode200('@WORKFLOW_EXPANSION')
+
+        cy.get("@WORKFLOW_EXPANSION").should(xhr => {
+            const parseObj = JSON.parse(xhr.response.body)
+            cy.log("pages number: " + parseObj.pages);
+            cy.log("MeetingIdD: " + parseObj.items[0].Agendas[0].Policies[0].Ballots[0].MeetingID);
+            cy.log("CompanyName: " + parseObj.items[0].Agendas[0].Policies[0].Ballots[0].CompanyName);
+        });
+
         cy.stausCode200('@WORKFLOW_SECURITIES_WATCHLIST')
         cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER')
         cy.stausCode200('@INBOX')

@@ -57,15 +57,15 @@ describe('Add Filters', function () {
 
     it('ESG Risk Rating Assessment filter', function () {
 
-      cy.get(ESG_Risk_Rating_Assessment_filter.editorButton).should('not.exist');
-      cy.get(ESG_Risk_Rating_Assessment_filter.editorModal).should('not.exist');
+      elementShouldNotExist(ESG_Risk_Rating_Assessment_filter.editorButton);
+      elementShouldNotExist(ESG_Risk_Rating_Assessment_filter.editorModal);
 
       workflowPage.addCriteriaButton().click();
       workflowPage.criteriaInput().type(ESG_Risk_Rating_Assessment_filter.criteria);
-      cy.get(`input[value='${ESG_Risk_Rating_Assessment_filter.criteria}']`).check({ force: true });
+      checkFilterCriteria(ESG_Risk_Rating_Assessment_filter.criteria);
       workflowPage.applyCriteriaButton().click();
 
-      cy.wait('@SUSTAIN_ANALYTICS');
+      cy.stausCode200('@SUSTAIN_ANALYTICS');
       cy.stausCode204('@LOGGER')
 
       cy.get(ESG_Risk_Rating_Assessment_filter.editorButton).trigger("click");
@@ -74,15 +74,15 @@ describe('Add Filters', function () {
 
     it('ESG Risk Exposure Assessment filter', function () {
 
-      cy.get(ESG_Risk_Exposure_Assessment_filter.editorButton).should('not.exist');
-      cy.get(ESG_Risk_Exposure_Assessment_filter.editorModal).should('not.exist');
+      elementShouldNotExist(ESG_Risk_Exposure_Assessment_filter.editorButton);
+      elementShouldNotExist(ESG_Risk_Exposure_Assessment_filter.editorModal);
 
       workflowPage.addCriteriaButton().click();
       workflowPage.criteriaInput().type(ESG_Risk_Exposure_Assessment_filter.criteria);
-      cy.get(`input[value='${ESG_Risk_Exposure_Assessment_filter.criteria}']`).check({ force: true });
+      checkFilterCriteria(ESG_Risk_Exposure_Assessment_filter.criteria);
       workflowPage.applyCriteriaButton().click();
 
-      cy.wait('@SUSTAIN_ANALYTICS');
+      cy.stausCode200('@SUSTAIN_ANALYTICS');
       cy.stausCode204('@LOGGER')
 
       cy.get(ESG_Risk_Exposure_Assessment_filter.editorButton).trigger("click");
@@ -91,15 +91,15 @@ describe('Add Filters', function () {
     
     it('ESG Risk Management Assessment filter', function () {
 
-      cy.get(ESG_Risk_Management_Assessment_filter.editorButton).should('not.exist');
-      cy.get(ESG_Risk_Management_Assessment_filter.editorModal).should('not.exist');
+      elementShouldNotExist(ESG_Risk_Management_Assessment_filter.editorButton);
+      elementShouldNotExist(ESG_Risk_Management_Assessment_filter.editorModal);
 
       workflowPage.addCriteriaButton().click();
       workflowPage.criteriaInput().type(ESG_Risk_Management_Assessment_filter.criteria);
-      cy.get(`input[value='${ESG_Risk_Management_Assessment_filter.criteria}']`).check({ force: true });
+      checkFilterCriteria(ESG_Risk_Management_Assessment_filter.criteria);
       workflowPage.applyCriteriaButton().click();
 
-      cy.wait('@SUSTAIN_ANALYTICS');
+      cy.stausCode200('@SUSTAIN_ANALYTICS');
       cy.stausCode204('@LOGGER')
 
       cy.get(ESG_Risk_Management_Assessment_filter.editorButton).trigger("click");
@@ -108,15 +108,15 @@ describe('Add Filters', function () {
     
     it('ESG Risk Rating Percentile Global filter', function () {
 
-      cy.get(ESG_Risk_Rating_Percentile_Global_filter.editorButton).should('not.exist');
-      cy.get(ESG_Risk_Rating_Percentile_Global_filter.editorModal).should('not.exist');
+      elementShouldNotExist(ESG_Risk_Rating_Percentile_Global_filter.editorButton);
+      elementShouldNotExist(ESG_Risk_Rating_Percentile_Global_filter.editorModal);
 
       workflowPage.addCriteriaButton().click();
       workflowPage.criteriaInput().type(ESG_Risk_Rating_Percentile_Global_filter.criteria);
-      cy.get(`input[value='${ESG_Risk_Rating_Percentile_Global_filter.criteria}']`).check({ force: true });
+      checkFilterCriteria(ESG_Risk_Rating_Percentile_Global_filter.criteria);
       workflowPage.applyCriteriaButton().click();
 
-      cy.wait('@SUSTAIN_ANALYTICS');
+      cy.stausCode200('@SUSTAIN_ANALYTICS');
       cy.stausCode204('@LOGGER')
 
       cy.get(ESG_Risk_Rating_Percentile_Global_filter.editorButton).trigger("click");
@@ -125,15 +125,15 @@ describe('Add Filters', function () {
     
     it('ESG Risk Rating Percentile Industry filter', function () {
 
-      cy.get(ESG_Risk_Rating_Percentile_Industry_filter.editorButton).should('not.exist');
-      cy.get(ESG_Risk_Rating_Percentile_Industry_filter.editorModal).should('not.exist');
+      elementShouldNotExist(ESG_Risk_Rating_Percentile_Industry_filter.editorButton);
+      elementShouldNotExist(ESG_Risk_Rating_Percentile_Industry_filter.editorModal);
 
       workflowPage.addCriteriaButton().click();
       workflowPage.criteriaInput().type(ESG_Risk_Rating_Percentile_Industry_filter.criteria);
-      cy.get(`input[value='${ESG_Risk_Rating_Percentile_Industry_filter.criteria}']`).check({ force: true });
+      checkFilterCriteria(ESG_Risk_Rating_Percentile_Industry_filter.criteria);
       workflowPage.applyCriteriaButton().click();
 
-      cy.wait('@SUSTAIN_ANALYTICS');
+      cy.stausCode200('@SUSTAIN_ANALYTICS');
       cy.stausCode204('@LOGGER')
 
       cy.get(ESG_Risk_Rating_Percentile_Industry_filter.editorButton).trigger("click");
@@ -142,15 +142,15 @@ describe('Add Filters', function () {
 
     it('ESG Risk Rating Percentile Sub Industry filter', function () {
 
-      cy.get(ESG_Risk_Rating_Percentile_Sub_Industry_filter.editorButton).should('not.exist');
-      cy.get(ESG_Risk_Rating_Percentile_Sub_Industry_filter.editorModal).should('not.exist');
+      elementShouldNotExist(ESG_Risk_Rating_Percentile_Sub_Industry_filter.editorButton);
+      elementShouldNotExist(ESG_Risk_Rating_Percentile_Sub_Industry_filter.editorModal);
 
       workflowPage.addCriteriaButton().click();
       workflowPage.criteriaInput().type(ESG_Risk_Rating_Percentile_Sub_Industry_filter.criteria);
-      cy.get(`input[value='${ESG_Risk_Rating_Percentile_Sub_Industry_filter.criteria}']`).check({ force: true });
+      checkFilterCriteria(ESG_Risk_Rating_Percentile_Sub_Industry_filter.criteria);
       workflowPage.applyCriteriaButton().click();
 
-      cy.wait('@SUSTAIN_ANALYTICS');
+      cy.stausCode200('@SUSTAIN_ANALYTICS');
       cy.stausCode204('@LOGGER')
 
       cy.get(ESG_Risk_Rating_Percentile_Sub_Industry_filter.editorButton).trigger("click");
@@ -159,18 +159,27 @@ describe('Add Filters', function () {
 
     it('ESG Risk Rating Highest Controversy filter', function () {
 
-      cy.get(ESG_Risk_Rating_Highest_Controversy_filter.editorButton).should('not.exist');
-      cy.get(ESG_Risk_Rating_Highest_Controversy_filter.editorModal).should('not.exist');
+      elementShouldNotExist(ESG_Risk_Rating_Highest_Controversy_filter.editorButton);
+      elementShouldNotExist(ESG_Risk_Rating_Highest_Controversy_filter.editorModal);
 
       workflowPage.addCriteriaButton().click();
       workflowPage.criteriaInput().type(ESG_Risk_Rating_Highest_Controversy_filter.criteria);
-      cy.get(`input[value='${ESG_Risk_Rating_Highest_Controversy_filter.criteria}']`).check({ force: true });
+      checkFilterCriteria(ESG_Risk_Rating_Highest_Controversy_filter.criteria);
       workflowPage.applyCriteriaButton().click();
 
-      cy.wait('@SUSTAIN_ANALYTICS');
+      cy.stausCode200('@SUSTAIN_ANALYTICS');
       cy.stausCode204('@LOGGER')
 
       cy.get(ESG_Risk_Rating_Highest_Controversy_filter.editorButton).trigger("click");
       cy.get(ESG_Risk_Rating_Highest_Controversy_filter.editorModal).should('be.visible');
-    }); 
+    });
+    
 });
+
+function elementShouldNotExist(element) {
+  cy.get(element).should('not.exist');
+}
+
+function checkFilterCriteria(criteria) {
+  cy.get(`input[value='${criteria}']`).check({ force: true });
+}

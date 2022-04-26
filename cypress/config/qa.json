@@ -9,5 +9,6 @@
   "retries": {
     "runMode": 4,
     "openMode": 0
-  }
+  },
+  "ignoreTestFiles": "smoke_tests/reporting/*"
 }
