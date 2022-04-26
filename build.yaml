@@ -15,6 +15,11 @@ parameters:
       - smoke-ultra
       - smoke-prod
       - qa-api
+      - qa-dashboard
+      - qa-meeting
+      - qa-report
+      - qa-user
+      - qa-workflow
 
 trigger:
   branches:
@@ -28,6 +33,12 @@ schedules:
     branches:
       include:
         - istvan_refactor_and_fixes
+  - cron: '0 17 * * 1-5'
+    displayName: 'API tests'
+    always: true
+    branches:
+      include:
+        - qa-api
 
 steps:
   - script: |

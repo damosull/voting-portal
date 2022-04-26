@@ -10,5 +10,5 @@
     "runMode": 5,
     "openMode": 0
   },
-  "testFiles": "smoke_tests/API/*"
+  "testFiles": "smoke_tests/workflow/*"
 }
