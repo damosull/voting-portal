@@ -10,7 +10,7 @@ describe('Generate Policy report,download and verify file headers', function () 
   });
 
   // Test scenario 37988 Policy report : https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
-  it(`Generate Policy Report`, function () {
+  it.skip(`Generate Policy Report`, function () {
     //select Policy report
     cy.selectReportType('Policy');
 

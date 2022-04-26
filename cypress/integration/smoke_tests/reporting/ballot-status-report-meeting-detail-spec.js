@@ -10,7 +10,7 @@ describe('ballot status report meeting detail page ', function () {
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
   });
 
-  it(`ballot status export PDF report`, function () {
+  it.skip(`ballot status export PDF report`, function () {
     cy.removeAllExistingSelectedCriteria();
 
     cy.AddMultipleCriteria(['Decision Status']);

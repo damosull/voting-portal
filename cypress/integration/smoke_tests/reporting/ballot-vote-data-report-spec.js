@@ -11,7 +11,7 @@ describe('Generate ballot vote data report, download and verify file', function 
   });
 
   // Test scenario: 37962 https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
-  it(`Generate Report`, function () {
+  it.skip(`Generate Report`, function () {
     cy.wait('@BALLOT_RECONCILIATION');
     cy.contains('Ballot Vote Data').click();
     cy.wait('@BALLOT_VOTE');

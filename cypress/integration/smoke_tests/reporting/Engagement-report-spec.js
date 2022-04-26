@@ -10,7 +10,7 @@ describe('Generate Engagement report,download and verify file headers', function
   });
 
   // Test scenario 37963 : https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
-  it(`Generate Report`, function () {
+  it.skip(`Generate Report`, function () {
     cy.selectReportType('Engagement');
 
     cy.wait('@ENGAGEMENT');

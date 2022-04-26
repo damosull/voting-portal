@@ -25,7 +25,7 @@ describe('Report', () => {
   });
 
   //Test scenario 37939 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
-  it(`- Voting Activity ${upperFileExt}`, () => {
+  it.skip(`- Voting Activity ${upperFileExt}`, () => {
     //cy.wait('@BallotRecon');
 
     // step 2 (these are the steps referenced in the test case)

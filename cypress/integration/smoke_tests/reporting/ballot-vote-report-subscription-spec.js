@@ -18,7 +18,7 @@ describe('Create Ballot Vote Subscription entry and validate in SB_Subscription 
   });
 
   // Test scenario: 40409 https://dev.azure.com/glasslewis/Development/_workitems/edit/40409
-  it(`Save Configuration and create Subscription`, function () {
+  it.skip(`Save Configuration and create Subscription`, function () {
     cy.wait('@BALLOT_RECONCILIATION');
     cy.contains('Ballot Vote Data').click();
     cy.wait('@BALLOT_VOTE');

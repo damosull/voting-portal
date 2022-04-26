@@ -7,7 +7,7 @@ describe('Generate basic excel report,download and verify file headers', functio
   });
 
   //Gererate report additional
-  it(`Generate Report`, function () {
+  it.skip(`Generate Report`, function () {
     cy.wait('@BALLOT_RECONCILIATION');
     cy.AddMultipleCriteria(['Policy ID'], true);
 
