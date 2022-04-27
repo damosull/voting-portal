@@ -4,13 +4,6 @@ resources:
   repositories:
     - repository: self
 
-strategy:
-  matrix:
-    Run1:
-      myvar: qa-api
-    Run2:
-      myvar: qa-dashboard
-
 parameters:
   - name: configuration
     displayName: Configuration
