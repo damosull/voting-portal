@@ -4,6 +4,13 @@ resources:
   repositories:
     - repository: self
 
+strategy:
+  matrix:
+    Run1:
+      myvar: qa-api
+    Run2:
+      myvar: qa-dashboard
+
 parameters:
   - name: configuration
     displayName: Configuration
@@ -33,12 +40,6 @@ schedules:
     branches:
       include:
         - istvan_refactor_and_fixes
-  - cron: '0 17 * * 1-5'
-    displayName: 'API tests'
-    always: true
-    branches:
-      include:
-        - qa-api
 
 steps:
   - script: |

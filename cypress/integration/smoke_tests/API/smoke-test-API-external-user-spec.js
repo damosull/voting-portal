@@ -1,8 +1,13 @@
 import '../../../support/commands.js';
 const { USER } = require("../../../support/constants");
-const unixTime = Math.floor(Date.now() / 1000);
 var baseUrl;
-var token;
+
+const testUser = {
+    UserId: 11927,
+    CustomerId: 196,
+    LoginId: "automation_calpers@glasslewis.com",
+    FullName: "CalPERS | ExtAdmin Automation QaUat"
+}
 
 //Go through the pages to check if the proper API loading without interaction.
 describe('Smoke test - External user', function () {
@@ -11,66 +16,21 @@ describe('Smoke test - External user', function () {
         baseUrl = Cypress.config().baseUrl;
     });
    
-    it.only('Done - Workflow page API loaded', function () {
+    it('Done - Workflow page API loaded', function () {
         cy.visit('/Workflow');
-        
-        cy.request('/Workflow').its('body').then((body) => {
-            const $html = Cypress.$(body);
-            token = $html.find('input[name=csrf-token]').val();
-            cy.log("1.token: " + token);
-        });
 
-        /*
-        cy.get('#csrf-token').invoke('attr', 'value').then(csrftoken =>{
-            cy.log(csrftoken);
-            token = csrftoken;
-        });
-        */
+        cy.get("#logged-in-user").invoke("text");
 
-        cy.log("2.token: " + token);
-
-        cy.getAutomationUserIDFromDB(USER.AUTOMATIONEXTERNAL).as('userid');
         cy.stausCode200('@CURRENT_USER');
-
         cy.get("@CURRENT_USER").should(xhr => {
-            cy.log(xhr.response.body.LoginId);
+            expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
         });
 
-        cy.get('@CURRENT_USER').then((response) => {
-
-            var csrftoken = response.request.headers.csrftoken;
-            cy.wrap(csrftoken).as('csrftoken');
-
-            }).get('@csrftoken').then((token) => {
-                cy.request({
-                    method: 'GET',
-                    url: baseUrl + '/Api/Data/CurrentUser/?_=' + unixTime,
-                    headers: {
-                        CSRFToken: token,
-                        }
-                            }).then((response) => {
-                                expect(response.status).to.eq(200);
-                                cy.get('#logged-in-user').should('have.text', response.body.FullName);
-                                expect(response.body.LoginId).to.eq(USER.AUTOMATIONEXTERNAL);
-                            })
-                    })
-
-        cy.get('@userid').then((uid) => {
-            cy.get('@csrftoken').then((token) => {
-            cy.request({
-                method: 'GET',
-                url: baseUrl + '/Api/Data//Spa?_=' + unixTime,
-                headers: {
-                    CSRFToken: token,
-                }
-            }).then((response) => {
-                expect(response.status).to.eq(200);
-                expect(response.body.PageToRender).to.eq(1);
-                
-                expect(response.body.UserId).to.eq(uid);
-                        })
-                })
-        })
+        cy.stausCode200('@SPA');
+        cy.get("@SPA").should(xhr => {
+            expect(xhr.response.body.UserId).to.eq(testUser.UserId);
+            expect(xhr.response.body.CustomerId).to.eq(testUser.CustomerId);
+        });
 
         cy.stausCode200('@GET_MARKUP_WORKFLOW')
         cy.stausCode200('@DASHBOARD_MARKUP')
@@ -86,10 +46,9 @@ describe('Smoke test - External user', function () {
         cy.stausCode200('@WORKFLOW_FILTER_CRITERIA_EDITORS')
         cy.stausCode200('@DATE_RANGE_KNOCKOUT_BINDINGS')
         cy.stausCode200('@DATE_RANGE')
-        
         cy.stausCode204('@LOGGER')
-        cy.stausCode200('@WORKFLOW_EXPANSION')
 
+        cy.stausCode200('@WORKFLOW_EXPANSION')
         cy.get("@WORKFLOW_EXPANSION").should(xhr => {
             const parseObj = JSON.parse(xhr.response.body)
             cy.log("pages number: " + parseObj.pages);
@@ -109,8 +68,17 @@ describe('Smoke test - External user', function () {
         cy.visit('/Dashboard');
         
         //23
-        cy.stausCode200('@CURRENT_USER')
+        cy.stausCode200('@CURRENT_USER');
+        cy.get("@CURRENT_USER").should(xhr => {
+            expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
+        });
+
         cy.stausCode200('@SPA')
+        cy.get("@SPA").should(xhr => {
+            expect(xhr.response.body.UserId).to.eq(testUser.UserId);
+            expect(xhr.response.body.CustomerId).to.eq(testUser.CustomerId);
+        });
+
         cy.stausCode200('@GET_MARKUP_WORKFLOW')
         cy.stausCode200('@DASHBOARD_MARKUP')
         cy.stausCode200('@DASHBOARD')
@@ -142,6 +110,10 @@ describe('Smoke test - External user', function () {
         
         // 6
         cy.stausCode200('@CURRENT_USER')
+        cy.get("@CURRENT_USER").should(xhr => {
+            expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
+        });
+
         cy.stausCode200('@REPORTS_DEFAULT_DATA')
         cy.stausCode200('@BALLOT_RECONCILIATION')
         cy.stausCode200('@DATE_RANGE_KNOCKOUT_BINDINGS')
@@ -156,6 +128,10 @@ describe('Smoke test - External user', function () {
         
         // 35
         cy.stausCode200('@CURRENT_USER');
+        cy.get("@CURRENT_USER").should(xhr => {
+            expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
+        });
+
         cy.stausCode200('@SETTINGS_READ');
         cy.stausCode200('@GET_CUSTOMER_SETTINGS');
         cy.stausCode200('@RATIONALE_LIBRARY');
@@ -199,6 +175,10 @@ describe('Smoke test - External user', function () {
 
         // 2
         cy.stausCode200('@CURRENT_USER');
+        cy.get("@CURRENT_USER").should(xhr => {
+            expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
+        });
+
         cy.stausCode200('@PASSWORD_VALIDATOR_SETUP');
         
     });
@@ -210,6 +190,10 @@ describe('Smoke test - External user', function () {
         // 4
         cy.stausCode200('@CURRENT_USER');
         cy.stausCode200('@CURRENT_USER');
+        cy.get("@CURRENT_USER").should(xhr => {
+            expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
+        });
+        
         cy.stausCode204('@LOGGER');
         cy.stausCode200('@GET_AUTHENTICATED_USER');
         
@@ -221,6 +205,10 @@ describe('Smoke test - External user', function () {
 
         // 14
         cy.stausCode200('@CURRENT_USER');
+        cy.get("@CURRENT_USER").should(xhr => {
+            expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
+        });
+
         cy.stausCode204('@LOGGER');
         cy.stausCode204('@LOGGER');
         cy.stausCode204('@LOGGER');
@@ -243,6 +231,10 @@ describe('Smoke test - External user', function () {
 
         // 3
         cy.stausCode200('@CURRENT_USER');
+        cy.get("@CURRENT_USER").should(xhr => {
+            expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
+        });
+
         cy.stausCode200('@CUSTOM_FIELDS')
         cy.stausCode200('@CUSTOM_FIELDS_2')
         
@@ -254,6 +246,10 @@ describe('Smoke test - External user', function () {
 
         // 7
         cy.stausCode200('@CURRENT_USER');
+        cy.get("@CURRENT_USER").should(xhr => {
+            expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
+        });
+
         cy.stausCode200('@POSHYTIP');
         cy.stausCode200('@POSHYTIP_EDITABLE');
         cy.stausCode200('@CUSTOMER_DETAILS')
@@ -268,6 +264,10 @@ describe('Smoke test - External user', function () {
 
         // 7
         cy.stausCode200('@CURRENT_USER');
+        cy.get("@CURRENT_USER").should(xhr => {
+            expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
+        });
+
         cy.stausCode200('@CUSTOMER_DETAILS')
         cy.stausCode200('@FILTER_PREFERENCE')
         cy.stausCode200('@LIST_SERVICE_VP_ONLY_WATCHLIST')
@@ -283,6 +283,10 @@ describe('Smoke test - External user', function () {
 
         // 3
         cy.stausCode200('@CURRENT_USER');
+        cy.get("@CURRENT_USER").should(xhr => {
+            expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
+        });
+
         cy.stausCode200('@GET_USER_LIST')
         cy.stausCode200('@USER_PROFILE_HTML')
         
@@ -294,6 +298,10 @@ describe('Smoke test - External user', function () {
     
         // 4
         cy.stausCode200('@CURRENT_USER')
+        cy.get("@CURRENT_USER").should(xhr => {
+            expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
+        });
+
         cy.stausCode200('@SEARCH_TOOLBAR')
         cy.stausCode200('@WATCHLIST')
         cy.stausCode200('@WATCHLIST_SECURITIES');
