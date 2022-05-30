@@ -1,9 +1,25 @@
+/*
+Story:
+The voting portal is heavily depends on the API calls
+
+Criteria:
+- Two tests for internal and external users
+- No modifications on the page just check
+- Primary function: Check if the page and given APIs loaded
+    - Assumption: The page is loaded when all the API is loaded
+- Later: Check the incoming API data and compare it what is on the page
+
+Advantages:
+- Quite fast feedback (5-10 min depends on failed tests)
+- We can use the APIs calls later as an explicit waits
+*/
+
 import '../../../support/commands.js';
 const { USER } = require("../../../support/constants");
 var baseUrl;
 
 const testUser = {
-    UserId: 11927,
+    UserId: 12095,
     CustomerId: 196,
     LoginId: "automation_calpers@glasslewis.com",
     FullName: "CalPERS | ExtAdmin Automation QaUat"
