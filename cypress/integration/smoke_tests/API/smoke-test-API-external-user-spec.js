@@ -19,7 +19,7 @@ const { USER } = require("../../../support/constants");
 var baseUrl;
 
 const testUser = {
-    UserId: 12095,
+    UserId: 12204,
     CustomerId: 196,
     LoginId: "automation_calpers@glasslewis.com",
     FullName: "CalPERS | ExtAdmin Automation QaUat"

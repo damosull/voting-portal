@@ -27,12 +27,12 @@ trigger:
       - master
 
 schedules:
-  - cron: '0 10,12,14,16 * * 1-5'
+  - cron: '0 18 * * *'
     displayName: 'Nightly Build at 18:00'
     always: true
     branches:
       include:
-        - istvan_refactor_and_fixes
+        - master
 
 steps:
   - script: |
