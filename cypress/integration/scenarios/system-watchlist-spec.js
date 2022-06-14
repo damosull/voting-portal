@@ -1,20 +1,18 @@
-//Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
-describe('Watchlist Assignment tests', function () {
-  let meetingId;
-  let meetingName;
-  beforeEach(function () {
-    cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-    cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists').as('WorkflowSecuritiesWatchlists');
-    cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('AvailableAssigneesForCustomer');
-  });
+const { USER } = require("../../support/constants");
 
-  it('Internal User - Select Calpers meeting and add System Watch list', function () {
-    cy.loginInternalAdm('AutomationInternal');
+let meetingId;
+let meetingName;
+
+describe('Watchlist Assignment tests', function () {
+
+  //Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
+  it.skip('Internal User - Select Calpers meeting and add System Watch list', function () {
+    cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
 
     cy.visit('/Workflow');
 
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
     cy.get('.customerName-Search .k-input').type('CAL', { force: true });
     cy.get('#kendoCustomers-list .k-item').first().click({ force: true });
@@ -23,10 +21,10 @@ describe('Watchlist Assignment tests', function () {
     cy.get('input[value="System Watch List(s)"]').check({ force: true });
     cy.get('#txt-filter-col-name').clear();
     cy.get('#btn-apply-configure-columns').click();
-    cy.wait('@WorkflowExpansion');
+    cy.wait('@WORKFLOW_EXPANSION');
     cy.get('#btn-scroll-end').click({ waitForAnimations: false });
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
     cy.get('table > tbody >tr').then(($rows) => {
       $rows.each((index, value) => {
@@ -61,22 +59,23 @@ describe('Watchlist Assignment tests', function () {
     });
     cy.get('#md-btn-update-security-watchlists').click({ force: true });
     cy.get('span[data-bind="text: SecurityWatchlistsCount"]').eq(1).should('have.text', '1');
-  }); //end it
+  });
 
-  it('External User - Verify System watch list', function () {
-    cy.loginExtAdm('Calpers');
+  //Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
+  it.skip('External User - Verify System watch list', function () {
+    cy.loginWithAdmin(USER.CALPERS);
 
     cy.visit('/Workflow');
 
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
     cy.get('#btn-workflow-config-columns').click();
     cy.get('#txt-filter-col-name').type('System Watch List(s)');
     cy.get('input[value="System Watch List(s)"]').check({ force: true });
     cy.get('#txt-filter-col-name').clear();
     cy.get('#btn-apply-configure-columns').click({ force: true });
-    cy.wait('@WorkflowExpansion');
+    cy.wait('@WORKFLOW_EXPANSION');
     cy.get('#btn-scroll-end').click({ waitForAnimations: false });
     cy.RemoveCriteriaIfExists('#editorDiv10', '#remove-editorDiv10');
     cy.RemoveCriteriaIfExists('#editorDiv49', '#remove-editorDiv49');
@@ -100,8 +99,9 @@ describe('Watchlist Assignment tests', function () {
     cy.get('span[data-bind="text: SecurityWatchlistsCount"]').eq(1).should('have.text', '1');
   });
 
-  it('Internal User - verify meeting system watch list and deselect', function () {
-    cy.loginInternalAdm('AutomationInternal');
+  //Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
+  it.skip('Internal User - verify meeting system watch list and deselect', function () {
+    cy.loginWithAdmin(USER.AUTOMATIONINTERNAL);
 
     cy.visit(meetingId);
 
@@ -114,8 +114,8 @@ describe('Watchlist Assignment tests', function () {
     //uncheck system watchlist column
     cy.visit('/Workflow');
 
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@WORKFLOW_EXPANSION');
+    cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
 
     cy.get('#btn-workflow-config-columns').click();
     cy.get('#txt-filter-col-name').type('System Watch List(s)');
@@ -123,4 +123,4 @@ describe('Watchlist Assignment tests', function () {
     cy.get('#txt-filter-col-name').clear();
     cy.get('#btn-apply-configure-columns').click();
   });
-}); //end describe
+});

@@ -1,0 +1,14 @@
+{
+  "reporter": "junit",
+  "baseUrl": "https://viewpoint.aqua.glasslewis.com",
+  "reporterOptions": {
+    "mochaFile": "test-results/tests-output/result-[hash].xml"
+  },
+  "screenshotOnRunFailure" : false,
+  "video": false,
+  "retries": {
+    "runMode": 5,
+    "openMode": 0
+  },
+  "testFiles": "smoke_tests/workflow/*"
+}

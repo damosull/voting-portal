@@ -7,7 +7,7 @@
   "screenshotOnRunFailure" : true,
   "video": false,
   "retries": {
-    "runMode": 1,
+    "runMode": 4,
     "openMode": 0
   }
 }

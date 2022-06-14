@@ -1,7 +1,7 @@
 {
-  "defaultCommandTimeout": 120000,
-  "requestTimeout": 120000,
-  "responseTimeout": 120000,
+  "defaultCommandTimeout": 30000,
+  "requestTimeout": 30000,
+  "responseTimeout": 30000,
   "chromeWebSecurity": false,
   "screenshotsFolder": "test-results/screenshots",
   "videosFolder": "test-results/videos",
@@ -14,7 +14,7 @@
     "**/*-spec.js"
   ],
   "retries": {
-    "runMode": 1,
+    "runMode": 4,
     "openMode": 0
   },
   "db": {
