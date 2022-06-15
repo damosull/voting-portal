@@ -11,7 +11,8 @@ class usersPageItems{
     customerNameDropDownID = "tbody > tr > td > select"
     userRoleID = "tbody > tr > td > select"
     doneButtonID = "[type=submit]"
-    
+    successMessageClass = ".toast-message"
+
     constructor() {
     }
 
@@ -38,6 +39,9 @@ class usersPageItems{
     }
     userRole() {
         return cy.get(this.userRoleID).eq(1);
+    }
+    successMessage() {
+        return cy.get(this.successMessageClass);
     }
 }
 

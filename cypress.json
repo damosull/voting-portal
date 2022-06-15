@@ -10,8 +10,7 @@
   "watchForFileChanges": false,
   "experimentalSessionSupport": true,
   "testFiles": [
-    "**/*.feature",
-    "**/*-spec.js"
+    "**/*.feature"
   ],
   "retries": {
     "runMode": 4,
