@@ -1,4 +1,4 @@
-Feature: Engagement permissions
+Feature: Dashboard related tests
 
     Background:
         Given I login as Calpers User
