@@ -11,14 +11,14 @@ Given('I login as Calpers User', () => {
 
 });
 
-When('Navigate to the Dashboard page', () => {
+When('I navigate to the Dashboard page', () => {
 
   cy.visit('/Dashboard');
 
 });
 
 /* Create Dashboard Subscription - Test scenario:40490 https://dev.azure.com/glasslewis/Development/_workitems/edit/40490 */
-Then('Select Subscriptions link', () => {
+Then('I select Subscriptions link', () => {
 
   cy.get('#subscriptions-container > h3').should('include.text', 'Subscriptions').click();
   cy.get('body').then(($body) => {
@@ -30,7 +30,7 @@ Then('Select Subscriptions link', () => {
 
 });
 
-And('Click Add Subscription button', () => {
+And('I click Add Subscription button', () => {
 
   cy.get('#subscriptions-container > div.collapse.expand-collapse > div > span > a')
     .should('include.text', 'Add Subscription')
@@ -39,19 +39,19 @@ And('Click Add Subscription button', () => {
 
 });
 
-And('Select Calpers External Admin from Users list', () => {
+And('I select Calpers External Admin from Users list', () => {
 
   cy.get('.k-multiselect-wrap.k-floatwrap').type('Cal{downarrow}{enter}');
 
 });
 
-And('Enter Filename DashboardTest', () => {
+And('I enter Filename DashboardTest', () => {
 
   cy.get('#subscribed-file-name').type('DashboardTest');
 
 });
 
-And('Enter Schedule to run Subscription', () => {
+And('I enter Schedule to run Subscription', () => {
 
   // Daily, every 5 hours, 9AM to 6PM
   cy.get('#schedule-type').select('0');
@@ -65,7 +65,7 @@ And('Enter Schedule to run Subscription', () => {
     
 })
 
-And('Enter Subject,header & footer', () => {
+And('I enter Subject,header & footer', () => {
 
   cy.get('#dashboard-scubscription-detail-subject').type('DashboardSubjectTest');
   cy.get('#dashboard-scubscription-detail-header').type('TestHeader');
@@ -73,19 +73,19 @@ And('Enter Subject,header & footer', () => {
 
 });
 
-And('Click OK', () => {
+And('I click OK', () => {
 
   cy.get('#ok').click();
 
 });
 
-And('Verify Toast message - Subscription added', () => {
+Then('I verify Toast message - Subscription added', () => {
 
   cy.get('.toast-message').should('contain.text', messages.toast.SUBSCRIPTION_ADDED);
 
 });
 
-And('Connect to Aqua Database and verify new row has been added to SB_Subscription table', () => {
+And('I connect to Aqua Database and verify new row has been added to SB_Subscription table', () => {
 
   // Step 11 - Connect to Aqua Database and verify new row has been added to SB_Subscription table
   cy.executeQuery('SELECT TOP 1 * FROM SB_Subscription ORDER BY SubscriptionID DESC').then((result) => {
@@ -135,7 +135,7 @@ And('Connect to Aqua Database and verify new row has been added to SB_Subscripti
 
 });
 
-And('Remove Subscription entry from Viewpoint', () => {
+And('I remove Subscription entry from Viewpoint', () => {
 
   cy.get('#current-subscribers-list > tbody > tr > td > i[class="fa fa-times"]').eq(1).click();
   cy.get('#apprise-btn-confirm').click();
@@ -144,7 +144,7 @@ And('Remove Subscription entry from Viewpoint', () => {
 
 /* Validate Dashboard - Test scenario:39541 https://dev.azure.com/glasslewis/Development/_workitems/edit/39541 */
 
-Then('Verify sidebar links', () => {
+Then('I verify sidebar links', () => {
 
   cy.get('#workflow-filter-list > div > h5').eq(0).should('include.text', 'My dashboards')
   cy.get('#workflow-filter-list > div > h5').eq(1).should('include.text', 'Default dashboard')
@@ -153,13 +153,13 @@ Then('Verify sidebar links', () => {
 
 });
 
-And('Verify Upcoming Meetings highlighted', () => {
+And('I verify Upcoming Meetings highlighted', () => {
 
   cy.get('.highlightedFilter').should('include.text', 'Upcoming Meetings')
 
 });
 
-And('Verify heading buttons and links', () => {
+And('I verify heading buttons and links', () => {
       
   cy.get('#btn-report-save-as').should('be.visible').should('have.text', 'Save As')
   cy.get('#btn-dashboard-config-widgets').should('be.visible')
@@ -172,7 +172,7 @@ And('Verify heading buttons and links', () => {
   
 });
 
-And('Verify Widget headers', () => {
+And('I verify Widget headers', () => {
         
   cy.get('div.row.handler.widget-header').eq(0).find('.floatleft').should('include.text', 'Workflow: Upcoming Meetings')
   cy.get('div.row.handler.widget-header').eq(1).find('.floatleft').should('include.text', 'Workflow: Upcoming Meetings')
@@ -181,7 +181,7 @@ And('Verify Widget headers', () => {
 
 });
 
-And('Verify each widget has edit and remove buttons', () => {
+And('I verify each widget has edit and remove buttons', () => {
 
   cy.get('div.row.handler.widget-header').each((widget) => {
     cy.wrap(widget).find('div > a[title="Settings"]').should('be.visible')
@@ -190,14 +190,14 @@ And('Verify each widget has edit and remove buttons', () => {
 
 });
 
-And('Verify Subscriptions', () => {
+And('I verify Subscriptions', () => {
 
   cy.get('#subscriptions-container > h3').should('include.text', 'Subscriptions').click()
   cy.get('#subscriptions-container > div.collapse.expand-collapse > div > span > a').should('include.text', 'Add Subscription')
 
 });
 
-And('Add a widget', () => {
+And('I add a widget', () => {
 
   cy.get('#btn-dashboard-config-widgets').click({ force: true })
   cy.get('#results-list > li > div > input[value="Previews"]').check({ force: true })
@@ -206,7 +206,7 @@ And('Add a widget', () => {
 
 });
 
-And('Check dropdown values selectable', () => {
+And('I check dropdown values selectable', () => {
 
   cy.get('.clearboth.widget-settings-layout > div > select').eq(8)
       .select('Single')
@@ -230,14 +230,14 @@ And('Check dropdown values selectable', () => {
 
 });
 
-And('Select certain values', () => {
+And('I select certain values', () => {
 
   cy.get('div.row.center > button.secondary.blue').eq(4).click({ force: true })
   cy.wait('@DOCUMENTS_DATA')
 
 });
 
-And('Check returned table headers', () => {
+And('I check returned table headers', () => {
 
   cy.get('.dashboard-documents-content > table >thead >tr').within(() => {
       cy.get('td').eq(0).contains('COUNTRY/MARKET')
@@ -248,7 +248,7 @@ And('Check returned table headers', () => {
 });
 
 
-And('Remove widget', () => {
+And('I remove widget', () => {
   
   cy.get('div.row.handler.widget-header').eq(4).then((wdgt) => {
     cy.wrap(wdgt).find('div > a[title="Settings"]').should('be.visible')
