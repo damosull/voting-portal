@@ -197,6 +197,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('GET', API.GET.POLICY).as('POLICY');
   cy.intercept('GET', API.GET.POSHYTIP).as('POSHYTIP');
   cy.intercept('GET', API.GET.POSHYTIP_EDITABLE).as('POSHYTIP_EDITABLE');
+  cy.intercept('GET', API.GET.RANGE_SLIDER).as('RANGE_SLIDER');
   cy.intercept('GET', API.GET.RATIONALE_LIBRARY).as('RATIONALE_LIBRARY');
   cy.intercept('GET', API.GET.RELATED_MEETINGS).as('RELATED_MEETINGS');
   cy.intercept('GET', API.GET.REPORT_TYPE).as('REPORT_TYPE');
@@ -630,3 +631,9 @@ Cypress.Commands.add('stausCode200', (param) => {
 Cypress.Commands.add('stausCode204', (param) => {
     cy.wait(param).its('response.statusCode').should('eq', 204);
 });
+
+//This will override the type command to have no delay, improving execution time
+Cypress.Commands.overwrite('type', (originalFn, subject, text, options = {}) => {
+  options.delay = options.delay || 0
+  return originalFn(subject, text, options)
+})

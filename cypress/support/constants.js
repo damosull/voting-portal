@@ -193,6 +193,7 @@ export const API = {
     POLICY: '**/Api/Data/Policy/**',
     POSHYTIP: '**/Scripts/jquery.poshytip.js?_=**',
     POSHYTIP_EDITABLE: '**/Scripts/jquery-editable-poshytip.min.js?_=**',
+    RANGE_SLIDER: '**/Scripts/EditorControls/Common/RangeSlider**',
     RATIONALE_LIBRARY: '**/Api/Data/RationaleLibrary/**',
     RELATED_MEETINGS: '**/Api/Data/RelatedMeetings/?QueryValue=**',
     REPORT_TYPE: '**/Api/Data/Inbox/?Top=0&IsNew=true&IsQueryOnly=true&**',

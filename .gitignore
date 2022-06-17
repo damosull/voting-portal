@@ -1,7 +1,6 @@
 # Ignore the videos and screenshots
-/**/test-results
+test-results
 node_modules
 cypress.env.json
 downloads
-# Cucumber Test Results
-cucumber-json/
+cypress/fixtures

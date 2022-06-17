@@ -1,4 +1,4 @@
-Feature: Smoke Tests pertaining to the User Workflow on Voting Portal
+Feature: Smoke Tests pertaining to the User Login and Functionalities on Voting Portal
 
 
   Scenario: Verify internal user is able to login successfully with a valid username and password
