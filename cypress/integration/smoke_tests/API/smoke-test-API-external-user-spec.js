@@ -62,7 +62,7 @@ describe('Smoke test - External user', function () {
         cy.stausCode200('@WORKFLOW_FILTER_CRITERIA_EDITORS')
         cy.stausCode200('@DATE_RANGE_KNOCKOUT_BINDINGS')
         cy.stausCode200('@DATE_RANGE')
-        cy.stausCode204('@LOGGER')
+        //cy.stausCode204('@LOGGER')
 
         cy.stausCode200('@WORKFLOW_EXPANSION')
         cy.get("@WORKFLOW_EXPANSION").should(xhr => {
@@ -162,7 +162,7 @@ describe('Smoke test - External user', function () {
         cy.stausCode200('@GET_AGENDA');
         cy.stausCode200('@WORKFLOW_RESEARCH_INFO');
         cy.stausCode200('@RELATED_MEETINGS');
-        cy.stausCode204('@LOGGER');
+        //cy.stausCode204('@LOGGER');
         cy.stausCode200('@MEETING_SECURITY_WATCHLIST');
         cy.stausCode200('@META_BALLOTS_GRID');
         cy.stausCode200('@BALLOTS_GRID_STATE');
@@ -210,7 +210,7 @@ describe('Smoke test - External user', function () {
             expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
         });
         
-        cy.stausCode204('@LOGGER');
+        //cy.stausCode204('@LOGGER');
         cy.stausCode200('@GET_AUTHENTICATED_USER');
         
     });
@@ -225,17 +225,17 @@ describe('Smoke test - External user', function () {
             expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
         });
 
-        cy.stausCode204('@LOGGER');
-        cy.stausCode204('@LOGGER');
-        cy.stausCode204('@LOGGER');
+        //cy.stausCode204('@LOGGER');
+        //cy.stausCode204('@LOGGER');
+        //cy.stausCode204('@LOGGER');
         cy.stausCode200('@CUSTOMER_DETAILS')
         cy.stausCode200('@ACCOUNTS_GRID_STATE')
-        cy.stausCode204('@LOGGER');
+        //cy.stausCode204('@LOGGER');
         cy.stausCode200('@GET_ACCOUNT_FILTERS_BY_SCREEN_ID');
         cy.stausCode200('@FILTER_CRITERIA_EDITORS');
         cy.stausCode200('@WEBUIRES_MULTI_SELECT_STATIC')
-        cy.stausCode204('@LOGGER');
-        cy.stausCode204('@LOGGER');
+        //cy.stausCode204('@LOGGER');
+        //cy.stausCode204('@LOGGER');
         cy.stausCode200('@ACCOUNTS_NEW')
         cy.stausCode200('@LIST_SERVICE_ACCOUNT_STATUS_CODE')
 
