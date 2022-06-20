@@ -234,6 +234,13 @@ When('I search for a company on the search bar and choose meetings', () => {
 
 Then('I should be navigated to the Meeting Details page', () => {
   cy.url().should('include', '/MeetingDetails/Index/')
+  cy.wait('@GET_MEETING_ID')
+  cy.wait('@RELATED_MEETINGS')
+  cy.wait('@GET_AGENDA')
+  cy.wait('@PAGE_SECTION_ORDER')
+  cy.wait('@MEETING_SECURITY_WATCHLIST')
+  cy.wait('@ASSIGNED_MEETING_ID')
+  cy.wait('@VOTE_TALLY')
   cy.get('#company-navigate').should('have.text', 'International Breweries Plc')
 })
 
@@ -399,7 +406,7 @@ Then('I am able to add meeting note and post private comment', () => {
 When('I try to add the first four available Sustainalytics ESG columns', () => {
   cy.get('#btn-workflow-config-columns').click()
   fourEsgColumns.forEach((column) => {
-    cy.get('#txt-filter-col-name').fill(column)
+    cy.get('#txt-filter-col-name').type(column)
     cy.get(`input[value='${column}']`).check({ force: true })
     cy.get('#txt-filter-col-name').clear()
   })
@@ -436,7 +443,7 @@ When('I try to add the remaining three Sustainalytics ESG columns', () => {
   cy.get('#btn-workflow-config-columns').click()
 
   threeEsgColumns.forEach((column) => {
-      cy.get('#txt-filter-col-name').fill(column)
+      cy.get('#txt-filter-col-name').type(column)
       cy.get(`input[value='${column}']`).check({ force: true })
       cy.get('#txt-filter-col-name').clear()
     })

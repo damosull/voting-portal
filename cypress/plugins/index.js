@@ -20,6 +20,7 @@ const del = require('del');
 const sqlServer = require('cypress-sql-server');
 const dbConfig = require('../../cypress.json');
 const cucumber = require('cypress-cucumber-preprocessor').default
+const reportGenerator = require('../support/cucumber-html-reporter')
 
 function getConfigurationByFile(file) {
   const pathToConfigFile = path.resolve('cypress', 'config', `${file}.json`);
@@ -59,6 +60,11 @@ module.exports = (on, config) => {
       }
     }
   });
+
+  on('after:run', (results) => {
+    console.log(results.totalPassed, 'out of', results.totalTests, 'passed. tests were run on ', results.config.baseUrl)
+    reportGenerator.reportGenerate()
+  })
 
   const file = config.env.configFile || 'development';
   return getConfigurationByFile(file);

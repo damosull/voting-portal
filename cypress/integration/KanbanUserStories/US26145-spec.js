@@ -1,6 +1,8 @@
 import { MEETINGID, USER } from '../../support/constants';
 
-const moment = require('moment');
+const dayjs = require('dayjs');
+var utc = require('dayjs/plugin/utc')
+dayjs.extend(utc)
 const selector = '#ballotActivityLogGrid > div > table > tbody > tr:nth-child(1) > td';
 const statusToChange = 'Received';
 const glassAPI = 'https://aqua-issuer-vote-confirmation-api.azurewebsites.net/api/Ballot/';
@@ -84,9 +86,8 @@ describe('US26145', () => {
         expect(resp.status).to.eq(200);
         const originalDate = resp.body[0].lastModifiedDate;
         // Convert the date to the offset and format that Viewpoint shows in the UI
-        //const formattedDate = moment(originalDate).utcOffset('+0700').format('MM/DD/YYYY HH:mm:ss');
-        const formattedDate = moment(originalDate).format('MM/DD/YYYY');
-        const formattedTime = moment(originalDate).utcOffset('+0700').format('HH:mm:ss');
+        const formattedDate = dayjs(originalDate).format('MM/DD/YYYY');
+        const formattedTime = dayjs.utc(originalDate).utcOffset('+0800').format('HH:mm:ss');
         let leadingZeros = formattedDate.replace(/\b0/g, '');
         let finalDate = `${leadingZeros} ${formattedTime}`;
 

@@ -4,9 +4,9 @@
   "description": "In this repo will be developed cypress tests for Voting Portal.",
   "main": "index.js",
   "devDependencies": {
+    "cucumber-html-reporter": "5.5.0",
     "cypress": "^9.7.0",
     "cypress-cucumber-preprocessor": "^4.3.0",
-    "cypress-fill-command": "^1.0.2",
     "cypress-grep": "^2.5.3",
     "cypress-sql-server": "^1.0.0",
     "del": "^6.0.0",
@@ -19,7 +19,7 @@
     "nonGlobalStepDefinitions": true,
     "cucumberJson": {
       "generate": true,
-      "outputFolder": "cypress/test-results/cucumber/cucumber-json",
+      "outputFolder": "test-results/cucumber/cucumber-json",
       "filePrefix": "",
       "fileSuffix": ".cucumber"
     }
@@ -29,7 +29,7 @@
     "cy:run": "cypress run",
     "cy:run:qa": "cypress run --env configFile=qa",
     "lint": "eslint cypress",
-    "cy:clean": "rmdir /s /q cypress\\downloads",
+    "precy:run": "rmdir /s /q test-results",
     "cy:run:smoke": "cypress run --env grepTags=@smoke"
   },
   "repository": {
@@ -38,10 +38,5 @@
   },
   "author": "",
   "license": "ISC",
-  "keywords": [],
-  "dependencies": {
-    "cosmiconfig": "^7.0.1",
-    "electron": "^18.0.3",
-    "moment": "^2.29.1"
-  }
+  "keywords": []
 }

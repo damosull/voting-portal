@@ -1,4 +1,3 @@
-import 'cypress-fill-command';
 import { messages } from '../support/constants';
 import { USER, API } from '../support/constants';
 

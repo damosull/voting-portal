@@ -27,7 +27,7 @@ trigger:
       - master
 
 schedules:
-  - cron: '0 18 * * *'
+  - cron: '0 18 * * 1-5'
     displayName: 'Nightly Build at 18:00'
     always: true
     branches:
@@ -66,6 +66,22 @@ steps:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
       ArtifactName: VotingPortal-TestResults
     condition: failed()
+
+  - task: ArchiveFiles@2
+    displayName: 'Archive $(System.DefaultWorkingDirectory)/test-results/cucumber'
+    inputs:
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/test-results/cucumber/cucumber_report.html'
+      archiveType: tar
+      archiveFile: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
+      verbose: true
+    condition: succeededOrFailed()
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: Cucumber Report'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
+      ArtifactName: VotingPortal-CucumberReport
+    condition: succeededOrFailed()
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
