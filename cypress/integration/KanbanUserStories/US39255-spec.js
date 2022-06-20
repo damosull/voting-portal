@@ -47,7 +47,7 @@ describe('US39255 tests - Test 1', function () {
     cy.get('#btn-workflow-config-columns').click();
 
     columns.forEach((column) => {
-      cy.get('#txt-filter-col-name').fill(column);
+      cy.get('#txt-filter-col-name').type(column);
       cy.get(`input[value='${column}']`).should('be.checked');
       cy.get('#txt-filter-col-name').clear();
     });
@@ -66,7 +66,7 @@ describe('US39255 tests - Test 1', function () {
 
     //verify all checked after adding new column
     columns.forEach((column) => {
-      cy.get('#txt-filter-col-name').fill(column);
+      cy.get('#txt-filter-col-name').type(column);
       cy.get(`input[value='${column}']`).should('be.checked');
       cy.get('#txt-filter-col-name').clear();
     });
@@ -91,7 +91,7 @@ describe('US39255 tests - Test 1', function () {
     //Step 7 - Verify that the Removed fields (Eg : Decision Status, Ballot Status etc.) should be available in the rendered list in alphabetic order with unchecked in Configure 'Columns' modal
     cy.get('#btn-workflow-config-columns').click();
     columns.forEach((column) => {
-      cy.get('#txt-filter-col-name').fill(column);
+      cy.get('#txt-filter-col-name').type(column);
       cy.get(`input[value='${column}']`).should('be.checked');
       cy.get('#txt-filter-col-name').clear();
     });
@@ -107,7 +107,7 @@ describe('US39255 tests - Test 1', function () {
     //Step 9 - Go Back to the Workflow Page, Verify Removed Columns are not displayed/Auto Saved [Eg : Decision Status, Ballot Status etc]
     cy.get('#btn-workflow-config-columns').click({ timeout: 10000 });
     columns.forEach((column) => {
-      cy.get('#txt-filter-col-name').fill(column);
+      cy.get('#txt-filter-col-name').type(column);
       cy.get(`input[value='${column}']`).should('be.checked');
       cy.get('#txt-filter-col-name').clear();
     });
@@ -424,7 +424,7 @@ describe('US39255 tests - Test 1', function () {
     cy.get('#btn-workflow-config-columns').click();
 
     columns.forEach((column) => {
-      cy.get('#txt-filter-col-name').fill(column);
+      cy.get('#txt-filter-col-name').type(column);
       cy.get(`input[value='${column}']`).should('be.checked');
       cy.get('#txt-filter-col-name').clear();
     });
@@ -443,7 +443,7 @@ describe('US39255 tests - Test 1', function () {
 
     //verify all checked after adding new column
     columns.forEach((column) => {
-      cy.get('#txt-filter-col-name').fill(column);
+      cy.get('#txt-filter-col-name').type(column);
       cy.get(`input[value='${column}']`).should('be.checked');
       cy.get('#txt-filter-col-name').clear();
     });
@@ -469,7 +469,7 @@ describe('US39255 tests - Test 1', function () {
     //Step 7 - Verify that the Removed fields (Eg : Decision Status, Ballot Status etc.) should be available in the rendered list in alphabetic order with unchecked in Configure 'Columns' modal
     cy.get('#btn-workflow-config-columns').click();
     columns.forEach((column) => {
-      cy.get('#txt-filter-col-name').fill(column);
+      cy.get('#txt-filter-col-name').type(column);
       cy.get(`input[value='${column}']`).should('be.checked');
       cy.get('#txt-filter-col-name').clear();
     });
@@ -484,7 +484,7 @@ describe('US39255 tests - Test 1', function () {
     //Step 9 - Go Back to the Workflow Page, Verify Removed Columns are not displayed/Auto Saved [Eg : Decision Status, Ballot Status etc]
     cy.get('#btn-workflow-config-columns').click();
     columns.forEach((column) => {
-      cy.get('#txt-filter-col-name').fill(column);
+      cy.get('#txt-filter-col-name').type(column);
       cy.get(`input[value='${column}']`).should('be.checked');
       cy.get('#txt-filter-col-name').clear();
     });

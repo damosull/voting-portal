@@ -20,8 +20,8 @@ describe('Generate ballot vote data report, download and verify file', function 
     // Step 4 meeting date next 2/past 2 days
     cy.get('#date-range-target-MeetingDate').invoke('attr', 'style', 'display: block');
     cy.get('.k-formatted-value').invoke('attr', 'style', 'display: block').clear();
-    cy.get(':nth-child(1) > .k-widget > .k-numeric-wrap > .k-formatted-value').fill(nextDays);
-    cy.get(':nth-child(2) > .k-widget > .k-numeric-wrap > .k-formatted-value').fill(pastDays);
+    cy.get(':nth-child(1) > .k-widget > .k-numeric-wrap > .k-formatted-value').type(nextDays);
+    cy.get(':nth-child(2) > .k-widget > .k-numeric-wrap > .k-formatted-value').type(pastDays);
     cy.contains('Update').click();
 
     // Step 5 select Ballot Voted Date column
