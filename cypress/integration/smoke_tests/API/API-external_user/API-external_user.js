@@ -14,7 +14,6 @@ Advantages:
 - We can use the APIs calls later as an explicit waits
 */
 
-import '../../../../support/commands.js';
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
 const { USER } = require("../../../../support/constants");
