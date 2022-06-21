@@ -1,4 +1,4 @@
-Feature: Engagement permissions
+Feature: Checking API calls with External user
 
     Background:
         Given I login as External User

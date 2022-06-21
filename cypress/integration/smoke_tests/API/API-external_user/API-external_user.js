@@ -1,16 +1,27 @@
+/*
+Story:
+The voting portal is heavily depends on the API calls
+
+Criteria:
+- Two tests for internal and external users
+- No modifications on the page just check
+- Primary function: Check if the page and given APIs loaded
+    - Assumption: The page is loaded when all the API is loaded
+- Later: Check the incoming API data and compare it what is on the page
+
+Advantages:
+- Quite fast feedback (5-10 min depends on failed tests)
+- We can use the APIs calls later as an explicit waits
+*/
+
 import '../../../../support/commands.js';
-const { USER } = require("../../../../support/constants");
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
-const testUser = {
-    UserId: 12204,
-    CustomerId: 196,
-    LoginId: "automation_calpers@glasslewis.com",
-    FullName: "CalPERS | ExtAdmin Automation QaUat"
-}
+const { USER } = require("../../../../support/constants");
 
 Given('I login as External User', () => {
 
+    cy.clearCookies();
     cy.loginWithAdmin(USER.AUTOMATIONEXTERNAL);
 
 });
@@ -90,44 +101,26 @@ When('I arrive on the Watch list page', () => {
 Then('I check the API calls status on the Workflow page', () => {
 
     cy.stausCode200('@CURRENT_USER');
-        cy.get("@CURRENT_USER").should(xhr => {
-            expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
-        });
-
-        cy.stausCode200('@SPA');
-        cy.get("@SPA").should(xhr => {
-            expect(xhr.response.body.UserId).to.eq(testUser.UserId);
-            expect(xhr.response.body.CustomerId).to.eq(testUser.CustomerId);
-        });
-
-        cy.stausCode200('@GET_MARKUP_WORKFLOW')
-        cy.stausCode200('@DASHBOARD_MARKUP')
-        cy.stausCode200('@WORKFLOW_CONFIGURE_COLUMNS')
-        cy.stausCode200('@WORKFLOW_META_DATA_1')
-        cy.stausCode200('@WORKFLOW_META_DATA_2')
-        cy.stausCode200('@FILTERS_DIRECTORY')
-        cy.stausCode200('@GET_FOR_USER')
-        cy.stausCode200('@WORKFLOW_SECURITIES_WATCHLIST')
-        cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER')       
-        cy.stausCode200('@GET_MARKUP_MEETING_DETAILS')
-        cy.stausCode200('@GET_USER_PERMISSION')
-        cy.stausCode200('@WORKFLOW_FILTER_CRITERIA_EDITORS')
-        cy.stausCode200('@DATE_RANGE_KNOCKOUT_BINDINGS')
-        cy.stausCode200('@DATE_RANGE')
-        //cy.stausCode204('@LOGGER')
-
-        cy.stausCode200('@WORKFLOW_EXPANSION')
-        cy.get("@WORKFLOW_EXPANSION").should(xhr => {
-            const parseObj = JSON.parse(xhr.response.body)
-            cy.log("pages number: " + parseObj.pages);
-            cy.log("MeetingIdD: " + parseObj.items[0].Agendas[0].Policies[0].Ballots[0].MeetingID);
-            cy.log("CompanyName: " + parseObj.items[0].Agendas[0].Policies[0].Ballots[0].CompanyName);
-        });
-
-        cy.stausCode200('@WORKFLOW_SECURITIES_WATCHLIST')
-        cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER')
-        cy.stausCode200('@INBOX')
-        cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER')
+    cy.stausCode200('@SPA');
+    cy.stausCode200('@GET_MARKUP_WORKFLOW')
+    cy.stausCode200('@DASHBOARD_MARKUP')
+    cy.stausCode200('@WORKFLOW_CONFIGURE_COLUMNS')
+    cy.stausCode200('@WORKFLOW_META_DATA_1')
+    cy.stausCode200('@WORKFLOW_META_DATA_2')
+    cy.stausCode200('@FILTERS_DIRECTORY')
+    cy.stausCode200('@GET_FOR_USER')
+    cy.stausCode200('@WORKFLOW_SECURITIES_WATCHLIST')
+    cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER')       
+    cy.stausCode200('@GET_MARKUP_MEETING_DETAILS')
+    cy.stausCode200('@GET_USER_PERMISSION')
+    cy.stausCode200('@WORKFLOW_FILTER_CRITERIA_EDITORS')
+    cy.stausCode200('@DATE_RANGE_KNOCKOUT_BINDINGS')
+    cy.stausCode200('@DATE_RANGE')
+    cy.stausCode200('@WORKFLOW_EXPANSION')
+    cy.stausCode200('@WORKFLOW_SECURITIES_WATCHLIST')
+    cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER')
+    cy.stausCode200('@INBOX')
+    cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER')
 
 });
 
@@ -135,16 +128,7 @@ Then('I check the API calls status on the Dashboard page', () => {
 
      //23
      cy.stausCode200('@CURRENT_USER');
-     cy.get("@CURRENT_USER").should(xhr => {
-         expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
-     });
-
      cy.stausCode200('@SPA')
-     cy.get("@SPA").should(xhr => {
-         expect(xhr.response.body.UserId).to.eq(testUser.UserId);
-         expect(xhr.response.body.CustomerId).to.eq(testUser.CustomerId);
-     });
-
      cy.stausCode200('@GET_MARKUP_WORKFLOW')
      cy.stausCode200('@DASHBOARD_MARKUP')
      cy.stausCode200('@DASHBOARD')
@@ -173,10 +157,6 @@ Then('I check the API calls status on the Reporting page', () => {
         
     // 6
     cy.stausCode200('@CURRENT_USER')
-    cy.get("@CURRENT_USER").should(xhr => {
-        expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
-    });
-
     cy.stausCode200('@REPORTS_DEFAULT_DATA')
     cy.stausCode200('@BALLOT_RECONCILIATION')
     cy.stausCode200('@DATE_RANGE_KNOCKOUT_BINDINGS')
@@ -189,10 +169,6 @@ Then('I check the API calls status on the MeetingDetails page', () => {
         
     // 35
     cy.stausCode200('@CURRENT_USER');
-    cy.get("@CURRENT_USER").should(xhr => {
-        expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
-    });
-
     cy.stausCode200('@SETTINGS_READ');
     cy.stausCode200('@GET_CUSTOMER_SETTINGS');
     cy.stausCode200('@RATIONALE_LIBRARY');
@@ -207,14 +183,13 @@ Then('I check the API calls status on the MeetingDetails page', () => {
     cy.stausCode200('@GET_AGENDA');
     cy.stausCode200('@WORKFLOW_RESEARCH_INFO');
     cy.stausCode200('@RELATED_MEETINGS');
-    //cy.stausCode204('@LOGGER');
     cy.stausCode200('@MEETING_SECURITY_WATCHLIST');
     cy.stausCode200('@META_BALLOTS_GRID');
     cy.stausCode200('@BALLOTS_GRID_STATE');
     cy.stausCode200('@ASSIGNED_MEETING_ID');
     cy.stausCode200('@VOTE_AGAINST_POLICY_WL');
     cy.stausCode200('@MEETING_DETAILS_ACTIVITY');
-    //cy.stausCode204('@PUT_BALLOTS_GRID_STATE');
+    cy.stausCode204('@PUT_BALLOTS_GRID_STATE');
     cy.stausCode200('@GET_FILINGS');
     cy.stausCode200('@VOTE_TALLY');
     cy.stausCode200('@VOTE_TALLY_OWNERSHIP');
@@ -234,9 +209,6 @@ Then('I check the API calls status on the Password change page', () => {
         
     // 2
     cy.stausCode200('@CURRENT_USER');
-    cy.get("@CURRENT_USER").should(xhr => {
-        expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
-    });
     cy.stausCode200('@PASSWORD_VALIDATOR_SETUP');
 
 });
@@ -245,12 +217,7 @@ Then('I check the API calls status on the User Profile page', () => {
 
     // 4
     cy.stausCode200('@CURRENT_USER');
-    cy.stausCode200('@CURRENT_USER');
-    cy.get("@CURRENT_USER").should(xhr => {
-        expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
-    });
-    
-    //cy.stausCode204('@LOGGER');
+    cy.stausCode200('@CURRENT_USER');   
     cy.stausCode200('@GET_AUTHENTICATED_USER');
     
 });
@@ -259,21 +226,11 @@ Then('I check the API calls status on the Customer profile / Accounts page', () 
 
     // 14
     cy.stausCode200('@CURRENT_USER');
-    cy.get("@CURRENT_USER").should(xhr => {
-        expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
-    });
-
-    //cy.stausCode204('@LOGGER');
-    //cy.stausCode204('@LOGGER');
-    //cy.stausCode204('@LOGGER');
     cy.stausCode200('@CUSTOMER_DETAILS')
     cy.stausCode200('@ACCOUNTS_GRID_STATE')
-    //cy.stausCode204('@LOGGER');
     cy.stausCode200('@GET_ACCOUNT_FILTERS_BY_SCREEN_ID');
     cy.stausCode200('@FILTER_CRITERIA_EDITORS');
     cy.stausCode200('@WEBUIRES_MULTI_SELECT_STATIC')
-    //cy.stausCode204('@LOGGER');
-    //cy.stausCode204('@LOGGER');
     cy.stausCode200('@ACCOUNTS_NEW')
     cy.stausCode200('@LIST_SERVICE_ACCOUNT_STATUS_CODE')
     
@@ -283,10 +240,6 @@ Then('I check the API calls status on the Customer profile / CustomFields page',
 
     // 3
     cy.stausCode200('@CURRENT_USER');
-    cy.get("@CURRENT_USER").should(xhr => {
-        expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
-    });
-
     cy.stausCode200('@CUSTOM_FIELDS')
     cy.stausCode200('@CUSTOM_FIELDS_2')    
     
@@ -297,10 +250,6 @@ Then('I check the API calls status on the Customer profile / Rationale library p
 
     // 7
     cy.stausCode200('@CURRENT_USER');
-    cy.get("@CURRENT_USER").should(xhr => {
-        expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
-    });
-
     cy.stausCode200('@POSHYTIP');
     cy.stausCode200('@POSHYTIP_EDITABLE');
     cy.stausCode200('@CUSTOMER_DETAILS')
@@ -314,16 +263,12 @@ Then('I check the API calls status on the Customer profile page', () => {
 
     // 7
     cy.stausCode200('@CURRENT_USER');
-    cy.get("@CURRENT_USER").should(xhr => {
-        expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
-    });
-
-        cy.stausCode200('@CUSTOMER_DETAILS')
-        cy.stausCode200('@FILTER_PREFERENCE')
-        cy.stausCode200('@LIST_SERVICE_VP_ONLY_WATCHLIST')
-        cy.stausCode200('@LIST_SERVICE_POLICY_ID')
-        cy.stausCode200('@GET_CURRENT_USER_COLLEAGUES')
-        cy.stausCode200('@CUSTOMER_FORMATS');
+    cy.stausCode200('@CUSTOMER_DETAILS')
+    cy.stausCode200('@FILTER_PREFERENCE')
+    cy.stausCode200('@LIST_SERVICE_VP_ONLY_WATCHLIST')
+    cy.stausCode200('@LIST_SERVICE_POLICY_ID')
+    cy.stausCode200('@GET_CURRENT_USER_COLLEAGUES')
+    cy.stausCode200('@CUSTOMER_FORMATS');
 
 });
 
@@ -331,10 +276,6 @@ Then('I check the API calls status on the Customer profile / UsersProfiles page'
 
     // 3
     cy.stausCode200('@CURRENT_USER');
-    cy.get("@CURRENT_USER").should(xhr => {
-        expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
-    });
-
     cy.stausCode200('@GET_USER_LIST')
     cy.stausCode200('@USER_PROFILE_HTML')
 
@@ -344,10 +285,6 @@ Then('I check the API calls status on the Watch list page', () => {
 
     // 4
     cy.stausCode200('@CURRENT_USER')
-    cy.get("@CURRENT_USER").should(xhr => {
-        expect(xhr.response.body.LoginId).to.eq(testUser.LoginId);
-    });
-
     cy.stausCode200('@SEARCH_TOOLBAR')
     cy.stausCode200('@WATCHLIST')
     cy.stausCode200('@WATCHLIST_SECURITIES');
