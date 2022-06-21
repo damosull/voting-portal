@@ -49,39 +49,14 @@ steps:
       export cypress_External_Username=$(ExternalUsername)
       export HTTP_PROXY=http://10.71.1.42:3128
       npx cypress run --env configFile=${{ parameters.configuration }}
-    displayName: 'Running cypress'
+    displayName: 'Running Cypress Tests'
 
-  - task: ArchiveFiles@2
-    displayName: 'Archive $(System.DefaultWorkingDirectory)/test-results'
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish Cucumber Report'
     inputs:
-      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/test-results'
-      archiveType: tar
-      archiveFile: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
-      verbose: true
-    condition: failed()
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: Tests Screenshots'
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
-      ArtifactName: VotingPortal-TestResults
-    condition: failed()
-
-  - task: ArchiveFiles@2
-    displayName: 'Archive $(System.DefaultWorkingDirectory)/test-results/cucumber'
-    inputs:
-      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/test-results/cucumber/cucumber_report.html'
-      archiveType: tar
-      archiveFile: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
-      verbose: true
-    condition: succeededOrFailed()
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: Cucumber Report'
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results-$(Build.BuildId).tar.gz'
-      ArtifactName: VotingPortal-CucumberReport
-    condition: succeededOrFailed()
+      targetPath: 'test-results/cucumber/cucumber_report.html'
+      artifact: Report
+    continueOnError: true
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
