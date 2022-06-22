@@ -57,6 +57,7 @@ steps:
       targetPath: 'test-results/cucumber/cucumber_report.html'
       artifact: Report
     continueOnError: true
+    condition: succeededOrFailed()
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
