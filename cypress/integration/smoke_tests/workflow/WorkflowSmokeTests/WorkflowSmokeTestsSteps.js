@@ -60,11 +60,16 @@ const workflowFilterData = {
   policy: 'Wellington',
 }
 
+let meetingId, meetingName
+
 Given('I am logged in as the {string} User', (username) => {
   sessionStorage.clear()
   cy.loginWithAdmin(constants.USER[username])
   cy.visit('/Workflow')
-  cy.stausCode200('@WORKFLOW_SECURITIES_WATCHLIST') // Last loaded API on that page
+  //Waiting for page load
+  cy.stausCode200('@WORKFLOW_EXPANSION')
+  cy.stausCode200('@WORKFLOW_SECURITIES_WATCHLIST')
+  cy.get('.k-loading-text', { timeout: 90000 }).should('not.exist')
 })
 
 When('I apply the {string}', (filterName) => {
@@ -544,6 +549,115 @@ And('I can verify that the ballot section displays just the results based on the
       return false
     }
   })
+})
+
+When('I apply the System Watch list for {string}', (client) => {
+  cy.get('.customerName-Search .k-input').type(client, { force: true })
+  cy.get('#kendoCustomers-list .k-item').first().click({ force: true })
+  cy.get('#btn-workflow-config-columns').click()
+  cy.get('#txt-filter-col-name').type('System Watch List(s)')
+  cy.get('input[value="System Watch List(s)"]').check({ force: true })
+  cy.get('#txt-filter-col-name').clear()
+  cy.get('#btn-apply-configure-columns').click()
+  cy.wait('@WORKFLOW_EXPANSION')
+  cy.wait('@WORKFLOW_SECURITIES_WATCHLIST')
+  cy.get('#btn-scroll-end').click({ waitForAnimations: false })
+})
+
+Then('all the results on the table should belong to "Calpers"', () => {
+  cy.get('table > tbody >tr').then(($rows) => {
+    $rows.each((index, value) => {
+      const wlist = Cypress.$(value).find('td#metaname-SystemWatchlistsName > div > span').text()
+      if (wlist === '') {
+        cy.get(`.mCSB_container >table > tbody >tr:nth-child(${index + 1}) > td:nth-child(2) > div > span > a`).then(
+          (meet) => {
+            meetingName = meet.text()
+          }
+        );
+        cy.get(
+          `.mCSB_container >table > tbody >tr:nth-child(${index + 1}) > td:nth-child(2) > div > span > a`
+        ).click()
+        return false
+      }
+    })
+  })
+})
+
+And('I clear the list of watchlists', () => {
+  //save meeting url
+  cy.url().then((url) => {
+    meetingId = url
+  })
+  cy.log(meetingName)
+  cy.get('#md-btn-watchlists').click({ force: true })
+  cy.get('div.clearfix.scrollableContainer.systemListOfWatchlists').each((el) => {
+    cy.wrap(el).find(':checkbox').uncheck({ force: true })
+  })
+  cy.get('#md-watchlistsEditorItem2783').check({ force: true })
+  cy.get('#divEditorWl2783 > label').then(function (el) {
+    const syswl = el.text()
+    expect(syswl.includes(`2020 Pay-for-Performance 'F' Grades`)).to.be.true
+  })
+  cy.get('#md-btn-update-security-watchlists').click({ force: true })
+  cy.get('span[data-bind="text: SecurityWatchlistsCount"]').eq(1).should('have.text', '1')
+})
+
+When('I apply the System Watch list', () => {
+  cy.get('#btn-workflow-config-columns').click()
+  cy.get('#txt-filter-col-name').type('System Watch List(s)')
+  cy.get('input[value="System Watch List(s)"]').check({ force: true })
+  cy.get('#txt-filter-col-name').clear()
+  cy.get('#btn-apply-configure-columns').click({ force: true })
+  cy.wait('@WORKFLOW_EXPANSION')
+  cy.get('#btn-scroll-end').click({ waitForAnimations: false })
+  cy.RemoveCriteriaIfExists('#editorDiv10', '#remove-editorDiv10')
+  cy.RemoveCriteriaIfExists('#editorDiv49', '#remove-editorDiv49')
+  cy.RemoveCriteriaIfExists('#editorDiv51', '#remove-editorDiv51') 
+})
+
+Then('all the results on the table should show relevant System Watch list and Meeting name', () => {
+  cy.get('table > tbody >tr').then(($rows) => {
+    $rows.each((index, value) => {
+      const mname = Cypress.$(value).find(`td#metaname-CompanyName > div > span > a`).text()
+      const swname = Cypress.$(value).find(`td#metaname-SystemWatchlistsName > div > span`).text()
+      if (mname === meetingName) {
+        cy.log(swname)
+        cy.get(
+          `.mCSB_container >table > tbody >tr:nth-child(${index + 1}) > td:nth-child(2) > div > span > a`
+        ).click()
+        return false
+      }
+    })
+  })
+  cy.get('#btn-watchlists').click({ force: true })
+  cy.get('#md-watchlistsEditorItem2783').should('be.checked')
+  cy.get('span[data-bind="text: SecurityWatchlistsCount"]').eq(1).should('have.text', '1') 
+})
+
+When('I navigate to the meeting page from the previous scenario', () => {
+  cy.visit(meetingId)
+})
+
+Then('I should be able to deselect the watch list from the previous scenario', () => {
+  cy.get('#md-btn-watchlists').click({ force: true })
+  cy.get('#md-watchlistsEditorItem2783').uncheck({ force: true })
+  cy.get('#md-watchlistsEditorItem2783').should('not.be.checked')
+  cy.get('#md-btn-update-security-watchlists').click({ force: true })
+  cy.get('span[data-bind="text: SecurityWatchlistsCount"]').should('have.text', '0')
+})
+
+And('I should be able to deselect the system watch list from the workflow page', () => {
+  //load workflow page and verify
+  cy.visit('/Workflow')
+  cy.stausCode200('@WORKFLOW_EXPANSION')
+  cy.stausCode200('@WORKFLOW_SECURITIES_WATCHLIST')
+  cy.get('.k-loading-text', { timeout: 90000 }).should('not.exist')
+  //deselect system watch list
+  cy.get('#btn-workflow-config-columns').click()
+  cy.get('#txt-filter-col-name').type('System Watch List(s)')
+  cy.get('input[value="System Watch List(s)"]').uncheck({ force: true })
+  cy.get('#txt-filter-col-name').clear()
+  cy.get('#btn-apply-configure-columns').click()  
 })
 
 

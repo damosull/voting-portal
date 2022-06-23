@@ -8,7 +8,7 @@ parameters:
   - name: configuration
     displayName: Configuration
     type: string
-    default: qa
+    default: smoke-qa
     values:
       - qa
       - smoke-qa

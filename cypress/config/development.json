@@ -1,10 +1,8 @@
 {
-  "baseUrl": "https://viewpoint.aqua.glasslewis.com",
   "env": {
     "configFile": "development"
   },
-  "retries": {
-    "runMode": 2,
-    "openMode": 0
-  }
+  "reporter": "spec",
+  "video": true,
+  "testFiles": "**/*.feature"
 }

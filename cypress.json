@@ -3,6 +3,7 @@
   "requestTimeout": 30000,
   "responseTimeout": 60000,
   "pageLoadTimeout": 45000,
+  "baseUrl": "https://viewpoint.aqua.glasslewis.com",
   "chromeWebSecurity": false,
   "screenshotsFolder": "test-results/screenshots",
   "videosFolder": "test-results/videos",
@@ -10,6 +11,12 @@
   "viewportHeight": 1200,
   "watchForFileChanges": false,
   "experimentalSessionAndOrigin": true,
+  "screenshotOnRunFailure" : true,
+  "video": false,
+  "reporter": "junit",
+  "reporterOptions": {
+    "mochaFile": "test-results/tests-output/result-[hash].xml"
+  },
   "testFiles": [
     "**/*.feature"
   ],

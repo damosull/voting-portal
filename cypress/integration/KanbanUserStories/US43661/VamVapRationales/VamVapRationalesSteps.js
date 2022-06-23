@@ -168,7 +168,7 @@ function ClearRationaleForVAMAndVAPEntriesAndAddRationaleForOtherProposals(){
           }
         })
       })
-    };
+    }
 
     function ClearRationaleForVAMEntriesAndAddRationaleVotingWithManagement(){
       cy.get('#md-votecard-grid-results > tr').then(($rows) => {
@@ -205,7 +205,7 @@ function ClearRationaleForVAMAndVAPEntriesAndAddRationaleForOtherProposals(){
           }
         })
       })
-    };
+    }
 
     function EnterRationaleTextForAllProposals(){
       cy.get('#md-votecard-grid-results > tr').then(($rows) => {

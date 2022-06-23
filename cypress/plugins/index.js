@@ -16,7 +16,6 @@ const path = require('path');
 const xlsx = require('node-xlsx').default;
 const _ = require('lodash');
 const del = require('del');
-
 const sqlServer = require('cypress-sql-server');
 const dbConfig = require('../../cypress.json');
 const cucumber = require('cypress-cucumber-preprocessor').default
@@ -60,6 +59,10 @@ module.exports = (on, config) => {
       }
     }
   });
+
+  on('before:run', () => {
+    del('./test-results/cucumber')
+  })
 
   on('after:run', (results) => {
     console.log(results.totalPassed, 'out of', results.totalTests, 'passed. tests were run on ', results.config.baseUrl)
