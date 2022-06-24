@@ -5,3 +5,4 @@ cypress.env.json
 downloads
 cypress/fixtures
 cypress/downloads
+cypress/cucumber-json

@@ -1,7 +1,5 @@
-import { messages } from '../support/constants';
-import { USER, API } from '../support/constants';
+import { USER, API, messages } from '../support/constants';
 
-const toast = messages.toast;
 
 Cypress.Commands.add('SetPaginationAndVerify', (numItemsPerPage, num) => {
   cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').invoke(
@@ -332,7 +330,7 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
         if (found == reportToDelete) {
           cy.wrap(myConfig).eq(index).click();
           cy.contains('Delete').click();
-          cy.get('.toast-message').should('contain.text', toast.REPORT_DELETED);
+          cy.get('.toast-message').should('contain.text', messages.toast.REPORT_DELETED);
         }
       });
     });

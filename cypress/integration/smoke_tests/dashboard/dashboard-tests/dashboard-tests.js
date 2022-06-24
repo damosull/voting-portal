@@ -1,4 +1,3 @@
-import '../../../../support/commands.js';
 const { USER, messages } = require("../../../../support/constants");
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 
