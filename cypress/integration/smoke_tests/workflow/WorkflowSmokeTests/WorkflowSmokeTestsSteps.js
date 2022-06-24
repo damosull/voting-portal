@@ -470,9 +470,8 @@ Then('I should be unable to see the first column on the workflow table', () => {
 })
 
 When('I apply the policy criteria for one of the policies', () => {
-  cy.contains('Upcoming Meetings').click()
-  cy.wait('@WORKFLOW_EXPANSION')
   cy.removeAllExistingSelectedCriteria()
+  cy.contains('Upcoming Meetings').click()
   // Step 2 - User clicks on Add Criteria & selects Policy ID
   cy.AddMultipleCriteria(['Policy ID'])
   cy.wait('@LIST_SERVICE')
