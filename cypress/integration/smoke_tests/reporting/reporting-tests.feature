@@ -29,33 +29,33 @@ Feature: Report related tests
         And I delete the given "configName_BallotVoteReport" configuration
 
     # Test scenario: 40409 https://dev.azure.com/glasslewis/Development/_workitems/edit/40409
-    Scenario: Create Ballot Vote Subscription entry and validate in SB_Subscription Database table
-        When I navigate to the Reporting page
-        And I click on the "Ballot Vote Data" filter
-        And I save the configuration
-        And I Add Subscription
-        And I select Calpers External Admin from Users list
-        And I enter Filename for Subscription Report
-        And I enter Schedule to run Subscription
-        And I click on the Ok button
-        Then Subscription added toast message appears
-        And Verify UI table entries for newly created Subscription
-        And I verify Column data for UserIds and Filename
-        And I remove Subscription entry from Viewpoint
-        And I delete the given 'configName_BallotVoteReport' configuration
+#    Scenario: Create Ballot Vote Subscription entry and validate in SB_Subscription Database table
+#        When I navigate to the Reporting page
+#        And I click on the "Ballot Vote Data" filter
+#        And I save the configuration
+#        And I Add Subscription
+#        And I select Calpers External Admin from Users list
+#        And I enter Filename for Subscription Report
+#        And I enter Schedule to run Subscription
+#        And I click on the Ok button
+#        Then Subscription added toast message appears
+#        And Verify UI table entries for newly created Subscription
+#        And I verify Column data for UserIds and Filename
+#        And I remove Subscription entry from Viewpoint
+#        And I delete the given 'configName_BallotVoteReport' configuration
 
     # Test scenario 37963 : https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
-    Scenario: Generate Engagement report, download and verify file headers
-        When I navigate to the Reporting page
-        And I select 'Engagement' Report Type
-        And I select Interaction Date between '5/27/2021' and '5/28/2021'
-        And I click on the Update button
-        And I add all the columns
-        And I click on the download the report button
-        Then Download initiated toast message appears
-        And I click on the notification dropdown
-        Then Engagement Report is queued
-        Then I validate the Engagement Report
+#    Scenario: Generate Engagement report, download and verify file headers
+#        When I navigate to the Reporting page
+#        And I select 'Engagement' Report Type
+#        And I select Interaction Date between '5/27/2021' and '5/28/2021'
+#        And I click on the Update button
+#        And I add all the columns
+#        And I click on the download the report button
+#        Then Download initiated toast message appears
+#        And I click on the notification dropdown
+#        Then Engagement Report is queued
+#        Then I validate the Engagement Report
   
     Scenario: Generate basic excel report, download and verify file headers - Generate Ballot Report
         When I navigate to the Reporting page
@@ -69,18 +69,18 @@ Feature: Report related tests
         Then I validate the Ballot Status Report headers
 
     # Test scenario 37988: https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
-    Scenario: Generate Policy report, download and verify file headers - Generate Policy Report
-        When I navigate to the Reporting page
-        And I select 'Policy' Report Type
-        And I remove any existing report criteria
-        Then I verify the filters
-        And I save the new filter with random name
-        Then The new report type appears on the left sidebar
-        And I click on the download the report button
-        Then Download initiated toast message appears
-        And I click on the notification dropdown
-        Then Report is ready for download message appears
-        Then I validate and verify the report
+#    Scenario: Generate Policy report, download and verify file headers - Generate Policy Report
+#        When I navigate to the Reporting page
+#        And I select 'Policy' Report Type
+#        And I remove any existing report criteria
+#        Then I verify the filters
+#        And I save the new filter with random name
+#        Then The new report type appears on the left sidebar
+#        And I click on the download the report button
+#        Then Download initiated toast message appears
+#        And I click on the notification dropdown
+#        Then Report is ready for download message appears
+#        Then I validate and verify the report
 
     # SLOW TEST EXECUTION AT THE XML GENERATION STEP
     # Test scenario 37939: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
