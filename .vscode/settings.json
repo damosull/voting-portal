@@ -1,0 +1,16 @@
+{
+    "workbench.colorTheme": "Default Dark+",
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "workbench.iconTheme": "vscode-icons",
+    "files.autoSave": "afterDelay",
+    "cucumberautocomplete.steps": [
+        "cypress/support/step_definitions/**/*.js"
+    ],
+    "cucumberautocomplete.syncfeatures": "cypress/**/*.feature",
+    "cucumberautocomplete.strictGherkinCompletion": true,
+    "cucumberautocomplete.customParameters": [
+    
+    ],
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "explorer.confirmDragAndDrop": false
+}

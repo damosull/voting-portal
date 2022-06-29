@@ -1,4 +1,4 @@
 {
   "baseUrl": "https://viewpoint.ultra.glasslewis.com",
-  "testFiles": "smoke_tests/**/*.feature"
+  "testFiles": "smoke_tests/*.feature"
 }

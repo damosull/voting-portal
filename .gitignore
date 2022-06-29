@@ -1,4 +1,3 @@
-# Ignore the videos and screenshots
 test-results
 node_modules
 cypress.env.json

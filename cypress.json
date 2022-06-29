@@ -4,7 +4,7 @@
   "responseTimeout": 60000,
   "pageLoadTimeout": 45000,
   "baseUrl": "https://viewpoint.aqua.glasslewis.com",
-  "numTestsKeptInMemory": 5,
+  "numTestsKeptInMemory": 3,
   "chromeWebSecurity": false,
   "screenshotsFolder": "test-results/screenshots",
   "videosFolder": "test-results/videos",

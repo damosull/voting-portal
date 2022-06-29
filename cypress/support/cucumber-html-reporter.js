@@ -1,7 +1,7 @@
 const reportGenerate = function () {
     let reporter = require('cucumber-html-reporter')
     let endDateAndTime = new Date()
-    let testEnv = require('../config/qa.json').baseUrl
+    let testEnv = require('../../cypress.json').baseUrl
     let options = {
         name: 'Voting Portal Test Execution Report',
         brandTitle: 'Powered by Cypress',

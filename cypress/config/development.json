@@ -4,5 +4,9 @@
   },
   "reporter": "spec",
   "video": true,
+  "retries": {
+    "runMode": 0,
+    "openMode": 0
+  },
   "testFiles": "**/*.feature"
 }

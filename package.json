@@ -16,7 +16,8 @@
     "node-xlsx": "0.21.0"
   },
   "cypress-cucumber-preprocessor": {
-    "nonGlobalStepDefinitions": true,
+    "commonPath": "cypress/support/step_definitions",
+    "nonGlobalStepDefinitions": false,
     "cucumberJson": {
       "generate": true,
       "outputFolder": "test-results/cucumber/cucumber-json",
