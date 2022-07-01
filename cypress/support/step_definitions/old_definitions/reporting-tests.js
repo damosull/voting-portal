@@ -73,12 +73,6 @@ When('I navigate to the Reporting page', () => {
 
 });
 
-And('I remove all existing selected criteria', () => {
-
-  cy.removeAllExistingSelectedCriteria();
-
-});
-
 And('I add {string} status and {string} critera', (status, criteria) => {
     
   cy.AddMultipleCriteria([status]);

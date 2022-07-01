@@ -67,11 +67,12 @@ export const MEETINGID = {
   WLNCVTD_CTRLNUM: '4000153399354', // Charles Schwab - Non Contested - Voted
 
   RLNCDRP: '1057618', //Russell - Non Contested -  Recommendations Pending
-
   RBNCRP: '1058810', //Robeco - Non Contested -  Recommendations Pending
   RBNCAG: '1061320',
+
   //Calpers
   CANCRA: '1066065',
+  CAVOAS: '1129879', //Calpers Voted
 
   //Russell (at least one against policy past 30 days)
   RSNCVAP: '1061109',

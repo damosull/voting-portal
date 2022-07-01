@@ -20,7 +20,7 @@ Feature: Meeting smoke tests
   #   Given I am logged in as the "CALPERS" User
   #   And I remove all existing selected criteria
   #   And I have added the criteria for "Decision Status" with status "Recommendations Available"
-  #   When I select the first available meeting from the results
+  #   When I select the first available meeting
   #   Then the meetings page should be loaded successfully
   #   And I should get a success message for votes submitted successfully for each vote against the policy recommendations
   #   And I should logout from the application
@@ -29,7 +29,7 @@ Feature: Meeting smoke tests
   #   Given I am logged in as the "CALPERS" User
   #   And I remove all existing selected criteria
   #   And I have added the criteria for "Decision Status" with status "Recommendations Available"
-  #   When I select the first available meeting from the results
+  #   When I select the first available meeting
   #   Then the meetings page should be loaded successfully
   #   When I choose to perform a quick vote for Glass Lewis recommendations and click Vote Now
   #   Then I should get a button stating "Change Vote or Rationale"
@@ -39,6 +39,8 @@ Feature: Meeting smoke tests
   #   Given I am logged in as the "CALPERS" User
   #   And I remove all existing selected criteria
   #   When I navigate to the meeting details page for the meeting "CPRP4"
+  #   Then I can view the Meeting Details page
+  #   When I click on the Change Vote or Rationale button
   #   And I "vote for the items" under the meeting "CPRP4"
   #   Then I should get a button stating "Change Vote or Rationale"
   #   And I should logout from the application
@@ -47,6 +49,8 @@ Feature: Meeting smoke tests
   #   Given I am logged in as the "CALPERS" User
   #   And I remove all existing selected criteria
   #   When I navigate to the meeting details page for the meeting "CPRP2"
+  #   Then I can view the Meeting Details page
+  #   When I click on the Change Vote or Rationale button
   #   And I "vote for the items" under the meeting "CPRP2"
   #   Then I should get a button stating "Change Vote or Rationale"
   #   And I should logout from the application
@@ -55,6 +59,8 @@ Feature: Meeting smoke tests
   #   Given I am logged in as the "CALPERS" User
   #   And I remove all existing selected criteria
   #   When I navigate to the meeting details page for the meeting "CPRP1"
+  #   Then I can view the Meeting Details page
+  #   When I click on the Change Vote or Rationale button
   #   Then I should be able to click on the Instruct button
   #   And I should logout from the application
 
@@ -62,6 +68,8 @@ Feature: Meeting smoke tests
     Given I am logged in as the "CALPERS" User
     And I remove all existing selected criteria
     When I navigate to the meeting details page for the meeting "CPRP3"
+    Then I can view the Meeting Details page
+    When I click on the Change Vote or Rationale button
     And I "vote for the items" under the meeting "CPRP3"
     Then I should get a button stating "Change Vote or Rationale"
     And I should logout from the application
@@ -70,6 +78,8 @@ Feature: Meeting smoke tests
   #   Given I am logged in as the "CALPERS" User
   #   And I remove all existing selected criteria
   #   When I navigate to the meeting details page for the meeting "CPRP5"
+  #   Then I can view the Meeting Details page
+  #   When I click on the Change Vote or Rationale button
   #   And I "take no action" under the meeting "CPRP5"
   #   Then I should get a button stating "Change Vote or Rationale"
   #   And I should logout from the application
@@ -78,6 +88,8 @@ Feature: Meeting smoke tests
     Given I am logged in as the "CALPERS" User
     And I remove all existing selected criteria
     When I navigate to the meeting details page for the meeting "CPRP6"
+    Then I can view the Meeting Details page
+    When I click on the Change Vote or Rationale button
     And I click on the share meeting option
     And I provide the details like the username to share with and submitted
     Then I should see a request saved message
@@ -93,7 +105,7 @@ Feature: Meeting smoke tests
   #   And I add the filter criteria
   #   Then the filtered results should be displayed
   #   And I save the filter
-  #   When I select the first available meeting from the results
+  #   When I select the first available meeting
   #   And I vote for the items on the meeting
   #   And I proceed with the override of the votes
   #   Then I see that Assert Vote tally changes to TNA

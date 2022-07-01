@@ -6,5 +6,7 @@ Feature: Add Received Status to Ballot Activity Log
     And I click on upcoming meetings
     And I change the meeting status by amending the database
     When I navigate to the meeting details page for the meeting "WLNCVTD"
+    Then I can view the Meeting Details page
+    When I click on the Change Vote or Rationale button
     And I navigate via the Control Number link
     Then the ballot activity log should have the correct date, username and status

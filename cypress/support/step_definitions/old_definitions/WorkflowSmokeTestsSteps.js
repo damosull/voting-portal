@@ -223,18 +223,6 @@ When('I search for a company on the search bar and choose meetings', () => {
   cy.contains('International Breweries Plc | NG').click()
 })
 
-Then('I should be navigated to the Meeting Details page', () => {
-  cy.wait('@GET_MEETING_ID')
-  cy.wait('@RELATED_MEETINGS')
-  cy.wait('@GET_AGENDA')
-  cy.wait('@PAGE_SECTION_ORDER')
-  cy.wait('@MEETING_SECURITY_WATCHLIST')
-  cy.wait('@ASSIGNED_MEETING_ID')
-  cy.wait('@VOTE_TALLY')
-  cy.url().should('include', '/MeetingDetails/Index/')
-  cy.get('#company-navigate').should('have.text', 'International Breweries Plc')
-})
-
 When('I search for a company on the search bar and choose companies', () => {
   // Search customer ('Companies' option) & verify user is navigated to correct Company page
   cy.get('#toolbarSearchFieldInput').type('international business machines')
@@ -337,15 +325,6 @@ And('the subscription is available in the database', () => {
 
     expect(cols).to.have.length(19) //Total Fields
   })
-})
-
-When('I select the first available meeting', () => {
-  cy.removeAllExistingSelectedCriteria()
-  cy.AddMultipleCriteria(['Decision Status'])
-  cy.addCriteriaStatus(['Recommendations Pending'])
-  cy.selectFirstMeeting()
-  cy.wait('@CREATE_DRAFT_FILTER')
-  cy.verifyMeetingOptionButtons()
 })
 
 Then('I am able to iterate through rationales, add text entry, save and verify toast message for each entry', () => {

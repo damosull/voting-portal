@@ -4,11 +4,26 @@ const constants = require ('../constants')
 
 Then('I can view the workflow page', ()=> {
     workflowPage.getPageHeading().contains('Upcoming Meetings')
+    workflowPage.waitForWorkflowPageLoad()
 })
 
 And('I navigate back to the workflow page', ()=> {
-    cy.visit('/Workflow')
+    workflowPage.getWorkflowPage()
     //Waiting for page load
     cy.stausCode200('@WORKFLOW_EXPANSION')
-    cy.get('.k-loading-text', { timeout: 90000 }).should('not.exist')
+    workflowPage.waitForWorkflowPageLoad()
+})
+
+And('I remove all existing selected criteria', () => {
+    cy.removeAllExistingSelectedCriteria();
+})
+
+And('I have added the criteria for {string} with status {string}', (criteria,status) => {
+    cy.AddMultipleCriteria([criteria])
+    cy.addCriteriaStatus([status])
+    workflowPage.waitForWorkflowPageLoad()
+})
+
+When('I select the first available meeting', () => {
+    cy.selectFirstMeeting()
 })

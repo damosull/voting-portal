@@ -13,6 +13,8 @@ Feature: Display the Ballot Voting History
     Given I am logged in as the "RUSSELL" User
     And I clear the existing filter criteria
     When I navigate to the meeting details page for the meeting "RLNCDRP"
+    Then I can view the Meeting Details page
+    When I click on the Change Vote or Rationale button
     Then I should be able to verify the pagination works as expected on the ballot section page
     And I should logout from the application
 
@@ -21,6 +23,8 @@ Feature: Display the Ballot Voting History
     Given I am logged in as the "RUSSELL" User
     And I clear the existing filter criteria
     When I navigate to the meeting details page for the meeting "RBNCRP"
+    Then I can view the Meeting Details page
+    When I click on the Change Vote or Rationale button
     Then I should be able to verify the pagination is displayed on the ballot section page
     And I should logout from the application
 
@@ -29,6 +33,8 @@ Feature: Display the Ballot Voting History
     Given I am logged in as the "RUSSELL" User
     And I clear the existing filter criteria
     When I navigate to the meeting details page for the meeting "RLNCDRP"
+    Then I can view the Meeting Details page
+    When I click on the Change Vote or Rationale button
     Then I should be able to verify the chosen pagination is autosaved on the ballot section page
     And I should logout from the application
 
@@ -38,5 +44,7 @@ Feature: Display the Ballot Voting History
     Given I am logged in as the "NEUBERGER" User
     And I clear the existing filter criteria
     When I navigate to the meeting details page for the meeting "NBCOMMO"
+    Then I can view the Meeting Details page
+    When I click on the Change Vote or Rationale button
     Then I should be able to toggle between "Management" Multiple Agendas in the Vote card page for specific meeting type
     And I should logout from the application

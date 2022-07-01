@@ -558,7 +558,7 @@ Cypress.Commands.add('saveFilter', (filterName) => {
 
 Cypress.Commands.add('selectFirstMeeting', () => {
   cy.get('table > tbody > tr')
-    .eq(2)
+    .eq(0)
     .within(() => {
       cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
     });

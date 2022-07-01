@@ -76,21 +76,6 @@ Then('the filtered results should display the data only for vote against Managem
   })
 })
 
-And('I have added the criteria for "Decision Status" with status "Recommendations Available"', () => {
-  cy.AddMultipleCriteria(['Decision Status'])
-  cy.addCriteriaStatus(['Recommendations Available'])
-})
-
-When('I select the first available meeting from the results', () => {
-  //Verify Workflow page has loaded
-  cy.stausCode200('@WORKFLOW_EXPANSION')
-  cy.stausCode200('@WORKFLOW_SECURITIES_WATCHLIST')
-  cy.get('.k-loading-text', { timeout: 90000 }).should('not.exist')
-  cy.get('.mCSB_dragger_bar', { timeout: 90000 }).should('be.visible')
-  //Now select the first meeting
-  cy.selectFirstMeeting()
-})
-
 Then('the meetings page should be loaded successfully', () => {
   cy.verifyMeetingOptionButtons()
 })
@@ -161,14 +146,6 @@ When('I choose to perform a quick vote for Glass Lewis recommendations and click
 
 Then('I should get a button stating "Change Vote or Rationale"', () => {
   cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale')
-})
-
-When('I navigate to the meeting details page for the meeting {string}', (meetingID) => {
-  addTenDaysToMeetingDates(constants.MEETINGID[meetingID])
-  visitMeeting('MeetingDetails/Index/',constants.MEETINGID[meetingID])
-  waitForAPICalls()
-  clickOnChangeVoteOrRationaleButton()
-  cy.verifyMeetingOptionButtons()
 })
 
 And('I {string} under the meeting {string}', (action,meetingID) => {
@@ -466,26 +443,8 @@ function clickOnTheProceedButton() {
   meetingDetailsPage.proceedButton().click()
 }
 
-function clickOnChangeVoteOrRationaleButton() {
-  meetingDetailsPage.unlockButton().click({ force: true })
-}
-
 function clickOnInstructButton() {
   meetingDetailsPage.instructButton().click({ force: true })
-}
-
-function visitMeeting(url,meetingID) {
-  cy.visit(url + meetingID)
-}
-
-function addTenDaysToMeetingDates(meetingID) {
-  cy.AddTenDaysToMeetingDates(meetingID)
-}
-
-function waitForAPICalls() {
-  cy.stausCode204('@LOGGER')
-  cy.stausCode200('@GET_FILINGS')
-  cy.stausCode200('@VOTE_TALLY')
 }
 
 //compare arrays

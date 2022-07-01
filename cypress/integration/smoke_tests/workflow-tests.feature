@@ -40,7 +40,7 @@ Feature: Workflow smoke tests
     Given I am logged in as the "CALPERS" User
     And I am on the Workflow page
     When I search for a company on the search bar and choose meetings
-    Then I should be navigated to the Meeting Details page
+    Then I can view the Meeting Details page
     And I navigate back to the workflow page
     When I search for a company on the search bar and choose companies
     Then I should be navigated to the Company page
@@ -63,6 +63,8 @@ Feature: Workflow smoke tests
   Scenario: Verify external user is able to add comment to each rationale, save it and verify the toast message
     Given I am logged in as the "CALPERS" User
     And I am on the Workflow page
+    And I remove all existing selected criteria
+    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     When I select the first available meeting
     Then I am able to iterate through rationales, add text entry, save and verify toast message for each entry
     And I should logout from the application
@@ -71,6 +73,8 @@ Feature: Workflow smoke tests
   Scenario: Verify external user is able to add meeting note and post private comment
     Given I am logged in as the "CALPERS" User
     And I am on the Workflow page
+    And I remove all existing selected criteria
+    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     When I select the first available meeting
     Then I am able to add meeting note and post private comment
     And I should logout from the application

@@ -1,6 +1,8 @@
 class workflowPage {
 
     getPageHeading() { return cy.get('h1') }
+    getLoadingSpinner() { return cy.get('.k-loading-text', { timeout: 90000 }) }
+    getWorkflowPage() { return cy.visit('/Workflow') }
     
     // Meeting section
     meeting() { return cy.get('#metaname-CompanyName > div > span > a') }
@@ -20,6 +22,12 @@ class workflowPage {
     addCriteriaButton() { return cy.get('#btn-add-criteria') }
     criteriaInput() { return cy.get('#txt-filter-criteria') }
     applyCriteriaButton() { return cy.get('#btn-apply-criteria') }
+
+
+    //Common Functions
+    waitForWorkflowPageLoad() {
+        this.getLoadingSpinner().should('not.exist')
+    }
 }
 
 module.exports = new workflowPage();

@@ -1,5 +1,6 @@
 import {Given,When,And} from "cypress-cucumber-preprocessor/steps"
-const loginPage = require ("../page_objects/login.page")
+import loginPage from "../page_objects/login.page"
+import workflowPage from "../page_objects/workflow.page"
 const constants = require ('../constants')
 
 Given('I am on the login page of Viewpoint', ()=> {
@@ -11,10 +12,10 @@ Given('I am on the login page of Viewpoint', ()=> {
 Given('I am logged in as the {string} User', (username) => {
     sessionStorage.clear()
     cy.loginWithAdmin(constants.USER[username])
-    cy.visit('/Workflow')
+    workflowPage.getWorkflowPage()
     //Waiting for page load
     cy.stausCode200('@WORKFLOW_EXPANSION')
-    cy.get('.k-loading-text', { timeout: 90000 }).should('not.exist')
+    workflowPage.waitForWorkflowPageLoad()
 })
 
 And('I should logout from the application', () => {
