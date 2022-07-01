@@ -1,4 +1,4 @@
-import { Given, Then, And } from 'cypress-cucumber-preprocessor/steps'
+import { Then, And } from 'cypress-cucumber-preprocessor/steps'
 var idMeeting = [1101707,1129790]
 var idCompany = [38673]
 

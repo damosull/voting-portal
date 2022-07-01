@@ -8,7 +8,7 @@ class meetingDetailsPage {
     unlockButton() { return cy.get('#btn-unlock').should('be.visible') }
     votedBallots() { return cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').should('be.visible') }
     proceedButton() { return cy.get('.floatright > .green').should('be.visible') }
-    quickVoteDropdown() { return cy.get('#quick-vote-container > span > span') }
+    quickVoteDropdown() { return cy.get('#quick-vote-container > span') }
     quickVoteSelect() { return cy.get('#quickVoteSelect') }
     takeNoActionBallots() { return cy.get('[data-bind="visible: override.tnaBallotsBoxVisible"] > .ccb').should('be.visible') }
     voteCardRow() { return cy.get('#md-votecard-grid-results > tr') }

@@ -1,5 +1,4 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps'
-const constants = require("../../constants")
+import { When, Then, And } from 'cypress-cucumber-preprocessor/steps'
 let arrAPIPolicy, arrUIPolicy = []
 
 

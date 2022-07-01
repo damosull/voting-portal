@@ -1,4 +1,4 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps'
+import { When, Then, And } from 'cypress-cucumber-preprocessor/steps'
 const workflowPage = require ("../../page_objects/workflow.page")
 const constants = require("../../constants")
 

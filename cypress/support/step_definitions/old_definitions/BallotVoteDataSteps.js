@@ -1,4 +1,4 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps'
+import { When, Then, And } from 'cypress-cucumber-preprocessor/steps'
 const constants = require("../../constants")
 const unixTime = Math.floor(Date.now() / 1000)
 const configName = `?byCategory=true&userID=`

@@ -29,9 +29,9 @@ And('I replace my FOR votes with AGAINST and vice-versa', () => {
                 //do nothing
             } else {
                 var selected = Cypress.$(value).find(':selected').text()
-                var option1 = Cypress.$(value).find('option').eq(2).text()
-                var option2 = Cypress.$(value).find('option').eq(3).text()
-                if (Cypress.$(value).find('option').eq(2).text() !== selected) {
+                var option1 = Cypress.$(value).find('option').eq(1).text()
+                var option2 = Cypress.$(value).find('option').eq(2).text()
+                if (Cypress.$(value).find('option').eq(1).text() !== selected) {
                 cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).select(
                     option1,
                     { force: true }
@@ -49,6 +49,15 @@ And('I replace my FOR votes with AGAINST and vice-versa', () => {
 
 And('I click on the Workflow option from the toolbar', () => {
     meetingDetailsPage.workflowButton().click()
+})
+
+And('I can verify that the Quick Vote option and Vote Decision are read only', () => {
+    meetingDetailsPage.quickVoteDropdown().should('have.attr', 'aria-disabled', 'true')
+    meetingDetailsPage.voteCardRow().then(($rows) => {
+        $rows.each((index) => {
+            cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).should('have.attr', 'disabled')
+        })
+    })
 })
 
 Then('I should get a popup window with a warning and OK and Cancel buttons', () => {

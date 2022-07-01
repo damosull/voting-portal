@@ -237,7 +237,7 @@ And('I Add Subscription', () => {
 
 And('I select Calpers External Admin from Users list', () => {
     
-  cy.get('.k-multiselect-wrap > .k-input').click().wait(500).type('{downarrow}{downarrow}{downarrow}{enter}').blur();
+  cy.get('.k-multiselect-wrap > .k-input').click().type('{downarrow}{downarrow}{downarrow}{enter}').blur();
 
 });
 

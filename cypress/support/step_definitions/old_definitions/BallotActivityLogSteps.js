@@ -1,4 +1,4 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps'
+import { Then, And } from 'cypress-cucumber-preprocessor/steps'
 const constants = require("../../constants")
 const dayjs = require('dayjs')
 var utc = require('dayjs/plugin/utc')

@@ -1,4 +1,4 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps'
+import { When, Then, And } from 'cypress-cucumber-preprocessor/steps'
 const constants = require("../../constants")
 //TC1 40606 & TC 40739
 const testCol = 'Last Voted By'

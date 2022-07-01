@@ -1,6 +1,5 @@
-import {Given,When,And} from "cypress-cucumber-preprocessor/steps"
+import { When, And, Then } from "cypress-cucumber-preprocessor/steps"
 import workflowPage from "../page_objects/workflow.page"
-const constants = require ('../constants')
 
 Then('I can view the workflow page', ()=> {
     workflowPage.getPageHeading().contains('Upcoming Meetings')
