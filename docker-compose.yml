@@ -1,0 +1,10 @@
+version: '3'
+services:
+  # this container will run Cypress test using Chrome browser
+  cypress:
+    build: .
+    image: votingportal-cypress
+    command: "--env configFile=meetingDetails --browser chrome"
+    volumes:
+      - ./cypress:/cypress
+      - ./cypress.json:/cypress.json

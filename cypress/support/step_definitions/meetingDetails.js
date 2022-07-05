@@ -5,8 +5,6 @@ const constants = require ('../constants')
 Then('I can view the Meeting Details page', () => {
     cy.wait('@GET_MEETING_ID')
     cy.wait('@RELATED_MEETINGS')
-    cy.wait('@MEETING_SECURITY_WATCHLIST')
-    cy.wait('@ASSIGNED_MEETING_ID')
     cy.wait('@VOTE_TALLY')
     cy.url().should('include', '/MeetingDetails/Index/')
 })

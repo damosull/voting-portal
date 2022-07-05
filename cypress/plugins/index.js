@@ -28,7 +28,6 @@ function getConfigurationByFile(file) {
 }
 
 module.exports = (on, config) => {
-  require('cypress-grep/src/plugin')(config);
 
   on('task', {
     parseXlsx({ filePath }) {

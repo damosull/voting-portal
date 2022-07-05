@@ -10,7 +10,7 @@
     "cypress-grep": "2.14.0",
     "cypress-sql-server": "1.0.0",
     "del": "6.1.1",
-    "eslint": "8.18.0",
+    "eslint": "8.19.0",
     "eslint-plugin-cypress": "2.12.1",
     "lodash": "4.17.21",
     "node-xlsx": "0.21.0"
@@ -26,12 +26,10 @@
     }
   },
   "scripts": {
-    "cy:open": "cypress open",
-    "cy:run": "cypress run",
-    "cy:run:qa": "cypress run --env configFile=qa",
-    "lint": "eslint cypress",
-    "precy:run": "rmdir /s /q test-results",
-    "cy:run:smoke": "cypress run --env grepTags=@smoke"
+    "open": "cypress open",
+    "test": "cypress run",
+    "smoke": "cypress run --env configFile=smoke-qa",
+    "lint": "eslint cypress"
   },
   "repository": {
     "type": "git",
