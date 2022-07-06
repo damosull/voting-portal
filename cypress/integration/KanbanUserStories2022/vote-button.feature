@@ -1,8 +1,26 @@
 Feature: Vote Button Tests
 #https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=53607&suiteId=54213
 
+  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/3289
+  Scenario: Verify a user can vote on a vote card
+    Given I am logged in as the "WELLINGTON" User
+    And I remove all existing selected criteria
+    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
+    When I select the first available meeting
+    Then I can view the Meeting Details page
+    When I replace my FOR votes with AGAINST and vice-versa
+    And I click on the Vote button
+    And I click on the Proceed button
+    Then I can see a Vote success message
+    And I verify the vote tally section by checking the total votes and hyperlinks
+    And I verify that the Voted section shows all votes and nothing is displayed under Total Not Voted
+    When I click on the Glass Lewis logo on the top left
+    Then I can view the workflow page
+    And I should logout from the application
+
+
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28480
-  Scenario: Verify a user can vote on  Vote Card with filtering set
+  Scenario: Verify a user can revote on the vote card
     Given I am logged in as the "CALPERS" User
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Voted"
@@ -18,7 +36,7 @@ Feature: Vote Button Tests
 
 
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/3331
-  Scenario: Verify a user can vote on  Vote Card with filtering set
+  Scenario: Verify a user can vote on Vote Card with filtering set
     Given I am logged in as the "CALPERS" User
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Voted"

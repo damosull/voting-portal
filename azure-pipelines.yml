@@ -20,7 +20,13 @@ steps:
     script: 'docker container prune -f'
 
 - task: Bash@3
-  displayName: 'Remove Existing Images'
+  displayName: 'Prune Dangling Images'
+  inputs:       
+    targetType: 'inline'
+    script: 'docker image prune -f'
+
+- task: Bash@3
+  displayName: 'Remove Existing Cypress Images'
   inputs:       
     targetType: 'inline'
     script: 'docker rmi votingportal-cypress -f'

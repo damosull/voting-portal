@@ -77,6 +77,12 @@ And('I click on the Vote button', () => {
     meetingDetailsPage.voteNowButton().click()
 })
 
+And('I click on the Proceed button', () => {
+    cy.wait('@VOTE_REQUEST_VALIDATION')
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
+    cy.clickIfExist(meetingDetailsPage.proceedButtonLocator)    
+})
+
 And('I select the checkbox and click Proceed', () => {
     cy.wait('@VOTE_REQUEST_VALIDATION')
     meetingDetailsPage.checkboxOverride().should('be.visible').click({ force: true })
@@ -92,4 +98,20 @@ And('I verify the vote tally section by checking the total votes and hyperlinks'
     meetingDetailsPage.closeVoteTallyPopup().should('be.visible').click()
     meetingDetailsPage.totalNotVotedLink().should('be.visible').click()
     meetingDetailsPage.closeVoteTallyPopup().should('be.visible').click()
+})
+
+And('I verify that the Voted section shows all votes and nothing is displayed under Total Not Voted', () => {
+    let value1,value2
+    meetingDetailsPage.totalVotedLink().should(($el) => {
+        value1 = $el.text()
+        expect(value1).to.not.equal('0')
+    })
+    meetingDetailsPage.totalVotedLabel().should(($el) => {
+        value2 = $el.text()
+        expect(value1).to.equal(value2)
+    })
+})
+
+When('I click on the Glass Lewis logo on the top left', () => {
+    meetingDetailsPage.glassLewisLogoLink().click()
 })

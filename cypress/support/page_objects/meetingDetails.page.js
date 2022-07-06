@@ -1,5 +1,7 @@
 class meetingDetailsPage {
 
+    proceedButtonLocator = '.floatright > .green'
+
     launchBallotsButton() { return cy.get('#launch-ballots-voted-modal').should('be.visible') }
     workflowButton() { return cy.get('#workflow-link') }
     voteNowButton() { return cy.get('#btn-vote-now').should('be.visible') }
@@ -7,7 +9,8 @@ class meetingDetailsPage {
     instructButton() { return cy.get('#btn-instruct').should('be.visible') }
     unlockButton() { return cy.get('#btn-unlock').should('be.visible') }
     votedBallots() { return cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').should('be.visible') }
-    proceedButton() { return cy.get('.floatright > .green').should('be.visible') }
+    getLoadingSpinner() { return cy.get('.k-loading-text', { timeout: 90000 }) }
+    proceedButton() { return cy.get(this.proceedButtonLocator).should('be.visible') }
     quickVoteDropdown() { return cy.get('#quick-vote-container > span') }
     quickVoteSelect() { return cy.get('#quickVoteSelect') }
     takeNoActionBallots() { return cy.get('[data-bind="visible: override.tnaBallotsBoxVisible"] > .ccb').should('be.visible') }
@@ -16,11 +19,14 @@ class meetingDetailsPage {
     confirmPopUpContent() { return cy.get('.confirm-content') }
     popUpOkButton() { return cy.get('#apprise-btn-confirm') }
     popUpCancelButton() { return cy.get('#apprise-btn-undefined') }
+    warningPopUp() { return cy.get('#vote-warnings-and-errors-modal') }
     checkboxOverride() { return cy.get("label[for='override-voted']") }
     voteSuccessMessage() { return cy.contains('Vote success') }
     totalVotedLink() { return cy.get('#launch-ballots-voted-modal') }
     totalNotVotedLink() { return cy.get('#launch-ballots-not-voted-modal') }
     closeVoteTallyPopup() { return cy.get('#close-panel') }
+    totalVotedLabel() { return cy.get("span[data-bind='text: VotedStatusCount']") }
+    glassLewisLogoLink() { return cy.get("a[id='logo-link'] span") }
 }
 
 module.exports = new meetingDetailsPage();

@@ -1,7 +1,11 @@
 {
-    "testFiles": ["smoke_tests/meeting*.feature",
-      "KanbanUserStories2022/vote-button.feature",
-      "KanbanUserStories2021/US39254 - BallotVotingHistory.feature",
-      "KanbanUserStories2021/US46077 - CompareMeetings.feature"
-    ]
-  }
+  "retries": {
+    "runMode": 0,
+    "openMode": 0
+  },
+  "testFiles": ["smoke_tests/meeting*.feature",
+    "KanbanUserStories2022/vote-button.feature",
+    "KanbanUserStories2021/US39254 - BallotVotingHistory.feature",
+    "KanbanUserStories2021/US46077 - CompareMeetings.feature"
+  ]
+}

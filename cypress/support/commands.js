@@ -629,6 +629,14 @@ Cypress.Commands.add('stausCode204', (param) => {
     cy.wait(param).its('response.statusCode').should('eq', 204);
 });
 
+Cypress.Commands.add('clickIfExist', (element) => {
+  cy.get('body').then((body) => {
+    if (body.find(element).length > 0) {
+        cy.get(element).click();
+    }
+  })
+});
+
 //This will override the type command to have no delay, improving execution time
 Cypress.Commands.overwrite('type', (originalFn, subject, text, options = {}) => {
   options.delay = options.delay || 0
