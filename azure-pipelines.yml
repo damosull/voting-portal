@@ -9,39 +9,14 @@ parameters:
   type: number
   default: 1
 
-trigger:
-- master
+trigger: none
 
 steps:
-- task: Bash@3
-  displayName: 'Prune Containers'
-  inputs:       
-    targetType: 'inline'
-    script: 'docker container prune -f'
-
-- task: Bash@3
-  displayName: 'Prune Dangling Images'
-  inputs:       
-    targetType: 'inline'
-    script: 'docker image prune -f'
-
 - task: Bash@3
   displayName: 'Remove Existing Cypress Images'
   inputs:       
     targetType: 'inline'
-    script: 'docker rmi votingportal-cypress -f'
-
-- task: Bash@3
-  displayName: 'List Images'
-  inputs:       
-    targetType: 'inline'
-    script: 'docker images'
-
-- task: Bash@3
-  displayName: 'List Containers'
-  inputs:       
-    targetType: 'inline'
-    script: 'docker ps -a'
+    script: 'docker rmi glasslewis.azurecr.io/votingportal-cypress votingportal-cypress -f'
 
 - task: DockerCompose@0
   displayName: 'Run Cypress Tests'
@@ -52,3 +27,9 @@ steps:
     action: 'Run a Docker Compose command'
     dockerComposeCommand: 'up'
     arguments: '--build --scale cypress=${{ parameters.numInstance }}'
+
+- task: Bash@3
+  displayName: 'Remove Exited Cypress Containers'
+  inputs:       
+    targetType: 'inline'
+    script: 'docker ps --filter name=votingportal-automation-tests* -aq | xargs docker stop | xargs docker rm'
