@@ -115,3 +115,16 @@ And('I verify that the Voted section shows all votes and nothing is displayed un
 When('I click on the Glass Lewis logo on the top left', () => {
     meetingDetailsPage.glassLewisLogoLink().click()
 })
+
+And('I vote for an item which had no previous vote with Glass Lewis Recommendations', () => {
+    meetingDetailsPage.voteCardRow().then(($rows) => {
+        $rows.each((index, value) => {
+            const rec = Cypress.$(value).find('td.vote-card-policy-rec').text()
+            const glRec = Cypress.$(value).find('td:nth-of-type(4)').text()
+            if (rec.includes('Manual')) {
+                cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).select(
+                    glRec, { force: true })
+            }
+        })
+    })
+})
