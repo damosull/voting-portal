@@ -8,6 +8,7 @@ Then('I can view the workflow page', ()=> {
 
 And('I navigate back to the workflow page', ()=> {
     workflowPage.getWorkflowPage()
+    workflowPage.getLoadingSpinner().should('exist')
     //Waiting for page load
     cy.stausCode200('@WORKFLOW_EXPANSION')
     workflowPage.waitForWorkflowPageLoad()
@@ -23,6 +24,20 @@ And('I have added the criteria for {string} with status {string}', (criteria,sta
     workflowPage.waitForWorkflowPageLoad()
 })
 
+And('I have added the criteria for {string} and selecting {string}', (criteria,status) => {
+    cy.AddMultipleCriteria([criteria])
+    cy.chooseCriteriaStatus([status])
+    workflowPage.waitForWorkflowPageLoad()
+})
+
 When('I select the first available meeting', () => {
-    cy.selectFirstMeeting()
+    cy.get('table > tbody > tr').eq(0).within(() => {
+      cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
+    })
+})
+
+When('I select a random meeting', () => {
+    workflowPage.tableRows().eq(Math.floor(Math.random() * 19)).within(() => {
+      cy.get('[data-js="meeting-details-link"]').first().click()
+    })
 })

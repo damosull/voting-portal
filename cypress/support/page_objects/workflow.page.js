@@ -2,10 +2,11 @@ class workflowPage {
 
     getPageHeading() { return cy.get('h1') }
     getLoadingSpinner() { return cy.get('.k-loading-text', { timeout: 90000 }) }
-    getWorkflowPage() { return cy.visit('/Workflow') }
+    getWorkflowPage() { return cy.visit(Cypress.config('baseUrl') + '/Workflow') }
     
     // Meeting section
     meeting() { return cy.get('#metaname-CompanyName > div > span > a') }
+    tableRows() { return cy.get('table > tbody > tr') }
 
     // Watchlist section
     watchListDropDownButton() { return cy.get('#btn-watchlists') }

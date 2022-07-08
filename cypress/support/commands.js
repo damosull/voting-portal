@@ -415,7 +415,7 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
   );
   cy.intercept('GET', '**/Api/Data//ListService/**?CustomerID=0').as('ListService');
 
-  cy.get('#btn-add-criteria').click({ force: true });
+  cy.get('#btn-add-criteria').click();
   searchText.forEach((value) => {
     cy.then(() => {
       cy.get('#txt-filter-criteria')
@@ -430,7 +430,6 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
   });
 
   cy.contains('Apply').click();
-  cy.wait('@ListService');
 
   if (!isReporting) {
     cy.wait('@WorkflowFilter');
@@ -464,6 +463,29 @@ Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
     cy.get('.editor-modal > div > div > label').contains(value).click({ force: true });
   });
   cy.get('.editor-modal > div > button').eq(0).click();
+
+  if (!isReporting) {
+    cy.wait('@WorkflowExpansion');
+    cy.wait('@WorkflowSecuritiesWatchlists');
+    cy.wait('@GetAvailableAssigneesForCustomer');
+  }
+});
+
+Cypress.Commands.add('chooseCriteriaStatus', (statusToChoose, isReporting) => {
+  cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
+  cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists/').as('WorkflowSecuritiesWatchlists');
+  cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('GetAvailableAssigneesForCustomer');
+
+  if (!isReporting) {
+    cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').click();
+  } else {
+    cy.get('#report-criteria-controls > div > div > h4').click();
+  }
+
+  statusToChoose.forEach((value) => {
+    cy.get('.SingleSelect > div > div > div').contains(value).next().click()
+  });
+  cy.get('.SingleSelect > div > div > button').eq(0).click();
 
   if (!isReporting) {
     cy.wait('@WorkflowExpansion');
@@ -554,14 +576,6 @@ Cypress.Commands.add('saveFilter', (filterName) => {
   cy.get('#popupTextContainer').should('be.visible').type(filterName);
   cy.get('#apprise-btn-undefined').should('be.visible'); //the ID of this button should be fixed
   cy.get('#apprise-btn-confirm').click();
-});
-
-Cypress.Commands.add('selectFirstMeeting', () => {
-  cy.get('table > tbody > tr')
-    .eq(0)
-    .within(() => {
-      cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
-    });
 });
 
 Cypress.Commands.add('assertFileProperties', (configName, fileExtension) => {

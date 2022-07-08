@@ -80,13 +80,6 @@ And('I add {string} status and {string} critera', (status, criteria) => {
 
 });
 
-And('I select the first meeting from the list', () => {
-    
-  cy.selectFirstMeeting();
-  cy.wait('@COMMENTS'); // Last API loaded on the page
-
-});
-
 And('I export the ballot status report', () => {
     
   cy.get('#exportMeetingDetails > .nav > .dropdown > .dropdown-toggle').click();

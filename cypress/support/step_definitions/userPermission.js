@@ -1,5 +1,5 @@
 require('cypress-xpath');
-import { When, And, Then } from "cypress-cucumber-preprocessor/steps"
+import { And } from "cypress-cucumber-preprocessor/steps"
 import userPermissionPage from "../page_objects/userPermission.page"
 
 And('I navigate to the User Permissions page', ()=> {

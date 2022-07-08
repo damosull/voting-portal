@@ -7,7 +7,7 @@ Feature: Report related tests
         When I navigate to the Workflow page
         And I remove all existing selected criteria
         And I add "Decision Status" status and "Recommendations Pending" critera
-        And I select the first meeting from the list
+        And I select the first available meeting
         And I export the ballot status report
         Then A toast message appears
         And I click on the notification dropdown

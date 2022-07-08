@@ -1,5 +1,6 @@
 import {When,And,Then} from "cypress-cucumber-preprocessor/steps"
 import meetingDetailsPage from "../page_objects/meetingDetails.page"
+import userPermissionPage from "../page_objects/userPermission.page"
 const constants = require ('../constants')
 
 Then('I can view the Meeting Details page', () => {
@@ -146,5 +147,45 @@ And('The {string} functionality is not available', (permission_name)=> {
         default:
         break;
     }
+})
 
+And('I can verify that all policy recommendations are matching {string} recommendations', (institute) => {
+    meetingDetailsPage.voteCardRow().then(($rows) => {
+        $rows.each((index, value) => {
+            const rec = Cypress.$(value).find('td.vote-card-policy-rec').text()
+            if (rec.includes('Manual') || rec.includes('Not')) {
+                // Do Nothing
+            } else {
+                if (institute === 'GL') {
+                    let glValue = Cypress.$(value).find('td:nth-of-type(4)').text()
+                    expect(glValue).to.equal(rec)
+                } else if (institute === 'MGMT') {
+                    let mgmtValue = Cypress.$(value).find('td:nth-of-type(3)').text()
+                    expect(mgmtValue).to.equal(rec)
+                }
+                
+            }
+        })
+    })
+})
+
+And('I can verify that at least one policy recommendations is against {string} recommendations', (institute) => {
+    meetingDetailsPage.voteCardRow().then(($rows) => {
+        let count = 0
+        $rows.each((index, value) => {
+            const rec = Cypress.$(value).find('td.vote-card-policy-rec').text()
+            if (rec.includes('Manual') || rec.includes('Not')) {
+                // Do Nothing
+            } else {
+                if (institute === 'GL') {
+                    let glValue = Cypress.$(value).find('td:nth-of-type(4)').text()
+                    if (glValue !== rec) { count = count + 1 }
+                } else if (institute === 'MGMT') {
+                    let mgmtValue = Cypress.$(value).find('td:nth-of-type(3)').text()
+                    if (mgmtValue !== rec) { count = count + 1 }
+                }
+            }
+        })
+        expect(count).to.be.greaterThan(0)
+    })
 })

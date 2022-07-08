@@ -21,11 +21,6 @@ declare namespace Cypress {
     deleteMyFilter(filterToDelete?: string): Chainable<Element>;
 
     /**
-     * * Click on the first meeting available in the workflow list
-     */
-    selectFirstMeeting(): Chainable<Element>;
-
-    /**
      * * Add new criteria(s) to the search
      * @param searchText Criteria(s) to be selected. It needs to be an array of strings
      * @param isReporting Flag indicating that you are calling the method in the Reporting option. Default option is False (workflow)
