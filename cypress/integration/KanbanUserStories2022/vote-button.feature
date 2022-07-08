@@ -60,3 +60,33 @@ Feature: Vote Button Tests
     Then I can see a Vote success message
     And I verify the vote tally section by checking the total votes and hyperlinks
     And I should logout from the application
+
+@focus
+  # TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/27932
+  # Role default: Allowed -> I test it with "Explicitly Denied" so I expect I will not see those voting options
+  Scenario Outline: Different permission setup on vote card functionality
+    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    When I arrive on the User Permissions page
+    And I type "RobecoAutomation External Admin" into the user name input
+    And I choose the first element from the dropdown
+    And I click on the Workflow Voting dropdown
+    And I change the <permission_name> user permission to <access_decision>
+    And I click on the Submit changes button
+    And I should logout from the application
+    Given I am logged in as the "ROBECO" User
+    When I select the first available meeting
+    Then The <permission_name> functionality is not available
+    And I should logout from the application
+    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    When I arrive on the User Permissions page
+    And I type "RobecoAutomation External Admin" into the user name input
+    And I choose the first element from the dropdown
+    And I click on the Workflow Voting dropdown
+    And I change the <permission_name> user permission to <default_role_access>
+    And I click on the Submit changes button
+
+    Examples:
+    | permission_name    | access_decision       | default_role_access   |
+    | "Vote"              | "Explicitly Denied"   | "Role Default"        |
+    | "Instruct"          | "Explicitly Denied"   | "Role Default"        |
+    | "Take No Action"    | "Explicitly Denied"   | "Role Default"        |

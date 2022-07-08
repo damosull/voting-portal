@@ -128,3 +128,23 @@ And('I vote for an item which had no previous vote with Glass Lewis Recommendati
         })
     })
 })
+
+And('The {string} functionality is not available', (permission_name)=> {
+    
+    cy.clickIfExist(userPermissionPage.changeVoteOrRationale());
+
+    switch (permission_name) {
+        case "Vote":
+            userPermissionPage.voteButton().should('not.be.visible');
+            break;
+        case "Instruct":
+            userPermissionPage.instructButton().should('not.exist')
+            break;
+        case "Take No Action":
+            userPermissionPage.takeNoActionButton().should('not.exist')
+            break;
+        default:
+        break;
+    }
+
+})
