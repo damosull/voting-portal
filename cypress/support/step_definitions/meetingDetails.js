@@ -1,6 +1,5 @@
 import {When,And,Then} from "cypress-cucumber-preprocessor/steps"
 import meetingDetailsPage from "../page_objects/meetingDetails.page"
-import userPermissionPage from "../page_objects/userPermission.page"
 const constants = require ('../constants')
 
 Then('I can view the Meeting Details page', () => {
@@ -75,18 +74,16 @@ When('I click on the Cancel button', () => {
 })
 
 And('I click on the Vote button', () => {
-    meetingDetailsPage.voteNowButton().click()
+    meetingDetailsPage.voteNowButton().click({ force: true })
 })
 
 And('I click on the Proceed button', () => {
-    cy.wait('@VOTE_REQUEST_VALIDATION')
     meetingDetailsPage.getLoadingSpinner().should('not.exist')
     cy.clickIfExist(meetingDetailsPage.proceedButtonLocator)    
 })
 
 And('I select the checkbox and click Proceed', () => {
-    cy.wait('@VOTE_REQUEST_VALIDATION')
-    meetingDetailsPage.checkboxOverride().should('be.visible').click({ force: true })
+    meetingDetailsPage.checkboxOverride().should('be.visible').click()
     meetingDetailsPage.proceedButton().click()
 })
 
@@ -132,17 +129,17 @@ And('I vote for an item which had no previous vote with Glass Lewis Recommendati
 
 And('The {string} functionality is not available', (permission_name)=> {
     
-    cy.clickIfExist(userPermissionPage.changeVoteOrRationale());
+    cy.clickIfExist(meetingDetailsPage.unlockButtonLocator);
 
     switch (permission_name) {
         case "Vote":
-            userPermissionPage.voteButton().should('not.be.visible');
+            meetingDetailsPage.voteNowButton().should('not.be.visible');
             break;
         case "Instruct":
-            userPermissionPage.instructButton().should('not.exist')
+            meetingDetailsPage.instructButton().should('not.exist')
             break;
         case "Take No Action":
-            userPermissionPage.takeNoActionButton().should('not.exist')
+            meetingDetailsPage.takeNoActionButton().should('not.exist')
             break;
         default:
         break;

@@ -69,7 +69,7 @@ When('I navigate to the Workflow page', () => {
 When('I navigate to the Reporting page', () => {
 
   cy.visit('/Reporting');
-  cy.stausCode200('@REPORTS_CRITERIA') // last api call on the page
+  cy.statusCode200('@REPORTS_CRITERIA') // last api call on the page
 
 });
 

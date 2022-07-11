@@ -1,9 +1,3 @@
-pool: 'Build Pipelines VMSS - QAUAT'
-
-resources:
-  repositories:
-    - repository: self
-
 parameters:
   - name: configuration
     displayName: Configuration
@@ -13,9 +7,9 @@ parameters:
       - qa
       - smoke-qa
       - smoke-ultra
-      - smoke-prod
       - qa-api
       - qa-dashboard
+      - qa-kanban
       - qa-meeting
       - qa-report
       - qa-user
@@ -34,7 +28,11 @@ schedules:
       include:
         - master
 
-steps:
+jobs:
+- job: ViewpointAutomation
+  timeoutInMinutes: 45
+  pool: 'Build Pipelines VMSS - QAUAT'
+  steps:
   - script: |
       npx cypress cache clear
     displayName: 'Cypress cache clear'

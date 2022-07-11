@@ -5,7 +5,7 @@ And('I navigate to the User Permissions page', ()=> {
     
     cy.visit("/UserPermissions");
     //Waiting for page load
-    cy.stausCode200('@CURRENT_USER');
+    cy.statusCode200('@CURRENT_USER');
 
 })
 

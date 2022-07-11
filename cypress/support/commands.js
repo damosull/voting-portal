@@ -97,7 +97,7 @@ Cypress.Commands.add('verifyMeetingOptionButtons', () => {
 });
 
 Cypress.Commands.add('loginWithAdmin', (user) => {
-  
+
   // POST
   cy.intercept('POST', API.POST.ADD).as('ADD');
   cy.intercept('POST', API.POST.AVA_CRITERIA).as('AVA_CRITERIA');
@@ -202,7 +202,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('GET', API.GET.SEARCH_TOOLBAR).as('SEARCH_TOOLBAR');
   cy.intercept('GET', API.GET.SETTINGS_READ).as('SETTINGS_READ');
   cy.intercept('GET', API.GET.SHARE_MEETING_LISTS).as('SHARE_MEETING_LISTS');
-  cy.intercept('GET', API.GET.SUBSCRIPTIONS).as('SUBSCRIPTIONS');  
+  cy.intercept('GET', API.GET.SUBSCRIPTIONS).as('SUBSCRIPTIONS');
   cy.intercept('GET', API.GET.SUSTAIN_ANALYTICS).as('SUSTAIN_ANALYTICS');
   cy.intercept('GET', API.GET.SPA).as('SPA');
   cy.intercept('GET', API.GET.USER_CREATOR_PERMISSIONS).as('USER_CREATOR_PERMISSIONS');
@@ -227,7 +227,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('GET', API.GET.WORKFLOW_META_DATA_2).as('WORKFLOW_META_DATA_2');
   cy.intercept('GET', API.GET.WORKFLOW_RESEARCH_INFO).as('WORKFLOW_RESEARCH_INFO');
   cy.intercept('GET', API.GET.WORKFLOW_WIDGET_DATA).as('WORKFLOW_WIDGET_DATA');
-  
+
   // PUT
   cy.intercept('PUT', API.PUT.BALLOT_GRID_STATE).as('BALLOT_GRID_STATE');
   cy.intercept('PUT', API.PUT.CUSTOMER_FORMATS).as('CUSTOMER_FORMATS');
@@ -280,7 +280,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
     case USER.NEUBERGER:
       username = USER.NEUBERGER;
       break;
-    case  USER.PADDYINTERNAL:
+    case USER.PADDYINTERNAL:
       username = USER.PADDYINTERNAL;
       break;
     default:
@@ -299,11 +299,11 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
       cy.request({
         method: 'POST',
         url: '/Home/Authenticate/',
-        
+
         headers: {
           CSRFToken: csrf,
         },
-        
+
         body: {
           Username: username,
           Password: password,
@@ -415,7 +415,7 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
   );
   cy.intercept('GET', '**/Api/Data//ListService/**?CustomerID=0').as('ListService');
 
-  cy.get('#btn-add-criteria').click();
+  cy.get('#btn-add-criteria').click({ scrollBehavior: false });
   searchText.forEach((value) => {
     cy.then(() => {
       cy.get('#txt-filter-criteria')
@@ -463,29 +463,6 @@ Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
     cy.get('.editor-modal > div > div > label').contains(value).click({ force: true });
   });
   cy.get('.editor-modal > div > button').eq(0).click();
-
-  if (!isReporting) {
-    cy.wait('@WorkflowExpansion');
-    cy.wait('@WorkflowSecuritiesWatchlists');
-    cy.wait('@GetAvailableAssigneesForCustomer');
-  }
-});
-
-Cypress.Commands.add('chooseCriteriaStatus', (statusToChoose, isReporting) => {
-  cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
-  cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists/').as('WorkflowSecuritiesWatchlists');
-  cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('GetAvailableAssigneesForCustomer');
-
-  if (!isReporting) {
-    cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').click();
-  } else {
-    cy.get('#report-criteria-controls > div > div > h4').click();
-  }
-
-  statusToChoose.forEach((value) => {
-    cy.get('.SingleSelect > div > div > div').contains(value).next().click()
-  });
-  cy.get('.SingleSelect > div > div > button').eq(0).click();
 
   if (!isReporting) {
     cy.wait('@WorkflowExpansion');
@@ -635,18 +612,24 @@ Cypress.Commands.add('executeQuery', (query) => {
   }
 });
 
-Cypress.Commands.add('stausCode200', (param) => {
-    cy.wait(param).its('response.statusCode').should('eq', 200);
+Cypress.Commands.add('statusCode200', (param) => {
+  cy.wait(param).its('response.statusCode').should('eq', 200);
 });
 
-Cypress.Commands.add('stausCode204', (param) => {
-    cy.wait(param).its('response.statusCode').should('eq', 204);
+Cypress.Commands.add('statusCode204', (param) => {
+  cy.wait(param).its('response.statusCode').should('eq', 204);
 });
 
 Cypress.Commands.add('clickIfExist', (element) => {
   cy.get('body').then((body) => {
+    //Verify element exists
     if (body.find(element).length > 0) {
-        cy.get(element).click();
+      cy.get(element).then($header => {
+        //Verify element is visible
+        if ($header.is(':visible')){
+          cy.get(element).click();
+        }
+      })
     }
   })
 });

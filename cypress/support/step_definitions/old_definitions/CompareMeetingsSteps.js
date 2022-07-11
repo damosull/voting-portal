@@ -5,9 +5,9 @@ var idCompany = [38673]
 
 And('I navigate to the meeting with id {string}', (meetingId) => {
   cy.visit('MeetingDetails/Index/' + meetingId)
-  cy.stausCode204('@LOGGER')
-  cy.stausCode200('@GET_FILINGS')
-  cy.stausCode200('@VOTE_TALLY')
+  cy.statusCode204('@LOGGER')
+  cy.statusCode200('@GET_FILINGS')
+  cy.statusCode200('@VOTE_TALLY')
 })
 
 Then('the meeting id should match the expected current meeting id and previous meeting id', () => {
@@ -16,9 +16,9 @@ Then('the meeting id should match the expected current meeting id and previous m
   first meeting id*/
   cy.get('#link-prev-meeting-id').click({force: true})
   cy.location('href').should('include', idMeeting[0])
-  cy.stausCode204('@LOGGER')
-  cy.stausCode200('@GET_FILINGS')
-  cy.stausCode200('@VOTE_TALLY')
+  cy.statusCode204('@LOGGER')
+  cy.statusCode200('@GET_FILINGS')
+  cy.statusCode200('@VOTE_TALLY')
 })
 
 And('the company id should match the expected company id', () => {

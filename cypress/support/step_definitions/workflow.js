@@ -10,12 +10,13 @@ And('I navigate back to the workflow page', ()=> {
     workflowPage.getWorkflowPage()
     workflowPage.getLoadingSpinner().should('exist')
     //Waiting for page load
-    cy.stausCode200('@WORKFLOW_EXPANSION')
+    cy.statusCode200('@WORKFLOW_EXPANSION')
     workflowPage.waitForWorkflowPageLoad()
 })
 
 And('I remove all existing selected criteria', () => {
-    cy.removeAllExistingSelectedCriteria();
+    cy.removeAllExistingSelectedCriteria()
+    workflowPage.waitForWorkflowPageLoad()
 })
 
 And('I have added the criteria for {string} with status {string}', (criteria,status) => {
@@ -26,18 +27,26 @@ And('I have added the criteria for {string} with status {string}', (criteria,sta
 
 And('I have added the criteria for {string} and selecting {string}', (criteria,status) => {
     cy.AddMultipleCriteria([criteria])
-    cy.chooseCriteriaStatus([status])
+    workflowPage.criteriaLabel().click()
+    workflowPage.criteriaLabel().next().invoke('attr', 'style', 'display: block;')
+    workflowPage.criteriaOption().contains(status).next().click()
+    workflowPage.updateButton().click()
     workflowPage.waitForWorkflowPageLoad()
 })
 
 When('I select the first available meeting', () => {
-    cy.get('table > tbody > tr').eq(0).within(() => {
-      cy.get('[data-js="meeting-details-link"]').first().click({ force: true });
+    workflowPage.tableRows().eq(0).within(() => {
+        workflowPage.companyNameLink().click({ force: true });
     })
 })
 
 When('I select a random meeting', () => {
-    workflowPage.tableRows().eq(Math.floor(Math.random() * 19)).within(() => {
-      cy.get('[data-js="meeting-details-link"]').first().click()
+    workflowPage.tableRows().its('length').then( n => {
+        const meetingRows = n - 1
+        const randomRow = Math.floor(Math.random() * meetingRows)
+        workflowPage.tableRows().eq(randomRow).within(() => {
+            workflowPage.companyNameLink().click()
+            cy.log(`Selected row number ${randomRow + 1} from the top`)
+        })
     })
 })

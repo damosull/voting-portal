@@ -4,9 +4,9 @@
   },
   "reporter": "spec",
   "video": true,
-  "videoCompression": 15,
+  "videoCompression": 2,
   "retries": {
-    "runMode": 0,
+    "runMode": 1,
     "openMode": 0
   },
   "testFiles": "**/*.feature"

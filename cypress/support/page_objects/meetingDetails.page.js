@@ -1,13 +1,14 @@
 class meetingDetailsPage {
 
     proceedButtonLocator = '.floatright > .green'
+    unlockButtonLocator = '#btn-unlock'
 
     launchBallotsButton() { return cy.get('#launch-ballots-voted-modal').should('be.visible') }
     workflowButton() { return cy.get('#workflow-link') }
-    voteNowButton() { return cy.get('#btn-vote-now').should('be.visible') }
-    takeNoActionButton() { return cy.get('#btn-take-no-action').should('be.visible') }
-    instructButton() { return cy.get('#btn-instruct').should('be.visible') }
-    unlockButton() { return cy.get('#btn-unlock').should('be.visible') }
+    voteNowButton() { return cy.get('#btn-vote-now') }
+    takeNoActionButton() { return cy.get('#btn-take-no-action') }
+    instructButton() { return cy.get('#btn-instruct') }
+    unlockButton() { return cy.get(this.unlockButtonLocator) }
     votedBallots() { return cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').should('be.visible') }
     getLoadingSpinner() { return cy.get('.k-loading-text', { timeout: 90000 }) }
     proceedButton() { return cy.get(this.proceedButtonLocator).should('be.visible') }

@@ -61,6 +61,7 @@ module.exports = (on, config) => {
 
   on('before:run', () => {
     del('./test-results/cucumber')
+    del('./test-results/tests-output')
   })
 
   on('after:run', (results) => {

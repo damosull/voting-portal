@@ -117,8 +117,8 @@ When('I apply the {string}', (filterName) => {
       cy.log('Filter not found!!')
   }
   workflowPage.applyCriteriaButton().click()
-  cy.stausCode200('@SUSTAIN_ANALYTICS')
-  cy.stausCode200('@RANGE_SLIDER')
+  cy.statusCode200('@SUSTAIN_ANALYTICS')
+  cy.statusCode200('@RANGE_SLIDER')
 })
 
 Then('I should be able to see the results only for {string}', (filterName) => {
@@ -386,8 +386,8 @@ When('I try to add the first four available Sustainalytics ESG columns', () => {
 
 Then('I should be able to see these {string} columns on the workflow table', (noOfColumns) => {
   //Waiting for page load
-  cy.stausCode200('@WORKFLOW_EXPANSION')
-  cy.stausCode200('@WORKFLOW_SECURITIES_WATCHLIST')
+  cy.statusCode200('@WORKFLOW_EXPANSION')
+  cy.statusCode200('@WORKFLOW_SECURITIES_WATCHLIST')
   cy.get('.k-loading-text', { timeout: 90000 }).should('not.exist')
   cy.get('.mCSB_dragger_bar', { timeout: 90000 }).should('be.visible')
   // Moves the horizontal sidebar to the far right
@@ -427,7 +427,7 @@ When('I try to remove the first column on the workflow table', () => {
   cy.get('#btn-workflow-config-columns').click()
   cy.get(`input[value='${column}']`).first().uncheck({ force: true })
   cy.get('#btn-apply-configure-columns').click()
-  cy.stausCode200('@WORKFLOW_EXPANSION')
+  cy.statusCode200('@WORKFLOW_EXPANSION')
 })
 
 Then('I should be unable to see the first column on the workflow table', () => {
@@ -614,8 +614,8 @@ Then('I should be able to deselect the watch list from the previous scenario', (
 And('I should be able to deselect the system watch list from the workflow page', () => {
   //load workflow page and verify
   cy.visit('/Workflow')
-  cy.stausCode200('@WORKFLOW_EXPANSION')
-  cy.stausCode200('@WORKFLOW_SECURITIES_WATCHLIST')
+  cy.statusCode200('@WORKFLOW_EXPANSION')
+  cy.statusCode200('@WORKFLOW_SECURITIES_WATCHLIST')
   cy.get('.k-loading-text', { timeout: 90000 }).should('not.exist')
   //deselect system watch list
   cy.get('#btn-workflow-config-columns').click()

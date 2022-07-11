@@ -28,7 +28,7 @@ When('I navigate to the users page', () => {
   workflowPage.cogIcon().click();
   workflowPage.users().click();
   // Users page
-  cy.stausCode204('@LOGGER'); // Last loaded API on that page
+  cy.statusCode204('@LOGGER'); // Last loaded API on that page
 })
 
 And('I fill the required details for a new user and submit', () => {
@@ -86,7 +86,7 @@ When('I navigate to the watchlist page', () => {
     workflowPage.watchListDropDownButton().click()
     workflowPage.manageWatchListDropDownButton().click({ force: true })
     // Watchlist page
-    cy.stausCode200('@WATCHLIST_SECURITIES') // Last loaded API on the page
+    cy.statusCode200('@WATCHLIST_SECURITIES') // Last loaded API on the page
 })
 
 And('I create a new watchlist', () => {
@@ -104,12 +104,12 @@ Then('I should be able to search for the new watchlist', () => {
 
 And('I should be able to assign the watchlist successfully', () => {
   watchlistPage.administrationUserTextField().type(testAdministrationUser);
-  cy.stausCode200('@WATCHLIST_IDENTITY_SEARCH'); // Waiting for dropdown appers
+  cy.statusCode200('@WATCHLIST_IDENTITY_SEARCH'); // Waiting for dropdown appers
   watchlistPage.addAdministrationUserButton().click({ force: true })
   watchlistPage.watchListFilterList().should('include.text', testWatchlistName)
   // Workflow page - Check assigned watchlist is in Assignees list
   cy.visit('/Workflow')
-  cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER') // Last loaded API on the page
+  cy.statusCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER') // Last loaded API on the page
   workflowPage.watchListDropDownButton().click({ force: true })
   workflowPage.watchlistSearchInput().type(testWatchlistName, { force: true })
   workflowPage.watchlistScrollableContainer().should('include.text', testWatchlistName)

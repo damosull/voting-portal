@@ -7,6 +7,7 @@ class workflowPage {
     // Meeting section
     meeting() { return cy.get('#metaname-CompanyName > div > span > a') }
     tableRows() { return cy.get('table > tbody > tr') }
+    companyNameLink() { return cy.get('[data-js="meeting-details-link"]').first() }
 
     // Watchlist section
     watchListDropDownButton() { return cy.get('#btn-watchlists') }
@@ -23,6 +24,9 @@ class workflowPage {
     addCriteriaButton() { return cy.get('#btn-add-criteria') }
     criteriaInput() { return cy.get('#txt-filter-criteria') }
     applyCriteriaButton() { return cy.get('#btn-apply-criteria') }
+    criteriaLabel() { return cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').should('be.visible') }
+    criteriaOption() { return cy.get('.SingleSelect > div > div > div') }
+    updateButton() { return cy.get('.SingleSelect > div > div > button').eq(0) }
 
 
     //Common Functions

@@ -1,9 +1,9 @@
 Feature: Vote Button Tests
-#https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=53607&suiteId=54213
+  #https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=53607&suiteId=54213
 
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/3289
   Scenario: Verify a user can vote on a vote card
-    Given I am logged in as the "WELLINGTON" User
+    Given I am logged in as the "CALPERS" User
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     When I select the first available meeting
@@ -61,7 +61,7 @@ Feature: Vote Button Tests
     And I verify the vote tally section by checking the total votes and hyperlinks
     And I should logout from the application
 
-@focus
+
   # TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/27932
   # Role default: Allowed -> I test it with "Explicitly Denied" so I expect I will not see those voting options
   Scenario Outline: Different permission setup on vote card functionality
@@ -75,7 +75,8 @@ Feature: Vote Button Tests
     And I should logout from the application
     Given I am logged in as the "ROBECO" User
     When I select the first available meeting
-    Then The <permission_name> functionality is not available
+    Then I can view the Meeting Details page
+    And The <permission_name> functionality is not available
     And I should logout from the application
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     When I arrive on the User Permissions page
@@ -86,7 +87,7 @@ Feature: Vote Button Tests
     And I click on the Submit changes button
 
     Examples:
-    | permission_name    | access_decision       | default_role_access   |
-    | "Vote"              | "Explicitly Denied"   | "Role Default"        |
-    | "Instruct"          | "Explicitly Denied"   | "Role Default"        |
-    | "Take No Action"    | "Explicitly Denied"   | "Role Default"        |
+      | permission_name  | access_decision     | default_role_access |
+      | "Vote"           | "Explicitly Denied" | "Role Default"      |
+      | "Instruct"       | "Explicitly Denied" | "Role Default"      |
+      | "Take No Action" | "Explicitly Denied" | "Role Default"      |

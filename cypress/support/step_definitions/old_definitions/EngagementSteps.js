@@ -171,7 +171,7 @@ And('I save the picklist', () => {
 
 And('I navigate to the Workflow page', () => {
     cy.visit('/Workflow')
-    cy.stausCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER') // Last loaded API on tha page - ext
+    cy.statusCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER') // Last loaded API on tha page - ext
 })
 
 

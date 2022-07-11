@@ -182,7 +182,7 @@ And('I provide the details like the username to share with and submitted', () =>
   //Step 6 - Select 'Calpers External Admin' from Users list
   cy.get('#in-share-meeting-user-name').type('Calpers')
   cy.wait('@IDENTITY_SEARCH')
-  cy.get('#in-share-meeting-user-name_listbox li').eq(0).should('be.visible').wait(1000).click()
+  cy.get('#in-share-meeting-user-name_listbox li').eq(0).should('be.visible').click()
   //Step 8 - Click Add button
   cy.get('#btn-share-meeting-add').click()
   //Step 9 - Add Comment "This is a test comment"
