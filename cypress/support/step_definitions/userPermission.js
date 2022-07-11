@@ -1,4 +1,3 @@
-require('cypress-xpath');
 import { And } from "cypress-cucumber-preprocessor/steps"
 import userPermissionPage from "../page_objects/userPermission.page"
 
