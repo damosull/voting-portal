@@ -164,10 +164,6 @@ Then('I can see the Manage Filters page', () => {
   cy.url().should('include', '/ManageFilters')
 })
 
-And('I am on the Workflow page', () => {
-  workflowPage.workflowMenuButton().should('exist')
-})
-
 And('I can see the filter columns are displayed in the correct order', () => {
   cy.get('#btn-date-modal').contains('Next 30 Days').should('be.visible')
   cy.get('#editorDiv1000 > h4').contains('Number of Ballots > 0').should('be.visible')
@@ -356,10 +352,10 @@ Then('I am able to iterate through rationales, add text entry, save and verify t
 
 Then('I am able to add meeting note and post private comment', () => {
   //Test Meeting note entry
-  cy.get('#meeting-note').click()
-  cy.get('#meeting-notes-input').clear()
+  cy.get('#meeting-note').should('be.visible').click({force: true})
+  cy.get('#meeting-notes-input').should('be.visible').clear({force: true})
   cy.get('#meeting-notes-input').type('The quick brown fox jumps over a lazy dog - ~!@#$%^&*-_=+[]|,./<>? +')
-  cy.get(`button[type='submit'`).click()
+  cy.get("button[type='submit']").click()
   cy.get('.toast-message').should('contain.text', 'Meeting note saved')
 
   //Post Private Comment

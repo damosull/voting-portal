@@ -1,19 +1,17 @@
 export const USER = {
-  AUTOMATIONEXTERNAL: 'automation_calpers@glasslewis.com',
   AUTOMATIONINTERNAL: 'automation@glasslewis.com',
+  AUTOMATIONEXTERNAL: 'automation_calpers@glasslewis.com',
   CALPERS: 'CalpersAutomation@glasslewis.com',
   CHARLESSCHWAB: 'CharlesSchwabAutomation@glasslewis.com',
   FEDERATED: 'FederatedAutomation@glasslewis.com',
   IMF: 'IFMAutomation@glasslewis.com',
   NEUBERGER: 'neubergerexternal@glasslewis.com',
   OPERS: 'OpersAutomation@glasslewis.com',
-  ADDYINTERNAL: 'pcorcoran@glasslewis.com',
   PUTNAM: 'PutnamAutomation@glasslewis.com',
   ROBECO: 'RobecoAutomation@glasslewis.com',
   ROYALLONDON: 'RoyalLondonAutomation@glasslewis.com',
   RUSSELL: 'RussellAutomation@glasslewis.com',
   WELLINGTON: 'WellingtonAutomation@glasslewis.com',
-  PADDYINTERNAL: 'pcorcoran@glasslewis.com',
   PASSWORD:{
     TEST_PASSWORD: 'Test12345%'
   }

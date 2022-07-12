@@ -32,19 +32,6 @@ When('I verify customer settings for VAM and VAP', () => {
     cy.logout()
 });
 
-/* When('I verify customer settings for VAM', () => {
-    //verify CanModifyVotesRationaleAfterMeetingDate = true
-    //& RequireRationaleVap = true for Customer
-    cy.get('@custid').then(function (cid) {
-        const settings = `?&pCustomerID=${cid}&_=${unixTime}`;
-        cy.TurnOnCustomerSetting(settings, 'CanModifyVotesRationaleAfterMeetingDate')
-        cy.TurnOnCustomerSetting(settings, 'RequireRationaleVam')
-    });
-    cy.logout()
-}); */
-
-
-
 When('I login as External User {string}', () => {
     cy.loginWithAdmin(USER.RUSSELL);
     cy.visit('/Workflow');

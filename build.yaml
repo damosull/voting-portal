@@ -30,7 +30,7 @@ schedules:
 
 jobs:
 - job: ViewpointAutomation
-  timeoutInMinutes: 45
+  timeoutInMinutes: 90
   pool: 'Build Pipelines VMSS - QAUAT'
   steps:
   - script: |
@@ -46,7 +46,7 @@ jobs:
       export cypress_Internal_Admin_Password=$(InternalAdminPassword)
       export cypress_External_Username=$(ExternalUsername)
       export HTTP_PROXY=http://10.71.1.42:3128
-      npx cypress run --env configFile=${{ parameters.configuration }}
+      npx cypress run --env configFile=${{ parameters.configuration }} --browser chrome --reporter junit
     displayName: 'Running Cypress Tests'
 
   - task: PublishPipelineArtifact@1

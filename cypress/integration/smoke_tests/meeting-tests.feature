@@ -2,14 +2,14 @@ Feature: Meeting smoke tests
 
 
   Scenario: Verify that the votes against Glass Lewis are captured in filter criteria
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "RUSSELL" User
     And I remove all existing selected criteria
     When I filter with the criteria of vote against Glass Lewis
     Then the filtered results should display the data only for vote against Glass Lewis
     And I should logout from the application
 
   Scenario: Verify that the votes against Management are captured in filter criteria
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "WELLINGTON" User
     And I remove all existing selected criteria
     When I filter with the criteria of vote against Management
     Then the filtered results should display the data only for vote against Management
@@ -94,6 +94,25 @@ Feature: Meeting smoke tests
     And I provide the details like the username to share with and submitted
     Then I should see a request saved message
     And I verify that the request was saved in the database
+    And I should logout from the application
+
+  Scenario: Verify external user is able to add meeting note and post private comment
+    Given I am logged in as the "CHARLESSCHWAB" User
+    Then I can view the workflow page
+    And I remove all existing selected criteria
+    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
+    When I select a random meeting
+    Then I can view the Meeting Details page
+    And I am able to add meeting note and post private comment
+    And I should logout from the application
+
+  Scenario: Verify external user is able to add comment to each rationale, save it and verify the toast message
+    Given I am logged in as the "ROBECO" User
+    Then I can view the workflow page
+    And I remove all existing selected criteria
+    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
+    When I select the first available meeting
+    Then I am able to iterate through rationales, add text entry, save and verify toast message for each entry
     And I should logout from the application
 
   # #Test scenario 37790 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37790

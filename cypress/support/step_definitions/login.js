@@ -14,7 +14,7 @@ Given('I am logged in as the {string} User', (username) => {
     cy.loginWithAdmin(constants.USER[username])
     workflowPage.getWorkflowPage()
     //Waiting for page load
-    cy.statusCode200('@WORKFLOW_EXPANSION')
+    cy.wait('@WORKFLOW_EXPANSION', {responseTimeout: 120000})
     workflowPage.waitForWorkflowPageLoad()
 })
 

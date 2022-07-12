@@ -58,9 +58,7 @@ And('I enter Schedule to run Subscription', () => {
   cy.get('#daily-every-hours').select('5');
   cy.get('#daily-every-hours').find(':selected').should('have.text', '5 Hours');
   cy.get('#start-time-hour').select('9');
-  cy.get('#start-time-hour').find(':selected').should('include.text', '9AM');
   cy.get('#end-time-hour').select('18');
-  cy.get('#end-time-hour').find(':selected').should('include.text', '6PM');
     
 })
 

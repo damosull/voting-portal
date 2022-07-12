@@ -280,9 +280,6 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
     case USER.NEUBERGER:
       username = USER.NEUBERGER;
       break;
-    case USER.PADDYINTERNAL:
-      username = USER.PADDYINTERNAL;
-      break;
     default:
       cy.log('User not found');
   }
@@ -383,24 +380,22 @@ Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
             cy.get('[class="remove"]')
               .eq(i - 1)
               .click({ force: true });
-
-            cy.wait('@WorkflowExpansion');
+            cy.wait('@WorkflowExpansion', {responseTimeout: 90000});
             cy.wait('@WorkflowSecuritiesWatchlists');
             cy.wait('@GetAvailableAssigneesForCustomer');
           }
         }
+        cy.get('[class="remove"]').should('have.length', 2);
       } else {
-        for (let i = len - 1; i >= 0; i--) {
-          if (i > 2) {
-            cy.get('[class="remove"]').eq(i).click({ force: true });
-
-            cy.wait('@WorkflowExpansion');
+        for (let i = len; i >= 0; i--) {
+          if (i > 3) {
+            cy.get('[class="remove"]').eq(i - 1).click({ force: true });
+            cy.wait('@WorkflowExpansion', {responseTimeout: 90000});
             cy.wait('@WorkflowSecuritiesWatchlists');
-            cy.wait('@GetAvailableAssigneesForCustomer');
           }
         }
+        cy.get('[class="remove"]').should('have.length', 3);
       }
-      cy.get('[class="remove"]').should('have.length', 2);
     }
   });
 });
@@ -432,8 +427,6 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
   cy.contains('Apply').click();
 
   if (!isReporting) {
-    cy.wait('@WorkflowFilter');
-
     cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').each((h4) => {
       expect(h4.text().trim()).to.be.oneOf(searchText);
     });

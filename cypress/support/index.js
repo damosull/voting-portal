@@ -38,7 +38,8 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 afterEach(() => {
   //attach screenshot to the cucumber report for failed test
   const screenshotsFolder = Cypress.config("screenshotsFolder");
-  if (window.cucumberJson?.generate) {
+  try {
+    if (window.cucumberJson?.generate) {
       const testState = window.testState;
       const stepResult =
           testState.runTests[testState.currentScenario.name][testState.currentStep];
@@ -56,5 +57,8 @@ afterEach(() => {
               };
           });
       }
+    }
+  } catch (e) {
+    cy.log('Attaching Screenshot failed! Proceeding with tests!!')
   }
 });

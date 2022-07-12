@@ -6,7 +6,7 @@ Feature: Vote Decision Tests
     Given I am logged in as the "CALPERS" User
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Manual Vote Required"
-    When I select the first available meeting
+    When I select a random meeting
     Then I can view the Meeting Details page
     When I vote for an item which had no previous vote with Glass Lewis Recommendations
     And I click on the Vote button

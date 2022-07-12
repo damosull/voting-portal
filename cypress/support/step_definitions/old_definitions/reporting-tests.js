@@ -139,7 +139,7 @@ And('I click on the {string} filter', (filter) => {
 
 And('I set the meeting date to next date {int} and past date {int} days', (nextDays, pastDays) => {
     
-  cy.get('#date-range-target-MeetingDate').invoke('attr', 'style', 'display: block');
+  cy.get('.date-range-target').invoke('attr', 'style', 'display: block');
   cy.get('.k-formatted-value').invoke('attr', 'style', 'display: block').clear();
   cy.get(':nth-child(1) > .k-widget > .k-numeric-wrap > .k-formatted-value').type(nextDays);
   cy.get(':nth-child(2) > .k-widget > .k-numeric-wrap > .k-formatted-value').type(pastDays);
