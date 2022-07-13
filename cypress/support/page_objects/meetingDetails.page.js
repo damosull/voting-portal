@@ -27,6 +27,8 @@ class meetingDetailsPage {
     closeVoteTallyPopup() { return cy.get('#close-panel') }
     totalVotedLabel() { return cy.get("span[data-bind='text: VotedStatusCount']") }
     glassLewisLogoLink() { return cy.get("a[id='logo-link'] span") }
+    validationMessage() { return cy.get("div[data-bind='visible: missingSelectionError']") }
+
 }
 
 module.exports = new meetingDetailsPage();

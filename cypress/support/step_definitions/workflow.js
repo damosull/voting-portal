@@ -41,3 +41,9 @@ When('I select a random meeting', () => {
       cy.get('[data-js="meeting-details-link"]').first().click()
     })
 })
+
+When('I navigate to {string} meeting', (company_name) => {
+    
+    cy.contains(company_name).click();
+
+})
