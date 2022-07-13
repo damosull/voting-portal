@@ -6,7 +6,7 @@ Feature: Vote Button Tests
     Given I am logged in as the "CALPERS" User
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
-    When I select the first available meeting
+    When I select a random meeting
     Then I can view the Meeting Details page
     When I replace my FOR votes with AGAINST and vice-versa
     And I click on the Vote button
@@ -24,7 +24,7 @@ Feature: Vote Button Tests
     Given I am logged in as the "CALPERS" User
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Voted"
-    When I select the first available meeting
+    When I select a random meeting
     Then I can view the Meeting Details page
     And I can verify that the Quick Vote option and Vote Decision are read only
     When I click on the Change Vote or Rationale button

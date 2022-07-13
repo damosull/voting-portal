@@ -1,6 +1,5 @@
 Feature: Meeting smoke tests
 
-
   Scenario: Verify that the votes against Glass Lewis are captured in filter criteria
     Given I am logged in as the "RUSSELL" User
     And I remove all existing selected criteria
