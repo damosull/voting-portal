@@ -172,10 +172,8 @@ Then('I check the API calls status on the MeetingDetails page for external user'
     cy.statusCode200('@VOTE_CARD');
     cy.statusCode200('@VOTE_CARD_GRID_STATE');
     cy.statusCode200('@GET_MEETING_ID');
-    cy.statusCode200('@WORKFLOW_RESEARCH_INFO');
     cy.statusCode200('@VOTE_RESULTS');
     cy.statusCode200('@COMMENTS_IDENTITY_SEARCH');
-    cy.statusCode200('@MEETING_DETAILS_ACTIVITY');
     cy.statusCode200('@WORKFLOW_RESEARCH_INFO');
     cy.statusCode200('@RELATED_MEETINGS');
     cy.statusCode200('@MEETING_SECURITY_WATCHLIST');
@@ -184,7 +182,6 @@ Then('I check the API calls status on the MeetingDetails page for external user'
     cy.statusCode200('@ASSIGNED_MEETING_ID');
     cy.statusCode200('@VOTE_AGAINST_POLICY_WL');
     cy.statusCode200('@MEETING_DETAILS_ACTIVITY');
-    cy.statusCode204('@PUT_BALLOTS_GRID_STATE');
     cy.statusCode200('@GET_FILINGS');
     cy.statusCode200('@VOTE_TALLY');
     cy.statusCode200('@VOTE_TALLY_OWNERSHIP');

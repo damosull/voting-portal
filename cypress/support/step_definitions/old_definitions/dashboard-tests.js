@@ -40,7 +40,10 @@ And('I click Add Subscription button', () => {
 
 And('I select Calpers External Admin from Users list', () => {
 
-  cy.get('.k-multiselect-wrap.k-floatwrap').type('Cal{downarrow}{enter}');
+  cy.get("input[role='listbox']").type('Cal')
+  cy.get('#subscription-users-select').invoke('attr', 'style', 'display: block')
+  cy.get('#subscription-users-select').should('be.visible')
+  cy.get("input[role='listbox']").type('{downarrow}{enter}')
 
 });
 

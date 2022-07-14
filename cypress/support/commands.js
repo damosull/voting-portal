@@ -517,10 +517,10 @@ Cypress.Commands.add('selectValueFromCriteriaOption', (id, inputVal, object, upd
 });
 
 Cypress.Commands.add('AddCriteriaOption', (searchText, inputValue) => {
-  cy.get('#btn-add-criteria').click({ force: true });
-  cy.get('#txt-filter-criteria').type(searchText, { force: true });
+  cy.get('#btn-add-criteria').click({ scrollBehavior: false });
+  cy.get('#txt-filter-criteria').type(searchText);
   cy.get(`input[value='${inputValue}']`).check({ force: true });
-  cy.contains('Apply').click({ force: true });
+  cy.contains('Apply').click({ scrollBehavior: false });
 });
 
 Cypress.Commands.add('parseXlsx', (inputFile) => {

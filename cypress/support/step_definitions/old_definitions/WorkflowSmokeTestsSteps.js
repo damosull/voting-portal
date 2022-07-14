@@ -1,4 +1,5 @@
 import { When, Then, And } from 'cypress-cucumber-preprocessor/steps'
+import { waitForWorkflowPageLoad } from '../../page_objects/workflow.page'
 const workflowPage = require ("../../page_objects/workflow.page")
 const constants = require("../../constants")
 
@@ -119,6 +120,7 @@ When('I apply the {string}', (filterName) => {
   workflowPage.applyCriteriaButton().click()
   cy.statusCode200('@SUSTAIN_ANALYTICS')
   cy.statusCode200('@RANGE_SLIDER')
+  workflowPage.waitForWorkflowPageLoad()
 })
 
 Then('I should be able to see the results only for {string}', (filterName) => {
