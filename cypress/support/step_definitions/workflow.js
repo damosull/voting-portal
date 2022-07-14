@@ -81,3 +81,9 @@ Then('I should be {string} to see the text {string} on the UI', (condition, text
         workflowPage.getPageBody().should('contain',text)
     }
 })
+
+When('I navigate to {string} meeting', (company_name) => {
+    
+    cy.contains(company_name).click();
+
+})

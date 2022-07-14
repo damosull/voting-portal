@@ -186,3 +186,7 @@ And('I can verify that at least one policy recommendations is against {string} r
         expect(count).to.be.greaterThan(0)
     })
 })
+
+Then('I get back a validation message {string}',(message) => {
+    meetingDetailsPage.validationMessage().contains(message)
+})
