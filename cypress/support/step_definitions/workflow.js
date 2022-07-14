@@ -30,7 +30,7 @@ When('I search for the customer {string}', (customerName) => {
     workflowPage.selectCustomerInput().clear({ force: true }).type(customerName)
     workflowPage.selectCustomerDropdown().should('be.visible')
     workflowPage.selectCustomerInput().type('{downarrow}{enter}')
-    cy.wait('@WorkflowExpansion', {responseTimeout: 90000})
+    cy.wait('@WORKFLOW_EXPANSION', {responseTimeout: 90000})
     workflowPage.waitForWorkflowPageLoad()
 })
 
@@ -41,6 +41,7 @@ And('I have added the criteria for {string}', (criteria) => {
 And('I have added the criteria for {string} with status {string}', (criteria,status) => {
     cy.AddMultipleCriteria([criteria])
     cy.addCriteriaStatus([status])
+    cy.wait('@WORKFLOW_EXPANSION', {responseTimeout: 90000})
     workflowPage.waitForWorkflowPageLoad()
 })
 
@@ -50,6 +51,7 @@ And('I have added the criteria for {string} and selecting {string}', (criteria,s
     workflowPage.criteriaLabel().next().invoke('attr', 'style', 'display: block;')
     workflowPage.criteriaOption().contains(status).next().click()
     workflowPage.updateButton().click()
+    cy.wait('@WORKFLOW_EXPANSION', {responseTimeout: 90000})
     workflowPage.waitForWorkflowPageLoad()
 })
 
@@ -68,7 +70,7 @@ When('I select a random meeting', () => {
         const meetingRows = n - 1
         const randomRow = Math.floor(Math.random() * meetingRows)
         workflowPage.tableRows().eq(randomRow).within(() => {
-            workflowPage.companyNameLink().click()
+            workflowPage.companyNameLink().click({force: true})
             cy.log(`Selected row number ${randomRow + 1} from the top`)
         })
     })

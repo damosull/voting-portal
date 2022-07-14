@@ -20,12 +20,6 @@ steps:
       docker ps --filter name=votingportal-automation-tests* -aq | xargs docker stop | xargs docker rm
       docker rmi glasslewis.azurecr.io/votingportal-cypress votingportal-cypress -f
 
-- task: Bash@3
-  displayName: 'Build New Cypress Images'
-  inputs:       
-    targetType: 'inline'
-    script: 'docker build -t votingportal-cypress .'
-
 - task: DockerCompose@0
   displayName: 'Run Cypress Tests'
   inputs:
@@ -34,7 +28,7 @@ steps:
     dockerComposeFile: '**/docker-compose.yml'
     action: 'Run a Docker Compose command'
     dockerComposeCommand: 'up'
-    arguments: '--scale cypress=${{ parameters.numInstance }}'
+    arguments: '--build --scale cypress=${{ parameters.numInstance }}'
 
 - task: Bash@3
   displayName: 'Remove Exited Cypress Containers'

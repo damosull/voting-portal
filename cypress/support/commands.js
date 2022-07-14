@@ -511,16 +511,16 @@ Cypress.Commands.add('handleErrorModal', () => {
 });
 
 Cypress.Commands.add('selectValueFromCriteriaOption', (id, inputVal, object, updatebtn) => {
-  cy.get(`${id}`).click();
-  cy.get(`input[${inputVal}='${object}']`).check({ force: true });
-  cy.get(`${updatebtn}`).click({ force: true });
+  cy.get(`${id}`).click({ scrollBehavior: false, force: true });
+  cy.get(`input[${inputVal}='${object}']`).check({ scrollBehavior: false, force: true });
+  cy.get(`${updatebtn}`).click({ scrollBehavior: false, force: true });
 });
 
 Cypress.Commands.add('AddCriteriaOption', (searchText, inputValue) => {
-  cy.get('#btn-add-criteria').click({ scrollBehavior: false });
-  cy.get('#txt-filter-criteria').type(searchText);
-  cy.get(`input[value='${inputValue}']`).check({ force: true });
-  cy.contains('Apply').click({ scrollBehavior: false });
+  cy.get('#btn-add-criteria').click({ scrollBehavior: false, force: true });
+  cy.get('#txt-filter-criteria').type(searchText, { scrollBehavior: false });
+  cy.get(`input[value='${inputValue}']`).check({ scrollBehavior: false, force: true });
+  cy.contains('Apply').click({ scrollBehavior: false, force: true });
 });
 
 Cypress.Commands.add('parseXlsx', (inputFile) => {

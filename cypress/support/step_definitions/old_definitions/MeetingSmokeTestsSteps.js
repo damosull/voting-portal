@@ -1,4 +1,5 @@
 import { When, Then, And } from 'cypress-cucumber-preprocessor/steps'
+import workflowPage from '../../page_objects/workflow.page'
 const constants = require("../../constants")
 const meetingDetailsPage = require("../../page_objects/meetingDetails.page")
 const unixTime = Math.floor(Date.now() / 1000)
@@ -8,6 +9,7 @@ const filterName = `MyFilter_${unixTime}`
 When('I filter with the criteria of vote against Glass Lewis', () => {
   cy.AddCriteriaOption('decision', 'Decision Status')
   cy.selectValueFromCriteriaOption('.DecisionStatusEditor', 'value', 'Approved', '#btn-apply-criteria')
+  workflowPage.waitForWorkflowPageLoad()
   cy.AddCriteriaOption('With', 'Votes With/Against Glass Lewis')
   cy.selectValueFromCriteriaOption('.WithAgainstGlassLewisEditor', 'name', 'opt-WithAgainstGlassLewis', '#btn-update-WithAgainstGlassLewis')
 })

@@ -1,5 +1,4 @@
 import { When, Then, And } from 'cypress-cucumber-preprocessor/steps'
-import { waitForWorkflowPageLoad } from '../../page_objects/workflow.page'
 const workflowPage = require ("../../page_objects/workflow.page")
 const constants = require("../../constants")
 
@@ -126,31 +125,31 @@ When('I apply the {string}', (filterName) => {
 Then('I should be able to see the results only for {string}', (filterName) => {
   switch (filterName) {
     case 'ESG Risk Rating Assessment filter':
-      cy.get(ESG_Risk_Rating_Assessment_filter.editorButton).trigger("click")
+      cy.get(ESG_Risk_Rating_Assessment_filter.editorButton).trigger("click", {waitForAnimations: false})
       cy.get(ESG_Risk_Rating_Assessment_filter.editorModal).should('be.visible')
       break
     case 'ESG Risk Exposure Assessment filter':
-      cy.get(ESG_Risk_Exposure_Assessment_filter.editorButton).trigger("click")
+      cy.get(ESG_Risk_Exposure_Assessment_filter.editorButton).trigger("click", {waitForAnimations: false})
       cy.get(ESG_Risk_Exposure_Assessment_filter.editorModal).should('be.visible')
       break
     case 'ESG Risk Management Assessment filter':
-      cy.get(ESG_Risk_Management_Assessment_filter.editorButton).trigger("click")
+      cy.get(ESG_Risk_Management_Assessment_filter.editorButton).trigger("click", {waitForAnimations: false})
       cy.get(ESG_Risk_Management_Assessment_filter.editorModal).should('be.visible')
       break
     case 'ESG Risk Rating Percentile Global filter':
-      cy.get(ESG_Risk_Rating_Percentile_Global_filter.editorButton).trigger("click")
+      cy.get(ESG_Risk_Rating_Percentile_Global_filter.editorButton).trigger("click", {waitForAnimations: false})
       cy.get(ESG_Risk_Rating_Percentile_Global_filter.editorModal).should('be.visible')
       break
     case 'ESG Risk Rating Percentile Industry filter':
-      cy.get(ESG_Risk_Rating_Percentile_Industry_filter.editorButton).trigger("click")
+      cy.get(ESG_Risk_Rating_Percentile_Industry_filter.editorButton).trigger("click", {waitForAnimations: false})
       cy.get(ESG_Risk_Rating_Percentile_Industry_filter.editorModal).should('be.visible')
       break
     case 'ESG Risk Rating Percentile Sub Industry filter':
-      cy.get(ESG_Risk_Rating_Percentile_Sub_Industry_filter.editorButton).trigger("click")
+      cy.get(ESG_Risk_Rating_Percentile_Sub_Industry_filter.editorButton).trigger("click", {waitForAnimations: false})
       cy.get(ESG_Risk_Rating_Percentile_Sub_Industry_filter.editorModal).should('be.visible')
       break
     case 'ESG Risk Rating Highest Controversy filter':
-      cy.get(ESG_Risk_Rating_Highest_Controversy_filter.editorButton).trigger("click")
+      cy.get(ESG_Risk_Rating_Highest_Controversy_filter.editorButton).trigger("click", {waitForAnimations: false})
       cy.get(ESG_Risk_Rating_Highest_Controversy_filter.editorModal).should('be.visible')
       break                                 
     default:
