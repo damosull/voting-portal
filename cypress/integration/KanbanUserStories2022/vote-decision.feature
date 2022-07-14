@@ -1,7 +1,7 @@
 Feature: Vote Decision Tests
 #https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=53607&suiteId=54187
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28476
+  # TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28476
   Scenario: Verify that warning message  "You are voting against your custom policy for items xx.xx" is not be displayed when Policy Rec = Manual
     Given I am logged in as the "CALPERS" User
     And I remove all existing selected criteria
@@ -12,3 +12,28 @@ Feature: Vote Decision Tests
     And I click on the Vote button
     Then I can see a Vote success message
     And I should logout from the application
+
+  # https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28472
+  # TC ID - 28474
+  Scenario: Verify that a Validation Message is displayed
+    Given I am logged in as the "ROBECO" User
+    And I remove all existing selected criteria
+    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
+    And I select the first available meeting
+    And I click on the Vote button
+    Then I get back a validation message "You must enter a vote decision for"
+
+  # https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28472
+  # TC ID - 28473 & 28475
+  Scenario Outline: Verify Validation Messages
+    Given I am logged in as the "ROBECO" User
+    And I remove all existing selected criteria
+    And I have added the criteria for "Decision Status" with status <decision_staus>
+    When I navigate to <company_name> meeting
+    And I click on the Vote button
+    Then I get back a validation message "You must enter a vote decision for"
+
+    Examples:
+    | decision_staus              | company_name            |
+    | "Manual Vote Required"      | "Ninety One Limited"    |
+    | "Manual Vote Required"      | "Centerra Gold Inc."    |
