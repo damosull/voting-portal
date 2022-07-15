@@ -1,3 +1,3 @@
 {
-  "testFiles": "KanbanUserStories2022/*.feature"
+  "testFiles": "Smoke Tests/*.feature"
 }

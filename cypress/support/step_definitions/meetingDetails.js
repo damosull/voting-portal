@@ -12,10 +12,20 @@ Then('I can view the Meeting Details page', () => {
 When('I navigate to the meeting details page for the meeting {string}', (meetingID) => {
     cy.AddTenDaysToMeetingDates(constants.MEETINGID[meetingID])
     cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID])   
-  })
+})
+
+When('I reduce 10 days from meeting date and navigate to the meeting details page for the meeting {string}', (meetingID) => {
+    cy.SetMeetingDateXdaysFromCurrent(constants.MEETINGID[meetingID], -10)
+    cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID])   
+})
 
 When('I click on the Change Vote or Rationale button', () => {
     meetingDetailsPage.unlockButton().click()
+    cy.verifyMeetingOptionButtons()
+})
+
+When('I click on the Change Vote or Rationale button if it exists', () => {
+    cy.clickIfExist(meetingDetailsPage.unlockButtonLocator)
     cy.verifyMeetingOptionButtons()
 })
 
@@ -82,9 +92,18 @@ And('I click on the Proceed button', () => {
     cy.clickIfExist(meetingDetailsPage.proceedButtonLocator)    
 })
 
+And('I select the override checkbox', () => {
+    meetingDetailsPage.checkboxOverride().should('be.visible').click()
+    meetingDetailsPage.proceedButton().click()
+})
+
 And('I select the checkbox and click Proceed', () => {
     meetingDetailsPage.checkboxOverride().should('be.visible').click()
     meetingDetailsPage.proceedButton().click()
+})
+
+Then('The Proceed button should be enabled', () => {
+    cy.get('.floatright > .green').should('be.visible')
 })
 
 Then('I can see a Vote success message', () => {
@@ -187,6 +206,141 @@ And('I can verify that at least one policy recommendations is against {string} r
     })
 })
 
-Then('I get back a validation message {string}',(message) => {
-    meetingDetailsPage.validationMessage().contains(message)
+Then('I should see a message that contains the text {string}',(message) => {
+    meetingDetailsPage.pageBody().contains(message)
+})
+
+And('I clear the rationales for VAM entries and VAP entries and add rationales for remaining proposals', () => {
+    meetingDetailsPage.voteCardRow().then(($rows) => {
+      $rows.each((index, value) => {
+        const vamrec = Cypress.$(value).find('td:nth-child(3)').text()
+        const vaprec = Cypress.$(value).find('td.vote-card-policy-rec').text()
+        var selected = Cypress.$(value).find(':selected').text()
+        if (!vaprec.includes('Non Voting')) {
+          if ((vaprec.toLowerCase() !== selected.toLowerCase()) || (vamrec.toLowerCase() !== selected.toLowerCase())) {
+            cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+              .scrollIntoView()
+              .click({ force: true })
+            cy.get(
+              `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+            ).clear({ force: true })
+            cy.get(
+              `#md-votecard-grid-results > tr:nth-child(${index + 1
+              }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+            ).click({ force: true })
+          } else {
+            cy.get(`tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+              .scrollIntoView()
+              .click({ force: true })
+            cy.get(
+              `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+            ).clear({ force: true })
+            cy.get(
+              `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+            ).type('test', { force: true })
+            cy.get(
+              `#md-votecard-grid-results > tr:nth-child(${index + 1
+              }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+            ).click({ force: true })
+          }
+        }
+      })
+    })
+})
+
+And('I clear the rationales for VAM entries and add rationales for other proposals', () => {
+    meetingDetailsPage.voteCardRow().then(($rows) => {
+      $rows.each((index, value) => {
+        const rec = Cypress.$(value).find('td:nth-child(3)').text()
+        var selected = Cypress.$(value).find(':selected').text()
+        if (!rec.includes('Non Voting')) {
+          if (rec.toLowerCase() !== selected.toLowerCase()) {
+            cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+              .scrollIntoView()
+              .click({ force: true })
+            cy.get(
+              `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+            ).clear({ force: true })
+            cy.get(
+              `#md-votecard-grid-results > tr:nth-child(${index + 1
+              }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+            ).click({ force: true })
+          } else {
+            cy.get(`tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+              .scrollIntoView()
+              .click({ force: true })
+            cy.get(
+              `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+            ).clear({ force: true })
+            cy.get(
+              `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+            ).type('test', { force: true })
+            cy.get(
+              `#md-votecard-grid-results > tr:nth-child(${index + 1
+              }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+            ).click({ force: true })
+          }
+        }
+      })
+    })
+})
+
+And('I clear the rationales for VAP entries and add rationales for other proposals', () => {
+    meetingDetailsPage.voteCardRow().then(($rows) => {
+        $rows.each((index, value) => {
+        const rec = Cypress.$(value).find('td.vote-card-policy-rec').text()
+        var selected = Cypress.$(value).find(':selected').text()
+        if (!rec.includes('Non Voting')) {
+            if (rec.toLowerCase() !== selected.toLowerCase()) {
+            cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+                .scrollIntoView()
+                .click({ force: true })
+            cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+            ).clear({ force: true })
+            cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1
+                }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+            ).click({ force: true })
+            } else {
+            cy.get(`tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+                .scrollIntoView()
+                .click({ force: true })
+            cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+            ).clear({ force: true })
+            cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+            ).type('test', { force: true })
+            cy.get(
+                `#md-votecard-grid-results > tr:nth-child(${index + 1
+                }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+            ).click({ force: true })
+            }
+        }
+        })
+    })
+})
+  
+And('I enter rationales for all proposals in the meeting', () => {
+    meetingDetailsPage.voteCardRow().then(($rows) => {
+        $rows.each((index, value) => {
+        const rec = Cypress.$(value).find('td.vote-card-policy-rec').text();
+        if (!rec.includes('Non Voting')) {
+            cy.get(`tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > span`)
+            .scrollIntoView()
+            .click({ force: true })
+            cy.get(
+            `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+            ).clear({ force: true })
+            cy.get(
+            `#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+            ).type('test rationale', { force: true })
+            cy.get(
+            `#md-votecard-grid-results > tr:nth-child(${index + 1
+            }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
+            ).click({ force: true })
+        }
+        })
+    })
 })

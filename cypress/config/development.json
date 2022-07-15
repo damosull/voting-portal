@@ -4,7 +4,7 @@
   },
   "reporter": "spec",
   "video": true,
-  "videoCompression": 16,
+  "videoCompression": 2,
   "retries": 0,
   "testFiles": "**/*.feature"
 }

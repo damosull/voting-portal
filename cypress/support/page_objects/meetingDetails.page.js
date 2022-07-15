@@ -3,6 +3,7 @@ class meetingDetailsPage {
     proceedButtonLocator = '.floatright > .green'
     unlockButtonLocator = '#btn-unlock'
 
+    pageBody() { return cy.get('body') }
     launchBallotsButton() { return cy.get('#launch-ballots-voted-modal').should('be.visible') }
     workflowButton() { return cy.get('#workflow-link') }
     voteNowButton() { return cy.get('#btn-vote-now') }
@@ -28,7 +29,6 @@ class meetingDetailsPage {
     closeVoteTallyPopup() { return cy.get('#close-panel') }
     totalVotedLabel() { return cy.get("span[data-bind='text: VotedStatusCount']") }
     glassLewisLogoLink() { return cy.get("a[id='logo-link'] span") }
-    validationMessage() { return cy.get("div[data-bind='visible: missingSelectionError']") }
 
 }
 

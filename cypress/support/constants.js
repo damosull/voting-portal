@@ -72,6 +72,9 @@ export const MEETINGID = {
   CANCRA: '1066065',
   CAVOAS: '1129879', //Calpers Voted
 
+  //Russell (at least one against management & policy past 30 days)
+  RSNCVAMAP: '1016711',
+
   //Russell (at least one against policy past 30 days)
   RSNCVAP: '1061109',
   RSNCVAP2: '981568',

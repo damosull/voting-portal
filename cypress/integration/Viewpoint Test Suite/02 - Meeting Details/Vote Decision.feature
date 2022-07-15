@@ -19,9 +19,11 @@ Feature: Vote Decision Tests
     Given I am logged in as the "ROBECO" User
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
-    And I select the first available meeting
+    And I select a random meeting
+    Then I can view the Meeting Details page
+    When I click on the Change Vote or Rationale button if it exists
     And I click on the Vote button
-    Then I get back a validation message "You must enter a vote decision for"
+    Then I should see a message that contains the text "You must enter a vote decision for"
 
   # https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28472
   # TC ID - 28473 & 28475
@@ -30,8 +32,10 @@ Feature: Vote Decision Tests
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status <decision_staus>
     When I navigate to <company_name> meeting
+    Then I can view the Meeting Details page
+    When I click on the Change Vote or Rationale button if it exists
     And I click on the Vote button
-    Then I get back a validation message "You must enter a vote decision for"
+    Then I should see a message that contains the text "You must enter a vote decision for"
 
     Examples:
     | decision_staus              | company_name            |

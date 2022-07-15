@@ -3,10 +3,10 @@
     "runMode": 0,
     "openMode": 0
   },
-  "testFiles": ["KanbanUserStories2022/compare-recommendations.feature",
-    "KanbanUserStories2022/vote-button.feature",
-    "smoke_tests/meeting*.feature",
-    "KanbanUserStories2021/US39254 - BallotVotingHistory.feature",
-    "KanbanUserStories2021/US46077 - CompareMeetings.feature"
+  "testFiles": ["Automation Backlog/Compare Recommendations.feature",
+    "Viewpoint Test Suite/02 - Meeting Details/Vote Button - MD6.feature",
+    "Smoke Tests/meeting*.feature",
+    "ZZ - Old User Stories/US39254 - BallotVotingHistory.feature",
+    "ZZ - Old User Stories/US46077 - CompareMeetings.feature"
   ]
 }

@@ -17,8 +17,6 @@ Then('the meeting id should match the expected current meeting id and previous m
   cy.get('#link-prev-meeting-id').click({force: true})
   cy.location('href').should('include', idMeeting[0])
   cy.statusCode204('@LOGGER')
-  cy.statusCode200('@GET_FILINGS')
-  cy.statusCode200('@VOTE_TALLY')
 })
 
 And('the company id should match the expected company id', () => {
@@ -30,7 +28,7 @@ And('the company id should match the expected company id', () => {
 And('I verify all listed items Meetings dropdown check for each in list includes the text "20"', () => {
   /* Click into Meetings dropdown on Company page and verify all listed items Meetings dropdown check for each in list
   includes the text '20' */
-  cy.get('#btn-related-meetings-title-area > span').click()
+  cy.get('#btn-related-meetings-title-area > span').should('be.visible').click()
   cy.get('.dropdown.related-meetings-list.open > ul > li').then(($rows) => {
       for (let i = 1; i < $rows.length - 1; i++) {
           cy.get(`#related-meetings > li > ul > li:nth-child(${i + 1}) > a > span:nth-child(1)`).then(
