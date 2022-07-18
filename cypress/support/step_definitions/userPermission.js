@@ -1,5 +1,6 @@
-import { And } from "cypress-cucumber-preprocessor/steps"
+import { When, And } from "cypress-cucumber-preprocessor/steps"
 import userPermissionPage from "../page_objects/userPermission.page"
+const constants = require ('../constants')
 
 And('I navigate to the User Permissions page', ()=> {
     
@@ -21,12 +22,6 @@ And('I choose the first element from the dropdown', ()=> {
 
 })
 
-And('I click on the Workflow Voting dropdown', ()=> {
-    
-    userPermissionPage.workflowVotingDropdown().click();
-
-})
-
 And('I change the {string} user permission to {string}', (permission_name, access_decision)=> {
 
     switch (permission_name) {
@@ -39,6 +34,9 @@ And('I change the {string} user permission to {string}', (permission_name, acces
         case "Take No Action":
             userPermissionPage.takeNoActionPermissionDropdown().select(access_decision);
             break;
+        case "View ACSI Recommendations":
+            userPermissionPage.viewACSIRecommendations().select(access_decision);
+            break;
         default:
             break;
     }
@@ -49,4 +47,16 @@ And('I click on the Submit changes button', ()=> {
     
     userPermissionPage.submitButton().click();
 
+})
+
+When('I navigate to User Permissions page for {string}', (username)=> {
+    cy.visit("/UserPermissions")
+    cy.statusCode200('@CURRENT_USER')
+
+    userPermissionPage.userNameInput().type(constants.USER[username])
+    userPermissionPage.userNameInputList().click()
+})
+
+And('I click on the {string} dropdown', (setting)=> {
+    cy.contains(setting).should('be.visible').click()
 })

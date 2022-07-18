@@ -69,7 +69,7 @@ Feature: Vote Button Tests
     When I arrive on the User Permissions page
     And I type "RobecoAutomation External Admin" into the user name input
     And I choose the first element from the dropdown
-    And I click on the Workflow Voting dropdown
+    And I click on the "Workflow Voting" dropdown
     And I change the <permission_name> user permission to <access_decision>
     And I click on the Submit changes button
     And I should logout from the application
@@ -82,7 +82,7 @@ Feature: Vote Button Tests
     When I arrive on the User Permissions page
     And I type "RobecoAutomation External Admin" into the user name input
     And I choose the first element from the dropdown
-    And I click on the Workflow Voting dropdown
+    And I click on the "Workflow Voting" dropdown
     And I change the <permission_name> user permission to <default_role_access>
     And I click on the Submit changes button
 

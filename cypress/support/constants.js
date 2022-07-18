@@ -43,7 +43,8 @@ export const messages = {
     SHARE_MEETING_REQUEST_SAVED: 'Share meeting request saved',
     ENGAGEMENT_ADDED: 'Engagement added',
     ENGAGEMENT_DELETED: 'Engagement Deleted',
-    USER_CREATED_SUCCESSFULLY: 'User created successfully'
+    USER_CREATED_SUCCESSFULLY: 'User created successfully',
+    CUSTOMER_SETTINGS_UPDATED: 'Customer settings updated'
   },
 };
 

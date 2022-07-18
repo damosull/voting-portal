@@ -26,7 +26,7 @@ Then('I should be able to see the workflow page', () => {
 When('I navigate to the users page', () => {
   // Workflow page
   workflowPage.cogIcon().click();
-  workflowPage.users().click();
+  workflowPage.usersLink().click();
   // Users page
   cy.statusCode204('@LOGGER'); // Last loaded API on that page
 })

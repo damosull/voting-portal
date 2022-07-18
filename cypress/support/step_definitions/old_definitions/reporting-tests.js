@@ -66,13 +66,6 @@ When('I navigate to the Workflow page', () => {
 
 });
 
-When('I navigate to the Reporting page', () => {
-
-  cy.visit('/Reporting');
-  cy.statusCode200('@REPORTS_CRITERIA') // last api call on the page
-
-});
-
 And('I add {string} status and {string} critera', (status, criteria) => {
     
   cy.AddMultipleCriteria([status]);

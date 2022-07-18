@@ -18,8 +18,10 @@ class workflowPage {
 
     // Cog icon dropdown section
     workflowMenuButton() { return cy.get('#workflow-link') }
+    adminLink() { return cy.get('#admin-link-container > a > span') }
     cogIcon() { return cy.get('#admin-link-container') }
-    users() { return cy.get('#navlink--users') }
+    usersLink() { return cy.get('#navlink--users') }
+    customersLink() { return cy.get('#navlink--customers') }
 
     // Filter section
     addCriteriaButton() { return cy.get('#btn-add-criteria') }

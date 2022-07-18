@@ -89,3 +89,9 @@ When('I navigate to {string} meeting', (company_name) => {
     cy.contains(company_name).click();
 
 })
+
+When('I navigate to Customer search page', () => {
+    workflowPage.adminLink().click()
+    workflowPage.customersLink().click()
+    cy.wait('@GET_CUSTOMER_DYNAMIC')
+})
