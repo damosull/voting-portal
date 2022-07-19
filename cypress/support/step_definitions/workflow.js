@@ -45,6 +45,16 @@ And('I have added the criteria for {string} with status {string}', (criteria,sta
     workflowPage.waitForWorkflowPageLoad()
 })
 
+And('I have added the criteria for {string} and choosing {string}', (criteria,status) => {
+    cy.AddMultipleCriteria([criteria])
+    workflowPage.criteriaLabel().click()
+    workflowPage.criteriaLabel().next().invoke('attr', 'style', 'display: block;')
+    workflowPage.criteriaOptionCheckbox().contains(status).click()
+    workflowPage.updateButtonForCheckbox().click()
+    cy.wait('@WORKFLOW_EXPANSION', {responseTimeout: 90000})
+    workflowPage.waitForWorkflowPageLoad()
+})
+
 And('I have added the criteria for {string} and selecting {string}', (criteria,status) => {
     cy.AddMultipleCriteria([criteria])
     workflowPage.criteriaLabel().click()
@@ -94,4 +104,43 @@ When('I navigate to Customer search page', () => {
     workflowPage.adminLink().click()
     workflowPage.customersLink().click()
     cy.wait('@GET_CUSTOMER_DYNAMIC')
+})
+
+And('I filter for meetings without ballots', () => {
+    workflowPage.ballotCriteriaFilter().click()
+    workflowPage.meetingWithoutBallotsRadio().check()
+    workflowPage.updateNumberOfBallotsButton().click()
+    workflowPage.waitForWorkflowPageLoad()
+})
+
+When('I select {string} meetings from the top', (noOfMeetings) => {
+    for (var i = 0; i < Number(noOfMeetings); i++) {
+        workflowPage.meetingCheckbox().eq(i).should('not.be.visible').check({force: true})
+    }
+})
+
+And('I scroll to the end of the meetings table', () => {
+    for(let n = 0; n < 11; n ++){
+        workflowPage.scrollEndButton().click({ waitForAnimations: false })
+    }
+})
+
+And('I select {string} from the Quick Pick dropdown', (value) => {
+    workflowPage.quickPickDropdown().click()
+    workflowPage.quickPickModal().contains(value).click({force: true})
+    workflowPage.quickPickModal().contains('Update').click({force: true})
+    workflowPage.proceedButton().click()
+    workflowPage.waitForWorkflowPageLoad()
+})
+
+Then('I should be able to see {string} in the column {string}', (column_value, column_name) => {
+    switch (column_name) {
+        case "Controversy Alert":
+            workflowPage.controversyAlertTableData().each(($column) => {
+                expect($column.text().trim()).to.contain(column_value)
+            })
+            break
+        default:
+            break
+    }
 })
