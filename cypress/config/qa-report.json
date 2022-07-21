@@ -1,3 +1,3 @@
 {
-  "testFiles": "Smoke Tests/reporting*.feature"
+  "testFiles": "SmokeTests/reporting*.feature"
 }

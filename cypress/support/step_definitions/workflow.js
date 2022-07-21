@@ -136,11 +136,25 @@ And('I select {string} from the Quick Pick dropdown', (value) => {
 Then('I should be able to see {string} in the column {string}', (column_value, column_name) => {
     switch (column_name) {
         case "Controversy Alert":
+            column_value = new RegExp (column_value)
             workflowPage.controversyAlertTableData().each(($column) => {
-                expect($column.text().trim()).to.contain(column_value)
+                expect($column.text().trim()).to.match(column_value)
             })
             break
         default:
             break
+    }
+})
+
+Then('I should be able to see a {string} named {string}', (fieldType, fieldName) => {
+    cy.contains(fieldName).should('be.visible')
+})
+
+Then('I should be able to verify that the column {string} is {string}', (columnName, isChecked) => {
+    workflowPage.columnsListButton().click()
+    if (isChecked.includes('not')) {
+        workflowPage.columnsListDiv().find(`input[value='${columnName}']`).should('not.be.checked')
+    } else {
+        workflowPage.columnsListDiv().find(`input[value='${columnName}']`).should('be.checked')
     }
 })

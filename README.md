@@ -23,8 +23,8 @@ To run cypress, just execute the following command:
 
 - `npx cypress open` or `npm run open` - Opens the Cypress Test Runner in interactive mode.
 - `npx cypress run` or `npm run test` - Runs Cypress tests to completion. By default will run all tests headlessly in the Electron browser
-- `npx cypress run --spec "cypress/integration/Smoke Tests/dashboard-tests.feature"` - Runs a specific spec file
-- `npx cypress run --config integrationFolder="cypress/integration/Viewpoint Test Suite/02 - Meeting Details"` - Runs all tests in a specific folder
+- `npx cypress run --spec "cypress/integration/SmokeTests/dashboard-tests.feature"` - Runs a specific spec file
+- `npx cypress run --config integrationFolder="cypress/integration/ViewpointTestSuite/02-MeetingDetails"` - Runs all tests in a specific folder
 
 # CI
 

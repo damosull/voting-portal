@@ -1,5 +1,5 @@
 {
   "baseUrl": "https://viewpoint.glasslewis.com",
   "video": true,
-  "testFiles": "Smoke Tests/*.feature"
+  "testFiles": "SmokeTests/*.feature"
 }

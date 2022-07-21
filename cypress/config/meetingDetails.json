@@ -3,10 +3,10 @@
     "runMode": 0,
     "openMode": 0
   },
-  "testFiles": ["Automation Backlog/Compare Recommendations.feature",
-    "Viewpoint Test Suite/02 - Meeting Details/Vote Button - MD6.feature",
-    "Smoke Tests/meeting*.feature",
-    "ZZ - Old User Stories/US39254 - BallotVotingHistory.feature",
-    "ZZ - Old User Stories/US46077 - CompareMeetings.feature"
+  "testFiles": ["AutomationBacklog/Compare Recommendations.feature",
+    "ViewpointTestSuite/02-MeetingDetails/Vote Button - MD6.feature",
+    "SmokeTests/meeting*.feature",
+    "ZZ-OldUserStories/US39254 - BallotVotingHistory.feature",
+    "ZZ-OldUserStories/US46077 - CompareMeetings.feature"
   ]
 }

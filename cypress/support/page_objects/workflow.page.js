@@ -14,7 +14,9 @@ class workflowPage {
     quickPickDropdown() { return cy.get('.cf-quickpick-label') }
     quickPickModal() { return cy.get('#js-cf-modal-content') }
     proceedButton() { return cy.get('#apprise-btn-confirm') }
-    controversyAlertTableData() { return cy.get('#metaname-CF1097') }
+    controversyAlertTableData() { return cy.get('tbody tr td:last-child') }
+    columnsListButton() { return cy.get('#btn-workflow-config-columns') }
+    columnsListDiv() { return cy.get('#wf-configure-columns-target') }
 
     // Watchlist section
     watchListDropDownButton() { return cy.get('#btn-watchlists') }
