@@ -1,0 +1,39 @@
+Feature: Controversy Alert
+
+  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50256
+  Scenario: Verify "Controversy Alert" field displays in the Configure Columns dropdown list
+    Given I am logged in as the "RUSSELL" User
+    When I have added the column "Controversy Alert"
+    And I can view the workflow page
+    And I select "2" meetings from the top
+    And I scroll to the end of the meetings table
+    Then I should be able to see a "column" named "Controversy Alert"
+    When I select "No" from the Quick Pick dropdown
+    Then I should be able to see "Yes|No|Pick one" in the column "Controversy Alert"
+    And I should be able to verify that the column "Controversy Alert" is "checked"
+    And I should logout from the application
+
+  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50285
+  Scenario: Verify that the Controversy File name hyperlink does not display
+    Given I am logged in as the "RUSSELL" User
+    And I remove all existing selected criteria
+    When I have added the criteria for "Controversy Alert" and choosing "No"
+    And I have added the column "Controversy Alert"
+    And I can view the workflow page
+    And I select a random meeting
+    And I can view the Meeting Details page
+    Then I should be "unable" to see the "Controversy Alert link" on the UI
+    And I should logout from the application
+
+  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50281
+  Scenario: Verify user is able to download controversy alert PDF file
+    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    And I turn on the customer settings for "Controversy Alert" for "California Public Employee Retirement System (CalPERS)"
+    Then I should logout from the application
+    When I am logged in as the "AUTOMATIONEXTERNAL" User
+    And I add a controversy alert file for the meeting
+    And I navigate to the meeting details page for the meeting "CAVOCA"
+    Then I can view the Meeting Details page
+    And I should be "able" to see the "Controversy Alert link" on the UI
+    And I should be able to verify the filename and its extension
+    And I should logout from the application

@@ -11,7 +11,7 @@ Then('I can view the Meeting Details page', () => {
 
 When('I navigate to the meeting details page for the meeting {string}', (meetingID) => {
     cy.AddTenDaysToMeetingDates(constants.MEETINGID[meetingID])
-    cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID])   
+    cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID])
 })
 
 When('I reduce 10 days from meeting date and navigate to the meeting details page for the meeting {string}', (meetingID) => {
@@ -27,6 +27,17 @@ When('I click on the Change Vote or Rationale button', () => {
 When('I click on the Change Vote or Rationale button if it exists', () => {
     cy.clickIfExist(meetingDetailsPage.unlockButtonLocator)
     cy.verifyMeetingOptionButtons()
+})
+
+Then('I should be {string} to see the {string} on the UI',(isVisible,element) => {
+    isVisible = isVisible.includes('unable') ? 'not.be.visible' : 'be.visible'
+    switch (element) {
+        case "Controversy Alert link":
+            meetingDetailsPage.controversyAlertDiv().should(isVisible)
+            break
+        default:
+        break
+    }
 })
 
 And('I replace my FOR votes with AGAINST and vice-versa', () => {
@@ -146,6 +157,10 @@ And('I vote for an item which had no previous vote with Glass Lewis Recommendati
     })
 })
 
+And('I add a controversy alert file for the meeting', () => {
+    cy.addControversyAlertFile()
+})
+
 And('The {string} functionality is not available', (permission_name)=> {
     
     cy.clickIfExist(meetingDetailsPage.unlockButtonLocator);
@@ -208,6 +223,14 @@ And('I can verify that at least one policy recommendations is against {string} r
 
 Then('I should see a message that contains the text {string}',(message) => {
     meetingDetailsPage.pageBody().contains(message)
+})
+
+And('I should be able to verify the filename and its extension',() => {
+    meetingDetailsPage.controversyAlertLink().should('contain.text','...')
+    meetingDetailsPage.controversyAlertLink().invoke('removeAttr', 'target').trigger("click", {waitForAnimations: false})
+    cy.readFile(`${Cypress.config('downloadsFolder')}\\AutomationTest123.pdf`).should((fileContent) => {
+        expect(fileContent.length).to.be.gt(100)
+    })
 })
 
 And('I clear the rationales for VAM entries and VAP entries and add rationales for remaining proposals', () => {

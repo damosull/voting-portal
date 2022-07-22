@@ -5,6 +5,9 @@
   "reporter": "spec",
   "video": true,
   "videoCompression": 2,
-  "retries": 0,
+  "retries": {
+    "runMode": 1,
+    "openMode": 0
+  },
   "testFiles": "**/*.feature"
 }

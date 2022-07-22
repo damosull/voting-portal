@@ -32,9 +32,7 @@ When('I refresh the page', ()=> {
     cy.reload()
 })
 
-Given('I login as Internal User and retrieve Customer ID for {string} to verify customer settings for VAM and VAP', (customer) => {
-
-    cy.loginWithAdmin(constants.USER.AUTOMATIONINTERNAL)
+And('I turn on the customer settings for {string} for {string}', (feature, customer) => {
     cy.visit('/Workflow')
 
     //Alias csrf token
@@ -46,14 +44,21 @@ Given('I login as Internal User and retrieve Customer ID for {string} to verify 
     //get customer ID
     cy.getCustomerIDFromDB(customer).as('custid')
 
-    //verify CanModifyVotesRationaleAfterMeetingDate = true
-    //& RequireRationaleVap = true for Customer
+    //Turn on requested customer settings
     cy.get('@custid').then(function (cid) {
       const unixTime = Math.floor(Date.now() / 1000)
       const settings = `?&pCustomerID=${cid}&_=${unixTime}`
-      cy.TurnOnCustomerSetting(settings, 'CanModifyVotesRationaleAfterMeetingDate')
-      cy.TurnOnCustomerSetting(settings, 'RequireRationaleVap')
-      cy.TurnOnCustomerSetting(settings, 'RequireRationaleVam')
+      switch (feature) {
+        case "VAM and VAP":
+            cy.TurnOnCustomerSetting(settings, 'CanModifyVotesRationaleAfterMeetingDate')
+            cy.TurnOnCustomerSetting(settings, 'RequireRationaleVap')
+            cy.TurnOnCustomerSetting(settings, 'RequireRationaleVam')
+            break
+        case "Controversy Alert":
+            cy.TurnOnCustomerSetting(settings, 'IsControversyAlertEnabled')
+            break
+        default:
+            break
+      }
     })
-    cy.logout()
 })

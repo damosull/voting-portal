@@ -1,5 +1,5 @@
 import { USER, API, messages } from '../support/constants';
-
+import controversyAlertJsonBody from "../fixtures/controversyAlertBody"
 
 Cypress.Commands.add('SetPaginationAndVerify', (numItemsPerPage, num) => {
   cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').invoke(
@@ -625,6 +625,17 @@ Cypress.Commands.add('clickIfExist', (element) => {
       })
     }
   })
+});
+
+Cypress.Commands.add('addControversyAlertFile', () => {
+  cy.request({
+    method: 'POST',
+    url: 'https://microservices.aqua.dev.glasslewis.net/controversyalertsmanagement/api/v1/Controversy',
+    body: controversyAlertJsonBody,
+    failOnStatusCode: false
+  }).then((response) => {
+    (response.status === 200) ? cy.log('File Added!') : cy.log('File Exists!')
+  });
 });
 
 //This will override the type command to have no delay, improving execution time

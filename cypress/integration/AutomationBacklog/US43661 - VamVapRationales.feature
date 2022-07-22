@@ -1,11 +1,11 @@
 Feature: VAM/VAP Feature
 
-  Background:
-    Given I login as Internal User and retrieve Customer ID for "Russell Investments" to verify customer settings for VAM and VAP
-
   Scenario: Live ballots with meeting date for future ballots whose meeting date has passed/Revote and no rationale entered for vote against management and vote against policy
-    Given I am logged in as the "RUSSELL" User
-    When I navigate to the meeting details page for the meeting "RSNCVAMAP"
+    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    And I turn on the customer settings for "VAM and VAP" for "Russell Investments"
+    Then I should logout from the application
+    When I am logged in as the "RUSSELL" User
+    And I navigate to the meeting details page for the meeting "RSNCVAMAP"
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button
     And I clear the rationales for VAM entries and VAP entries and add rationales for remaining proposals
