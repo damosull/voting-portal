@@ -9,6 +9,10 @@ Then('I can view the Meeting Details page', () => {
     cy.url().should('include', '/MeetingDetails/Index/')
 })
 
+When('I navigate to the meeting with id {string}', (meetingId) => {
+    cy.visit('MeetingDetails/Index/' + meetingId)
+})
+
 When('I navigate to the meeting details page for the meeting {string}', (meetingID) => {
     cy.AddTenDaysToMeetingDates(constants.MEETINGID[meetingID])
     cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID])
@@ -225,9 +229,16 @@ Then('I should see a message that contains the text {string}',(message) => {
     meetingDetailsPage.pageBody().contains(message)
 })
 
-And('I should be able to verify the filename and its extension',() => {
+And('I should be able to verify the UI shows filename with "..." and its extension is .pdf',() => {
     meetingDetailsPage.controversyAlertLink().should('contain.text','...')
-    meetingDetailsPage.controversyAlertLink().invoke('removeAttr', 'target').trigger("click", {waitForAnimations: false})
+    //due to the page load issue when downloading a file, below code will click on download link
+    //and then refresh page after 5 seconds so that the script does not fail
+    cy.window().document().then(function (doc) {
+        doc.addEventListener('click', () => {
+          setTimeout(function () { doc.location.reload() }, 5000)
+        })
+        meetingDetailsPage.controversyAlertLink().invoke('removeAttr', 'target').click()
+    })
     cy.readFile(`${Cypress.config('downloadsFolder')}\\AutomationTest123.pdf`).should((fileContent) => {
         expect(fileContent.length).to.be.gt(100)
     })
@@ -368,7 +379,7 @@ And('I enter rationales for all proposals in the meeting', () => {
     })
 })
 
-Then('The following alert is displayed in Vote Tally section {string}',(message) => {
+Then('the following alert is displayed in Vote Tally section {string}',(message) => {
     meetingDetailsPage.validationMessage().contains(message);
 })
 
@@ -377,7 +388,7 @@ Then('I check the Job Number hyperlink with the Job Number of {string} and {stri
     meetingDetailsPage.jobNumberLink(jobNumberTwo).should('be.visible');
 })
 
-Then('Given agendas appears on the page',() => {
+Then('the given agendas appears on the page',() => {
 
     var voteCard = [
         'Elect Alain Bouchard',

@@ -2,14 +2,6 @@ import { Then, And } from 'cypress-cucumber-preprocessor/steps'
 var idMeeting = [1101707,1129790]
 var idCompany = [38673]
 
-
-And('I navigate to the meeting with id {string}', (meetingId) => {
-  cy.visit('MeetingDetails/Index/' + meetingId)
-  cy.statusCode204('@LOGGER')
-  cy.statusCode200('@GET_FILINGS')
-  cy.statusCode200('@VOTE_TALLY')
-})
-
 Then('the meeting id should match the expected current meeting id and previous meeting id', () => {
   cy.get('#link-next-meeting-id').click({force: true})
   /* Click Previous button, get Meeting ID for that meeting and verify it is same meeting id as stored in a variable as 

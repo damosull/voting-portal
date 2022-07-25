@@ -91,21 +91,3 @@ Feature: Vote Button Tests
       | "Vote"           | "Explicitly Denied" | "Role Default"      |
       | "Instruct"       | "Explicitly Denied" | "Role Default"      |
       | "Take No Action" | "Explicitly Denied" | "Role Default"      |
-
-  # https://dev.azure.com/glasslewis/Development/_boards/board/t/Test%20Automation%20Group/Stories/?workitem=47144
-  # TC ID - 47144
-  Scenario: Validate that similar agendas are shown in the vote registration warning
-    Given I am logged in as the "WELLINGTON" User
-    When I navigate to the meeting with id "1076103"
-    Then Given agendas appears on the page
-    Then The following alert is displayed in Vote Tally section "There are other agendas available for this company. Please review them below:"
-    Then I check the Job Number hyperlink with the Job Number of "P64468" and "685122"
-    When I click on the Change Vote or Rationale button
-    When I navigate to the meeting with id "1076104"
-    Then Given agendas appears on the page
-    Then The following alert is displayed in Vote Tally section "There are other agendas available for this company. Please review them below:"
-    Then I check the Job Number hyperlink with the Job Number of "P64467" and "685122"
-    When I navigate to the meeting with id "1086628"
-    Then Given agendas appears on the page
-    Then The following alert is displayed in Vote Tally section "There are other agendas available for this company. Please review them below:"
-    Then I check the Job Number hyperlink with the Job Number of "P64467" and "P64468" 

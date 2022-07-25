@@ -35,5 +35,5 @@ Feature: Controversy Alert
     And I navigate to the meeting details page for the meeting "CAVOCA"
     Then I can view the Meeting Details page
     And I should be "able" to see the "Controversy Alert link" on the UI
-    And I should be able to verify the filename and its extension
+    And I should be able to verify the UI shows filename with "..." and its extension is .pdf
     And I should logout from the application
