@@ -367,3 +367,41 @@ And('I enter rationales for all proposals in the meeting', () => {
         })
     })
 })
+
+Then('The following alert is displayed in Vote Tally section {string}',(message) => {
+    meetingDetailsPage.validationMessage().contains(message);
+})
+
+Then('I check the Job Number hyperlink with the Job Number of {string} and {string}',(jobNumberOne, jobNumberTwo) => {
+    meetingDetailsPage.jobNumberLink(jobNumberOne).should('be.visible');
+    meetingDetailsPage.jobNumberLink(jobNumberTwo).should('be.visible');
+})
+
+Then('Given agendas appears on the page',() => {
+
+    var voteCard = [
+        'Elect Alain Bouchard',
+        'Elect Paule Doré',
+        'Elect Julie Godin',
+        'Elect Serge Godin',
+        'Elect André Imbeau',
+        'Elect Gilles Labbé',
+        'Elect Michael B. Pedersen',
+        'Elect Stephen S. Poloz',
+        'Elect Mary Powell',
+        'Elect Alison C. Reed',
+        'Elect Michael E. Roach',
+        'Elect George D. Schindler',
+        'Elect Kathy N. Waller',
+        'Elect Joakim Westh',
+        'Elect Frank Witter',
+        'Appointment of Auditor and Authority to Set Fees',
+        'Shareholder Proposal Regarding Report on Non-Management Employee Representation on the Board',
+        'Shareholder Proposal Regarding French as Official Company Language',
+    ];
+    
+    voteCard.forEach(function (proposals) {
+        cy.contains(proposals);
+    });
+    
+})

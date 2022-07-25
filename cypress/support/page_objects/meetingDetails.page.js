@@ -41,6 +41,9 @@ class meetingDetailsPage {
     warningPopUp() { return cy.get('#vote-warnings-and-errors-modal') }
     checkboxOverride() { return cy.get("label[for='override-voted']") }
 
+    //Vote Tally section
+    validationMessage() { return cy.get("div[class='row'] div[class='row validationMessage']") }
+    jobNumberLink(jobNumber) { return cy.get("a[title='" + jobNumber + "']") }
 }
 
 module.exports = new meetingDetailsPage();
