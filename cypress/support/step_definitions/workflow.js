@@ -75,6 +75,10 @@ When('I select the first available meeting', () => {
     })
 })
 
+And('I increase the meetings per page value to {string}', (pages) => {
+    workflowPage.meetingsPerPageDropdown().select(pages, { force: true }).invoke('val').should('eq', pages)
+})
+
 When('I select a random meeting', () => {
     workflowPage.tableRows().its('length').then( n => {
         const meetingRows = n - 1

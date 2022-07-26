@@ -17,6 +17,7 @@ class workflowPage {
     controversyAlertTableData() { return cy.get('tbody tr td:last-child') }
     columnsListButton() { return cy.get('#btn-workflow-config-columns') }
     columnsListDiv() { return cy.get('#wf-configure-columns-target') }
+    meetingsPerPageDropdown() { return cy.get("select[data-role='dropdownlist']") }
 
     // Watchlist section
     watchListDropDownButton() { return cy.get('#btn-watchlists') }

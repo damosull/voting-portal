@@ -15,7 +15,7 @@ Given('I am on the login page', () => {
 
 When('I provide my username and password and sign in', () => {
   loginPage.usernameInput().type(constants.USER.AUTOMATIONINTERNAL)
-  loginPage.passwordInput().type(constants.USER.PASSWORD.TEST_PASSWORD)
+  loginPage.passwordInput().type(constants.PASSWORD)
   loginPage.signInButton().click()
 })
 

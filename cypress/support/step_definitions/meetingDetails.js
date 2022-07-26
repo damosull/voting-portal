@@ -30,7 +30,6 @@ When('I click on the Change Vote or Rationale button', () => {
 
 When('I click on the Change Vote or Rationale button if it exists', () => {
     cy.clickIfExist(meetingDetailsPage.unlockButtonLocator)
-    cy.verifyMeetingOptionButtons()
 })
 
 Then('I should be {string} to see the {string} on the UI',(isVisible,element) => {
@@ -107,9 +106,17 @@ And('I click on the Proceed button', () => {
     cy.clickIfExist(meetingDetailsPage.proceedButtonLocator)    
 })
 
-And('I select the override checkbox', () => {
-    meetingDetailsPage.checkboxOverride().should('be.visible').click()
-    meetingDetailsPage.proceedButton().click()
+And('I handle the override pop-up if it exists', () => {
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
+    cy.get('body').then((body) => {
+        //Verify element exists
+        if (body.find(meetingDetailsPage.warningPopUpLocator).is(':visible')) {
+            meetingDetailsPage.warningPopUp().within(() => {
+                cy.get('input[type="checkbox"]').should('not.be.visible').check({ force: true })
+            })
+            meetingDetailsPage.proceedButton().click()
+        }
+    })
 })
 
 And('I select the checkbox and click Proceed', () => {

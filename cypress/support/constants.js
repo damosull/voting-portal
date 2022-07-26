@@ -12,10 +12,9 @@ export const USER = {
   ROYALLONDON: 'RoyalLondonAutomation@glasslewis.com',
   RUSSELL: 'RussellAutomation@glasslewis.com',
   WELLINGTON: 'WellingtonAutomation@glasslewis.com',
-  PASSWORD:{
-    TEST_PASSWORD: 'Test12345%'
-  }
 };
+
+export const PASSWORD = 'Test12345%'
 
 export const TESTUSER = {
   FIRSNAME: "Test",

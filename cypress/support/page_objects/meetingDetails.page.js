@@ -2,6 +2,8 @@ class meetingDetailsPage {
 
     proceedButtonLocator = '.floatright > .green'
     unlockButtonLocator = '#btn-unlock'
+    checkboxOverrideLocator = "label[for='override-voted']"
+    warningPopUpLocator = '#vote-warnings-and-errors-modal'
 
     //Header
     pageBody() { return cy.get('body') }
@@ -38,8 +40,8 @@ class meetingDetailsPage {
     confirmPopUpContent() { return cy.get('.confirm-content') }
     popUpOkButton() { return cy.get('#apprise-btn-confirm') }
     popUpCancelButton() { return cy.get('#apprise-btn-undefined') }
-    warningPopUp() { return cy.get('#vote-warnings-and-errors-modal') }
-    checkboxOverride() { return cy.get("label[for='override-voted']") }
+    warningPopUp() { return cy.get(this.warningPopUpLocator) }
+    checkboxOverride() { return cy.get(this.checkboxOverrideLocator) }
 
     //Vote Tally section
     validationMessage() { return cy.get("div[class='row'] div[class='row validationMessage']") }

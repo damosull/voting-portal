@@ -18,6 +18,20 @@ Given('I am logged in as the {string} User', (username) => {
     workflowPage.waitForWorkflowPageLoad()
 })
 
+Given('I am logged in as a random external user', () => {
+    sessionStorage.clear()
+    let randomUserId = Math.floor(Math.random() * Object.keys(constants.USER).length)
+    if (randomUserId === 0) { randomUserId = 2 }
+    const username = Object.values(constants.USER)[randomUserId]
+    cy.log('logging in with: ' + username)
+    cy.loginWithAdmin(username)
+    workflowPage.getWorkflowPage()
+    //Waiting for page load
+    cy.wait('@WORKFLOW_EXPANSION')
+    workflowPage.waitForWorkflowPageLoad()
+})
+
+
 And('I should logout from the application', () => {
     cy.logout()
 })
