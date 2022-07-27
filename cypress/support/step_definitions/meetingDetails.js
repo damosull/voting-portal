@@ -423,3 +423,38 @@ Then('the given agendas appears on the page',() => {
     });
     
 })
+
+And('I can verify that the Account filter has the value {string}',(value) => {
+    meetingDetailsPage.accountButton().click()
+    meetingDetailsPage.accountDiv().should('contain.text', value)
+    meetingDetailsPage.cancelAccountButton().click({ scrollBehavior: false })
+})
+
+And('I can verify that the vote card summary remains unchanged when user changes the filters on an account',() => {
+    let preFilterTotalVoted, preFilterTotalNotVoted, postFilterTotalVoted, postFilterTotalNotVoted
+    meetingDetailsPage.totalVotedLink().should(($el) => {
+        return preFilterTotalVoted = $el.text()
+    })
+    meetingDetailsPage.totalNotVotedLink().should(($el) => {
+        return preFilterTotalNotVoted = $el.text()
+    })
+    meetingDetailsPage.accountButton().click()
+    meetingDetailsPage.accountButton().invoke('text').then((text) => {
+        if (text.includes('(1)')) {
+            meetingDetailsPage.selectAllAccountCheckbox().check({force: true})
+        } else {
+            meetingDetailsPage.selectAllAccountCheckbox().uncheck({force: true})
+            meetingDetailsPage.individualAccountCheckbox().eq(0).check({force: true})
+        }
+    })
+    meetingDetailsPage.updateAccountButton().click({ scrollBehavior: false })
+    meetingDetailsPage.getLoadingSpinner().should('not.be.visible')
+    meetingDetailsPage.totalVotedLink().should(($el) => {
+        postFilterTotalVoted = $el.text()
+        expect(postFilterTotalVoted).to.equal(preFilterTotalVoted)
+    })
+    meetingDetailsPage.totalNotVotedLink().should(($el) => {
+        postFilterTotalNotVoted = $el.text()
+        expect(postFilterTotalNotVoted).to.equal(preFilterTotalNotVoted)
+    })
+})

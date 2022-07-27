@@ -34,33 +34,39 @@ When('I search for the customer {string}', (customerName) => {
     workflowPage.waitForWorkflowPageLoad()
 })
 
-And('I have added the criteria for {string}', (criteria) => {
-    cy.AddMultipleCriteria(criteria.split(','))
+And('I have added the filter criteria {string}', (criteria) => {
+    cy.AddMultipleCriteria([criteria])
 })
 
 And('I have added the criteria for {string} with status {string}', (criteria,status) => {
     cy.AddMultipleCriteria([criteria])
-    cy.addCriteriaStatus([status])
+    workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false })
+    workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA')
+    cy.get('@FILTER_CRITERIA').should('be.visible').within(() => {
+        cy.get('input').eq(0).should('be.visible').clear().type(status, { scrollBehavior: false })
+        cy.get('div > div > label').contains(status).click({ scrollBehavior: false })
+        cy.get('div > button').eq(0).click({ scrollBehavior: false })
+    })
     cy.wait('@WORKFLOW_EXPANSION', {responseTimeout: 90000})
     workflowPage.waitForWorkflowPageLoad()
 })
 
-And('I have added the criteria for {string} and choosing {string}', (criteria,status) => {
+And('I have added the criteria for {string} and checking the checkbox for {string}', (criteria,status) => {
     cy.AddMultipleCriteria([criteria])
-    workflowPage.criteriaLabel().click()
-    workflowPage.criteriaLabel().next().invoke('attr', 'style', 'display: block;')
-    workflowPage.criteriaOptionCheckbox().contains(status).click()
-    workflowPage.updateButtonForCheckbox().click()
+    workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false })
+    workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;')
+    workflowPage.criteriaOptionCheckbox().contains(status).click({ scrollBehavior: false })
+    workflowPage.updateButtonForCheckbox().click({ scrollBehavior: false })
     cy.wait('@WORKFLOW_EXPANSION', {responseTimeout: 90000})
     workflowPage.waitForWorkflowPageLoad()
 })
 
-And('I have added the criteria for {string} and selecting {string}', (criteria,status) => {
+And('I have added the criteria for {string} and selecting the radio button for {string}', (criteria,status) => {
     cy.AddMultipleCriteria([criteria])
-    workflowPage.criteriaLabel().click()
-    workflowPage.criteriaLabel().next().invoke('attr', 'style', 'display: block;')
-    workflowPage.criteriaOption().contains(status).next().click()
-    workflowPage.updateButton().click()
+    workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false })
+    workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;')
+    workflowPage.criteriaOption().contains(status).next().check({ scrollBehavior: false })
+    workflowPage.updateButton().click({ scrollBehavior: false })
     cy.wait('@WORKFLOW_EXPANSION', {responseTimeout: 90000})
     workflowPage.waitForWorkflowPageLoad()
 })

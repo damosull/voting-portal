@@ -5,7 +5,9 @@ Feature: Internal User Switching
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I remove all existing selected criteria for the internal user
     When I search for the customer "Wellington"
-    And I have added the criteria for "Error Logged?,Glass Lewis Commentary,Decision Status"
+    And I have added the filter criteria "Error Logged?"
+    And I have added the filter criteria "Glass Lewis Commentary"
+    And I have added the filter criteria "Decision Status"
     And I have added the column "Error Logged?"
     And I have added the column "Glass Lewis Commentary"
     When I search for the customer "California Public"

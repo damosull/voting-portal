@@ -424,12 +424,10 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
     });
   });
 
-  cy.contains('Apply').click();
+  cy.contains('Apply').click({ scrollBehavior: false });
 
   if (!isReporting) {
-    cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').each((h4) => {
-      expect(h4.text().trim()).to.be.oneOf(searchText);
-    });
+    cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').should('contain.text',searchText);
   } else {
     cy.wait('@ReportFilter');
     cy.get('#report-criteria-controls > div > div > h4').each((h4) => {

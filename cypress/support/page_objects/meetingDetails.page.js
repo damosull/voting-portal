@@ -22,7 +22,6 @@ class meetingDetailsPage {
     controversyAlertLink() { return cy.get('#controversyLinks a') }
 
     //Info Section
-    launchBallotsButton() { return cy.get('#launch-ballots-voted-modal').should('be.visible') }
     totalVotedLink() { return cy.get('#launch-ballots-voted-modal') }
     totalNotVotedLink() { return cy.get('#launch-ballots-not-voted-modal') }
     closeVoteTallyPopup() { return cy.get('#close-panel') }
@@ -32,6 +31,13 @@ class meetingDetailsPage {
     quickVoteDropdown() { return cy.get('#quick-vote-container > span') }
     quickVoteSelect() { return cy.get('#quickVoteSelect') }
     voteCardRow() { return cy.get('#md-votecard-grid-results > tr') }
+    accountButton() { return cy.get('#btn-account').eq(0) }
+    accountDiv() { return cy.get('#add-account-target') }
+    selectAllAccountCheckbox() { return cy.get('#multiselect-static-all-account').should('not.be.visible') }
+    individualAccountCheckbox() { return cy.get("ul#meeting-detail-account > li > div > input[type='checkbox']").should('not.be.visible') }
+    swimAccountCheckbox() { return cy.get('input[value="SWIM"]').should('not.be.visible') }
+    updateAccountButton() { return cy.get('#btn-update-account') }
+    cancelAccountButton() { return cy.get('#btn-cancel-account') }
 
     //Others
     proceedButton() { return cy.get(this.proceedButtonLocator).should('be.visible') }

@@ -4,13 +4,13 @@ Feature: Compare Policy Recommendations
   Scenario: Compare Policy Recommendations to GL Recommendations
     Given I am logged in as the "CALPERS" User
     And I remove all existing selected criteria
-    And I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting "All"
+    And I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting the radio button for "All"
     When I select a random meeting
     Then I can view the Meeting Details page
     And I can verify that all policy recommendations are matching "GL" recommendations
     When I navigate back to the workflow page
     And I remove all existing selected criteria
-    And I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting "One Against"
+    And I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting the radio button for "One Against"
     When I select a random meeting
     Then I can view the Meeting Details page
     And I can verify that at least one policy recommendations is against "GL" recommendations
@@ -20,13 +20,13 @@ Feature: Compare Policy Recommendations
   Scenario: Compare Policy Recommendations to Management Recommendations
     Given I am logged in as the "CALPERS" User
     And I remove all existing selected criteria
-    And I have added the criteria for "Policy Recs With/Against Management" and selecting "All"
+    And I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "All"
     When I select a random meeting
     Then I can view the Meeting Details page
     And I can verify that all policy recommendations are matching "MGMT" recommendations
     When I navigate back to the workflow page
     And I remove all existing selected criteria
-    And I have added the criteria for "Policy Recs With/Against Management" and selecting "One Against"
+    And I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "One Against"
     When I select a random meeting
     Then I can view the Meeting Details page
     And I can verify that at least one policy recommendations is against "MGMT" recommendations
