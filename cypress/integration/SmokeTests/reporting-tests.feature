@@ -86,16 +86,16 @@ Feature: Report related tests
 
     # SLOW TEST EXECUTION AT THE XML GENERATION STEP
     # Test scenario 37939: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
-    Scenario: Proxy Voting Report
-        When I navigate to the Reporting page
-        And I select 'Proxy Voting' Report Type
-        And I select Report Extension XLS
-        And I select the past 1 days
-        And I expand Vote Comparison and select GL Recs Against Mgmt
-        Then I download the proxy voting report
-        And I delete the given 'configName_ProxyVotingReport' configuration
-        Then I verify the proxy voting report
-        Then I run the task to delete the Download folder
+#    Scenario: Proxy Voting Report
+#    When I navigate to the Reporting page
+#    And I select 'Proxy Voting' Report Type
+#    And I select Report Extension XLS
+#    And I select the past 1 days
+#    And I expand Vote Comparison and select GL Recs Against Mgmt
+#    Then I download the proxy voting report
+#    And I delete the given 'configName_ProxyVotingReport' configuration
+#    Then I verify the proxy voting report
+#    Then I run the task to delete the Download folder
 
     #Test scenario 37939: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
     Scenario: Report - Voting Activity
