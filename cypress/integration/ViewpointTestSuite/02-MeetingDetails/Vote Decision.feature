@@ -27,7 +27,6 @@ Feature: Vote Decision Tests
 
   # https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28472
   # TC ID - 28473 & 28475
-  @focus
   Scenario Outline: Verify Validation Messages
     Given I am logged in as the "ROBECO" User
     And I remove all existing selected criteria
