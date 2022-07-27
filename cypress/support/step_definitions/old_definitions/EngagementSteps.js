@@ -63,9 +63,9 @@ And('I login as External User {string}', () => {
     cy.removeAllExistingSelectedCriteria()
 })
 
-And('I select the first meeting on the Workflow page', () => {
+And('I navigate to the {int}. meeting', (company_sequence) => {
     cy.get('table > tbody > tr')
-        .eq(0)
+        .eq(company_sequence - 1)
         .within(() => {
             cy.get('[data-js="meeting-details-link"]').first().click({ force: true })
         })

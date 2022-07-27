@@ -27,17 +27,18 @@ Feature: Vote Decision Tests
 
   # https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28472
   # TC ID - 28473 & 28475
+  @focus
   Scenario Outline: Verify Validation Messages
     Given I am logged in as the "ROBECO" User
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status <decision_staus>
-    When I navigate to <company_name> meeting
+    And I navigate to the <company_sequence>. meeting
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
     And I click on the Vote button
     Then I should see a message that contains the text "You must enter a vote decision for"
 
     Examples:
-    | decision_staus              | company_name            |
-    | "Manual Vote Required"      | "Ninety One Limited"    |
-    | "Manual Vote Required"      | "Centerra Gold Inc."    |
+    | decision_staus              | company_sequence  |
+    | "Manual Vote Required"      | 1                 |
+    | "Manual Vote Required"      | 2                 |
