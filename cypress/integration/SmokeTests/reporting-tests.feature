@@ -20,42 +20,44 @@ Feature: Report related tests
         And I click on the "Ballot Vote Data" filter
         And I set the meeting date to next date 2 and past date 2 days
         And I select "Ballot Voted Date" column
-        And I save the configuration
+        And I save the configuration with the name of "configName_BallotVoteReport"
         And I click on the download the report button
         Then Download initiated toast message appears
         And I click on the notification dropdown
-        Then Report is ready to download message appears in the notifications
-        Then I verify the report headers
+        Then Report is ready to download message appears in the notifications with the name of "configName_BallotVoteReport"
+        Then I verify the report headers with the name of "configName_BallotVoteReport"
         And I delete the given "configName_BallotVoteReport" configuration
 
+    # Issue on the "I Add Subscription" step. It loads and doens't do anything
     # Test scenario: 40409 https://dev.azure.com/glasslewis/Development/_workitems/edit/40409
-#    Scenario: Create Ballot Vote Subscription entry and validate in SB_Subscription Database table
-#        When I navigate to the Reporting page
-#        And I click on the "Ballot Vote Data" filter
-#        And I save the configuration
-#        And I Add Subscription
-#        And I select Calpers External Admin from Users list
-#        And I enter Filename for Subscription Report
-#        And I enter Schedule to run Subscription
-#        And I click on the Ok button
-#        Then Subscription added toast message appears
-#        And Verify UI table entries for newly created Subscription
-#        And I verify Column data for UserIds and Filename
-#        And I remove Subscription entry from Viewpoint
-#        And I delete the given 'configName_BallotVoteReport' configuration
+    Scenario: Create Ballot Vote Subscription entry and validate in SB_Subscription Database table
+        When I navigate to the Reporting page
+        And I click on the "Ballot Vote Data" filter
+        And I delete the given 'configName_BallotVoteReport_SB' configuration
+        And I save the configuration with the name of "configName_BallotVoteReport_SB"
+        And I Add Subscription
+        And I select Calpers External Admin from Users list
+        And I enter Filename for Subscription Report
+        And I enter Schedule to run Subscription
+        And I click on the Ok button
+        Then Subscription added toast message appears
+        And Verify UI table entries for newly created Subscription
+        And I verify Column data for UserIds and Filename
+        And I remove Subscription entry from Viewpoint
+        And I delete the given 'configName_BallotVoteReport_SB' configuration
 
     # Test scenario 37963 : https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
-#    Scenario: Generate Engagement report, download and verify file headers
-#        When I navigate to the Reporting page
-#        And I select 'Engagement' Report Type
-#        And I select Interaction Date between '5/27/2021' and '5/28/2021'
-#        And I click on the Update button
-#        And I add all the columns
-#        And I click on the download the report button
-#        Then Download initiated toast message appears
-#        And I click on the notification dropdown
-#        Then Engagement Report is queued
-#        Then I validate the Engagement Report
+    Scenario: Generate Engagement report, download and verify file headers
+        When I navigate to the Reporting page
+        And I select 'Engagement' Report Type
+        And I select Interaction Date between '5/27/2021' and '5/28/2021'
+        And I click on the Update button
+        And I add all the columns
+        And I click on the download the report button
+        Then Download initiated toast message appears
+        And I click on the notification dropdown
+        Then Engagement Report is queued
+        Then I validate the Engagement Report
   
     Scenario: Generate basic excel report, download and verify file headers - Generate Ballot Report
         When I navigate to the Reporting page
@@ -69,31 +71,31 @@ Feature: Report related tests
         Then I validate the Ballot Status Report headers
 
     # Test scenario 37988: https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
-#    Scenario: Generate Policy report, download and verify file headers - Generate Policy Report
-#        When I navigate to the Reporting page
-#        And I select 'Policy' Report Type
-#        And I remove any existing report criteria
-#        Then I verify the filters
-#        And I save the new filter with random name
-#        Then The new report type appears on the left sidebar
-#        And I click on the download the report button
-#        Then Download initiated toast message appears
-#        And I click on the notification dropdown
-#        Then Report is ready for download message appears
-#        Then I validate and verify the report
+    Scenario: Generate Policy report, download and verify file headers - Generate Policy Report
+        When I navigate to the Reporting page
+        And I select 'Policy' Report Type
+        And I remove any existing report criteria
+        Then I verify the filters
+        And I save the new filter with random name
+        Then The new report type appears on the left sidebar
+        And I click on the download the report button
+        Then Download initiated toast message appears
+        And I click on the notification dropdown
+        Then Report is ready for download message appears
+        Then I validate and verify the report
 
     # SLOW TEST EXECUTION AT THE XML GENERATION STEP
     # Test scenario 37939: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
-#    Scenario: Proxy Voting Report
-#        When I navigate to the Reporting page
-#        And I select 'Proxy Voting' Report Type
-#        And I select Report Extension XLS
-#        And I select the past 1 days
-#        And I expand Vote Comparison and select GL Recs Against Mgmt
-#        Then I download the proxy voting report
-#        And I delete the given 'configName_ProxyVotingReport' configuration
-#        Then I verify the proxy voting report
-#        Then I run the task to delete the Download folder
+    Scenario: Proxy Voting Report
+        When I navigate to the Reporting page
+        And I select 'Proxy Voting' Report Type
+        And I select Report Extension XLS
+        And I select the past 1 days
+        And I expand Vote Comparison and select GL Recs Against Mgmt
+        Then I download the proxy voting report
+        And I delete the given 'configName_ProxyVotingReport' configuration
+        Then I verify the proxy voting report
+        Then I run the task to delete the Download folder
 
     #Test scenario 37939: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
     Scenario: Report - Voting Activity
