@@ -1,4 +1,4 @@
-Feature: Dashboard related tests
+Feature: Dashboard related smoke tests
 
     Background:
         Given I login as Calpers User

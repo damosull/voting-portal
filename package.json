@@ -2,7 +2,6 @@
   "name": "votingportal-app-tests",
   "version": "2.0.0",
   "description": "In this repo will be developed cypress tests for Voting Portal.",
-  "main": "index.js",
   "devDependencies": {
     "cucumber-html-reporter": "5.5.0",
     "cypress": "9.7.0",

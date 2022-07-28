@@ -7,7 +7,7 @@ class meetingDetailsPage {
 
     //Header
     pageBody() { return cy.get('body') }
-    getLoadingSpinner() { return cy.get('.k-loading-text', { timeout: 90000 }) }
+    getLoadingSpinner() { return cy.get('.k-loading-text') }
     voteSuccessMessage() { return cy.contains('Vote success') }
     glassLewisLogoLink() { return cy.get("a[id='logo-link'] span") }
 
@@ -38,6 +38,12 @@ class meetingDetailsPage {
     swimAccountCheckbox() { return cy.get('input[value="SWIM"]').should('not.be.visible') }
     updateAccountButton() { return cy.get('#btn-update-account') }
     cancelAccountButton() { return cy.get('#btn-cancel-account') }
+    accountGroupButton() { return cy.get('#btn-account-group') }
+    accountGroupDiv() { return cy.get('#add-account-group-target') }
+    selectAllAccountGroupCheckbox() { return cy.get('#multiselect-static-all-accountGroup').should('not.be.visible') }
+    individualAccountGroupCheckbox() { return cy.get("ul#meeting-detail-account-group > li > div > input[type='checkbox']").should('not.be.visible') }
+    updateAccountGroupButton() { return cy.get('#btn-update-account-group') }
+    cancelAccountGroupButton() { return cy.get('#btn-cancel-account-group') }
 
     //Others
     proceedButton() { return cy.get(this.proceedButtonLocator).should('be.visible') }

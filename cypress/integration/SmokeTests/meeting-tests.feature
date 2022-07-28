@@ -1,4 +1,4 @@
-Feature: Meeting smoke tests
+Feature: Meetings related smoke tests
 
   Scenario: Verify that the votes against Glass Lewis are captured in filter criteria
     Given I am logged in as the "RUSSELL" User

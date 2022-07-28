@@ -1,4 +1,4 @@
-Feature: Workflow smoke tests
+Feature: Workflow related smoke tests
 
 
   Scenario Outline: Verify user is able to apply the various filters on the workflow page

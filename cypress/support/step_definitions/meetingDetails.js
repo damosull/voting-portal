@@ -430,7 +430,13 @@ And('I can verify that the Account filter has the value {string}',(value) => {
     meetingDetailsPage.cancelAccountButton().click({ scrollBehavior: false })
 })
 
-And('I can verify that the vote card summary remains unchanged when user changes the filters on an account',() => {
+And('I can verify that the Account Group filter has the value {string}',(value) => {
+    meetingDetailsPage.accountGroupButton().click()
+    meetingDetailsPage.accountGroupDiv().should('contain.text', value)
+    meetingDetailsPage.cancelAccountGroupButton().click({ scrollBehavior: false })
+})
+
+And('I can verify that the vote card summary remains unchanged when user changes the filters on {string}',(filterValue) => {
     let preFilterTotalVoted, preFilterTotalNotVoted, postFilterTotalVoted, postFilterTotalNotVoted
     meetingDetailsPage.totalVotedLink().should(($el) => {
         return preFilterTotalVoted = $el.text()
@@ -438,16 +444,31 @@ And('I can verify that the vote card summary remains unchanged when user changes
     meetingDetailsPage.totalNotVotedLink().should(($el) => {
         return preFilterTotalNotVoted = $el.text()
     })
-    meetingDetailsPage.accountButton().click()
-    meetingDetailsPage.accountButton().invoke('text').then((text) => {
-        if (text.includes('(1)')) {
-            meetingDetailsPage.selectAllAccountCheckbox().check({force: true})
-        } else {
-            meetingDetailsPage.selectAllAccountCheckbox().uncheck({force: true})
-            meetingDetailsPage.individualAccountCheckbox().eq(0).check({force: true})
-        }
-    })
-    meetingDetailsPage.updateAccountButton().click({ scrollBehavior: false })
+    //Change Filter Value based on Account / Account Group
+    if (filterValue.includes('account group')) {
+        meetingDetailsPage.accountGroupButton().click()
+        meetingDetailsPage.accountGroupButton().invoke('text').then((text) => {
+            if (text.includes('(1)')) {
+                meetingDetailsPage.selectAllAccountGroupCheckbox().check({force: true})
+            } else {
+                meetingDetailsPage.selectAllAccountGroupCheckbox().uncheck({force: true})
+                meetingDetailsPage.individualAccountGroupCheckbox().eq(0).check({force: true})
+            }
+        })
+        meetingDetailsPage.updateAccountGroupButton().click({ scrollBehavior: false })
+    } else {
+        meetingDetailsPage.accountButton().click()
+        meetingDetailsPage.accountButton().invoke('text').then((text) => {
+            if (text.includes('(1)')) {
+                meetingDetailsPage.selectAllAccountCheckbox().check({force: true})
+            } else {
+                meetingDetailsPage.selectAllAccountCheckbox().uncheck({force: true})
+                meetingDetailsPage.individualAccountCheckbox().eq(0).check({force: true})
+            }
+        })
+        meetingDetailsPage.updateAccountButton().click({ scrollBehavior: false })
+    }
+    //Wait for page to load and then compare values
     meetingDetailsPage.getLoadingSpinner().should('not.be.visible')
     meetingDetailsPage.totalVotedLink().should(($el) => {
         postFilterTotalVoted = $el.text()

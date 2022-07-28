@@ -1,4 +1,4 @@
-Feature: User smoke tests
+Feature: User related smoke tests
 
 
   Scenario: Verify internal user is able to login successfully with a valid username and password

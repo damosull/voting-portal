@@ -1,4 +1,4 @@
-Feature: Filters smoke tests
+Feature: Filters related smoke tests
 
 
   #TestCase - 28351
