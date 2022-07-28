@@ -152,14 +152,14 @@ And('I select {string} column', (column) => {
 
 });
 
-And('I save the configuration', () => {
-    
+And('I save the configuration with the name of {string}', (configName) => {
+
   cy.contains('Save As').click();
-  cy.get('#popupTextContainer').should('be.visible').type(configName_BallotVoteReport);
+  cy.get('#popupTextContainer').should('be.visible').type(configName);
   cy.get('#apprise-btn-undefined').should('be.visible');
   cy.get('#apprise-btn-confirm').click();
   cy.wait('@ADD');
-  cy.contains('My configurations').siblings().find('span').should('contain', configName_BallotVoteReport);
+  cy.contains('My configurations').siblings().find('span').should('contain', configName);
 
 });
 
@@ -178,15 +178,15 @@ Then('Download initiated toast message appears', () => {
 
 });
 
-Then('Report is ready to download message appears in the notifications', () => {
+Then('Report is ready to download message appears in the notifications with the name of {string}', (configName) => {
     
   cy.get('#inbox-container .msg-txt', { timeout: 120000 }).should(($msg) => {
-      expect($msg.first().text()).to.include(`${configName_BallotVoteReport}.csv report is ready for download`);
+      expect($msg.first().text()).to.include(`${configName}.csv report is ready for download`);
     });
 
 });
 
-Then('I verify the report headers', () => {
+Then('I verify the report headers with the name of {string}', (configName) => {
 
   cy.get('#inbox-container [data-pagelink1]')
     .first()
@@ -197,7 +197,7 @@ Then('I verify the report headers', () => {
         expect(resp.status).to.eq(200);
         expect(resp.headers)
           .to.have.property('content-disposition')
-          .contains(`attachment; filename=${configName_BallotVoteReport}.csv`);
+          .contains(`attachment; filename=${configName}.csv`);
         expect(resp.headers).to.have.property('content-type').eql('text/csv');
         expect(resp.body).include(
           'Customer Account Name,Customer Account ID,Company,CUSIP,CINS,Country of Trade,Meeting Type,Meeting Date,Record Date,Proposal Order By,Proposal Label,Proposal Text,Proponent,Mgmt,GL Reco,Custom Policy,Vote Decision,For Or Against Mgmt,Rationale,Meeting Note,Ballot Voted Date,Issue Code,Issue Code Category,Shares Listed,Control Number Key,Ballot Status,Ballot Blocking,Agenda Key'
@@ -216,8 +216,7 @@ And('I delete the given {string} configuration', (configuration_file_name) => {
 And('I Add Subscription', () => {
     
   cy.get('#subscriptions-container > h3').click();
-  cy.get('#subscriptions-container > div.collapse.expand-collapse > div > span > a').click();
-  cy.get('#add-subscription-kendo-modal-123abc456xyz').should('be.visible');
+  cy.contains('Add Subscription').click();
 
 });
 
@@ -258,8 +257,8 @@ And('Verify UI table entries for newly created Subscription', () => {
   cy.get('#current-subscribers-list > tbody > tr > td')
     .eq(1)
     .should('include.text', 'CalpersAutomation External Admin');
-  cy.get('#current-subscribers-list > tbody > tr > td').eq(2).should('include.text', 'Weekly');
-  cy.get('#current-subscribers-list > tbody > tr > td').eq(3).should('include.text', 'Run at: 8:00AM, on: Sun');
+  cy.get('#current-subscribers-list > tbody > tr > td').eq(2).should('include.text', 'Daily');
+  cy.get('#current-subscribers-list > tbody > tr > td').eq(3).should('include.text', 'Run at: 9:00AM');
   cy.get('#current-subscribers-list > tbody > tr > td').eq(4).should('include.text', 'SubscribeTest');
 
 });
@@ -278,7 +277,7 @@ Then('I verify Column data for UserIds and Filename', () => {
     cy.get('@userid').then(function (uid) {
       assert.equal(cols[3], uid); // SubscriberID
     });
-    assert.equal(cols[7], 0); // Deliver to Everyone = false
+    assert.equal(cols[7], 1); // Deliver to Everyone = false
     assert.equal(cols[12], 'SubscribeTest'); // Filename
     cy.get('@userid').then(function (uid) {
       assert.equal(cols[13], uid); // Created by
