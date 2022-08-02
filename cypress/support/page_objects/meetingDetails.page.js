@@ -20,6 +20,7 @@ class meetingDetailsPage {
     votedBallots() { return cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').should('be.visible') }
     controversyAlertDiv() { return cy.get('#controversyLinks') }
     controversyAlertLink() { return cy.get('#controversyLinks a') }
+    homeButton() { return cy.get('#btn-back-filter-results') }
 
     //Info Section
     totalVotedLink() { return cy.get('#launch-ballots-voted-modal') }

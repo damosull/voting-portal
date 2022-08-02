@@ -9,6 +9,12 @@ Then('I can view the Meeting Details page', () => {
     cy.url().should('include', '/MeetingDetails/Index/')
 })
 
+Then('I can verify I am on the Meeting Details page', () => {
+    cy.url().should('include', '/MeetingDetails/Index/')
+    meetingDetailsPage.homeButton().should('be.visible')
+    meetingDetailsPage.accountButton().should('be.visible')
+})
+
 When('I navigate to the meeting with id {string}', (meetingId) => {
     cy.visit('MeetingDetails/Index/' + meetingId)
 })
@@ -153,6 +159,10 @@ And('I verify that the Voted section shows all votes and nothing is displayed un
 
 When('I click on the Glass Lewis logo on the top left', () => {
     meetingDetailsPage.glassLewisLogoLink().click()
+})
+
+When('I click on the home button', () => {
+    meetingDetailsPage.homeButton().click()
 })
 
 And('I vote for an item which had no previous vote with Glass Lewis Recommendations', () => {

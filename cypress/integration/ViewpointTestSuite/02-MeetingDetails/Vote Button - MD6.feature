@@ -62,6 +62,35 @@ Feature: Vote Button Tests
     And I should logout from the application
 
 
+  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28479
+  #This test has been automated assuming that there is a typo in the test case and the buttons on the pop up would be 'OK' instead of 'Leave'
+  Scenario: Verify a Warning Message is returned when user is leaving the Vote Card without clicking 'Vote' button
+    Given I am logged in as the "CALPERS" User
+    And I remove all existing selected criteria
+    And I have added the criteria for "Decision Status" with status "Voted"
+    When I select a random meeting
+    Then I can view the Meeting Details page
+    When I click on the Change Vote or Rationale button
+    And I replace my FOR votes with AGAINST and vice-versa
+    And I click on the home button
+    Then I should get a popup window with a warning and OK and Cancel buttons
+    When I click on the Cancel button
+    Then I can verify I am on the Meeting Details page
+    When I click on the Workflow option from the toolbar
+    And I click on the OK button
+    And I refresh the page
+    Then I can view the workflow page
+    When I select a random meeting
+    Then I can view the Meeting Details page
+    When I click on the Change Vote or Rationale button
+    And I replace my FOR votes with AGAINST and vice-versa
+    And I click on the home button
+    Then I should get a popup window with a warning and OK and Cancel buttons
+    When I click on the OK button
+    Then I can view the workflow page
+    And I should logout from the application
+
+
   # TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/27932
   # Role default: Allowed -> I test it with "Explicitly Denied" so I expect I will not see those voting options
   Scenario Outline: Different permission setup on vote card functionality
