@@ -3,13 +3,6 @@ import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 
 const today = new Date().toISOString().slice(0, 10);
 
-Given('I login as Calpers User', () => {
-
-  cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid');
-  cy.loginWithAdmin(USER.CALPERS);
-
-});
-
 When('I navigate to the Dashboard page', () => {
 
   cy.visit('/Dashboard');

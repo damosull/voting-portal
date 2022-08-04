@@ -141,6 +141,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('GET', API.GET.CUSTOM_FIELDS).as('CUSTOM_FIELDS');
   cy.intercept('GET', API.GET.CUSTOM_FIELDS_2).as('CUSTOM_FIELDS_2');
   cy.intercept('GET', API.GET.CUSTOMER_DETAILS).as('CUSTOMER_DETAILS');
+  cy.intercept('GET', API.GET.CUSTOMER_NAME_SPECIAL).as('CUSTOMER_NAME_SPECIAL');
   cy.intercept('GET', API.GET.CUSTOMER_SEARCH).as('CUSTOMER_SEARCH');
   cy.intercept('GET', API.GET.COMMENTS).as('COMMENTS');
   cy.intercept('GET', API.GET.COMMENTS_IDENTITY_SEARCH).as('COMMENTS_IDENTITY_SEARCH');
@@ -572,7 +573,7 @@ Cypress.Commands.add('assertFileProperties', (configName, fileExtension) => {
     });
 });
 
-Cypress.Commands.add('donwloadFileLocal', (report) => {
+Cypress.Commands.add('downloadFileLocal', (report) => {
   cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
   cy.intercept('GET', '**/Downloads/DownloadExportFromUrl/?requestID=**').as('DownloadReport');
   cy.intercept('GET', '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**').as('LoadInbox');

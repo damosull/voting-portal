@@ -31,7 +31,7 @@ Feature: Workflow related smoke tests
     Then I can view the workflow page
     When I search for a company on the search bar and choose meetings
     Then I can view the Meeting Details page
-    And I navigate back to the workflow page
+    And I navigate to the workflow page
     When I search for a company on the search bar and choose companies
     Then I should be navigated to the Company page
     And I should logout from the application

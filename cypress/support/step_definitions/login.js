@@ -11,6 +11,7 @@ Given('I am on the login page of Viewpoint', ()=> {
 
 Given('I am logged in as the {string} User', (username) => {
     sessionStorage.clear()
+    cy.getAutomationUserIDFromDB(constants.USER[username]).as('userid')
     cy.loginWithAdmin(constants.USER[username])
     workflowPage.getWorkflowPage()
     //Waiting for page load

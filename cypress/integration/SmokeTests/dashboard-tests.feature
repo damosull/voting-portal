@@ -1,7 +1,7 @@
 Feature: Dashboard related smoke tests
 
     Background:
-        Given I login as Calpers User
+        Given I am logged in as the "CALPERS" User
 
     Scenario: Create Dashboard Subscription entry and validate in SB_Subscription Database table
         When I navigate to the Dashboard page

@@ -31,7 +31,7 @@ Feature: Engagement permissions
 #        Then Picklist option 1 should contain 'aapicklist value 2'
 #        When I enter a label value 'AutomationTestPicklist' and click OK button
 #        And I save the picklist
-#        When I navigate to the Workflow page
+#        When I navigate to the workflow page
 #        Then There is no reference to my picklist 'AutomationTestPicklist' on the workflow page
 #        Then I delete the 'AutomationTestPicklist' picklist
 #
@@ -51,7 +51,7 @@ Feature: Engagement permissions
 #        And I enter a Description 'AutomationTestDescription' into the Description Field and click OK button
 #        And the Filter Under Add Criteria checkbox should not be checked
 #        And I save the picklist
-#        When I navigate to the Workflow page
+#        When I navigate to the workflow page
 #        And I open the Columns dropdown
 #        Then The picklist created 'Automation12 345"£ $%' should be present in the column list unchecked
 #        And I delete the active 'Automation12 345"£ $%' picklist
@@ -71,7 +71,7 @@ Feature: Engagement permissions
 #        Then the third picklist value should have an arrow up icon visible
 #        And I check the Filter Under Add Criteria checkbox
 #        And I save the picklist
-#        When I navigate to the Workflow page
+#        When I navigate to the workflow page
 #        And I open the Columns dropdown
 #        Then The picklist created 'Ballot Status' should be present in the column list unchecked
 #        And The picklist created 'Ballot Status' should be orange in colour

@@ -4,7 +4,7 @@
   },
   "reporter": "spec",
   "video": true,
-  "videoCompression": 2,
+  "videoCompression": 4,
   "retries": {
     "runMode": 1,
     "openMode": 0

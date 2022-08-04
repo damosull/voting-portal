@@ -95,7 +95,7 @@ declare namespace Cypress {
     /**
      * * Method to download the file locally
      */
-    donwloadFileLocal(): Chainable<Element>;
+    downloadFileLocal(): Chainable<Element>;
 
     /**
      * * Verify header buttons [Vote], [Take no Action] and [Instruct]

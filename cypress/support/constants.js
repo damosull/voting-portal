@@ -142,6 +142,7 @@ export const API = {
     CUSTOM_FIELDS: '**/Api/Data/CustomFields/?customerId=0&_=**',
     CUSTOM_FIELDS_2: '**/Api/Data/CustomFields/GetDetails?fieldId=**',
     CUSTOMER_DETAILS: '**/Api/Data/CustomerDetails/**',
+    CUSTOMER_NAME_SPECIAL: '**/CompanyNameSpecial/**',
     CUSTOMER_SEARCH: '**/Api/Data/CustomerSearch/**',
     DATA: '**/Api/Data/**',
     DATE_RANGE: '**/Api/WebUIRes/?path=/Scripts/EditorControls/DateRange/DateRange**',

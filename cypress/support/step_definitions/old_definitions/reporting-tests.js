@@ -20,14 +20,14 @@ const votes = [
 const proposalSummary = [
   'Proposal Summary',
   'Mgmt Proposals Voted FOR',
-  'Mgmt Proposals Voted Against/Withold',
+  'Mgmt Proposals Voted Against/Withhold',
   'Mgmt Proposals Voted Abstain',
   'Mgmt Proposals With No Votes Cast',
   'Mgmt Proposals Voted 1 Year',
   'Mgmt Proposals Voted 2 Years',
   'Mgmt Proposals Voted 3 Years',
   'ShrHldr Proposal Voted FOR',
-  'ShrHldr Proposals Voted Against/Withold',
+  'ShrHldr Proposals Voted Against/Withhold',
   'ShrHldr Proposals Voted Abstain',
   'ShrHldr Proposals With No Votes Cast',
 ];
@@ -50,21 +50,7 @@ const reportColumns = [
 let filename;
 let rnd;
 
-Given('I login as Calpers user', () => {
 
-  cy.clearCookies();
-  cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid');
-  cy.loginWithAdmin(USER.CALPERS);
-
-});
-
-When('I navigate to the Workflow page', () => {
-
-  cy.visit('/Workflow');
-  cy.wait('@WORKFLOW_EXPANSION');
-  cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
-
-});
 
 And('I add {string} status and {string} critera', (status, criteria) => {
     
@@ -302,9 +288,11 @@ And('I select {string} Report Type', (report_type) => {
 });
 
 And('I select Interaction Date between {string} and {string}', (start_date, end_date) => {
-
-  cy.get('#report-criteria-controls >div > h4').first().click({ force: true });
-  cy.get('[type="radio"]#rdo-date-range-discrete-InteractionDate').check({ force: true }).should('be.checked');
+  
+  cy.wait('@CUSTOMER_NAME_SPECIAL')
+  cy.get('#report-criteria-controls >div > h4').should('be.visible')
+  cy.get('#report-criteria-controls >div > h4').first().click();
+  cy.get('[type="radio"]#rdo-date-range-discrete-InteractionDate').check();
   cy.get('#discrete-date-start-InteractionDate').clear({ force: true }).type(start_date, { force: true });
   cy.get('#discrete-date-end-InteractionDate').clear({ force: true }).type(end_date, { force: true });
 
@@ -421,9 +409,9 @@ And('I remove any existing report criteria', () => {
   cy.get('body').then(($body) => {
     if ($body.find('#workflow-filter-list > div > div > ul > li').eq(0).length > 0) {
       cy.get('#workflow-filter-list > div > div > ul > li').each(() => {
-        cy.get('#workflow-filter-list > div > div > ul > li:nth-child(1) > a').first().click({ force: true });
+        cy.get('#workflow-filter-list > div > div > ul > li:nth-child(1) > a').first().click();
         cy.wait('@GET_POLICY');
-        cy.get('.dark-red.small.delete-btn').click({ force: true });
+        cy.get('.dark-red.small.delete-btn').click();
         cy.wait('@REMOVE');
       });
     }
@@ -463,20 +451,6 @@ And('I save the new filter with random name', () => {
   cy.get('#apprise-btn-confirm').click({ force: true });
   cy.wait('@GET_POLICY');
   cy.wait('@FILE_ADD');
-
-});
-
-And('The new report type appears on the left sidebar', () => {
-
-  cy.get('.scrollableContainer > ul  >li')
-  .first()
-  .find('span[data-bind="text: Name"]')
-  .then(($name) => {
-    const fname = $name.text();
-    cy.log(fname);
-    cy.log(filename);
-    expect(fname.includes(filename)).to.be.true;
-  });
 
 });
 
@@ -549,18 +523,21 @@ Then('I download the proxy voting report', () => {
 
   cy.contains('Download').click();
   cy.get('.toast-message').should('contain.text', messages.toast.DOWNLOAD_STARTED);
-  cy.get('.notify-count').click();
-  cy.get('#inbox-container .msg-txt', { timeout: 120000 }).should(($msg) => {
-    expect($msg.first().text()).to.include(configName_ProxyVotingReport + `.xls ${messages.reports.READY}`);
-  });
-
-  cy.donwloadFileLocal();
-
-  cy.assertFileProperties(configName_ProxyVotingReport, 'xls');
+  cy.deleteMyConfiguration('ProxyVoting');
 
 });
 
 Then('I verify the proxy voting report', () => {
+  
+  cy.get('.notify-count').click();
+  cy.get('#inbox-container .msg-txt', { timeout: 150000 }).should(($msg) => {
+    expect($msg.first().text()).to.include(configName_ProxyVotingReport + `.xls ${messages.reports.READY}`);
+  });
+
+  cy.get('#inbox-container .msg-txt').contains(configName_ProxyVotingReport).click();
+  // The following two waits are for the API's triggered by the download
+  cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
+  cy.wait('@InboxReport');
 
   cy.parseXlsx(`cypress/downloads/${configName_ProxyVotingReport}.xls`).then((xlxsData) => {
     votes.forEach((fields) => {
@@ -575,12 +552,6 @@ Then('I verify the proxy voting report', () => {
       expect(JSON.stringify(xlxsData)).to.include(fields);
     });
   });
-
-});
-
-Then('I run the task to delete the Download folder', () => {
-
-  cy.exec('npm run cy:clean');
 
 });
 
@@ -706,7 +677,7 @@ Then('Saved config name appears under My configuration section', () => {
 
 Then('Voting Activity report is queued', () => {
 
-  cy.get('#inbox-container .msg-txt', { timeout: 180000 }).should(($msg) => {
+  cy.get('#inbox-container .msg-txt', { timeout: 120000 }).should(($msg) => {
     expect($msg.first().text()).to.include(configName_VotingActivityReport + `.${fileExtension} ${messages.reports.READY}`);
   });
 
@@ -714,7 +685,7 @@ Then('Voting Activity report is queued', () => {
 
 Then('Report is downloaded', () => {
 
-  cy.donwloadFileLocal('Voting Activity');
+  cy.downloadFileLocal('Voting Activity');
   cy.assertFileProperties(configName_VotingActivityReport, fileExtension);
 
 });

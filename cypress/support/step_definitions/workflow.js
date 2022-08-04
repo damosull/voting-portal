@@ -7,7 +7,7 @@ Then('I can view the workflow page', ()=> {
     workflowPage.workflowMenuButton().should('exist')
 })
 
-And('I navigate back to the workflow page', ()=> {
+And('I navigate to the workflow page', ()=> {
     workflowPage.getWorkflowPage()
     workflowPage.getLoadingSpinner().should('exist')
     //Waiting for page load
@@ -43,7 +43,7 @@ And('I have added the criteria for {string} with status {string}', (criteria,sta
     workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false })
     workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA')
     cy.get('@FILTER_CRITERIA').should('be.visible').within(() => {
-        cy.get('input').eq(0).should('be.visible').clear().type(status, { scrollBehavior: false })
+        cy.get('input').eq(0).should('be.visible').type(status, { scrollBehavior: false })
         cy.get('div > div > label').contains(status).click({ scrollBehavior: false })
         cy.get('div > button').eq(0).click({ scrollBehavior: false })
     })

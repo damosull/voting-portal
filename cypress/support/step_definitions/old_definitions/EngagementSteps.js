@@ -169,11 +169,6 @@ And('I save the picklist', () => {
     cy.get('#cf-btn-save').click()
 })
 
-And('I navigate to the Workflow page', () => {
-    cy.visit('/Workflow')
-    cy.statusCode200('@GET_AVAILABLE_ASSIGNEES_CUSTOMER') // Last loaded API on tha page - ext
-})
-
 
 Then('There is no reference to my picklist {string} on the workflow page', (lbl) => {
     cy.contains(lbl).should('not.exist')
