@@ -1,3 +1,4 @@
+@loadtest
 Feature: Load Test
 
   Scenario Outline: Vote from random 50 meetings on a random user

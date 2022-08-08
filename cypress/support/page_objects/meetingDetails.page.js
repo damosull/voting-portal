@@ -4,11 +4,14 @@ class meetingDetailsPage {
     unlockButtonLocator = '#btn-unlock'
     checkboxOverrideLocator = "label[for='override-voted']"
     warningPopUpLocator = '#vote-warnings-and-errors-modal'
+    votedBallotsLocator = '[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb'
+    takeNoActionBallotsLocator = '[data-bind="visible: override.tnaBallotsBoxVisible"] > .ccb'
 
     //Header
     pageBody() { return cy.get('body') }
     getLoadingSpinner() { return cy.get('.k-loading-text') }
     voteSuccessMessage() { return cy.contains('Vote success') }
+    instructedSuccessMessage() { return cy.contains('Instructed successfully') }
     glassLewisLogoLink() { return cy.get("a[id='logo-link'] span") }
 
     //Company name & buttons on top of the page
@@ -17,10 +20,12 @@ class meetingDetailsPage {
     takeNoActionButton() { return cy.get('#btn-take-no-action') }
     instructButton() { return cy.get('#btn-instruct') }
     unlockButton() { return cy.get(this.unlockButtonLocator) }
-    votedBallots() { return cy.get('[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb').should('be.visible') }
+    votedBallots() { return cy.get(this.votedBallotsLocator) }
     controversyAlertDiv() { return cy.get('#controversyLinks') }
     controversyAlertLink() { return cy.get('#controversyLinks a') }
     homeButton() { return cy.get('#btn-back-filter-results') }
+    shareMeetingButton() { return cy.get('#btn-share-meeting') }
+    shareMeetingPopUpHeading() { return cy.get('#sharemeeting-modal_wnd_title') }
 
     //Info Section
     totalVotedLink() { return cy.get('#launch-ballots-voted-modal') }
@@ -47,8 +52,8 @@ class meetingDetailsPage {
     cancelAccountGroupButton() { return cy.get('#btn-cancel-account-group') }
 
     //Others
-    proceedButton() { return cy.get(this.proceedButtonLocator).should('be.visible') }
-    takeNoActionBallots() { return cy.get('[data-bind="visible: override.tnaBallotsBoxVisible"] > .ccb').should('be.visible') }
+    proceedButton() { return cy.get(this.proceedButtonLocator) }
+    takeNoActionBallots() { return cy.get(this.takeNoActionBallotsLocator) }
     confirmPopUp() { return cy.get('.confirm-popup') }
     confirmPopUpContent() { return cy.get('.confirm-content') }
     popUpOkButton() { return cy.get('#apprise-btn-confirm') }

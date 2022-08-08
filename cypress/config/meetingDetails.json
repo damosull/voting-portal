@@ -1,6 +1,0 @@
-{
-  "retries": 0,
-  "testFiles": ["LoadTest/loadtest.feature",
-    "AutomationBacklog/Compare Recommendations.feature"
-  ]
-}

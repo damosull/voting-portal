@@ -4,16 +4,12 @@ parameters:
     type: string
     default: smoke-qa
     values:
-      - qa
       - smoke-qa
       - smoke-ultra
       - qa-api
-      - qa-dashboard
-      - qa-kanban
       - qa-meeting
-      - qa-report
-      - qa-user
       - qa-workflow
+      - development
 
 trigger:
   branches:
@@ -35,16 +31,13 @@ jobs:
   steps:
   - script: |
       npx cypress cache clear
-    displayName: 'Cypress cache clear'
+    displayName: 'Cypress Clear Cache'
 
   - script: |
       npm ci
-    displayName: 'npm ci'
+    displayName: 'Install Packages'
 
   - script: |
-      export cypress_Internal_Admin_Username=$(InternalAdminUsername)
-      export cypress_Internal_Admin_Password=$(InternalAdminPassword)
-      export cypress_External_Username=$(ExternalUsername)
       export HTTP_PROXY=http://10.71.1.42:3128
       npx cypress run --env configFile=${{ parameters.configuration }} --reporter junit
     displayName: 'Running Cypress Tests'

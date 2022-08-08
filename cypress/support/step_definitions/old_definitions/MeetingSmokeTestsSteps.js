@@ -1,18 +1,9 @@
 import { When, Then, And } from 'cypress-cucumber-preprocessor/steps'
-import workflowPage from '../../page_objects/workflow.page'
 const constants = require("../../constants")
 const meetingDetailsPage = require("../../page_objects/meetingDetails.page")
 const unixTime = Math.floor(Date.now() / 1000)
 const filterName = `MyFilter_${unixTime}`
 
-
-When('I filter with the criteria of vote against Glass Lewis', () => {
-  cy.AddCriteriaOption('decision', 'Decision Status')
-  cy.selectValueFromCriteriaOption('.DecisionStatusEditor', 'value', 'Approved', '#btn-apply-criteria')
-  workflowPage.waitForWorkflowPageLoad()
-  cy.AddCriteriaOption('With', 'Votes With/Against Glass Lewis')
-  cy.selectValueFromCriteriaOption('.WithAgainstGlassLewisEditor', 'name', 'opt-WithAgainstGlassLewis', '#btn-update-WithAgainstGlassLewis')
-})
 
 Then('the filtered results should display the data only for vote against Glass Lewis', () => {
   //arrays to store GL recommendations and vote decisons
@@ -37,13 +28,6 @@ Then('the filtered results should display the data only for vote against Glass L
       var diff = arraysEqual(GLvals, Selected)
       expect(diff).to.be.false
   })
-})
-
-When('I filter with the criteria of vote against Management', () => {
-  cy.AddCriteriaOption('decision', 'Decision Status')
-  cy.selectValueFromCriteriaOption('.DecisionStatusEditor', 'value', 'Approved', '#btn-apply-criteria')
-  cy.AddCriteriaOption('With', 'Votes With/Against Management')
-  cy.selectValueFromCriteriaOption('.WithAgainstManagementEditor', 'name', 'opt-WithAgainstManagement', '#btn-update-WithAgainstManagement')
 })
 
 Then('the filtered results should display the data only for vote against Management', () => {
@@ -76,108 +60,6 @@ Then('the filtered results should display the data only for vote against Managem
           expect(diff).to.be.false
       }
   })
-})
-
-Then('the meetings page should be loaded successfully', () => {
-  cy.verifyMeetingOptionButtons()
-})
-
-When('I should get a success message for votes submitted successfully for each vote against the policy recommendations', () => {
-  cy.get('#md-votecard-grid-results > tr').then(($rows) => {
-    $rows.each((index, value) => {
-      const rec = Cypress.$(value).find('td.vote-card-policy-rec').text()
-      if (rec.includes('Non Voting')) {
-        //do nothing
-      } else {
-        var selected = Cypress.$(value).find(':selected').text()
-        var option1 = Cypress.$(value).find('option').eq(1).text()
-        var option2 = Cypress.$(value).find('option').eq(2).text()
-        if (Cypress.$(value).find('option').eq(1).text() !== selected) {
-          cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).select(
-            option1,
-            { force: true }
-          )
-        } else {
-          cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).select(
-            option2,
-            { force: true }
-          )
-        }
-      }
-    })
-
-    cy.get('#btn-vote-now').click({ force: true })
-
-    cy.get('.floatright > .green').click({ force: true })
-    cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale')
-    cy.get('#btn-unlock').click({ force: true })
-    cy.verifyMeetingOptionButtons()
-
-    cy.get('#quick-vote-container > span > span').click({ force: true })
-    cy.get('#quickVoteSelect').select('Policy Rec', { force: true })
-
-    cy.get('#md-votecard-grid-results > tr').then(($rows) => {
-      $rows.each((index, value) => {
-        const rec = Cypress.$(value).find('td.vote-card-policy-rec').text()
-        var selected = Cypress.$(value).find(':selected').text()
-        if (rec.includes('Non Voting') || rec.includes('N/A')) {
-          //do nothing
-        } else {
-          expect(rec).to.equal(selected)
-        }
-      })
-      cy.get('#btn-vote-now').click({ force: true })
-      cy.get('.floatright > .gray').should('be.visible')
-      cy.get('.floatright > .green').should('be.visible')
-      cy.get('#override-voted').click({ force: true })
-      cy.get('.floatright > .green').click({ force: true })
-      cy.get('.toast-message').should('contain.text', 'Vote success')
-      cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale')
-    })
-  })
-})
-
-When('I choose to perform a quick vote for Glass Lewis recommendations and click Vote Now', () => {
-  //Do a Quickvote For to move meeting status to Voted
-  cy.get('#quick-vote-container > span > span').click({ force: true })
-  cy.get('#quickVoteSelect').select('GL Rec', { force: true })
-  cy.get('#btn-vote-now').click({ force: true })
-  cy.wait('@VOTE_REQUEST_VALIDATION')
-  cy.handleErrorModal()
-})
-
-Then('I should get a button stating "Change Vote or Rationale"', () => {
-  cy.get('#btn-unlock').should('be.visible').should('have.text', 'Change Vote or Rationale')
-})
-
-And('I {string} under the meeting {string}', (action,meetingID) => {
-  switch (meetingID) {
-    case 'CPRP4', 'CPRP2', 'CPRP3':
-      clickOntheVoteDropDownButton()
-      selectForAsAllVote()
-      clickonVoteNowButton()
-      tickTheBallotCheckbox()
-      clickOnTheProceedButton()
-      break
-    case 'CPRP5':
-      meetingDetailsPage.takeNoActionButton().click({ force: true })
-      meetingDetailsPage.takeNoActionBallots().click({ force: true })
-      tickNoActionBallots()
-      clickOnTheProceedButton()
-      break
-  }
-})
-
-Then('I should be able to click on the Instruct button', () => {
-  clickOnInstructButton()
-  tickTheBallotCheckbox()
-  clickOnTheProceedButton()
-})
-
-And('I click on the share meeting option', () => {
-  cy.get('#btn-share-meeting').click()
-  cy.get('#sharemeeting-modal_wnd_title').should('be.visible')
-  cy.wait('@SHARE_MEETING_LISTS')
 })
 
 And('I provide the details like the username to share with and submitted', () => {
@@ -307,14 +189,6 @@ And('I proceed with the override of the votes', () => {
   cy.wait('@VOTE_TALLY')
 })
 
-Then('I see that Assert Vote tally changes to TNA', () => {
-  cy.contains('Vote success')
-  // Step 9 - Assert Vote tally changes to TNA
-  cy.get('@totalNotVoted').then((vote) => {
-    cy.contains(`TNA (${vote})`)
-  })
-})
-
 When('I click on the Change Vote or Rationale button and then on Instruct', () => {
   // Step 10 - Click on Change Vote or Rationale
   cy.get('#btn-unlock').click({ force: true })
@@ -365,8 +239,7 @@ And('the activity should match against the ballot activity log', () => {
     })
   })
 
-  cy.get('#meeting-details-activity')
-  cy.get('.ballots-grid-control-number-link').first().click()
+  cy.get('.ballots-grid-control-number-link').eq(0).scrollIntoView().click({force: true})
   cy.wait('@BALLOT_ACTIVITY_LOG')
   cy.get('#ballot-activitylog-modal').should('be.visible')
 
@@ -413,41 +286,12 @@ And('the activity should match against the ballot activity log', () => {
       var isArrEqual = JSON.stringify(ballotFinal) == JSON.stringify(meetingFinal)
       expect(isArrEqual).to.be.true
     })
-  })  
+  })
+
+
 })
 
-
 /*Functions*/
-
-function clickOntheVoteDropDownButton() {
-  meetingDetailsPage.quickVoteDropdown().click({ force: true })
-}
-
-function selectForAsAllVote() {
-  meetingDetailsPage.quickVoteSelect().select('For', { force: true })
-}
-
-function clickonVoteNowButton() {
-  meetingDetailsPage.voteNowButton().click({ force: true })
-  cy.wait('@VOTE_REQUEST_VALIDATION')
-}
-
-function tickTheBallotCheckbox() {
-  meetingDetailsPage.votedBallots().click({ force: true })
-}
-
-function tickNoActionBallots() {
-  meetingDetailsPage.takeNoActionBallots().click({ force: true })
-}
-
-function clickOnTheProceedButton() {
-  meetingDetailsPage.proceedButton().click()
-}
-
-function clickOnInstructButton() {
-  meetingDetailsPage.instructButton().click({ force: true })
-}
-
 //compare arrays
 function arraysEqual(a1, a2) {
   return JSON.stringify(a1) == JSON.stringify(a2)

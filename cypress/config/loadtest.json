@@ -1,0 +1,4 @@
+{
+  "retries": 0,
+  "testFiles": ["LoadTest/loadtest.feature"]
+}

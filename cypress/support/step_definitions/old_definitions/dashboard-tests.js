@@ -1,5 +1,5 @@
 const { USER, messages } = require("../../constants")
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 
 const today = new Date().toISOString().slice(0, 10);
 
@@ -79,7 +79,7 @@ Then('I verify Toast message - Subscription added', () => {
 });
 
 And('I connect to Aqua Database and verify new row has been added to SB_Subscription table', () => {
-
+  cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid')
   // Step 11 - Connect to Aqua Database and verify new row has been added to SB_Subscription table
   cy.executeQuery('SELECT TOP 1 * FROM SB_Subscription ORDER BY SubscriptionID DESC').then((result) => {
     

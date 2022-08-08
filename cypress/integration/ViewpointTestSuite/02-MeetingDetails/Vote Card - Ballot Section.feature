@@ -1,6 +1,6 @@
-Feature: Add Received Status to Ballot Activity Log
+Feature: Vote Card - Ballot Section
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/40744
+  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28444
   Scenario: Verify User can see 'Ballot Activity Log' gets updated in the Vote Card page with 'Received' Ballot Status
     Given I am logged in as the "WELLINGTON" User
     And I click on upcoming meetings

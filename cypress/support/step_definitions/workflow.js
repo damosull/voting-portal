@@ -43,9 +43,9 @@ And('I have added the criteria for {string} with status {string}', (criteria,sta
     workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false })
     workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA')
     cy.get('@FILTER_CRITERIA').should('be.visible').within(() => {
-        cy.get('input').eq(0).should('be.visible').type(status, { scrollBehavior: false })
-        cy.get('div > div > label').contains(status).click({ scrollBehavior: false })
-        cy.get('div > button').eq(0).click({ scrollBehavior: false })
+        workflowPage.getInputBox().eq(0).should('be.visible').type(status, { scrollBehavior: false })
+        workflowPage.criteriaOptionCheckbox().contains(status).click({ scrollBehavior: false })
+        workflowPage.updateButtonForCheckbox().click({ scrollBehavior: false })
     })
     cy.wait('@WORKFLOW_EXPANSION', {responseTimeout: 90000})
     workflowPage.waitForWorkflowPageLoad()
@@ -54,9 +54,11 @@ And('I have added the criteria for {string} with status {string}', (criteria,sta
 And('I have added the criteria for {string} and checking the checkbox for {string}', (criteria,status) => {
     cy.AddMultipleCriteria([criteria])
     workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false })
-    workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;')
-    workflowPage.criteriaOptionCheckbox().contains(status).click({ scrollBehavior: false })
-    workflowPage.updateButtonForCheckbox().click({ scrollBehavior: false })
+    workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA')
+    cy.get('@FILTER_CRITERIA').should('be.visible').within(() => {
+        workflowPage.criteriaOptionCheckbox().contains(status).click({ scrollBehavior: false })
+        workflowPage.updateButtonForCheckbox().click({ scrollBehavior: false })
+    })
     cy.wait('@WORKFLOW_EXPANSION', {responseTimeout: 90000})
     workflowPage.waitForWorkflowPageLoad()
 })

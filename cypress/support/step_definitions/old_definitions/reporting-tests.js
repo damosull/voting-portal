@@ -1,8 +1,7 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { Then, And } from 'cypress-cucumber-preprocessor/steps';
 
 const { USER, messages } = require("../../constants")
 const unixTime = Math.floor(Date.now() / 1000);
-const configName_BallotVoteReport = `BallotVoteDataReport_${unixTime}`;
 const configName_ProxyVotingReport = `ProxyVotingReport_${unixTime}`;
 const configName_VotingActivityReport = `VotingActivityReport_${unixTime}`;
 const fileExtension = 'xlsx'; /* Options: pdf, xls, xlsx */
@@ -250,7 +249,7 @@ And('Verify UI table entries for newly created Subscription', () => {
 });
 
 Then('I verify Column data for UserIds and Filename', () => {
-   
+  cy.getAutomationUserIDFromDB(USER.CALPERS).as('userid')
   // Connect to Aqua Database and verify new row has been added
   cy.executeQuery('SELECT TOP 1 * FROM SB_Subscription ORDER BY SubscriptionID DESC').then((result) => {
     var cols = [];

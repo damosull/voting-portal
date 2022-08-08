@@ -207,7 +207,6 @@ Then('the third picklist value should have an arrow up icon visible', () => {
 
 Then('The picklist created {string} should be orange in colour', (name) => {
     cy.get('#txt-filter-col-name').type(name)
-    cy.get(`#results-list > li:nth-child(1) > div > label`).should('have.css', 'color', 'rgb(122, 134, 138)')
-    cy.get(`#results-list > li:nth-child(29) > div > label`).should('have.css', 'color', 'rgb(255, 83, 13)')
+    cy.get(`#results-list > li:nth-child(1) > div > label`).should('have.css', 'color', 'rgb(255, 83, 13)')
     cy.get('#txt-filter-col-name').clear()
 })

@@ -5,7 +5,7 @@ export const USER = {
   CHARLESSCHWAB: 'CharlesSchwabAutomation@glasslewis.com',
   FEDERATED: 'FederatedAutomation@glasslewis.com',
   IMF: 'IFMAutomation@glasslewis.com',
-  NEUBERGER: 'neubergerexternal@glasslewis.com',
+  NEUBERGER: 'neuberger@glasslewis.com',
   OPERS: 'OpersAutomation@glasslewis.com',
   PUTNAM: 'PutnamAutomation@glasslewis.com',
   ROBECO: 'RobecoAutomation@glasslewis.com',
@@ -58,8 +58,6 @@ export const MEETINGID = {
   NBCOMMO_AGENDA2: '935279833',
   NBCOMMO_AGENDA3: '935281206',
   NBCOMMO_CTRLNUM1: '8193294880136089',
-  NBCOMMO_CTRLNUM2: '8193294880360709',
-  NBCOMMO_CTRLNUM3: '8193294880595329',
 
   WLNCVTD: '1062764', // Charles Schwab - Non Contested - Voted
   WLNCVTD_CTRLNUM: '4000153399354', // Charles Schwab - Non Contested - Voted

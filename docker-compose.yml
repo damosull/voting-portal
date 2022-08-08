@@ -4,7 +4,7 @@ services:
   cypress:
     build: .
     image: votingportal-cypress
-    command: "--env configFile=meetingDetails --browser chrome"
+    command: "--env configFile=loadtest --browser chrome"
     volumes:
       - ./cypress:/cypress
       - ./cypress.json:/cypress.json

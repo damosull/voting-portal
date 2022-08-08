@@ -300,6 +300,7 @@ Then('I should be able to see a success message for the {string} subscription', 
 
 And('the subscription is available in the database', () => {
   const today = new Date().toISOString().slice(0, 10)
+  cy.getAutomationUserIDFromDB(constants.USER.CALPERS).as('userid')
   //Step 9 - Connect to Aqua Database and verify new row has been added
   cy.executeQuery('SELECT TOP 1 * FROM FL_Subscription ORDER BY SubscriptionID DESC').then((result) => {
     var cols = []

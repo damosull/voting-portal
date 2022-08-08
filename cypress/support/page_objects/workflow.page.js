@@ -4,6 +4,7 @@ class workflowPage {
     getPageBody() { return cy.get('body') }
     getLoadingSpinner() { return cy.get('.k-loading-text', { timeout: 90000 }) }
     getWorkflowPage() { return cy.visit(Cypress.config('baseUrl') + '/Workflow') }
+    getInputBox() { return cy.get('input') }
     
     // Meeting section
     meeting() { return cy.get('#metaname-CompanyName > div > span > a') }
@@ -38,10 +39,9 @@ class workflowPage {
     applyCriteriaButton() { return cy.get('#btn-apply-criteria') }
     criteriaLabel() { return cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').should('be.visible') }
     criteriaOption() { return cy.get('.SingleSelect > div > div > div') }
-    criteriaOptionInput() { return cy.get('.editor-modal > input') }
-    criteriaOptionCheckbox() { return cy.get('.editor-modal > div > div > label') }
+    criteriaOptionCheckbox() { return cy.get('div > div > label') }
     updateButton() { return cy.get("button[id^='btn-update']").filter(':visible') }
-    updateButtonForCheckbox() { return cy.get('.editor-modal > div > button').eq(0) }
+    updateButtonForCheckbox() { return cy.get('div > button').eq(0) }
     selectCustomerInput() { return cy.get("input[placeholder='Select Customer...']") }
     selectCustomerShadowInput() { return cy.get("#txt-ui-CustomerID") }
     selectCustomerDropdown() { return cy.get("#kendoCustomers_listbox") }

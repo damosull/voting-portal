@@ -28,7 +28,7 @@ Feature: Vote Decision Tests
   # https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28472
   # TC ID - 28473 & 28475
   Scenario Outline: Verify Validation Messages
-    Given I am logged in as the "ROBECO" User
+    Given I am logged in as the "CALPERS" User
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status <decision_staus>
     And I navigate to the <company_sequence>. meeting

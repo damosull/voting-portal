@@ -183,10 +183,6 @@ Then('I should be able to toggle between "Management" Multiple Agendas in the Vo
     const agenda = val.text()
     expect(agenda).to.include(constants.MEETINGID.NBCOMMO_AGENDA2)
   })
-  cy.get('#md-ballots-grid-results > tr > td > a').then(function (ctrlnum2) {
-    const displayedCtrlNum = ctrlnum2.text()
-    expect(displayedCtrlNum).to.include(constants.MEETINGID.NBCOMMO_CTRLNUM2)
-  })
 
   //verify all agendas can can be listed
   cy.get('#agendas-list > ul > li').invoke('attr', 'class', 'dropdown related-meetings-list open')
@@ -196,10 +192,6 @@ Then('I should be able to toggle between "Management" Multiple Agendas in the Vo
   cy.get('#agendas-list > ul > li > ul > li > div > span').then(function (val) {
     const agenda = val.text()
     expect(agenda).to.include(constants.MEETINGID.NBCOMMO_AGENDA3)
-  })
-  cy.get('#md-ballots-grid-results > tr > td > a').then(function (ctrlnum3) {
-    const displayedCtrlNum1 = ctrlnum3.text()
-    expect(displayedCtrlNum1).to.include(constants.MEETINGID.NBCOMMO_CTRLNUM3)
   })
 })
 

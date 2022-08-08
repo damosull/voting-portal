@@ -9,6 +9,10 @@ Then('I can view the Meeting Details page', () => {
     cy.url().should('include', '/MeetingDetails/Index/')
 })
 
+Then('I can see the Vote, Take No Action and Instruct buttons', () => {
+    cy.verifyMeetingOptionButtons()
+})
+
 Then('I can verify I am on the Meeting Details page', () => {
     cy.url().should('include', '/MeetingDetails/Index/')
     meetingDetailsPage.homeButton().should('be.visible')
@@ -44,9 +48,23 @@ Then('I should be {string} to see the {string} on the UI',(isVisible,element) =>
         case "Controversy Alert link":
             meetingDetailsPage.controversyAlertDiv().should(isVisible)
             break
+        case "Change Vote or Rationale":
+            meetingDetailsPage.unlockButton().should(isVisible).should('have.text', 'Change Vote or Rationale')
+            break
         default:
         break
     }
+})
+
+And('I quick vote {string} on the meeting', (voteType) => {
+    meetingDetailsPage.quickVoteSelect().select(voteType, { force: true })
+})
+
+And('I capture the value of Total Not Voted', () => {
+    // Store the "Total Not Voted" to later compare with the "Total Voted"
+    meetingDetailsPage.totalNotVotedLink().invoke('text').then((text) => {
+        cy.wrap(text).as('totalNotVoted')
+    })
 })
 
 And('I replace my FOR votes with AGAINST and vice-versa', () => {
@@ -88,6 +106,28 @@ And('I can verify that the Quick Vote option and Vote Decision are read only', (
     })
 })
 
+Then('I should be able to use the Instruct functionality on the meeting', () => {
+    meetingDetailsPage.instructButton().click()
+    cy.clickIfExist(meetingDetailsPage.votedBallotsLocator)
+    cy.clickIfExist(meetingDetailsPage.proceedButtonLocator)
+    meetingDetailsPage.instructedSuccessMessage().should('be.visible')
+})
+
+Then('I should be able to use the Take No Action functionality on the meeting', () => {
+    meetingDetailsPage.takeNoActionButton().click()
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
+    cy.get('body').then((body) => {
+        //Verify element exists
+        if (body.find(meetingDetailsPage.warningPopUpLocator).is(':visible')) {
+            meetingDetailsPage.warningPopUp().within(() => {
+                cy.get('input[type="checkbox"]').should('not.be.visible').check({ force: true })
+            })
+            meetingDetailsPage.proceedButton().click()
+        }
+    })
+    meetingDetailsPage.voteSuccessMessage().should('be.visible')
+})
+
 Then('I should get a popup window with a warning and OK and Cancel buttons', () => {
     meetingDetailsPage.confirmPopUp().should('be.visible')
     meetingDetailsPage.confirmPopUpContent().should('contain.text','your vote decisions will not be saved')
@@ -113,6 +153,7 @@ And('I click on the Proceed button', () => {
 })
 
 And('I handle the override pop-up if it exists', () => {
+    cy.wait('@VOTE_REQUEST_VALIDATION')
     meetingDetailsPage.getLoadingSpinner().should('not.exist')
     cy.get('body').then((body) => {
         //Verify element exists
@@ -163,6 +204,12 @@ When('I click on the Glass Lewis logo on the top left', () => {
 
 When('I click on the home button', () => {
     meetingDetailsPage.homeButton().click()
+})
+
+And('I click on the share meeting option', () => {
+    meetingDetailsPage.shareMeetingButton().click()
+    meetingDetailsPage.shareMeetingPopUpHeading().should('be.visible')
+    cy.wait('@SHARE_MEETING_LISTS')
 })
 
 And('I vote for an item which had no previous vote with Glass Lewis Recommendations', () => {
