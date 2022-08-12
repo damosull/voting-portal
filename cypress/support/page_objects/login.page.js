@@ -1,5 +1,6 @@
 class loginPage {
 
+    pageBody() { return cy.get('body') }
     usernameInput() { return cy.get('#username') }
     passwordInput() { return cy.get('#password') }
     signInButton() { return cy.get('#btn-submit-login') }

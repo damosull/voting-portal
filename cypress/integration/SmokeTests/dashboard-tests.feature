@@ -4,7 +4,7 @@ Feature: Dashboard related smoke tests
         Given I am logged in as the "CALPERS" User
 
     Scenario: Create Dashboard Subscription entry and validate in SB_Subscription Database table
-        When I navigate to the Dashboard page
+        When I navigate to the dashboard page
         Then I select Subscriptions link
         And I click Add Subscription button
         And I select Calpers External Admin from Users list
@@ -17,7 +17,7 @@ Feature: Dashboard related smoke tests
         And I remove Subscription entry from Viewpoint
 
     Scenario: Validate Dashboard
-        When I navigate to the Dashboard page
+        When I navigate to the dashboard page
         Then I verify sidebar links
         And I verify Upcoming Meetings highlighted
         And I verify heading buttons and links

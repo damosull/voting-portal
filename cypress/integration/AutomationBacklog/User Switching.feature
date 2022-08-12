@@ -3,6 +3,7 @@ Feature: Internal User Switching
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/48105
   Scenario: Internal user switching customer while using custom fields and/or criteria
     Given I am logged in as the "AUTOMATIONINTERNAL" User
+    And I navigate to the workflow page
     And I remove all existing selected criteria for the internal user
     When I search for the customer "Wellington"
     And I have added the filter criteria "Error Logged?"

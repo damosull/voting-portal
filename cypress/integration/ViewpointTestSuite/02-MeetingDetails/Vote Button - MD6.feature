@@ -4,6 +4,7 @@ Feature: Vote Button Tests
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/3289
   Scenario: Verify a user can vote on a vote card
     Given I am logged in as the "CALPERS" User
+    And I navigate to the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     When I select a random meeting
@@ -22,6 +23,7 @@ Feature: Vote Button Tests
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28480
   Scenario: Verify a user can revote on the vote card
     Given I am logged in as the "CALPERS" User
+    And I navigate to the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Voted"
     When I select a random meeting
@@ -38,6 +40,7 @@ Feature: Vote Button Tests
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/3331
   Scenario: Verify a user can vote on Vote Card with filtering set
     Given I am logged in as the "CALPERS" User
+    And I navigate to the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Voted"
     When I select the first available meeting
@@ -66,6 +69,7 @@ Feature: Vote Button Tests
   #This test has been automated assuming that there is a typo in the test case and the buttons on the pop up would be 'OK' instead of 'Leave'
   Scenario: Verify a Warning Message is returned when user is leaving the Vote Card without clicking 'Vote' button
     Given I am logged in as the "CALPERS" User
+    And I navigate to the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Voted"
     When I select a random meeting
@@ -95,7 +99,7 @@ Feature: Vote Button Tests
   # Role default: Allowed -> I test it with "Explicitly Denied" so I expect I will not see those voting options
   Scenario Outline: Different permission setup on vote card functionality
     Given I am logged in as the "AUTOMATIONINTERNAL" User
-    When I arrive on the User Permissions page
+    When I navigate to the User Permissions page
     And I type "RobecoAutomation External Admin" into the user name input
     And I choose the first element from the dropdown
     And I click on the "Workflow Voting" dropdown
@@ -103,12 +107,13 @@ Feature: Vote Button Tests
     And I click on the Submit changes button
     And I should logout from the application
     Given I am logged in as the "ROBECO" User
+    And I navigate to the workflow page
     When I select the first available meeting
     Then I can view the Meeting Details page
     And The <permission_name> functionality is not available
     And I should logout from the application
     Given I am logged in as the "AUTOMATIONINTERNAL" User
-    When I arrive on the User Permissions page
+    When I navigate to the User Permissions page
     And I type "RobecoAutomation External Admin" into the user name input
     And I choose the first element from the dropdown
     And I click on the "Workflow Voting" dropdown

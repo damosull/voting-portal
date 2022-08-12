@@ -3,8 +3,6 @@ services:
   # this container will run Cypress test using Chrome browser
   cypress:
     build: .
+    ipc: host
     image: votingportal-cypress
-    command: "--env configFile=loadtest --browser chrome"
-    volumes:
-      - ./cypress:/cypress
-      - ./cypress.json:/cypress.json
+    command: "--env configFile=loadtest"

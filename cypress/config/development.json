@@ -1,8 +1,4 @@
 {
-  "env": {
-    "configFile": "development"
-  },
-  "reporter": "spec",
   "video": true,
   "videoCompression": 4,
   "retries": {

@@ -612,6 +612,10 @@ Cypress.Commands.add('statusCode204', (param) => {
   cy.wait(param).its('response.statusCode').should('eq', 204);
 });
 
+Cypress.Commands.add('elementShouldNotExist', (element) => {
+  cy.get(element).should('not.exist');
+});
+
 Cypress.Commands.add('clickIfExist', (element) => {
   cy.get('body').then((body) => {
     //Verify element exists

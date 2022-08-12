@@ -2,13 +2,14 @@ Feature: User related smoke tests
 
 
   Scenario: Verify internal user is able to login successfully with a valid username and password
-    Given I am on the login page
-    When I provide my username and password and sign in
-    Then I should be able to see the workflow page
+    Given I am on the login page of Viewpoint
+    When I login via the UI with the user "AUTOMATIONINTERNAL"
+    Then I can view the workflow page
     And I should logout from the application
 
   Scenario: Verify internal user is able to create a new external user
     Given I am logged in as the "AUTOMATIONINTERNAL" User
+    And I navigate to the workflow page
     And I cleanup the newly created user from the database to reuse the test script
     When I navigate to the users page
     And I fill the required details for a new user and submit
@@ -17,8 +18,9 @@ Feature: User related smoke tests
     
   Scenario: Verify user is able to create a watchlist and assign it
     Given I am logged in as the "CALPERS" User
+    And I navigate to the workflow page
     And I delete the created test watchlist from database
-    When I navigate to the watchlist page
+    When I navigate to the manage watchlist page
     And I create a new watchlist
     And I submit the watchlist
     Then I should be able to search for the new watchlist

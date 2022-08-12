@@ -3,6 +3,7 @@ Feature: Add/Remove System Watchlist
   #Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
   Scenario: Verify internal user is able to add System Watch list
     Given I am logged in as the "AUTOMATIONINTERNAL" User
+    And I navigate to the workflow page
     Then I can view the workflow page
     When I apply the System Watch list for "California Public"
     Then all the results on the table should belong to "Calpers"
@@ -13,6 +14,7 @@ Feature: Add/Remove System Watchlist
   #Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
   Scenario: Verify external user is able to verify System Watch list and Meeting name
     Given I am logged in as the "CALPERS" User
+    And I navigate to the workflow page
     Then I can view the workflow page
     When I apply the System Watch list
     Then all the results on the table should show relevant System Watch list and Meeting name

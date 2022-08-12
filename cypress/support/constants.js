@@ -21,7 +21,7 @@ export const TESTUSER = {
   LASTNAME: "User",
   CONTACTEMAIL: "testuserforusercreation@test.com",
   TYPE: "External",
-  CUSTOMERNAME : "California Public Employee Retirement System (CalPERS)",
+  CUSTOMERNAME: "California Public Employee Retirement System (CalPERS)",
   ROLE: "User"
 };
 
@@ -46,6 +46,8 @@ export const messages = {
     CUSTOMER_SETTINGS_UPDATED: 'Customer settings updated'
   },
 };
+
+export const glassAPI = 'https://aqua-issuer-vote-confirmation-api.azurewebsites.net/api/Ballot/'
 
 export const MEETINGID = {
   // first 2 chars = company (NB = Neuberger)
@@ -94,6 +96,8 @@ export const MEETINGID = {
   CPRP4: '1057963',
 };
 
+export const testWatchlistName = 'Watchlist_Assignment_tests'
+
 export const API = {
   POST: {
     ACCOUNTS_NEW: '**/Api/Data/AccountsNew/**',
@@ -117,10 +121,10 @@ export const API = {
     POST_CUSTOMER_DYNAMIC: '/Api/Data/CustomerDynamic',
     PROXY_VOTING: '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=ProxyVoting',
     REPORTS_CRITERIA: '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotReconciliation',
-    VOTE_REQUEST_VALIDATION: '**/Api/Data/VoteRequestValidation', 
+    VOTE_REQUEST_VALIDATION: '**/Api/Data/VoteRequestValidation',
     WORKFLOW_EXPANSION: '**/Api/Data/WorkflowExpansion',
     WORKFLOW_SECURITIES_WATCHLIST: '**/Api/Data/WorkflowSecuritiesWatchlists',
-    POST_USER_LISTS:'**/Api/Data/UsersLists/**',
+    POST_USER_LISTS: '**/Api/Data/UsersLists/**',
     POST_CUSTODIAN_LIST: '**/Api/Data/CustodianList/**',
     SEARCH_BALLOTS_WITH_SIMILAR_AGENDAS: '**/Api/Data/SearchBallotsWithSimilarAgendas**'
   },
@@ -146,7 +150,7 @@ export const API = {
     DATE_RANGE: '**/Api/WebUIRes/?path=/Scripts/EditorControls/DateRange/DateRange**',
     DATE_RANGE_KNOCKOUT_BINDINGS: '**/Api/WebUIRes/?path=/Scripts/EditorControls/DateRange/dateRangeKnockoutBindings**',
     DASHBOARD: '**/Api/Data/Dashboard/**',
-    DASHBOARD_DETAILS: '**/Api/Data/DashboardDetails/**',    
+    DASHBOARD_DETAILS: '**/Api/Data/DashboardDetails/**',
     DASHBOARD_FILTER_DETAILS: '**/Api/Data/DashboardFilterDetails**',
     DASHBOARD_FILTERS: '**/Api/Data/DashboardFilters**',
     DASHBOARD_MARKUP: '**/Dashboard/GetMarkup**',

@@ -4,6 +4,8 @@ Feature: Vote Decision Tests
   # TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28476
   Scenario: Verify that warning message  "You are voting against your custom policy for items xx.xx" is not be displayed when Policy Rec = Manual
     Given I am logged in as the "CALPERS" User
+    And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Manual Vote Required"
     When I select a random meeting
@@ -17,6 +19,8 @@ Feature: Vote Decision Tests
   # TC ID - 28474
   Scenario: Verify that a Validation Message is displayed
     Given I am logged in as the "ROBECO" User
+    And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     And I select a random meeting
@@ -29,6 +33,8 @@ Feature: Vote Decision Tests
   # TC ID - 28473 & 28475
   Scenario Outline: Verify Validation Messages
     Given I am logged in as the "CALPERS" User
+    And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status <decision_staus>
     And I navigate to the <company_sequence>. meeting

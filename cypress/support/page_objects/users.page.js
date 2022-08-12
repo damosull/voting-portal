@@ -1,4 +1,4 @@
-class usersPage{
+class usersPage {
 
     addNewUserButton() { return cy.get('#btn-add-new-user') }
     userFirstName() { return cy.get('#UserFirstName') }
@@ -9,7 +9,7 @@ class usersPage{
     customerNameDropDown() { return cy.get('tbody > tr > td > select').eq(0) }
     userRole() { return cy.get('tbody > tr > td > select').eq(1) }
     successMessage() { return cy.get('.toast-message') }
-    
+
 }
 
 module.exports = new usersPage();

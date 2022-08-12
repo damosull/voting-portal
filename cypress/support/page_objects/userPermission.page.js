@@ -1,4 +1,4 @@
-class usersPermission{
+class usersPermissionPage {
 
     workflowVotingDropdown() { return cy.contains('Workflow Voting') }
     userNameInput() { return cy.get('#userName') }
@@ -7,8 +7,8 @@ class usersPermission{
     instructPermissionDropdown() { return cy.get('#sel214') }
     takeNoActionPermissionDropdown() { return cy.get('#sel215') }
     viewACSIRecommendations() { return cy.get('#sel322') }
-    submitButton(){ return cy.get("button[data-bind='click:SubmitChanges']") }
-    
+    submitButton() { return cy.get("button[data-bind='click:SubmitChanges']") }
+
 }
 
-module.exports = new usersPermission();
+module.exports = new usersPermissionPage();

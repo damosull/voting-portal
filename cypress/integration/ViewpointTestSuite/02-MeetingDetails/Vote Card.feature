@@ -4,6 +4,7 @@ Feature: Vote Card Tests
   # TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28433
   Scenario: Verify the Vote Card Summary Details do not change when a user filters on an Account on the Meeting Details page
     Given I am logged in as the "CALPERS" User
+    And I navigate to the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Voted"
     And I have added the criteria for "Customer Account" with status "SWIM"

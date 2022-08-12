@@ -4,6 +4,7 @@ Feature: Ballot Vote Data Report
   #Test scenario - https://dev.azure.com/glasslewis/Development/_workitems/edit/43546
   Scenario: Verify internal user can revoke access to ACSI column on the ballot vote data report
     Given I am logged in as the "AUTOMATIONINTERNAL" User
+    And I navigate to the workflow page
     When I navigate to Customer search page
     And I search for customer with name "Russell Investments"
     Then I should be able to turn the "ACSI checkbox to YES"
@@ -21,6 +22,7 @@ Feature: Ballot Vote Data Report
   #Test scenario - https://dev.azure.com/glasslewis/Development/_workitems/edit/43546
   Scenario: Verify internal user can provide access to ACSI column on the ballot vote data report
     Given I am logged in as the "AUTOMATIONINTERNAL" User
+    And I navigate to the workflow page
     When I navigate to Customer search page
     And I search for customer with name "Russell Investments"
     Then I should be able to turn the "ACSI checkbox to YES"

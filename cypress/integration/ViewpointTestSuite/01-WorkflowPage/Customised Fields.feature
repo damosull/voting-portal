@@ -1,22 +1,21 @@
 Feature: Engagement permissions
 
-   Background:
-       Given I login as Internal User and retrieve Customer ID for "Robeco"
-
    #test case 3728
    Scenario:Verify External Admin user cannot view Engagements in the company page when the system permission "View Interaction" is turned off for External Admin role
-       When I set View Interactions permissions to "Deny" for RobecoAutomation External Admin
-       When I login as External User "ROBECO"
+       Given I set the setting "Permission.CompanyPage.ViewInteraction" to "Deny" for the user "ROBECO"
+       When I am logged in as the "ROBECO" User
+       Then I can view the workflow page
        And I select a random meeting
-       And I click the Company link on the Mettings detail page
+       And I click the Company link
        Then The anchor bar should not contain a link to Engagements
        And There is no Engagements section on the Company page
+       And I should logout from the application
 
    #test case 4573
    Scenario:Verify a user can create a Custom Field Type of Picklist Multi Select & verify the Label Name is not displayed on workflow grid
-       When I set View Interactions permissions to "Allow" for RobecoAutomation External Admin
-       And I login as External User "ROBECO"
-       And I select Customer Profile from the Admin dropdown
+       Given I set the setting "Permission.CompanyPage.ViewInteraction" to "Allow" for the user "ROBECO"
+       When I am logged in as the "ROBECO" User
+       And I navigate to the customer details page
        And I select Custom Fields from The Customer Settings panel
        And I click Add Custom Field
        And I select 'Picklist - multi select' from the dropdown list
@@ -35,12 +34,10 @@ Feature: Engagement permissions
        Then There is no reference to my picklist 'AutomationTestPicklist' on the workflow page
        Then I delete the 'AutomationTestPicklist' picklist
 
-
    #test case 4573
    Scenario:Verify a user can Create a Multi Select Custom Field Picklist & Verify user can Add/Sort/Remove the Multi Select custom field on the Workflow page
-       When I set View Interactions permissions to "Allow" for RobecoAutomation External Admin
-       And I login as External User "ROBECO"
-       And I select Customer Profile from the Admin dropdown
+       When I am logged in as the "ROBECO" User
+       And I navigate to the customer details page
        And I select Custom Fields from The Customer Settings panel
        And I click Add Custom Field
        And I select 'Picklist - multi select' from the dropdown list
@@ -52,15 +49,14 @@ Feature: Engagement permissions
        And the Filter Under Add Criteria checkbox should not be checked
        And I save the picklist
        When I navigate to the workflow page
-       And I open the Columns dropdown
+       And I click on the Columns dropdown
        Then The picklist created 'Automation12 345"£ $%' should be present in the column list unchecked
        And I delete the active 'Automation12 345"£ $%' picklist
 
    #test case 4575
    Scenario: Verify a user can create a Custom Field Type Multi Select with Existing Workflow field Label Name & 2 same Label Names are displayed in Workflow grid & in Add Criteria dropdown
-       When I set View Interactions permissions to "Allow" for RobecoAutomation External Admin
-       And I login as External User "ROBECO"
-       And I select Customer Profile from the Admin dropdown
+       When I am logged in as the "ROBECO" User
+       And I navigate to the customer details page
        And I select Custom Fields from The Customer Settings panel
        And I click Add Custom Field
        And I select 'Picklist - multi select' from the dropdown list
@@ -72,7 +68,7 @@ Feature: Engagement permissions
        And I check the Filter Under Add Criteria checkbox
        And I save the picklist
        When I navigate to the workflow page
-       And I open the Columns dropdown
+       And I click on the Columns dropdown
        Then The picklist created 'Controversy Alert' should be present in the column list unchecked
        And The picklist created 'Controversy Alert' should be orange in colour
        And I should logout from the application

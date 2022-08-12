@@ -1,4 +1,4 @@
-class customers{
+class customersPage {
 
     addCriteria() { return cy.get('#btn-add-criteria') }
     customerNamePopUp() { return cy.get('#company-name-target-CustomerName') }
@@ -11,4 +11,4 @@ class customers{
 
 }
 
-module.exports = new customers()
+module.exports = new customersPage()
