@@ -1,6 +1,7 @@
 Feature: Compare Policy Recommendations
 
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/48678
+  @48678
   Scenario: Compare Policy Recommendations to GL Recommendations
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
@@ -18,7 +19,9 @@ Feature: Compare Policy Recommendations
     And I can verify that at least one policy recommendations is against "GL" recommendations
     And I should logout from the application
 
+
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/48395
+  @48395
   Scenario: Compare Policy Recommendations to Management Recommendations
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page

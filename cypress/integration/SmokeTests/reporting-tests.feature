@@ -1,6 +1,8 @@
+@reporting
 Feature: Reporting related smoke tests
 
-    # Test scenario: 37962 https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
+    #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
+    @37962
     Scenario: Generate ballot vote data report, download and verify file
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page

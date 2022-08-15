@@ -1,6 +1,7 @@
 Feature: Vote Card - Ballot Section
 
   #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28444
+  @28444
   Scenario: Verify User can see 'Ballot Activity Log' gets updated in the Vote Card page with 'Received' Ballot Status
     Given I am logged in as the "WELLINGTON" User
     And I change the meeting status of user "WELLINGTON" for the control number "WLNCVTD_CTRLNUM" to "Received" by amending the database

@@ -1,3 +1,4 @@
+@workflow
 Feature: Workflow related smoke tests
 
 
@@ -61,6 +62,7 @@ Feature: Workflow related smoke tests
 
 
   #Test Case 40729 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40729
+  @40729
   Scenario: Verify ballot section display the correct results when filter is applied from the workflow page
     Given I am logged in as the "WELLINGTON" User
     And I navigate to the workflow page

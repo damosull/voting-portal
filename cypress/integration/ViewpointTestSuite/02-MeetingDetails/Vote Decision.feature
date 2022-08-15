@@ -17,6 +17,7 @@ Feature: Vote Decision Tests
 
   # https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28472
   # TC ID - 28474
+  @28474
   Scenario: Verify that a Validation Message is displayed
     Given I am logged in as the "ROBECO" User
     And I navigate to the workflow page
@@ -31,6 +32,7 @@ Feature: Vote Decision Tests
 
   # https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28472
   # TC ID - 28473 & 28475
+  @28473 @28475
   Scenario Outline: Verify Validation Messages
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page

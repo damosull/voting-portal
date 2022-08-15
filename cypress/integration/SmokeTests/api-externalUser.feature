@@ -1,3 +1,4 @@
+@api @api-external
 Feature: Checking API calls with External user
 
     Background:

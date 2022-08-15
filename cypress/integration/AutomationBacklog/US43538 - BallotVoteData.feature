@@ -2,6 +2,7 @@ Feature: Ballot Vote Data Report
 #User Story - https://dev.azure.com/glasslewis/Development/_workitems/edit/43538
 
   #Test scenario - https://dev.azure.com/glasslewis/Development/_workitems/edit/43546
+  @43546
   Scenario: Verify internal user can revoke access to ACSI column on the ballot vote data report
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
@@ -19,7 +20,9 @@ Feature: Ballot Vote Data Report
     Then I can verify that the "ACSI" column should "not be visible"
     And I should logout from the application
 
+
   #Test scenario - https://dev.azure.com/glasslewis/Development/_workitems/edit/43546
+  @43546
   Scenario: Verify internal user can provide access to ACSI column on the ballot vote data report
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page

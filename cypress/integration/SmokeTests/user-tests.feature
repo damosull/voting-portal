@@ -1,3 +1,4 @@
+@user
 Feature: User related smoke tests
 
 

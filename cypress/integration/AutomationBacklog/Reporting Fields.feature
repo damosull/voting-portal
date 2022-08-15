@@ -5,6 +5,7 @@ Feature: Report related tests
 
     # This is not a test - it will just download the report for validating it later (last test on this file)
     # Test scenario 37939: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
+    @37986 @37939
     Scenario: Proxy Voting Report
         When I navigate to the Reporting page
         And I select 'Proxy Voting' Report Type
@@ -14,6 +15,7 @@ Feature: Report related tests
         Then I download the proxy voting report
         And I should logout from the application
 
+    @37986
     Scenario: Ballot status report meeting detail page
         When I navigate to the workflow page
         And I remove all existing selected criteria
@@ -26,7 +28,9 @@ Feature: Report related tests
         Then I download the PDF and verify it
         And I should logout from the application
 
+
     # Test scenario: 37962 https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
+    @37986 @37962
     Scenario: Generate ballot vote data report, download and verify file
         When I navigate to the Reporting page
         And I click on the "Ballot Vote Data" filter
@@ -41,7 +45,9 @@ Feature: Report related tests
         Then I verify the report headers with the name of "configName_BallotVoteReport"
         And I should logout from the application
 
+
     # Test scenario: 40409 https://dev.azure.com/glasslewis/Development/_workitems/edit/40409
+    @37986 @40409
     Scenario: Create Ballot Vote Subscription entry and validate in SB_Subscription Database table
         When I navigate to the Reporting page
         And I click on the "Ballot Vote Data" filter
@@ -58,7 +64,9 @@ Feature: Report related tests
         And I delete the given 'configName_BallotVoteReport_SB' configuration
         And I should logout from the application
 
+
     # Test scenario 37963 : https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
+    @37986 @37963
     Scenario: Generate Engagement report, download and verify file headers
         When I navigate to the Reporting page
         And I select 'Engagement' Report Type
@@ -72,6 +80,7 @@ Feature: Report related tests
         And I validate the Engagement Report
         And I should logout from the application
 
+    @37986
     Scenario: Generate basic excel report, download and verify file headers - Generate Ballot Report
         When I navigate to the Reporting page
         And I add 'Policy ID' reporting criteria
@@ -84,7 +93,9 @@ Feature: Report related tests
         Then I validate the Ballot Status Report headers
         And I should logout from the application
 
+
     # Test scenario 37988: https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
+    @37986 @37988
     Scenario: Generate Policy report, download and verify file headers - Generate Policy Report
         When I navigate to the Reporting page
         And I select 'Policy' Report Type
@@ -98,7 +109,9 @@ Feature: Report related tests
         Then I validate and verify the report
         And I should logout from the application
 
+
     #Test scenario 37939: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
+    @37986 @37939
     Scenario: Report - Voting Activity
         When I navigate to the Reporting page
         And I select 'Voting Activity' Report Type
@@ -122,8 +135,10 @@ Feature: Report related tests
         Then I am checking the report format
         And I should logout from the application
 
+
     # Validate Proxy Voting File
     # Test scenario 37939: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
+    @37986 @37939
     Scenario: Proxy Voting Report
         When I navigate to the Reporting page
         And I select 'Proxy Voting' Report Type

@@ -1,6 +1,7 @@
 Feature: Custom Fields
 
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/37902
+  @37902
   Scenario Outline: Custom Fields work for meetings with no ballots
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page

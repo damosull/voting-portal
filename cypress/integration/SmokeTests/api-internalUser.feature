@@ -1,3 +1,4 @@
+@api @api-internal
 Feature: API Smoke Tests - Internal User
 
     Background:

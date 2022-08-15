@@ -1,3 +1,4 @@
+@dashboard
 Feature: Dashboard related smoke tests
 
     Background:

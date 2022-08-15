@@ -1,6 +1,7 @@
 Feature: Controversy Alert
 
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50256
+  @50256
   Scenario: Verify "Controversy Alert" field displays in the Configure Columns dropdown list
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
@@ -15,6 +16,7 @@ Feature: Controversy Alert
     And I should logout from the application
 
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50285
+  @50285
   Scenario: Verify that the Controversy File name hyperlink does not display
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
@@ -28,6 +30,7 @@ Feature: Controversy Alert
     And I should logout from the application
 
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50281
+  @50281
   Scenario: Verify user is able to download controversy alert PDF file
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I turn on the customer settings for "Controversy Alert" for "California Public Employee Retirement System (CalPERS)"

@@ -1,3 +1,4 @@
+@meeting @meeting-details
 Feature: Meetings related smoke tests
 
   Scenario: Verify that the votes against Glass Lewis are captured in filter criteria

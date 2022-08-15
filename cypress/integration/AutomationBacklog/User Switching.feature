@@ -1,6 +1,7 @@
 Feature: Internal User Switching
 
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/48105
+  @48105
   Scenario: Internal user switching customer while using custom fields and/or criteria
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
