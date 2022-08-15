@@ -1,6 +1,6 @@
 {
   "video": true,
-  "videoCompression": 4,
+  "videoCompression": 16,
   "retries": {
     "runMode": 1,
     "openMode": 0

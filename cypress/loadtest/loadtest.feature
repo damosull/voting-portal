@@ -3,7 +3,9 @@ Feature: Load Test
 
   Scenario Outline: Vote from random 50 meetings on a random user
     Given I am logged in as a random external user
-    Then I navigate to the workflow page
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    And I remove all existing selected criteria
     When I increase the meetings per page value to <iterations>
     Then I can view the workflow page
     When I select a random meeting

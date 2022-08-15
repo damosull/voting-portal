@@ -212,6 +212,7 @@ export const API = {
     SUBSCRIPTION_FILTER: '**/Api/Data/Subscription/?FilterId=**',
     SUSTAIN_ANALYTICS: '**/Scripts/EditorControls/Sustainalytics/**',
     SPA: '**/Api/Data//Spa**',
+    TOOLBAR_SEARCH: '**/Api/Data/ToolbarSearch/**',
     USER_CREATOR_PERMISSIONS: '**/Api/Data/UserCreatorPermissions/**',
     USER_PROFILE_HTML: '**/Api/WebUI/Users/UserProfileHtml?_=**',
     USER_SCREEN_FILTERS: '**/Api/Data/UserScreenFilters/**',

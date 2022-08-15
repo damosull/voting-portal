@@ -112,9 +112,9 @@ And('I navigate to the {int}. meeting', (company_sequence) => {
 
 Then('I should be {string} to see the text {string} on the UI', (condition, text) => {
     if (condition.includes('unable')) {
-        workflowPage.getPageBody().should('not.contain', text)
+        workflowPage.containsText(text).should('not.exist')
     } else {
-        workflowPage.getPageBody().should('contain', text)
+        workflowPage.containsText(text).should('exist')
     }
 })
 
@@ -440,15 +440,19 @@ Then('all the meetings on the screen have a CalPERS customer id', () => {
 })
 
 When('I search for a company on the search bar and choose meetings', () => {
+    workflowPage.searchResultsDiv().invoke('attr', 'style', 'display: block')
     // Search Customer ('Meetings'option is default) & verify user is navigated to correct Meeting Detail page
-    workflowPage.mainSearchInput().type('International Breweries plc', {delay: 5})
+    workflowPage.mainSearchInput().type('International Breweries plc')
+    cy.statusCode200('@TOOLBAR_SEARCH')
     workflowPage.containsText('International Breweries Plc | NG').click()
 })
 
 When('I search for a company on the search bar and choose companies', () => {
+    workflowPage.searchResultsDiv().invoke('attr', 'style', 'display: block')
     // Search customer ('Companies' option) & verify user is navigated to correct Company page
-    workflowPage.mainSearchInput().type('international business machines', {delay: 5})
+    workflowPage.mainSearchInput().type('international business machines')
     workflowPage.companiesRadio().should('have.value', 'Companies').click()
+    cy.statusCode200('@TOOLBAR_SEARCH')
     workflowPage.companiesResultsBlueIcon().should('be.visible')
     workflowPage.containsText('International Business Machines Corp. | US').click()
 })

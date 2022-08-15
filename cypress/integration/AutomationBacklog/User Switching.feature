@@ -11,6 +11,7 @@ Feature: Internal User Switching
     And I have added the filter criteria "Decision Status"
     And I have added the column "Error Logged?"
     And I have added the column "Glass Lewis Commentary"
+    Then I can view the workflow page
     When I search for the customer "California Public"
     Then I should be "unable" to see the text "Error Logged?" on the UI
     And I should be "unable" to see the text "Glass Lewis Commentary" on the UI

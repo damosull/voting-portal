@@ -9,7 +9,7 @@ parameters:
       - qa-api
       - qa-meeting
       - qa-workflow
-      - development
+      - qa
 
 trigger:
   branches:

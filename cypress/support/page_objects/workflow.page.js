@@ -11,6 +11,7 @@ class workflowPage {
     mainSearchInput() { return cy.get('#toolbarSearchFieldInput') }
     companiesRadio() { return cy.get('#toolbar-options--companies') }
     companiesResultsBlueIcon() { return cy.get('.toolbar-icon-companies-blue') }
+    searchResultsDiv() { return cy.get('#toolbarSearchResultWindow') }
 
     // Meeting section
     meeting() { return cy.get('#metaname-CompanyName > div > span > a') }

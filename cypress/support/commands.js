@@ -206,6 +206,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('GET', API.GET.SUBSCRIPTIONS).as('SUBSCRIPTIONS');
   cy.intercept('GET', API.GET.SUSTAIN_ANALYTICS).as('SUSTAIN_ANALYTICS');
   cy.intercept('GET', API.GET.SPA).as('SPA');
+  cy.intercept('GET', API.GET.TOOLBAR_SEARCH).as('TOOLBAR_SEARCH');
   cy.intercept('GET', API.GET.USER_CREATOR_PERMISSIONS).as('USER_CREATOR_PERMISSIONS');
   cy.intercept('GET', API.GET.USER_PROFILE_HTML).as('USER_PROFILE_HTML');
   cy.intercept('GET', API.GET.USER_SCREEN_FILTERS).as('USER_SCREEN_FILTERS');

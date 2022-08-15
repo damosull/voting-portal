@@ -42,3 +42,4 @@ Feature: VAM/VAP Feature
     And I click on the Vote button
     Then I should see a message that contains the text "Warning - adding rationale is recommended"
     And I should see a message that contains the text "Vote(s) against management on proposal(s):"
+    And I should logout from the application
