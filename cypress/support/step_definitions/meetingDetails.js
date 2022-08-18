@@ -2,7 +2,7 @@ import { When, And, Then } from "cypress-cucumber-preprocessor/steps"
 import meetingDetailsPage from "../page_objects/meetingDetails.page"
 import workflowPage from "../page_objects/workflow.page"
 const constants = require('../constants')
-let meetingId
+let meetingId, preTotalVoted, preTotalNotVoted, postTotalVoted, postTotalNotVoted
 
 Then('I can view the Meeting Details page', () => {
     cy.wait('@GET_MEETING_ID')
@@ -53,7 +53,29 @@ Then('I should be {string} to see the {string} on the UI', (isVisible, element) 
         case "Change Vote or Rationale":
             meetingDetailsPage.unlockButton().should(isVisible).should('have.text', 'Change Vote or Rationale')
             break
+        case "Recommendations Pending under Vote Tally":
+            meetingDetailsPage.totalNotVotedLink().should('be.visible').then(($el) => {
+                preTotalNotVoted = Number($el.text())
+                meetingDetailsPage.recommendationsPendingStatusCountLabel().should(isVisible)
+                if (isVisible.includes('not')) {} else {
+                    meetingDetailsPage.recommendationsPendingStatusCountLabel().should('contain.text',preTotalNotVoted)
+                }
+            })
+            break
+        case "Manual Vote Required under Vote Tally":
+            meetingDetailsPage.manualVoteRequiredStatusCountLabel().should(isVisible)
+            break
+        case "Take No Action under Vote Tally":
+            meetingDetailsPage.takeNoActionStatusCountLabel().should(isVisible)
+            break
+        case "Info Only under Vote Tally":
+            meetingDetailsPage.infoOnlyStatusCountLabel().should(isVisible)
+            break
+        case "Vote Button":
+            meetingDetailsPage.voteNowButton().should(isVisible)
+            break
         default:
+            meetingDetailsPage.containsText(element).should(isVisible)
             break
     }
 })
@@ -104,6 +126,15 @@ And('I can verify that the Quick Vote option and Vote Decision are read only', (
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index) => {
             cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).should('have.attr', 'disabled')
+        })
+    })
+})
+
+And('I can verify that the Quick Vote option is disabled and Vote Decision options are unavailable', () => {
+    meetingDetailsPage.quickVoteDropdown().should('have.attr', 'aria-disabled', 'true')
+    meetingDetailsPage.voteCardRow().then(($rows) => {
+        $rows.each((index) => {
+            cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).should('not.exist')
         })
     })
 })
@@ -263,6 +294,63 @@ And('I export the ballot status report', () => {
 
 Then('A toast message appears', () => {
     meetingDetailsPage.toastMessage().should('contain.text', constants.messages.toast.EXPORT_INITIATED)
+})
+
+And('I verify the vote tally section displays counts of total voted and total not voted items', () => {
+    meetingDetailsPage.totalVotedLink().should('be.visible').then(($el) => {
+        preTotalVoted = Number($el.text())
+    })
+    meetingDetailsPage.totalNotVotedLink().should('be.visible').then(($el) => {
+        preTotalNotVoted = Number($el.text())
+    })
+})
+
+And('I verify that the total voted number has changed to the previous total not voted number', () => {
+    meetingDetailsPage.totalVotedLink().should('be.visible').then(($el) => {
+        postTotalVoted = Number($el.text())
+        expect(postTotalVoted).to.equal(preTotalNotVoted)
+    })
+    meetingDetailsPage.totalNotVotedLink().should('be.visible').then(($el) => {
+        postTotalNotVoted = Number($el.text())
+        expect(postTotalNotVoted).to.equal(preTotalVoted)
+    })
+})
+
+And('I verify the vote tally modal is displayed when user clicks on the total voted hyperlink', () => {
+    meetingDetailsPage.totalVotedLink().should('be.visible').click()
+    meetingDetailsPage.closeVoteTallyPopup().should('be.visible')
+})
+
+And('I verify that the vote tally modal contains all the expected headers', () => {
+    meetingDetailsPage.voteTallyPopupDiv().within(() => {
+        meetingDetailsPage
+        .containsText('Selecting the number of ballots voted or not voted for a policy will apply the appropriate filter in the vote card')
+        .should('be.visible')
+        meetingDetailsPage.containsText('Policy ID').should('be.visible')
+        meetingDetailsPage.containsText('Ballots Voted').should('be.visible')
+        meetingDetailsPage.containsText('Ballots Not Voted').should('be.visible')
+        meetingDetailsPage.containsText('Shares').should('be.visible')
+        meetingDetailsPage.containsText('Shares on Loan').should('be.visible')
+        meetingDetailsPage.containsText('Shares Held').should('be.visible')
+    })
+})
+
+And('I verify that the vote tally with count of 0 is not hyperlinked', () => {
+    meetingDetailsPage.voteTallyPopupDiv().within(() => {
+        meetingDetailsPage.voteTallyTableBallotsNotVotedValue().should('contain.text','0')
+    })
+})
+
+And('I verify that the vote tally modal displays a value for each table column', () => {
+    meetingDetailsPage.voteTallyPopupDiv().within(() => {
+        for (let i = 1; i < 7; i++) {
+            cy.get(`table tbody tr td:nth-child(${i})`).should('not.have.text','')
+        }
+    })
+})
+
+And('I close the vote tally popup', () => {
+    meetingDetailsPage.closeVoteTallyPopup().should('be.visible').click()
 })
 
 And('I can verify that all policy recommendations are matching {string} recommendations', (institute) => {
@@ -511,14 +599,13 @@ And('I can verify that the Account Group filter has the value {string}', (value)
 })
 
 And('I can verify that the vote card summary remains unchanged when user changes the filters on {string}', (filterValue) => {
-    let preFilterTotalVoted, preFilterTotalNotVoted, postFilterTotalVoted, postFilterTotalNotVoted
     meetingDetailsPage.totalVotedLink().should(($el) => {
-        return preFilterTotalVoted = $el.text()
+        return preTotalVoted = $el.text()
     })
     meetingDetailsPage.totalNotVotedLink().should(($el) => {
-        return preFilterTotalNotVoted = $el.text()
+        return preTotalNotVoted = $el.text()
     })
-    //Change Filter Value based on Account / Account Group
+    //Change Filter Value based on Account / Account Group / Policy
     if (filterValue.includes('account group')) {
         meetingDetailsPage.accountGroupButton().click()
         meetingDetailsPage.accountGroupButton().invoke('text').then((text) => {
@@ -530,6 +617,17 @@ And('I can verify that the vote card summary remains unchanged when user changes
             }
         })
         meetingDetailsPage.updateAccountGroupButton().click({ scrollBehavior: false })
+    } else if (filterValue.includes('policy')) {
+        meetingDetailsPage.policyButton().click()
+        meetingDetailsPage.policyButton().invoke('text').then((text) => {
+            if (text.includes('(1)')) {
+                meetingDetailsPage.selectAllPolicyCheckbox().check({ force: true })
+            } else {
+                meetingDetailsPage.selectAllPolicyCheckbox().uncheck({ force: true })
+                meetingDetailsPage.individualPolicyCheckbox().eq(0).check({ force: true })
+            }
+        })
+        meetingDetailsPage.updatePolicyButton().click({ scrollBehavior: false })
     } else {
         meetingDetailsPage.accountButton().click()
         meetingDetailsPage.accountButton().invoke('text').then((text) => {
@@ -545,12 +643,12 @@ And('I can verify that the vote card summary remains unchanged when user changes
     //Wait for page to load and then compare values
     meetingDetailsPage.getLoadingSpinner().should('not.be.visible')
     meetingDetailsPage.totalVotedLink().should(($el) => {
-        postFilterTotalVoted = $el.text()
-        expect(postFilterTotalVoted).to.equal(preFilterTotalVoted)
+        postTotalVoted = $el.text()
+        expect(postTotalVoted).to.equal(preTotalVoted)
     })
     meetingDetailsPage.totalNotVotedLink().should(($el) => {
-        postFilterTotalNotVoted = $el.text()
-        expect(postFilterTotalNotVoted).to.equal(preFilterTotalNotVoted)
+        postTotalNotVoted = $el.text()
+        expect(postTotalNotVoted).to.equal(preTotalNotVoted)
     })
 })
 

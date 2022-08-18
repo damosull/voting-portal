@@ -10,6 +10,7 @@ class meetingDetailsPage {
     //Header
     pageBody() { return cy.get('body') }
     getLoadingSpinner() { return cy.get('.k-loading-text') }
+    containsText(text) { return cy.contains(text) }
     voteSuccessMessage() { return cy.contains('Vote success') }
     instructedSuccessMessage() { return cy.contains('Instructed successfully') }
     glassLewisLogoLink() { return cy.get("a[id='logo-link'] span") }
@@ -46,13 +47,25 @@ class meetingDetailsPage {
     //Info Section
     totalVotedLink() { return cy.get('#launch-ballots-voted-modal') }
     totalNotVotedLink() { return cy.get('#launch-ballots-not-voted-modal') }
+    voteTallyPopupDiv() { return cy.get('#vote-tally-grid-container') }
+    voteTallyTableBallotsNotVotedValue() { return cy.get('table tbody tr td:nth-child(3)') }
     closeVoteTallyPopup() { return cy.get('#close-panel') }
     totalVotedLabel() { return cy.get("span[data-bind='text: VotedStatusCount']") }
+    validationMessage() { return cy.get("div[class='row'] div[class='row validationMessage']") }
+    jobNumberLink(jobNumber) { return cy.get("a[title='" + jobNumber + "']") }
+    recommendationsPendingStatusCountLabel() { return cy.get("li[data-bind='visible: RecommendationsPendingStatusCount']") }
+    manualVoteRequiredStatusCountLabel() { return cy.get("li[data-bind='visible: ManualVoteRequiredStatusCount']") }
+    takeNoActionStatusCountLabel() { return cy.get("li[data-bind='visible: TakeNoActionStatusCount']") }
+    infoOnlyStatusCountLabel() { return cy.get("li[data-bind='visible: InfoOnlyStatusCount']") }
 
     //Vote Card Section
     quickVoteDropdown() { return cy.get('#quick-vote-container > span') }
     quickVoteSelect() { return cy.get('#quickVoteSelect') }
     voteCardRow() { return cy.get('#md-votecard-grid-results > tr') }
+    policyButton() { return cy.get("button[data-bind='click: Filters.policiesVm.openClick']") }
+    selectAllPolicyCheckbox() { return cy.get("#vc-filter-selectall-policy").should('not.be.visible') }
+    individualPolicyCheckbox() { return cy.get("ul#meeting-detail-policy > li > div > input[type='checkbox']").should('not.be.visible') }
+    updatePolicyButton() { return cy.get("button[data-bind^='click: Filters.policiesVm.apply']") }
     accountButton() { return cy.get('#btn-account').eq(0) }
     accountDiv() { return cy.get('#add-account-target') }
     selectAllAccountCheckbox() { return cy.get('#multiselect-static-all-account').should('not.be.visible') }
@@ -100,11 +113,6 @@ class meetingDetailsPage {
     shareMeetingAddButton() { return cy.get('#btn-share-meeting-add') }
     shareMeetingConfirmButton() { return cy.get('#btn-share-meeting-confirm') }
     shareMeetingCommentInput() { return cy.get('#txt-share-meeting-comment') }
-
-
-    //Vote Tally section
-    validationMessage() { return cy.get("div[class='row'] div[class='row validationMessage']") }
-    jobNumberLink(jobNumber) { return cy.get("a[title='" + jobNumber + "']") }
 
     //Ballots section
     ballotSectionDiv() { return cy.get('div #ballots-section') }

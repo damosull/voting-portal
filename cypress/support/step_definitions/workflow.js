@@ -36,6 +36,19 @@ When('I search for the customer {string}', (customerName) => {
     workflowPage.waitForWorkflowPageLoad()
 })
 
+And('I arrange the table in {string} order for {string}', (order,column_name) => {
+    switch (column_name) {
+        case "policy id":
+            workflowPage.policyIdColumnHeader().click({ force:true, scrollBehavior: false })
+            workflowPage.waitForWorkflowPageLoad()
+            if (order.includes('descending')) {
+                workflowPage.policyIdColumnHeader().click({ force:true, scrollBehavior: false })
+                workflowPage.waitForWorkflowPageLoad()
+            }
+            break
+    }
+})
+
 And('I have added the filter criteria {string}', (criteria) => {
     cy.AddMultipleCriteria([criteria])
 })
