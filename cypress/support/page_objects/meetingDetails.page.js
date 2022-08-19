@@ -54,9 +54,12 @@ class meetingDetailsPage {
     validationMessage() { return cy.get("div[class='row'] div[class='row validationMessage']") }
     jobNumberLink(jobNumber) { return cy.get("a[title='" + jobNumber + "']") }
     recommendationsPendingStatusCountLabel() { return cy.get("li[data-bind='visible: RecommendationsPendingStatusCount']") }
+    recommendationsAvailableStatusCountLabel() { return cy.get("li[data-bind='visible: RecommendationsAvailableStatusCount']") }
     manualVoteRequiredStatusCountLabel() { return cy.get("li[data-bind='visible: ManualVoteRequiredStatusCount']") }
     takeNoActionStatusCountLabel() { return cy.get("li[data-bind='visible: TakeNoActionStatusCount']") }
     infoOnlyStatusCountLabel() { return cy.get("li[data-bind='visible: InfoOnlyStatusCount']") }
+    votedStatusCountLabel() { return cy.get("li[data-bind='visible: VotedStatusCount']") }
+    reviewRequiredStatusCountLabel() { return cy.get("li[data-bind='visible: ReviewRequiredStatusCount']") }
 
     //Vote Card Section
     quickVoteDropdown() { return cy.get('#quick-vote-container > span') }

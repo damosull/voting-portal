@@ -62,6 +62,9 @@ Then('I should be {string} to see the {string} on the UI', (isVisible, element) 
                 }
             })
             break
+        case "Recommendations Available under Vote Tally":
+            meetingDetailsPage.recommendationsAvailableStatusCountLabel().should(isVisible)
+            break
         case "Manual Vote Required under Vote Tally":
             meetingDetailsPage.manualVoteRequiredStatusCountLabel().should(isVisible)
             break
@@ -71,6 +74,12 @@ Then('I should be {string} to see the {string} on the UI', (isVisible, element) 
         case "Info Only under Vote Tally":
             meetingDetailsPage.infoOnlyStatusCountLabel().should(isVisible)
             break
+        case "Voted under Vote Tally":
+            meetingDetailsPage.votedStatusCountLabel().should(isVisible)
+            break
+        case "Review Required under Vote Tally":
+            meetingDetailsPage.reviewRequiredStatusCountLabel().should(isVisible)
+            break
         case "Vote Button":
             meetingDetailsPage.voteNowButton().should(isVisible)
             break
@@ -78,6 +87,10 @@ Then('I should be {string} to see the {string} on the UI', (isVisible, element) 
             meetingDetailsPage.containsText(element).should(isVisible)
             break
     }
+})
+
+And('I verify that the Instruct button has changed to Re-Instruct button', () => {
+    meetingDetailsPage.instructButton().should('contain.text','Re-Instruct')
 })
 
 And('I quick vote {string} on the meeting', (voteType) => {
@@ -144,6 +157,7 @@ Then('I should be able to use the Instruct functionality on the meeting', () => 
     cy.clickIfExist(meetingDetailsPage.votedBallotsLocator)
     cy.clickIfExist(meetingDetailsPage.proceedButtonLocator)
     meetingDetailsPage.instructedSuccessMessage().should('be.visible')
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
 })
 
 Then('I should be able to use the Take No Action functionality on the meeting', () => {
@@ -159,6 +173,7 @@ Then('I should be able to use the Take No Action functionality on the meeting', 
         }
     })
     meetingDetailsPage.voteSuccessMessage().should('be.visible')
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
 })
 
 Then('I should get a popup window with a warning and OK and Cancel buttons', () => {
@@ -214,6 +229,7 @@ Then('The Proceed button should be enabled', () => {
 
 Then('I can see a Vote success message', () => {
     meetingDetailsPage.voteSuccessMessage().should('be.visible')
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
 })
 
 And('I verify the vote tally section by checking the total votes and hyperlinks', () => {
@@ -596,6 +612,30 @@ And('I can verify that the Account Group filter has the value {string}', (value)
     meetingDetailsPage.accountGroupButton().click()
     meetingDetailsPage.accountGroupDiv().should('contain.text', value)
     meetingDetailsPage.cancelAccountGroupButton().click({ scrollBehavior: false })
+})
+
+And('I filter for {string} account', (filterValue) => {
+    meetingDetailsPage.accountButton().click()
+    meetingDetailsPage.accountButton().invoke('text').then((text) => {
+        if (filterValue.includes('all but top two')) {
+            meetingDetailsPage.selectAllAccountCheckbox().check({ force: true })
+            meetingDetailsPage.selectAllAccountCheckbox().uncheck({ force: true })
+            meetingDetailsPage.individualAccountCheckbox().then(($rows) => {
+                for (let i = 2; i < $rows.length; i++) {
+                    meetingDetailsPage.individualAccountCheckbox().eq(i).check({ force: true })
+                }
+            })
+        } else if (filterValue.includes('all')) {
+            meetingDetailsPage.selectAllAccountCheckbox().check({ force: true })
+        } else {
+            meetingDetailsPage.selectAllAccountCheckbox().check({ force: true })
+            meetingDetailsPage.selectAllAccountCheckbox().uncheck({ force: true })
+            const j = filterValue.includes('first') ? '0' : '1'
+            meetingDetailsPage.individualAccountCheckbox().eq(j).check({ force: true })
+        }
+    })
+    meetingDetailsPage.updateAccountButton().click({ scrollBehavior: false })
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
 })
 
 And('I can verify that the vote card summary remains unchanged when user changes the filters on {string}', (filterValue) => {
@@ -1096,6 +1136,12 @@ And('I can verify that the ballot section displays just the results based on the
             // Ends the loop when the column is found
             return false
         }
+    })
+})
+
+And('I save the meeting url', () => {
+    cy.url().then((url) => {
+        meetingId = url
     })
 })
 

@@ -37,12 +37,21 @@ When('I search for the customer {string}', (customerName) => {
 })
 
 And('I arrange the table in {string} order for {string}', (order,column_name) => {
+    workflowPage.workflowLink().scrollIntoView()
     switch (column_name) {
         case "policy id":
-            workflowPage.policyIdColumnHeader().click({ force:true, scrollBehavior: false })
+            workflowPage.policyIdColumnHeader().should('be.visible').click({ force:true, scrollBehavior: false })
             workflowPage.waitForWorkflowPageLoad()
             if (order.includes('descending')) {
-                workflowPage.policyIdColumnHeader().click({ force:true, scrollBehavior: false })
+                workflowPage.policyIdColumnHeader().should('be.visible').click({ force:true, scrollBehavior: false })
+                workflowPage.waitForWorkflowPageLoad()
+            }
+            break
+        case "control number":
+            workflowPage.controlNumberColumnHeader().should('be.visible').click({ force:true, scrollBehavior: false })
+            workflowPage.waitForWorkflowPageLoad()
+            if (order.includes('descending')) {
+                workflowPage.controlNumberColumnHeader().should('be.visible').click({ force:true, scrollBehavior: false })
                 workflowPage.waitForWorkflowPageLoad()
             }
             break
