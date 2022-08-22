@@ -4,7 +4,7 @@ Feature: Reporting related smoke tests
     #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
     @37962
     Scenario: Generate ballot vote data report, download and verify file
-        Given I am logged in as the "CALPERS" User
+        Given I am logged in as the "CHARLESSCHWAB" User
         When I navigate to the Reporting page
         And I click on the "Ballot Vote Data" filter
         And I set the meeting date to next date 2 and past date 2 days

@@ -5,19 +5,20 @@ Feature: Workflow related smoke tests
   Scenario Outline: Verify user is able to apply the various filters on the workflow page
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
-    When I apply the <filter>
+    Then I can view the workflow page
+    When I have added the filter criteria <filter>
     Then I should be able to see the results only for <filter>
     And I should logout from the application
 
     Examples:
-      | filter                                           |
-      | "ESG Risk Rating Assessment filter"              |
-      | "ESG Risk Exposure Assessment filter"            |
-      | "ESG Risk Management Assessment filter"          |
-      | "ESG Risk Rating Percentile Global filter"       |
-      | "ESG Risk Rating Percentile Industry filter"     |
-      | "ESG Risk Rating Percentile Sub Industry filter" |
-      | "ESG Risk Rating Highest Controversy filter"     |
+      | filter                                    |
+      | "ESG Risk Rating Assessment"              |
+      | "ESG Risk Exposure Assessment"            |
+      | "ESG Risk Management Assessment"          |
+      | "ESG Risk Rating Percentile Global"       |
+      | "ESG Risk Rating Percentile Industry"     |
+      | "ESG Risk Rating Percentile Sub Industry" |
+      | "ESG Risk Rating Highest Controversy"     |
 
 
   Scenario: Verify that all the meetings for California Public Employee Retirement System have a CalPERS customer id

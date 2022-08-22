@@ -58,8 +58,33 @@ And('I arrange the table in {string} order for {string}', (order,column_name) =>
     }
 })
 
+Then('I should be able to see and navigate to the company name saved previously', () => {
+    workflowPage.tableRows().within(() => {
+        workflowPage.containsText(Cypress.env('meetingId')).should('be.visible').click()
+    })
+})
+
 And('I have added the filter criteria {string}', (criteria) => {
     cy.AddMultipleCriteria([criteria])
+})
+
+And('I have added the criteria for {string} {string}', (criteria, value) => {
+    cy.AddMultipleCriteria([criteria])
+    cy.intercept('GET', '**/GetSecurityStartsWith/?QueryValue=**').as('COMPANY_FILTER_SEARCH_RESULTS')
+    workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false })
+    workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA')
+    cy.get('@FILTER_CRITERIA').should('be.visible').within(() => {
+        if (value.includes('from')) {
+            workflowPage.filterSearchInput().type(Cypress.env('meetingId'))
+        } else {
+            workflowPage.filterSearchInput().type(value)
+        }
+        cy.wait('@COMPANY_FILTER_SEARCH_RESULTS')
+        workflowPage.filterSearchInput().type('{enter}')
+        workflowPage.updateComanyName().click({ scrollBehavior: false })
+    })
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 90000 })
+    workflowPage.waitForWorkflowPageLoad()
 })
 
 And('I have added the criteria for {string} with status {string}', (criteria, status) => {
@@ -317,94 +342,30 @@ Then('There is no reference to my picklist {string} on the workflow page', (lbl)
     workflowPage.containsText(lbl).should('not.exist')
 })
 
-When('I apply the {string}', (filterName) => {
-    switch (filterName) {
-        case 'ESG Risk Rating Assessment filter':
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Rating_Assessment_filter.editorButton)
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Rating_Assessment_filter.editorModal)
-            workflowPage.addCriteriaButton().click()
-            workflowPage.criteriaInput().type(workflowPage.ESG_Risk_Rating_Assessment_filter.criteria)
-            workflowPage.checkFilterCriteria(workflowPage.ESG_Risk_Rating_Assessment_filter.criteria)
-            break
-        case 'ESG Risk Exposure Assessment filter':
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Exposure_Assessment_filter.editorButton)
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Exposure_Assessment_filter.editorModal)
-            workflowPage.addCriteriaButton().click()
-            workflowPage.criteriaInput().type(workflowPage.ESG_Risk_Exposure_Assessment_filter.criteria)
-            workflowPage.checkFilterCriteria(workflowPage.ESG_Risk_Exposure_Assessment_filter.criteria)
-            break
-        case 'ESG Risk Management Assessment filter':
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Management_Assessment_filter.editorButton)
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Management_Assessment_filter.editorModal)
-            workflowPage.addCriteriaButton().click()
-            workflowPage.criteriaInput().type(workflowPage.ESG_Risk_Management_Assessment_filter.criteria)
-            workflowPage.checkFilterCriteria(workflowPage.ESG_Risk_Management_Assessment_filter.criteria)
-            break
-        case 'ESG Risk Rating Percentile Global filter':
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Rating_Percentile_Global_filter.editorButton)
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Rating_Percentile_Global_filter.editorModal)
-            workflowPage.addCriteriaButton().click()
-            workflowPage.criteriaInput().type(workflowPage.ESG_Risk_Rating_Percentile_Global_filter.criteria)
-            workflowPage.checkFilterCriteria(workflowPage.ESG_Risk_Rating_Percentile_Global_filter.criteria)
-            break
-        case 'ESG Risk Rating Percentile Industry filter':
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Rating_Percentile_Industry_filter.editorButton)
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Rating_Percentile_Industry_filter.editorModal)
-            workflowPage.addCriteriaButton().click()
-            workflowPage.criteriaInput().type(workflowPage.ESG_Risk_Rating_Percentile_Industry_filter.criteria)
-            workflowPage.checkFilterCriteria(workflowPage.ESG_Risk_Rating_Percentile_Industry_filter.criteria)
-            break
-        case 'ESG Risk Rating Percentile Sub Industry filter':
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Rating_Percentile_Sub_Industry_filter.editorButton)
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Rating_Percentile_Sub_Industry_filter.editorModal)
-            workflowPage.addCriteriaButton().click()
-            workflowPage.criteriaInput().type(workflowPage.ESG_Risk_Rating_Percentile_Sub_Industry_filter.criteria)
-            workflowPage.checkFilterCriteria(workflowPage.ESG_Risk_Rating_Percentile_Sub_Industry_filter.criteria)
-            break
-        case 'ESG Risk Rating Highest Controversy filter':
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Rating_Highest_Controversy_filter.editorButton)
-            cy.elementShouldNotExist(workflowPage.ESG_Risk_Rating_Highest_Controversy_filter.editorModal)
-            workflowPage.addCriteriaButton().click()
-            workflowPage.criteriaInput().type(workflowPage.ESG_Risk_Rating_Highest_Controversy_filter.criteria)
-            workflowPage.checkFilterCriteria(workflowPage.ESG_Risk_Rating_Highest_Controversy_filter.criteria)
-            break
-        default:
-            cy.log('Filter not found!!')
-    }
-    workflowPage.applyCriteriaButton().click()
-    cy.statusCode200('@SUSTAIN_ANALYTICS')
-    cy.statusCode200('@RANGE_SLIDER')
-    workflowPage.waitForWorkflowPageLoad()
-})
-
 Then('I should be able to see the results only for {string}', (filterName) => {
+    workflowPage.workflowLink().scrollIntoView()
+    workflowPage.criteriaHeadings().contains(filterName).click({ scrollBehavior: false })
+    workflowPage.criteriaHeadings().contains(filterName).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA')
     switch (filterName) {
-        case 'ESG Risk Rating Assessment filter':
-            cy.get(workflowPage.ESG_Risk_Rating_Assessment_filter.editorButton).trigger("click", { waitForAnimations: false })
+        case 'ESG Risk Rating Assessment':
             cy.get(workflowPage.ESG_Risk_Rating_Assessment_filter.editorModal).should('be.visible')
             break
-        case 'ESG Risk Exposure Assessment filter':
-            cy.get(workflowPage.ESG_Risk_Exposure_Assessment_filter.editorButton).trigger("click", { waitForAnimations: false })
+        case 'ESG Risk Exposure Assessment':
             cy.get(workflowPage.ESG_Risk_Exposure_Assessment_filter.editorModal).should('be.visible')
             break
-        case 'ESG Risk Management Assessment filter':
-            cy.get(workflowPage.ESG_Risk_Management_Assessment_filter.editorButton).trigger("click", { waitForAnimations: false })
+        case 'ESG Risk Management Assessment':
             cy.get(workflowPage.ESG_Risk_Management_Assessment_filter.editorModal).should('be.visible')
             break
-        case 'ESG Risk Rating Percentile Global filter':
-            cy.get(workflowPage.ESG_Risk_Rating_Percentile_Global_filter.editorButton).trigger("click", { waitForAnimations: false })
+        case 'ESG Risk Rating Percentile Global':
             cy.get(workflowPage.ESG_Risk_Rating_Percentile_Global_filter.editorModal).should('be.visible')
             break
-        case 'ESG Risk Rating Percentile Industry filter':
-            cy.get(workflowPage.ESG_Risk_Rating_Percentile_Industry_filter.editorButton).trigger("click", { waitForAnimations: false })
+        case 'ESG Risk Rating Percentile Industry':
             cy.get(workflowPage.ESG_Risk_Rating_Percentile_Industry_filter.editorModal).should('be.visible')
             break
-        case 'ESG Risk Rating Percentile Sub Industry filter':
-            cy.get(workflowPage.ESG_Risk_Rating_Percentile_Sub_Industry_filter.editorButton).trigger("click", { waitForAnimations: false })
+        case 'ESG Risk Rating Percentile Sub Industry':
             cy.get(workflowPage.ESG_Risk_Rating_Percentile_Sub_Industry_filter.editorModal).should('be.visible')
             break
-        case 'ESG Risk Rating Highest Controversy filter':
-            cy.get(workflowPage.ESG_Risk_Rating_Highest_Controversy_filter.editorButton).trigger("click", { waitForAnimations: false })
+        case 'ESG Risk Rating Highest Controversy':
             cy.get(workflowPage.ESG_Risk_Rating_Highest_Controversy_filter.editorModal).should('be.visible')
             break
         default:
@@ -491,8 +452,6 @@ When('I try to add the first four available Sustainalytics ESG columns', () => {
 
 Then('I should be able to see these {string} columns on the workflow table', (noOfColumns) => {
     //Waiting for page load
-    cy.statusCode200('@WORKFLOW_EXPANSION')
-    cy.statusCode200('@WORKFLOW_SECURITIES_WATCHLIST')
     workflowPage.getLoadingSpinner().should('not.exist')
     workflowPage.meetingsHorizontalScrollBar().should('be.visible')
     // Moves the horizontal sidebar to the far right

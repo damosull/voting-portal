@@ -8,8 +8,8 @@ Feature: Vote Tally Folder Tests
     When I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
-    When I have added the criteria for "Decision Status" with status "Recommendations Pending"
     And I arrange the table in "descending" order for "control number"
+    When I have added the criteria for "Decision Status" with status "Recommendations Pending"
     And I select the first available meeting
     Then I can view the Meeting Details page
     And I save the meeting url
@@ -79,8 +79,8 @@ Feature: Vote Tally Folder Tests
     When I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
-    When I have added the criteria for "Decision Status" with status "Recommendations Available"
     And I arrange the table in "descending" order for "control number"
+    When I have added the criteria for "Decision Status" with status "Recommendations Available"
     And I select the first available meeting
     Then I can view the Meeting Details page
     And I verify the vote tally section displays counts of total voted and total not voted items

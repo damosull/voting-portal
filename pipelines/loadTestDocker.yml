@@ -1,7 +1,5 @@
 pool:
-  name: Make
-  demands:
-    - Agent.Name -equals SUPPORT-L-AUTOMATION
+  name: 'VMSS - DEVOPS - QAUAT'
   
 parameters:
 - name: numInstance

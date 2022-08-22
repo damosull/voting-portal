@@ -64,6 +64,7 @@ class meetingDetailsPage {
     //Vote Card Section
     quickVoteDropdown() { return cy.get('#quick-vote-container > span') }
     quickVoteSelect() { return cy.get('#quickVoteSelect') }
+    quickVoteOptions() { return cy.get('#quickVoteSelect > option') }
     voteCardRow() { return cy.get('#md-votecard-grid-results > tr') }
     policyButton() { return cy.get("button[data-bind='click: Filters.policiesVm.openClick']") }
     selectAllPolicyCheckbox() { return cy.get("#vc-filter-selectall-policy").should('not.be.visible') }
@@ -139,6 +140,7 @@ class meetingDetailsPage {
     ballotRowSecondLast() { return cy.get('#ballotActivityLogGrid > div > table > tbody > tr:not(:last-child)') }
     ballotGridControlNumberLink() { return cy.get('.ballots-grid-control-number-link') }
     ballotSectionCompanyNameInput() { return cy.get('.company-name-search > input') }
+    ballotSectionResultsDiv() { return cy.get("div[id='ballots-grid'] div[class='k-grid-content']") }
 }
 
 module.exports = new meetingDetailsPage();

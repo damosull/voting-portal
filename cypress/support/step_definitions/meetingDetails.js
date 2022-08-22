@@ -97,6 +97,12 @@ And('I quick vote {string} on the meeting', (voteType) => {
     meetingDetailsPage.quickVoteSelect().select(voteType, { force: true })
 })
 
+And('I quick vote with the first available option on the dropdown', () => {
+    meetingDetailsPage.quickVoteOptions().eq(1).then(element => {
+        meetingDetailsPage.quickVoteSelect().select(element.val(), { force: true })
+    })
+})
+
 And('I capture the value of Total Not Voted', () => {
     // Store the "Total Not Voted" to later compare with the "Total Voted"
     meetingDetailsPage.totalNotVotedLink().invoke('text').then((text) => {
@@ -204,6 +210,13 @@ And('I click the Company link', () => {
     meetingDetailsPage.companyNameLink().click()
 })
 
+And('I save the company name', () => {
+    meetingDetailsPage.companyNameLink().should(($div) => {
+        meetingId = $div.text()
+        Cypress.env('meetingId', meetingId)
+    })
+})
+
 And('I handle the override pop-up if it exists', () => {
     cy.wait('@VOTE_REQUEST_VALIDATION')
     meetingDetailsPage.getLoadingSpinner().should('not.exist')
@@ -282,19 +295,21 @@ And('I add a controversy alert file for the meeting', () => {
     cy.addControversyAlertFile()
 })
 
-And('The {string} functionality is not available', (permission_name) => {
-
+And('The {string} functionality is {string}', (permission_name,isAvailable) => {
     cy.clickIfExist(meetingDetailsPage.unlockButtonLocator);
 
     switch (permission_name) {
         case "Vote":
-            meetingDetailsPage.voteNowButton().should('not.be.visible');
+            isAvailable = isAvailable.includes('not') ? 'not.be.visible' : 'be.visible'
+            meetingDetailsPage.voteNowButton().should(isAvailable);
             break;
         case "Instruct":
-            meetingDetailsPage.instructButton().should('not.exist')
+            isAvailable = isAvailable.includes('not') ? 'not.exist' : 'exist'
+            meetingDetailsPage.instructButton().should(isAvailable)
             break;
         case "Take No Action":
-            meetingDetailsPage.takeNoActionButton().should('not.exist')
+            isAvailable = isAvailable.includes('not') ? 'not.exist' : 'exist'
+            meetingDetailsPage.takeNoActionButton().should(isAvailable)
             break;
         default:
             break;
@@ -1161,6 +1176,11 @@ And('I clear the list of watchlists', () => {
     })
     meetingDetailsPage.systemWatchListUpdateButton().click({ force: true })
     meetingDetailsPage.watchListsDropdownLabelNumber().eq(1).should('have.text', '1')
+})
+
+Then('I can verify that {string} is displayed in the {string} field in the ballot section', (value, column) => {
+    meetingDetailsPage.ballotSectionResultsDiv().scrollIntoView().scrollTo('right')
+    meetingDetailsPage.containsText(value).should('be.visible')
 })
 
 When('I navigate to the meeting page from the previous scenario', () => {

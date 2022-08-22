@@ -6,10 +6,12 @@ parameters:
 
 trigger: none
 
+pool:
+  name: 'Build Pipelines VMSS - QAUAT'
+
 jobs:
 - job: ViewpointAutomation
   timeoutInMinutes: 120
-  pool: 'Build Pipelines VMSS - QAUAT'
   steps:
   - script: |
       npx cypress cache clear

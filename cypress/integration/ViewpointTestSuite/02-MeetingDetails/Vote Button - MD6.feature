@@ -115,7 +115,7 @@ Feature: Vote Button Tests
     And I navigate to the workflow page
     When I select the first available meeting
     Then I can view the Meeting Details page
-    And The <permission_name> functionality is not available
+    And The <permission_name> functionality is "not available"
     And I should logout from the application
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     When I navigate to the User Permissions page

@@ -77,10 +77,12 @@ class workflowPage {
     quickFiltersDiv() { return cy.get('#system-filters') }
     customerNameInput() { return cy.get('.customerName-Search .k-input') }
     customerNameSearchResult() { return cy.get('#kendoCustomers-list .k-item') }
+    filterSearchInput() { return cy.get("input[role='listbox']") }
+    updateComanyName() { return cy.get("#btn-update-CompanyName") }
 
     //Common Functions
     waitForWorkflowPageLoad() {
-        this.getLoadingSpinner({ timeout: 60000 }).should('not.exist')
+        this.getLoadingSpinner({ timeout: 90000 }).should('not.exist')
     }
 
     checkFilterCriteria(criteria) {
@@ -143,6 +145,7 @@ class workflowPage {
         company: 'SK Innovation',
         policy: 'Wellington',
     }
+    
 }
 
 module.exports = new workflowPage();

@@ -24,10 +24,12 @@ schedules:
       include:
         - master
 
+pool:
+  name: 'Build Pipelines VMSS - QAUAT'
+
 jobs:
 - job: ViewpointAutomation
   timeoutInMinutes: 90
-  pool: 'Build Pipelines VMSS - QAUAT'
   steps:
   - script: |
       npx cypress cache clear
