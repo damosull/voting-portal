@@ -1,14 +1,13 @@
 {
-    "plugins": [
-      "cypress"
-    ],
-    "extends": [
-        "eslint:recommended",
-        "plugin:cypress/recommended"
-      ],
-    "env": {
-        "es6": true,
-        "node": true
-    }
+  "plugins": [
+    "cypress"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:cypress/recommended"
+  ],
+  "env": {
+    "es6": true,
+    "node": true
   }
-  
+}

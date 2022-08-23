@@ -1,5 +1,0 @@
-{
-  "integrationFolder": "cypress/loadtest",
-  "retries": 0,
-  "testFiles": ["loadtest.feature"]
-}

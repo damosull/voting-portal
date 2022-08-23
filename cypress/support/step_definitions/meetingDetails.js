@@ -57,7 +57,7 @@ Then('I should be {string} to see the {string} on the UI', (isVisible, element) 
             meetingDetailsPage.totalNotVotedLink().should('be.visible').then(($el) => {
                 preTotalNotVoted = Number($el.text())
                 meetingDetailsPage.recommendationsPendingStatusCountLabel().should(isVisible)
-                if (isVisible.includes('not')) {} else {
+                if (!isVisible.includes('not')) {
                     meetingDetailsPage.recommendationsPendingStatusCountLabel().should('contain.text',preTotalNotVoted)
                 }
             })
@@ -631,7 +631,7 @@ And('I can verify that the Account Group filter has the value {string}', (value)
 
 And('I filter for {string} account', (filterValue) => {
     meetingDetailsPage.accountButton().click()
-    meetingDetailsPage.accountButton().invoke('text').then((text) => {
+    meetingDetailsPage.accountButton().invoke('text').then(() => {
         if (filterValue.includes('all but top two')) {
             meetingDetailsPage.selectAllAccountCheckbox().check({ force: true })
             meetingDetailsPage.selectAllAccountCheckbox().uncheck({ force: true })

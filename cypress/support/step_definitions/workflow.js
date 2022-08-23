@@ -13,7 +13,7 @@ And('I navigate to the workflow page', () => {
     workflowPage.getWorkflowPage()
     workflowPage.getLoadingSpinner().should('exist')
     //Waiting for page load
-    cy.statusCode200('@WORKFLOW_EXPANSION')
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
     workflowPage.waitForWorkflowPageLoad()
 })
 
@@ -32,7 +32,7 @@ When('I search for the customer {string}', (customerName) => {
     workflowPage.selectCustomerInput().clear({ force: true }).type(customerName)
     workflowPage.selectCustomerDropdown().should('be.visible')
     workflowPage.selectCustomerInput().type('{downarrow}{enter}')
-    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 90000 })
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
     workflowPage.waitForWorkflowPageLoad()
 })
 
@@ -83,7 +83,7 @@ And('I have added the criteria for {string} {string}', (criteria, value) => {
         workflowPage.filterSearchInput().type('{enter}')
         workflowPage.updateComanyName().click({ scrollBehavior: false })
     })
-    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 90000 })
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
     workflowPage.waitForWorkflowPageLoad()
 })
 
@@ -96,7 +96,7 @@ And('I have added the criteria for {string} with status {string}', (criteria, st
         workflowPage.criteriaOptionCheckbox().contains(status).click({ scrollBehavior: false })
         workflowPage.updateButtonForCheckbox().click({ scrollBehavior: false })
     })
-    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 90000 })
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
     workflowPage.waitForWorkflowPageLoad()
 })
 
@@ -108,7 +108,7 @@ And('I have added the criteria for {string} and checking the checkbox for {strin
         workflowPage.criteriaOptionCheckbox().contains(status).click({ scrollBehavior: false })
         workflowPage.updateButtonForCheckbox().click({ scrollBehavior: false })
     })
-    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 90000 })
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
     workflowPage.waitForWorkflowPageLoad()
 })
 
@@ -118,7 +118,7 @@ And('I have added the criteria for {string} and selecting the radio button for {
     workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;')
     workflowPage.criteriaOption().contains(status).next().check({ scrollBehavior: false })
     workflowPage.updateButton().click({ scrollBehavior: false })
-    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 90000 })
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
     workflowPage.waitForWorkflowPageLoad()
 })
 

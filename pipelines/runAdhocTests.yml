@@ -2,7 +2,7 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: '--config integrationFolder="cypress/integration/SmokeTests"'
+    default: '--config specPattern=cypress/e2e/SmokeTests/*.feature'
 
 trigger: none
 
@@ -23,7 +23,7 @@ jobs:
 
   - script: |
       export HTTP_PROXY=http://10.71.1.42:3128
-      npx cypress run --reporter junit --env configFile=qa ${{ parameters.buildParameters }}
+      npx cypress run --reporter junit ${{ parameters.buildParameters }}
     displayName: 'Running Cypress Tests'
 
   - task: PublishPipelineArtifact@1

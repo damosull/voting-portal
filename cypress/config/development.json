@@ -1,9 +1,0 @@
-{
-  "video": true,
-  "videoCompression": 16,
-  "retries": {
-    "runMode": 1,
-    "openMode": 0
-  },
-  "testFiles": "**/*.feature"
-}

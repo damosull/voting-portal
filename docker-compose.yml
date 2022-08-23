@@ -5,4 +5,4 @@ services:
     build: .
     ipc: host
     image: votingportal-cypress
-    command: "--env configFile=loadtest"
+    command: "--config specPattern=cypress/loadtest/loadtest.feature,retries=0"

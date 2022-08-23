@@ -1,24 +1,11 @@
-parameters:
-  - name: configuration
-    displayName: Configuration
-    type: string
-    default: smoke-qa
-    values:
-      - smoke-qa
-      - smoke-ultra
-      - qa-api
-      - qa-meeting
-      - qa-workflow
-      - qa
-
 trigger:
   branches:
     include:
       - master
 
 schedules:
-  - cron: '0 18 * * 1-5'
-    displayName: 'Nightly Build at 18:00'
+  - cron: '0 7 * * 1-5'
+    displayName: 'Nightly Build at 07:00'
     always: true
     branches:
       include:
@@ -41,7 +28,7 @@ jobs:
 
   - script: |
       export HTTP_PROXY=http://10.71.1.42:3128
-      npx cypress run --env configFile=${{ parameters.configuration }} --reporter junit
+      npx cypress run --reporter junit --config specPattern=cypress/e2e/SmokeTests/*.feature
     displayName: 'Running Cypress Tests'
 
   - task: PublishPipelineArtifact@1
