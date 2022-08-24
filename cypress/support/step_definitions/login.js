@@ -48,7 +48,7 @@ And('I turn on the customer settings for {string} for {string}', (feature, custo
     cy.visit('/Workflow')
 
     //Alias csrf token
-    cy.wait('@WORKFLOW_EXPANSION').then((resp) => {
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 }).then((resp) => {
         var csrftoken = resp.request.headers.csrftoken;
         cy.wrap(csrftoken).as('csrftoken')
     })

@@ -408,7 +408,7 @@ When('I search for California Public Employee Retirement System', () => {
 
 Then('all the meetings on the screen have a CalPERS customer id', () => {
     // check all meetings in response have CalPERS customer id
-    cy.wait('@WORKFLOW_EXPANSION').then((xhr) => {
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 }).then((xhr) => {
         const data = JSON.parse(xhr.response.body)
         const items = data.items
 
@@ -490,7 +490,7 @@ When('I try to remove the first column on the workflow table', () => {
     workflowPage.columnsListButton().click()
     workflowPage.columnLabelValue(column).first().uncheck({ force: true })
     workflowPage.columnApplyButton().click()
-    cy.statusCode200('@WORKFLOW_EXPANSION')
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
 })
 
 Then('I should be unable to see the first column on the workflow table', () => {
@@ -506,7 +506,7 @@ When('I apply the policy criteria for one of the policies', () => {
     cy.wait('@LIST_SERVICE')
     // Step 3 - User selects one policy from the list (e.g. TCW-TH) & clicks Update
     cy.addCriteriaStatus([`${workflowPage.workflowFilterData.policy}`])
-    cy.wait('@WORKFLOW_EXPANSION')
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST')
     cy.wait('@GET_AVAILABLE_ASSIGNEES_CUSTOMER')
 })
@@ -537,7 +537,7 @@ When('I apply the System Watch list for {string}', (client) => {
     workflowPage.columnLabelValue('System Watch List(s)').check({ force: true })
     workflowPage.columnNameInput().clear()
     workflowPage.columnApplyButton().click()
-    cy.wait('@WORKFLOW_EXPANSION')
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
     cy.wait('@WORKFLOW_SECURITIES_WATCHLIST')
     workflowPage.scrollEndButton().click({ waitForAnimations: false })
 })
@@ -565,7 +565,7 @@ When('I apply the System Watch list', () => {
     workflowPage.columnLabelValue('System Watch List(s)').check({ force: true })
     workflowPage.columnNameInput().clear()
     workflowPage.columnApplyButton().click({ force: true })
-    cy.wait('@WORKFLOW_EXPANSION')
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
     workflowPage.scrollEndButton().click({ waitForAnimations: false })
     cy.RemoveCriteriaIfExists('#editorDiv10', '#remove-editorDiv10')
     cy.RemoveCriteriaIfExists('#editorDiv49', '#remove-editorDiv49')
@@ -600,7 +600,7 @@ Then('I should be able to deselect the watch list from the previous scenario', (
 And('I should be able to deselect the system watch list from the workflow page', () => {
     //load workflow page and verify
     cy.visit('/Workflow')
-    cy.statusCode200('@WORKFLOW_EXPANSION')
+    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
     cy.statusCode200('@WORKFLOW_SECURITIES_WATCHLIST')
     workflowPage.getLoadingSpinner().should('not.exist')
     //deselect system watch list
