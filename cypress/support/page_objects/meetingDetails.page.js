@@ -86,6 +86,9 @@ class meetingDetailsPage {
     meetingNoteSpan() { return cy.get('#meeting-note') }
     meetingNoteInput() { return cy.get('#meeting-notes-input') }
     meetingNoteSubmitButton() { return cy.get("button[type='submit']") }
+    policyRecLabel() { return cy.get('td.vote-card-policy-rec') }
+    policyRecLink() { return cy.get('td.vote-card-policy-rec a') }
+    votecardPolicyLink() { return cy.get('.votecard-policy-link') }
 
     //Comments
     sharedWithDropdown() { return cy.get('#adhoc-users-search-reply-comment_taglist > li') }
@@ -117,6 +120,10 @@ class meetingDetailsPage {
     shareMeetingAddButton() { return cy.get('#btn-share-meeting-add') }
     shareMeetingConfirmButton() { return cy.get('#btn-share-meeting-confirm') }
     shareMeetingCommentInput() { return cy.get('#txt-share-meeting-comment') }
+    customPolicyRationaleModalHeading() { return cy.get('#votecard-item-custom-policy-rationale-modal_wnd_title') }
+    customPolicyRationaleModalTableHeader(dataTitle) { return cy.get(`th[data-title='${dataTitle}']`) }
+    customPolicyRationaleModalItem() { return cy.get("span[data-bind='text: CRP.Item']") }
+    customPolicyRationaleModalProposal() { return cy.get("span[data-bind='text: CRP.Proposal']") }
 
     //Ballots section
     ballotSectionDiv() { return cy.get('div #ballots-section') }

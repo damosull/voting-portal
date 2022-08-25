@@ -93,7 +93,7 @@ And('I have added the criteria for {string} with status {string}', (criteria, st
     workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA')
     cy.get('@FILTER_CRITERIA').should('be.visible').within(() => {
         workflowPage.getInputBox().eq(0).should('be.visible').type(status, { scrollBehavior: false })
-        workflowPage.criteriaOptionCheckbox().contains(status).click({ scrollBehavior: false })
+        workflowPage.containsText(status).click({ scrollBehavior: false })
         workflowPage.updateButtonForCheckbox().click({ scrollBehavior: false })
     })
     cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
@@ -105,7 +105,7 @@ And('I have added the criteria for {string} and checking the checkbox for {strin
     workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false })
     workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA')
     cy.get('@FILTER_CRITERIA').should('be.visible').within(() => {
-        workflowPage.criteriaOptionCheckbox().contains(status).click({ scrollBehavior: false })
+        workflowPage.containsText(status).click({ scrollBehavior: false })
         workflowPage.updateButtonForCheckbox().click({ scrollBehavior: false })
     })
     cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
@@ -167,12 +167,6 @@ Then('I should be {string} to see the text {string} on the UI', (condition, text
 
 When('I navigate to {string} meeting', (company_name) => {
     workflowPage.containsText(company_name).click()
-})
-
-When('I navigate to Customer search page', () => {
-    workflowPage.adminLink().click()
-    workflowPage.customersLink().click()
-    cy.wait('@GET_CUSTOMER_DYNAMIC')
 })
 
 And('I filter for meetings without ballots', () => {

@@ -83,6 +83,12 @@ Then('I should be {string} to see the {string} on the UI', (isVisible, element) 
         case "Vote Button":
             meetingDetailsPage.voteNowButton().should(isVisible)
             break
+        case "Custom Policy Rationale modal":
+            meetingDetailsPage.customPolicyRationaleModalHeading().should(isVisible)
+            break
+        case "Rule Name heading":
+            meetingDetailsPage.customPolicyRationaleModalTableHeader('Rule Name').should(isVisible)
+            break
         default:
             meetingDetailsPage.containsText(element).should(isVisible)
             break
@@ -138,6 +144,35 @@ And('I replace my FOR votes with AGAINST and vice-versa', () => {
 
 And('I click on the Workflow option from the toolbar', () => {
     meetingDetailsPage.workflowButton().click()
+})
+
+When('I click on a policy rec link in the vote card section', () => {
+    meetingDetailsPage.policyRecLink().eq(0).click()
+})
+
+And('I can see the other items on Custom Policy Rationale modal like Policy ID, Rationale, Replace Rationale, Item Number and Proposal', () => {
+    meetingDetailsPage.customPolicyRationaleModalTableHeader('Policy ID').should('be.visible')
+    meetingDetailsPage.customPolicyRationaleModalTableHeader('Rationale').should('be.visible')
+    meetingDetailsPage.customPolicyRationaleModalTableHeader('Replace Rationale').should('be.visible')
+    meetingDetailsPage.customPolicyRationaleModalItem().should('be.visible')
+    meetingDetailsPage.customPolicyRationaleModalProposal().should('be.visible')
+})
+
+And('I can verify that I am unable to access Custom Policy Rationale modal for policy rec column', () => {
+    meetingDetailsPage.policyRecLabel().find('a').should('have.length', 0)
+    meetingDetailsPage.customPolicyRationaleModalHeading().should('not.be.visible')
+})
+
+And('I can verify that the {string} rec column displays with {string}', (column,column_value) => {
+    let rec
+    meetingDetailsPage.voteCardRow().then(($rows) => {
+        $rows.each((index, value) => {
+            if (column.includes('policy')) { rec = Cypress.$(value).find('td.vote-card-policy-rec').text() }
+            else if (column.includes('gl')) { rec = Cypress.$(value).find('td.vote-card-policy-rec').prev().text() }
+            else { rec = Cypress.$(value).find('td.vote-card-policy-rec').prev().prev().text() }
+            expect(rec).to.equal(column_value)
+        })
+    })
 })
 
 And('I can verify that the Quick Vote option and Vote Decision are read only', () => {
@@ -439,7 +474,7 @@ And('I should be able to verify the UI shows filename with "..." and its extensi
         })
         meetingDetailsPage.controversyAlertLink().invoke('removeAttr', 'target').click()
     })
-    cy.readFile(`${Cypress.config('downloadsFolder')}\\AutomationTest123.pdf`).should((fileContent) => {
+    cy.readFile(`${Cypress.config('downloadsFolder')}/AutomationTest123.pdf`).should((fileContent) => {
         expect(fileContent.length).to.be.gt(100)
     })
 })
@@ -1078,6 +1113,7 @@ Then('I am able to iterate through rationales, add text entry, save and verify t
                 `tr:nth-child(${$idx + 1
                 }) > td.cell-with-rationale > div > div > div > div.editable-input > div.editable-buttons > button.js-editable-submit.secondary.blue.btn-update`
             ).click({ force: true })
+            meetingDetailsPage.toastMessage().should('contain.text', 'Rationale saved')
         }
         if ($idx > 4) {
             return false
@@ -1178,7 +1214,7 @@ And('I clear the list of watchlists', () => {
     meetingDetailsPage.watchListsDropdownLabelNumber().eq(1).should('have.text', '1')
 })
 
-Then('I can verify that {string} is displayed in the {string} field in the ballot section', (value, column) => {
+Then('I can verify that {string} is displayed in the {string} field in the ballot section', (value) => {
     meetingDetailsPage.ballotSectionResultsDiv().scrollIntoView().scrollTo('right')
     meetingDetailsPage.containsText(value).should('be.visible')
 })

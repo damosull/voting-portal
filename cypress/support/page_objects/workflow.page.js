@@ -64,7 +64,6 @@ class workflowPage {
     applyCriteriaButton() { return cy.get('#btn-apply-criteria') }
     criteriaLabel() { return cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').should('be.visible') }
     criteriaOption() { return cy.get('.SingleSelect > div > div > div') }
-    criteriaOptionCheckbox() { return cy.get('div > div > label') }
     updateButton() { return cy.get("button[id^='btn-update']").filter(':visible') }
     updateButtonForCheckbox() { return cy.get('div > button').eq(0) }
     selectCustomerInput() { return cy.get("input[placeholder='Select Customer...']") }

@@ -33,6 +33,9 @@ And('I change the {string} user permission to {string}', (permission_name, acces
         case "View ACSI Recommendations":
             userPermissionPage.viewACSIRecommendations().select(access_decision)
             break
+        case "View Rule Name":
+            userPermissionPage.viewRuleName().select(access_decision)
+            break
         default:
             break
     }

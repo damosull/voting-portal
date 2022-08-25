@@ -17,8 +17,7 @@ Feature: Checking API calls with External user
         Then I verify that all the relevant API calls for reporting page are made
 
     Scenario: MeetingDetails page API calls are loading as expected
-        When I navigate to the workflow page
-        And I select a random meeting
+        When I navigate to the meeting with id "1140230"
         Then I verify that all the relevant API calls for meeting details page are made
 
     Scenario: Password change page API calls are loading as expected

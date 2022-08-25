@@ -5,6 +5,7 @@ Feature: Controversy Alert
   Scenario: Verify "Controversy Alert" field displays in the Configure Columns dropdown list
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     When I have added the column "Controversy Alert"
     And I can view the workflow page
     And I select "2" meetings from the top
@@ -20,6 +21,7 @@ Feature: Controversy Alert
   Scenario: Verify that the Controversy File name hyperlink does not display
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     When I have added the criteria for "Controversy Alert" and checking the checkbox for "No"
     And I have added the column "Controversy Alert"
@@ -36,7 +38,6 @@ Feature: Controversy Alert
     And I turn on the customer settings for "Controversy Alert" for "California Public Employee Retirement System (CalPERS)"
     Then I should logout from the application
     When I am logged in as the "AUTOMATIONEXTERNAL" User
-    And I navigate to the workflow page
     And I add a controversy alert file for the meeting
     And I navigate to the meeting details page for the meeting "CAVOCA"
     Then I can view the Meeting Details page
