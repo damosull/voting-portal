@@ -58,7 +58,7 @@ Then('I should be {string} to see the {string} on the UI', (isVisible, element) 
                 preTotalNotVoted = Number($el.text())
                 meetingDetailsPage.recommendationsPendingStatusCountLabel().should(isVisible)
                 if (!isVisible.includes('not')) {
-                    meetingDetailsPage.recommendationsPendingStatusCountLabel().should('contain.text',preTotalNotVoted)
+                    meetingDetailsPage.recommendationsPendingStatusCountLabel().should('contain.text', preTotalNotVoted)
                 }
             })
             break
@@ -96,7 +96,7 @@ Then('I should be {string} to see the {string} on the UI', (isVisible, element) 
 })
 
 And('I verify that the Instruct button has changed to Re-Instruct button', () => {
-    meetingDetailsPage.instructButton().should('contain.text','Re-Instruct')
+    meetingDetailsPage.instructButton().should('contain.text', 'Re-Instruct')
 })
 
 And('I quick vote {string} on the meeting', (voteType) => {
@@ -163,7 +163,7 @@ And('I can verify that I am unable to access Custom Policy Rationale modal for p
     meetingDetailsPage.customPolicyRationaleModalHeading().should('not.be.visible')
 })
 
-And('I can verify that the {string} rec column displays with {string}', (column,column_value) => {
+And('I can verify that the {string} rec column displays with {string}', (column, column_value) => {
     let rec
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index, value) => {
@@ -261,7 +261,7 @@ And('I handle the override pop-up if it exists', () => {
             meetingDetailsPage.warningPopUp().within(() => {
                 meetingDetailsPage.genericCheckbox().should('not.be.visible').check({ force: true })
             })
-            meetingDetailsPage.proceedButton().click({force: true})
+            meetingDetailsPage.proceedButton().click({ force: true })
         }
     })
 })
@@ -330,7 +330,7 @@ And('I add a controversy alert file for the meeting', () => {
     cy.addControversyAlertFile()
 })
 
-And('The {string} functionality is {string}', (permission_name,isAvailable) => {
+And('The {string} functionality is {string}', (permission_name, isAvailable) => {
     cy.clickIfExist(meetingDetailsPage.unlockButtonLocator);
 
     switch (permission_name) {
@@ -358,8 +358,9 @@ And('I export the ballot status report', () => {
     meetingDetailsPage.exportButton().click()
 })
 
-Then('A toast message appears', () => {
-    meetingDetailsPage.toastMessage().should('contain.text', constants.messages.toast.EXPORT_INITIATED)
+Then('A toast message appears for {string}', (value) => {
+    meetingDetailsPage.toastMessage().should('contain.text', constants.messages.toast[value])
+    meetingDetailsPage.toastMessage().should('not.exist')
 })
 
 And('I verify the vote tally section displays counts of total voted and total not voted items', () => {
@@ -390,8 +391,8 @@ And('I verify the vote tally modal is displayed when user clicks on the total vo
 And('I verify that the vote tally modal contains all the expected headers', () => {
     meetingDetailsPage.voteTallyPopupDiv().within(() => {
         meetingDetailsPage
-        .containsText('Selecting the number of ballots voted or not voted for a policy will apply the appropriate filter in the vote card')
-        .should('be.visible')
+            .containsText('Selecting the number of ballots voted or not voted for a policy will apply the appropriate filter in the vote card')
+            .should('be.visible')
         meetingDetailsPage.containsText('Policy ID').should('be.visible')
         meetingDetailsPage.containsText('Ballots Voted').should('be.visible')
         meetingDetailsPage.containsText('Ballots Not Voted').should('be.visible')
@@ -403,14 +404,14 @@ And('I verify that the vote tally modal contains all the expected headers', () =
 
 And('I verify that the vote tally with count of 0 is not hyperlinked', () => {
     meetingDetailsPage.voteTallyPopupDiv().within(() => {
-        meetingDetailsPage.voteTallyTableBallotsNotVotedValue().should('contain.text','0')
+        meetingDetailsPage.voteTallyTableBallotsNotVotedValue().should('contain.text', '0')
     })
 })
 
 And('I verify that the vote tally modal displays a value for each table column', () => {
     meetingDetailsPage.voteTallyPopupDiv().within(() => {
         for (let i = 1; i < 7; i++) {
-            cy.get(`table tbody tr td:nth-child(${i})`).should('not.have.text','')
+            cy.get(`table tbody tr td:nth-child(${i})`).should('not.have.text', '')
         }
     })
 })
@@ -978,10 +979,6 @@ And('I provide the details like the username to share with and submitted', () =>
     meetingDetailsPage.shareMeetingConfirmButton().click()
 })
 
-Then('I should see a request saved message', () => {
-    meetingDetailsPage.toastMessage().should('contain.text', constants.messages.toast.SHARE_MEETING_REQUEST_SAVED)
-})
-
 And('I verify that the request was saved in the database', () => {
     let today = new Date().toISOString().slice(0, 10)
     cy.getAutomationUserIDFromDB(constants.USER.CALPERS).as('userid')
@@ -1221,6 +1218,83 @@ Then('I can verify that {string} is displayed in the {string} field in the ballo
 
 When('I navigate to the meeting page from the previous scenario', () => {
     cy.visit(meetingId)
+})
+
+And('I remove all existing comments', () => {
+    cy.wait(2000)
+    meetingDetailsPage.pageBody().then(($body) => {
+        if ($body.find('a[id="comment-delete"]').length > 0) {
+            const len = $body.find('a[id="comment-delete"]').length
+            for (let i = len; i > 0; i--) {
+                cy.get('a[id="comment-delete"]').eq(i - 1).click()
+                meetingDetailsPage.popUpOkButton().click()
+                meetingDetailsPage.toastMessage().should('contain.text', constants.messages.toast.COMMENT_DELETED)
+                meetingDetailsPage.toastMessage().should('not.exist')
+            }
+        }
+    })
+})
+
+And('I delete the existing comment', () => {
+    meetingDetailsPage.deleteCommentButton().click()
+    meetingDetailsPage.popUpOkButton().click()
+    cy.wait('@COMMENTS')
+})
+
+When('I set the privacy dropdown to {string}', (value) => {
+    meetingDetailsPage.shareVisibilityDropdown().select(value)
+})
+
+Then('the search text for comments section should be disabled', () => {
+    meetingDetailsPage.shareUserInput().should('be.disabled')
+})
+
+When('I attach a file to the comment', () => {
+    meetingDetailsPage.attachFileButton().click()
+    meetingDetailsPage.addAttachmentFileInput().selectFile('cypress/fixtures/testImage.jpg', { action: 'drag-drop' })
+    meetingDetailsPage.addAttachmentUploadButton().should('be.enabled').click()
+    meetingDetailsPage.containsText('testImage.jpg').should('be.visible')
+})
+
+And('I add a comment and submit', () => {
+    meetingDetailsPage.commentTextArea().type('hello CalPERS | ExtUser Sagar Maheshwari')
+    meetingDetailsPage.postCommentButton().should('be.visible').should('be.enabled').click()
+})
+
+When('I edit the comment', () => {
+    meetingDetailsPage.editCommentButton().should('be.visible').scrollIntoView().click()
+})
+
+And('I amend the name of the attachment', () => {
+    meetingDetailsPage.editAttachmentButton().should('be.visible').click()
+    meetingDetailsPage.attachmentsDiv().within(() => {
+        cy.get('input').clear().type('amendedImage.jpg')
+    })
+    meetingDetailsPage.meetingNoteSubmitButton().click()
+})
+
+And('I amend the contents of the comment', () => {
+    meetingDetailsPage.editCommentTextArea().clear().type('Comment Amended!!')
+})
+
+And('I save the changes to the comment', () => {
+    meetingDetailsPage.saveUpdateAttachmentButton().click()
+})
+
+And('I verify the cancel when trying to delete functionality for comments', () => {
+    meetingDetailsPage.deleteCommentButton().click()
+    meetingDetailsPage.popUpCancelButton().click()
+    meetingDetailsPage.deleteCommentButton().should('be.visible')
+})
+
+And('I delete the attachment from the comment', () => {
+    meetingDetailsPage.commentsDiv().scrollIntoView()
+    meetingDetailsPage.deleteAttachmentButton().click()
+    meetingDetailsPage.popUpOkButton().click()
+})
+
+And('I cannot see an existing comment on the meeting', () => {
+    meetingDetailsPage.existingCommentDiv().should('not.exist')
 })
 
 /*Functions*/

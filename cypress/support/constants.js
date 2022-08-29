@@ -43,7 +43,12 @@ export const messages = {
     ENGAGEMENT_ADDED: 'Engagement added',
     ENGAGEMENT_DELETED: 'Engagement Deleted',
     USER_CREATED_SUCCESSFULLY: 'User created successfully',
-    CUSTOMER_SETTINGS_UPDATED: 'Customer settings updated'
+    CUSTOMER_SETTINGS_UPDATED: 'Customer settings updated',
+    COMMENT_WITH_ATTACHMENT_SAVED: 'Comment saved with attachment',
+    COMMENT_WITH_ATTACHMENT_UPDATED: 'Attachment updated',
+    COMMENT_UPDATED: 'Comment updated',
+    COMMENT_WITH_ATTACHMENT_DELETED: 'Attachment deleted.',
+    COMMENT_DELETED: 'Comment deleted!'
   },
 };
 

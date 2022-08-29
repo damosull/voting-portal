@@ -5,6 +5,7 @@ Feature: Display the Ballot Voting History
   Scenario: Verify user is able to configure column actions
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     When I have added the criteria for "Decision Status" with status "Recommendations Available"
     Then I should be able to verify the different column actions on the workflow page
@@ -27,6 +28,7 @@ Feature: Display the Ballot Voting History
   Scenario: Verify pagination is displayed on the ballot section page
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     When I navigate to the meeting details page for the meeting "RBNCRP"
     Then I can view the Meeting Details page
@@ -40,6 +42,7 @@ Feature: Display the Ballot Voting History
   Scenario: Verify chosen pagination is autosaved on the ballot section page
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     When I navigate to the meeting details page for the meeting "RLNCDRP"
     Then I can view the Meeting Details page
@@ -53,6 +56,7 @@ Feature: Display the Ballot Voting History
   Scenario: Verify User can Toggle between 'Management' Multiple Agendas in the Vote card page for specific meeting type
     Given I am logged in as the "NEUBERGER" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     When I navigate to the meeting details page for the meeting "NBCOMMO"
     Then I can view the Meeting Details page
@@ -67,6 +71,7 @@ Feature: Display the Ballot Voting History
   Scenario: Verify user is able to process Vote, Take No Action and Review Required actions
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     Then the filtered results should be displayed

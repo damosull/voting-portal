@@ -15,6 +15,7 @@ class meetingDetailsPage {
     instructedSuccessMessage() { return cy.contains('Instructed successfully') }
     glassLewisLogoLink() { return cy.get("a[id='logo-link'] span") }
     toastMessage() { return cy.get('.toast-message') }
+    toastMessageDiv() { return cy.get('#toast-container') }
 
     //Company name & buttons on top of the page
     companyNameLink() { return cy.get('#company-navigate') }
@@ -91,11 +92,25 @@ class meetingDetailsPage {
     votecardPolicyLink() { return cy.get('.votecard-policy-link') }
 
     //Comments
+    commentsDiv() { return cy.get('#meeting-details-comments') }
     sharedWithDropdown() { return cy.get('#adhoc-users-search-reply-comment_taglist > li') }
     deleteButton() { return cy.get(`#adhoc-users-search-reply-comment_taglist > li > span.k-icon.k-delete`) }
-    commentTextArea() { return cy.get(`textarea[name='Comment'`) }
+    commentTextArea() { return cy.get("textarea[name='Comment']") }
     shareVisibilityDropdown() { return cy.get('#comment-viewable-type') }
+    shareUserInput() { return cy.get('#adhoc-users-search-reply-comment_taglist').next() }
+    attachFileButton() { return cy.get('#btn-add-attachment-new') }
+    attachmentsDiv() { return cy.get('.form-inline.editableform') }
+    addAttachmentModal() { return cy.get('#add-attachment-kendo-modal-123abc456xyz') }
+    addAttachmentFileInput() { return cy.get('#business-name') }
+    addAttachmentUploadButton() { return cy.get('#btn-attachment-upload') }
     postCommentButton() { return cy.get('#btn-post-comment') }
+    editCommentButton() { return cy.get('#comment-edit') }
+    deleteCommentButton() { return cy.get('#comment-delete') }
+    editCommentTextArea() { return cy.get("textarea[id^='textarea-edit-for-comment']") }
+    editAttachmentButton() { return cy.get("i[id^='btn-edit-attachment']") }
+    deleteAttachmentButton() { return cy.get("i[id^='btn-delete-attachment']") }
+    saveUpdateAttachmentButton() { return cy.get("button[id^='update-comment']") }
+    existingCommentDiv() { return cy.get("div[id^='comment-']") }
 
 
     //Others

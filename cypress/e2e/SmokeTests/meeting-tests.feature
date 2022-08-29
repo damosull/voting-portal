@@ -4,6 +4,7 @@ Feature: Meetings related smoke tests
   Scenario: Verify that the votes against Glass Lewis are captured in filter criteria
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     When I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting the radio button for "One Against"
     Then the filtered results should display the data only for vote against Glass Lewis
@@ -12,6 +13,7 @@ Feature: Meetings related smoke tests
   Scenario: Verify that the votes against Management are captured in filter criteria
     Given I am logged in as the "WELLINGTON" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     When I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "One Against"
     Then the filtered results should display the data only for vote against Management
@@ -20,6 +22,7 @@ Feature: Meetings related smoke tests
   Scenario: Verify user is able to filter meetings with recommendations available
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Available"
     When I select a random meeting
@@ -29,6 +32,7 @@ Feature: Meetings related smoke tests
   Scenario: Verify user is able to do a quick vote
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     When I select a random meeting
@@ -100,7 +104,7 @@ Feature: Meetings related smoke tests
     When I click on the Change Vote or Rationale button
     And I click on the share meeting option
     And I provide the details like the username to share with and submitted
-    Then I should see a request saved message
+    Then A toast message appears for "SHARE_MEETING_REQUEST_SAVED"
     And I verify that the request was saved in the database
     And I should logout from the application
 

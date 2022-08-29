@@ -3,7 +3,6 @@ class workflowPage {
     getPageHeading() { return cy.get('h1') }
     getPageBody() { return cy.get('body') }
     getLoadingSpinner() { return cy.get('.k-loading-text', { timeout: 90000 }) }
-    getWorkflowPage() { return cy.visit('/Workflow') }
     getInputBox() { return cy.get('input') }
     containsText(text) { return cy.contains(text) }
     toastMessage() { return cy.get('.toast-message') }
@@ -81,7 +80,7 @@ class workflowPage {
 
     //Common Functions
     waitForWorkflowPageLoad() {
-        this.getLoadingSpinner({ timeout: 90000 }).should('not.exist')
+        this.getLoadingSpinner({ timeout: 120000 }).should('not.exist')
     }
 
     checkFilterCriteria(criteria) {

@@ -10,11 +10,8 @@ Then('I can view the workflow page', () => {
 })
 
 And('I navigate to the workflow page', () => {
-    workflowPage.getWorkflowPage()
+    cy.visit('/Workflow')
     workflowPage.getLoadingSpinner().should('exist')
-    //Waiting for page load
-    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
-    workflowPage.waitForWorkflowPageLoad()
 })
 
 And('I remove all existing selected criteria', () => {

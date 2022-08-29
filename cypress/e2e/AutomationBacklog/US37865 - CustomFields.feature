@@ -5,6 +5,7 @@ Feature: Custom Fields
   Scenario Outline: Custom Fields work for meetings with no ballots
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     And I filter for meetings without ballots
     And I have added the column <column_name>

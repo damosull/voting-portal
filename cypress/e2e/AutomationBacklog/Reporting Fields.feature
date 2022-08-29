@@ -18,11 +18,12 @@ Feature: Report related tests
     @37986
     Scenario: Ballot status report meeting detail page
         When I navigate to the workflow page
+        Then I can view the workflow page
         And I remove all existing selected criteria
         And I have added the criteria for "Decision Status" with status "Recommendations Pending"
         And I select the first available meeting
         And I export the ballot status report
-        Then A toast message appears
+        Then A toast message appears for "EXPORT_INITIATED"
         When I click on the notification dropdown
         And Ballot Status Report is queued
         Then I download the PDF and verify it

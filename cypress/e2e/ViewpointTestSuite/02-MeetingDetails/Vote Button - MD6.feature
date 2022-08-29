@@ -6,6 +6,7 @@ Feature: Vote Button Tests
   Scenario: Verify a user can vote on a vote card
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     When I select a random meeting
@@ -26,6 +27,7 @@ Feature: Vote Button Tests
   Scenario: Verify a user can revote on the vote card
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Voted"
     When I select a random meeting
@@ -44,6 +46,7 @@ Feature: Vote Button Tests
   Scenario: Verify a user can vote on Vote Card with filtering set
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Voted"
     When I select the first available meeting
@@ -74,6 +77,7 @@ Feature: Vote Button Tests
   Scenario: Verify a Warning Message is returned when user is leaving the Vote Card without clicking 'Vote' button
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Voted"
     When I select a random meeting
@@ -113,6 +117,7 @@ Feature: Vote Button Tests
     And I should logout from the application
     Given I am logged in as the "ROBECO" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     When I select the first available meeting
     Then I can view the Meeting Details page
     And The <permission_name> functionality is "not available"

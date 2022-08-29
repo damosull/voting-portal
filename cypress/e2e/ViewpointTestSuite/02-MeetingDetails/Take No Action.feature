@@ -67,6 +67,7 @@ Feature: Take No Action Folder Tests
   Scenario: Verify a user can Revote on Vote Card page
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Take No Action"
     When I select a random meeting
@@ -95,6 +96,7 @@ Feature: Take No Action Folder Tests
   Scenario: Verify no validation messages displayed
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Manual Vote Required"
     When I select the first available meeting
