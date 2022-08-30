@@ -13,26 +13,29 @@ parameters:
 
 trigger: none
 
-steps:
-- task: Bash@3
-  displayName: 'Build New Image'
-  condition: eq('${{ parameters.newImage }}', 'true')
-  inputs:       
-    targetType: 'inline'
-    script: |
-      docker ps --filter name=votingportal* --filter name=s-cypress* -aq | xargs docker rm -f
-      docker rmi votingportal-cypress -f
-      docker build -t votingportal-cypress .
+jobs:
+- job: ViewpointLoadTest
+  timeoutInMinutes: 120
+  steps:
+  - task: Bash@3
+    displayName: 'Build New Image'
+    condition: eq('${{ parameters.newImage }}', 'true')
+    inputs:       
+      targetType: 'inline'
+      script: |
+        docker ps --filter name=votingportal* --filter name=s-cypress* -aq | xargs docker rm -f
+        docker rmi votingportal-cypress -f
+        docker build -t votingportal-cypress .
 
-- task: Bash@3
-  displayName: 'Run Cypress Tests'
-  inputs:       
-    targetType: 'inline'
-    script: 'docker compose up --scale cypress=${{ parameters.numInstance }}'
+  - task: Bash@3
+    displayName: 'Run Cypress Tests'
+    inputs:       
+      targetType: 'inline'
+      script: 'docker compose up --scale cypress=${{ parameters.numInstance }}'
 
-- task: Bash@3
-  displayName: 'Remove Exited Cypress Containers'
-  inputs:       
-    targetType: 'inline'
-    script: 'docker ps --filter name=votingportal* --filter name=s-cypress* -aq | xargs docker rm -f'
-  condition: always()
+  - task: Bash@3
+    displayName: 'Remove Exited Cypress Containers'
+    inputs:       
+      targetType: 'inline'
+      script: 'docker ps --filter name=votingportal* --filter name=s-cypress* -aq | xargs docker rm -f'
+    condition: always()

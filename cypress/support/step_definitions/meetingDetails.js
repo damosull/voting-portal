@@ -1216,13 +1216,12 @@ Then('I can verify that {string} is displayed in the {string} field in the ballo
     meetingDetailsPage.containsText(value).should('be.visible')
 })
 
-When('I navigate to the meeting page from the previous scenario', () => {
+When('I navigate to the Meeting Details page for the saved meeting ID', () => {
     cy.visit(meetingId)
 })
 
 And('I remove all existing comments', () => {
-    cy.wait(2000)
-    meetingDetailsPage.pageBody().then(($body) => {
+    meetingDetailsPage.pageBody().wait(2000).then(($body) => {
         if ($body.find('a[id="comment-delete"]').length > 0) {
             const len = $body.find('a[id="comment-delete"]').length
             for (let i = len; i > 0; i--) {
@@ -1243,6 +1242,10 @@ And('I delete the existing comment', () => {
 
 When('I set the privacy dropdown to {string}', (value) => {
     meetingDetailsPage.shareVisibilityDropdown().select(value)
+})
+
+And('I amend the privacy dropdown to {string}', (value) => {
+    meetingDetailsPage.editCommentShareDropdown().select(value)
 })
 
 Then('the search text for comments section should be disabled', () => {
@@ -1295,6 +1298,23 @@ And('I delete the attachment from the comment', () => {
 
 And('I cannot see an existing comment on the meeting', () => {
     meetingDetailsPage.existingCommentDiv().should('not.exist')
+})
+
+Then('I add a comment by mentioning user {string}', (username) => {
+    meetingDetailsPage.commentTextArea().type('@' + username).wait(1000).type('{enter}')
+    meetingDetailsPage.postCommentButton().should('be.visible').should('be.enabled').click()
+})
+
+And('I should see {string} comments on the UI', (noOfComments) => {
+    meetingDetailsPage.existingCommentDiv().should('have.length',Number(noOfComments))
+})
+
+And('I amend the shared with field to {string}', (sharedWith) => {
+    meetingDetailsPage.editShareUserInput().type('{backspace}{backspace}{backspace}')
+    if (!sharedWith.includes('nothing')) {
+        meetingDetailsPage.floatingContainer().then($el => $el.remove())
+        meetingDetailsPage.editShareUserInput().type(sharedWith).wait(1000).type('{enter}')
+    }
 })
 
 /*Functions*/

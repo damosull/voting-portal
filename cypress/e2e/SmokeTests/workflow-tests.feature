@@ -5,7 +5,6 @@ Feature: Workflow related smoke tests
   Scenario Outline: Verify user is able to apply the various filters on the workflow page
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
-    Then I can view the workflow page
     When I have added the filter criteria <filter>
     Then I should be able to see the results only for <filter>
     And I should logout from the application
@@ -23,9 +22,8 @@ Feature: Workflow related smoke tests
 
   Scenario: Verify that all the meetings for California Public Employee Retirement System have a CalPERS customer id
     Given I am logged in as the "AUTOMATIONINTERNAL" User
-    And I navigate to the workflow page
-    Then I can view the workflow page
-    When I search for California Public Employee Retirement System
+    When I navigate to the workflow page
+    And I search for California Public Employee Retirement System
     Then all the meetings on the screen have a CalPERS customer id
     And I should logout from the application
 
@@ -45,7 +43,7 @@ Feature: Workflow related smoke tests
   Scenario: Verify internal user is able to add columns from the table on workflow page
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
-    Then I can view the workflow page
+    And I search for California Public Employee Retirement System
     When I try to add the first four available Sustainalytics ESG columns
     Then I should be able to see these "four" columns on the workflow table
     When I try to add the remaining three Sustainalytics ESG columns
@@ -56,7 +54,7 @@ Feature: Workflow related smoke tests
   Scenario: Verify internal user is able to remove columns from the table on workflow page
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
-    Then I can view the workflow page
+    And I search for California Public Employee Retirement System
     When I try to remove the first column on the workflow table
     Then I should be unable to see the first column on the workflow table
     And I should logout from the application

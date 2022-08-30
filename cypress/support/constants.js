@@ -46,9 +46,10 @@ export const messages = {
     CUSTOMER_SETTINGS_UPDATED: 'Customer settings updated',
     COMMENT_WITH_ATTACHMENT_SAVED: 'Comment saved with attachment',
     COMMENT_WITH_ATTACHMENT_UPDATED: 'Attachment updated',
-    COMMENT_UPDATED: 'Comment updated',
+    COMMENT_UPDATED: 'Comment updated!',
     COMMENT_WITH_ATTACHMENT_DELETED: 'Attachment deleted.',
-    COMMENT_DELETED: 'Comment deleted!'
+    COMMENT_DELETED: 'Comment deleted!',
+    COMMENT_SELECT_ATLEAST_ONE_USER: 'You must selet at least one user.'
   },
 };
 

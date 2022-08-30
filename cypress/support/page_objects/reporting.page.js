@@ -5,6 +5,7 @@ class reportingPage {
     getLoadingSpinner() { return cy.get('.k-loading-text') }
     toastMessage() { return cy.get('.toast-message') }
     notificationLink() { return cy.get('.notify-count') }
+    inboxContainerDiv() { return cy.get('#inbox-container') }
     inboxContainer() { return cy.get('#inbox-container .msg-txt', { timeout: 180000 }) }
     inboxRows() { return cy.get('#inbox-container [data-pagelink1]') }
     containsText(text) { return cy.contains(text) }

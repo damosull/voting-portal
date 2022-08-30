@@ -27,7 +27,7 @@ Feature: Add/Remove System Watchlist
   @37827
   Scenario: Verify internal user is able to verify System Watch list and deselect them
     Given I am logged in as the "AUTOMATIONINTERNAL" User
-    When I navigate to the meeting page from the previous scenario
+    When I navigate to the Meeting Details page for the saved meeting ID
     Then I should be able to deselect the watch list from the previous scenario
     And I should be able to deselect the system watch list from the workflow page
     And I should logout from the application

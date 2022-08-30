@@ -5,7 +5,6 @@ Feature: Compare Policy Recommendations
   Scenario: Compare Policy Recommendations to GL Recommendations
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
-    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting the radio button for "All"
     When I select a random meeting
@@ -25,7 +24,6 @@ Feature: Compare Policy Recommendations
   Scenario: Compare Policy Recommendations to Management Recommendations
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
-    Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "All"
     When I select a random meeting

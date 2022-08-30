@@ -535,3 +535,9 @@ Then('I am checking the report format', () => {
     }
 
 })
+
+Then('The notification dropdown {string} contain a notification mentioning {string}', (isVisible, content) => {
+    isVisible = isVisible.includes('not') ? 'not.exist' : 'exist'
+    reportingPage.notificationLink().click()
+    reportingPage.inboxContainerDiv().contains(content).should(isVisible)
+})

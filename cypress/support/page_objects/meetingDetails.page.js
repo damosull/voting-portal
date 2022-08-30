@@ -16,6 +16,7 @@ class meetingDetailsPage {
     glassLewisLogoLink() { return cy.get("a[id='logo-link'] span") }
     toastMessage() { return cy.get('.toast-message') }
     toastMessageDiv() { return cy.get('#toast-container') }
+    floatingContainer() { return cy.get('.floating-container.clearfix.float-on') }
 
     //Company name & buttons on top of the page
     companyNameLink() { return cy.get('#company-navigate') }
@@ -107,6 +108,8 @@ class meetingDetailsPage {
     editCommentButton() { return cy.get('#comment-edit') }
     deleteCommentButton() { return cy.get('#comment-delete') }
     editCommentTextArea() { return cy.get("textarea[id^='textarea-edit-for-comment']") }
+    editCommentShareDropdown() { return cy.get("select[id^='edit-comment-viewable-type']") }
+    editShareUserInput() { return cy.get("ul[id^='adhoc-users-search-edit']").eq(0).next() }
     editAttachmentButton() { return cy.get("i[id^='btn-edit-attachment']") }
     deleteAttachmentButton() { return cy.get("i[id^='btn-delete-attachment']") }
     saveUpdateAttachmentButton() { return cy.get("button[id^='update-comment']") }

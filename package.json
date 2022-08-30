@@ -9,6 +9,7 @@
     "test": "cypress run",
     "smoke": "cypress run --config specPattern=cypress/e2e/SmokeTests/*.feature",
     "regression": "cypress run --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature",
+    "loadtest": "docker compose up --scale cypress=2",
     "lint": "eslint cypress"
   },
   "devDependencies": {
@@ -16,7 +17,7 @@
     "cypress": "10.6.0",
     "cypress-cucumber-preprocessor": "4.3.1",
     "cypress-sql-server": "1.0.0",
-    "eslint": "8.22.0",
+    "eslint": "8.23.0",
     "eslint-plugin-cypress": "2.12.1",
     "node-xlsx": "0.21.0"
   },

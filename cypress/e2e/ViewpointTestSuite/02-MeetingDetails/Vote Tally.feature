@@ -145,7 +145,7 @@ Feature: Vote Tally Folder Tests
   @28459
   Scenario: Verify a user lands on current Meeting it displays correct Vote Tally counts
     Given I am logged in as the "CALPERS" User
-    When I navigate to the meeting page from the previous scenario
+    When I navigate to the Meeting Details page for the saved meeting ID
     Then I can view the Meeting Details page
     And I should be "able" to see the "Voted under Vote Tally" on the UI
     And I should be "able" to see the "Take No Action under Vote Tally" on the UI
