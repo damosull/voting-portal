@@ -8,6 +8,7 @@
     "open": "cypress open --e2e --browser electron",
     "test": "cypress run",
     "smoke": "cypress run --config specPattern=cypress/e2e/SmokeTests/*.feature",
+    "smoke:parallel": "cypress-parallel -m false -t 3 -s smoke -d 'cypress/e2e'",
     "regression": "cypress run --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature",
     "loadtest": "docker compose up --scale cypress=2",
     "lint": "eslint cypress"
@@ -16,6 +17,7 @@
     "cucumber-html-reporter": "5.5.0",
     "cypress": "10.6.0",
     "cypress-cucumber-preprocessor": "4.3.1",
+    "cypress-parallel": "0.9.1",
     "cypress-sql-server": "1.0.0",
     "eslint": "8.23.0",
     "eslint-plugin-cypress": "2.12.1",
