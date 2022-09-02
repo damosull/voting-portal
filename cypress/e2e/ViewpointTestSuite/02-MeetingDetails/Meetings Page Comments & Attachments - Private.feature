@@ -8,7 +8,7 @@ Feature: Meeting Page Comments & Attachments - Private
     And I navigate to the workflow page
     Then I can view the workflow page
     When I select a random meeting
-    Then I verify that all the relevant API calls for meeting details page are made
+    Then I can view the Meeting Details page
     And I save the meeting url
     And I remove all existing comments
     When I set the privacy dropdown to "Private"
@@ -28,7 +28,7 @@ Feature: Meeting Page Comments & Attachments - Private
     And I delete the attachment from the comment
     And I save the changes to the comment
     Then A toast message appears for "COMMENT_WITH_ATTACHMENT_DELETED"
-    And I verify the cancel when trying to delete functionality for comments
+    And I verify the cancel functionality when trying to delete a comment
     When I delete the existing comment
     Then A toast message appears for "COMMENT_DELETED"
     And I should logout from the application
@@ -46,12 +46,13 @@ Feature: Meeting Page Comments & Attachments - Private
     When I navigate to the workflow page
     Then I can view the workflow page
     When I select a random meeting
-    Then I verify that all the relevant API calls for meeting details page are made
+    Then I can view the Meeting Details page
     And I save the meeting url
     And I remove all existing comments
     When I set the privacy dropdown to "Private"
     And I attach a file to the comment
     And I add a comment by mentioning user "CalpersAutomation External Admin"
+    And I submit the comment
     Then A toast message appears for "COMMENT_WITH_ATTACHMENT_SAVED"
     And I should logout from the application
     When I am logged in as the "CALPERS" User

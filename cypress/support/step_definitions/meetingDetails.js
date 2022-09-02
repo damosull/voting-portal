@@ -89,6 +89,9 @@ Then('I should be {string} to see the {string} on the UI', (isVisible, element) 
         case "Rule Name heading":
             meetingDetailsPage.customPolicyRationaleModalTableHeader('Rule Name').should(isVisible)
             break
+        case "View All button":
+            meetingDetailsPage.viewAllCommentsLink().should(isVisible)
+            break
         default:
             meetingDetailsPage.containsText(element).should(isVisible)
             break
@@ -1001,7 +1004,7 @@ Then('the vote tally should be updated', () => {
     cy.contains('Instructed successfully')
     // Step 11 - Verify Vote Tally gets updated
     cy.get('@totalNotVoted').then((vote) => {
-        cy.contains(`Review Required (${vote})`)
+        cy.contains('Review Required')
         meetingDetailsPage.totalNotVotedLink().should('have.text', vote)
         meetingDetailsPage.totalVotedLink().should('have.text', 0)
     })
@@ -1132,7 +1135,7 @@ Then('I am able to add meeting note and post private comment', () => {
         $el.get(`.k-button > :nth-child(${index}) > span`)
         meetingDetailsPage.deleteButton().click({ force: true })
     })
-    meetingDetailsPage.commentTextArea().type('hello CalPERS | ExtUser Sagar Maheshwari')
+    meetingDetailsPage.commentTextArea().type('hello CalPERS | ExtAdmin Sagar Maheshwari')
     meetingDetailsPage.shareVisibilityDropdown().select('Private')
     meetingDetailsPage.postCommentButton().click()
     meetingDetailsPage.toastMessage().should('contain.text', 'Comment saved')
@@ -1225,7 +1228,7 @@ And('I remove all existing comments', () => {
         if ($body.find('a[id="comment-delete"]').length > 0) {
             const len = $body.find('a[id="comment-delete"]').length
             for (let i = len; i > 0; i--) {
-                cy.get('a[id="comment-delete"]').eq(i - 1).click()
+                cy.get('a[id="comment-delete"]').eq(i - 1).scrollIntoView().click()
                 meetingDetailsPage.popUpOkButton().click()
                 meetingDetailsPage.toastMessage().should('contain.text', constants.messages.toast.COMMENT_DELETED)
                 meetingDetailsPage.toastMessage().should('not.exist')
@@ -1259,8 +1262,32 @@ When('I attach a file to the comment', () => {
     meetingDetailsPage.containsText('testImage.jpg').should('be.visible')
 })
 
+And('I add an attachment to the comment and rename the file with a string of {int} characters', (noOfCharacters) => {
+    meetingDetailsPage.attachFileButton().click()
+    meetingDetailsPage.addAttachmentFileInput().selectFile('cypress/fixtures/testImage.jpg', { action: 'drag-drop' })
+    cy.randomString(noOfCharacters).then((data) => {
+        meetingDetailsPage.addAttachmentFileInput().clear().type(data)
+        meetingDetailsPage.addAttachmentUploadButton().should('be.enabled').click()
+        const result = data.substring(1, 255)
+        meetingDetailsPage.attachmentName().should('contain.text', result)
+    })
+})
+
 And('I add a comment and submit', () => {
-    meetingDetailsPage.commentTextArea().type('hello CalPERS | ExtUser Sagar Maheshwari')
+    meetingDetailsPage.commentTextArea().type('hello CalPERS | ExtAdmin Sagar Maheshwari')
+    meetingDetailsPage.postCommentButton().should('be.visible').should('be.enabled').click()
+})
+
+And('I add a random comment {int} times', (times) => {
+    for (let i = 1; i <= times; i++) {
+        cy.randomString(times).then((data) => {
+            meetingDetailsPage.commentTextArea().type(data)
+            meetingDetailsPage.postCommentButton().should('be.visible').should('be.enabled').click()
+        })
+    }
+})
+
+When('I submit the comment', () => {
     meetingDetailsPage.postCommentButton().should('be.visible').should('be.enabled').click()
 })
 
@@ -1284,7 +1311,11 @@ And('I save the changes to the comment', () => {
     meetingDetailsPage.saveUpdateAttachmentButton().click()
 })
 
-And('I verify the cancel when trying to delete functionality for comments', () => {
+When('I click on the View All button', () => {
+    meetingDetailsPage.viewAllCommentsLink().click()
+})
+
+And('I verify the cancel functionality when trying to delete a comment', () => {
     meetingDetailsPage.deleteCommentButton().click()
     meetingDetailsPage.popUpCancelButton().click()
     meetingDetailsPage.deleteCommentButton().should('be.visible')
@@ -1302,11 +1333,10 @@ And('I cannot see an existing comment on the meeting', () => {
 
 Then('I add a comment by mentioning user {string}', (username) => {
     meetingDetailsPage.commentTextArea().type('@' + username).wait(1000).type('{enter}')
-    meetingDetailsPage.postCommentButton().should('be.visible').should('be.enabled').click()
 })
 
 And('I should see {string} comments on the UI', (noOfComments) => {
-    meetingDetailsPage.existingCommentDiv().should('have.length',Number(noOfComments))
+    meetingDetailsPage.existingCommentDiv().should('have.length', Number(noOfComments))
 })
 
 And('I amend the shared with field to {string}', (sharedWith) => {
@@ -1315,6 +1345,23 @@ And('I amend the shared with field to {string}', (sharedWith) => {
         meetingDetailsPage.floatingContainer().then($el => $el.remove())
         meetingDetailsPage.editShareUserInput().type(sharedWith).wait(1000).type('{enter}')
     }
+})
+
+And('I add the user {string} to shared with field', (sharedWith) => {
+    meetingDetailsPage.editShareUserInput().type(sharedWith).wait(1000).type('{enter}')
+})
+
+Then('I should be able to view the default placeholder, shared with dropdown and attachment button in comments section', () => {
+    meetingDetailsPage.commentTextArea().invoke('attr', 'placeholder').should('eq', 'Post a comment, mention a @user...')
+    meetingDetailsPage.shareVisibilityDropdown().should('contain.text', 'Shared With')
+    meetingDetailsPage.sharedWithDropdown().should('contain.text', 'Everyone')
+    meetingDetailsPage.attachFileButton().should('be.visible')
+})
+
+When('I add a comment with {int} characters', (noOfCharacters) => {
+    cy.randomString(noOfCharacters).then((data) => {
+        meetingDetailsPage.commentTextArea().clear().type(data)
+    })
 })
 
 /*Functions*/

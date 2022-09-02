@@ -99,21 +99,23 @@ class meetingDetailsPage {
     commentTextArea() { return cy.get("textarea[name='Comment']") }
     shareVisibilityDropdown() { return cy.get('#comment-viewable-type') }
     shareUserInput() { return cy.get('#adhoc-users-search-reply-comment_taglist').next() }
-    attachFileButton() { return cy.get('#btn-add-attachment-new') }
+    attachFileButton() { return cy.get("input[id^='btn-add-attachment-']").filter(':visible') }
+    attachmentName() { return cy.get("span[id^='attachment-name-']").filter(':visible') }
     attachmentsDiv() { return cy.get('.form-inline.editableform') }
     addAttachmentModal() { return cy.get('#add-attachment-kendo-modal-123abc456xyz') }
     addAttachmentFileInput() { return cy.get('#business-name') }
     addAttachmentUploadButton() { return cy.get('#btn-attachment-upload') }
     postCommentButton() { return cy.get('#btn-post-comment') }
     editCommentButton() { return cy.get('#comment-edit') }
-    deleteCommentButton() { return cy.get('#comment-delete') }
+    deleteCommentButton() { return cy.get('#comment-delete').eq(0) }
     editCommentTextArea() { return cy.get("textarea[id^='textarea-edit-for-comment']") }
     editCommentShareDropdown() { return cy.get("select[id^='edit-comment-viewable-type']") }
-    editShareUserInput() { return cy.get("ul[id^='adhoc-users-search-edit']").eq(0).next() }
+    editShareUserInput() { return cy.get("ul[id^='adhoc-users-search-']").eq(0).next() }
     editAttachmentButton() { return cy.get("i[id^='btn-edit-attachment']") }
     deleteAttachmentButton() { return cy.get("i[id^='btn-delete-attachment']") }
     saveUpdateAttachmentButton() { return cy.get("button[id^='update-comment']") }
     existingCommentDiv() { return cy.get("div[id^='comment-']") }
+    viewAllCommentsLink() { return cy.get("#comments-view-all") }
 
 
     //Others

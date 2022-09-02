@@ -2,9 +2,17 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: 'npx cypress run --reporter junit --config specPattern=cypress/e2e/SmokeTests/*.feature'
+    default: 'npx cypress run --reporter junit --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
 
 trigger: none
+
+schedules:
+  - cron: '0 12 * * 4'
+    displayName: 'Weekly Regression - Every Thu @ 12PM GMT'
+    always: true
+    branches:
+      include:
+        - master
 
 pool:
   name: 'Build Pipelines VMSS - QAUAT'

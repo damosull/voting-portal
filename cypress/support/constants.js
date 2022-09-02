@@ -1,6 +1,7 @@
 export const USER = {
   AUTOMATIONINTERNAL: 'automation@glasslewis.com',
   AUTOMATIONEXTERNAL: 'automation_calpers@glasslewis.com',
+  CALPERS_SAGAR: 'smaheshwari_calpers@glasslewis.com',
   CALPERS: 'CalpersAutomation@glasslewis.com',
   CHARLESSCHWAB: 'CharlesSchwabAutomation@glasslewis.com',
   FEDERATED: 'FederatedAutomation@glasslewis.com',
@@ -45,15 +46,18 @@ export const messages = {
     USER_CREATED_SUCCESSFULLY: 'User created successfully',
     CUSTOMER_SETTINGS_UPDATED: 'Customer settings updated',
     COMMENT_WITH_ATTACHMENT_SAVED: 'Comment saved with attachment',
+    COMMENT_SAVED: 'Comment saved',
     COMMENT_WITH_ATTACHMENT_UPDATED: 'Attachment updated',
     COMMENT_UPDATED: 'Comment updated!',
     COMMENT_WITH_ATTACHMENT_DELETED: 'Attachment deleted.',
     COMMENT_DELETED: 'Comment deleted!',
-    COMMENT_SELECT_ATLEAST_ONE_USER: 'You must selet at least one user.'
+    COMMENT_SELECT_ATLEAST_ONE_USER: 'You must selet at least one user.',
+    COMMENT_SUBMIT_WITHOUT_DATA: 'Please enter a comment, mention a @user..',
+    COMMENT_TOO_LONG: 'Comment is too long.'
   },
 };
 
-export const glassAPI = 'https://aqua-issuer-vote-confirmation-api.azurewebsites.net/api/Ballot/'
+export const glassAPI = 'https://aqua-issuer-vote-confirmation-api.azurewebsites.net/api/Ballot'
 
 export const MEETINGID = {
   // first 2 chars = company (NB = Neuberger)

@@ -3,7 +3,7 @@ Feature: Controversy Alert
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50256
   @50256
   Scenario: Verify "Controversy Alert" field displays in the Configure Columns dropdown list
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "CHARLESSCHWAB" User
     And I navigate to the workflow page
     Then I can view the workflow page
     When I have added the column "Controversy Alert"
@@ -19,7 +19,7 @@ Feature: Controversy Alert
   #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50285
   @50285
   Scenario: Verify that the Controversy File name hyperlink does not display
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "CHARLESSCHWAB" User
     And I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
