@@ -28,6 +28,9 @@ module.exports = defineConfig({
     runMode: 2,
     openMode: 0,
   },
+  env: {
+    startTime: new Date()
+  },
   e2e: {
     baseUrl: 'https://viewpoint.aqua.glasslewis.com',
     specPattern: 'cypress/e2e/**/*.feature',

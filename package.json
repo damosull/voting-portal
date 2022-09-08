@@ -7,6 +7,7 @@
   "scripts": {
     "open": "cypress open --e2e --browser electron",
     "test": "cypress run",
+    "test:parallel": "cypress-parallel -m false -t 8 -s test -d 'cypress/e2e'",
     "smoke": "cypress run --config specPattern=cypress/e2e/SmokeTests/*.feature",
     "smoke:parallel": "cypress-parallel -m false -t 3 -s smoke -d 'cypress/e2e'",
     "regression": "cypress run --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature",

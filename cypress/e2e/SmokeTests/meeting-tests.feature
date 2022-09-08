@@ -7,6 +7,8 @@ Feature: Meetings related smoke tests
     Then I can view the workflow page
     And I remove all existing selected criteria
     When I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting the radio button for "One Against"
+    And I select a random meeting
+    Then I can view the Meeting Details page
     Then the filtered results should display the data only for vote against Glass Lewis
     And I should logout from the application
 
@@ -16,6 +18,8 @@ Feature: Meetings related smoke tests
     Then I can view the workflow page
     And I remove all existing selected criteria
     When I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "One Against"
+    And I select a random meeting
+    Then I can view the Meeting Details page
     Then the filtered results should display the data only for vote against Management
     And I should logout from the application
 
@@ -125,6 +129,6 @@ Feature: Meetings related smoke tests
     Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
-    When I select the first available meeting
+    When I select a random meeting
     Then I am able to iterate through rationales, add text entry, save and verify toast message for each entry
     And I should logout from the application

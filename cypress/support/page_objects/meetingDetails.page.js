@@ -90,6 +90,7 @@ class meetingDetailsPage {
     meetingNoteSubmitButton() { return cy.get("button[type='submit']") }
     policyRecLabel() { return cy.get('td.vote-card-policy-rec') }
     policyRecLink() { return cy.get('td.vote-card-policy-rec a') }
+    voteDecisionData() { return cy.get('td.vote-card-vote-dec') }
     votecardPolicyLink() { return cy.get('.votecard-policy-link') }
 
     //Comments
@@ -120,6 +121,7 @@ class meetingDetailsPage {
 
     //Others
     proceedButton() { return cy.get(this.proceedButtonLocator) }
+    cancelPopUpButton() { return cy.get('.btn.primary.gray') }
     takeNoActionBallots() { return cy.get(this.takeNoActionBallotsLocator) }
     confirmPopUp() { return cy.get('.confirm-popup') }
     confirmPopUpContent() { return cy.get('.confirm-content') }
@@ -130,6 +132,7 @@ class meetingDetailsPage {
     genericCheckbox() { return cy.get('input[type="checkbox"]') }
     managementDropdown() { return cy.get('#agendas-list > ul > li') }
     ballotSectionSpan() { return cy.get('#agendas-list > ul > li > ul > li > div > span') }
+    ballotSectionRows() { return cy.get('#md-ballots-grid-results > tr') }
     ballotSectionLinks() { return cy.get('#md-ballots-grid-results > tr > td > a') }
     ballotSectionThirdLink() { return cy.get('#agendas-list > ul > li > ul > li:nth-child(3) > a > span') }
     ballotSectionFourthLink() { return cy.get('#agendas-list > ul > li > ul > li:nth-child(4) > a > span') }

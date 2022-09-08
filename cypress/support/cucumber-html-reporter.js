@@ -1,7 +1,7 @@
 const reportGenerate = function () {
     let reporter = require('cucumber-html-reporter')
+    let configs = require('../../cypress.config.js')
     let endDateAndTime = new Date()
-    let testEnv = require('../../cypress.config.js').e2e.baseUrl
     let options = {
         name: 'Voting Portal Test Execution Report',
         brandTitle: 'Powered by Cypress',
@@ -13,8 +13,10 @@ const reportGenerate = function () {
         launchReport: false,
         ignoreBadJsonFile: true,
         metadata: {
-            "Environment": testEnv,
-            "Tests Executed At": endDateAndTime
+            "Tests Started At": configs.env.startTime,
+            "Environment": configs.e2e.baseUrl,
+            "Tests Completed At": endDateAndTime,
+            "Total Run Time": ((endDateAndTime - configs.env.startTime)/(1000*60)).toFixed(1) + ' minutes',
         }
     }
 

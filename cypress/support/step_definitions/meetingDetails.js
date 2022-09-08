@@ -9,6 +9,7 @@ Then('I can view the Meeting Details page', () => {
     cy.wait('@RELATED_MEETINGS')
     cy.wait('@VOTE_TALLY')
     cy.url().should('include', '/MeetingDetails/Index/')
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
 })
 
 Then('I can see the Vote, Take No Action and Instruct buttons', () => {
@@ -102,6 +103,19 @@ And('I verify that the Instruct button has changed to Re-Instruct button', () =>
     meetingDetailsPage.instructButton().should('contain.text', 'Re-Instruct')
 })
 
+And('I can verify that the quick vote button is visible and has a width of 125 pixels', () => {
+    meetingDetailsPage.quickVoteDropdown().should('be.visible')
+    meetingDetailsPage.quickVoteDropdown().invoke('outerWidth').should('eq', 125)
+})
+
+And('I can verify that the quick vote dropdown options display a list of valid options', () => {
+    meetingDetailsPage.quickVoteOptions().contains('For').should('exist')
+    meetingDetailsPage.quickVoteOptions().contains('Against/Withhold').should('exist')
+    meetingDetailsPage.quickVoteOptions().contains('MGMT Rec').should('exist')
+    meetingDetailsPage.quickVoteOptions().contains('GL Rec').should('exist')
+    meetingDetailsPage.quickVoteOptions().contains('Policy Rec').should('exist')
+})
+
 And('I quick vote {string} on the meeting', (voteType) => {
     meetingDetailsPage.quickVoteSelect().select(voteType, { force: true })
 })
@@ -178,6 +192,30 @@ And('I can verify that the {string} rec column displays with {string}', (column,
     })
 })
 
+Then('I can verify that the vote decision match the value from the {string} column', (column) => {
+    let recValue, voteValue
+    meetingDetailsPage.voteCardRow().then(($rows) => {
+        $rows.each((index, value) => {
+            if (column.includes('policy')) { recValue = Cypress.$(value).find('td.vote-card-policy-rec').text() }
+            else if (column.includes('gl')) { recValue = Cypress.$(value).find('td.vote-card-policy-rec').prev().text() }
+            else { recValue = Cypress.$(value).find('td.vote-card-policy-rec').prev().prev().text() }
+            //meetingDetailsPage.voteDecisionData().eq(index).find(':selected').should('contain.text', recValue)
+            voteValue = Cypress.$(value).find('td.vote-card-vote-dec').find(':selected').text()
+            expect(recValue.toUpperCase()).to.equal(voteValue.toUpperCase())
+        })
+    })
+})
+
+And('I should be able to verify that all ballots have decision status as {string}', (ballotValue) => {
+    let value
+    meetingDetailsPage.ballotSectionRows().then(($rows) => {
+        $rows.each((index, value) => {
+            value = Cypress.$(value).find('td.col-control-number').next().next().next().next().next().text()
+            expect(value).to.equal(ballotValue)
+        })
+    })
+})
+
 And('I can verify that the Quick Vote option and Vote Decision are read only', () => {
     meetingDetailsPage.quickVoteDropdown().should('have.attr', 'aria-disabled', 'true')
     meetingDetailsPage.voteCardRow().then(($rows) => {
@@ -233,6 +271,10 @@ When('I click on the OK button', () => {
 
 When('I click on the Cancel button', () => {
     meetingDetailsPage.popUpCancelButton().click()
+})
+
+When('I click on the Cancel button on the vote popup', () => {
+    meetingDetailsPage.cancelPopUpButton().click()
 })
 
 And('I click on the Vote button', () => {
@@ -917,10 +959,6 @@ Then('the filtered results should display the data only for vote against Glass L
     let GLvals = []
     let Selected = []
 
-    meetingDetailsPage.allTableRows().eq(0).within(() => {
-        meetingDetailsPage.meetingDetailsLink().click({ force: true })
-    })
-
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index, value) => {
             const rec = Cypress.$(value).find(`td:nth-child(4)`).text()
@@ -941,10 +979,6 @@ Then('the filtered results should display the data only for vote against Managem
     //arrays to store Management recommendations and vote decisons
     let Mgmtvals = []
     let Selected = []
-
-    meetingDetailsPage.allTableRows().eq(0).within(() => {
-        meetingDetailsPage.meetingDetailsLink().click({ force: true })
-    })
 
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index, value) => {
