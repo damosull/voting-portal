@@ -71,9 +71,10 @@ Feature: Display the Ballot Voting History
   Scenario: Verify user is able to process Vote, Take No Action and Review Required actions
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
+    And I set the filter to Upcoming Meetings
     Then I can view the workflow page
     And I remove all existing selected criteria
-    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
+    When I have added the criteria for "Decision Status" with status "Recommendations Pending"
     Then the filtered results should be displayed
     And I save the filter
     When I select a random meeting

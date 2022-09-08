@@ -10,7 +10,7 @@ Feature: Vote Card - Quick Vote
     And I remove all existing selected criteria
     When I have added the criteria for "Decision Status" with status "Recommendations Available"
     And I arrange the table in "descending" order for "control number"
-    And I select the first available meeting
+    And I select a random meeting
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
     And I can verify that the quick vote button is visible and has a width of 125 pixels

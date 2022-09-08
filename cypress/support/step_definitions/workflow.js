@@ -14,6 +14,13 @@ And('I navigate to the workflow page', () => {
     workflowPage.getLoadingSpinner().should('exist')
 })
 
+And('I set the filter to Upcoming Meetings', () => {
+    workflowPage.quickFiltersDiv().contains('Sustainalytics ESG').click()
+    workflowPage.getLoadingSpinner().should('exist')
+    workflowPage.waitForWorkflowPageLoad()
+    workflowPage.quickFiltersDiv().contains('Upcoming Meetings').click()
+})
+
 And('I remove all existing selected criteria', () => {
     cy.removeAllExistingSelectedCriteria()
     workflowPage.waitForWorkflowPageLoad()
@@ -443,7 +450,7 @@ When('I try to add the first four available Sustainalytics ESG columns', () => {
 
 Then('I should be able to see these {string} columns on the workflow table', (noOfColumns) => {
     //Waiting for page load
-    workflowPage.getLoadingSpinner().should('not.exist')
+    workflowPage.waitForWorkflowPageLoad()
     workflowPage.meetingsHorizontalScrollBar().should('be.visible')
     // Moves the horizontal sidebar to the far right
     for (let n = 0; n < 11; n++) {
@@ -593,7 +600,7 @@ And('I should be able to deselect the system watch list from the workflow page',
     cy.visit('/Workflow')
     cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
     cy.statusCode200('@WORKFLOW_SECURITIES_WATCHLIST')
-    workflowPage.getLoadingSpinner().should('not.exist')
+    workflowPage.waitForWorkflowPageLoad()
     //deselect system watch list
     workflowPage.columnsListButton().click()
     workflowPage.columnNameInput().type('System Watch List(s)')
