@@ -6,8 +6,7 @@ Feature: Display the Ballot Voting History
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
-    When I have added the criteria for "Decision Status" with status "Recommendations Available"
+    When I remove all existing selected criteria
     Then I should be able to verify the different column actions on the workflow page
     And I should logout from the application
 
@@ -71,13 +70,13 @@ Feature: Display the Ballot Voting History
   Scenario: Verify user is able to process Vote, Take No Action and Review Required actions
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
-    And I set the filter to Upcoming Meetings
     Then I can view the workflow page
     And I remove all existing selected criteria
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
     Then the filtered results should be displayed
     And I save the filter
     When I select a random meeting
+    Then I can view the Meeting Details page
     And I quick vote "For" on the meeting
     And I capture the value of Total Not Voted
     And I click on the Vote button

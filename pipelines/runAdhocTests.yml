@@ -2,13 +2,13 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: 'npx cypress run --reporter junit --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
+    default: 'npx cypress run --reporter junit --config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
 
 trigger: none
 
 schedules:
-  - cron: '0 12 * * 4'
-    displayName: 'Weekly Regression - Every Thu @ 12PM GMT'
+  - cron: '0 20 * * 4'
+    displayName: 'Weekly Regression - Every Thu @ 8PM GMT'
     always: true
     branches:
       include:

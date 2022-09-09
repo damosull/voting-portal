@@ -1,6 +1,5 @@
 version: '3'
 services:
-  # this container will run Cypress test using Chrome browser
   cypress:
     build: .
     ipc: host

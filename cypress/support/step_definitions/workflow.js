@@ -155,7 +155,7 @@ When('I select a random meeting', () => {
     })
 })
 
-And('I navigate to the {int}. meeting', (company_sequence) => {
+And('I navigate to the {int} meeting', (company_sequence) => {
     workflowPage.tableRows().eq(company_sequence - 1).within(() => {
         workflowPage.companyNameLink().click({ force: true })
     })
@@ -277,6 +277,7 @@ Then('I should be able to verify the different column actions on the workflow pa
 
     //Step 4 and step 5
     cy.checkColumnFieldApplyAndVerifyIsChecked(testCol)
+    workflowPage.waitForWorkflowPageLoad()
 
     // add test col to stack
     columns.push(testCol)
@@ -296,15 +297,19 @@ Then('I should be able to verify the different column actions on the workflow pa
 
     //uncheck the added column and remove from sorted array
     cy.uncheckColumnFieldApplyAndVerifyNotChecked(testCol)
+    workflowPage.waitForWorkflowPageLoad()
     columns.splice(5, 1)
 
     //Step 6 - Verify User unchecks Multiple fields (Eg : Decision Status, Ballot Status etc.) from the top of the list by selecting the checkboxes & Clicks 'Apply' button.
     //uncheck multiple checkboxes and remove from array as unchecked
     cy.uncheckColumnFieldApplyAndVerifyNotChecked(columns[2])
+    workflowPage.waitForWorkflowPageLoad()
     columns.splice(2, 1)
     cy.uncheckColumnFieldApplyAndVerifyNotChecked(columns[3])
+    workflowPage.waitForWorkflowPageLoad()
     columns.splice(3, 1)
     cy.uncheckColumnFieldApplyAndVerifyNotChecked(columns[4])
+    workflowPage.waitForWorkflowPageLoad()
     columns.splice(4, 1)
 
     //resort array after removing items
