@@ -1,9 +1,18 @@
-import { And, Then } from "cypress-cucumber-preprocessor/steps"
-import meetingDetailsPage from "../page_objects/meetingDetails.page"
+import { And } from "cypress-cucumber-preprocessor/steps"
 const constants = require ('../constants')
-const dayjs = require('dayjs')
-var utc = require('dayjs/plugin/utc')
-dayjs.extend(utc)
+
+And('I capture meeting ID by running the query with specific Proposal Type Code and Recommended By Code', () => {
+  let query = "SELECT TOP 1 a.meetingid from PX_ProposalRecommendations rec\
+  	join PX_AgendaItem ai on rec.AgendaItemID = ai.AgendaItemID	join PX_Agenda a on a.AgendaID = ai.AgendaID\
+    join PX_Ballot b on b.AgendaID = a.AgendaID and b.NoOfShares>0	join AM_Account ac on ac.AccountID = b.AccountID\
+    where RecommendedVoteCode like 'inv%' and ProposalTypeCode <> 'D' and RecommendedByCode = 'Management' and CustomerID = '196'\
+    order by meetingid desc"
+
+  cy.executeQuery(query).then((meetingId) => {
+    Cypress.env('meetingId', meetingId)
+    cy.log(Cypress.env('meetingId'))
+  })
+})
 
 And('I delete the created test watchlist from database', () => {
   cy.sqlServer(

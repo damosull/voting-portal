@@ -6,6 +6,7 @@ class meetingDetailsPage {
     warningPopUpLocator = '#vote-warnings-and-errors-modal'
     votedBallotsLocator = '[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb'
     takeNoActionBallotsLocator = '[data-bind="visible: override.tnaBallotsBoxVisible"] > .ccb'
+    ballotsSearchClearInputLocator = "ul[id='txt-responsive-search-md-controlNumberKeyFiltering_taglist'] span[class='k-icon k-delete']"
 
     //Header
     pageBody() { return cy.get('body') }
@@ -47,9 +48,12 @@ class meetingDetailsPage {
     exportButton() { return cy.get('#btn-export') }
 
     //Info Section
+    infoDiv() { return cy.get('#md-detail-summary') }
     totalVotedLink() { return cy.get('#launch-ballots-voted-modal') }
     totalNotVotedLink() { return cy.get('#launch-ballots-not-voted-modal') }
     voteTallyPopupDiv() { return cy.get('#vote-tally-grid-container') }
+    voteTallyBallotsVotedLink() { return cy.get('#vote-tally-grid-container').find('a').eq(6) }
+    voteTallyBallotsNotVotedLink() { return cy.get('#vote-tally-grid-container').find('a').eq(7) }
     voteTallyTableBallotsNotVotedValue() { return cy.get('table tbody tr td:nth-child(3)') }
     closeVoteTallyPopup() { return cy.get('#close-panel') }
     totalVotedLabel() { return cy.get("span[data-bind='text: VotedStatusCount']") }
@@ -67,7 +71,9 @@ class meetingDetailsPage {
     quickVoteDropdown() { return cy.get('#quick-vote-container > span') }
     quickVoteSelect() { return cy.get('#quickVoteSelect') }
     quickVoteOptions() { return cy.get('#quickVoteSelect > option') }
+    quickVoteDisabledOptions() { return cy.get('.quick-vote-option-disabled') }
     voteCardRow() { return cy.get('#md-votecard-grid-results > tr') }
+    filterUnvotedBallotsButton() { return cy.get('#filter-unvoted') }
     policyButton() { return cy.get("button[data-bind='click: Filters.policiesVm.openClick']") }
     selectAllPolicyCheckbox() { return cy.get("#vc-filter-selectall-policy").should('not.be.visible') }
     individualPolicyCheckbox() { return cy.get("ul#meeting-detail-policy > li > div > input[type='checkbox']").should('not.be.visible') }
@@ -79,6 +85,10 @@ class meetingDetailsPage {
     swimAccountCheckbox() { return cy.get('input[value="SWIM"]').should('not.be.visible') }
     updateAccountButton() { return cy.get('#btn-update-account') }
     cancelAccountButton() { return cy.get('#btn-cancel-account') }
+    ballotsButton() { return cy.get("li[data-bind='visible: Filters.cknFilter.visible']") }
+    ballotsSearchInput() { return cy.get('#txt-responsive-search-md-controlNumberKeyFiltering_taglist').next() }
+    ballotsSearchClearInput() { return cy.get(this.ballotsSearchClearInputLocator) }
+    ballotsSearchUpdateButton() { return cy.get('#btn-update-md-controlNumberKeyFiltering') }
     accountGroupButton() { return cy.get('#btn-account-group') }
     accountGroupDiv() { return cy.get('#add-account-group-target') }
     selectAllAccountGroupCheckbox() { return cy.get('#multiselect-static-all-accountGroup').should('not.be.visible') }

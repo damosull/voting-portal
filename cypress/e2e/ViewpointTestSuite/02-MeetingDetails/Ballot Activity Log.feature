@@ -17,7 +17,7 @@ Feature: Display the Ballot Voting History
     Given I am logged in as the "RUSSELL" User
     When I navigate to the meeting details page for the meeting "RLNCDRP"
     Then I can view the Meeting Details page
-    When I click on the Change Vote or Rationale button
+    When I click on the Change Vote or Rationale button if it exists
     Then I should be able to verify the pagination works as expected on the ballot section page
     And I should logout from the application
 

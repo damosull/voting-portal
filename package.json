@@ -7,13 +7,13 @@
   "scripts": {
     "open": "cypress open --e2e --browser electron",
     "test": "cypress run",
-    "test:parallel": "cypress-parallel -m false -t 8 -s test -d 'cypress/e2e'",
+    "test:parallel": "cypress-parallel -m false -t 5 -s test -d 'cypress/e2e'",
     "smoke": "cypress run --config specPattern=cypress/e2e/SmokeTests/*.feature",
     "smoke:parallel": "cypress-parallel -m false -t 3 -s smoke -d 'cypress/e2e'",
     "regression": "cypress run --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature",
-    "regression:parallel": "cypress-parallel -m false -t 3 -s regression -d 'cypress/e2e'",
+    "regression:parallel": "cypress-parallel -m false -t 2 -s regression -d 'cypress/e2e'",
     "autobacklog": "cypress run --config specPattern=cypress/e2e/AutomationBacklog/*.feature",
-    "autobacklog:parallel": "cypress-parallel -m false -t 3 -s autobacklog -d 'cypress/e2e'",
+    "autobacklog:parallel": "cypress-parallel -m false -t 2 -s autobacklog -d 'cypress/e2e'",
     "loadtest": "docker compose up --scale cypress=2",
     "lint": "eslint cypress"
   },

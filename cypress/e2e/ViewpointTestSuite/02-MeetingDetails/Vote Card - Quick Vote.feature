@@ -77,6 +77,26 @@ Feature: Vote Card - Quick Vote
     And I should logout from the application
 
 
+  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28465
+  @28465
+  Scenario: Verify that if a user select Quick Vote where Research Paper is published, ALL Mgmt Recs = Undetermined & user votes on the vote card
+    Given I am logged in as the "CALPERS" User
+    And I capture meeting ID by running the query with specific Proposal Type Code and Recommended By Code
+    When I navigate to the meeting details page for the captured meeting ID
+    Then I can view the Meeting Details page
+    And I can verify that the "mgmt" rec column displays with "Undetermined"
+    And I can verify that the quick vote button is visible and has a width of 125 pixels
+    And I can verify that the quick vote dropdown options display a list of valid options
+    When I click on the Change Vote or Rationale button if it exists
+    Then I can see the Vote, Take No Action and Instruct buttons
+    And I verify that the quick vote option for "MGMT Rec" is read only
+    When I quick vote "For" on the meeting
+    And I click on the Vote button
+    And I handle the override pop-up if it exists
+    Then I can see a Vote success message
+    And I should logout from the application
+
+
   #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28466
   @28466
   Scenario: Verify that if a user select Quick Vote "Against/Withold" & vote on the vote card

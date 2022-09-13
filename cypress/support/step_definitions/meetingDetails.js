@@ -31,6 +31,16 @@ When('I navigate to the meeting details page for the meeting {string}', (meeting
     cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID])
 })
 
+When('I navigate to the meeting details page for the captured meeting ID', () => {
+    cy.log(Cypress.env('meetingId'))
+    cy.AddTenDaysToMeetingDates(Cypress.env('meetingId'))
+    cy.visit('MeetingDetails/Index/' + Cypress.env('meetingId'))
+})
+
+When('I navigate to the Meeting Details page for the saved meeting ID', () => {
+    cy.visit(meetingId)
+})
+
 When('I reduce 10 days from meeting date and navigate to the meeting details page for the meeting {string}', (meetingID) => {
     cy.SetMeetingDateXdaysFromCurrent(constants.MEETINGID[meetingID], -10)
     cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID])
@@ -43,6 +53,7 @@ When('I click on the Change Vote or Rationale button', () => {
 
 When('I click on the Change Vote or Rationale button if it exists', () => {
     cy.clickIfExist(meetingDetailsPage.unlockButtonLocator)
+    cy.verifyMeetingOptionButtons()
 })
 
 Then('I should be {string} to see the {string} on the UI', (isVisible, element) => {
@@ -116,6 +127,10 @@ And('I can verify that the quick vote dropdown options display a list of valid o
     meetingDetailsPage.quickVoteOptions().contains('Policy Rec').should('exist')
 })
 
+And('I verify that the quick vote option for {string} is read only', (voteType) => {
+    meetingDetailsPage.quickVoteDisabledOptions().should('contain.text', voteType)
+})
+
 And('I quick vote {string} on the meeting', (voteType) => {
     meetingDetailsPage.quickVoteSelect().select(voteType, { force: true })
 })
@@ -131,6 +146,20 @@ And('I capture the value of Total Not Voted', () => {
     meetingDetailsPage.totalNotVotedLink().invoke('text').then((text) => {
         cy.wrap(text).as('totalNotVoted')
     })
+})
+
+And('I can verify that the Info section displays all read only fields', () => {
+    meetingDetailsPage.infoDiv().contains('Ticker').should('be.visible').click({scrollBehavior: false})
+    meetingDetailsPage.infoDiv().contains('ISIN').should('be.visible').click({scrollBehavior: false})
+    meetingDetailsPage.infoDiv().contains('Inc').should('be.visible').click({scrollBehavior: false})
+    meetingDetailsPage.infoDiv().contains('Blocking').should('be.visible').click({scrollBehavior: false})
+    meetingDetailsPage.infoDiv().contains('Deadline').should('be.visible').click({scrollBehavior: false})
+    meetingDetailsPage.infoDiv().contains('Meeting Date').should('be.visible').click({scrollBehavior: false})
+    meetingDetailsPage.infoDiv().contains('Record Date').should('be.visible').click({scrollBehavior: false})
+    meetingDetailsPage.infoDiv().contains('RFS').should('be.visible').click({scrollBehavior: false})
+    meetingDetailsPage.infoDiv().contains('Vote Tally').should('be.visible').click({scrollBehavior: false})
+    meetingDetailsPage.infoDiv().contains('Total Voted').should('be.visible').click({scrollBehavior: false})
+    meetingDetailsPage.infoDiv().contains('Total Not Voted').should('be.visible').click({scrollBehavior: false})
 })
 
 And('I replace my FOR votes with AGAINST and vice-versa', () => {
@@ -207,7 +236,6 @@ Then('I can verify that the vote decision match the value from the {string} colu
 })
 
 And('I should be able to verify that all ballots have decision status as {string}', (ballotValue) => {
-    let value
     meetingDetailsPage.ballotSectionRows().then(($rows) => {
         $rows.each((index, value) => {
             value = Cypress.$(value).find('td.col-control-number').next().next().next().next().next().text()
@@ -788,6 +816,45 @@ And('I can verify that the vote card summary remains unchanged when user changes
     })
 })
 
+And('I can use the Filter on unvoted ballots functionality', () => {
+    meetingDetailsPage.filterUnvotedBallotsButton().click()
+    cy.verifyMeetingOptionButtons()
+    meetingDetailsPage.filterUnvotedBallotsButton().should('not.be.visible')
+})
+
+When('I click on the Ballots Voted Link', () => {
+    meetingDetailsPage.voteTallyBallotsVotedLink().click()
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
+})
+
+When('I click on the Ballots Not Voted Link', () => {
+    meetingDetailsPage.voteTallyBallotsNotVotedLink().click()
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
+})
+
+When('I click on the Ballots filter', () => {
+    meetingDetailsPage.ballotsButton().click()
+})
+
+And('I select control number {int} from the top', (rowNo) => {
+    cy.clickIfExist(meetingDetailsPage.ballotsSearchClearInputLocator)
+    meetingDetailsPage.ballotsSearchInput().click({force: true, scrollBehavior: false})
+    for (let i = 2; i <= rowNo; i++) {
+        meetingDetailsPage.ballotsSearchInput().type('{downarrow}')
+    }
+    meetingDetailsPage.ballotsSearchInput().type('{enter}')
+})
+
+And('I click on the update button for Ballots filter', () => {
+    meetingDetailsPage.ballotsSearchUpdateButton().click()
+})
+
+Then('I should be able to see the results for the Ballots filter', () => {
+    meetingDetailsPage.policyButton().should('contain.text', '(1)')
+    meetingDetailsPage.accountButton().should('contain.text', '(1)')
+    meetingDetailsPage.ballotsButton().should('contain.text', '(1)')
+})
+
 Then('I verify that all the relevant API calls for meeting details page are made', () => {
     //35 API Calls
     cy.statusCode200('@CURRENT_USER')
@@ -1251,10 +1318,6 @@ And('I clear the list of watchlists', () => {
 Then('I can verify that {string} is displayed in the {string} field in the ballot section', (value) => {
     meetingDetailsPage.ballotSectionResultsDiv().scrollIntoView().scrollTo('right')
     meetingDetailsPage.containsText(value).should('be.visible')
-})
-
-When('I navigate to the Meeting Details page for the saved meeting ID', () => {
-    cy.visit(meetingId)
 })
 
 And('I remove all existing comments', () => {
