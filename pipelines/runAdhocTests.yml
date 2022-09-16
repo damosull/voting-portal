@@ -42,6 +42,14 @@ jobs:
     continueOnError: true
     condition: succeededOrFailed()
 
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish Failure Screenshots'
+    inputs:
+      targetPath: 'test-results/screenshots'
+      artifact: Screenshots
+    continueOnError: true
+    condition: failed()
+
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
     inputs:

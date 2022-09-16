@@ -16,6 +16,7 @@ Feature: Dashboard related smoke tests
         Then I verify Toast message - Subscription added
         And I connect to Aqua Database and verify new row has been added to SB_Subscription table
         And I remove Subscription entry from Viewpoint
+        And I should logout from the application
 
     Scenario: Validate Dashboard
         When I navigate to the dashboard page
@@ -30,3 +31,4 @@ Feature: Dashboard related smoke tests
         And I select certain values
         And I check returned table headers
         And I remove widget
+        And I should logout from the application

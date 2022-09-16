@@ -19,13 +19,14 @@
   },
   "devDependencies": {
     "cucumber-html-reporter": "5.5.0",
-    "cypress": "10.7.0",
+    "cypress": "10.8.0",
     "cypress-cucumber-preprocessor": "4.3.1",
     "cypress-parallel": "0.9.1",
     "cypress-sql-server": "1.0.0",
-    "eslint": "8.23.0",
+    "eslint": "8.23.1",
     "eslint-plugin-cypress": "2.12.1",
-    "node-xlsx": "0.21.0"
+    "node-xlsx": "0.21.0",
+    "playwright-webkit": "1.25.2"
   },
   "cypress-cucumber-preprocessor": {
     "commonPath": "cypress/support/step_definitions",

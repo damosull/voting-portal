@@ -12,6 +12,7 @@ module.exports = defineConfig({
   pageLoadTimeout: 90000,
   numTestsKeptInMemory: 1,
   chromeWebSecurity: false,
+  experimentalWebKitSupport: true,
   screenshotsFolder: 'test-results/screenshots',
   videosFolder: 'test-results/videos',
   viewportWidth: 1920,
@@ -19,6 +20,7 @@ module.exports = defineConfig({
   watchForFileChanges: false,
   screenshotOnRunFailure: true,
   video: false,
+  videoCompression: 8,
   reporter: 'spec',
   reporterOptions: {
     mochaFile: 'test-results/tests-output/result-[hash].xml',

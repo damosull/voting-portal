@@ -36,6 +36,7 @@ class workflowPage {
     allTableRows() { return cy.get('table > tbody >tr') }
     policyIdColumnHeader() { return cy.get("th[data-field='PolicyTag'] a[class='k-link']") }
     controlNumberColumnHeader() { return cy.get("th[data-field='BallotControlNumber'] a[class='k-link']") }
+    votedSharesData() { return cy.get("#metaname-VotedShares") }
 
     // Watchlist section
     watchListDropDownButton() { return cy.get('#btn-watchlists') }

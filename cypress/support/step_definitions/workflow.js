@@ -64,7 +64,7 @@ And('I arrange the table in {string} order for {string}', (order,column_name) =>
 
 Then('I should be able to see and navigate to the company name saved previously', () => {
     workflowPage.tableRows().within(() => {
-        workflowPage.containsText(Cypress.env('meetingId')).should('be.visible').click()
+        workflowPage.containsText(Cypress.env('companyName')).should('be.visible').click()
     })
 })
 
@@ -79,7 +79,7 @@ And('I have added the criteria for {string} {string}', (criteria, value) => {
     workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA')
     cy.get('@FILTER_CRITERIA').should('be.visible').within(() => {
         if (value.includes('from')) {
-            workflowPage.filterSearchInput().type(Cypress.env('meetingId'))
+            workflowPage.filterSearchInput().type(Cypress.env('companyName'))
         } else {
             workflowPage.filterSearchInput().type(value)
         }
@@ -612,4 +612,8 @@ And('I should be able to deselect the system watch list from the workflow page',
     workflowPage.columnLabelValue('System Watch List(s)').uncheck({ force: true })
     workflowPage.columnNameInput().clear()
     workflowPage.columnApplyButton().click()
+})
+
+Then('I can verify that the voted shares value matches the saved value', () => {
+    workflowPage.votedSharesData().should('contain.text',Cypress.env('partialVoteNominalAmount'))
 })

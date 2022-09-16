@@ -32,7 +32,6 @@ When('I navigate to the meeting details page for the meeting {string}', (meeting
 })
 
 When('I navigate to the meeting details page for the captured meeting ID', () => {
-    cy.log(Cypress.env('meetingId'))
     cy.AddTenDaysToMeetingDates(Cypress.env('meetingId'))
     cy.visit('MeetingDetails/Index/' + Cypress.env('meetingId'))
 })
@@ -320,8 +319,8 @@ And('I click the Company link', () => {
 
 And('I save the company name', () => {
     meetingDetailsPage.companyNameLink().should(($div) => {
-        meetingId = $div.text()
-        Cypress.env('meetingId', meetingId)
+        let companyName = $div.text()
+        Cypress.env('companyName', companyName)
     })
 })
 
@@ -378,6 +377,7 @@ When('I click on the Glass Lewis logo on the top left', () => {
 
 When('I click on the home button', () => {
     meetingDetailsPage.homeButton().click()
+    workflowPage.getLoadingSpinner().should('exist')
 })
 
 And('I click on the share meeting option', () => {
@@ -1458,6 +1458,131 @@ Then('I should be able to view the default placeholder, shared with dropdown and
 When('I add a comment with {int} characters', (noOfCharacters) => {
     cy.randomString(noOfCharacters).then((data) => {
         meetingDetailsPage.commentTextArea().clear().type(data)
+    })
+})
+
+And('I can see the Set Partial Vote button', () => {
+    meetingDetailsPage.setPartialVoteButton().should('be.visible')
+    meetingDetailsPage.setPartialVoteButton().should('have.css', 'background-color', 'rgb(31, 151, 209)')
+})
+
+When('I can click on the Set Partial Vote button', () => {
+    meetingDetailsPage.setPartialVoteButton().click()
+})
+
+Then('I can see the Partial Vote modal', () => {
+    meetingDetailsPage.partialVoteModalDiv().should('be.visible')
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
+    meetingDetailsPage.applyPercentToAllButton().should('be.visible')
+})
+
+And('I can verify that the Apply percent buttons are enabled in the Partial Vote modal', () => {
+    meetingDetailsPage.applyPercentToAllButton().should('be.enabled')
+    meetingDetailsPage.applyPercentToUnappliedButton().should('be.enabled')
+})
+
+And('I can verify that the radio buttons are displayed for NOMINAL & PERCENT fields', () => {
+    meetingDetailsPage.nominalRadio().should('be.visible')
+    meetingDetailsPage.percentRadio().should('be.visible')
+    meetingDetailsPage.percentRadio().should('be.checked')
+})
+
+And('I can increase and decrease % by selecting the up and down arrows', () => {
+    meetingDetailsPage.increaseValuePercentButton().click()
+    meetingDetailsPage.partialVotePercentInput().invoke('attr', 'aria-valuenow').should('eq', '1')
+    meetingDetailsPage.decreaseValuePercentButton().click()
+    meetingDetailsPage.partialVotePercentInput().invoke('attr', 'aria-valuenow').should('eq', '0')
+})
+
+When('I set the partial vote for the first row to {int} percent', (value) => {
+    meetingDetailsPage.partialVotePercentInput().clear().type(value)
+    meetingDetailsPage.partialVoteNominalInput().click({force: true})
+    meetingDetailsPage.partialVoteNominalInput().invoke('attr', 'aria-valuenow').then((value) => {
+        Cypress.env('partialVoteNominalAmount',value)
+    })
+})
+
+And('I set the partial vote for the first row to {int} shares', (value) => {
+    meetingDetailsPage.increaseValueNominalButton().click()
+    meetingDetailsPage.partialVoteNominalInput().clear().type(value)
+    meetingDetailsPage.partialVotePercentInput().click({force: true})
+    meetingDetailsPage.partialVoteNominalInput().invoke('attr', 'aria-valuenow').then((value) => {
+        Cypress.env('partialVoteNominalAmount',value)
+    })
+})
+
+And('I save the partial vote changes', () => {
+    meetingDetailsPage.savePartialVoteButton().click()
+})
+
+And('I close the partial vote modal', () => {
+    meetingDetailsPage.cancelPartialVoteButton().click()
+})
+
+And('I can see the Partial Vote Applied button', () => {
+    meetingDetailsPage.setPartialVoteButton().should('be.visible')
+    meetingDetailsPage.setPartialVoteButton().should('have.css', 'background-color', 'rgb(128, 0, 0)')
+})
+
+And('I can see the Clear Partial Vote link', () => {
+    meetingDetailsPage.clearPartialVoteButton().should('be.visible')
+    meetingDetailsPage.setPartialVoteButton().next().should('contain.text','Clear partial vote')
+})
+
+When('I select the nominal radio button', () => {
+    meetingDetailsPage.nominalRadio().check().should('be.checked')
+})
+
+When('I apply a {int} percent filter to {string} accounts', (value, typeOfFilter) => {
+    meetingDetailsPage.applyPercentInput().clear().type(value)
+    typeOfFilter.includes('unapplied') ?
+     meetingDetailsPage.applyPercentToUnappliedButton().click() : meetingDetailsPage.applyPercentToAllButton().click()
+})
+
+Then('I should be able to verify the Take No Action functionality for a partially voted meeting', () => {
+    meetingDetailsPage.takeNoActionButton().click()
+    meetingDetailsPage.containsText('You currently have partial share amounts selected, however').should('be.visible')
+    meetingDetailsPage.popUpCancelButton().click()
+    meetingDetailsPage.takeNoActionButton().click()
+    meetingDetailsPage.popUpOkButton().click()
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
+    meetingDetailsPage.pageBody().then((body) => {
+        //Verify element exists
+        if (body.find(meetingDetailsPage.warningPopUpLocator).is(':visible')) {
+            meetingDetailsPage.warningPopUp().within(() => {
+                meetingDetailsPage.genericCheckbox().should('not.be.visible').check({ force: true })
+            })
+            meetingDetailsPage.proceedButton().click()
+        }
+    })
+    meetingDetailsPage.voteSuccessMessage().should('be.visible')
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
+})
+
+And('I can verify that I cannot enter alphanumeric values in percentage and nominal textboxes', () => {
+    let alpNumStr = 'a1b0c', numStr = '10'
+    meetingDetailsPage.increaseValuePercentButton().click()
+    meetingDetailsPage.partialVotePercentInput().clear().type(alpNumStr)
+    meetingDetailsPage.partialVoteNominalInput().click({force: true})
+    meetingDetailsPage.partialVotePercentInput().invoke('attr', 'aria-valuenow').should('eq', numStr)
+    meetingDetailsPage.nominalRadio().check()
+    meetingDetailsPage.increaseValueNominalButton().click()
+    meetingDetailsPage.partialVoteNominalInput().clear().type(alpNumStr)
+    meetingDetailsPage.partialVotePercentInput().click({force: true})
+    meetingDetailsPage.partialVoteNominalInput().invoke('attr', 'aria-valuenow').should('eq', numStr)
+})
+
+And('I enter a value greater than number of shares', () => {
+    meetingDetailsPage.noOfSharesLabel().then((noOfShares) => {
+        meetingDetailsPage.increaseValueNominalButton().click()
+        meetingDetailsPage.partialVoteNominalInput().clear().type(noOfShares.text() + 1)
+        meetingDetailsPage.partialVotePercentInput().click({force: true})
+    })
+})
+
+And('the partial vote amount is automatically corrected to total number of shares', () => {
+    meetingDetailsPage.noOfSharesLabel().then((noOfShares) => {
+        meetingDetailsPage.partialVoteNominalInput().invoke('attr', 'aria-valuenow').should('eq', noOfShares.text())
     })
 })
 

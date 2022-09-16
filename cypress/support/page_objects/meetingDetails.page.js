@@ -8,6 +8,7 @@ class meetingDetailsPage {
     takeNoActionBallotsLocator = '[data-bind="visible: override.tnaBallotsBoxVisible"] > .ccb'
     ballotsSearchClearInputLocator = "ul[id='txt-responsive-search-md-controlNumberKeyFiltering_taglist'] span[class='k-icon k-delete']"
 
+
     //Header
     pageBody() { return cy.get('body') }
     getLoadingSpinner() { return cy.get('.k-loading-text') }
@@ -18,6 +19,7 @@ class meetingDetailsPage {
     toastMessage() { return cy.get('.toast-message') }
     toastMessageDiv() { return cy.get('#toast-container') }
     floatingContainer() { return cy.get('.floating-container.clearfix.float-on') }
+
 
     //Company name & buttons on top of the page
     companyNameLink() { return cy.get('#company-navigate') }
@@ -47,6 +49,7 @@ class meetingDetailsPage {
     pdfRadio() { return cy.get('#pdf') }
     exportButton() { return cy.get('#btn-export') }
 
+
     //Info Section
     infoDiv() { return cy.get('#md-detail-summary') }
     totalVotedLink() { return cy.get('#launch-ballots-voted-modal') }
@@ -66,6 +69,7 @@ class meetingDetailsPage {
     infoOnlyStatusCountLabel() { return cy.get("li[data-bind='visible: InfoOnlyStatusCount']") }
     votedStatusCountLabel() { return cy.get("li[data-bind='visible: VotedStatusCount']") }
     reviewRequiredStatusCountLabel() { return cy.get("li[data-bind='visible: ReviewRequiredStatusCount']") }
+
 
     //Vote Card Section
     quickVoteDropdown() { return cy.get('#quick-vote-container > span') }
@@ -89,6 +93,8 @@ class meetingDetailsPage {
     ballotsSearchInput() { return cy.get('#txt-responsive-search-md-controlNumberKeyFiltering_taglist').next() }
     ballotsSearchClearInput() { return cy.get(this.ballotsSearchClearInputLocator) }
     ballotsSearchUpdateButton() { return cy.get('#btn-update-md-controlNumberKeyFiltering') }
+    setPartialVoteButton() { return cy.get('#btn-partial-vote-settings') }
+    clearPartialVoteButton() { return cy.get('#btn-clear-partial-vote') }
     accountGroupButton() { return cy.get('#btn-account-group') }
     accountGroupDiv() { return cy.get('#add-account-group-target') }
     selectAllAccountGroupCheckbox() { return cy.get('#multiselect-static-all-accountGroup').should('not.be.visible') }
@@ -102,6 +108,7 @@ class meetingDetailsPage {
     policyRecLink() { return cy.get('td.vote-card-policy-rec a') }
     voteDecisionData() { return cy.get('td.vote-card-vote-dec') }
     votecardPolicyLink() { return cy.get('.votecard-policy-link') }
+
 
     //Comments
     commentsDiv() { return cy.get('#meeting-details-comments') }
@@ -158,6 +165,7 @@ class meetingDetailsPage {
     customPolicyRationaleModalItem() { return cy.get("span[data-bind='text: CRP.Item']") }
     customPolicyRationaleModalProposal() { return cy.get("span[data-bind='text: CRP.Proposal']") }
 
+
     //Ballots section
     ballotSectionDiv() { return cy.get('div #ballots-section') }
     controlNumberLink() { return cy.get('#ballots-grid div:nth-child(2) td:nth-child(1)') }
@@ -181,6 +189,25 @@ class meetingDetailsPage {
     ballotGridControlNumberLink() { return cy.get('.ballots-grid-control-number-link') }
     ballotSectionCompanyNameInput() { return cy.get('.company-name-search > input') }
     ballotSectionResultsDiv() { return cy.get("div[id='ballots-grid'] div[class='k-grid-content']") }
+
+
+    //Partial Vote Modal
+    partialVoteModalDiv() { return cy.get("div[id^='partial-vote-kendo-modal']") }
+    nominalRadio() { return cy.get("#partial-vote-nominal-type") }
+    percentRadio() { return cy.get("#partial-vote-percent-type") }
+    applyPercentInput() { return cy.get(".partial-vote-group-percent-input") }
+    applyPercentToAllButton() { return cy.get("#partial-vote-save-btn").contains('to all') }
+    applyPercentToUnappliedButton() { return cy.get("#partial-vote-save-btn").contains('to all').next() }
+    noOfSharesLabel() { return cy.get("#partial-vote-grid > div > table > tbody > tr > td:nth-child(4)").eq(0) }
+    partialVoteAmountInput() { return cy.get("input[placeholder='Enter a valid percent of shares']").eq(0) }
+    partialVotePercentInput() { return cy.get("input[id^='partial-vote-grid-input-percent-']").eq(0) }
+    partialVoteNominalInput() { return cy.get("input[id^='partial-vote-grid-input-nominal-']").eq(0) }
+    increaseValueNominalButton() { return cy.get("span[title='Increase value']").eq(0) }
+    decreaseValueNominalButton() { return cy.get("span[title='Decrease value']").eq(0) }
+    increaseValuePercentButton() { return cy.get("span[title='Increase value']").eq(1) }
+    decreaseValuePercentButton() { return cy.get("span[title='Decrease value']").eq(1) }
+    savePartialVoteButton() { return cy.get(':nth-child(4) > #partial-vote-save-btn') }
+    cancelPartialVoteButton() { return cy.get(':nth-child(4) > #btn-partial-vote-cancel') }
 }
 
 module.exports = new meetingDetailsPage();

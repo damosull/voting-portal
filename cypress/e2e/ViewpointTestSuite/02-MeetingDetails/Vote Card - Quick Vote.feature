@@ -81,7 +81,7 @@ Feature: Vote Card - Quick Vote
   @28465
   Scenario: Verify that if a user select Quick Vote where Research Paper is published, ALL Mgmt Recs = Undetermined & user votes on the vote card
     Given I am logged in as the "CALPERS" User
-    And I capture meeting ID by running the query with specific Proposal Type Code and Recommended By Code
+    And I capture meeting ID by running the query "with specific Proposal Type Code and Recommended By Code"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
     And I can verify that the "mgmt" rec column displays with "Undetermined"

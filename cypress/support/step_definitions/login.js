@@ -15,7 +15,7 @@ Given('I am logged in as the {string} User', (username) => {
 
 Given('I am logged in as a random external user', () => {
     sessionStorage.clear()
-    let randomUserId = Math.floor(Math.random() * Object.keys(constants.USER).length)
+    let randomUserId = Math.floor(Math.random() * (Object.keys(constants.USER).length - 3) + 3)
     if (randomUserId === 0 || randomUserId === 1) { randomUserId = 2 }
     cy.log('Random Number Is: ' + randomUserId)
     const username = Object.values(constants.USER)[randomUserId]
