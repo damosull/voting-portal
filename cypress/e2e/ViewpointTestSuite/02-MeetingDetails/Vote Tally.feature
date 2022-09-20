@@ -15,29 +15,29 @@ Feature: Vote Tally Folder Tests
     And I save the meeting url
     And I click on the Change Vote or Rationale button if it exists
     And I verify the vote tally section displays counts of total voted and total not voted items
-    And I should be "able" to see the "Recommendations Pending under Vote Tally" on the UI
+    And I should be "able" to see "Recommendations Pending under Vote Tally" on the UI
     When I filter for "first" account
     And I replace my FOR votes with AGAINST and vice-versa
     And I click on the Vote button
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
-    And I should be "able" to see the "Voted under Vote Tally" on the UI
-    And I should be "able" to see the "Recommendations Pending under Vote Tally" on the UI
+    And I should be "able" to see "Voted under Vote Tally" on the UI
+    And I should be "able" to see "Recommendations Pending under Vote Tally" on the UI
     When I filter for "second" account
     And I click on the Change Vote or Rationale button if it exists
     And I replace my FOR votes with AGAINST and vice-versa
     Then I should be able to use the Take No Action functionality on the meeting
-    And I should be "able" to see the "Voted under Vote Tally" on the UI
-    And I should be "able" to see the "Take No Action under Vote Tally" on the UI
-    And I should be "able" to see the "Recommendations Pending under Vote Tally" on the UI
+    And I should be "able" to see "Voted under Vote Tally" on the UI
+    And I should be "able" to see "Take No Action under Vote Tally" on the UI
+    And I should be "able" to see "Recommendations Pending under Vote Tally" on the UI
     When I filter for "all but top two" account
     And I click on the Change Vote or Rationale button if it exists
     And I replace my FOR votes with AGAINST and vice-versa
     Then I should be able to use the Instruct functionality on the meeting
-    And I should be "able" to see the "Voted under Vote Tally" on the UI
-    And I should be "able" to see the "Take No Action under Vote Tally" on the UI
-    And I should be "able" to see the "Review Required under Vote Tally" on the UI
-    And I should be "unable" to see the "Recommendations Pending under Vote Tally" on the UI
+    And I should be "able" to see "Voted under Vote Tally" on the UI
+    And I should be "able" to see "Take No Action under Vote Tally" on the UI
+    And I should be "able" to see "Review Required under Vote Tally" on the UI
+    And I should be "unable" to see "Recommendations Pending under Vote Tally" on the UI
     And I verify the vote tally modal is displayed when user clicks on the total voted hyperlink
     And I verify that the vote tally modal contains all the expected headers
     And I verify that the vote tally modal displays a value for each table column
@@ -57,13 +57,13 @@ Feature: Vote Tally Folder Tests
     And I select a random meeting
     Then I can view the Meeting Details page
     And I verify the vote tally section displays counts of total voted and total not voted items
-    And I should be "able" to see the "Recommendations Pending under Vote Tally" on the UI
+    And I should be "able" to see "Recommendations Pending under Vote Tally" on the UI
     When I replace my FOR votes with AGAINST and vice-versa
     And I click on the Vote button
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
     And I verify that the total voted number has changed to the previous total not voted number
-    And I should be "unable" to see the "Recommendations Pending under Vote Tally" on the UI
+    And I should be "unable" to see "Recommendations Pending under Vote Tally" on the UI
     And I verify the vote tally modal is displayed when user clicks on the total voted hyperlink
     And I verify that the vote tally modal contains all the expected headers
     And I verify that the vote tally with count of 0 is not hyperlinked
@@ -84,12 +84,12 @@ Feature: Vote Tally Folder Tests
     And I select the first available meeting
     Then I can view the Meeting Details page
     And I verify the vote tally section displays counts of total voted and total not voted items
-    And I should be "able" to see the "Recommendations Available under Vote Tally" on the UI
+    And I should be "able" to see "Recommendations Available under Vote Tally" on the UI
     When I filter for "first" account
     And I replace my FOR votes with AGAINST and vice-versa
     Then I should be able to use the Instruct functionality on the meeting
-    And I should be "able" to see the "Recommendations Available under Vote Tally" on the UI
-    And I should be "able" to see the "Review Required under Vote Tally" on the UI
+    And I should be "able" to see "Recommendations Available under Vote Tally" on the UI
+    And I should be "able" to see "Review Required under Vote Tally" on the UI
     And I verify that the Instruct button has changed to Re-Instruct button
     And I verify the vote tally modal is displayed when user clicks on the total voted hyperlink
     And I verify that the vote tally modal contains all the expected headers
@@ -110,13 +110,13 @@ Feature: Vote Tally Folder Tests
     And I select a random meeting
     Then I can view the Meeting Details page
     And I verify the vote tally section displays counts of total voted and total not voted items
-    And I should be "able" to see the "Manual Vote Required under Vote Tally" on the UI
+    And I should be "able" to see "Manual Vote Required under Vote Tally" on the UI
     And I can verify that the Account filter has the value "SWIM"
     When I replace my FOR votes with AGAINST and vice-versa
     Then I should be able to use the Take No Action functionality on the meeting
-    And I should be "able" to see the "Manual Vote Required under Vote Tally" on the UI
-    And I should be "able" to see the "Take No Action under Vote Tally" on the UI
-    And I should be "able" to see the "Change Vote or Rationale" on the UI
+    And I should be "able" to see "Manual Vote Required under Vote Tally" on the UI
+    And I should be "able" to see "Take No Action under Vote Tally" on the UI
+    And I should be "able" to see "Change Vote or Rationale" on the UI
     And I verify the vote tally modal is displayed when user clicks on the total voted hyperlink
     And I verify that the vote tally modal contains all the expected headers
     And I verify that the vote tally modal displays a value for each table column
@@ -131,9 +131,9 @@ Feature: Vote Tally Folder Tests
     When I navigate to the meeting details page for the meeting "CAIO"
     Then I can view the Meeting Details page
     And I verify the vote tally section displays counts of total voted and total not voted items
-    And I should be "able" to see the "Info Only under Vote Tally" on the UI
+    And I should be "able" to see "Info Only under Vote Tally" on the UI
     And I can verify that the Quick Vote option is disabled and Vote Decision options are unavailable
-    And I should be "unable" to see the "Vote Button" on the UI
+    And I should be "unable" to see "Vote Button" on the UI
     And I verify the vote tally modal is displayed when user clicks on the total voted hyperlink
     And I verify that the vote tally modal contains all the expected headers
     And I verify that the vote tally modal displays a value for each table column
@@ -147,9 +147,9 @@ Feature: Vote Tally Folder Tests
     Given I am logged in as the "CALPERS" User
     When I navigate to the Meeting Details page for the saved meeting ID
     Then I can view the Meeting Details page
-    And I should be "able" to see the "Voted under Vote Tally" on the UI
-    And I should be "able" to see the "Take No Action under Vote Tally" on the UI
-    And I should be "able" to see the "Review Required under Vote Tally" on the UI
+    And I should be "able" to see "Voted under Vote Tally" on the UI
+    And I should be "able" to see "Take No Action under Vote Tally" on the UI
+    And I should be "able" to see "Review Required under Vote Tally" on the UI
     And I verify the vote tally modal is displayed when user clicks on the total voted hyperlink
     And I verify that the vote tally modal contains all the expected headers
     And I verify that the vote tally modal displays a value for each table column

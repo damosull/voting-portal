@@ -31,7 +31,7 @@ Feature: Take No Action Folder Tests
     And I click on the Vote button
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
-    And I should be "able" to see the "Voted under Vote Tally" on the UI
+    And I should be "able" to see "Voted under Vote Tally" on the UI
     And I should logout from the application
 
 
@@ -57,7 +57,7 @@ Feature: Take No Action Folder Tests
     When I have added the criteria for "Company Name" "from this test"
     Then I should be able to see and navigate to the company name saved previously
     And I can view the Meeting Details page
-    And I should be "able" to see the "Change Vote or Rationale" on the UI
+    And I should be "able" to see "Change Vote or Rationale" on the UI
     And I can verify that "TNA" is displayed in the "Last Vote" field in the ballot section
     And I should logout from the application
     
@@ -73,7 +73,7 @@ Feature: Take No Action Folder Tests
     When I select a random meeting
     Then I can view the Meeting Details page
     And I save the company name
-    And I should be "able" to see the "Change Vote or Rationale" on the UI
+    And I should be "able" to see "Change Vote or Rationale" on the UI
     When I click on the Change Vote or Rationale button
     And I quick vote with the first available option on the dropdown
     And I click on the Vote button
@@ -87,7 +87,7 @@ Feature: Take No Action Folder Tests
     And I can view the workflow page
     Then I should be able to see and navigate to the company name saved previously
     And I can view the Meeting Details page
-    And I should be "able" to see the "Change Vote or Rationale" on the UI
+    And I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
 
 

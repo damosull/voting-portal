@@ -13,7 +13,7 @@ Feature: Vote Button Tests
     Then I can view the Meeting Details page
     When I replace my FOR votes with AGAINST and vice-versa
     And I click on the Vote button
-    And I click on the Proceed button
+    And I handle the override pop-up if it exists
     Then I can see a Vote success message
     And I verify the vote tally section by checking the total votes and hyperlinks
     And I verify that the Voted section shows all votes and nothing is displayed under Total Not Voted

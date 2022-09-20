@@ -9,12 +9,13 @@ Feature: Partial Vote Enhancement Tests
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
     And I save the company name
+    And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
-    When I can click on the Set Partial Vote button
+    When I click on the Set Partial Vote button
     Then I can see the Partial Vote modal
     And I can verify that the Apply percent buttons are enabled in the Partial Vote modal
     And I can verify that the radio buttons are displayed for NOMINAL & PERCENT fields
-    And I should be "able" to see the "You have filtered on the following accounts:" on the UI
+    And I should be "able" to see "You have filtered on the following accounts:" on the UI
     And I can increase and decrease % by selecting the up and down arrows
     When I set the partial vote for the first row to 10 percent
     And I save the partial vote changes
@@ -30,8 +31,8 @@ Feature: Partial Vote Enhancement Tests
     When I click on the home button
     Then I can view the workflow page
     And I remove all existing selected criteria
-    When I have added the criteria for "Company Name" "from this test"
     And I have added the column "Voted Shares"
+    When I have added the criteria for "Company Name" "from this test"
     And I scroll to the end of the meetings table
     Then I can verify that the voted shares value matches the saved value
     And I should logout from the application
@@ -50,8 +51,9 @@ Feature: Partial Vote Enhancement Tests
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
     And I save the company name
+    And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
-    When I can click on the Set Partial Vote button
+    When I click on the Set Partial Vote button
     Then I can see the Partial Vote modal
     When I select the nominal radio button
     And I set the partial vote for the first row to 10 shares
@@ -83,9 +85,9 @@ Feature: Partial Vote Enhancement Tests
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
-    And I save the company name
+    And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
-    When I can click on the Set Partial Vote button
+    When I click on the Set Partial Vote button
     Then I can see the Partial Vote modal
     When I apply a 10 percent filter to "all" accounts
     Then A toast message appears for "PARTIAL_VOTE_INPUT_SAVED"
@@ -104,9 +106,9 @@ Feature: Partial Vote Enhancement Tests
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
-    And I save the company name
+    And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
-    When I can click on the Set Partial Vote button
+    When I click on the Set Partial Vote button
     Then I can see the Partial Vote modal
     When I select the nominal radio button
     And I set the partial vote for the first row to 10 shares
@@ -128,9 +130,9 @@ Feature: Partial Vote Enhancement Tests
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
-    And I save the company name
+    And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
-    When I can click on the Set Partial Vote button
+    When I click on the Set Partial Vote button
     Then I can see the Partial Vote modal
     And I can verify that the radio buttons are displayed for NOMINAL & PERCENT fields
     And I can verify that I cannot enter alphanumeric values in percentage and nominal textboxes
@@ -144,9 +146,9 @@ Feature: Partial Vote Enhancement Tests
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
-    And I save the company name
+    And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
-    When I can click on the Set Partial Vote button
+    When I click on the Set Partial Vote button
     Then I can see the Partial Vote modal
     When I select the nominal radio button
     And I enter a value greater than number of shares

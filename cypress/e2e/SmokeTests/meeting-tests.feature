@@ -45,7 +45,7 @@ Feature: Meetings related smoke tests
     And I quick vote "For" on the meeting
     And I click on the Vote button
     Then I can see a Vote success message
-    Then I should be "able" to see the "Change Vote or Rationale" on the UI
+    Then I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
 
   Scenario: Verify user is able to vote on a US Recommendation Pending meeting
@@ -57,7 +57,7 @@ Feature: Meetings related smoke tests
     And I click on the Vote button
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
-    Then I should be "able" to see the "Change Vote or Rationale" on the UI
+    Then I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
 
   Scenario: Verify user is able to vote on a Global Recommendation Pending meeting
@@ -69,7 +69,7 @@ Feature: Meetings related smoke tests
     And I click on the Vote button
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
-    Then I should be "able" to see the "Change Vote or Rationale" on the UI
+    Then I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
 
   Scenario: Verify user is able to use the Instruct functionality on Recommendation Pending meeting
@@ -89,7 +89,7 @@ Feature: Meetings related smoke tests
     And I click on the Vote button
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
-    Then I should be "able" to see the "Change Vote or Rationale" on the UI
+    Then I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
 
   Scenario: Verify user is able to take no action on a Recommendation Pending meeting
@@ -98,7 +98,7 @@ Feature: Meetings related smoke tests
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button
     And I should be able to use the Take No Action functionality on the meeting
-    And I should be "able" to see the "Change Vote or Rationale" on the UI
+    And I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
 
   Scenario: Verify user is able to share a meeting with another user

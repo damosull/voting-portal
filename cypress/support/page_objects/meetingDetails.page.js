@@ -7,6 +7,7 @@ class meetingDetailsPage {
     votedBallotsLocator = '[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb'
     takeNoActionBallotsLocator = '[data-bind="visible: override.tnaBallotsBoxVisible"] > .ccb'
     ballotsSearchClearInputLocator = "ul[id='txt-responsive-search-md-controlNumberKeyFiltering_taglist'] span[class='k-icon k-delete']"
+    clearPartialVoteButtonLocator = '#btn-clear-partial-vote'
 
 
     //Header
@@ -94,7 +95,7 @@ class meetingDetailsPage {
     ballotsSearchClearInput() { return cy.get(this.ballotsSearchClearInputLocator) }
     ballotsSearchUpdateButton() { return cy.get('#btn-update-md-controlNumberKeyFiltering') }
     setPartialVoteButton() { return cy.get('#btn-partial-vote-settings') }
-    clearPartialVoteButton() { return cy.get('#btn-clear-partial-vote') }
+    clearPartialVoteButton() { return cy.get(this.clearPartialVoteButtonLocator) }
     accountGroupButton() { return cy.get('#btn-account-group') }
     accountGroupDiv() { return cy.get('#add-account-group-target') }
     selectAllAccountGroupCheckbox() { return cy.get('#multiselect-static-all-accountGroup').should('not.be.visible') }
@@ -208,6 +209,7 @@ class meetingDetailsPage {
     decreaseValuePercentButton() { return cy.get("span[title='Decrease value']").eq(1) }
     savePartialVoteButton() { return cy.get(':nth-child(4) > #partial-vote-save-btn') }
     cancelPartialVoteButton() { return cy.get(':nth-child(4) > #btn-partial-vote-cancel') }
+    closePartialVoteModalButton() { return cy.get("div[id^='partial-vote-kendo-modal'] a[href='#'][class='k-window-action k-link']") }
 }
 
 module.exports = new meetingDetailsPage();

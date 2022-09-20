@@ -24,7 +24,7 @@ Feature: Vote Card - Quick Vote
     When I click on the Vote button
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
-    And I should be "able" to see the "Change Vote or Rationale" on the UI
+    And I should be "able" to see "Change Vote or Rationale" on the UI
     And I should be able to verify that all ballots have decision status as "Voted"
     And I should logout from the application
 

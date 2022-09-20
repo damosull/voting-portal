@@ -174,7 +174,7 @@ Feature: Meeting Page Comments & Attachments - Share With
     Then I can view the Meeting Details page
     And I remove all existing comments
     When I add a random comment 11 times
-    Then I should be "able" to see the "View All button" on the UI
+    Then I should be "able" to see "View All button" on the UI
     And I should see "10" comments on the UI
     When I click on the View All button
     Then I should see "11" comments on the UI

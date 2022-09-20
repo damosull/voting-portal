@@ -73,6 +73,7 @@ And('I have added the filter criteria {string}', (criteria) => {
 })
 
 And('I have added the criteria for {string} {string}', (criteria, value) => {
+    workflowPage.waitForWorkflowPageLoad()
     cy.AddMultipleCriteria([criteria])
     cy.intercept('GET', '**/GetSecurityStartsWith/?QueryValue=**').as('COMPANY_FILTER_SEARCH_RESULTS')
     workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false })

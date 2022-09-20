@@ -35,6 +35,18 @@ And('I verify that the DB has updated with the absolute amount', () => {
   })
 })
 
+And('I verify that the absolute amount for the current meeting is correct', () => {
+  let query = `SELECT TOP 1 b.AbsoluteAmount from PX_Meeting m with (nolock)\
+  join PX_Agenda a with (nolock)on a.MeetingID= m.MeetingID join PX_Ballot b with (nolock)on b.AgendaID = a.AgendaID\
+  join am_account acc with(nolock)on acc.accountid = b.accountid join AA_customer cus with(nolock)on cus.customerid = acc.customerid\
+  where m.IsAllowPartialVote ='1' AND Cus.CustomerID = 196 AND YEAR (votedeadlinedate)= 2022\
+  and m.MeetingID = ${Cypress.env('meetingId')}`
+
+  cy.executeQuery(query).then((amount) => {
+    expect(Cypress.env('partialVoteNominalAmount')).to.contain(amount)
+  })
+})
+
 And('I delete the created test watchlist from database', () => {
   cy.sqlServer(
     `

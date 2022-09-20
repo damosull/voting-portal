@@ -34,8 +34,8 @@ Feature: Custom Policy Rationale & Custom Policy Rationale & Associated Rulename
     And I select a random meeting
     Then I can view the Meeting Details page
     When I click on a policy rec link in the vote card section
-    Then I should be "able" to see the "Custom Policy Rationale modal" on the UI
-    And I should be "unable" to see the "Rule Name heading" on the UI
+    Then I should be "able" to see "Custom Policy Rationale modal" on the UI
+    And I should be "unable" to see "Rule Name heading" on the UI
     And I can see the other items on Custom Policy Rationale modal like Policy ID, Rationale, Replace Rationale, Item Number and Proposal
     And I should logout from the application
 
@@ -57,7 +57,7 @@ Feature: Custom Policy Rationale & Custom Policy Rationale & Associated Rulename
     And I select a random meeting
     Then I can view the Meeting Details page
     When I click on a policy rec link in the vote card section
-    Then I should be "able" to see the "Custom Policy Rationale modal" on the UI
-    And I should be "able" to see the "Rule Name heading" on the UI
+    Then I should be "able" to see "Custom Policy Rationale modal" on the UI
+    And I should be "able" to see "Rule Name heading" on the UI
     And I can see the other items on Custom Policy Rationale modal like Policy ID, Rationale, Replace Rationale, Item Number and Proposal
     And I should logout from the application

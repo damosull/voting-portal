@@ -55,7 +55,7 @@ When('I click on the Change Vote or Rationale button if it exists', () => {
     cy.verifyMeetingOptionButtons()
 })
 
-Then('I should be {string} to see the {string} on the UI', (isVisible, element) => {
+Then('I should be {string} to see {string} on the UI', (isVisible, element) => {
     isVisible = isVisible.includes('unable') ? 'not.be.visible' : 'be.visible'
     switch (element) {
         case "Controversy Alert link":
@@ -148,17 +148,17 @@ And('I capture the value of Total Not Voted', () => {
 })
 
 And('I can verify that the Info section displays all read only fields', () => {
-    meetingDetailsPage.infoDiv().contains('Ticker').should('be.visible').click({scrollBehavior: false})
-    meetingDetailsPage.infoDiv().contains('ISIN').should('be.visible').click({scrollBehavior: false})
-    meetingDetailsPage.infoDiv().contains('Inc').should('be.visible').click({scrollBehavior: false})
-    meetingDetailsPage.infoDiv().contains('Blocking').should('be.visible').click({scrollBehavior: false})
-    meetingDetailsPage.infoDiv().contains('Deadline').should('be.visible').click({scrollBehavior: false})
-    meetingDetailsPage.infoDiv().contains('Meeting Date').should('be.visible').click({scrollBehavior: false})
-    meetingDetailsPage.infoDiv().contains('Record Date').should('be.visible').click({scrollBehavior: false})
-    meetingDetailsPage.infoDiv().contains('RFS').should('be.visible').click({scrollBehavior: false})
-    meetingDetailsPage.infoDiv().contains('Vote Tally').should('be.visible').click({scrollBehavior: false})
-    meetingDetailsPage.infoDiv().contains('Total Voted').should('be.visible').click({scrollBehavior: false})
-    meetingDetailsPage.infoDiv().contains('Total Not Voted').should('be.visible').click({scrollBehavior: false})
+    meetingDetailsPage.infoDiv().contains('Ticker').should('be.visible').click({ scrollBehavior: false })
+    meetingDetailsPage.infoDiv().contains('ISIN').should('be.visible').click({ scrollBehavior: false })
+    meetingDetailsPage.infoDiv().contains('Inc').should('be.visible').click({ scrollBehavior: false })
+    meetingDetailsPage.infoDiv().contains('Blocking').should('be.visible').click({ scrollBehavior: false })
+    meetingDetailsPage.infoDiv().contains('Deadline').should('be.visible').click({ scrollBehavior: false })
+    meetingDetailsPage.infoDiv().contains('Meeting Date').should('be.visible').click({ scrollBehavior: false })
+    meetingDetailsPage.infoDiv().contains('Record Date').should('be.visible').click({ scrollBehavior: false })
+    meetingDetailsPage.infoDiv().contains('RFS').should('be.visible').click({ scrollBehavior: false })
+    meetingDetailsPage.infoDiv().contains('Vote Tally').should('be.visible').click({ scrollBehavior: false })
+    meetingDetailsPage.infoDiv().contains('Total Voted').should('be.visible').click({ scrollBehavior: false })
+    meetingDetailsPage.infoDiv().contains('Total Not Voted').should('be.visible').click({ scrollBehavior: false })
 })
 
 And('I replace my FOR votes with AGAINST and vice-versa', () => {
@@ -193,6 +193,16 @@ And('I click on the Workflow option from the toolbar', () => {
 
 When('I click on a policy rec link in the vote card section', () => {
     meetingDetailsPage.policyRecLink().eq(0).click()
+})
+
+When('I click on the previous meeting button', () => {
+    meetingDetailsPage.previousMeetingLink().invoke('attr', 'style', 'display: block')
+    meetingDetailsPage.previousMeetingLink().click()
+})
+
+When('I click on the next meeting button', () => {
+    meetingDetailsPage.nextMeetingLink().invoke('attr', 'style', 'display: block')
+    meetingDetailsPage.nextMeetingLink().click()
 })
 
 And('I can see the other items on Custom Policy Rationale modal like Policy ID, Rationale, Replace Rationale, Item Number and Proposal', () => {
@@ -838,7 +848,7 @@ When('I click on the Ballots filter', () => {
 
 And('I select control number {int} from the top', (rowNo) => {
     cy.clickIfExist(meetingDetailsPage.ballotsSearchClearInputLocator)
-    meetingDetailsPage.ballotsSearchInput().click({force: true, scrollBehavior: false})
+    meetingDetailsPage.ballotsSearchInput().click({ force: true, scrollBehavior: false })
     for (let i = 2; i <= rowNo; i++) {
         meetingDetailsPage.ballotsSearchInput().type('{downarrow}')
     }
@@ -1466,7 +1476,11 @@ And('I can see the Set Partial Vote button', () => {
     meetingDetailsPage.setPartialVoteButton().should('have.css', 'background-color', 'rgb(31, 151, 209)')
 })
 
-When('I can click on the Set Partial Vote button', () => {
+When('I click on the Set Partial Vote button', () => {
+    meetingDetailsPage.setPartialVoteButton().click()
+})
+
+When('I click on the Partial Vote Applied button', () => {
     meetingDetailsPage.setPartialVoteButton().click()
 })
 
@@ -1487,6 +1501,11 @@ And('I can verify that the radio buttons are displayed for NOMINAL & PERCENT fie
     meetingDetailsPage.percentRadio().should('be.checked')
 })
 
+And('I can see zero values in the partial vote amount applied textbox', () => {
+    meetingDetailsPage.partialVoteNominalInput().invoke('attr', 'aria-valuenow').should('eq', '0')
+    meetingDetailsPage.partialVotePercentInput().invoke('attr', 'aria-valuenow').should('eq', '0')
+})
+
 And('I can increase and decrease % by selecting the up and down arrows', () => {
     meetingDetailsPage.increaseValuePercentButton().click()
     meetingDetailsPage.partialVotePercentInput().invoke('attr', 'aria-valuenow').should('eq', '1')
@@ -1495,19 +1514,20 @@ And('I can increase and decrease % by selecting the up and down arrows', () => {
 })
 
 When('I set the partial vote for the first row to {int} percent', (value) => {
+    meetingDetailsPage.increaseValuePercentButton().click()
     meetingDetailsPage.partialVotePercentInput().clear().type(value)
-    meetingDetailsPage.partialVoteNominalInput().click({force: true})
+    meetingDetailsPage.partialVoteNominalInput().click({ force: true })
     meetingDetailsPage.partialVoteNominalInput().invoke('attr', 'aria-valuenow').then((value) => {
-        Cypress.env('partialVoteNominalAmount',value)
+        Cypress.env('partialVoteNominalAmount', value)
     })
 })
 
 And('I set the partial vote for the first row to {int} shares', (value) => {
     meetingDetailsPage.increaseValueNominalButton().click()
     meetingDetailsPage.partialVoteNominalInput().clear().type(value)
-    meetingDetailsPage.partialVotePercentInput().click({force: true})
+    meetingDetailsPage.partialVotePercentInput().click({ force: true })
     meetingDetailsPage.partialVoteNominalInput().invoke('attr', 'aria-valuenow').then((value) => {
-        Cypress.env('partialVoteNominalAmount',value)
+        Cypress.env('partialVoteNominalAmount', value)
     })
 })
 
@@ -1516,7 +1536,7 @@ And('I save the partial vote changes', () => {
 })
 
 And('I close the partial vote modal', () => {
-    meetingDetailsPage.cancelPartialVoteButton().click()
+    meetingDetailsPage.closePartialVoteModalButton().click()
 })
 
 And('I can see the Partial Vote Applied button', () => {
@@ -1526,7 +1546,16 @@ And('I can see the Partial Vote Applied button', () => {
 
 And('I can see the Clear Partial Vote link', () => {
     meetingDetailsPage.clearPartialVoteButton().should('be.visible')
-    meetingDetailsPage.setPartialVoteButton().next().should('contain.text','Clear partial vote')
+    meetingDetailsPage.setPartialVoteButton().next().should('contain.text', 'Clear partial vote')
+})
+
+When('I click on the Clear Partial Vote link', () => {
+    meetingDetailsPage.clearPartialVoteButton().click({ scrollBehavior: false })
+    Cypress.env('partialVoteNominalAmount', 'null')
+})
+
+And('I click on the Clear Partial Vote link if it exists', () => {
+    cy.clickIfExist(meetingDetailsPage.clearPartialVoteButtonLocator)
 })
 
 When('I select the nominal radio button', () => {
@@ -1536,7 +1565,7 @@ When('I select the nominal radio button', () => {
 When('I apply a {int} percent filter to {string} accounts', (value, typeOfFilter) => {
     meetingDetailsPage.applyPercentInput().clear().type(value)
     typeOfFilter.includes('unapplied') ?
-     meetingDetailsPage.applyPercentToUnappliedButton().click() : meetingDetailsPage.applyPercentToAllButton().click()
+        meetingDetailsPage.applyPercentToUnappliedButton().click() : meetingDetailsPage.applyPercentToAllButton().click()
 })
 
 Then('I should be able to verify the Take No Action functionality for a partially voted meeting', () => {
@@ -1563,12 +1592,12 @@ And('I can verify that I cannot enter alphanumeric values in percentage and nomi
     let alpNumStr = 'a1b0c', numStr = '10'
     meetingDetailsPage.increaseValuePercentButton().click()
     meetingDetailsPage.partialVotePercentInput().clear().type(alpNumStr)
-    meetingDetailsPage.partialVoteNominalInput().click({force: true})
+    meetingDetailsPage.partialVoteNominalInput().click({ force: true })
     meetingDetailsPage.partialVotePercentInput().invoke('attr', 'aria-valuenow').should('eq', numStr)
     meetingDetailsPage.nominalRadio().check()
     meetingDetailsPage.increaseValueNominalButton().click()
     meetingDetailsPage.partialVoteNominalInput().clear().type(alpNumStr)
-    meetingDetailsPage.partialVotePercentInput().click({force: true})
+    meetingDetailsPage.partialVotePercentInput().click({ force: true })
     meetingDetailsPage.partialVoteNominalInput().invoke('attr', 'aria-valuenow').should('eq', numStr)
 })
 
@@ -1576,14 +1605,34 @@ And('I enter a value greater than number of shares', () => {
     meetingDetailsPage.noOfSharesLabel().then((noOfShares) => {
         meetingDetailsPage.increaseValueNominalButton().click()
         meetingDetailsPage.partialVoteNominalInput().clear().type(noOfShares.text() + 1)
-        meetingDetailsPage.partialVotePercentInput().click({force: true})
+        meetingDetailsPage.partialVotePercentInput().click({ force: true })
     })
+})
+
+And('I enter a percent greater than number of shares', () => {
+    meetingDetailsPage.increaseValuePercentButton().click()
+    meetingDetailsPage.partialVotePercentInput().clear().type('101')
+    meetingDetailsPage.partialVoteNominalInput().click({ force: true })
 })
 
 And('the partial vote amount is automatically corrected to total number of shares', () => {
     meetingDetailsPage.noOfSharesLabel().then((noOfShares) => {
         meetingDetailsPage.partialVoteNominalInput().invoke('attr', 'aria-valuenow').should('eq', noOfShares.text())
     })
+})
+
+And('the partial vote percent is automatically corrected to 100%', () => {
+    meetingDetailsPage.partialVotePercentInput().invoke('attr', 'aria-valuenow').should('eq', '100')
+})
+
+And('I can verify that the set partial vote modal is read only for past meetings', () => {
+    cy.SetMeetingDateXdaysFromCurrent(Cypress.env('meetingId'), -10)
+    cy.visit('MeetingDetails/Index/' + Cypress.env('meetingId'))
+    meetingDetailsPage.setPartialVoteButton().should('be.visible').click()
+    meetingDetailsPage.partialVoteNominalInput().should('be.disabled')
+    meetingDetailsPage.partialVotePercentInput().should('be.disabled')
+    meetingDetailsPage.closePartialVoteModalButton().click()
+    meetingDetailsPage.setPartialVoteButton().should('be.visible')
 })
 
 /*Functions*/

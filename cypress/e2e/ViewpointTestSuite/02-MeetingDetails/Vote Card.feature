@@ -67,7 +67,7 @@ Feature: Vote Card Tests
     And I verify the vote tally modal is displayed when user clicks on the total voted hyperlink
     And I verify that the vote tally modal contains all the expected headers
     When I click on the Ballots Voted Link
-    Then I should be "able" to see the "Change Vote or Rationale" on the UI
+    Then I should be "able" to see "Change Vote or Rationale" on the UI
     And I verify the vote tally modal is displayed when user clicks on the total voted hyperlink
     When I click on the Ballots Not Voted Link
     Then I can see the Vote, Take No Action and Instruct buttons

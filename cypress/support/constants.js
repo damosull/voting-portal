@@ -55,7 +55,8 @@ export const messages = {
     COMMENT_SUBMIT_WITHOUT_DATA: 'Please enter a comment, mention a @user..',
     COMMENT_TOO_LONG: 'Comment is too long.',
     PARTIAL_VOTE_INPUT_SAVED: 'Your input was saved.',
-    PARTIAL_VOTE_INPUT_GREATER: 'You have not applied a valid amount. Please review values entered'
+    PARTIAL_VOTE_INPUT_GREATER: 'You have not applied a valid amount. Please review values entered',
+    PARTIAL_VOTE_CLEANED: 'Partial vote cleaned.'
   },
 };
 
