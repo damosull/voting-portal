@@ -201,6 +201,7 @@ class meetingDetailsPage {
     applyPercentToUnappliedButton() { return cy.get("#partial-vote-save-btn").contains('to all').next() }
     noOfSharesLabel() { return cy.get("#partial-vote-grid > div > table > tbody > tr > td:nth-child(4)").eq(0) }
     partialVoteAmountInput() { return cy.get("input[placeholder='Enter a valid percent of shares']").eq(0) }
+    partialVotePercentAllInput() { return cy.get("input[id^='partial-vote-grid-input-percent-']") }
     partialVotePercentInput() { return cy.get("input[id^='partial-vote-grid-input-percent-']").eq(0) }
     partialVoteNominalInput() { return cy.get("input[id^='partial-vote-grid-input-nominal-']").eq(0) }
     increaseValueNominalButton() { return cy.get("span[title='Increase value']").eq(0) }

@@ -56,7 +56,9 @@ export const messages = {
     COMMENT_TOO_LONG: 'Comment is too long.',
     PARTIAL_VOTE_INPUT_SAVED: 'Your input was saved.',
     PARTIAL_VOTE_INPUT_GREATER: 'You have not applied a valid amount. Please review values entered',
-    PARTIAL_VOTE_CLEANED: 'Partial vote cleaned.'
+    PARTIAL_VOTE_CLEANED: 'Partial vote cleaned.',
+    PARTIAL_VOTE_VALUES_UNCHANGED: 'At least 1 item should be modified in order to save.',
+    PARTIAL_VOTE_INCORRECT_PERCENTAGE: 'Percent should be between 0 and 100.'
   },
 };
 

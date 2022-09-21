@@ -273,8 +273,16 @@ And('I can verify that the Quick Vote option is disabled and Vote Decision optio
 
 Then('I should be able to use the Instruct functionality on the meeting', () => {
     meetingDetailsPage.instructButton().click()
-    cy.clickIfExist(meetingDetailsPage.votedBallotsLocator)
-    cy.clickIfExist(meetingDetailsPage.proceedButtonLocator)
+    meetingDetailsPage.getLoadingSpinner().should('not.exist')
+    meetingDetailsPage.pageBody().then((body) => {
+        //Verify element exists
+        if (body.find(meetingDetailsPage.warningPopUpLocator).is(':visible')) {
+            meetingDetailsPage.warningPopUp().within(() => {
+                meetingDetailsPage.genericCheckbox().should('not.be.visible').check({ force: true })
+            })
+            meetingDetailsPage.proceedButton().click()
+        }
+    })
     meetingDetailsPage.instructedSuccessMessage().should('be.visible')
     meetingDetailsPage.getLoadingSpinner().should('not.exist')
 })
@@ -1488,6 +1496,7 @@ Then('I can see the Partial Vote modal', () => {
     meetingDetailsPage.partialVoteModalDiv().should('be.visible')
     meetingDetailsPage.getLoadingSpinner().should('not.exist')
     meetingDetailsPage.applyPercentToAllButton().should('be.visible')
+    meetingDetailsPage.toastMessage().should('not.exist')
 })
 
 And('I can verify that the Apply percent buttons are enabled in the Partial Vote modal', () => {
@@ -1499,6 +1508,14 @@ And('I can verify that the radio buttons are displayed for NOMINAL & PERCENT fie
     meetingDetailsPage.nominalRadio().should('be.visible')
     meetingDetailsPage.percentRadio().should('be.visible')
     meetingDetailsPage.percentRadio().should('be.checked')
+})
+
+And('I can verify that all partial vote percent on the page is {int}', (value) => {
+    meetingDetailsPage.partialVotePercentAllInput().then(($rows) => {
+        $rows.each((index) => {
+            meetingDetailsPage.partialVotePercentAllInput().eq(index).invoke('attr', 'aria-valuenow').should('eq', String(value))
+        })
+    })
 })
 
 And('I can see zero values in the partial vote amount applied textbox', () => {
@@ -1556,10 +1573,19 @@ When('I click on the Clear Partial Vote link', () => {
 
 And('I click on the Clear Partial Vote link if it exists', () => {
     cy.clickIfExist(meetingDetailsPage.clearPartialVoteButtonLocator)
+    meetingDetailsPage.toastMessage().should('not.exist')
 })
 
 When('I select the nominal radio button', () => {
     meetingDetailsPage.nominalRadio().check().should('be.checked')
+})
+
+When('I can verify that the apply percent at customer level is {int}', (value) => {
+    meetingDetailsPage.applyPercentInput().should('contain.value', value)
+})
+
+When('I click on the apply percent to all button', () => {
+    meetingDetailsPage.applyPercentToAllButton().click()
 })
 
 When('I apply a {int} percent filter to {string} accounts', (value, typeOfFilter) => {
@@ -1599,6 +1625,14 @@ And('I can verify that I cannot enter alphanumeric values in percentage and nomi
     meetingDetailsPage.partialVoteNominalInput().clear().type(alpNumStr)
     meetingDetailsPage.partialVotePercentInput().click({ force: true })
     meetingDetailsPage.partialVoteNominalInput().invoke('attr', 'aria-valuenow').should('eq', numStr)
+})
+
+And('I enter a value equal to the number of shares', () => {
+    meetingDetailsPage.noOfSharesLabel().then((noOfShares) => {
+        meetingDetailsPage.increaseValueNominalButton().click()
+        meetingDetailsPage.partialVoteNominalInput().clear().type(noOfShares.text())
+        meetingDetailsPage.partialVotePercentInput().click({ force: true })
+    })
 })
 
 And('I enter a value greater than number of shares', () => {
