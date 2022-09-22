@@ -52,7 +52,7 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "CALPERS" User
     When I navigate to the meeting details page for the meeting "CPRP4"
     Then I can view the Meeting Details page
-    When I click on the Change Vote or Rationale button
+    When I click on the Change Vote or Rationale button if it exists
     And I quick vote "For" on the meeting
     And I click on the Vote button
     And I handle the override pop-up if it exists
@@ -64,7 +64,7 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "CALPERS" User
     When I navigate to the meeting details page for the meeting "CPRP2"
     Then I can view the Meeting Details page
-    When I click on the Change Vote or Rationale button
+    When I click on the Change Vote or Rationale button if it exists
     And I quick vote "For" on the meeting
     And I click on the Vote button
     And I handle the override pop-up if it exists
@@ -84,7 +84,7 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "CALPERS" User
     When I navigate to the meeting details page for the meeting "CPRP3"
     Then I can view the Meeting Details page
-    When I click on the Change Vote or Rationale button
+    When I click on the Change Vote or Rationale button if it exists
     And I quick vote "For" on the meeting
     And I click on the Vote button
     And I handle the override pop-up if it exists
@@ -96,7 +96,7 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "CALPERS" User
     When I navigate to the meeting details page for the meeting "CPRP5"
     Then I can view the Meeting Details page
-    When I click on the Change Vote or Rationale button
+    When I click on the Change Vote or Rationale button if it exists
     And I should be able to use the Take No Action functionality on the meeting
     And I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
@@ -105,7 +105,7 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "CALPERS" User
     When I navigate to the meeting details page for the meeting "CPRP6"
     Then I can view the Meeting Details page
-    When I click on the Change Vote or Rationale button
+    When I click on the Change Vote or Rationale button if it exists
     And I click on the share meeting option
     And I provide the details like the username to share with and submitted
     Then A toast message appears for "SHARE_MEETING_REQUEST_SAVED"
