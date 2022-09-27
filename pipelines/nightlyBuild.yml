@@ -19,10 +19,6 @@ jobs:
   timeoutInMinutes: 90
   steps:
   - script: |
-      npx cypress cache clear
-    displayName: 'Cypress Clear Cache'
-
-  - script: |
       npm ci
     displayName: 'Install Packages'
 
@@ -31,11 +27,23 @@ jobs:
       npx cypress run --reporter junit --config specPattern=cypress/e2e/SmokeTests/*.feature
     displayName: 'Running Cypress Tests'
 
+  - script: |
+      node cypress/utils/cucumber-html-reporter.js
+    displayName: 'Generate Cucumber Report'
+
   - task: PublishPipelineArtifact@1
-    displayName: 'Publish Cucumber Report'
+    displayName: 'Publish Cucumber Old Report'
     inputs:
       targetPath: 'test-results/cucumber/cucumber_report.html'
-      artifact: Report
+      artifact: ReportOld
+    continueOnError: true
+    condition: succeededOrFailed()
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish Cucumber New Report'
+    inputs:
+      targetPath: 'test-results/cucumber/cucumber-report.html'
+      artifact: ReportNew
     continueOnError: true
     condition: succeededOrFailed()
 
@@ -54,5 +62,5 @@ jobs:
       testResultsFiles: '**/result-*.xml'
       searchFolder: '$(System.DefaultWorkingDirectory)/test-results/tests-output'
       mergeTestResults: true
-      failTaskOnFailedTests: true
+      failTaskOnFailedTests: false
     condition: succeededOrFailed()

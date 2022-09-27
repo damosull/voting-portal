@@ -9,7 +9,7 @@ parameters:
 - name: newImage
   displayName: "New Image?"
   type: boolean
-  default: false
+  default: true
 
 trigger: none
 

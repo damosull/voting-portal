@@ -1,4 +1,4 @@
-import { When, And, Then } from "cypress-cucumber-preprocessor/steps"
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import workflowPage from "../page_objects/workflow.page"
 const constants = require('../constants')
 let meetingName
@@ -9,24 +9,24 @@ Then('I can view the workflow page', () => {
     workflowPage.workflowMenuButton().should('exist')
 })
 
-And('I navigate to the workflow page', () => {
+Then('I navigate to the workflow page', () => {
     cy.visit('/Workflow')
     workflowPage.getLoadingSpinner().should('exist')
 })
 
-And('I set the filter to Upcoming Meetings', () => {
+Then('I set the filter to Upcoming Meetings', () => {
     workflowPage.quickFiltersDiv().contains('Sustainalytics ESG').click()
     workflowPage.getLoadingSpinner().should('exist')
     workflowPage.waitForWorkflowPageLoad()
     workflowPage.quickFiltersDiv().contains('Upcoming Meetings').click()
 })
 
-And('I remove all existing selected criteria', () => {
+When('I remove all existing selected criteria', () => {
     cy.removeAllExistingSelectedCriteria()
     workflowPage.waitForWorkflowPageLoad()
 })
 
-And('I remove all existing selected criteria for the internal user', () => {
+When('I remove all existing selected criteria for the internal user', () => {
     cy.removeAllExistingSelectedCriteria(true)
     workflowPage.waitForWorkflowPageLoad()
 })
@@ -40,7 +40,7 @@ When('I search for the customer {string}', (customerName) => {
     workflowPage.waitForWorkflowPageLoad()
 })
 
-And('I arrange the table in {string} order for {string}', (order,column_name) => {
+Then('I arrange the table in {string} order for {string}', (order,column_name) => {
     workflowPage.workflowLink().scrollIntoView()
     switch (column_name) {
         case "policy id":
@@ -68,11 +68,11 @@ Then('I should be able to see and navigate to the company name saved previously'
     })
 })
 
-And('I have added the filter criteria {string}', (criteria) => {
+Then('I have added the filter criteria {string}', (criteria) => {
     cy.AddMultipleCriteria([criteria])
 })
 
-And('I have added the criteria for {string} {string}', (criteria, value) => {
+Then('I have added the criteria for {string} {string}', (criteria, value) => {
     workflowPage.waitForWorkflowPageLoad()
     cy.AddMultipleCriteria([criteria])
     cy.intercept('GET', '**/GetSecurityStartsWith/?QueryValue=**').as('COMPANY_FILTER_SEARCH_RESULTS')
@@ -92,7 +92,7 @@ And('I have added the criteria for {string} {string}', (criteria, value) => {
     workflowPage.waitForWorkflowPageLoad()
 })
 
-And('I have added the criteria for {string} with status {string}', (criteria, status) => {
+Then('I have added the criteria for {string} with status {string}', (criteria, status) => {
     cy.AddMultipleCriteria([criteria])
     workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false })
     workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA')
@@ -105,7 +105,7 @@ And('I have added the criteria for {string} with status {string}', (criteria, st
     workflowPage.waitForWorkflowPageLoad()
 })
 
-And('I have added the criteria for {string} and checking the checkbox for {string}', (criteria, status) => {
+Then('I have added the criteria for {string} and checking the checkbox for {string}', (criteria, status) => {
     cy.AddMultipleCriteria([criteria])
     workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false })
     workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA')
@@ -117,7 +117,7 @@ And('I have added the criteria for {string} and checking the checkbox for {strin
     workflowPage.waitForWorkflowPageLoad()
 })
 
-And('I have added the criteria for {string} and selecting the radio button for {string}', (criteria, status) => {
+Then('I have added the criteria for {string} and selecting the radio button for {string}', (criteria, status) => {
     cy.AddMultipleCriteria([criteria])
     workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false })
     workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;')
@@ -127,11 +127,11 @@ And('I have added the criteria for {string} and selecting the radio button for {
     workflowPage.waitForWorkflowPageLoad()
 })
 
-And('I click on the Columns dropdown', () => {
+Then('I click on the Columns dropdown', () => {
     workflowPage.columnsListButton().click({ force: true })
 })
 
-And('I have added the column {string}', (columnName) => {
+Then('I have added the column {string}', (columnName) => {
     cy.checkColumnFieldApplyAndVerifyIsChecked(columnName)
 })
 
@@ -141,7 +141,7 @@ When('I select the first available meeting', () => {
     })
 })
 
-And('I increase the meetings per page value to {string}', (pages) => {
+Then('I increase the meetings per page value to {string}', (pages) => {
     workflowPage.meetingsPerPageDropdown().select(pages, { force: true }).invoke('val').should('eq', pages)
 })
 
@@ -156,7 +156,7 @@ When('I select a random meeting', () => {
     })
 })
 
-And('I navigate to the {int} meeting', (company_sequence) => {
+Then('I navigate to the {int} meeting', (company_sequence) => {
     workflowPage.tableRows().eq(company_sequence - 1).within(() => {
         workflowPage.companyNameLink().click({ force: true })
     })
@@ -174,7 +174,7 @@ When('I navigate to {string} meeting', (company_name) => {
     workflowPage.containsText(company_name).click()
 })
 
-And('I filter for meetings without ballots', () => {
+Then('I filter for meetings without ballots', () => {
     workflowPage.ballotCriteriaFilter().click()
     workflowPage.meetingWithoutBallotsRadio().check()
     workflowPage.updateNumberOfBallotsButton().click()
@@ -187,13 +187,13 @@ When('I select {string} meetings from the top', (noOfMeetings) => {
     }
 })
 
-And('I scroll to the end of the meetings table', () => {
+Then('I scroll to the end of the meetings table', () => {
     for (let n = 0; n < 11; n++) {
         workflowPage.scrollEndButton().click({ waitForAnimations: false })
     }
 })
 
-And('I select {string} from the Quick Pick dropdown', (value) => {
+Then('I select {string} from the Quick Pick dropdown', (value) => {
     workflowPage.quickPickDropdown().click()
     workflowPage.quickPickModal().contains(value).click({ force: true })
     workflowPage.quickPickModal().contains('Update').click({ force: true })
@@ -254,7 +254,7 @@ Then('the filtered results should be displayed', () => {
     workflowPage.containsText('Decision Status (1)')
 })
 
-And('I save the filter', () => {
+Then('I save the filter', () => {
     const unixTime = Math.floor(Date.now() / 1000)
     const filterName = `MyFilter_${unixTime}`
     cy.saveFilter(filterName)
@@ -329,6 +329,7 @@ Then('I should be able to verify the different column actions on the workflow pa
     workflowPage.workflowLink().should('exist')
 
     cy.removeAllExistingSelectedCriteria()
+    workflowPage.workflowMenuButton().scrollIntoView()
     cy.AddMultipleCriteria(['Decision Status'])
     cy.addCriteriaStatus(['Recommendations Available'])
 
@@ -377,7 +378,7 @@ Then('I should be able to see the results only for {string}', (filterName) => {
     }
 })
 
-And('I can see the filter columns are displayed in the correct order', () => {
+Then('I can see the filter columns are displayed in the correct order', () => {
     workflowPage.dateFilterLink().contains('Next 30 Days').should('be.visible')
     workflowPage.numberOfBallotsFilterLink().contains('Number of Ballots > 0').should('be.visible')
     workflowPage.quickFiltersDiv().contains('Upcoming Meeting').should('have.class', 'highlightedFilter')
@@ -515,7 +516,7 @@ When('I apply the policy criteria for one of the policies', () => {
     cy.wait('@GET_AVAILABLE_ASSIGNEES_CUSTOMER')
 })
 
-And('I click on the control number link', () => {
+Then('I click on the control number link', () => {
     // Step 4 - User clicks on the Control Number hyperlink on the workflow page
     // Go through the list of meetings and click in the record that matches the name
     workflowPage.policyIdTableData().each(($list, index) => {
@@ -601,7 +602,7 @@ Then('I should be able to deselect the watch list from the previous scenario', (
     workflowPage.securityWatchListCount().should('have.text', '0')
 })
 
-And('I should be able to deselect the system watch list from the workflow page', () => {
+Then('I should be able to deselect the system watch list from the workflow page', () => {
     //load workflow page and verify
     cy.visit('/Workflow')
     cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })

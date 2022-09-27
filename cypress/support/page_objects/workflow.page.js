@@ -30,7 +30,7 @@ class workflowPage {
     columnApplyButton() { return cy.get('#btn-apply-configure-columns') }
     columnCancelButton() { return cy.get('#btn-cancel-configure-columns') }
     meetingsPerPageDropdown() { return cy.get("select[data-role='dropdownlist']") }
-    meetingsHorizontalScrollBar() { return cy.get('.mCSB_dragger_bar', { timeout: 90000 }) }
+    meetingsHorizontalScrollBar() { return cy.get('.mCSB_dragger_bar') }
     policyIdTableData() { return cy.get('table > tbody > tr > td:nth-child(4)') }
     controlNumberTableData() { return cy.get('table > tbody > tr > td:nth-child(5)') }
     allTableRows() { return cy.get('table > tbody >tr') }

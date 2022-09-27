@@ -1,8 +1,8 @@
-import {Given,When,And} from "cypress-cucumber-preprocessor/steps"
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import loginPage from "../page_objects/login.page"
-const constants = require ('../constants')
+const constants = require('../constants')
 
-Given('I am on the login page of Viewpoint', ()=> {
+Given('I am on the login page of Viewpoint', () => {
     cy.visit('/')
     //verify page loaded
     loginPage.usernameInput().should('be.visible')
@@ -23,8 +23,7 @@ Given('I am logged in as a random external user', () => {
     cy.loginWithAdmin(username)
 })
 
-
-And('I should logout from the application', () => {
+Then('I should logout from the application', () => {
     cy.request({
         method: 'GET',
         url: 'https://viewpoint.aqua.glasslewis.com/Home/Logout',
@@ -40,11 +39,11 @@ When('I login via the UI with the user {string}', function (username) {
     loginPage.signInButton().click()
 })
 
-When('I refresh the page', ()=> {
+When('I refresh the page', () => {
     cy.reload()
 })
 
-And('I turn on the customer settings for {string} for {string}', (feature, customer) => {
+Then('I turn on the customer settings for {string} for {string}', (feature, customer) => {
     cy.visit('/Workflow')
 
     //Alias csrf token
@@ -58,20 +57,20 @@ And('I turn on the customer settings for {string} for {string}', (feature, custo
 
     //Turn on requested customer settings
     cy.get('@custid').then(function (cid) {
-      const unixTime = Math.floor(Date.now() / 1000)
-      const settings = `?&pCustomerID=${cid}&_=${unixTime}`
-      switch (feature) {
-        case "VAM and VAP":
-            cy.TurnOnCustomerSetting(settings, 'CanModifyVotesRationaleAfterMeetingDate')
-            cy.TurnOnCustomerSetting(settings, 'RequireRationaleVap')
-            cy.TurnOnCustomerSetting(settings, 'RequireRationaleVam')
-            break
-        case "Controversy Alert":
-            cy.TurnOnCustomerSetting(settings, 'IsControversyAlertEnabled')
-            break
-        default:
-            break
-      }
+        const unixTime = Math.floor(Date.now() / 1000)
+        const settings = `?&pCustomerID=${cid}&_=${unixTime}`
+        switch (feature) {
+            case "VAM and VAP":
+                cy.TurnOnCustomerSetting(settings, 'CanModifyVotesRationaleAfterMeetingDate')
+                cy.TurnOnCustomerSetting(settings, 'RequireRationaleVap')
+                cy.TurnOnCustomerSetting(settings, 'RequireRationaleVam')
+                break
+            case "Controversy Alert":
+                cy.TurnOnCustomerSetting(settings, 'IsControversyAlertEnabled')
+                break
+            default:
+                break
+        }
     })
 })
 

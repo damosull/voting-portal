@@ -1,4 +1,4 @@
-import { When, Then, And } from "cypress-cucumber-preprocessor/steps"
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import customFieldsPage from "../page_objects/customFields.page"
 
 When('I navigate to the custom fields page', () => {
@@ -12,15 +12,15 @@ Then('I verify that all the relevant API calls for custom fields page are made',
     cy.statusCode200('@CUSTOM_FIELDS_2')
 })
 
-And('I click Add Custom Field', () => {
+Then('I click Add Custom Field', () => {
     customFieldsPage.addCustomFieldButton().click()
 })
 
-And('I select {string} from the dropdown list', (option) => {
+Then('I select {string} from the dropdown list', (option) => {
     customFieldsPage.customFieldTypeDropdown().select(option).should('include.text', option)
 })
 
-And('the Page View field displays {string}', (pageview) => {
+Then('the Page View field displays {string}', (pageview) => {
     customFieldsPage.pageViewDropdown().should('include.text', pageview)
 })
 
@@ -28,15 +28,15 @@ Then('the Active checkbox should be checked', () => {
     customFieldsPage.activeCheckbox().should('be.checked')
 })
 
-And('the Filter Under Add Criteria checkbox should not be checked', () => {
+Then('the Filter Under Add Criteria checkbox should not be checked', () => {
     customFieldsPage.filterUnderAddCriteriaCheckbox().should('not.be.checked')
 })
 
-And('I uncheck the Active checkbox', () => {
+Then('I uncheck the Active checkbox', () => {
     customFieldsPage.activeCheckbox().uncheck({ force: true })
 })
 
-And('I check the Filter Under Add Criteria checkbox', () => {
+Then('I check the Filter Under Add Criteria checkbox', () => {
     customFieldsPage.filterUnderAddCriteriaCheckbox().check({ force: true })
 })
 
@@ -46,19 +46,19 @@ When('I enter a Description {string} into the Description Field and click OK but
     customFieldsPage.descriptionSubmit().click()
 })
 
-And('I enter a first picklist value of {string} and click OK button', (arg) => {
+Then('I enter a first picklist value of {string} and click OK button', (arg) => {
     customFieldsPage.firstPicklist().click()
     customFieldsPage.descriptionInput().type(arg)
     customFieldsPage.descriptionSubmit().click()
 })
 
-And('I enter a second picklist value of {string} and click OK button', (arg2) => {
+Then('I enter a second picklist value of {string} and click OK button', (arg2) => {
     customFieldsPage.secondPicklist().click()
     customFieldsPage.descriptionInput().type(arg2)
     customFieldsPage.descriptionSubmit().click()
 })
 
-And('I enter a third picklist value of {string} and click OK button', (argx) => {
+Then('I enter a third picklist value of {string} and click OK button', (argx) => {
     customFieldsPage.picklistButton().click()
     customFieldsPage.thirdPicklist().click()
     customFieldsPage.descriptionInput().type(argx)
@@ -79,7 +79,7 @@ When('I enter a label value {string} and click OK button', (arg3) => {
     customFieldsPage.descriptionSubmit().click()
 })
 
-And('I save the picklist', () => {
+Then('I save the picklist', () => {
     customFieldsPage.saveButton().click()
 })
 

@@ -1,4 +1,4 @@
-import { When, And, Then } from "cypress-cucumber-preprocessor/steps"
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import meetingDetailsPage from "../page_objects/meetingDetails.page"
 import workflowPage from "../page_objects/workflow.page"
 const constants = require('../constants')
@@ -109,16 +109,16 @@ Then('I should be {string} to see {string} on the UI', (isVisible, element) => {
     }
 })
 
-And('I verify that the Instruct button has changed to Re-Instruct button', () => {
+Then('I verify that the Instruct button has changed to Re-Instruct button', () => {
     meetingDetailsPage.instructButton().should('contain.text', 'Re-Instruct')
 })
 
-And('I can verify that the quick vote button is visible and has a width of 125 pixels', () => {
+Then('I can verify that the quick vote button is visible and has a width of 125 pixels', () => {
     meetingDetailsPage.quickVoteDropdown().should('be.visible')
     meetingDetailsPage.quickVoteDropdown().invoke('outerWidth').should('eq', 125)
 })
 
-And('I can verify that the quick vote dropdown options display a list of valid options', () => {
+Then('I can verify that the quick vote dropdown options display a list of valid options', () => {
     meetingDetailsPage.quickVoteOptions().contains('For').should('exist')
     meetingDetailsPage.quickVoteOptions().contains('Against/Withhold').should('exist')
     meetingDetailsPage.quickVoteOptions().contains('MGMT Rec').should('exist')
@@ -126,28 +126,28 @@ And('I can verify that the quick vote dropdown options display a list of valid o
     meetingDetailsPage.quickVoteOptions().contains('Policy Rec').should('exist')
 })
 
-And('I verify that the quick vote option for {string} is read only', (voteType) => {
+Then('I verify that the quick vote option for {string} is read only', (voteType) => {
     meetingDetailsPage.quickVoteDisabledOptions().should('contain.text', voteType)
 })
 
-And('I quick vote {string} on the meeting', (voteType) => {
+Then('I quick vote {string} on the meeting', (voteType) => {
     meetingDetailsPage.quickVoteSelect().select(voteType, { force: true })
 })
 
-And('I quick vote with the first available option on the dropdown', () => {
+Then('I quick vote with the first available option on the dropdown', () => {
     meetingDetailsPage.quickVoteOptions().eq(1).then(element => {
         meetingDetailsPage.quickVoteSelect().select(element.val(), { force: true })
     })
 })
 
-And('I capture the value of Total Not Voted', () => {
+Then('I capture the value of Total Not Voted', () => {
     // Store the "Total Not Voted" to later compare with the "Total Voted"
     meetingDetailsPage.totalNotVotedLink().invoke('text').then((text) => {
         cy.wrap(text).as('totalNotVoted')
     })
 })
 
-And('I can verify that the Info section displays all read only fields', () => {
+Then('I can verify that the Info section displays all read only fields', () => {
     meetingDetailsPage.infoDiv().contains('Ticker').should('be.visible').click({ scrollBehavior: false })
     meetingDetailsPage.infoDiv().contains('ISIN').should('be.visible').click({ scrollBehavior: false })
     meetingDetailsPage.infoDiv().contains('Inc').should('be.visible').click({ scrollBehavior: false })
@@ -161,7 +161,7 @@ And('I can verify that the Info section displays all read only fields', () => {
     meetingDetailsPage.infoDiv().contains('Total Not Voted').should('be.visible').click({ scrollBehavior: false })
 })
 
-And('I replace my FOR votes with AGAINST and vice-versa', () => {
+Then('I replace my FOR votes with AGAINST and vice-versa', () => {
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index, value) => {
             const rec = Cypress.$(value).find('td.vote-card-policy-rec').text()
@@ -187,7 +187,7 @@ And('I replace my FOR votes with AGAINST and vice-versa', () => {
     })
 })
 
-And('I click on the Workflow option from the toolbar', () => {
+Then('I click on the Workflow option from the toolbar', () => {
     meetingDetailsPage.workflowButton().click()
 })
 
@@ -205,7 +205,7 @@ When('I click on the next meeting button', () => {
     meetingDetailsPage.nextMeetingLink().click()
 })
 
-And('I can see the other items on Custom Policy Rationale modal like Policy ID, Rationale, Replace Rationale, Item Number and Proposal', () => {
+Then('I can see the other items on Custom Policy Rationale modal like Policy ID, Rationale, Replace Rationale, Item Number and Proposal', () => {
     meetingDetailsPage.customPolicyRationaleModalTableHeader('Policy ID').should('be.visible')
     meetingDetailsPage.customPolicyRationaleModalTableHeader('Rationale').should('be.visible')
     meetingDetailsPage.customPolicyRationaleModalTableHeader('Replace Rationale').should('be.visible')
@@ -213,12 +213,12 @@ And('I can see the other items on Custom Policy Rationale modal like Policy ID, 
     meetingDetailsPage.customPolicyRationaleModalProposal().should('be.visible')
 })
 
-And('I can verify that I am unable to access Custom Policy Rationale modal for policy rec column', () => {
+Then('I can verify that I am unable to access Custom Policy Rationale modal for policy rec column', () => {
     meetingDetailsPage.policyRecLabel().find('a').should('have.length', 0)
     meetingDetailsPage.customPolicyRationaleModalHeading().should('not.be.visible')
 })
 
-And('I can verify that the {string} rec column displays with {string}', (column, column_value) => {
+Then('I can verify that the {string} rec column displays with {string}', (column, column_value) => {
     let rec
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index, value) => {
@@ -244,7 +244,7 @@ Then('I can verify that the vote decision match the value from the {string} colu
     })
 })
 
-And('I should be able to verify that all ballots have decision status as {string}', (ballotValue) => {
+Then('I should be able to verify that all ballots have decision status as {string}', (ballotValue) => {
     meetingDetailsPage.ballotSectionRows().then(($rows) => {
         $rows.each((index, value) => {
             value = Cypress.$(value).find('td.col-control-number').next().next().next().next().next().text()
@@ -253,7 +253,7 @@ And('I should be able to verify that all ballots have decision status as {string
     })
 })
 
-And('I can verify that the Quick Vote option and Vote Decision are read only', () => {
+Then('I can verify that the Quick Vote option and Vote Decision are read only', () => {
     meetingDetailsPage.quickVoteDropdown().should('have.attr', 'aria-disabled', 'true')
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index) => {
@@ -262,7 +262,7 @@ And('I can verify that the Quick Vote option and Vote Decision are read only', (
     })
 })
 
-And('I can verify that the Quick Vote option is disabled and Vote Decision options are unavailable', () => {
+Then('I can verify that the Quick Vote option is disabled and Vote Decision options are unavailable', () => {
     meetingDetailsPage.quickVoteDropdown().should('have.attr', 'aria-disabled', 'true')
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index) => {
@@ -322,27 +322,27 @@ When('I click on the Cancel button on the vote popup', () => {
     meetingDetailsPage.cancelPopUpButton().click()
 })
 
-And('I click on the Vote button', () => {
-    meetingDetailsPage.voteNowButton().click({ force: true })
+Then('I click on the Vote button', () => {
+    meetingDetailsPage.voteNowButton().click()
 })
 
-And('I click on the Proceed button', () => {
+Then('I click on the Proceed button', () => {
     meetingDetailsPage.getLoadingSpinner().should('not.exist')
     cy.clickIfExist(meetingDetailsPage.proceedButtonLocator)
 })
 
-And('I click the Company link', () => {
+Then('I click the Company link', () => {
     meetingDetailsPage.companyNameLink().click()
 })
 
-And('I save the company name', () => {
+Then('I save the company name', () => {
     meetingDetailsPage.companyNameLink().should(($div) => {
         let companyName = $div.text()
         Cypress.env('companyName', companyName)
     })
 })
 
-And('I handle the override pop-up if it exists', () => {
+Then('I handle the override pop-up if it exists', () => {
     cy.wait('@VOTE_REQUEST_VALIDATION')
     meetingDetailsPage.getLoadingSpinner().should('not.exist')
     meetingDetailsPage.pageBody().then((body) => {
@@ -356,7 +356,7 @@ And('I handle the override pop-up if it exists', () => {
     })
 })
 
-And('I select the checkbox and click Proceed', () => {
+Then('I select the checkbox and click Proceed', () => {
     meetingDetailsPage.checkboxOverride().should('be.visible').click()
     meetingDetailsPage.proceedButton().click()
 })
@@ -370,14 +370,14 @@ Then('I can see a Vote success message', () => {
     meetingDetailsPage.getLoadingSpinner().should('not.exist')
 })
 
-And('I verify the vote tally section by checking the total votes and hyperlinks', () => {
+Then('I verify the vote tally section by checking the total votes and hyperlinks', () => {
     meetingDetailsPage.totalVotedLink().should('be.visible').click()
     meetingDetailsPage.closeVoteTallyPopup().should('be.visible').click()
     meetingDetailsPage.totalNotVotedLink().should('be.visible').click()
     meetingDetailsPage.closeVoteTallyPopup().should('be.visible').click()
 })
 
-And('I verify that the Voted section shows all votes and nothing is displayed under Total Not Voted', () => {
+Then('I verify that the Voted section shows all votes and nothing is displayed under Total Not Voted', () => {
     let value1, value2
     meetingDetailsPage.totalVotedLink().should(($el) => {
         value1 = $el.text()
@@ -398,13 +398,13 @@ When('I click on the home button', () => {
     workflowPage.getLoadingSpinner().should('exist')
 })
 
-And('I click on the share meeting option', () => {
+Then('I click on the share meeting option', () => {
     meetingDetailsPage.shareMeetingButton().click()
     meetingDetailsPage.shareMeetingPopUpHeading().should('be.visible')
     cy.wait('@SHARE_MEETING_LISTS')
 })
 
-And('I vote for an item which had no previous vote with Glass Lewis Recommendations', () => {
+Then('I vote for an item which had no previous vote with Glass Lewis Recommendations', () => {
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index, value) => {
             const rec = Cypress.$(value).find('td.vote-card-policy-rec').text()
@@ -417,11 +417,11 @@ And('I vote for an item which had no previous vote with Glass Lewis Recommendati
     })
 })
 
-And('I add a controversy alert file for the meeting', () => {
+Then('I add a controversy alert file for the meeting', () => {
     cy.addControversyAlertFile()
 })
 
-And('The {string} functionality is {string}', (permission_name, isAvailable) => {
+Then('The {string} functionality is {string}', (permission_name, isAvailable) => {
     cy.clickIfExist(meetingDetailsPage.unlockButtonLocator);
 
     switch (permission_name) {
@@ -442,7 +442,7 @@ And('The {string} functionality is {string}', (permission_name, isAvailable) => 
     }
 })
 
-And('I export the ballot status report', () => {
+Then('I export the ballot status report', () => {
     meetingDetailsPage.exportButtonDropdown().click()
     meetingDetailsPage.exportBallotStatusReportButton().click()
     meetingDetailsPage.pdfRadio().click()
@@ -454,7 +454,7 @@ Then('A toast message appears for {string}', (value) => {
     meetingDetailsPage.toastMessage().should('not.exist')
 })
 
-And('I verify the vote tally section displays counts of total voted and total not voted items', () => {
+Then('I verify the vote tally section displays counts of total voted and total not voted items', () => {
     meetingDetailsPage.totalVotedLink().should('be.visible').then(($el) => {
         preTotalVoted = Number($el.text())
     })
@@ -463,7 +463,7 @@ And('I verify the vote tally section displays counts of total voted and total no
     })
 })
 
-And('I verify that the total voted number has changed to the previous total not voted number', () => {
+Then('I verify that the total voted number has changed to the previous total not voted number', () => {
     meetingDetailsPage.totalVotedLink().should('be.visible').then(($el) => {
         postTotalVoted = Number($el.text())
         expect(postTotalVoted).to.equal(preTotalNotVoted)
@@ -474,12 +474,12 @@ And('I verify that the total voted number has changed to the previous total not 
     })
 })
 
-And('I verify the vote tally modal is displayed when user clicks on the total voted hyperlink', () => {
+Then('I verify the vote tally modal is displayed when user clicks on the total voted hyperlink', () => {
     meetingDetailsPage.totalVotedLink().should('be.visible').click()
     meetingDetailsPage.closeVoteTallyPopup().should('be.visible')
 })
 
-And('I verify that the vote tally modal contains all the expected headers', () => {
+Then('I verify that the vote tally modal contains all the expected headers', () => {
     meetingDetailsPage.voteTallyPopupDiv().within(() => {
         meetingDetailsPage
             .containsText('Selecting the number of ballots voted or not voted for a policy will apply the appropriate filter in the vote card')
@@ -493,13 +493,13 @@ And('I verify that the vote tally modal contains all the expected headers', () =
     })
 })
 
-And('I verify that the vote tally with count of 0 is not hyperlinked', () => {
+Then('I verify that the vote tally with count of 0 is not hyperlinked', () => {
     meetingDetailsPage.voteTallyPopupDiv().within(() => {
         meetingDetailsPage.voteTallyTableBallotsNotVotedValue().should('contain.text', '0')
     })
 })
 
-And('I verify that the vote tally modal displays a value for each table column', () => {
+Then('I verify that the vote tally modal displays a value for each table column', () => {
     meetingDetailsPage.voteTallyPopupDiv().within(() => {
         for (let i = 1; i < 7; i++) {
             cy.get(`table tbody tr td:nth-child(${i})`).should('not.have.text', '')
@@ -507,11 +507,11 @@ And('I verify that the vote tally modal displays a value for each table column',
     })
 })
 
-And('I close the vote tally popup', () => {
+Then('I close the vote tally popup', () => {
     meetingDetailsPage.closeVoteTallyPopup().should('be.visible').click()
 })
 
-And('I can verify that all policy recommendations are matching {string} recommendations', (institute) => {
+Then('I can verify that all policy recommendations are matching {string} recommendations', (institute) => {
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index, value) => {
             const rec = Cypress.$(value).find('td.vote-card-policy-rec').text()
@@ -531,7 +531,7 @@ And('I can verify that all policy recommendations are matching {string} recommen
     })
 })
 
-And('I can verify that at least one policy recommendations is against {string} recommendations', (institute) => {
+Then('I can verify that at least one policy recommendations is against {string} recommendations', (institute) => {
     meetingDetailsPage.voteCardRow().then(($rows) => {
         let count = 0
         $rows.each((index, value) => {
@@ -556,7 +556,7 @@ Then('I should see a message that contains the text {string}', (message) => {
     meetingDetailsPage.pageBody().contains(message)
 })
 
-And('I should be able to verify the UI shows filename with "..." and its extension is .pdf', () => {
+Then('I should be able to verify the UI shows filename with "..." and its extension is .pdf', () => {
     meetingDetailsPage.controversyAlertLink().should('contain.text', '...')
     //due to the page load issue when downloading a file, below code will click on download link
     //and then refresh page after 5 seconds so that the script does not fail
@@ -571,7 +571,7 @@ And('I should be able to verify the UI shows filename with "..." and its extensi
     })
 })
 
-And('I clear the rationales for VAM entries and VAP entries and add rationales for remaining proposals', () => {
+Then('I clear the rationales for VAM entries and VAP entries and add rationales for remaining proposals', () => {
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index, value) => {
             const vamrec = Cypress.$(value).find('td:nth-child(3)').text()
@@ -609,7 +609,7 @@ And('I clear the rationales for VAM entries and VAP entries and add rationales f
     })
 })
 
-And('I clear the rationales for VAM entries and add rationales for other proposals', () => {
+Then('I clear the rationales for VAM entries and add rationales for other proposals', () => {
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index, value) => {
             const rec = Cypress.$(value).find('td:nth-child(3)').text()
@@ -646,7 +646,7 @@ And('I clear the rationales for VAM entries and add rationales for other proposa
     })
 })
 
-And('I clear the rationales for VAP entries and add rationales for other proposals', () => {
+Then('I clear the rationales for VAP entries and add rationales for other proposals', () => {
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index, value) => {
             const rec = Cypress.$(value).find('td.vote-card-policy-rec').text()
@@ -683,7 +683,7 @@ And('I clear the rationales for VAP entries and add rationales for other proposa
     })
 })
 
-And('I enter rationales for all proposals in the meeting', () => {
+Then('I enter rationales for all proposals in the meeting', () => {
     meetingDetailsPage.voteCardRow().then(($rows) => {
         $rows.each((index, value) => {
             const rec = Cypress.$(value).find('td.vote-card-policy-rec').text();
@@ -744,19 +744,19 @@ Then('the given agendas appears on the page', () => {
 
 })
 
-And('I can verify that the Account filter has the value {string}', (value) => {
+Then('I can verify that the Account filter has the value {string}', (value) => {
     meetingDetailsPage.accountButton().click()
     meetingDetailsPage.accountDiv().should('contain.text', value)
     meetingDetailsPage.cancelAccountButton().click({ scrollBehavior: false })
 })
 
-And('I can verify that the Account Group filter has the value {string}', (value) => {
+Then('I can verify that the Account Group filter has the value {string}', (value) => {
     meetingDetailsPage.accountGroupButton().click()
     meetingDetailsPage.accountGroupDiv().should('contain.text', value)
     meetingDetailsPage.cancelAccountGroupButton().click({ scrollBehavior: false })
 })
 
-And('I filter for {string} account', (filterValue) => {
+Then('I filter for {string} account', (filterValue) => {
     meetingDetailsPage.accountButton().click()
     meetingDetailsPage.accountButton().invoke('text').then(() => {
         if (filterValue.includes('all but top two')) {
@@ -780,7 +780,7 @@ And('I filter for {string} account', (filterValue) => {
     meetingDetailsPage.getLoadingSpinner().should('not.exist')
 })
 
-And('I can verify that the vote card summary remains unchanged when user changes the filters on {string}', (filterValue) => {
+Then('I can verify that the vote card summary remains unchanged when user changes the filters on {string}', (filterValue) => {
     meetingDetailsPage.totalVotedLink().should(($el) => {
         return preTotalVoted = $el.text()
     })
@@ -834,7 +834,7 @@ And('I can verify that the vote card summary remains unchanged when user changes
     })
 })
 
-And('I can use the Filter on unvoted ballots functionality', () => {
+Then('I can use the Filter on unvoted ballots functionality', () => {
     meetingDetailsPage.filterUnvotedBallotsButton().click()
     cy.verifyMeetingOptionButtons()
     meetingDetailsPage.filterUnvotedBallotsButton().should('not.be.visible')
@@ -854,7 +854,7 @@ When('I click on the Ballots filter', () => {
     meetingDetailsPage.ballotsButton().click()
 })
 
-And('I select control number {int} from the top', (rowNo) => {
+Then('I select control number {int} from the top', (rowNo) => {
     cy.clickIfExist(meetingDetailsPage.ballotsSearchClearInputLocator)
     meetingDetailsPage.ballotsSearchInput().click({ force: true, scrollBehavior: false })
     for (let i = 2; i <= rowNo; i++) {
@@ -863,7 +863,7 @@ And('I select control number {int} from the top', (rowNo) => {
     meetingDetailsPage.ballotsSearchInput().type('{enter}')
 })
 
-And('I click on the update button for Ballots filter', () => {
+Then('I click on the update button for Ballots filter', () => {
     meetingDetailsPage.ballotsSearchUpdateButton().click()
 })
 
@@ -900,7 +900,7 @@ Then('I verify that all the relevant API calls for meeting details page are made
     cy.statusCode200('@SHARE_MEETING_MODAL')
 })
 
-And('I click on the control number for {string}', (controlNumber) => {
+Then('I click on the control number for {string}', (controlNumber) => {
     meetingDetailsPage.controlNumberLink().contains(constants.MEETINGID[controlNumber]).click()
 })
 
@@ -1017,14 +1017,14 @@ Then('the meeting id should match the expected current meeting id and previous m
     cy.statusCode204('@LOGGER')
 })
 
-And('the company id should match the expected company id', () => {
+Then('the company id should match the expected company id', () => {
     var idCompany = [38673]
     // Navigate to Company Page, get company id and verify it is same company id as stored in a variable as first company id
     meetingDetailsPage.companyNameLink().click({ force: true })
     cy.location('href').should('include', idCompany[0])
 })
 
-And('I verify all listed items Meetings dropdown check for each in list includes the text "20"', () => {
+Then('I verify all listed items Meetings dropdown check for each in list includes the text "20"', () => {
     /* Click into Meetings dropdown on Company page and verify all listed items Meetings dropdown check for each in list
     includes the text '20' */
     meetingDetailsPage.meetingsDateDropdown().should('be.visible').click()
@@ -1088,7 +1088,7 @@ Then('the filtered results should display the data only for vote against Managem
     })
 })
 
-And('I provide the details like the username to share with and submitted', () => {
+Then('I provide the details like the username to share with and submitted', () => {
     //Step 6 - Select 'Calpers External Admin' from Users list
     meetingDetailsPage.shareMeetingUsernameInput().type('Calpers', { delay: 50 })
     cy.wait('@IDENTITY_SEARCH')
@@ -1101,7 +1101,7 @@ And('I provide the details like the username to share with and submitted', () =>
     meetingDetailsPage.shareMeetingConfirmButton().click()
 })
 
-And('I verify that the request was saved in the database', () => {
+Then('I verify that the request was saved in the database', () => {
     let today = new Date().toISOString().slice(0, 10)
     cy.getAutomationUserIDFromDB(constants.USER.CALPERS).as('userid')
     //Step 11 - Connect to Aqua GLP Database and verify new row has been added to PX_ShareMeeting table
@@ -1129,7 +1129,7 @@ Then('the vote tally should be updated', () => {
     })
 })
 
-And('the activity should match against the ballot activity log', () => {
+Then('the activity should match against the ballot activity log', () => {
     // Step 12 - Verify the activity section and match the activity against the Ballot activity log by clicking on the control number hyperlink
     let arrMeetingActivity = []
     let arrMeetingUser = []
@@ -1270,7 +1270,7 @@ Then('I can see the Ballot section under the comments section', () => {
     meetingDetailsPage.ballotCancelButton().eq(1).should('be.visible')
 })
 
-And('I can verify that the default field "Control Number" is not available in the "Columns" modal', () => {
+Then('I can verify that the default field "Control Number" is not available in the "Columns" modal', () => {
     // Step 7 - Verify that the Default Field 'Control Number' is not available in the 'Columns' modal
     meetingDetailsPage.ballotSectionData()
         .find('#mytable > ul > li')
@@ -1279,7 +1279,7 @@ And('I can verify that the default field "Control Number" is not available in th
         })
 })
 
-And('I can verify that the user gets the appropriate results for "Custodian" in the responsive search of the "Columns" Modal', () => {
+Then('I can verify that the user gets the appropriate results for "Custodian" in the responsive search of the "Columns" Modal', () => {
     // Step 8 - Verify that the user enter a character (e.g.: 'Custodian') in the responsive search of the "Columns" Modal
     meetingDetailsPage.ballotSectionCompanyNameInput().last().type('Custodian')
 
@@ -1292,7 +1292,7 @@ And('I can verify that the user gets the appropriate results for "Custodian" in 
     meetingDetailsPage.ballotCancelButton().eq(1).click()
 })
 
-And('I can verify that the ballot section displays just the results based on the policy filtered', () => {
+Then('I can verify that the ballot section displays just the results based on the policy filtered', () => {
     // Check which position the column "Policy ID" is and wrapped into the object index
     meetingDetailsPage.ballotTableHeadings().should('be.visible').each(($headers, index) => {
         if ($headers.text().trim() == 'Policy ID') {
@@ -1309,13 +1309,13 @@ And('I can verify that the ballot section displays just the results based on the
     })
 })
 
-And('I save the meeting url', () => {
+Then('I save the meeting url', () => {
     cy.url().then((url) => {
         meetingId = url
     })
 })
 
-And('I clear the list of watchlists', () => {
+Then('I clear the list of watchlists', () => {
     //save meeting url
     cy.url().then((url) => {
         meetingId = url
@@ -1338,7 +1338,7 @@ Then('I can verify that {string} is displayed in the {string} field in the ballo
     meetingDetailsPage.containsText(value).should('be.visible')
 })
 
-And('I remove all existing comments', () => {
+Then('I remove all existing comments', () => {
     meetingDetailsPage.pageBody().wait(2000).then(($body) => {
         if ($body.find('a[id="comment-delete"]').length > 0) {
             const len = $body.find('a[id="comment-delete"]').length
@@ -1352,7 +1352,7 @@ And('I remove all existing comments', () => {
     })
 })
 
-And('I delete the existing comment', () => {
+Then('I delete the existing comment', () => {
     meetingDetailsPage.deleteCommentButton().click()
     meetingDetailsPage.popUpOkButton().click()
     cy.wait('@COMMENTS')
@@ -1362,7 +1362,7 @@ When('I set the privacy dropdown to {string}', (value) => {
     meetingDetailsPage.shareVisibilityDropdown().select(value)
 })
 
-And('I amend the privacy dropdown to {string}', (value) => {
+Then('I amend the privacy dropdown to {string}', (value) => {
     meetingDetailsPage.editCommentShareDropdown().select(value)
 })
 
@@ -1377,7 +1377,7 @@ When('I attach a file to the comment', () => {
     meetingDetailsPage.containsText('testImage.jpg').should('be.visible')
 })
 
-And('I add an attachment to the comment and rename the file with a string of {int} characters', (noOfCharacters) => {
+Then('I add an attachment to the comment and rename the file with a string of {int} characters', (noOfCharacters) => {
     meetingDetailsPage.attachFileButton().click()
     meetingDetailsPage.addAttachmentFileInput().selectFile('cypress/fixtures/testImage.jpg', { action: 'drag-drop' })
     cy.randomString(noOfCharacters).then((data) => {
@@ -1388,12 +1388,12 @@ And('I add an attachment to the comment and rename the file with a string of {in
     })
 })
 
-And('I add a comment and submit', () => {
+Then('I add a comment and submit', () => {
     meetingDetailsPage.commentTextArea().type('hello CalPERS | ExtAdmin Sagar Maheshwari')
     meetingDetailsPage.postCommentButton().should('be.visible').should('be.enabled').click()
 })
 
-And('I add a random comment {int} times', (times) => {
+Then('I add a random comment {int} times', (times) => {
     for (let i = 1; i <= times; i++) {
         cy.randomString(times).then((data) => {
             meetingDetailsPage.commentTextArea().type(data)
@@ -1410,7 +1410,7 @@ When('I edit the comment', () => {
     meetingDetailsPage.editCommentButton().should('be.visible').scrollIntoView().click()
 })
 
-And('I amend the name of the attachment', () => {
+Then('I amend the name of the attachment', () => {
     meetingDetailsPage.editAttachmentButton().should('be.visible').click()
     meetingDetailsPage.attachmentsDiv().within(() => {
         cy.get('input').clear().type('amendedImage.jpg')
@@ -1418,11 +1418,11 @@ And('I amend the name of the attachment', () => {
     meetingDetailsPage.meetingNoteSubmitButton().click()
 })
 
-And('I amend the contents of the comment', () => {
+Then('I amend the contents of the comment', () => {
     meetingDetailsPage.editCommentTextArea().clear().type('Comment Amended!!')
 })
 
-And('I save the changes to the comment', () => {
+Then('I save the changes to the comment', () => {
     meetingDetailsPage.saveUpdateAttachmentButton().click()
 })
 
@@ -1430,19 +1430,19 @@ When('I click on the View All button', () => {
     meetingDetailsPage.viewAllCommentsLink().click()
 })
 
-And('I verify the cancel functionality when trying to delete a comment', () => {
+Then('I verify the cancel functionality when trying to delete a comment', () => {
     meetingDetailsPage.deleteCommentButton().click()
     meetingDetailsPage.popUpCancelButton().click()
     meetingDetailsPage.deleteCommentButton().should('be.visible')
 })
 
-And('I delete the attachment from the comment', () => {
+Then('I delete the attachment from the comment', () => {
     meetingDetailsPage.commentsDiv().scrollIntoView()
     meetingDetailsPage.deleteAttachmentButton().click()
     meetingDetailsPage.popUpOkButton().click()
 })
 
-And('I cannot see an existing comment on the meeting', () => {
+Then('I cannot see an existing comment on the meeting', () => {
     meetingDetailsPage.existingCommentDiv().should('not.exist')
 })
 
@@ -1450,11 +1450,11 @@ Then('I add a comment by mentioning user {string}', (username) => {
     meetingDetailsPage.commentTextArea().type('@' + username).wait(1000).type('{enter}')
 })
 
-And('I should see {string} comments on the UI', (noOfComments) => {
+Then('I should see {string} comments on the UI', (noOfComments) => {
     meetingDetailsPage.existingCommentDiv().should('have.length', Number(noOfComments))
 })
 
-And('I amend the shared with field to {string}', (sharedWith) => {
+Then('I amend the shared with field to {string}', (sharedWith) => {
     meetingDetailsPage.editShareUserInput().type('{backspace}{backspace}{backspace}')
     if (!sharedWith.includes('nothing')) {
         meetingDetailsPage.floatingContainer().then($el => $el.remove())
@@ -1462,7 +1462,7 @@ And('I amend the shared with field to {string}', (sharedWith) => {
     }
 })
 
-And('I add the user {string} to shared with field', (sharedWith) => {
+Then('I add the user {string} to shared with field', (sharedWith) => {
     meetingDetailsPage.editShareUserInput().type(sharedWith).wait(1000).type('{enter}')
 })
 
@@ -1479,7 +1479,7 @@ When('I add a comment with {int} characters', (noOfCharacters) => {
     })
 })
 
-And('I can see the Set Partial Vote button', () => {
+Then('I can see the Set Partial Vote button', () => {
     meetingDetailsPage.setPartialVoteButton().should('be.visible')
     meetingDetailsPage.setPartialVoteButton().should('have.css', 'background-color', 'rgb(31, 151, 209)')
 })
@@ -1499,18 +1499,18 @@ Then('I can see the Partial Vote modal', () => {
     meetingDetailsPage.toastMessage().should('not.exist')
 })
 
-And('I can verify that the Apply percent buttons are enabled in the Partial Vote modal', () => {
+Then('I can verify that the Apply percent buttons are enabled in the Partial Vote modal', () => {
     meetingDetailsPage.applyPercentToAllButton().should('be.enabled')
     meetingDetailsPage.applyPercentToUnappliedButton().should('be.enabled')
 })
 
-And('I can verify that the radio buttons are displayed for NOMINAL & PERCENT fields', () => {
+Then('I can verify that the radio buttons are displayed for NOMINAL & PERCENT fields', () => {
     meetingDetailsPage.nominalRadio().should('be.visible')
     meetingDetailsPage.percentRadio().should('be.visible')
     meetingDetailsPage.percentRadio().should('be.checked')
 })
 
-And('I can verify that all partial vote percent on the page is {int}', (value) => {
+Then('I can verify that all partial vote percent on the page is {int}', (value) => {
     meetingDetailsPage.partialVotePercentAllInput().then(($rows) => {
         $rows.each((index) => {
             meetingDetailsPage.partialVotePercentAllInput().eq(index).invoke('attr', 'aria-valuenow').should('eq', String(value))
@@ -1518,12 +1518,12 @@ And('I can verify that all partial vote percent on the page is {int}', (value) =
     })
 })
 
-And('I can see zero values in the partial vote amount applied textbox', () => {
+Then('I can see zero values in the partial vote amount applied textbox', () => {
     meetingDetailsPage.partialVoteNominalInput().invoke('attr', 'aria-valuenow').should('eq', '0')
     meetingDetailsPage.partialVotePercentInput().invoke('attr', 'aria-valuenow').should('eq', '0')
 })
 
-And('I can increase and decrease % by selecting the up and down arrows', () => {
+Then('I can increase and decrease % by selecting the up and down arrows', () => {
     meetingDetailsPage.increaseValuePercentButton().click()
     meetingDetailsPage.partialVotePercentInput().invoke('attr', 'aria-valuenow').should('eq', '1')
     meetingDetailsPage.decreaseValuePercentButton().click()
@@ -1539,7 +1539,7 @@ When('I set the partial vote for the first row to {int} percent', (value) => {
     })
 })
 
-And('I set the partial vote for the first row to {int} shares', (value) => {
+Then('I set the partial vote for the first row to {int} shares', (value) => {
     meetingDetailsPage.increaseValueNominalButton().click()
     meetingDetailsPage.partialVoteNominalInput().clear().type(value)
     meetingDetailsPage.partialVotePercentInput().click({ force: true })
@@ -1548,20 +1548,20 @@ And('I set the partial vote for the first row to {int} shares', (value) => {
     })
 })
 
-And('I save the partial vote changes', () => {
+Then('I save the partial vote changes', () => {
     meetingDetailsPage.savePartialVoteButton().click()
 })
 
-And('I close the partial vote modal', () => {
+Then('I close the partial vote modal', () => {
     meetingDetailsPage.closePartialVoteModalButton().click()
 })
 
-And('I can see the Partial Vote Applied button', () => {
+Then('I can see the Partial Vote Applied button', () => {
     meetingDetailsPage.setPartialVoteButton().should('be.visible')
     meetingDetailsPage.setPartialVoteButton().should('have.css', 'background-color', 'rgb(128, 0, 0)')
 })
 
-And('I can see the Clear Partial Vote link', () => {
+Then('I can see the Clear Partial Vote link', () => {
     meetingDetailsPage.clearPartialVoteButton().should('be.visible')
     meetingDetailsPage.setPartialVoteButton().next().should('contain.text', 'Clear partial vote')
 })
@@ -1571,7 +1571,7 @@ When('I click on the Clear Partial Vote link', () => {
     Cypress.env('partialVoteNominalAmount', 'null')
 })
 
-And('I click on the Clear Partial Vote link if it exists', () => {
+Then('I click on the Clear Partial Vote link if it exists', () => {
     cy.clickIfExist(meetingDetailsPage.clearPartialVoteButtonLocator)
     meetingDetailsPage.toastMessage().should('not.exist')
 })
@@ -1614,7 +1614,7 @@ Then('I should be able to verify the Take No Action functionality for a partiall
     meetingDetailsPage.getLoadingSpinner().should('not.exist')
 })
 
-And('I can verify that I cannot enter alphanumeric values in percentage and nominal textboxes', () => {
+Then('I can verify that I cannot enter alphanumeric values in percentage and nominal textboxes', () => {
     let alpNumStr = 'a1b0c', numStr = '10'
     meetingDetailsPage.increaseValuePercentButton().click()
     meetingDetailsPage.partialVotePercentInput().clear().type(alpNumStr)
@@ -1627,7 +1627,7 @@ And('I can verify that I cannot enter alphanumeric values in percentage and nomi
     meetingDetailsPage.partialVoteNominalInput().invoke('attr', 'aria-valuenow').should('eq', numStr)
 })
 
-And('I enter a value equal to the number of shares', () => {
+Then('I enter a value equal to the number of shares', () => {
     meetingDetailsPage.noOfSharesLabel().then((noOfShares) => {
         meetingDetailsPage.increaseValueNominalButton().click()
         meetingDetailsPage.partialVoteNominalInput().clear().type(noOfShares.text())
@@ -1635,7 +1635,7 @@ And('I enter a value equal to the number of shares', () => {
     })
 })
 
-And('I enter a value greater than number of shares', () => {
+Then('I enter a value greater than number of shares', () => {
     meetingDetailsPage.noOfSharesLabel().then((noOfShares) => {
         meetingDetailsPage.increaseValueNominalButton().click()
         meetingDetailsPage.partialVoteNominalInput().clear().type(noOfShares.text() + 1)
@@ -1643,23 +1643,23 @@ And('I enter a value greater than number of shares', () => {
     })
 })
 
-And('I enter a percent greater than number of shares', () => {
+Then('I enter a percent greater than number of shares', () => {
     meetingDetailsPage.increaseValuePercentButton().click()
     meetingDetailsPage.partialVotePercentInput().clear().type('101')
     meetingDetailsPage.partialVoteNominalInput().click({ force: true })
 })
 
-And('the partial vote amount is automatically corrected to total number of shares', () => {
+Then('the partial vote amount is automatically corrected to total number of shares', () => {
     meetingDetailsPage.noOfSharesLabel().then((noOfShares) => {
         meetingDetailsPage.partialVoteNominalInput().invoke('attr', 'aria-valuenow').should('eq', noOfShares.text())
     })
 })
 
-And('the partial vote percent is automatically corrected to 100%', () => {
+Then('the partial vote percent is automatically corrected to 100%', () => {
     meetingDetailsPage.partialVotePercentInput().invoke('attr', 'aria-valuenow').should('eq', '100')
 })
 
-And('I can verify that the set partial vote modal is read only for past meetings', () => {
+Then('I can verify that the set partial vote modal is read only for past meetings', () => {
     cy.SetMeetingDateXdaysFromCurrent(Cypress.env('meetingId'), -10)
     cy.visit('MeetingDetails/Index/' + Cypress.env('meetingId'))
     meetingDetailsPage.setPartialVoteButton().should('be.visible').click()

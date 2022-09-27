@@ -1,4 +1,4 @@
-import { When, Then, And } from "cypress-cucumber-preprocessor/steps"
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import manageFiltersPage from '../page_objects/manageFilters.page'
 const constants = require('../constants')
 
@@ -53,7 +53,7 @@ Then('I should be able to see a success message for the {string} subscription', 
     }
 })
 
-And('the subscription is available in the database', () => {
+Then('the subscription is available in the database', () => {
     const today = new Date().toISOString().slice(0, 10)
     cy.getAutomationUserIDFromDB(constants.USER.CALPERS).as('userid')
     //Step 9 - Connect to Aqua Database and verify new row has been added
@@ -80,7 +80,7 @@ And('the subscription is available in the database', () => {
     })
 })
 
-And('I remove all existing subscriptions', () => {
+Then('I remove all existing subscriptions', () => {
     manageFiltersPage.pageBody().then(($body) => {
         if ($body.find('[class="fa fa-times"]').length > 0) {
             const len = $body.find('[class="fa fa-times"]').length

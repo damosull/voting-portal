@@ -1,4 +1,4 @@
-import { When, Then, And } from "cypress-cucumber-preprocessor/steps"
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import usersPage from "../page_objects/users.page"
 const constants = require('../constants')
 
@@ -20,7 +20,7 @@ Then('I verify that all the relevant API calls for users page are made', () => {
     cy.statusCode200('@LIST_SERVICE_STATUS_CODE')
 })
 
-And('I fill the required details for a new user and submit', () => {
+Then('I fill the required details for a new user and submit', () => {
     usersPage.addNewUserButton().click()
     usersPage.userFirstName().type(constants.TESTUSER.FIRSNAME)
     usersPage.userLastName().type(constants.TESTUSER.LASTNAME)

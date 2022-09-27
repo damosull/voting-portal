@@ -1,8 +1,8 @@
-import { When, Then, And } from "cypress-cucumber-preprocessor/steps"
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import customersPage from "../page_objects/customers.page"
 import customerDetailsPage from "../page_objects/customerDetails.page"
 
-And('I search for customer with name {string}', (customerName) => {
+Then('I search for customer with name {string}', (customerName) => {
     customersPage.addCriteria().should('be.visible')
     customersPage.customerNamePopUp().invoke('attr', 'style', 'display: block')
     customersPage.customerNameInput().type(customerName)

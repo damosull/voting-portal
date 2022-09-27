@@ -1,11 +1,11 @@
-import { And, Then } from "cypress-cucumber-preprocessor/steps"
+import { Then } from "@badeball/cypress-cucumber-preprocessor"
 import companyPage from "../page_objects/company.page"
 
 Then('The anchor bar should not contain a link to Engagements', () => {
     companyPage.companyNavLinks().should('not.contain', 'Engagements')
 })
 
-And('There is no Engagements section on the Company page', () => {
+Then('There is no Engagements section on the Company page', () => {
     companyPage.companyPageBody().should('not.contain', 'Engagements')
 })
 

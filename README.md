@@ -25,23 +25,25 @@ To run cypress, just execute the following command:
 
 # Running With Tags
 
-Using Cucumber tags gives great advantage to run the test cases of your choice. All the tests in this repo have been tagged, either as a set OR as the ID of invidiual test case. You can use the command as seen in below examples. Please note that narrowing the e2e folder will help speed up the test you are running.
-**NOTE:** With the current version of cucumber preprocessor, the cucumber report will mark the unexecuted tests as `Skipped`, and will mark the executed tests as `Passed` or `Failed`. The `Skipped` tests can be ignored.
+Using Cucumber tags gives great advantage to run the test cases of your choice. All the tests in this repo have been tagged, either as a set OR as the ID of invidiual test case. You can use the command as seen in below examples.
 
-- Run specific test from entire test suite - `npx cypress run --env TAGS='@40729'`
-- Run multiple tests from entire test suite - `npx cypress run --env TAGS='@40729 or @3331 or @28433 or @28474'`
-- Run specific test from specific file - `npx cypress run --spec 'cypress/e2e/AutomationBacklog/Compare Recommendations.feature' --env TAGS='@48678'`
-- Run multiple tests from specific folder - `npx cypress run --config specPattern="cypress/e2e/ViewpointTestSuite/02-MeetingDetails/*.feature" --env TAGS='@40724 or @40734'`
+**NOTE:** With the current version of cucumber preprocessor, the cucumber report will mark the unexecuted tests as `Unknown`, and will mark the executed tests as `Passed` or `Failed`. The `Unknown` tests can be ignored.
+
+- Run specific test from entire test suite - `npx cypress run --env tags='@40729'`
+- Run multiple tests from entire test suite - `npx cypress run --env tags='@40729 or @3331 or @28433 or @28474'`
+- Run specific test from specific file - `npx cypress run --spec 'cypress/e2e/AutomationBacklog/Compare Recommendations.feature' --env tags='@48678'`
+- Run multiple tests from specific folder - `npx cypress run --config specPattern="cypress/e2e/ViewpointTestSuite/02-MeetingDetails/*.feature" --env tags='@40724 or @40734'`
 
 
 # Running Viewpoint Regression Tests
 
 **NOTE:** Provide the browser details only if you are running tests locally and have that browser installed, else remove that parameter. Browsers are not supported when running on Azure pipelines.
 
-- Run specific test from specific folder on safari - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/02-MeetingDetails/Vote Button - MD6.feature' --env TAGS='@3289' --browser webkit`
+- Run specific test from specific folder on safari - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/02-MeetingDetails/Vote Button - MD6.feature' --env tags='@3289' --browser webkit`
 - Run all tests from specific folder on chrome - `npx cypress run --spec 'cypress/e2e/ViewpointTestSuite/02-MeetingDetails/Vote Card.feature' --browser chrome`
 - Run all meeting details regression tests - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/02-MeetingDetails/*.feature'`
 - Run entire resgression suite - `npm run regression`
+- **Run specific tests from regression suite if you don't know the folders - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/**/*.feature' --env tags='@28722 or @40724'`**
 
 # CI
 

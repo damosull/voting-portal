@@ -1,4 +1,4 @@
-import { When, And, Then } from "cypress-cucumber-preprocessor/steps"
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import reportingPage from "../page_objects/reporting.page"
 const constants = require('../constants')
 const unixTime = Math.floor(Date.now() / 1000)
@@ -23,7 +23,7 @@ When('I navigate to the Reporting page', () => {
     cy.visit('/Reporting')
 })
 
-And('I select the {string} report', (reportType) => {
+Then('I select the {string} report', (reportType) => {
     reportingPage.containsText(reportType).click()
     reportingPage.getLoadingSpinner().should('not.exist')
 })
@@ -50,7 +50,7 @@ Then('I verify that all the relevant API calls for reporting page are made', () 
     cy.statusCode200('@DATE_RANGE')
 })
 
-And('I click on the notification dropdown', () => {
+Then('I click on the notification dropdown', () => {
     reportingPage.notificationLink().click()
 })
 
@@ -76,13 +76,13 @@ Then('I download the PDF and verify it', () => {
         })
 })
 
-And('I click on the {string} filter', (filter) => {
+Then('I click on the {string} filter', (filter) => {
     reportingPage.containsText(filter).click()
     cy.wait('@BALLOT_VOTE')
     cy.wait('@BALLOT_CRITERIA')
 })
 
-And('I set the meeting date to next date {int} and past date {int} days', (nextDays, pastDays) => {
+Then('I set the meeting date to next date {int} and past date {int} days', (nextDays, pastDays) => {
     reportingPage.dateRangeModal().invoke('attr', 'style', 'display: block')
     reportingPage.dateRangeDaysInput().invoke('attr', 'style', 'display: block').clear()
     reportingPage.dateRangeNextDaysInput().type(nextDays)
@@ -90,14 +90,14 @@ And('I set the meeting date to next date {int} and past date {int} days', (nextD
     reportingPage.containsText('Update').click()
 })
 
-And('I select {string} column', (column) => {
+Then('I select {string} column', (column) => {
     reportingPage.configureColumnsDropdown().click()
     reportingPage.columnsSeventhCheckbox().click({ force: true })
     reportingPage.applyButton().click({ force: true })
     reportingPage.selectedCheckbox().should('contain.text', column)
 })
 
-And('I save the configuration with the name of {string}', (configName) => {
+Then('I save the configuration with the name of {string}', (configName) => {
     reportingPage.containsText('Save As').click()
     reportingPage.saveNameInput().should('be.visible').type(configName)
     reportingPage.cancelButton().should('be.visible')
@@ -106,7 +106,7 @@ And('I save the configuration with the name of {string}', (configName) => {
     reportingPage.containsText('My configurations').siblings().find('span').should('contain', configName)
 })
 
-And('I click on the download the report button', () => {
+Then('I click on the download the report button', () => {
     reportingPage.downloadButton().click()
 })
 
@@ -136,30 +136,30 @@ Then('I verify the report headers with the name of {string}', (configName) => {
         })
 })
 
-And('I delete the given {string} configuration', (configuration_file_name) => {
+Then('I delete the given {string} configuration', (configuration_file_name) => {
     cy.deleteMyConfiguration(configuration_file_name)
 })
 
-And('I Add Subscription', () => {
+Then('I Add Subscription', () => {
     reportingPage.subscriptionHeading().click()
     reportingPage.containsText('Add Subscription').click()
 })
 
-And('I select Calpers External Admin from Users list', () => {
+Then('I select Calpers External Admin from Users list on reporting page', () => {
     reportingPage.usersListDropdown().click().type('{downarrow}{downarrow}{downarrow}{enter}').blur()
 })
 
-And('I enter Filename for Subscription Report', () => {
+Then('I enter Filename for Subscription Report', () => {
     reportingPage.subscriptionFilenameInput().type('SubscribeTest')
 })
 
-And('I enter Schedule to run Subscription', () => {
+Then('I enter Schedule to run Subscription on reporting page', () => {
     // (Weekly/8AM/Sunday)
     reportingPage.scheduleDropdown().select('1')
     reportingPage.scheduleSunday().check({ force: true })
 })
 
-And('I click on the Ok button', () => {
+Then('I click on the Ok button', () => {
     reportingPage.okButton().click()
 })
 
@@ -167,10 +167,10 @@ Then('Subscription added toast message appears', () => {
     reportingPage.toastMessage().should('contain.text', constants.messages.toast.SUBSCRIPTION_ADDED)
 })
 
-And('Verify UI table entries for newly created Subscription', () => {
+Then('Verify UI table entries for newly created Subscription', () => {
     reportingPage.subscriptionTableData().eq(1).should('include.text', 'CalpersAutomation External Admin')
-    reportingPage.subscriptionTableData().eq(2).should('include.text', 'Daily')
-    reportingPage.subscriptionTableData().eq(3).should('include.text', 'Run at: 9:00AM')
+    reportingPage.subscriptionTableData().eq(2).should('include.text', 'Weekly')
+    reportingPage.subscriptionTableData().eq(3).should('include.text', 'Run at: ')
     reportingPage.subscriptionTableData().eq(4).should('include.text', 'SubscribeTest')
 })
 
@@ -187,7 +187,7 @@ Then('I verify Column data for UserIds and Filename', () => {
         cy.get('@userid').then(function (uid) {
             assert.equal(cols[3], uid) // SubscriberID
         })
-        assert.equal(cols[7], 1) // Deliver to Everyone = false
+        assert.equal(cols[7], 0) // Deliver to Everyone = false
         assert.equal(cols[12], 'SubscribeTest') // Filename
         cy.get('@userid').then(function (uid) {
             assert.equal(cols[13], uid) // Created by
@@ -197,16 +197,16 @@ Then('I verify Column data for UserIds and Filename', () => {
     })
 })
 
-And('I remove Subscription entry from Viewpoint', () => {
+Then('I remove Subscription entry from Viewpoint on reporting page', () => {
     reportingPage.deleteSubscriptionLink().first().click({ force: true })
     reportingPage.saveButton().click()
 })
 
-And('I select {string} Report Type', (report_type) => {
+Then('I select {string} Report Type', (report_type) => {
     cy.selectReportType(report_type)
 })
 
-And('I select Interaction Date between {string} and {string}', (start_date, end_date) => {
+Then('I select Interaction Date between {string} and {string}', (start_date, end_date) => {
     cy.wait('@CUSTOMER_NAME_SPECIAL')
     reportingPage.dateCriteriaDropdown().first().should('be.visible').click()
     reportingPage.dateCriteriaBetweenRadio().check()
@@ -214,11 +214,11 @@ And('I select Interaction Date between {string} and {string}', (start_date, end_
     reportingPage.dateCriteriaEndDate().clear({ force: true }).type(end_date, { force: true })
 })
 
-And('I click on the Update button', () => {
+Then('I click on the Update button', () => {
     reportingPage.containsText('Update').click({ force: true })
 })
 
-And('I add all the columns', () => {
+Then('I add all the columns', () => {
     reportingPage.configureColumnsDropdown().click({ force: true })
     reportingPage.includeAllButton().click({ force: true })
     reportingPage.selectedColumns().each((tr) => {
@@ -250,14 +250,14 @@ Then('I validate the Engagement Report', () => {
         })
 })
 
-And('I add {string} reporting criteria', (criteria) => {
+Then('I add {string} reporting criteria', (criteria) => {
     cy.AddMultipleCriteria([criteria], true)
     // Click on configure colum drop down and checking that is opened
     reportingPage.configureColumnsDropdown().click()
     reportingPage.availableColumnsHeader().should('be.visible')
 })
 
-And('I add the first 4 column option into the header list', () => {
+Then('I add the first 4 column option into the header list', () => {
     reportingPage.availableColumns().each((el, index) => {
         cy.wrap(el).find(':checkbox').check({ force: true })
         // Only select first 4 items
@@ -267,7 +267,7 @@ And('I add the first 4 column option into the header list', () => {
     })
 })
 
-And('I click on the Apply button', () => {
+Then('I click on the Apply button', () => {
     reportingPage.applyButton().click()
 })
 
@@ -297,7 +297,7 @@ Then('I validate the Ballot Status Report headers', () => {
         })
 })
 
-And('I remove any existing report criteria', () => {
+Then('I remove any existing report criteria', () => {
     reportingPage.pageBody().then(($body) => {
         if ($body.find('#workflow-filter-list > div > div > ul > li').eq(0).length > 0) {
             reportingPage.existingConfigurations().each(() => {
@@ -319,7 +319,7 @@ Then('I verify the filters', () => {
     reportingPage.policyIdUpdate().click({ force: true })
 })
 
-And('I save the new filter with random name', () => {
+Then('I save the new filter with random name', () => {
     // I click on the save buton
     reportingPage.saveAsButton().click({ force: true })
 
@@ -356,11 +356,11 @@ Then('I validate and verify the report', () => {
         })
 })
 
-And('I select Report Extension XLS', () => {
+Then('I select Report Extension XLS', () => {
     reportingPage.reportId().children().find('select').select('xls'.toUpperCase())
 })
 
-And('I select the past {int} days', (pastDays) => {
+Then('I select the past {int} days', (pastDays) => {
 
     // The reason I have two actions for the same input is because for some reason it takes roughly 5 seconds to type the past days, whereas with two actions is straight away
     // step 5 - Select past days
@@ -371,7 +371,7 @@ And('I select the past {int} days', (pastDays) => {
     reportingPage.meetingDateDropdown().contains(`Past ${pastDays} Days`)
 })
 
-And('I expand Vote Comparison and select GL Recs Against Mgmt', () => {
+Then('I expand Vote Comparison and select GL Recs Against Mgmt', () => {
     reportingPage.voteComparisonModal().invoke('attr', 'style', 'display: block')
     reportingPage.voteComparisonCheckboxes().contains('GL Recs Against Mgmt').siblings().check({ force: true }).should('be.checked')
     reportingPage.voteComparisonUpdateButton().click()
@@ -386,7 +386,7 @@ And('I expand Vote Comparison and select GL Recs Against Mgmt', () => {
 Then('I download the proxy voting report', () => {
     reportingPage.containsText('Download').click()
     reportingPage.toastMessage().should('contain.text', constants.messages.toast.DOWNLOAD_STARTED)
-    cy.deleteMyConfiguration('ProxyVoting')
+    cy.deleteMyConfiguration(configName_ProxyVotingReport)
 })
 
 Then('I verify the proxy voting report', () => {
@@ -413,28 +413,28 @@ Then('I verify the proxy voting report', () => {
     })
 })
 
-And('I filter the report type', () => {
+Then('I filter the report type', () => {
     reportingPage.reportId().children().find('select').select(fileExtension.toUpperCase())
     reportingPage.meetingDateRange().invoke('attr', 'style', 'display: block')
 })
 
-And('I set the date range to the last {int} days', (pastDays) => {
+Then('I set the date range to the last {int} days', (pastDays) => {
     reportingPage.dateRangeDaysInput().invoke('attr', 'style', 'display: block').clear()
     reportingPage.dateRangeDaysInput().invoke('attr', 'style', 'display: block').type(pastDays)
     reportingPage.containsText('Update').click()
     reportingPage.meetingDateRangeEditor().contains(`Past ${pastDays} Days`)
 })
 
-And('I select Decision Status Criteria', () => {
+Then('I select Decision Status Criteria', () => {
     cy.AddMultipleCriteria(['Decision Status'], true)
 })
 
-And('I select Voted criteria', () => {
+Then('I select Voted criteria', () => {
     cy.addCriteriaStatus(['Voted'], true)
     reportingPage.containsText(`${['Decision Status'].toString()} (1)`)
 })
 
-And('I add columns to the report', () => {
+Then('I add columns to the report', () => {
     reportingPage.reportColumns().then((columns) => {
         cy.wrap(columns).find('h3').invoke('attr', 'class', 'toggle')
         cy.wrap(columns).find('div').invoke('attr', 'style', 'display: block')
@@ -457,7 +457,7 @@ And('I add columns to the report', () => {
     })
 })
 
-And('I set the Footer under the Grouping & Presentation', () => {
+Then('I set the Footer under the Grouping & Presentation', () => {
     reportingPage.reportPresentation().then((presentation) => {
         cy.wrap(presentation).find('h3').invoke('attr', 'class', 'toggle')
         cy.wrap(presentation).find('div').invoke('attr', 'style', 'display: block')
@@ -472,7 +472,7 @@ And('I set the Footer under the Grouping & Presentation', () => {
     })
 })
 
-And('I set the Header under the Grouping & Presentation', () => {
+Then('I set the Header under the Grouping & Presentation', () => {
     reportingPage.reportPresentationInputHeader().should('have.attr', 'disabled')
     reportingPage.reportPresentationHeader().then((header) => {
         cy.wrap(header).should('not.be.checked')
@@ -482,7 +482,7 @@ And('I set the Header under the Grouping & Presentation', () => {
     reportingPage.containsText('The presentation header must be completed or unselected.')
 })
 
-And('I add subscription to the report', () => {
+Then('I add subscription to the report', () => {
     reportingPage.reportSubscriptions().then((subscriptions) => {
         cy.wrap(subscriptions).find('h3').invoke('attr', 'class', 'toggle')
         cy.wrap(subscriptions).find('div').invoke('attr', 'style', 'display: block')
@@ -499,7 +499,7 @@ And('I add subscription to the report', () => {
     })
 })
 
-And('I save the Voting Activity configuration', () => {
+Then('I save the Voting Activity configuration', () => {
     cy.saveFilter(configName_VotingActivityReport)
 })
 

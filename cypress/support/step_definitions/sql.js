@@ -1,7 +1,7 @@
-import { And } from "cypress-cucumber-preprocessor/steps"
+import { Then } from "@badeball/cypress-cucumber-preprocessor"
 const constants = require('../constants')
 
-And('I capture meeting ID by running the query {string}', (queryType) => {
+Then('I capture meeting ID by running the query {string}', (queryType) => {
   let query
 
   if (queryType.includes('with specific Proposal Type Code and Recommended By Code')) {
@@ -23,7 +23,7 @@ And('I capture meeting ID by running the query {string}', (queryType) => {
   })
 })
 
-And('I verify that the DB has updated with the absolute amount', () => {
+Then('I verify that the DB has updated with the absolute amount', () => {
   let query = `SELECT TOP 1 b.AbsoluteAmount from PX_Meeting m with (nolock)\
   join PX_Agenda a with (nolock)on a.MeetingID= m.MeetingID join PX_Ballot b with (nolock)on b.AgendaID = a.AgendaID\
   join am_account acc with(nolock)on acc.accountid = b.accountid join AA_customer cus with(nolock)on cus.customerid = acc.customerid\
@@ -35,7 +35,7 @@ And('I verify that the DB has updated with the absolute amount', () => {
   })
 })
 
-And('I verify that the absolute amount for the current meeting is correct', () => {
+Then('I verify that the absolute amount for the current meeting is correct', () => {
   let query = `SELECT TOP 1 b.AbsoluteAmount from PX_Meeting m with (nolock)\
   join PX_Agenda a with (nolock)on a.MeetingID= m.MeetingID join PX_Ballot b with (nolock)on b.AgendaID = a.AgendaID\
   join am_account acc with(nolock)on acc.accountid = b.accountid join AA_customer cus with(nolock)on cus.customerid = acc.customerid\
@@ -47,7 +47,7 @@ And('I verify that the absolute amount for the current meeting is correct', () =
   })
 })
 
-And('I delete the created test watchlist from database', () => {
+Then('I delete the created test watchlist from database', () => {
   cy.sqlServer(
     `
     DELETE FROM [GLP].[dbo].[PX_WatchListSecurity]
@@ -68,7 +68,7 @@ And('I delete the created test watchlist from database', () => {
   )
 })
 
-And('I cleanup the newly created user from the database to reuse the test script', () => {
+Then('I cleanup the newly created user from the database to reuse the test script', () => {
   cy.sqlServer(
     `
     DELETE FROM GLP.dbo.UM_UserPreferences

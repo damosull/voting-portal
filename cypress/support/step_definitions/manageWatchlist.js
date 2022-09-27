@@ -1,4 +1,4 @@
-import { When, Then, And } from "cypress-cucumber-preprocessor/steps"
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import watchlistPage from "../page_objects/watchlist.page"
 import workflowPage from "../page_objects/workflow.page"
 const constants = require('../constants')
@@ -15,12 +15,12 @@ Then('I verify that all the relevant API calls for manage watchlist page are mad
     cy.statusCode200('@WATCHLIST_SECURITIES')
 })
 
-And('I create a new watchlist', () => {
+Then('I create a new watchlist', () => {
     watchlistPage.createNewWatchlistButton().click({ force: true })
     watchlistPage.popupTextContainer().type(constants.testWatchlistName)
 })
 
-And('I submit the watchlist', () => {
+Then('I submit the watchlist', () => {
     watchlistPage.saveButton().click()
 })
 
@@ -28,7 +28,7 @@ Then('I should be able to search for the new watchlist', () => {
     watchlistPage.newWatchListName().should('include.text', constants.testWatchlistName)
 })
 
-And('I should be able to assign the watchlist successfully', () => {
+Then('I should be able to assign the watchlist successfully', () => {
     const testAdministrationUser = "CalPERS | ExtAdmin Automation QaUat"
     watchlistPage.administrationUserTextField().type(testAdministrationUser);
     cy.statusCode200('@WATCHLIST_IDENTITY_SEARCH'); // Waiting for dropdown appers

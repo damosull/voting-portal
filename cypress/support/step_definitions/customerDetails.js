@@ -1,4 +1,4 @@
-import { When, Then, And } from "cypress-cucumber-preprocessor/steps"
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import customerDetailsPage from "../page_objects/customerDetails.page"
 const constants = require('../constants')
 
@@ -30,6 +30,6 @@ Then('I verify that all the relevant API calls for customer details page are mad
     cy.statusCode200('@CUSTOMER_FORMATS')
 })
 
-And('I select Custom Fields from The Customer Settings panel', () => {
+Then('I select Custom Fields from The Customer Settings panel', () => {
     customerDetailsPage.customFieldsLink().click()
 })

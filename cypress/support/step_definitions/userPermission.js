@@ -1,8 +1,8 @@
-import { When, Then, And } from "cypress-cucumber-preprocessor/steps"
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import userPermissionPage from "../page_objects/userPermission.page"
 const constants = require ('../constants')
 
-And('I navigate to the User Permissions page', ()=> {
+Then('I navigate to the User Permissions page', ()=> {
     cy.visit("/UserPermissions")
 })
 
@@ -10,15 +10,15 @@ Then('I verify that all the relevant API calls for user permissions page are mad
     cy.statusCode200('@CURRENT_USER')
 })
 
-And('I type {string} into the user name input', (userName)=> {
+Then('I type {string} into the user name input', (userName)=> {
     userPermissionPage.userNameInput().type(userName)
 })
 
-And('I choose the first element from the dropdown', ()=> {
+Then('I choose the first element from the dropdown', ()=> {
     userPermissionPage.userNameInputList().click()
 })
 
-And('I change the {string} user permission to {string}', (permission_name, access_decision)=> {
+Then('I change the {string} user permission to {string}', (permission_name, access_decision)=> {
 
     switch (permission_name) {
         case "Vote":
@@ -42,7 +42,7 @@ And('I change the {string} user permission to {string}', (permission_name, acces
 
 })
 
-And('I click on the Submit changes button', ()=> {
+Then('I click on the Submit changes button', ()=> {
     userPermissionPage.submitButton().click()
 })
 
@@ -54,6 +54,6 @@ When('I navigate to User Permissions page for {string}', (username)=> {
     userPermissionPage.userNameInputList().click()
 })
 
-And('I click on the {string} dropdown', (setting)=> {
+Then('I click on the {string} dropdown', (setting)=> {
     cy.contains(setting).should('be.visible').click()
 })

@@ -2,8 +2,64 @@ const { defineConfig } = require('cypress')
 const fs = require('fs-extra')
 const xlsx = require('node-xlsx').default
 const sqlServer = require('cypress-sql-server')
-const cucumber = require('cypress-cucumber-preprocessor').default
-const reportGenerator = require('./cypress/support/cucumber-html-reporter')
+const createBundler = require("@bahmutov/cypress-esbuild-preprocessor")
+const preprocessor = require("@badeball/cypress-cucumber-preprocessor")
+const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild")
+const stdLibBrowser = require('node-stdlib-browser')
+const plugin = require('node-stdlib-browser/helpers/esbuild/plugin')
+
+async function setupNodeEvents(on, config) {
+
+  await preprocessor.addCucumberPreprocessorPlugin(on, config, {
+    omitBeforeRunHandler: true
+  })
+
+  on('before:run', () => {
+    fs.emptyDirSync('./test-results')
+    preprocessor.beforeRunHandler(config)
+  })
+
+  on(
+    "file:preprocessor",
+    createBundler({
+      inject: [require.resolve('node-stdlib-browser/helpers/esbuild/shim')],
+      define: {
+        global: 'global',
+        process: 'process',
+        Buffer: 'Buffer'
+      },
+      plugins: [plugin(stdLibBrowser), createEsbuildPlugin.default(config)],
+    })
+  )
+
+  on('task', {
+    parseXlsx({ filePath }) {
+      return new Promise((resolve, reject) => {
+        try {
+          const jsonData = xlsx.parse(fs.readFileSync(filePath))
+          resolve(jsonData)
+        } catch (e) {
+          reject(e)
+        }
+      })
+    },
+  })
+
+  on('task', sqlServer.loadDBPlugin({
+    userName: 'TestHarnessUser',
+    password: 't3$t4@12ness#aQua#0932',
+    server: '10.71.5.53',
+    options: {
+      database: 'GLP',
+      encrypt: true,
+      rowCollectionOnRequestCompletion: true,
+      trustServerCertificate: true,
+      validateBulkLoadParameters: true,
+    },
+  }))
+
+  return config
+}
 
 module.exports = defineConfig({
   defaultCommandTimeout: 30000,
@@ -30,52 +86,9 @@ module.exports = defineConfig({
     runMode: 2,
     openMode: 0,
   },
-  env: {
-    startTime: new Date()
-  },
   e2e: {
+    setupNodeEvents,
     baseUrl: 'https://viewpoint.aqua.glasslewis.com',
     specPattern: 'cypress/e2e/**/*.feature',
-
-    //Plugin File Migrated Here
-    setupNodeEvents(on, config) {
-      on('before:run', () => {
-        fs.emptyDirSync('./test-results/cucumber')
-        fs.emptyDirSync('./test-results/tests-output')
-      })
-      
-      on('file:preprocessor', cucumber())
-      
-      on('task', {
-        parseXlsx({ filePath }) {
-          return new Promise((resolve, reject) => {
-            try {
-              const jsonData = xlsx.parse(fs.readFileSync(filePath))
-              resolve(jsonData)
-            } catch (e) {
-              reject(e)
-            }
-          })
-        },
-      })
-
-      on('task', sqlServer.loadDBPlugin({
-        userName: 'TestHarnessUser',
-        password: 't3$t4@12ness#aQua#0932',
-        server: '10.71.5.53',
-        options: {
-          database: 'GLP',
-          encrypt: true,
-          rowCollectionOnRequestCompletion: true,
-          trustServerCertificate: true,
-          validateBulkLoadParameters: true,
-        },
-      }))
-
-      on('after:run', (results) => {
-        console.log(results.totalPassed, 'out of', results.totalTests, 'passed. tests were run on', config.baseUrl)
-        reportGenerator.reportGenerate()
-      })
-    },
-  },
+  }
 })

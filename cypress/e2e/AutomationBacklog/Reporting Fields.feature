@@ -3,18 +3,6 @@ Feature: Report related tests
     Background:
         Given I am logged in as the "CALPERS" User
 
-    # This is not a test - it will just download the report for validating it later (last test on this file)
-    # Test scenario 37939: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
-    @37986 @37939
-    Scenario: Proxy Voting Report
-        When I navigate to the Reporting page
-        And I select 'Proxy Voting' Report Type
-        And I select Report Extension XLS
-        And I select the past 2 days
-        And I expand Vote Comparison and select GL Recs Against Mgmt
-        Then I download the proxy voting report
-        And I should logout from the application
-
     @37986
     Scenario: Ballot status report meeting detail page
         When I navigate to the workflow page
@@ -54,14 +42,14 @@ Feature: Report related tests
         And I click on the "Ballot Vote Data" filter
         And I save the configuration with the name of "configName_BallotVoteReport_SB"
         And I Add Subscription
-        And I select Calpers External Admin from Users list
+        And I select Calpers External Admin from Users list on reporting page
         And I enter Filename for Subscription Report
-        And I enter Schedule to run Subscription
+        And I enter Schedule to run Subscription on reporting page
         And I click on the Ok button
         Then Subscription added toast message appears
         And Verify UI table entries for newly created Subscription
         And I verify Column data for UserIds and Filename
-        And I remove Subscription entry from Viewpoint
+        And I remove Subscription entry from Viewpoint on reporting page
         And I delete the given 'configName_BallotVoteReport_SB' configuration
         And I should logout from the application
 
@@ -143,5 +131,9 @@ Feature: Report related tests
     Scenario: Proxy Voting Report
         When I navigate to the Reporting page
         And I select 'Proxy Voting' Report Type
+        And I select Report Extension XLS
+        And I select the past 2 days
+        And I expand Vote Comparison and select GL Recs Against Mgmt
+        Then I download the proxy voting report
         Then I verify the proxy voting report
         And I should logout from the application

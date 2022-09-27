@@ -8,14 +8,14 @@ Feature: Dashboard related smoke tests
         When I navigate to the dashboard page
         Then I select Subscriptions link
         And I click Add Subscription button
-        And I select Calpers External Admin from Users list
+        And I select Calpers External Admin from Users list on dashboard page
         And I enter Filename DashboardTest
-        And I enter Schedule to run Subscription
+        And I enter Schedule to run Subscription on dashboard page
         And I enter Subject,header & footer
         And I click OK
         Then I verify Toast message - Subscription added
         And I connect to Aqua Database and verify new row has been added to SB_Subscription table
-        And I remove Subscription entry from Viewpoint
+        And I remove Subscription entry from Viewpoint on dashboard page
         And I should logout from the application
 
     Scenario: Validate Dashboard

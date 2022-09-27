@@ -34,7 +34,7 @@ Feature: Meetings related smoke tests
     And I should logout from the application
 
   Scenario: Verify user is able to do a quick vote
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "NEUBERGER" User
     And I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria

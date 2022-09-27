@@ -1,4 +1,4 @@
-import { When, Then, And } from "cypress-cucumber-preprocessor/steps"
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import dashboardPage from "../page_objects/dashboard.page"
 const constants = require('../constants')
 
@@ -42,22 +42,22 @@ Then('I select Subscriptions link', () => {
     })
 })
 
-And('I click Add Subscription button', () => {
+Then('I click Add Subscription button', () => {
     dashboardPage.addSubscriptionButton().should('include.text', 'Add Subscription').click()
     dashboardPage.addSubscriptionPopupTitle().should('have.text', 'ADD SUBSCRIPTION')
 })
 
-And('I select Calpers External Admin from Users list', () => {
+Then('I select Calpers External Admin from Users list on dashboard page', () => {
     dashboardPage.addSubscriptionPopupUserInput().type('Cal')
     dashboardPage.addSubscriptionPopupUserDropdown().invoke('attr', 'style', 'display: block').should('be.visible')
     dashboardPage.addSubscriptionPopupUserInput().type('{downarrow}{enter}')
 })
 
-And('I enter Filename DashboardTest', () => {
+Then('I enter Filename DashboardTest', () => {
     dashboardPage.addSubscriptionPopupFilenameInput().type('DashboardTest')
 })
 
-And('I enter Schedule to run Subscription', () => {
+Then('I enter Schedule to run Subscription on dashboard page', () => {
     // Daily, every 5 hours, 9AM to 6PM
     dashboardPage.addSubscriptionPopupScheduleDropdown().select('0')
     dashboardPage.addSubscriptionPopupScheduleDropdown().find(':selected').should('have.text', 'Daily')
@@ -67,13 +67,13 @@ And('I enter Schedule to run Subscription', () => {
     dashboardPage.addSubscriptionPopupEndTimeDropdown().select('18')
 })
 
-And('I enter Subject,header & footer', () => {
+Then('I enter Subject,header & footer', () => {
     dashboardPage.addSubscriptionPopupSubjectInput().type('DashboardSubjectTest')
     dashboardPage.addSubscriptionPopupHeaderInput().type('TestHeader')
     dashboardPage.addSubscriptionPopupFooterInput().type('TestFooter')
 })
 
-And('I click OK', () => {
+Then('I click OK', () => {
     dashboardPage.addSubscriptionPopupOkButton().click()
 })
 
@@ -81,7 +81,7 @@ Then('I verify Toast message - Subscription added', () => {
     dashboardPage.toastMessage().should('contain.text', constants.messages.toast.SUBSCRIPTION_ADDED)
 })
 
-And('I connect to Aqua Database and verify new row has been added to SB_Subscription table', () => {
+Then('I connect to Aqua Database and verify new row has been added to SB_Subscription table', () => {
     cy.getAutomationUserIDFromDB(constants.USER.CALPERS).as('userid')
     const today = new Date().toISOString().slice(0, 10)
     // Step 11 - Connect to Aqua Database and verify new row has been added to SB_Subscription table
@@ -120,7 +120,7 @@ And('I connect to Aqua Database and verify new row has been added to SB_Subscrip
     })
 })
 
-And('I remove Subscription entry from Viewpoint', () => {
+Then('I remove Subscription entry from Viewpoint on dashboard page', () => {
     dashboardPage.deleteSubscriptionLink().eq(1).click()
     dashboardPage.okButton().click()
 })
@@ -134,11 +134,11 @@ Then('I verify sidebar links', () => {
     dashboardPage.pageTitle().should('have.text', 'Upcoming Meetings').should('be.visible')
 })
 
-And('I verify Upcoming Meetings highlighted', () => {
+Then('I verify Upcoming Meetings highlighted', () => {
     dashboardPage.highlightedFilter().should('include.text', 'Upcoming Meetings')
 })
 
-And('I verify heading buttons and links', () => {
+Then('I verify heading buttons and links', () => {
     dashboardPage.saveAsButton().should('be.visible').should('have.text', 'Save As')
     dashboardPage.addWidgetButton().should('be.visible')
     dashboardPage.addWidgetButton().should('include.text', 'Add Widget')
@@ -148,45 +148,45 @@ And('I verify heading buttons and links', () => {
     dashboardPage.subscriptionsButton().should('be.visible').should('include.text', 'Subscriptions')
 })
 
-And('I verify Widget headers', () => {
+Then('I verify Widget headers', () => {
     dashboardPage.widgetModal().eq(0).find('.floatleft').should('include.text', 'Workflow: Upcoming Meetings')
     dashboardPage.widgetModal().eq(1).find('.floatleft').should('include.text', 'Workflow: Upcoming Meetings')
     dashboardPage.widgetModal().eq(2).find('.floatleft').should('include.text', 'Workflow: Upcoming Meetings')
     dashboardPage.widgetModal().eq(3).find('.floatleft').should('include.text', 'Glass Lewis Blog')
 })
 
-And('I verify each widget has edit and remove buttons', () => {
+Then('I verify each widget has edit and remove buttons', () => {
     dashboardPage.widgetModal().each((widget) => {
         cy.wrap(widget).find('div > a[title="Settings"]').should('be.visible')
         cy.wrap(widget).find('div > a[title="Remove"]').should('be.visible')
     })
 })
 
-And('I verify Subscriptions', () => {
+Then('I verify Subscriptions', () => {
     dashboardPage.subscriptionsContainerAtTheBottom().should('include.text', 'Subscriptions').click()
     dashboardPage.addSubscriptionButton().should('include.text', 'Add Subscription')
 })
 
-And('I add a widget', () => {
+Then('I add a widget', () => {
     dashboardPage.addWidgetButton().click()
     dashboardPage.addWidgetCheckbox('Previews').check({ force: true })
     dashboardPage.applyButton().click()
     dashboardPage.previewsModalLabel().should('be.visible')
 })
 
-And('I check dropdown values selectable', () => {
+Then('I check dropdown values selectable', () => {
     dashboardPage.widgetCheckboxLabels().eq(8).select('Single').find(':selected').contains('Single')
     dashboardPage.widgetCheckboxLabels().eq(9).select('Single').find(':selected').contains('Single')
     dashboardPage.widgetCheckboxLabels().eq(8).select('Double').find(':selected').contains('Double')
     dashboardPage.widgetCheckboxLabels().eq(9).select('Double').find(':selected').contains('Double')
 })
 
-And('I select certain values', () => {
+Then('I select certain values', () => {
     dashboardPage.updateButton().eq(4).click({ force: true })
     cy.wait('@DOCUMENTS_DATA')
 })
 
-And('I check returned table headers', () => {
+Then('I check returned table headers', () => {
     dashboardPage.previewsModalTableRows().within(() => {
         dashboardPage.tableData().eq(0).contains('COUNTRY/MARKET')
         dashboardPage.tableData().eq(1).contains('SEASON')
@@ -195,7 +195,7 @@ And('I check returned table headers', () => {
 })
 
 
-And('I remove widget', () => {
+Then('I remove widget', () => {
     dashboardPage.widgetModal().eq(4).then((wdgt) => {
         cy.wrap(wdgt).find('div > a[title="Settings"]').should('be.visible')
         cy.wrap(wdgt).find('div > a[title="Remove"]').should('be.visible').click()

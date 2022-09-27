@@ -414,7 +414,7 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
   );
   cy.intercept('GET', '**/Api/Data//ListService/**?CustomerID=0').as('ListService');
 
-  cy.get('#btn-add-criteria').click({ scrollBehavior: false });
+  cy.get('#btn-add-criteria').click();
   searchText.forEach((value) => {
     cy.then(() => {
       cy.get('#txt-filter-criteria')
