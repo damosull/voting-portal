@@ -141,7 +141,7 @@ When('I select the first available meeting', () => {
     })
 })
 
-Then('I increase the meetings per page value to {string}', (pages) => {
+Then('I set the meetings per page value to {string}', (pages) => {
     workflowPage.meetingsPerPageDropdown().select(pages, { force: true }).invoke('val').should('eq', pages)
 })
 
@@ -581,9 +581,7 @@ Then('all the results on the table should show relevant System Watch list and Me
     workflowPage.allTableRows().then(($rows) => {
         $rows.each((index, value) => {
             const mname = Cypress.$(value).find(`td#metaname-CompanyName > div > span > a`).text()
-            const swname = Cypress.$(value).find(`td#metaname-SystemWatchlistsName > div > span`).text()
             if (mname === meetingName) {
-                cy.log(swname)
                 cy.get(`.mCSB_container >table > tbody >tr:nth-child(${index + 1}) > td:nth-child(2) > div > span > a`).click()
                 return false
             }

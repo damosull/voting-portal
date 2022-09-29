@@ -19,12 +19,12 @@
     "@bahmutov/cypress-esbuild-preprocessor": "2.1.5",
     "cucumber-html-reporter": "5.5.0",
     "cucumber-json-report-formatter": "0.0.9",
-    "cypress": "10.8.0",
+    "cypress": "10.9.0",
     "cypress-sql-server": "1.0.0",
     "eslint-plugin-cypress": "2.12.1",
     "node-stdlib-browser": "1.2.0",
     "node-xlsx": "0.21.0",
-    "playwright-webkit": "1.26.0"
+    "playwright-webkit": "1.26.1"
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": "cypress/support/step_definitions/*.js",

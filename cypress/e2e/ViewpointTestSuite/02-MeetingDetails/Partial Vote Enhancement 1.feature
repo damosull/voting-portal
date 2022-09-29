@@ -29,6 +29,7 @@ Feature: Partial Vote Enhancement Tests
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
     When I click on the home button
+    And I set the meetings per page value to "20"
     Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the column "Voted Shares"

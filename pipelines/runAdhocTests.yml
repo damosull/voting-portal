@@ -33,6 +33,8 @@ jobs:
   - script: |
       node cypress/utils/cucumber-html-reporter.js
     displayName: 'Generate Cucumber Report'
+    condition: succeededOrFailed()
+    continueOnError: true
 
   - task: PublishPipelineArtifact@1
     displayName: 'Publish Cucumber Old Report'

@@ -413,8 +413,8 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
     'ReportFilter'
   );
   cy.intercept('GET', '**/Api/Data//ListService/**?CustomerID=0').as('ListService');
-
-  cy.get('#btn-add-criteria').click();
+  cy.scrollTo('top')
+  cy.get('#btn-add-criteria').click({scrollBehavior: false});
   searchText.forEach((value) => {
     cy.then(() => {
       cy.get('#txt-filter-criteria')
@@ -535,7 +535,6 @@ Cypress.Commands.add('selectReportType', (report) => {
       const input = report;
       const reportType = Cypress.$(value).find(`a > span`).text();
       if (reportType === input) {
-        cy.log(reportType);
         cy.get(`#workflow-filter-list > div > ul > li:nth-child(${index + 1}) > a > span`).click();
         return false;
       }

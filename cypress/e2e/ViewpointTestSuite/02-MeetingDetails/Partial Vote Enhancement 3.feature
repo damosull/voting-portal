@@ -20,6 +20,7 @@ Feature: Partial Vote Enhancement Tests
     When I am logged in as the "CALPERS" User
     And I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
+    And I click on the Change Vote or Rationale button if it exists
     And I can see the Set Partial Vote button
     When I click on the Vote button
     And I handle the override pop-up if it exists

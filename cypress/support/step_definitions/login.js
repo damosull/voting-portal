@@ -28,7 +28,6 @@ Then('I should logout from the application', () => {
         method: 'GET',
         url: 'https://viewpoint.aqua.glasslewis.com/Home/Logout',
     }).then((resp) => {
-        cy.log(resp.status)
         cy.visit('/')
     })
 })

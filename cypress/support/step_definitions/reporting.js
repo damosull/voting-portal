@@ -2,8 +2,10 @@ import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import reportingPage from "../page_objects/reporting.page"
 const constants = require('../constants')
 const unixTime = Math.floor(Date.now() / 1000)
+const configName_BallotVoteDataReport = `BallotVoteData_${unixTime}`
 const configName_ProxyVotingReport = `ProxyVotingReport_${unixTime}`
 const configName_VotingActivityReport = `VotingActivityReport_${unixTime}`
+const configName_PolicyReport = `PolicyReport_${unixTime}`
 const fileExtension = 'xlsx' /* Options: pdf, xls, xlsx */
 const votes = ['Proxy Voting Report', 'Vote Against Management (VAM) Summary', 'Votes Against Policy (VAP) Summary',
     'Number of Meetings', 'Number of Meetings With VAM', 'Number of Proposals With VAM',
@@ -30,8 +32,6 @@ Then('I select the {string} report', (reportType) => {
 
 Then('I can verify that the {string} column should {string}', (columnName, visibility) => {
     reportingPage.configureColumnsDropdown().should('be.visible').click()
-    cy.log(typeof (visibility))
-    cy.log(JSON.stringify(visibility))
     if (visibility === 'be visible') {
         visibility = 'contain'
     } else {
@@ -52,28 +52,6 @@ Then('I verify that all the relevant API calls for reporting page are made', () 
 
 Then('I click on the notification dropdown', () => {
     reportingPage.notificationLink().click()
-})
-
-Then('Ballot Status Report is queued', () => {
-    reportingPage.inboxContainer().should(($msg) => {
-        expect($msg.first().text()).to.equal("'Ballot Status Report' export is ready to download")
-    })
-})
-
-Then('I download the PDF and verify it', () => {
-
-    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
-        .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
-            cy.request(downloadLink).then((resp) => {
-                expect(resp.status).to.eq(200)
-                expect(resp.headers)
-                    .to.have.property('content-disposition')
-                    .contains('filename=BallotStatusReport.pdf')
-                expect(resp.headers).to.have.property('content-type').eql('application/pdf')
-                expect(resp.body).to.have.length.greaterThan(1)
-                expect(resp.body).include('%PDF')
-            })
-        })
 })
 
 Then('I click on the {string} filter', (filter) => {
@@ -97,47 +75,158 @@ Then('I select {string} column', (column) => {
     reportingPage.selectedCheckbox().should('contain.text', column)
 })
 
-Then('I save the configuration with the name of {string}', (configName) => {
-    reportingPage.containsText('Save As').click()
-    reportingPage.saveNameInput().should('be.visible').type(configName)
-    reportingPage.cancelButton().should('be.visible')
-    reportingPage.saveButton().click()
-    cy.wait('@ADD')
-    reportingPage.containsText('My configurations').siblings().find('span').should('contain', configName)
+Then('I {string} the report for {string}', (action, reportName) => {
+    let reportConfigName
+    switch (reportName) {
+        case "Ballot Vote Data":
+            reportConfigName = configName_BallotVoteDataReport
+            break
+        case "Proxy Voting":
+            reportConfigName = configName_ProxyVotingReport
+            break
+        case "Voting Activity":
+            reportConfigName = configName_VotingActivityReport
+            break
+        case "Ballot Status Report":
+            reportConfigName = 'Ballot Status Report'
+            break
+        case "Engagement":
+            reportConfigName = 'New Configuration'
+            break
+        case "Ballot Reconciliation":
+            reportConfigName = 'New Configuration'
+            break
+        case "Policy":
+            reportConfigName = configName_PolicyReport
+            break
+    }
+
+    if (action == 'save') {
+        cy.saveFilter(reportConfigName)
+        if (reportName.includes('Policy') || reportName.includes('Voting Activity') || reportName.includes('Proxy Voting')) {
+            cy.log('These reports do not trigger the ADD api call')
+        } else {
+            cy.wait('@ADD')
+        }
+        reportingPage.containsText('My configurations').siblings().find('span').should('contain', reportConfigName)
+    } else if (action == 'delete') {
+        cy.deleteMyConfiguration(reportConfigName)
+    } else if (action.includes('verify ready for download')) {
+        reportingPage.inboxContainer().should(($msg) => {
+            expect($msg.first().text()).to.include(`${reportConfigName}`)
+            expect($msg.first().text()).to.include(`${constants.messages.reports.READY}`)
+        })
+    } else if (action.includes('verify ready to download')) {
+        reportingPage.inboxContainer().should(($msg) => {
+            expect($msg.first().text()).to.include(`${reportConfigName}`)
+            expect($msg.first().text()).to.include(`is ready to download`)
+        })
+    }
+})
+
+Then('I verify the contents for {string} report', (reportName) => {
+    if (reportName == 'Ballot Vote Data') {
+        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
+            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+                cy.request(downloadLink).then((resp) => {
+                    expect(resp.status).to.eq(200)
+                    expect(resp.headers)
+                        .to.have.property('content-disposition')
+                        .contains(`filename=${configName_BallotVoteDataReport}.csv`)
+                    expect(resp.headers).to.have.property('content-type').eql('text/csv')
+                    expect(resp.body).include(
+                        'Customer Account Name,Customer Account ID,Company,CUSIP,CINS,Country of Trade,Meeting Type,Meeting Date,Record Date,Proposal Order By,Proposal Label,Proposal Text,Proponent,Mgmt,GL Reco,Custom Policy,Vote Decision,For Or Against Mgmt,Rationale,Meeting Note,Ballot Voted Date,Issue Code,Issue Code Category,Shares Listed,Control Number Key,Ballot Status,Ballot Blocking,Agenda Key'
+                    )
+                })
+            })
+    } else if (reportName == 'Ballot Status Report') {
+        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
+            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+                cy.request(downloadLink).then((resp) => {
+                    expect(resp.status).to.eq(200)
+                    expect(resp.headers)
+                        .to.have.property('content-disposition')
+                        .contains('filename=BallotStatusReport.pdf')
+                    expect(resp.headers).to.have.property('content-type').eql('application/pdf')
+                    expect(resp.body).to.have.length.greaterThan(1)
+                    expect(resp.body).include('%PDF')
+                })
+            })
+    } else if (reportName == 'Engagement') {
+        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
+            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+                cy.request(downloadLink).then((resp) => {
+                    expect(resp.status).to.eq(200)
+                    expect(resp.headers)
+                        .to.have.property('content-disposition')
+                        .contains('filename=-New-Configuration.csv')
+                    expect(resp.headers).to.have.property('content-type').eql('text/csv')
+                    expect(resp.body).to.have.length.greaterThan(1)
+                    expect(resp.body).include(
+                        'Company Name,Created Date,Date of Engagement,Other Participants,Themes,Type,Notes,Participant Name,Role,Title'
+                    )
+                })
+            })
+    } else if (reportName == 'Ballot Reconciliation') {
+        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
+            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+                cy.request(downloadLink).then((resp) => {
+                    expect(resp.status).to.eq(200)
+                    expect(resp.headers)
+                        .to.have.property('content-disposition')
+                        .contains('filename=-New-Configuration.csv')
+                    expect(resp.headers).to.have.property('content-type').eql('text/csv')
+
+                    expect(resp.body).to.have.length.greaterThan(1)
+                    expect(resp.body).include(
+                        'Customer Account Name,Customer Account Number,Custodian Name,Company Name,Meeting Date,Agenda Key,Country of Incorporation,Custodian Account Number,Customer Name,Deadline Date,Most Recent Note'
+                    )
+                })
+            })
+    } else if (reportName == 'Policy') {
+        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
+            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+                cy.request(downloadLink).then((resp) => {
+                    expect(resp.status).to.eq(200)
+                    expect(resp.headers).to.have.property('content-disposition').contains(configName_PolicyReport)
+                    expect(resp.headers)
+                        .to.have.property('content-type')
+                        .contains('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                    expect(resp.body).to.have.length.greaterThan(1)
+                })
+            })
+    } else if (reportName == 'Voting Activity') {
+        cy.parseXlsx(`cypress/downloads/${configName_VotingActivityReport}.xlsx`).then((xlxsData) => {
+            reportColumns.forEach((fields) => {
+                expect(JSON.stringify(xlxsData)).to.include(fields)
+            })
+        })
+    } else if (reportName == 'Proxy Voting') {
+        reportingPage.inboxContainer().contains(configName_ProxyVotingReport).click()
+        // The following two waits are for the API's triggered by the download
+        cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport')
+        cy.wait('@InboxReport')
+
+        cy.parseXlsx(`cypress/downloads/${configName_ProxyVotingReport}.xls`).then((xlxsData) => {
+            votes.forEach((fields) => {
+                expect(JSON.stringify(xlxsData)).to.include(fields)
+            })
+            proposalSummary.forEach((fields) => {
+                expect(JSON.stringify(xlxsData)).to.include(fields)
+            })
+            percentages.forEach((fields) => {
+                expect(JSON.stringify(xlxsData)).to.include(fields)
+            })
+        })
+    }
 })
 
 Then('I click on the download the report button', () => {
     reportingPage.downloadButton().click()
 })
 
-Then('Download initiated toast message appears', () => {
+Then('the download initiated toast message appears', () => {
     reportingPage.toastMessage().should('contain.text', constants.messages.toast.DOWNLOAD_STARTED)
-})
-
-Then('Report is ready to download message appears in the notifications with the name of {string}', (configName) => {
-    reportingPage.inboxContainer().should(($msg) => {
-        expect($msg.first().text()).to.include(`${configName}.csv report is ready for download`)
-    })
-})
-
-Then('I verify the report headers with the name of {string}', (configName) => {
-    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
-        .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
-            cy.request(downloadLink).then((resp) => {
-                expect(resp.status).to.eq(200)
-                expect(resp.headers)
-                    .to.have.property('content-disposition')
-                    .contains(`filename=${configName}.csv`)
-                expect(resp.headers).to.have.property('content-type').eql('text/csv')
-                expect(resp.body).include(
-                    'Customer Account Name,Customer Account ID,Company,CUSIP,CINS,Country of Trade,Meeting Type,Meeting Date,Record Date,Proposal Order By,Proposal Label,Proposal Text,Proponent,Mgmt,GL Reco,Custom Policy,Vote Decision,For Or Against Mgmt,Rationale,Meeting Note,Ballot Voted Date,Issue Code,Issue Code Category,Shares Listed,Control Number Key,Ballot Status,Ballot Blocking,Agenda Key'
-                )
-            })
-        })
-})
-
-Then('I delete the given {string} configuration', (configuration_file_name) => {
-    cy.deleteMyConfiguration(configuration_file_name)
 })
 
 Then('I Add Subscription', () => {
@@ -226,30 +315,6 @@ Then('I add all the columns', () => {
     })
 })
 
-Then('Engagement Report is queued', () => {
-    reportingPage.inboxContainer().should(($msg) => {
-        expect($msg.first().text()).to.include(`New Configuration.csv ${constants.messages.reports.READY}`)
-    })
-})
-
-Then('I validate the Engagement Report', () => {
-    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
-        .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
-            cy.request(downloadLink).then((resp) => {
-                expect(resp.status).to.eq(200)
-                expect(resp.headers)
-                    .to.have.property('content-disposition')
-                    .contains('filename=-New-Configuration.csv')
-                expect(resp.headers).to.have.property('content-type').eql('text/csv')
-                expect(resp.body).to.have.length.greaterThan(1)
-                cy.log(resp.body)
-                expect(resp.body).include(
-                    'Company Name,Created Date,Date of Engagement,Other Participants,Themes,Type,Notes,Participant Name,Role,Title'
-                )
-            })
-        })
-})
-
 Then('I add {string} reporting criteria', (criteria) => {
     cy.AddMultipleCriteria([criteria], true)
     // Click on configure colum drop down and checking that is opened
@@ -269,32 +334,6 @@ Then('I add the first 4 column option into the header list', () => {
 
 Then('I click on the Apply button', () => {
     reportingPage.applyButton().click()
-})
-
-Then('Status Report is queued', () => {
-    reportingPage.inboxContainer().should(($msg) => {
-        expect($msg.first().text()).to.include('New Configuration.csv report is ready for download')
-    })
-})
-
-Then('I validate the Ballot Status Report headers', () => {
-
-    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
-        .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
-            cy.request(downloadLink).then((resp) => {
-                expect(resp.status).to.eq(200)
-                expect(resp.headers)
-                    .to.have.property('content-disposition')
-                    .contains('filename=-New-Configuration.csv')
-                expect(resp.headers).to.have.property('content-type').eql('text/csv')
-
-                expect(resp.body).to.have.length.greaterThan(1)
-                cy.log(resp.body)
-                expect(resp.body).include(
-                    'Customer Account Name,Customer Account Number,Custodian Name,Company Name,Meeting Date,Agenda Key,Country of Incorporation,Custodian Account Number,Customer Name,Deadline Date,Most Recent Note'
-                )
-            })
-        })
 })
 
 Then('I remove any existing report criteria', () => {
@@ -319,43 +358,6 @@ Then('I verify the filters', () => {
     reportingPage.policyIdUpdate().click({ force: true })
 })
 
-Then('I save the new filter with random name', () => {
-    // I click on the save buton
-    reportingPage.saveAsButton().click({ force: true })
-
-    // I name the file
-    cy.randomString(3).then((data) => {
-        reportingPage.reportNameInput().type('Test' + data)
-        filename = 'Test' + data
-        rnd = data.trim() + '.xlsx'
-    })
-
-    reportingPage.saveButton().click({ force: true })
-    cy.wait('@GET_POLICY')
-    cy.wait('@FILE_ADD')
-})
-
-Then('Report is ready for download message appears', () => {
-    reportingPage.inboxContainer().should(($msg) => {
-        expect($msg.first().text()).to.include(filename + '.xlsx report is ready for download')
-    })
-
-})
-
-Then('I validate and verify the report', () => {
-    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
-        .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
-            cy.request(downloadLink).then((resp) => {
-                expect(resp.status).to.eq(200)
-                expect(resp.headers).to.have.property('content-disposition').contains(rnd)
-                expect(resp.headers)
-                    .to.have.property('content-type')
-                    .contains('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-                expect(resp.body).to.have.length.greaterThan(1)
-            })
-        })
-})
-
 Then('I select Report Extension XLS', () => {
     reportingPage.reportId().children().find('select').select('xls'.toUpperCase())
 })
@@ -376,41 +378,6 @@ Then('I expand Vote Comparison and select GL Recs Against Mgmt', () => {
     reportingPage.voteComparisonCheckboxes().contains('GL Recs Against Mgmt').siblings().check({ force: true }).should('be.checked')
     reportingPage.voteComparisonUpdateButton().click()
     reportingPage.containsText('All meeting agenda items (1)').should('be.visible')
-
-    cy.saveFilter(configName_ProxyVotingReport)
-
-    reportingPage.toastMessage().should('contain.text', constants.messages.toast.REPORT_SAVED)
-    reportingPage.containsText('My configurations').siblings().find('span').should('contain', configName_ProxyVotingReport)
-})
-
-Then('I download the proxy voting report', () => {
-    reportingPage.containsText('Download').click()
-    reportingPage.toastMessage().should('contain.text', constants.messages.toast.DOWNLOAD_STARTED)
-    cy.deleteMyConfiguration(configName_ProxyVotingReport)
-})
-
-Then('I verify the proxy voting report', () => {
-    reportingPage.notificationLink().click()
-    reportingPage.inboxContainer().should(($msg) => {
-        expect($msg.first().text()).to.include(configName_ProxyVotingReport + `.xls ${constants.messages.reports.READY}`)
-    })
-
-    reportingPage.inboxContainer().contains(configName_ProxyVotingReport).click()
-    // The following two waits are for the API's triggered by the download
-    cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport')
-    cy.wait('@InboxReport')
-
-    cy.parseXlsx(`cypress/downloads/${configName_ProxyVotingReport}.xls`).then((xlxsData) => {
-        votes.forEach((fields) => {
-            expect(JSON.stringify(xlxsData)).to.include(fields)
-        })
-        proposalSummary.forEach((fields) => {
-            expect(JSON.stringify(xlxsData)).to.include(fields)
-        })
-        percentages.forEach((fields) => {
-            expect(JSON.stringify(xlxsData)).to.include(fields)
-        })
-    })
 })
 
 Then('I filter the report type', () => {
@@ -425,11 +392,11 @@ Then('I set the date range to the last {int} days', (pastDays) => {
     reportingPage.meetingDateRangeEditor().contains(`Past ${pastDays} Days`)
 })
 
-Then('I select Decision Status Criteria', () => {
+When('I select Decision Status Criteria', () => {
     cy.AddMultipleCriteria(['Decision Status'], true)
 })
 
-Then('I select Voted criteria', () => {
+When('I select Voted criteria', () => {
     cy.addCriteriaStatus(['Voted'], true)
     reportingPage.containsText(`${['Decision Status'].toString()} (1)`)
 })
@@ -499,41 +466,17 @@ Then('I add subscription to the report', () => {
     })
 })
 
-Then('I save the Voting Activity configuration', () => {
-    cy.saveFilter(configName_VotingActivityReport)
-})
-
-Then('Report saved message appears', () => {
+Then('the voting activity report saved message appears', () => {
     reportingPage.toastMessage().should('contain.text', constants.messages.toast.REPORT_SAVED)
 })
 
-Then('Saved config name appears under My configuration section', () => {
+Then('the saved config name appears under My configuration section', () => {
     reportingPage.containsText('My configurations').siblings().find('span').should('contain', configName_VotingActivityReport)
 })
 
-Then('Voting Activity report is queued', () => {
-    reportingPage.inboxContainer().should(($msg) => {
-        expect($msg.first().text()).to.include(configName_VotingActivityReport + `.${fileExtension} ${constants.messages.reports.READY}`)
-    })
-})
-
-Then('Report is downloaded', () => {
+Then('the voting activity report is downloaded', () => {
     cy.downloadFileLocal('Voting Activity')
     cy.assertFileProperties(configName_VotingActivityReport, fileExtension)
-})
-
-Then('I am checking the report format', () => {
-    // Parsing happens only if it's xlsx. It's using a custom library called node-xlsx
-    if (fileExtension == 'xlsx') {
-        cy.parseXlsx(`cypress/downloads/${configName_VotingActivityReport}.xlsx`).then((xlxsData) => {
-            reportColumns.forEach((fields) => {
-                expect(JSON.stringify(xlxsData)).to.include(fields)
-            })
-        })
-    } else {
-        cy.log('Please select a .xlsx file type to verify the content.')
-    }
-
 })
 
 Then('The notification dropdown {string} contain a notification mentioning {string}', (isVisible, content) => {

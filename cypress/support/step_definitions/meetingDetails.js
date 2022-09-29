@@ -395,7 +395,6 @@ When('I click on the Glass Lewis logo on the top left', () => {
 
 When('I click on the home button', () => {
     meetingDetailsPage.homeButton().click()
-    workflowPage.getLoadingSpinner().should('exist')
 })
 
 Then('I click on the share meeting option', () => {
@@ -1334,7 +1333,6 @@ Then('I clear the list of watchlists', () => {
 })
 
 Then('I can verify that {string} is displayed in the {string} field in the ballot section', (value) => {
-    meetingDetailsPage.ballotSectionResultsDiv().scrollIntoView().scrollTo('right')
     meetingDetailsPage.containsText(value).should('be.visible')
 })
 

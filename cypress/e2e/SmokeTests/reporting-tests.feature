@@ -9,11 +9,11 @@ Feature: Reporting related smoke tests
         And I click on the "Ballot Vote Data" filter
         And I set the meeting date to next date 2 and past date 2 days
         And I select "Ballot Voted Date" column
-        And I save the configuration with the name of "configName_BallotVoteReport"
+        And I "save" the report for "Ballot Vote Data"
         And I click on the download the report button
-        Then Download initiated toast message appears
-        And I delete the given "configName_BallotVoteReport" configuration
+        Then the download initiated toast message appears
+        And I "delete" the report for "Ballot Vote Data"
         When I click on the notification dropdown
-        And Report is ready to download message appears in the notifications with the name of "configName_BallotVoteReport"
-        Then I verify the report headers with the name of "configName_BallotVoteReport"
+        And I "verify ready for download of" the report for "Ballot Vote Data"
+        And I verify the contents for "Ballot Vote Data" report
         And I should logout from the application

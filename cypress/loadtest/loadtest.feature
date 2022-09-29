@@ -1,12 +1,12 @@
 @loadtest
-Feature: Load Test
+Feature: Generate Load for Voting
 
-  Scenario Outline: Vote from random 50 meetings on a random user
+  Scenario Outline: Vote on a random meeting for a random user
     Given I am logged in as a random external user
     When I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
-    When I increase the meetings per page value to <iterations>
+    When I set the meetings per page value to <iterations>
     Then I can view the workflow page
     When I select a random meeting
     Then I can view the Meeting Details page
@@ -44,8 +44,8 @@ Feature: Load Test
       | "50"       |
       | "50"       |
       | "50"       |
-      | "50"       |
-      | "50"       |
-      | "50"       |
-      | "50"       |
-      | "50"       |
+      | "20"       |
+      | "20"       |
+      | "20"       |
+      | "20"       |
+      | "20"       |
