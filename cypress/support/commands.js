@@ -1,4 +1,4 @@
-import { USER, API, messages } from '../support/constants';
+import { API, messages, PASSWORD } from '../support/constants';
 import controversyAlertJsonBody from "../fixtures/controversyAlertBody"
 
 Cypress.Commands.add('SetPaginationAndVerify', (numItemsPerPage, num) => {
@@ -238,55 +238,6 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   // DELETE
   cy.intercept('DELETE', API.DELETE.REMOVE).as('REMOVE');
 
-  let username;
-  let password;
-
-  const PASSWORD = 'Test12345%';
-  switch (user) {
-    case USER.AUTOMATIONINTERNAL:
-      username = USER.AUTOMATIONINTERNAL;
-      break;
-    case USER.AUTOMATIONEXTERNAL:
-      username = USER.AUTOMATIONEXTERNAL;
-      break;
-    case USER.WELLINGTON:
-      username = USER.WELLINGTON;
-      break;
-    case USER.CALPERS:
-      username = USER.CALPERS;
-      break;
-    case USER.RUSSELL:
-      username = USER.RUSSELL;
-      break;
-    case USER.OPERS:
-      username = USER.OPERS;
-      break;
-    case USER.ROBECO:
-      username = USER.ROBECO;
-      break;
-    case USER.ROYALLONDON:
-      username = USER.ROYALLONDON;
-      break;
-    case USER.CHARLESSCHWAB:
-      username = USER.CHARLESSCHWAB;
-      break;
-    case USER.PUTNAM:
-      username = USER.PUTNAM;
-      break;
-    case USER.IMF:
-      username = USER.IMF;
-      break;
-    case USER.FEDERATED:
-      username = USER.FEDERATED;
-      break;
-    case USER.NEUBERGER:
-      username = USER.NEUBERGER;
-      break;
-    default:
-      cy.log('User not found');
-  }
-  password = PASSWORD;
-
   cy.request('/')
     .its('body')
     .then((body) => {
@@ -305,8 +256,8 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
         },
 
         body: {
-          Username: username,
-          Password: password,
+          Username: user,
+          Password: PASSWORD,
         },
       }).then((resp) => {
         expect(resp.status).to.eq(200);
