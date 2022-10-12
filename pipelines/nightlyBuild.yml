@@ -24,28 +24,14 @@ jobs:
 
   - script: |
       export HTTP_PROXY=http://10.71.1.42:3128
-      npx cypress run --reporter junit --config specPattern=cypress/e2e/SmokeTests/*.feature
+      npx cypress run --config specPattern=cypress/e2e/SmokeTests/*.feature
     displayName: 'Running Cypress Tests'
 
-  - script: |
-      node cypress/utils/cucumber-html-reporter.js
-    displayName: 'Generate Cucumber Report'
-    condition: succeededOrFailed()
-    continueOnError: true
-
   - task: PublishPipelineArtifact@1
-    displayName: 'Publish Cucumber Old Report'
+    displayName: 'Publish Cucumber Report'
     inputs:
       targetPath: 'test-results/cucumber/cucumber_report.html'
-      artifact: ReportOld
-    continueOnError: true
-    condition: succeededOrFailed()
-
-  - task: PublishPipelineArtifact@1
-    displayName: 'Publish Cucumber New Report'
-    inputs:
-      targetPath: 'test-results/cucumber/cucumber-report.html'
-      artifact: ReportNew
+      artifact: Report
     continueOnError: true
     condition: succeededOrFailed()
 

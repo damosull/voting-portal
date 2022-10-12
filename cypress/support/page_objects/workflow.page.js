@@ -58,6 +58,7 @@ class workflowPage {
     // Filter section
     filterSectionDiv() { return cy.get('div#controls') }
     dateFilterLink() { return cy.get('#btn-date-modal') }
+    meetingDateRadio() { return cy.get('#rdo-meeting-date') }
     numberOfBallotsFilterLink() { return cy.get('#editorDiv1000 > h4') }
     addCriteriaButton() { return cy.get('#btn-add-criteria') }
     criteriaInput() { return cy.get('#txt-filter-criteria') }

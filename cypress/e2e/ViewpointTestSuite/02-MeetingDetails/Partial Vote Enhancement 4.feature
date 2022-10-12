@@ -32,6 +32,7 @@ Feature: Partial Vote Enhancement Tests
 
 
   #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28738
+  #Will Fail - to be fixed by https://dev.azure.com/glasslewis/Development/_workitems/edit/56201
   @28738 @ignore
   Scenario: BUG-4886 - New Partial Voting Default Percent on Customer Level Changes TC3
     Given I am logged in as the "CALPERS" User

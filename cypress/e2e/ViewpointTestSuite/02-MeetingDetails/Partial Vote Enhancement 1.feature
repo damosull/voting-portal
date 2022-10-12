@@ -30,6 +30,7 @@ Feature: Partial Vote Enhancement Tests
     Then I can see a Vote success message
     When I click on the home button
     And I set the meetings per page value to "20"
+    And I click on the Meeting Date radio button
     Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the column "Voted Shares"
@@ -69,6 +70,7 @@ Feature: Partial Vote Enhancement Tests
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
     When I click on the home button
+    And I click on the Meeting Date radio button
     Then I can view the workflow page
     And I remove all existing selected criteria
     When I have added the criteria for "Company Name" "from this test"

@@ -23,6 +23,7 @@ Then('I can verify I am on the Meeting Details page', () => {
 })
 
 When('I navigate to the meeting with id {string}', (meetingId) => {
+    cy.AddTenDaysToMeetingDates(meetingId)
     cy.visit('MeetingDetails/Index/' + meetingId)
 })
 

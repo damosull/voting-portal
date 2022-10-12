@@ -2,7 +2,7 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: 'npx cypress run --reporter junit --config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
+    default: 'npx cypress run --config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
 
 trigger: none
 
@@ -30,25 +30,11 @@ jobs:
       ${{ parameters.buildParameters }}
     displayName: 'Running Cypress Tests'
 
-  - script: |
-      node cypress/utils/cucumber-html-reporter.js
-    displayName: 'Generate Cucumber Report'
-    condition: succeededOrFailed()
-    continueOnError: true
-
   - task: PublishPipelineArtifact@1
-    displayName: 'Publish Cucumber Old Report'
+    displayName: 'Publish Cucumber Report'
     inputs:
       targetPath: 'test-results/cucumber/cucumber_report.html'
-      artifact: ReportOld
-    continueOnError: true
-    condition: succeededOrFailed()
-
-  - task: PublishPipelineArtifact@1
-    displayName: 'Publish Cucumber New Report'
-    inputs:
-      targetPath: 'test-results/cucumber/cucumber-report.html'
-      artifact: ReportNew
+      artifact: Report
     continueOnError: true
     condition: succeededOrFailed()
 

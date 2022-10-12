@@ -28,7 +28,7 @@ jobs:
         docker build -t votingportal-cypress .
 
   - task: Bash@3
-    displayName: 'Run Cypress Tests'
+    displayName: 'Run Cypress Load'
     inputs:       
       targetType: 'inline'
       script: 'docker compose up --scale cypress=${{ parameters.numInstance }}'

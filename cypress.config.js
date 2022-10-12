@@ -2,6 +2,8 @@ const { defineConfig } = require('cypress')
 const fs = require('fs-extra')
 const xlsx = require('node-xlsx').default
 const sqlServer = require('cypress-sql-server')
+const Formatter = require('cucumber-json-report-formatter').Formatter
+const generateHTMLReport = require('./cypress/utils/cucumber-html-reporter')
 const createBundler = require("@bahmutov/cypress-esbuild-preprocessor")
 const preprocessor = require("@badeball/cypress-cucumber-preprocessor")
 const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild")
@@ -11,12 +13,13 @@ const plugin = require('node-stdlib-browser/helpers/esbuild/plugin')
 async function setupNodeEvents(on, config) {
 
   await preprocessor.addCucumberPreprocessorPlugin(on, config, {
-    omitBeforeRunHandler: true
+    omitBeforeRunHandler: true,
+    omitAfterRunHandler: true
   })
 
   on('before:run', () => {
     fs.emptyDirSync('./test-results')
-    console.log('Initiating Tests On:', config.baseUrl)
+    console.log('  INITIATING TESTS ON:', config.baseUrl)
     preprocessor.beforeRunHandler(config)
   })
 
@@ -59,6 +62,17 @@ async function setupNodeEvents(on, config) {
     },
   }))
 
+  on('after:run', async (results) => {
+    if (results) {
+      const formatter = new Formatter()
+      const sourceFile = './test-results/cucumber/cucumber-messages.ndjson'
+      const outputFile = './test-results/cucumber/cucumber-report.json'
+      await formatter.parseCucumberJson(sourceFile, outputFile)
+      generateHTMLReport.reportGenerate()
+      await preprocessor.afterRunHandler(config)
+    }
+  })
+
   return config
 }
 
@@ -69,7 +83,7 @@ module.exports = defineConfig({
   pageLoadTimeout: 90000,
   numTestsKeptInMemory: 1,
   chromeWebSecurity: false,
-  experimentalWebKitSupport: true,
+  experimentalWebKitSupport: false,
   screenshotsFolder: 'test-results/screenshots',
   videosFolder: 'test-results/videos',
   viewportWidth: 1920,
@@ -78,14 +92,19 @@ module.exports = defineConfig({
   screenshotOnRunFailure: true,
   video: false,
   videoCompression: 8,
-  reporter: 'spec',
+  reporter: 'cypress-multi-reporters',
   reporterOptions: {
-    mochaFile: 'test-results/tests-output/result-[hash].xml',
-    toConsole: true,
+    reporterEnabled: 'spec, mocha-junit-reporter',
+    mochaJunitReporterReporterOptions: {
+      mochaFile: 'test-results/tests-output/result-[hash].xml'
+    }
   },
   retries: {
     runMode: 2,
     openMode: 0,
+  },
+  env: {
+    startTime: new Date()
   },
   e2e: {
     setupNodeEvents,

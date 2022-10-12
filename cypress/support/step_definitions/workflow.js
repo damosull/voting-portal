@@ -127,6 +127,10 @@ Then('I have added the criteria for {string} and selecting the radio button for 
     workflowPage.waitForWorkflowPageLoad()
 })
 
+When('I click on the Meeting Date radio button', () => {
+    workflowPage.meetingDateRadio().check()
+})
+
 Then('I click on the Columns dropdown', () => {
     workflowPage.columnsListButton().click({ force: true })
 })

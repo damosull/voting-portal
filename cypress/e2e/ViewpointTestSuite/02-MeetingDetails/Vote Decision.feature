@@ -36,7 +36,7 @@ Feature: Vote Decision Tests
   # TC ID - 28473 & 28475
   @28473 @28475
   Scenario Outline: Verify Validation Messages
-    Given I am logged in as the "NEUBERGER" User
+    Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria

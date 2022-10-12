@@ -18,13 +18,14 @@
     "@badeball/cypress-cucumber-preprocessor": "13.0.2",
     "@bahmutov/cypress-esbuild-preprocessor": "2.1.5",
     "cucumber-html-reporter": "5.5.0",
-    "cucumber-json-report-formatter": "0.1.0",
-    "cypress": "10.9.0",
+    "cucumber-json-report-formatter": "0.1.1",
+    "cypress": "10.10.0",
+    "cypress-multi-reporters": "1.6.1",
     "cypress-sql-server": "1.0.0",
     "eslint-plugin-cypress": "2.12.1",
+    "mocha-junit-reporter": "2.1.0",
     "node-stdlib-browser": "1.2.0",
-    "node-xlsx": "0.21.0",
-    "playwright-webkit": "1.26.1"
+    "node-xlsx": "0.21.0"
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": "cypress/support/step_definitions/*.js",
@@ -35,7 +36,7 @@
       "output": "test-results/cucumber/cucumber-messages.ndjson"
     },
     "json": {
-      "enabled": true,
+      "enabled": false,
       "output": "test-results/cucumber/cucumber-report.json",
       "formatter": "node",
       "args": [
