@@ -138,6 +138,7 @@ export const API = {
     POST_CUSTOMER_DYNAMIC: '/Api/Data/CustomerDynamic',
     PROXY_VOTING: '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=ProxyVoting',
     REPORTS_CRITERIA: '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotReconciliation',
+    VOTE: '**/Api/Data/Vote',
     VOTE_REQUEST_VALIDATION: '**/Api/Data/VoteRequestValidation',
     WORKFLOW_EXPANSION: '**/Api/Data/WorkflowExpansion',
     WORKFLOW_SECURITIES_WATCHLIST: '**/Api/Data/WorkflowSecuritiesWatchlists',

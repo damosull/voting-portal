@@ -1,5 +1,6 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import loginPage from "../page_objects/login.page"
+import meetings from "../../fixtures/meetings.json"
 const constants = require('../constants')
 
 Given('I am on the login page of Viewpoint', () => {
@@ -23,11 +24,26 @@ Given('I am logged in as a random external user', () => {
     cy.loginWithAdmin(username)
 })
 
+Given('I launch a random meeting for a random user', () => {
+    sessionStorage.clear()
+    //fetch a random user and meeting
+    let rand = Math.floor(Math.random() * meetings.length) + 1
+    let username = meetings[rand].emailId
+    let meetingId = meetings[rand].meetingId
+    //login
+    cy.log('logging in with: ' + username)
+    cy.loginWithAdmin(username)
+    //launch meeting details page
+    cy.log('launching meeting with ID: ' + meetingId)
+    cy.visit('MeetingDetails/Index/' + meetingId)
+})
+
 Then('I should logout from the application', () => {
     cy.request({
         method: 'GET',
-        url: 'https://viewpoint.aqua.glasslewis.com/Home/Logout',
+        url: '/Home/Logout',
     }).then((resp) => {
+        //expect(resp.status).to.eq(200)
         cy.visit('/')
     })
 })
