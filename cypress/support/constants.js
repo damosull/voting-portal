@@ -198,6 +198,7 @@ export const API = {
     GET_MARKUP_WORKFLOW: '**/Workflow/GetMarkup**',
     GET_USER_LIST: '**/Api/WebUI/Users/GetUsersList?_=**',
     GET_USER_PERMISSION: '**/Api/Data//MdPermissions/GetUserPermissions**',
+    GET_VEP_DETAILS: '**/Api/Data/VepConfigCrud/GetDetails**',
     GET_POLICY: '**/Api/Data/Policy/GetById/**',
     GL_BLOG_DATA: '**/Api/Data/GLBlogData**',
     IDENTITY_SEARCH: '**/Api/Data/ShareMeetingIdentitySearch/**',

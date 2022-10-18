@@ -35,7 +35,7 @@ Feature: Controversy Alert
   @50281
   Scenario: Verify user is able to download controversy alert PDF file
     Given I am logged in as the "AUTOMATIONINTERNAL" User
-    And I turn on the customer settings for "Controversy Alert" for "California Public Employee Retirement System (CalPERS)"
+    And I turn "on" the customer settings for "Controversy Alert" for "California Public Employee Retirement System (CalPERS)"
     Then I should logout from the application
     When I am logged in as the "AUTOMATIONEXTERNAL" User
     And I add a controversy alert file for the meeting
@@ -43,4 +43,30 @@ Feature: Controversy Alert
     Then I can view the Meeting Details page
     And I should be "able" to see "Controversy Alert link" on the UI
     And I should be able to verify the UI shows filename with "..." and its extension is .pdf
+    And I should logout from the application
+
+  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50530
+  @50530
+  Scenario: Turning Off the Controversy alert in customer settings
+    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    And I turn "off" the customer settings for "Controversy Alert" for "California Public Employee Retirement System (CalPERS)"
+    Then I should logout from the application
+    When I am logged in as the "AUTOMATIONEXTERNAL" User
+    And I add a controversy alert file for the meeting
+    And I navigate to the meeting details page for the meeting "CAVOCA"
+    Then I can view the Meeting Details page
+    And I should be "unable" to see "Controversy Alert link" on the UI
+    And I should logout from the application
+
+  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50531
+  @50531
+  Scenario: Turning On the Controversy alert in customer settings
+    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    And I turn "on" the customer settings for "Controversy Alert" for "California Public Employee Retirement System (CalPERS)"
+    Then I should logout from the application
+    When I am logged in as the "AUTOMATIONEXTERNAL" User
+    And I add a controversy alert file for the meeting
+    And I navigate to the meeting details page for the meeting "CAVOCA"
+    Then I can view the Meeting Details page
+    And I should be "able" to see "Controversy Alert link" on the UI
     And I should logout from the application

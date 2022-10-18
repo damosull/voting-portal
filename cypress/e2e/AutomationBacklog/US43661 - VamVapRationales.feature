@@ -3,7 +3,7 @@ Feature: VAM/VAP Feature
   @44714 @44716
   Scenario: Live ballots with meeting date for future ballots whose meeting date has passed/Revote and no rationale entered for vote against management and vote against policy
     Given I am logged in as the "AUTOMATIONINTERNAL" User
-    And I turn on the customer settings for "VAM and VAP" for "Russell Investments"
+    And I turn "on" the customer settings for "VAM and VAP" for "Russell Investments"
     Then I should logout from the application
     When I am logged in as the "RUSSELL" User
     And I navigate to the meeting details page for the meeting "RSNCVAMAP"

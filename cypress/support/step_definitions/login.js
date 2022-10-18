@@ -31,10 +31,9 @@ Given('I launch a random meeting for a random user', () => {
     let username = meetings[rand].emailId
     let meetingId = meetings[rand].meetingId
     //login
-    cy.log('logging in with: ' + username)
+    cy.log('logging in with: ' + username + ' for meeting ID: ' + meetingId)
     cy.loginWithAdmin(username)
     //launch meeting details page
-    cy.log('launching meeting with ID: ' + meetingId)
     cy.visit('MeetingDetails/Index/' + meetingId)
 })
 
@@ -58,7 +57,11 @@ When('I refresh the page', () => {
     cy.reload()
 })
 
-Then('I turn on the customer settings for {string} for {string}', (feature, customer) => {
+When('I navigate to the URL {string}', (url) => {
+    cy.visit(url)
+})
+
+Then('I turn {string} the customer settings for {string} for {string}', (state, feature, customer) => {
     cy.visit('/Workflow')
 
     //Alias csrf token
@@ -76,12 +79,12 @@ Then('I turn on the customer settings for {string} for {string}', (feature, cust
         const settings = `?&pCustomerID=${cid}&_=${unixTime}`
         switch (feature) {
             case "VAM and VAP":
-                cy.TurnOnCustomerSetting(settings, 'CanModifyVotesRationaleAfterMeetingDate')
-                cy.TurnOnCustomerSetting(settings, 'RequireRationaleVap')
-                cy.TurnOnCustomerSetting(settings, 'RequireRationaleVam')
+                cy.ChangeCustomerSetting(state, settings, 'CanModifyVotesRationaleAfterMeetingDate')
+                cy.ChangeCustomerSetting(state, settings, 'RequireRationaleVap')
+                cy.ChangeCustomerSetting(state, settings, 'RequireRationaleVam')
                 break
             case "Controversy Alert":
-                cy.TurnOnCustomerSetting(settings, 'IsControversyAlertEnabled')
+                cy.ChangeCustomerSetting(state, settings, 'IsControversyAlertEnabled')
                 break
             default:
                 break

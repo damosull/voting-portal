@@ -59,7 +59,7 @@ Cypress.Commands.add('executeUpdateQuery', (query) => {
   }
 });
 
-Cypress.Commands.add('TurnOnCustomerSetting', (settings, parameter) => {
+Cypress.Commands.add('ChangeCustomerSetting', (state, settings, parameter) => {
   cy.get('@csrftoken').then((token) => {
     cy.request({
       method: 'GET',
@@ -70,8 +70,12 @@ Cypress.Commands.add('TurnOnCustomerSetting', (settings, parameter) => {
     }).then((resp) => {
       expect(resp.status).to.eq(200);
       const custPermissions = resp.body;
-      custPermissions.SettingsViewModel[parameter] = true;
-
+      if (state.includes('on')) {
+        custPermissions.SettingsViewModel[parameter] = true;
+      } else {
+        custPermissions.SettingsViewModel[parameter] = false;
+      }
+      
       const newBody = custPermissions;
       cy.request({
         method: 'PUT',
@@ -178,6 +182,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
   cy.intercept('GET', API.GET.GET_USER_LIST).as('GET_USER_LIST');
   cy.intercept('GET', API.GET.GET_POLICY).as('GET_POLICY');
   cy.intercept('GET', API.GET.GET_USER_PERMISSION).as('GET_USER_PERMISSION');
+  cy.intercept('GET', API.GET.GET_VEP_DETAILS).as('GET_VEP_DETAILS');
   cy.intercept('GET', API.GET.GL_BLOG_DATA).as('GL_BLOG_DATA');
   cy.intercept('GET', API.GET.IDENTITY_SEARCH).as('IDENTITY_SEARCH');
   cy.intercept('GET', API.GET.INBOX).as('INBOX');
