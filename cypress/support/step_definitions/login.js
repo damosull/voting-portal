@@ -105,7 +105,7 @@ Given('I set the setting {string} to {string} for the user {string}', (feature, 
             const csrf = $html.find('input[name=csrf-token]').val()
             cy.request({
                 method: 'POST',
-                url: `https://viewpoint.aqua.glasslewis.com/Api/Data/Permissions/UpdateUserPermissions`,
+                url: `/Api/Data/Permissions/UpdateUserPermissions`,
                 headers: {
                     CSRFToken: csrf,
                 },

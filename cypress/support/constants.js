@@ -62,8 +62,6 @@ export const messages = {
   },
 };
 
-export const glassAPI = 'https://aqua-issuer-vote-confirmation-api.azurewebsites.net/api/Ballot'
-
 export const MEETINGID = {
   // first 2 chars = company (NB = Neuberger)
   // second 2 chars = meeting type - Contested = CO,RA = Recommendations Available,RP Recommendations Pending

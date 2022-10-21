@@ -5,9 +5,9 @@ const constants = require('../constants')
 let meetingId, preTotalVoted, preTotalNotVoted, postTotalVoted, postTotalNotVoted
 
 Then('I can view the Meeting Details page', () => {
-    cy.wait('@GET_MEETING_ID', { requestTimeout: 45000, responseTimeout: 75000 })
-    cy.wait('@RELATED_MEETINGS', { requestTimeout: 45000, responseTimeout: 75000 })
-    cy.wait('@VOTE_TALLY', { requestTimeout: 45000, responseTimeout: 75000 })
+    cy.wait('@GET_MEETING_ID', { requestTimeout: 30000, responseTimeout: 75000 })
+    cy.wait('@RELATED_MEETINGS', { requestTimeout: 30000, responseTimeout: 75000 })
+    cy.wait('@VOTE_TALLY', { responseTimeout: 75000 })
     cy.url().should('include', '/MeetingDetails/Index/')
     meetingDetailsPage.getLoadingSpinner().should('not.exist')
 })
@@ -358,7 +358,7 @@ Then('I handle the override pop-up if it exists', () => {
 })
 
 Then('the vote should be submitted successfully', () => {
-    cy.wait('@VOTE', { requestTimeout: 60000, responseTimeout: 100000 }).its('response.statusCode').should('eq', 204)
+    cy.wait('@VOTE', { requestTimeout: 45000, responseTimeout: 100000 }).its('response.statusCode').should('eq', 204)
 })
 
 Then('I select the checkbox and click Proceed', () => {

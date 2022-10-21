@@ -63,7 +63,7 @@ Cypress.Commands.add('ChangeCustomerSetting', (state, settings, parameter) => {
   cy.get('@csrftoken').then((token) => {
     cy.request({
       method: 'GET',
-      url: `https://viewpoint.aqua.glasslewis.com/Api/Data/CustomerDetails//GetByID${settings}`,
+      url: `/Api/Data/CustomerDetails//GetByID${settings}`,
       headers: {
         CSRFToken: token,
       },
@@ -79,7 +79,7 @@ Cypress.Commands.add('ChangeCustomerSetting', (state, settings, parameter) => {
       const newBody = custPermissions;
       cy.request({
         method: 'PUT',
-        url: 'https://viewpoint.aqua.glasslewis.com/Api/Data/CustomerDetailsUpdate/',
+        url: '/Api/Data/CustomerDetailsUpdate',
         headers: {
           CSRFToken: token,
           'Content-Type': 'application/json; charset=utf-8',

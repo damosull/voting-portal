@@ -11,7 +11,7 @@ COPY ./cypress.config.js ./cypress.config.js
 COPY ./package.json ./package.json
 COPY ./package-lock.json ./package-lock.json
 
-#Install packages & Set proxy to connect to aqua
+#Install packages & Set proxy to connect to test environments
 RUN npm i
 ENV HTTP_PROXY=http://10.71.1.42:3128
 

@@ -84,14 +84,14 @@ Then('I save the picklist', () => {
 })
 
 Then('I delete the {string} picklist', (pl) => {
-    cy.visit('https://viewpoint.aqua.glasslewis.com/CustomerDetails/CustomFields/')
+    cy.visit('/CustomerDetails/CustomFields')
     cy.contains(pl).click({ force: true })
     customFieldsPage.deleteButton().should('have.text', 'Delete').click({ force: true })
     cy.contains(pl).should('not.exist')
 })
 
 Then('I delete the active {string} picklist', (plst) => {
-    cy.visit('https://viewpoint.aqua.glasslewis.com/CustomerDetails/CustomFields/')
+    cy.visit('/CustomerDetails/CustomFields')
     cy.contains(plst).click({ force: true })
     customFieldsPage.activeCheckbox().uncheck({ force: true })
     cy.wait('@ACTIVE_FLAG')

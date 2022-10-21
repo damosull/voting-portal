@@ -4,4 +4,4 @@ services:
     build: .
     ipc: host
     image: votingportal-cypress
-    command: "--config specPattern='cypress/loadtest/loadtest - meetingDetails.feature',retries=0"
+    command: "--config specPattern=cypress/loadtest/loadtest-viaWorkflow.feature,retries=0"

@@ -10,7 +10,7 @@
     "smoke": "cypress run --config specPattern=cypress/e2e/SmokeTests/*.feature",
     "regression": "cypress run --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature",
     "autobacklog": "cypress run --config specPattern=cypress/e2e/AutomationBacklog/*.feature",
-    "loadtest": "cypress run --config specPattern=cypress/loadtest/loadtest.feature,retries=0",
+    "loadtest": "cypress run --config specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,retries=0",
     "loaddocker": "docker compose up --scale cypress=10",
     "lint": "eslint cypress"
   },
