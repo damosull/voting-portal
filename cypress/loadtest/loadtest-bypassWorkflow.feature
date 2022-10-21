@@ -9,8 +9,9 @@ Feature: Generate Load for Voting on Viewpoint bypassing Workflow page
     And I click on the Vote button
     And I handle the override pop-up if it exists
     Then the vote should be submitted successfully
+    And I randomly wait between 1 and 10 seconds
     And I should logout from the application
-
+    
     Examples:
       | iterations |
       | "run"      |

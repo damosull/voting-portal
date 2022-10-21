@@ -126,3 +126,8 @@ Given('I set the setting {string} to {string} for the user {string}', (feature, 
     })
     cy.logout()
 })
+
+Then('I randomly wait between {int} and {int} seconds', (min, max) => {
+    let randomWaitInMilliseconds = Math.floor(Math.random() * ((max*1000) - (min*1000))) + (min*1000)
+    cy.wait(randomWaitInMilliseconds)
+})

@@ -4,4 +4,6 @@ services:
     build: .
     ipc: host
     image: votingportal-cypress
-    command: "--config specPattern=cypress/loadtest/loadtest-viaWorkflow.feature,retries=0"
+    #Options for specPattern in below command - cypress/loadtest/loadtest-viaWorkflow.feature OR cypress/loadtest/loadtest-bypassWorkflow.feature
+    #Options for baseUrl in below command - https://viewpoint.aqua.glasslewis.com OR https://viewpoint.ultra.glasslewis.com
+    command: "--config retries=0,specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,baseUrl=https://viewpoint.aqua.glasslewis.com"
