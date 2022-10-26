@@ -17,10 +17,10 @@ Given('I am logged in as the {string} User', (username) => {
 Given('I am logged in as a random external user', () => {
     sessionStorage.clear()
     let randomUserId = Math.floor(Math.random() * (Object.keys(constants.USER).length - 3) + 3)
-    if (randomUserId === 0 || randomUserId === 1) { randomUserId = 2 }
-    cy.log('Random Number Is: ' + randomUserId)
     const username = Object.values(constants.USER)[randomUserId]
-    cy.log('logging in with: ' + username)
+    //login & log the user and time
+    //cy.log('Random Number Is: ' + randomUserId + ' & logging in with: ' + username)
+    cy.task('log', `logging in with: ${username} at ${new Date().toISOString().split('T')[1]} GMT`)
     cy.loginWithAdmin(username)
 })
 
@@ -30,8 +30,9 @@ Given('I launch a random meeting for a random user', () => {
     let rand = Math.floor(Math.random() * meetings.length) + 1
     let username = meetings[rand].emailId
     let meetingId = meetings[rand].meetingId
-    //login
-    cy.log('logging in with: ' + username + ' for meeting ID: ' + meetingId)
+    //login & log the user and meeting id along with time
+    //cy.log('logging in with: ' + username + ' for meeting ID: ' + meetingId)
+    cy.task('log', `logging in with: ${username} for meeting ID: ${meetingId} at ${new Date().toISOString().split('T')[1]} GMT`)
     cy.loginWithAdmin(username)
     //launch meeting details page
     cy.visit('MeetingDetails/Index/' + meetingId)

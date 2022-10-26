@@ -37,6 +37,13 @@ async function setupNodeEvents(on, config) {
   )
 
   on('task', {
+    log(message) {
+      console.log(message)
+      return null
+    },
+  })
+
+  on('task', {
     parseXlsx({ filePath }) {
       return new Promise((resolve, reject) => {
         try {

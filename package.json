@@ -15,11 +15,11 @@
     "lint": "eslint cypress"
   },
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "13.0.2",
+    "@badeball/cypress-cucumber-preprocessor": "13.0.3",
     "@bahmutov/cypress-esbuild-preprocessor": "2.1.5",
     "cucumber-html-reporter": "5.5.0",
     "cucumber-json-report-formatter": "0.1.1",
-    "cypress": "10.10.0",
+    "cypress": "10.11.0",
     "cypress-multi-reporters": "1.6.1",
     "cypress-sql-server": "1.0.0",
     "eslint-plugin-cypress": "2.12.1",
