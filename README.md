@@ -22,12 +22,13 @@ To run cypress, just execute the following command:
 - `npx cypress run --spec "cypress/e2e/SmokeTests/dashboard-tests.feature"` - Runs a specific spec file
 - `npx cypress run --config specPattern="cypress/e2e/ViewpointTestSuite/02-MeetingDetails/*.feature"` - Runs all tests in a specific folder
 
+**NOTE:** To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline` and put the command under `Build Parameters` and click `Run`
 
 # Running With Tags
 
 Using Cucumber tags gives great advantage to run the test cases of your choice. All the tests in this repo have been tagged, either as a set OR as the ID of invidiual test case. You can use the command as seen in below examples.
 
-**NOTE:** With the current version of cucumber preprocessor, the cucumber report will mark the unexecuted tests as `Unknown`, and will mark the executed tests as `Passed` or `Failed`. The `Unknown` tests can be ignored.
+**NOTE:** With the current version of cucumber preprocessor, the cucumber report will mark the unexecuted tests as `Unknown`, and will mark the executed tests as `Passed` or `Failed`. The `Unknown` tests can be ignored. To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline` and put the command under `Build Parameters` and click `Run`
 
 - Run specific test from entire test suite - `npx cypress run --env tags='@40729'`
 - Run multiple tests from entire test suite - `npx cypress run --env tags='@40729 or @3331 or @28433 or @28474'`
@@ -37,13 +38,13 @@ Using Cucumber tags gives great advantage to run the test cases of your choice. 
 
 # Running Viewpoint Regression Tests
 
-**NOTE:** Provide the browser details only if you are running tests locally and have that browser installed, else remove that parameter. Browsers are not supported when running on Azure pipelines.
+**NOTE:** To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline` and put the command under `Build Parameters` and click `Run`
 
-- Run specific test from specific folder on safari - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/02-MeetingDetails/Vote Button - MD6.feature' --env tags='@3289' --browser webkit`
-- Run all tests from specific folder on chrome - `npx cypress run --spec 'cypress/e2e/ViewpointTestSuite/02-MeetingDetails/Vote Card.feature' --browser chrome`
+- **Run specific tests from regression suite if you don't know the folders - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/**/*.feature' --env tags='@28722 or @40724'`**
+- Run specific test from specific folder - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/02-MeetingDetails/Vote Button - MD6.feature' --env tags='@3289'`
+- Run all tests from specific folder - `npx cypress run --spec 'cypress/e2e/ViewpointTestSuite/02-MeetingDetails/Vote Card.feature'`
 - Run all meeting details regression tests - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/02-MeetingDetails/*.feature'`
 - Run entire resgression suite - `npm run regression`
-- **Run specific tests from regression suite if you don't know the folders - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/**/*.feature' --env tags='@28722 or @40724'`**
 
 # CI
 
@@ -61,4 +62,4 @@ To run the tests within a docker container, you need the below:
 - Ensure you have the latest version of Docker Desktop Installed and running
 - Run `docker build -t votingportal-cypress .` . This will build the image
 - Now run `docker run votingportal-cypress --config specPattern=cypress/e2e/SmokeTests/*.feature`. You can replace the specPattern with your choice of test suite.
-- You can also use docker-compose to run the tests. Make required amendments to the `command` parameter on the docker-compose file, and then run `docker compose up --build --scale cypress=1`. You can amend the number of parallel instances you want to run.
+- You can also use docker-compose to run a loadtest. Make required amendments to the `command` parameter on the docker-compose file, and then run `docker compose up --build --scale cypress=1`. You can amend the number of parallel instances you want to run.

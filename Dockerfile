@@ -5,7 +5,7 @@ FROM cypress/included:10.11.0
 WORKDIR /cypress-tests
 
 #Adding the below line to prevent cache, followed by copying files to the image
-ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
+#ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 COPY ./cypress ./cypress
 COPY ./cypress.config.js ./cypress.config.js
 COPY ./package.json ./package.json

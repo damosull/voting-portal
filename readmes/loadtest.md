@@ -16,7 +16,7 @@ A) Via Workflow Page:
 
 B) Bypass Workflow Page:
 
-1. We have a list of 1500+ users and valid meeting ID combinations
+1. We have a list of 900+ users and valid meeting ID combinations
 2. Choose a random meeting and user from the list, log in with that user and directly navigate to the meeting details page
 3. Put random vote decisions for each proposal and submit the votes
 4. Logout
@@ -30,6 +30,8 @@ We have built a customized test script to perform the above actions. We then use
 
 For this requirement, we have chosen cypress to run the load as the ask was to put a realistic UI-based load on the system, like how end users would be using it. There was no requirement for the Quality guild to produce any metrics for the load. We had cypress automation already in place and with minor tweaks to the test script, we were able to get this working.
 
+To increase the duration of the load test, increase the number of iterations in the feature file. The number of parallel sessions is taken via the parameter on the Azure job.
+
 If there was a need for metrics to be produced via these tests, a dedicated load test tool such as JMeter should be used.
   
   
@@ -39,7 +41,7 @@ You can run this loadtest via [this](https://dev.azure.com/glasslewis/Developmen
 1. Launch the above URL.
 2. Click on `Run Pipeline`
 3. There are three parameters to this pipeline:
-    1. `Branch/tag` - Choose master to run with default settings (Environment is Aqua and Script is bypass workflow). For a customized run, create a branch and make required changes to the command on the docker-compose.yml file.
+    1. `Branch/tag` - Choose master to run with default settings (Environment is Ultra and Script is bypass workflow). For a customized run, create a branch and make required changes to the command on the docker-compose.yml file.
     2. `Number of Parallel Instances` - Choose the number of parallel users you want to hit the environment. Enter a number between 1 and 30
     3. `New Image?` - keep this checked so that the pipeline uses the latest code to run tests
 4. Click on `Run`
