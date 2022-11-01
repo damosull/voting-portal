@@ -1,5 +1,4 @@
 # Introduction
-
 This readme will help you run load on Viewpoint for Aqua or Ultra environments.
 
 ## What does this loadtest do?
@@ -28,11 +27,11 @@ B) Bypass Workflow Page:
 ## Tech behind it?
 We have built a customized test script to perform the above actions. We then use a combination of docker images and docker-compose to start multiple containers at once so that the application has several parallel users voting at the same time. Our current VMSS infrastructure has been tested to support up to thirty parallel sessions.
 
-For this requirement, we have chosen cypress to run the load as the ask was to put a realistic UI-based load on the system, like how end users would be using it. There was no requirement for the Quality guild to produce any metrics for the load. We had cypress automation already in place and with minor tweaks to the test script, we were able to get this working.
+For this requirement, we have chosen cypress to run the load as we had UI automation scripts ready. With minor tweaks to the test script, we were able to deliver the requirement.
 
 To increase the duration of the load test, increase the number of iterations in the feature file. The number of parallel sessions is taken via the parameter on the Azure job.
 
-If there was a need for metrics to be produced via these tests, a dedicated load test tool such as JMeter should be used.
+There was no requirement for the quality guild to produce any metrics for the load. If there was a need for metrics to be produced via these tests, a dedicated load test tool such as JMeter should be used.
   
   
   
@@ -41,7 +40,7 @@ You can run this loadtest via [this](https://dev.azure.com/glasslewis/Developmen
 1. Launch the above URL.
 2. Click on `Run Pipeline`
 3. There are three parameters to this pipeline:
-    1. `Branch/tag` - Choose master to run with default settings (Environment is Ultra and Script is bypass workflow). For a customized run, create a branch and make required changes to the command on the docker-compose.yml file.
+    1. `Branch/tag` - Choose master to run with default settings (environment is ultra and script is bypass workflow). For a customized run, create a branch and make required changes to the command on the docker-compose.yml file.
     2. `Number of Parallel Instances` - Choose the number of parallel users you want to hit the environment. Enter a number between 1 and 30
     3. `New Image?` - keep this checked so that the pipeline uses the latest code to run tests
 4. Click on `Run`
@@ -50,11 +49,11 @@ You can run this loadtest via [this](https://dev.azure.com/glasslewis/Developmen
 ## How to monitor the load?
 Always ensure that the load is doing what it's supposed to do by checking the logs. Once you run the pipeline, it will take about 5 minutes for the load to start on the test environment.
 
-In your build, go to the `Run Cypress Tests` stage and see the logs. Once the containers are created, you will start seeing logs as below. It can take anywhere from 2 to 3 minutes at this stage to appear.
+In your build, go to the `Run Cypress Tests` stage and see the logs. Once the containers are created, you will start seeing the logs. It can take anywhere from 2 to 3 minutes at this stage for the logs to appear.
 
 If you see logs like this - some ticks and some lines in red, it is perfectly fine. Some tests are bound to fail due to the random nature of selecting meetings.
 
-If you see logs like this - all lines are red continuously, that means something is wrong. Cancel the build and try to use the environment manually and see if all pages are loading normally.
+If you see logs like this - all lines are red continuously, that means something is wrong. Try to login to the test environment manually and see if all pages are loading normally. Cancel the build if the environment feels slow.
   
   
 ### Important URLs -

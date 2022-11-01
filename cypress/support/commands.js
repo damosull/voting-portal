@@ -596,7 +596,13 @@ Cypress.Commands.add('addControversyAlertFile', () => {
     body: controversyAlertJsonBody,
     failOnStatusCode: false
   }).then((response) => {
-    (response.status === 200) ? cy.log('File Added!') : cy.log('File Exists!')
+    if (response.status === 200) {
+      cy.task('log', `CA File Added!!`)
+    } else if (response.status === 400) {
+      cy.task('log', `CA File Exists!!`)
+    } else {
+      expect(response.status).to.not.be.oneOf([500,501,502,503,504,509,511])
+    }
   });
 });
 
