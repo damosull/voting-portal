@@ -2,16 +2,19 @@
   "name": "votingportal-app-tests",
   "version": "4.0.0",
   "description": "This repo consists of UI end to end automated tests for Viewpoint",
-  "author": "Glass Lewis Integration Team",
+  "author": "Quality Guild",
   "license": "ISC",
   "scripts": {
     "open": "cypress open --e2e --browser electron --config specPattern=cypress/**/*.feature",
+    "openUltra": "cypress open --config-file cypress.ultra.config.js --e2e --browser electron --config specPattern=cypress/**/*.feature",
     "test": "cypress run",
+    "testUltra": "cypress run --config-file cypress.ultra.config.js",
     "smoke": "cypress run --config specPattern=cypress/e2e/SmokeTests/*.feature",
+    "smokeUltra": "cypress run --config-file cypress.ultra.config.js --config specPattern=cypress/e2e/SmokeTests/*.feature",
     "regression": "cypress run --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature",
     "autobacklog": "cypress run --config specPattern=cypress/e2e/AutomationBacklog/*.feature",
     "loadtest": "cypress run --config specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,retries=0",
-    "loaddocker": "docker compose up --scale cypress=10",
+    "loaddocker": "docker compose up --scale cypress=5",
     "lint": "eslint cypress"
   },
   "devDependencies": {

@@ -58,8 +58,8 @@ async function setupNodeEvents(on, config) {
 
   on('task', sqlServer.loadDBPlugin({
     userName: 'TestHarnessUser',
-    password: 't3$t4@12ness#aQua#0932',
-    server: '10.71.5.53',
+    password: 'T3sthaUltr1arnessUs3r',
+    server: '10.70.5.53',
     options: {
       database: 'GLP',
       encrypt: true,
@@ -115,7 +115,7 @@ module.exports = defineConfig({
   },
   e2e: {
     setupNodeEvents,
-    baseUrl: 'https://viewpoint.aqua.glasslewis.com',
+    baseUrl: 'https://viewpoint.ultra.glasslewis.com',
     specPattern: '**/*.feature',
   }
 })
