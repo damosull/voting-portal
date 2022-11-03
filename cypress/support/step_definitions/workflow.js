@@ -231,6 +231,12 @@ Then('I should be able to verify that the column {string} is {string}', (columnN
     }
 })
 
+Then('I generate a request for Workflow Export', () => {
+    workflowPage.exportWorkflowDropdown().click()
+    workflowPage.exportResultsLink().click()
+    workflowPage.exportResultsButton().click()
+})
+
 Then('I verify that all the relevant API calls for workflow page are made for {string} user', (userType) => {
     cy.statusCode200('@CURRENT_USER')
     cy.statusCode200('@SPA')

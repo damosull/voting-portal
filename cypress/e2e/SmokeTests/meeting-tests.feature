@@ -38,12 +38,14 @@ Feature: Meetings related smoke tests
     And I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
-    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
+    Then I can view the workflow page
     When I select a random meeting
     Then I can view the Meeting Details page
-    And I can see the Vote, Take No Action and Instruct buttons
-    And I quick vote "For" on the meeting
+    When I click on the Change Vote or Rationale button if it exists
+    Then I can see the Vote, Take No Action and Instruct buttons
+    When I quick vote "For" on the meeting
     And I click on the Vote button
+    And I handle the override pop-up if it exists
     Then I can see a Vote success message
     Then I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application

@@ -5,7 +5,7 @@
   "author": "Glass Lewis Integration Team",
   "license": "ISC",
   "scripts": {
-    "open": "cypress open --e2e --browser electron",
+    "open": "cypress open --e2e --browser electron --config specPattern=cypress/**/*.feature",
     "test": "cypress run",
     "smoke": "cypress run --config specPattern=cypress/e2e/SmokeTests/*.feature",
     "regression": "cypress run --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature",

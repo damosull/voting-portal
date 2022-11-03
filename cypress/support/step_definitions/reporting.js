@@ -99,6 +99,9 @@ Then('I {string} the report for {string}', (action, reportName) => {
         case "Policy":
             reportConfigName = configName_PolicyReport
             break
+        case "Workflow Export Report":
+            reportConfigName = 'Upcoming Meetings'
+            break
     }
 
     if (action == 'save') {
@@ -112,6 +115,10 @@ Then('I {string} the report for {string}', (action, reportName) => {
     } else if (action == 'delete') {
         cy.deleteMyConfiguration(reportConfigName)
     } else if (action.includes('verify ready for download')) {
+        reportingPage.inboxContainerDiv().should('be.visible')
+        reportingPage.inboxContainerMessages().should(($msg) => {
+            expect($msg.first().text()).to.not.include(`fail`)
+        })
         reportingPage.inboxContainer().should(($msg) => {
             expect($msg.first().text()).to.include(`${reportConfigName}`)
             expect($msg.first().text()).to.include(`${constants.messages.reports.READY}`)
