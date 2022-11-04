@@ -1,7 +1,7 @@
 Feature: Vote Button Tests
   #https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=53607&suiteId=54213
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/3289
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3289
   @3289
   Scenario: Verify a user can vote on a vote card
     Given I am logged in as the "CALPERS" User
@@ -22,7 +22,7 @@ Feature: Vote Button Tests
     And I should logout from the application
 
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28480
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28480
   @28480
   Scenario: Verify a user can revote on the vote card
     Given I am logged in as the "CALPERS" User
@@ -41,7 +41,7 @@ Feature: Vote Button Tests
     And I should logout from the application
 
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/3331
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3331
   @3331
   Scenario: Verify a user can vote on Vote Card with filtering set
     Given I am logged in as the "CALPERS" User
@@ -71,7 +71,7 @@ Feature: Vote Button Tests
     And I should logout from the application
 
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28479
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28479
   #This test has been automated assuming that there is a typo in the test case and the buttons on the pop up would be 'OK' instead of 'Leave'
   @28479
   Scenario: Verify a Warning Message is returned when user is leaving the Vote Card without clicking 'Vote' button
@@ -103,7 +103,7 @@ Feature: Vote Button Tests
     And I should logout from the application
 
 
-  # TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/27932
+  # TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/27932
   # Role default: Allowed -> I test it with "Explicitly Denied" so I expect I will not see those voting options
   @27932
   Scenario Outline: Different permission setup on vote card functionality

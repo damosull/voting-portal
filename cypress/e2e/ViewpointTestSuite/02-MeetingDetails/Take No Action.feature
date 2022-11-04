@@ -1,7 +1,7 @@
 Feature: Take No Action Folder Tests
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9386
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/2949
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2949
   @2949
   Scenario: Verify NO Error Message is displayed when 'Vote' option is selected where Vote Decision dropdown has 'X values'
     Given I am logged in as the "NEUBERGER" User
@@ -35,7 +35,7 @@ Feature: Take No Action Folder Tests
     And I should logout from the application
 
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/3293
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3293
   @3293
   Scenario: Verify a user can Take No Action on Vote Card page & verify correct vote string should display in "Last Vote" field
     Given I am logged in as the "CALPERS" User
@@ -62,7 +62,7 @@ Feature: Take No Action Folder Tests
     And I should logout from the application
     
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/3295
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3295
   @3295
   Scenario: Verify a user can Revote on Vote Card page
     Given I am logged in as the "CALPERS" User
@@ -91,7 +91,7 @@ Feature: Take No Action Folder Tests
     And I should logout from the application
 
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/3306
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3306
   @3306
   Scenario: Verify no validation messages displayed
     Given I am logged in as the "CALPERS" User

@@ -1,7 +1,7 @@
 Feature: Vote Card Tests
 #https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=53607&suiteId=53788
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28433
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28433
   @28433
   Scenario: Verify the Vote Card Summary Details do not change when a user filters on an Account on the Meeting Details page
     Given I am logged in as the "CALPERS" User
@@ -16,7 +16,7 @@ Feature: Vote Card Tests
     And I can verify that the vote card summary remains unchanged when user changes the filters on "account"
     And I should logout from the application
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28435
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28435
   @28435
   Scenario: Verify filtering on Account does not impact Vote Tally section of the Meeting Details page
     Given I am logged in as the "ROBECO" User
@@ -26,7 +26,7 @@ Feature: Vote Card Tests
     And I can verify that the vote card summary remains unchanged when user changes the filters on "account"
     And I should logout from the application
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28434
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28434
   @28434
   Scenario: Verify filtering on Account Group does NOT impact Vote Tally section
     Given I am logged in as the "ROBECO" User
@@ -36,7 +36,7 @@ Feature: Vote Card Tests
     And I can verify that the vote card summary remains unchanged when user changes the filters on "account group"
     And I should logout from the application
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/37937
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37937
   @37937
   Scenario: Vote card ballot filtering
     Given I am logged in as the "ROBECO" User
@@ -57,7 +57,7 @@ Feature: Vote Card Tests
     Then I should be able to see the results for the Ballots filter
     And I should logout from the application
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/37938
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37938
   @37938
   Scenario: filter on voted/unvoted ballots
     Given I am logged in as the "CALPERS" User

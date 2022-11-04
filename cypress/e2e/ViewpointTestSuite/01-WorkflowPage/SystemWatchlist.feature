@@ -1,6 +1,7 @@
 Feature: Add/Remove System Watchlist
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
 
-  #Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37827
   @37827
   Scenario: Verify internal user is able to add System Watch list
     Given I am logged in as the "AUTOMATIONINTERNAL" User
@@ -12,7 +13,7 @@ Feature: Add/Remove System Watchlist
     And I should logout from the application
 
 
-  #Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37827
   @37827
   Scenario: Verify external user is able to verify System Watch list and Meeting name
     Given I am logged in as the "CALPERS" User
@@ -23,7 +24,7 @@ Feature: Add/Remove System Watchlist
     And I should logout from the application
 
 
-  #Test scenario 37827 - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37827
   @37827
   Scenario: Verify internal user is able to verify System Watch list and deselect them
     Given I am logged in as the "AUTOMATIONINTERNAL" User

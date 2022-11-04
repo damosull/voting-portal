@@ -1,7 +1,7 @@
 @filters
 Feature: Filters related smoke tests
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28351
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28351
   @28351
   Scenario: Verify the workflow page elements and filter columns are displaying correctly and in the right order
     Given I am logged in as the "AUTOMATIONINTERNAL" User
@@ -10,7 +10,7 @@ Feature: Filters related smoke tests
     And I can see the filter columns are displayed in the correct order
     And I should logout from the application
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/40482
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40482
   @40482
   Scenario: Verify external user is able to add and remove a filter subscription
     Given I am logged in as the "CALPERS" User

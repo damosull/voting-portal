@@ -1,6 +1,6 @@
 Feature: Engagement permissions
 
-    #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/3728
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3728
     @3728
     Scenario:Verify External Admin user cannot view Engagements in the company page when the system permission "View Interaction" is turned off for External Admin role
         Given I set the setting "Permission.CompanyPage.ViewInteraction" to "Deny" for the user "ROBECO"
@@ -13,7 +13,7 @@ Feature: Engagement permissions
         And I should logout from the application
 
 
-    #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/4573
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4573
     @4573
     Scenario:Verify a user can create a Custom Field Type of Picklist Multi Select & verify the Label Name is not displayed on workflow grid
         Given I set the setting "Permission.CompanyPage.ViewInteraction" to "Allow" for the user "ROBECO"
@@ -39,7 +39,7 @@ Feature: Engagement permissions
         Then I delete the 'AutomationTestPicklist' picklist
 
 
-    #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/4573
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4573
     @4573
     Scenario:Verify a user can Create a Multi Select Custom Field Picklist & Verify user can Add/Sort/Remove the Multi Select custom field on the Workflow page
         When I am logged in as the "ROBECO" User
@@ -61,7 +61,7 @@ Feature: Engagement permissions
         And I delete the active 'Automation12 345"£ $%' picklist
 
 
-    #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/4575
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4575
     @4575
     Scenario: Verify a user can create a Custom Field Type Multi Select with Existing Workflow field Label Name & 2 same Label Names are displayed in Workflow grid & in Add Criteria dropdown
         When I am logged in as the "ROBECO" User

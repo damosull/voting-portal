@@ -1,7 +1,7 @@
 Feature: Custom Policy Rationale & Custom Policy Rationale & Associated Rulename
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9456
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/2569
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2569
   @2569
   Scenario: Verify no pre-populated rationale will be available when Decision Status = Recommendations Pending and Policy Rec = N/A
     Given I am logged in as the "CALPERS" User
@@ -17,7 +17,7 @@ Feature: Custom Policy Rationale & Custom Policy Rationale & Associated Rulename
     And I should logout from the application
 
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/4379
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4379
   @4379
   Scenario: Verify user permissions for 'View Rule Name' - Explicitly Denied
     Given I am logged in as the "AUTOMATIONINTERNAL" User
@@ -40,7 +40,7 @@ Feature: Custom Policy Rationale & Custom Policy Rationale & Associated Rulename
     And I should logout from the application
 
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/4379
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4379
   @4379
   Scenario: Verify user permissions for 'View Rule Name' - Role Default
     Given I am logged in as the "AUTOMATIONINTERNAL" User

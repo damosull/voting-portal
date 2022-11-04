@@ -1,7 +1,7 @@
 Feature: Vote Decision Tests
 #https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=53607&suiteId=54187
 
-  # TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28476
+  # TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28476
   @28476
   Scenario: Verify that warning message  "You are voting against your custom policy for items xx.xx" is not be displayed when Policy Rec = Manual
     Given I am logged in as the "RUSSELL" User

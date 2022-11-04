@@ -1,7 +1,7 @@
+#US - https://dev.azure.com/glasslewis/Development/_workitems/edit/45257
 Feature: Similar Agendas
-  #User Story - https://dev.azure.com/glasslewis/Development/_workitems/edit/45257
 
-  # https://dev.azure.com/glasslewis/Development/_boards/board/t/Test%20Automation%20Group/Stories/?workitem=47144
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/47144
   @47144
   Scenario: Validate that similar agendas are shown in the vote registration warning
     Given I am logged in as the "WELLINGTON" User

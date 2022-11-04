@@ -1,7 +1,7 @@
 Feature: Vote Tally Folder Tests
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9447
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/2590
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2590
   @2590
   Scenario: Verify a user lands on current Meeting it displays correct Vote Tally Counts for Combination of ballots
     Given I am logged in as the "CALPERS" User
@@ -46,7 +46,7 @@ Feature: Vote Tally Folder Tests
     And I should logout from the application
 
   
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28455
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28455
   @28455
   Scenario: Verify when a user lands on current Meeting it displays correct Vote Tally Counts after Voting
     Given I am logged in as the "RUSSELL" User
@@ -72,7 +72,7 @@ Feature: Vote Tally Folder Tests
     And I should logout from the application
     
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28456
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28456
   @28456
   Scenario: Verify Vote Tally has correct counts for meeting with Decision Status = Recommendations Available
     Given I am logged in as the "RUSSELL" User
@@ -98,7 +98,7 @@ Feature: Vote Tally Folder Tests
     And I should logout from the application
 
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28457
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28457
   @28457
   Scenario: Verify Vote Tally has correct counts for meeting with Decision Status = Manual Vote Required
     Given I am logged in as the "CALPERS" User
@@ -124,7 +124,7 @@ Feature: Vote Tally Folder Tests
     And I should logout from the application
 
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28458
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28458
   @28458
   Scenario: Verify when a user lands on current Meeting with Decision Status = Info Only it displays correct  Vote Tally Counts for Info Only
     Given I am logged in as the "CALPERS" User
@@ -141,7 +141,7 @@ Feature: Vote Tally Folder Tests
     And I should logout from the application
 
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28459
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28459
   @28459
   Scenario: Verify a user lands on current Meeting it displays correct Vote Tally counts
     Given I am logged in as the "CALPERS" User
@@ -156,7 +156,7 @@ Feature: Vote Tally Folder Tests
     And I close the vote tally popup
 
   
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/28460
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28460
   @28460
   Scenario: Verify that Vote Tally section does not change based on Filtering on the Meeting Details page
     Given I am logged in as the "RUSSELL" User

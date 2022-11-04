@@ -2,7 +2,7 @@ Feature: Create, modify & delete a Vote Execution Profile
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9245
 
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/4166
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4166
   @4166
   Scenario: Verify an Internal Admin user can modify an existing Vote Execution Profile & Save New Vote Execution Profile Configuration Name
     Given I am logged in as the "AUTOMATIONINTERNAL" User
@@ -23,7 +23,7 @@ Feature: Create, modify & delete a Vote Execution Profile
     And I should logout from the application
 
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/4211
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4211
   @4211
   Scenario: Verify an Internal Admin user can modify an existing Vote Execution Profile & "Save" the changes
     Given I am logged in as the "AUTOMATIONINTERNAL" User
