@@ -124,8 +124,6 @@ Then('I remove Subscription entry from Viewpoint on dashboard page', () => {
     dashboardPage.okButton().click()
 })
 
-/* Validate Dashboard - Test scenario:39541 https://dev.azure.com/glasslewis/Development/_workitems/edit/39541 */
-
 Then('I verify sidebar links', () => {
     dashboardPage.sidebarLinks().eq(0).should('include.text', 'My dashboards')
     dashboardPage.sidebarLinks().eq(1).should('include.text', 'Default dashboard')
