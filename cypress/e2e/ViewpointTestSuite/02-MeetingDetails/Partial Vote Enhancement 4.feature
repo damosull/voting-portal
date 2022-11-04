@@ -1,7 +1,7 @@
 Feature: Partial Vote Enhancement Tests
   #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28714
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28736
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28736
   @28736
   Scenario: BUG-4886 - New Partial Voting Default Percent on Customer Level Changes TC1
     Given I am logged in as the "CALPERS" User
@@ -16,7 +16,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28737
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28737
   @28737
   Scenario: BUG-4886 - New Partial Voting Default Percent on Customer Level Changes TC2
     Given I am logged in as the "CALPERS" User
@@ -31,7 +31,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28738
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28738
   #Will Fail - to be fixed by https://dev.azure.com/glasslewis/Development/_workitems/edit/56201
   @28738 @ignore
   Scenario: BUG-4886 - New Partial Voting Default Percent on Customer Level Changes TC3
@@ -49,7 +49,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28739
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28739
   @28739
   Scenario: BUG-4886 - New Partial Voting Default Percent on Customer Level Changes TC4
     Given I am logged in as the "CALPERS" User
@@ -67,7 +67,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28740
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28740
   @28740
   Scenario: BUG-4886 - New Partial Voting Default Percent on Customer Level Changes TC5
     Given I am logged in as the "CALPERS" User

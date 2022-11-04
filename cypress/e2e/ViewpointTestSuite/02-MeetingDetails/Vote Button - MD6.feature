@@ -1,5 +1,5 @@
 Feature: Vote Button Tests
-  #https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=53607&suiteId=54213
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=53607&suiteId=54213
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3289
   @3289
@@ -103,7 +103,7 @@ Feature: Vote Button Tests
     And I should logout from the application
 
 
-  # TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/27932
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/27932
   # Role default: Allowed -> I test it with "Explicitly Denied" so I expect I will not see those voting options
   @27932
   Scenario Outline: Different permission setup on vote card functionality

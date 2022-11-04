@@ -154,6 +154,7 @@ Feature: Vote Tally Folder Tests
     And I verify that the vote tally modal contains all the expected headers
     And I verify that the vote tally modal displays a value for each table column
     And I close the vote tally popup
+    And I should logout from the application
 
   
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28460

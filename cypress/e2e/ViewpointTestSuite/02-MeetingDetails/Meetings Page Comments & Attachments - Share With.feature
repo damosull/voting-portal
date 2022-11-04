@@ -1,7 +1,7 @@
 Feature: Meeting Page Comments & Attachments - Share With
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9830
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28571
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28571
   @28571
   Scenario: Verify user can post a Comment AND a Comment with Attachments to Everyone
     Given I am logged in as the "AUTOMATIONEXTERNAL" User
@@ -38,7 +38,7 @@ Feature: Meeting Page Comments & Attachments - Share With
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28573
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28573
   @28573
   Scenario: Verify only the Shared With user can view the posted comment with attachment in the meeting page when shared to individual user
     Given I am logged in as the "AUTOMATIONEXTERNAL" User
@@ -69,7 +69,7 @@ Feature: Meeting Page Comments & Attachments - Share With
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28574
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28574
   @28574
   Scenario: Verify users added in the "Shared With" list, but not @mentioned in the comment textbox, will not trigger the @notification
     Given I am logged in as the "AUTOMATIONEXTERNAL" User
@@ -102,7 +102,7 @@ Feature: Meeting Page Comments & Attachments - Share With
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28577
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28577
   @28577
   Scenario: Verify External Admin User can 'Delete' comments/Comments with attachments shared with everyone in the Meeting Page
     Given I am logged in as the "AUTOMATIONEXTERNAL" User
@@ -137,7 +137,7 @@ Feature: Meeting Page Comments & Attachments - Share With
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/4400
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4400
   @4400
   Scenario: Verify External Admin User can 'Delete' other users /Comments with attachments & Mentioned user receives no notification
     Given I am logged in as the "AUTOMATIONEXTERNAL" User
@@ -164,7 +164,7 @@ Feature: Meeting Page Comments & Attachments - Share With
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28570
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28570
   @28570
   Scenario: Verify External Admin user can see "View All" hyperlink in the comment section, when the meeting has more than 10 comments in the Meeting Details page
     Given I am logged in as the "AUTOMATIONEXTERNAL" User

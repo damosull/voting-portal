@@ -1,6 +1,7 @@
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=37349&suiteId=43744
 Feature: Navigation from meeting details page to company page
 
-  #US46077 - https://dev.azure.com/glasslewis/Development/_workitems/edit/43760
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/43760
   @43760
   Scenario: Verify user can navigate from Meeting Details page to Company page and the associated meetings in meetings dropdown on Company Page all include text '20'
     Given I am logged in as the "CALPERS" User

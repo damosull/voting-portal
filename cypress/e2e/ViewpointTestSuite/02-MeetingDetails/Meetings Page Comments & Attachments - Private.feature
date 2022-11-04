@@ -1,7 +1,7 @@
 Feature: Meeting Page Comments & Attachments - Private
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9257
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28568
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28568
   @28568
   Scenario: Verify user can add/edit/delete comments with attachments on the Meeting page with privacy set to Private
     Given I am logged in as the "AUTOMATIONEXTERNAL" User
@@ -39,7 +39,7 @@ Feature: Meeting Page Comments & Attachments - Private
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28569
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28569
   @28569
   Scenario: Verify when a user changes the privacy settings of a Comment in a Meeting Details page from Private to Shared with, @mentioned user receives a notification
     Given I am logged in as the "AUTOMATIONEXTERNAL" User

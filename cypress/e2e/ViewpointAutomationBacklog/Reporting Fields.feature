@@ -55,7 +55,7 @@ Feature: Report related tests
         And I should logout from the application
 
 
-    #TC: https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37963
     @37986 @37963
     Scenario: Generate Engagement report, download and verify file headers
         When I navigate to the Reporting page

@@ -1,5 +1,5 @@
 Feature: Vote Card Tests
-#https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=53607&suiteId=53788
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28430
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28433
   @28433
@@ -16,6 +16,7 @@ Feature: Vote Card Tests
     And I can verify that the vote card summary remains unchanged when user changes the filters on "account"
     And I should logout from the application
 
+
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28435
   @28435
   Scenario: Verify filtering on Account does not impact Vote Tally section of the Meeting Details page
@@ -26,6 +27,7 @@ Feature: Vote Card Tests
     And I can verify that the vote card summary remains unchanged when user changes the filters on "account"
     And I should logout from the application
 
+
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28434
   @28434
   Scenario: Verify filtering on Account Group does NOT impact Vote Tally section
@@ -35,6 +37,7 @@ Feature: Vote Card Tests
     And I can verify that the Account Group filter has the value "ProxyExchange Accounts"
     And I can verify that the vote card summary remains unchanged when user changes the filters on "account group"
     And I should logout from the application
+
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37937
   @37937
@@ -56,6 +59,7 @@ Feature: Vote Card Tests
     And I click on the update button for Ballots filter
     Then I should be able to see the results for the Ballots filter
     And I should logout from the application
+
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37938
   @37938

@@ -1,7 +1,6 @@
 Feature: Create, modify & delete a Vote Execution Profile
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9245
 
-
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4166
   @4166
   Scenario: Verify an Internal Admin user can modify an existing Vote Execution Profile & Save New Vote Execution Profile Configuration Name

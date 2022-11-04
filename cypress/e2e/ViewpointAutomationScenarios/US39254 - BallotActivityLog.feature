@@ -1,6 +1,7 @@
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=37349&suiteId=40634
 Feature: Display the Ballot Voting History
 
-  #Test case 40606 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40606
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40606
   @40606
   Scenario: Verify user is able to configure column actions
     Given I am logged in as the "CALPERS" User
@@ -11,7 +12,7 @@ Feature: Display the Ballot Voting History
     And I should logout from the application
 
 
-  #Test case 40606 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40606
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40606
   @40606
   Scenario: Verify pagination works as expected on the ballot section page
     Given I am logged in as the "RUSSELL" User
@@ -22,7 +23,7 @@ Feature: Display the Ballot Voting History
     And I should logout from the application
 
 
-  #Test case 40724 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40724
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40724
   @40724
   Scenario: Verify pagination is displayed on the ballot section page
     Given I am logged in as the "RUSSELL" User
@@ -36,7 +37,7 @@ Feature: Display the Ballot Voting History
     And I should logout from the application
 
 
-  #Test case 40724 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40724
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40724
   @40724
   Scenario: Verify chosen pagination is autosaved on the ballot section page
     Given I am logged in as the "RUSSELL" User
@@ -50,7 +51,7 @@ Feature: Display the Ballot Voting History
     And I should logout from the application
 
 
-  #Test Case 40734 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40734
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40734
   @40734
   Scenario: Verify User can Toggle between 'Management' Multiple Agendas in the Vote card page for specific meeting type
     Given I am logged in as the "NEUBERGER" User
@@ -64,17 +65,15 @@ Feature: Display the Ballot Voting History
     And I should logout from the application
 
 
-  #Test scenario 37790 - https://dev.azure.com/glasslewis/Development/_workitems/edit/37790
-  #Test scenario 40741 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40741
-  @37790 @40741
-  Scenario: Verify user is able to process Vote, Take No Action and Review Required actions
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40741
+  @40741
+  Scenario: Verify User can see 'Ballot Activity Log' gets updated in the Vote Card page
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
     Then the filtered results should be displayed
-    And I save the filter
     When I select a random meeting
     Then I can view the Meeting Details page
     And I quick vote "For" on the meeting
