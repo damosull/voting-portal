@@ -1,7 +1,10 @@
 @workflow
 Feature: Workflow related smoke tests
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56796
 
-
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56841
+  #to https://dev.azure.com/glasslewis/Development/_workitems/edit/56847
+  @56841 @56842 @56843 @56844 @56845 @56846 @56847
   Scenario Outline: Verify user is able to apply the various filters on the workflow page
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
@@ -20,6 +23,8 @@ Feature: Workflow related smoke tests
       | "ESG Risk Rating Highest Controversy"     |
 
 
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56848
+  @56848
   Scenario: Verify that all the meetings for California Public Employee Retirement System have a CalPERS customer id
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     When I navigate to the workflow page
@@ -28,6 +33,8 @@ Feature: Workflow related smoke tests
     And I should logout from the application
 
 
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56849
+  @56849
   Scenario: Verify external user is able to navigate to the correct meeting detail and company page
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
@@ -40,6 +47,8 @@ Feature: Workflow related smoke tests
     And I should logout from the application
 
 
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56850
+  @56850
   Scenario: Verify internal user is able to add columns from the table on workflow page
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
@@ -51,6 +60,8 @@ Feature: Workflow related smoke tests
     And I should logout from the application
 
 
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56851
+  @56851
   Scenario: Verify internal user is able to remove columns from the table on workflow page
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
@@ -60,7 +71,7 @@ Feature: Workflow related smoke tests
     And I should logout from the application
 
 
-  #Test Case 40729 - https://dev.azure.com/glasslewis/Development/_workitems/edit/40729
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40729
   @40729
   Scenario: Verify ballot section display the correct results when filter is applied from the workflow page
     Given I am logged in as the "WELLINGTON" User

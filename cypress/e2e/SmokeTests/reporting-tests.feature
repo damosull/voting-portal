@@ -1,7 +1,8 @@
 @reporting
 Feature: Reporting related smoke tests
+    #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56794
 
-    #Test scenario 37939: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
     @37939
     Scenario: Report - Voting Activity
         Given I am logged in as the "CALPERS" User
@@ -28,7 +29,7 @@ Feature: Reporting related smoke tests
         And I should logout from the application
 
 
-    # Test scenario: 37962 https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
     @37962
     Scenario: Generate ballot vote data report, download and verify file
         Given I am logged in as the "RUSSELL" User
@@ -46,7 +47,9 @@ Feature: Reporting related smoke tests
         And I should logout from the application
 
 
-    Scenario: Ballot status report meeting detail page
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56837
+    @56837
+    Scenario: Verify user is able to download Ballot status report generated via Meeting Details page
         Given I am logged in as the "WELLINGTON" User
         When I navigate to the workflow page
         Then I can view the workflow page
@@ -61,7 +64,9 @@ Feature: Reporting related smoke tests
         And I should logout from the application
 
 
-    Scenario: Workflow Export Request report
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56838
+    @56838
+    Scenario: Verify user is able to download Workflow Export Request report
         Given I am logged in as the "NEUBERGER" User
         When I navigate to the workflow page
         Then I can view the workflow page

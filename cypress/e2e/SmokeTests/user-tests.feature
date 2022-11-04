@@ -1,21 +1,29 @@
 @user
 Feature: User related smoke tests
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56795
 
-
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56839
+  @56839
   Scenario: Verify internal user is able to login successfully with a valid username and password
     Given I am on the login page of Viewpoint
     When I login via the UI with the user "AUTOMATIONINTERNAL"
     Then I can view the workflow page
     And I should logout from the application
 
-  Scenario: Verify internal user is able to create a new external user
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/39053
+  @39053
+  Scenario: Verify internal user is able to create a new Calpers external user
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I cleanup the newly created user from the database to reuse the test script
     When I navigate to the users page
     And I fill the required details for a new user and submit
     Then the new user should be created successfully
     And I should logout from the application
-    
+
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56840
+  @56840
   Scenario: Verify user is able to create a watchlist and assign it
     Given I am logged in as the "CALPERS" User
     And I delete the created test watchlist from database

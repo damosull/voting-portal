@@ -31,7 +31,6 @@ Then('I verify that all the relevant API calls for dashboard page are made', () 
     cy.statusCode200('@DASHBOARD_SUBSCRIPTION')
 })
 
-/* Create Dashboard Subscription - Test scenario:40490 https://dev.azure.com/glasslewis/Development/_workitems/edit/40490 */
 Then('I select Subscriptions link', () => {
     dashboardPage.subscriptionsContainerAtTheBottom().should('include.text', 'Subscriptions').click()
     dashboardPage.pageBody().then(($body) => {
