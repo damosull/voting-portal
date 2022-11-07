@@ -4,8 +4,8 @@ trigger:
       - master
 
 schedules:
-  - cron: '0 8 * * 1-5'
-    displayName: 'Daily Build at 08:00 GMT'
+  - cron: '15 8 * * 1-5'
+    displayName: 'Daily Build at 08:15 GMT'
     always: true
     branches:
       include:
