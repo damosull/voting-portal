@@ -12,7 +12,7 @@ To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glass
 - To run multiple tests, just add those test IDs in the tags section of the above command, eg: `tags='@xyz or @abc or @lmn or @pqr or @fgh'`
 
 ## Running tests from Automation Backlog Test Suite
-- To run specific tests, mention the Azure test IDs in this command. For example, if I want to run test case ID 50530, the command to use in the `Build Parameters` field would be `npx cypress run --config specPattern='cypress/e2e/AutomationBacklog/*.feature' --env tags='@50530'`
+- To run specific tests, mention the Azure test IDs in this command. For example, if I want to run test case ID 50530, the command to use in the `Build Parameters` field would be `npx cypress run --config specPattern='cypress/e2e/ViewpointAutomationBacklog/*.feature' --env tags='@50530'`
 - To run multiple tests, just add those test IDs in the tags section of the above command, eg: `tags='@xyz or @abc or @lmn or @pqr or @fgh'`
 
 ## Running tests from Viewpoint Automated Smoke Tests
@@ -54,7 +54,7 @@ Using Cucumber tags gives great advantage to run the test cases of your choice. 
 
 - Run specific test from entire test suite - `npx cypress run --env tags='@40729'`
 - Run multiple tests from entire test suite - `npx cypress run --env tags='@40729 or @3331 or @28433 or @28474'`
-- Run specific test from specific file - `npx cypress run --spec 'cypress/e2e/AutomationBacklog/Compare Recommendations.feature' --env tags='@48678'`
+- Run specific test from specific file - `npx cypress run --spec 'cypress/e2e/ViewpointAutomationBacklog/Compare Recommendations.feature' --env tags='@48678'`
 - Run multiple tests from specific folder - `npx cypress run --config specPattern="cypress/e2e/ViewpointTestSuite/02-MeetingDetails/*.feature" --env tags='@40724 or @40734'`
 
 <br/><br/><br/>

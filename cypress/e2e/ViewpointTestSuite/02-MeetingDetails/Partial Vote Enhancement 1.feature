@@ -1,7 +1,7 @@
 Feature: Partial Vote Enhancement Tests
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28714
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28715
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28715
   @28715
   Scenario: Verify No Warning Message displayed when the user has set a combination partial vote & then navigated away from the Meeting Details page when the user has VOTED
     Given I am logged in as the "CALPERS" User
@@ -45,7 +45,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28716
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28716
   @28716
   Scenario: Verify User can choose to 'Vote' where user has chosen a 'NOMINAL' value in the  'Set Partial Vote' modal
     Given I am logged in as the "CALPERS" User
@@ -81,7 +81,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28717
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28717
   @28717
   Scenario: Verify user can select 'Take No Action' where user has chosen '%' option in the 'Set Partial Vote' modal
     Given I am logged in as the "CALPERS" User
@@ -102,7 +102,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28718
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28718
   @28718
   Scenario: Verify user can select 'Take No Action' option where user has chosen 'NOMINAL' option in the 'Set Partial Vote' modal
     Given I am logged in as the "CALPERS" User
@@ -126,7 +126,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28719
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28719
   @28719
   Scenario: Verify user cannot enter alphanumerics in the 'Set Partial Vote' modal
     Given I am logged in as the "CALPERS" User
@@ -142,7 +142,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28720
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28720
   @28720
   Scenario: Verify system throws an error message if User selects 'Value' that is more than the Total 'No. of Shares' in the Set Partial Vote modal
     Given I am logged in as the "CALPERS" User

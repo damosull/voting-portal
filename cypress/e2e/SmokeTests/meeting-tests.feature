@@ -1,6 +1,9 @@
 @meeting @meeting-details
 Feature: Meetings related smoke tests
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56793
 
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56824
+  @56824
   Scenario: Verify that the votes against Glass Lewis are captured in filter criteria
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
@@ -12,6 +15,9 @@ Feature: Meetings related smoke tests
     Then the filtered results should display the data only for vote against Glass Lewis
     And I should logout from the application
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/568245
+  @56825
   Scenario: Verify that the votes against Management are captured in filter criteria
     Given I am logged in as the "WELLINGTON" User
     And I navigate to the workflow page
@@ -23,6 +29,9 @@ Feature: Meetings related smoke tests
     Then the filtered results should display the data only for vote against Management
     And I should logout from the application
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56826
+  @56826
   Scenario: Verify user is able to filter meetings with recommendations available
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
@@ -33,6 +42,9 @@ Feature: Meetings related smoke tests
     And I can see the Vote, Take No Action and Instruct buttons
     And I should logout from the application
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56827
+  @56827
   Scenario: Verify user is able to do a quick vote
     Given I am logged in as the "NEUBERGER" User
     And I navigate to the workflow page
@@ -50,6 +62,9 @@ Feature: Meetings related smoke tests
     Then I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56828
+  @56828
   Scenario: Verify user is able to vote on a US Recommendation Pending meeting
     Given I am logged in as the "CALPERS" User
     When I navigate to the meeting details page for the meeting "CPRP4"
@@ -62,6 +77,9 @@ Feature: Meetings related smoke tests
     Then I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56829
+  @56829
   Scenario: Verify user is able to vote on a Global Recommendation Pending meeting
     Given I am logged in as the "CALPERS" User
     When I navigate to the meeting details page for the meeting "CPRP2"
@@ -74,6 +92,9 @@ Feature: Meetings related smoke tests
     Then I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56830
+  @56830
   Scenario: Verify user is able to use the Instruct functionality on Recommendation Pending meeting
     Given I am logged in as the "CALPERS" User
     When I navigate to the meeting details page for the meeting "CPRP1"
@@ -82,6 +103,9 @@ Feature: Meetings related smoke tests
     Then I should be able to use the Instruct functionality on the meeting
     And I should logout from the application
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56831
+  @56831
   Scenario: Verify user is able to quickvote on a Global Recommendation Pending meeting
     Given I am logged in as the "CALPERS" User
     When I navigate to the meeting details page for the meeting "CPRP3"
@@ -94,6 +118,9 @@ Feature: Meetings related smoke tests
     Then I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56832
+  @56832
   Scenario: Verify user is able to take no action on a Recommendation Pending meeting
     Given I am logged in as the "CALPERS" User
     When I navigate to the meeting details page for the meeting "CPRP5"
@@ -103,6 +130,9 @@ Feature: Meetings related smoke tests
     And I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56833
+  @56833
   Scenario: Verify user is able to share a meeting with another user
     Given I am logged in as the "CALPERS" User
     When I navigate to the meeting details page for the meeting "CPRP6"
@@ -114,6 +144,9 @@ Feature: Meetings related smoke tests
     And I verify that the request was saved in the database
     And I should logout from the application
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56834
+  @56834
   Scenario: Verify external user is able to add meeting note and post private comment
     Given I am logged in as the "CHARLESSCHWAB" User
     And I navigate to the workflow page
@@ -125,6 +158,9 @@ Feature: Meetings related smoke tests
     And I am able to add meeting note and post private comment
     And I should logout from the application
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/568235
+  @56835
   Scenario: Verify external user is able to add comment to each rationale, save it and verify the toast message
     Given I am logged in as the "ROBECO" User
     And I navigate to the workflow page

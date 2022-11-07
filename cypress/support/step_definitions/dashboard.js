@@ -31,7 +31,6 @@ Then('I verify that all the relevant API calls for dashboard page are made', () 
     cy.statusCode200('@DASHBOARD_SUBSCRIPTION')
 })
 
-/* Create Dashboard Subscription - Test scenario:40490 https://dev.azure.com/glasslewis/Development/_workitems/edit/40490 */
 Then('I select Subscriptions link', () => {
     dashboardPage.subscriptionsContainerAtTheBottom().should('include.text', 'Subscriptions').click()
     dashboardPage.pageBody().then(($body) => {
@@ -124,8 +123,6 @@ Then('I remove Subscription entry from Viewpoint on dashboard page', () => {
     dashboardPage.deleteSubscriptionLink().eq(1).click()
     dashboardPage.okButton().click()
 })
-
-/* Validate Dashboard - Test scenario:39541 https://dev.azure.com/glasslewis/Development/_workitems/edit/39541 */
 
 Then('I verify sidebar links', () => {
     dashboardPage.sidebarLinks().eq(0).should('include.text', 'My dashboards')

@@ -1,6 +1,7 @@
 Feature: Compare Policy Recommendations
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/48678
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/48678
   @48678
   Scenario: Compare Policy Recommendations to GL Recommendations
     Given I am logged in as the "CALPERS" User
@@ -19,7 +20,7 @@ Feature: Compare Policy Recommendations
     And I should logout from the application
 
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/48395
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/48395
   @48395
   Scenario: Compare Policy Recommendations to Management Recommendations
     Given I am logged in as the "CALPERS" User

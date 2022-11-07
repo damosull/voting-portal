@@ -1,6 +1,7 @@
 Feature: Controversy Alert
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50256
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/50256
   @50256
   Scenario: Verify "Controversy Alert" field displays in the Configure Columns dropdown list
     Given I am logged in as the "CHARLESSCHWAB" User
@@ -16,7 +17,8 @@ Feature: Controversy Alert
     And I should be able to verify that the column "Controversy Alert" is "checked"
     And I should logout from the application
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50285
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/50285
   @50285
   Scenario: Verify that the Controversy File name hyperlink does not display
     Given I am logged in as the "CHARLESSCHWAB" User
@@ -31,7 +33,8 @@ Feature: Controversy Alert
     Then I should be "unable" to see "Controversy Alert link" on the UI
     And I should logout from the application
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50281
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/50281
   @50281
   Scenario: Verify user is able to download controversy alert PDF file
     Given I am logged in as the "AUTOMATIONINTERNAL" User
@@ -45,7 +48,8 @@ Feature: Controversy Alert
     And I should be able to verify the UI shows filename with "..." and its extension is .pdf
     And I should logout from the application
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50530
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/50530
   @50530
   Scenario: Turning Off the Controversy alert in customer settings
     Given I am logged in as the "AUTOMATIONINTERNAL" User
@@ -58,7 +62,8 @@ Feature: Controversy Alert
     And I should be "unable" to see "Controversy Alert link" on the UI
     And I should logout from the application
 
-  #TC - https://dev.azure.com/glasslewis/Development/_workitems/edit/50531
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/50531
   @50531
   Scenario: Turning On the Controversy alert in customer settings
     Given I am logged in as the "AUTOMATIONINTERNAL" User

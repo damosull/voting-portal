@@ -1,7 +1,7 @@
 Feature: Partial Vote Enhancement Tests
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28714
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28728
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28728
   @28728
   Scenario: Verify 'Set Partial Vote' button still displays when partial vote has not been set and the user Votes on a meeting
     Given I am logged in as the "CALPERS" User
@@ -29,7 +29,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28729
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28729
   @28729
   Scenario: Verify 'Partial Vote Applied' button is displayed when user filters on one account and sets partial vote, BUT 'Set Partial Vote' button is displayed when user THEN filters on another account that does not have partial vote applied
     Given I am logged in as the "CALPERS" User
@@ -58,7 +58,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28731
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28731
   @28731
   Scenario: Verify User receives toast message "At least 1 item must be greater than zero" when the total % equals to 0%
     Given I am logged in as the "CALPERS" User
@@ -74,7 +74,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28732
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28732
   @28732
   Scenario: Verify user receives toast message 'You have not applied a valid amount please review values entered' when user enters a value equal to No of Shares
     Given I am logged in as the "CALPERS" User
@@ -98,7 +98,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28733
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28733
   @28733
   Scenario: Verify User can set a '%' value in the 'Set Partial Vote' modal and Instruct a meeting
     Given I am logged in as the "CALPERS" User
@@ -126,7 +126,7 @@ Feature: Partial Vote Enhancement Tests
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28734
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28734
   @28734
   Scenario: Verify User can set a 'NOMINAL' value in the 'Set Partial Vote' modal and 'Instruct' a meeting
     Given I am logged in as the "CALPERS" User

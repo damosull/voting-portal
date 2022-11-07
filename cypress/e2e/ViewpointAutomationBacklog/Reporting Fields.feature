@@ -1,4 +1,6 @@
 Feature: Report related tests
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
+#TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
 
     Background:
         Given I am logged in as the "CALPERS" User
@@ -18,7 +20,7 @@ Feature: Report related tests
         And I should logout from the application
 
 
-    # Test scenario: 37962 https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
     @37986 @37962
     Scenario: Generate ballot vote data report, download and verify file
         When I navigate to the Reporting page
@@ -35,7 +37,7 @@ Feature: Report related tests
         And I should logout from the application
 
 
-    # Test scenario: 40409 https://dev.azure.com/glasslewis/Development/_workitems/edit/40409
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40409
     @37986 @40409
     Scenario: Create Ballot Vote Subscription entry and validate in SB_Subscription Database table
         When I navigate to the Reporting page
@@ -54,7 +56,7 @@ Feature: Report related tests
         And I should logout from the application
 
 
-    # Test scenario 37963 : https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37963
     @37986 @37963
     Scenario: Generate Engagement report, download and verify file headers
         When I navigate to the Reporting page
@@ -84,7 +86,7 @@ Feature: Report related tests
         And I should logout from the application
 
 
-    # Test scenario 37988: https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=37350
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37988
     @37986 @37988
     Scenario: Generate Policy report, download and verify file headers - Generate Policy Report
         When I navigate to the Reporting page
@@ -101,7 +103,7 @@ Feature: Report related tests
         And I should logout from the application
 
 
-    #Test scenario 37939: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
     @37986 @37939
     Scenario: Report - Voting Activity
         When I navigate to the Reporting page
@@ -127,7 +129,7 @@ Feature: Report related tests
         And I should logout from the application
 
 
-    # Test scenario 37939: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
     @37986 @37939
     Scenario: Proxy Voting Report
         When I navigate to the Reporting page

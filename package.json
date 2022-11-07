@@ -12,7 +12,7 @@
     "smoke": "cypress run --config specPattern=cypress/e2e/SmokeTests/*.feature",
     "smokeUltra": "cypress run --config-file cypress.ultra.config.js --config specPattern=cypress/e2e/SmokeTests/*.feature",
     "regression": "cypress run --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature",
-    "autobacklog": "cypress run --config specPattern=cypress/e2e/AutomationBacklog/*.feature",
+    "autobacklog": "cypress run --config specPattern=cypress/e2e/ViewpointAutomationBacklog/*.feature",
     "loadtest": "cypress run --config specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,retries=0",
     "loaddocker": "docker compose up --scale cypress=5",
     "lint": "eslint cypress"

@@ -1,7 +1,7 @@
 Feature: Vote Card - Quick Vote
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28461
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28462
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28462
   @28462
   Scenario: Verify that if a user selects Quick Vote option where Research Paper is published & votes on the Vote Card
     Given I am logged in as the "RUSSELL" User
@@ -29,7 +29,7 @@ Feature: Vote Card - Quick Vote
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28463
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28463
   @28463
   Scenario: Verify that an Error Message is displayed when a user selects an invalid Quick Vote option
     Given I am logged in as the "WELLINGTON" User
@@ -52,7 +52,7 @@ Feature: Vote Card - Quick Vote
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28464
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28464
   @28464
   Scenario: Verify that if a user select Quick Vote "Policy Rec" & vote on the vote card
     Given I am logged in as the "CALPERS" User
@@ -77,7 +77,7 @@ Feature: Vote Card - Quick Vote
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28465
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28465
   @28465
   Scenario: Verify that if a user select Quick Vote where Research Paper is published, ALL Mgmt Recs = Undetermined & user votes on the vote card
     Given I am logged in as the "CALPERS" User
@@ -97,7 +97,7 @@ Feature: Vote Card - Quick Vote
     And I should logout from the application
 
 
-  #Test Case - https://dev.azure.com/glasslewis/Development/_workitems/edit/28466
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28466
   @28466
   Scenario: Verify that if a user select Quick Vote "Against/Withold" & vote on the vote card
     Given I am logged in as the "WELLINGTON" User

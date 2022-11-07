@@ -1,5 +1,7 @@
 Feature: VAM/VAP Feature
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
 
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/44714 https://dev.azure.com/glasslewis/Development/_workitems/edit/44716
   @44714 @44716
   Scenario: Live ballots with meeting date for future ballots whose meeting date has passed/Revote and no rationale entered for vote against management and vote against policy
     Given I am logged in as the "AUTOMATIONINTERNAL" User
@@ -15,6 +17,8 @@ Feature: VAM/VAP Feature
     And I should see a message that contains the text "Vote(s) against policy on proposal(s):"
     And I should see a message that contains the text "Vote(s) against management on proposal(s):"
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/44714 https://dev.azure.com/glasslewis/Development/_workitems/edit/44716
   @44714 @44716
   Scenario: Live ballots with meeting date for future ballots whose meeting date has passed/Revote and rationale is entered for vote against management
     Given I am logged in as the "RUSSELL" User
@@ -25,6 +29,8 @@ Feature: VAM/VAP Feature
     And I click on the Vote button
     Then The Proceed button should be enabled
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/44714 https://dev.azure.com/glasslewis/Development/_workitems/edit/44716
   @44714 @44716
   Scenario: Live ballots with meeting date for past ballots whose meeting date has passed/Revote and no rationale entered for vote against policy
     Given I am logged in as the "RUSSELL" User
@@ -36,6 +42,8 @@ Feature: VAM/VAP Feature
     Then I should see a message that contains the text "Warning - adding rationale is recommended"
     And I should see a message that contains the text "Vote(s) against policy on proposal(s):"
 
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/44714 https://dev.azure.com/glasslewis/Development/_workitems/edit/44716
   @44714 @44716
   Scenario: Live ballots with meeting date for future ballots whose meeting date has passed/Revote and no rationale entered for vote against management
     Given I am logged in as the "RUSSELL" User
