@@ -1,5 +1,6 @@
-#US - https://dev.azure.com/glasslewis/Development/_workitems/edit/45257
 Feature: Similar Agendas
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
+#User Story - https://dev.azure.com/glasslewis/Development/_workitems/edit/45257
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/47144
   @47144

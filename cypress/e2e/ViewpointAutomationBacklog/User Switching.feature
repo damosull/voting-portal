@@ -1,4 +1,5 @@
 Feature: Internal User Switching
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/48105
   @48105

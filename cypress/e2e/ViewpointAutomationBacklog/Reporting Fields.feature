@@ -1,5 +1,6 @@
-#TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
 Feature: Report related tests
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
+#TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
 
     Background:
         Given I am logged in as the "CALPERS" User

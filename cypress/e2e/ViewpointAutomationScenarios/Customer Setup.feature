@@ -1,5 +1,5 @@
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=37349&suiteId=43744
 Feature: Navigation from meeting details page to company page
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=37349&suiteId=43744
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/43760
   @43760

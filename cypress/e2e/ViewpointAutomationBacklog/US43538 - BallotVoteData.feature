@@ -1,5 +1,6 @@
-#US - https://dev.azure.com/glasslewis/Development/_workitems/edit/43538
 Feature: Ballot Vote Data Report
+#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
+#User Story - https://dev.azure.com/glasslewis/Development/_workitems/edit/43538
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/43546
   @43546
