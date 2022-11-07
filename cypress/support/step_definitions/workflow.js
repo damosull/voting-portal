@@ -36,8 +36,6 @@ When('I search for the customer {string}', (customerName) => {
     workflowPage.selectCustomerInput().clear({ force: true }).type(customerName)
     workflowPage.selectCustomerDropdown().should('be.visible')
     workflowPage.selectCustomerInput().type('{downarrow}{enter}')
-    cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 })
-    workflowPage.waitForWorkflowPageLoad()
 })
 
 Then('I arrange the table in {string} order for {string}', (order,column_name) => {
@@ -414,17 +412,11 @@ Then('I can see the filter columns are displayed in the correct order', () => {
     })
 })
 
-When('I search for California Public Employee Retirement System', () => {
-    // Search customer
-    //'California Public Employee Retirement System (CalPERS)'
-    workflowPage.customerNameInput().type('CAL', { force: true })
-    workflowPage.customerNameSearchResult().first().click({ force: true })
-})
-
 Then('all the meetings on the screen have a CalPERS customer id', () => {
     // check all meetings in response have CalPERS customer id
     cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 }).then((xhr) => {
-        const data = JSON.parse(xhr.response.body)
+        //handle response. Cache service returns string, while DB returns object
+        const data = typeof(xhr.response.body) == 'string' ? JSON.parse(xhr.response.body) : xhr.response.body
         const items = data.items
 
         items.forEach((item) => {
