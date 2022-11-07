@@ -1,0 +1,54 @@
+trigger:
+  branches:
+    include:
+      - master
+
+schedules:
+  - cron: '5 8 * * 1-5'
+    displayName: 'Daily Build at 08:05 GMT'
+    always: true
+    branches:
+      include:
+        - master
+
+pool:
+  name: 'Build Pipelines VMSS - QAUAT'
+
+jobs:
+- job: ViewpointAutomation
+  timeoutInMinutes: 55
+  steps:
+  - script: |
+      npm ci
+    displayName: 'Install Packages'
+
+  - script: |
+      export HTTP_PROXY=http://10.71.1.42:3128
+      npm run smokeUltra
+    displayName: 'Running Cypress Tests'
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish Cucumber Report'
+    inputs:
+      targetPath: 'test-results/cucumber/cucumber_report.html'
+      artifact: 'Report-$(System.JobAttempt)'
+    continueOnError: true
+    condition: succeededOrFailed()
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish Failure Screenshots'
+    inputs:
+      targetPath: 'test-results/screenshots'
+      artifact: 'Screenshots-$(System.JobAttempt)'
+    continueOnError: true
+    condition: failed()
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/result-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)/test-results/tests-output'
+      mergeTestResults: true
+      failTaskOnFailedTests: false
+    condition: succeededOrFailed()
