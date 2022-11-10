@@ -20,7 +20,7 @@ Given('I am logged in as a random external user', () => {
     const username = Object.values(constants.USER)[randomUserId]
     //login & log the user and time
     //cy.log('Random Number Is: ' + randomUserId + ' & logging in with: ' + username)
-    cy.task('log', `logging in with: ${username} at ${new Date().toISOString().split('T')[1]} GMT`)
+    cy.task('log', `logging in with: ${username} at ${new Date().toISOString().split('T')[1].split('.')[0]} GMT`)
     cy.loginWithAdmin(username)
 })
 
@@ -32,7 +32,7 @@ Given('I launch a random meeting for a random user', () => {
     let meetingId = meetings[rand].meetingId
     //login & log the user and meeting id along with time
     //cy.log('logging in with: ' + username + ' for meeting ID: ' + meetingId)
-    cy.task('log', `logging in with: ${username} for meeting ID: ${meetingId} at ${new Date().toISOString().split('T')[1]} GMT`)
+    cy.task('log', `logging in with: ${username} for meeting ID: ${meetingId} at ${new Date().toISOString().split('T')[1].split('.')[0]} GMT`)
     cy.loginWithAdmin(username)
     //launch meeting details page
     cy.visit('MeetingDetails/Index/' + meetingId)

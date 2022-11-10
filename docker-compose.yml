@@ -6,4 +6,4 @@ services:
     image: votingportal-cypress
     #Options for specPattern in below command - cypress/loadtest/loadtest-viaWorkflow.feature OR cypress/loadtest/loadtest-bypassWorkflow.feature
     #Options for baseUrl in below command - https://viewpoint.aqua.glasslewis.com OR https://viewpoint.ultra.glasslewis.com
-    command: "--config retries=0,specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,baseUrl=https://viewpoint.ultra.glasslewis.com"
+    command: "--config reporter=spec,screenshotOnRunFailure=false,retries=0,specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,baseUrl=https://viewpoint.ultra.glasslewis.com"

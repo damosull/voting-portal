@@ -19,7 +19,7 @@ async function setupNodeEvents(on, config) {
 
   on('before:run', () => {
     fs.emptyDirSync('./test-results')
-    console.log('  INITIATING TESTS ON:', config.baseUrl)
+    console.log(`INITIATING TESTS ON: ${config.baseUrl} at ${new Date().toISOString().split('T')[1].split('.')[0]} GMT`)
     preprocessor.beforeRunHandler(config)
   })
 
@@ -71,6 +71,7 @@ async function setupNodeEvents(on, config) {
 
   on('after:run', async (results) => {
     if (results) {
+      console.log(`FINISHING TESTS ON: ${config.baseUrl} at ${new Date().toISOString().split('T')[1].split('.')[0]} GMT`)
       const formatter = new Formatter()
       const sourceFile = './test-results/cucumber/cucumber-messages.ndjson'
       const outputFile = './test-results/cucumber/cucumber-report.json'

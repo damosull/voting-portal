@@ -142,7 +142,6 @@ Feature: Report related tests
         Then the download initiated toast message appears
         And I "delete" the report for "Proxy Voting"
         When I click on the notification dropdown
-        # Below lines commented out as the report takes around 10-15 mins to download
-        # And I "verify ready for download of" the report for "Proxy Voting"
-        # And I verify the contents for "Proxy Voting" report
+        And I "verify ready for download of" the report for "Proxy Voting"
+        And I verify the contents for "Proxy Voting" report
         And I should logout from the application

@@ -15,7 +15,7 @@ trigger: none
 
 jobs:
 - job: ViewpointLoadTest
-  timeoutInMinutes: 120
+  timeoutInMinutes: 75
   steps:
   - task: Bash@3
     displayName: 'Build New Image'

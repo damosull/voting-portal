@@ -13,10 +13,6 @@ const reportGenerate = function () {
         theme: 'bootstrap',
         jsonFile: './test-results/cucumber/cucumber-report.json',
         output: './test-results/cucumber/cucumber_report.html',
-        reportSuiteAsScenarios: true,
-        scenarioTimestamp: true,
-        launchReport: false,
-        ignoreBadJsonFile: true,
         metadata: {
             "Tests Started At": configs.env.startTime,
             "Environment": configs.e2e.baseUrl,

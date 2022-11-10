@@ -2,27 +2,6 @@
 Feature: Workflow related smoke tests
   #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56796
 
-  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56841
-  #to https://dev.azure.com/glasslewis/Development/_workitems/edit/56847
-  @56841 @56842 @56843 @56844 @56845 @56846 @56847
-  Scenario Outline: Verify user is able to apply the various filters on the workflow page
-    Given I am logged in as the "CALPERS" User
-    And I navigate to the workflow page
-    When I have added the filter criteria <filter>
-    Then I should be able to see the results only for <filter>
-    And I should logout from the application
-
-    Examples:
-      | filter                                    |
-      | "ESG Risk Rating Assessment"              |
-      | "ESG Risk Exposure Assessment"            |
-      | "ESG Risk Management Assessment"          |
-      | "ESG Risk Rating Percentile Global"       |
-      | "ESG Risk Rating Percentile Industry"     |
-      | "ESG Risk Rating Percentile Sub Industry" |
-      | "ESG Risk Rating Highest Controversy"     |
-
-
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56848
   @56848
   Scenario: Verify that all the meetings for California Public Employee Retirement System have a CalPERS customer id
@@ -84,3 +63,24 @@ Feature: Workflow related smoke tests
     And I can verify that the user gets the appropriate results for "Custodian" in the responsive search of the "Columns" Modal
     And I can verify that the ballot section displays just the results based on the policy filtered
     And I should logout from the application
+
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56841
+  #to https://dev.azure.com/glasslewis/Development/_workitems/edit/56847
+  @56841 @56842 @56843 @56844 @56845 @56846 @56847
+  Scenario Outline: Verify user is able to apply the various ESG filters on the workflow page
+    Given I am logged in as the "CALPERS" User
+    And I navigate to the workflow page
+    When I have added the filter criteria <filter>
+    Then I should be able to see the results only for <filter>
+    And I should logout from the application
+
+    Examples:
+      | filter                                    |
+      | "ESG Risk Rating Assessment"              |
+      | "ESG Risk Exposure Assessment"            |
+      | "ESG Risk Management Assessment"          |
+      | "ESG Risk Rating Percentile Global"       |
+      | "ESG Risk Rating Percentile Industry"     |
+      | "ESG Risk Rating Percentile Sub Industry" |
+      | "ESG Risk Rating Highest Controversy"     |

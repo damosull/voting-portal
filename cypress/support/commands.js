@@ -269,9 +269,9 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
         expect(resp.status).to.eq(200);
         const success = resp.body.Succeded;
         if (!success) {
-          console.log(`Check console for details => User: ${username} ${JSON.stringify(resp.body)}`);
+          console.log(`Check console for details => User: ${user} ${JSON.stringify(resp.body)}`);
         }
-        expect(success).to.be.true;
+        expect(success, `Looks like login failed, try to manually login with user: ${user} & password: ${PASSWORD}`).to.be.true;
       });
     });
 });
