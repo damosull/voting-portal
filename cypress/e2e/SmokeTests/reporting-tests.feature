@@ -76,4 +76,5 @@ Feature: Reporting related smoke tests
         Then A toast message appears for "EXPORT_INITIATED"
         When I click on the notification dropdown
         And I "verify ready to download of" the report for "Workflow Export Report"
+        And I verify the contents for "Workflow Export Report" report
         And I should logout from the application
