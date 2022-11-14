@@ -7,6 +7,7 @@ Feature: Workflow related smoke tests
   Scenario: Verify that all the meetings for California Public Employee Retirement System have a CalPERS customer id
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
+    Then I can view the workflow page
     When I search for the customer "California Public Employee Retirement System"
     Then all the meetings on the screen have a CalPERS customer id
     And I should logout from the application
