@@ -225,7 +225,7 @@ Then('I verify the contents for {string} report', (reportName) => {
                 expect(JSON.stringify(xlxsData)).to.include(fields)
             })
         })
-    } else if (reportName == 'Workflow Export Report') {
+    } else if (reportName == 'Workflow Export') {
         reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
             .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
                 cy.request(downloadLink).then((resp) => {
