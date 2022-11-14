@@ -47,7 +47,7 @@
       ]
     },
     "html": {
-      "enabled": true,
+      "enabled": false,
       "output": "test-results/cucumber/cucumber-report.html"
     }
   },
