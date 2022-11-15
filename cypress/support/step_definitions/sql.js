@@ -1,4 +1,4 @@
-import { Then } from "@badeball/cypress-cucumber-preprocessor"
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 const constants = require('../constants')
 
 Then('I capture meeting ID by running the query {string}', (queryType) => {
@@ -80,4 +80,8 @@ Then('I cleanup the newly created user from the database to reuse the test scrip
     WHERE LoginID = '`+ constants.TESTUSER.CONTACTEMAIL + `'
     `
   )
+})
+
+When('I delete all existing Vote Execution Profiles for the customer with id {int}', (customerID) => {
+  cy.sqlServer(`DELETE FROM GLP.dbo.PX_VP_VoteExecutionProfiles WHERE CustomerId = '${customerID}'`)
 })

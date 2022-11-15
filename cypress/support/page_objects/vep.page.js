@@ -1,6 +1,9 @@
 class vepPage {
 
+    getLoadingSpinner() { return cy.get('.k-loading-text') }
+    containsText(text) { return cy.contains(text) }
     customerName() { return cy.get('#cp-customer-name') }
+    vepOnCheckbox() { return cy.get('#ckb-customer-hasnewvepenabled') }
     newProfileButton() { return cy.get("button[data-bind='click: AddNew, visible: DisplayNewButton']") }
     allCheckboxes() { return cy.get(".vgcheckbox") }
     configurationNameLabel() { return cy.get('#text-label-name') }
