@@ -2,8 +2,7 @@ import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import vepPage from '../page_objects/vep.page'
 
 Then('I can view the Vote Execution page', () => {
-    cy.url().should('include', '/Accounts/VEP/?CustomerID')
-    //cy.wait('@GET_VEP_DETAILS')
+    cy.url().should('include', '/Accounts/VEP/')
     vepPage.getLoadingSpinner().should('not.exist')
     vepPage.customerName().should('be.visible')
     vepPage.newProfileButton().should('be.visible')
@@ -101,6 +100,10 @@ Then('I verify that the Vote Execution Profile On checkbox is disabled', () => {
     vepPage.vepOnCheckbox().should('be.disabled')
 })
 
+Then('I uncheck the Vote Execution Profile On checkbox', () => {
+    vepPage.vepOnCheckbox().uncheck({force: true})
+})
+
 When('I click on the New Profile button', () => {
     vepPage.newProfileButton().click()
 })
@@ -108,4 +111,10 @@ When('I click on the New Profile button', () => {
 Then('I should be {string} to see {string} on the VEP page', (isVisible, text) => {
     isVisible = isVisible.includes('unable') ? 'not.be.visible' : 'be.visible'
     vepPage.containsText(text).should(isVisible)
+})
+
+Then('I delete the visible vote execution profile', () => {
+    cy.intercept('DELETE','**/Api/Data/VepConfigCrud/**').as('DELETE_VEP_PROFILE')
+    vepPage.deleteButton().click()
+    cy.wait('@DELETE_VEP_PROFILE').its('response.statusCode').should('eq',204)
 })

@@ -5,7 +5,6 @@ Feature: Create, modify & delete a Vote Execution Profile
   @4165
   Scenario: Verify an Internal Admin can create a Vote Execution Profile and assign a voting group
     Given I delete all existing Vote Execution Profiles for the customer with id 187
-    And I set the setting "Permission.CustomerAdmin.VoteExecutionProfile.Delete" to "Allow" for the user "OPERS"
     When I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the URL "/Accounts/VEP/?CustomerID=187"
     Then I can view the Vote Execution page
@@ -41,6 +40,7 @@ Feature: Create, modify & delete a Vote Execution Profile
     And I should be "able" to see "Test2" on the VEP page
     And I should logout from the application
 
+
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4166
   @4166
   Scenario: Verify an Internal Admin user can modify an existing Vote Execution Profile & Save New Vote Execution Profile Configuration Name
@@ -62,8 +62,8 @@ Feature: Create, modify & delete a Vote Execution Profile
     And I should logout from the application
 
 
-  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4211
-  @4211
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4167 https://dev.azure.com/glasslewis/Development/_workitems/edit/4211
+  @4167 @4211
   Scenario: Verify an Internal Admin user can modify an existing Vote Execution Profile & "Save" the changes
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     When I navigate to the URL "/Accounts/VEP/?CustomerID=696"
@@ -75,3 +75,35 @@ Feature: Create, modify & delete a Vote Execution Profile
     And I click on the Apply Voting Groups button
     And I click on the Save Vote Execution button
     Then the Vote Execution changes should be saved successfully
+    And I should logout from the application
+
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4168
+  @4168
+  Scenario: Verify an Internal Admin user can delete an existing Vote Execution Profile
+    Given I set the setting "Permission.CustomerAdmin.VoteExecutionProfile.Delete" to "Allow" for the user "OPERS"
+    When I am logged in as the "AUTOMATIONINTERNAL" User
+    And I navigate to the URL "/Accounts/VEP/?CustomerID=187"
+    Then I can view the Vote Execution page
+    And I uncheck the Vote Execution Profile On checkbox
+    And I delete the visible vote execution profile
+    When I click on Edit button for Voting Groups
+    And I select "first" voting group
+    And I click on the Apply Voting Groups button
+    And I click on the Save Vote Execution button
+    Then the Vote Execution changes should be saved successfully
+    And I should be "able" to see "Voting Groups (2)" on the VEP page
+    And I should logout from the application
+
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4168
+  @4168
+  Scenario: Verify an Internal Admin user can delete an existing Vote Execution Profile
+    Given I set the setting "Permission.CustomerAdmin.VoteExecutionProfile.View" to "Allow" for the user "OPERS"
+    Given I set the setting "Permission.CustomerAdmin.VoteExecutionProfile.Modify" to "Allow" for the user "OPERS"
+    Given I set the setting "Permission.CustomerAdmin.VoteExecutionProfile.Delete" to "Allow" for the user "OPERS"
+    When I am logged in as the "OPERS" User
+    And I navigate to the URL "/Accounts/VEP/"
+    Then I can view the Vote Execution page
+    And I delete the visible vote execution profile
+    And I should logout from the application
