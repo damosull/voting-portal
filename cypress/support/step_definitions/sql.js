@@ -99,7 +99,6 @@ When('I verify all Voting Groups in the DB are visible on the UI', () => {
   cy.executeQuery(query).then((result) => {
     for (var j = 0; j < result.length; j++) {
       cy.contains(result[j][1]).should('be.visible')
-      //expect(x).to.contain(result[j][1])
     }
   });
 })
