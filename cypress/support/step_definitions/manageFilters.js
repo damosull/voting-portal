@@ -90,7 +90,7 @@ Then('I remove all existing subscriptions', () => {
                     manageFiltersPage.OkButton().click()
                 }
             }
-            manageFiltersPage.existingSubscriptionRemoveButton().should('have.length', 0)
+            manageFiltersPage.existingSubscriptionRemoveButton().filter(':visible').should('have.length', 0)
         }
     })
 })
