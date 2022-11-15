@@ -225,6 +225,18 @@ Then('I verify the contents for {string} report', (reportName) => {
                 expect(JSON.stringify(xlxsData)).to.include(fields)
             })
         })
+    } else if (reportName == 'Workflow Export') {
+        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
+            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+                cy.request(downloadLink).then((resp) => {
+                    expect(resp.status).to.eq(200)
+                    expect(resp.headers)
+                        .to.have.property('content-disposition')
+                        .contains(`filename=Upcoming-Meetings.csv`)
+                    expect(resp.headers).to.have.property('content-type').eql('text/csv')
+                    expect(resp.body).include('Company Name,Agenda Key,Policy ID,Control Number,Decision Status,Security Country of Trade,Deadline Date,Meeting Date,Record Date,Meeting Type,Shares,Ballot Blocking')
+                })
+            })
     }
 })
 

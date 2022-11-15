@@ -16,8 +16,8 @@ Feature: Meetings related smoke tests
     And I should logout from the application
 
 
-  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/568245
-  @56825
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/39049
+  @39049
   Scenario: Verify that the votes against Management are captured in filter criteria
     Given I am logged in as the "WELLINGTON" User
     And I navigate to the workflow page
