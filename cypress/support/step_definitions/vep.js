@@ -51,10 +51,18 @@ When('I click on Edit button for Voting Groups', () => {
     vepPage.editVotingGroupsButton().click()
 })
 
-When('I select {string} voting group(s)', (chooseGroup) => {
+When('I select {string} voting group', (chooseGroup) => {
+    vepPage.votingGroupsSelectAllCheckbox().uncheck({ force: true })
     switch (chooseGroup) {
         case 'first':
-            vepPage.votingGroupsModal().get(['input[type="checkbox"]']).eq(1).check({force: true})
+            vepPage.votingGroupsModal().find('input[type="checkbox"]').eq(1).check({force: true})
+            break
+        case 'second':
+            vepPage.votingGroupsModal().find('input[type="checkbox"]').eq(2).check({force: true})
+            break
+        default:
+            vepPage.votingGroupsSelectAllCheckbox().check({ force: true })
+            break
     }
 })
 
