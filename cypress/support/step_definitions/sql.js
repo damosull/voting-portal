@@ -1,4 +1,4 @@
-import { Then } from "@badeball/cypress-cucumber-preprocessor"
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 const constants = require('../constants')
 
 Then('I capture meeting ID by running the query {string}', (queryType) => {
@@ -80,4 +80,25 @@ Then('I cleanup the newly created user from the database to reuse the test scrip
     WHERE LoginID = '`+ constants.TESTUSER.CONTACTEMAIL + `'
     `
   )
+})
+
+When('I delete all existing Vote Execution Profiles for the customer with id {int}', (customerID) => {
+  cy.sqlServer(`DELETE FROM GLP.dbo.PX_VP_VoteExecutionProfileVotingGroups WHERE VoteExecutionProfileId in
+   (SELECT VoteExecutionProfileId FROM GLP.dbo.PX_VP_VoteExecutionProfiles WHERE CustomerId = '${customerID}')`)
+  cy.sqlServer(`DELETE FROM GLP.dbo.PX_VP_VoteExecutionProfiles WHERE CustomerId = '${customerID}'`)
+})
+
+When('I verify all Voting Groups in the DB are visible on the UI', () => {
+  let query = "SELECT DISTINCT \
+  CAST(AG.AccountGroupId AS NVARCHAR) AS Code, \
+  AG.GroupName AS Name, \
+  AG.CustomerID \
+  FROM AM_AccountGroup AG \
+  INNER JOIN AM_Account A ON A.VotingGroupId = AG.AccountGroupId \
+  INNER JOIN UM_UserPreferences UP ON A.VotingGroupId=UP.PurposeID AND PurposeCode='VotingGroup' AND AG.CustomerID=187;"
+  cy.executeQuery(query).then((result) => {
+    for (var j = 0; j < result.length; j++) {
+      cy.contains(result[j][1]).should('be.visible')
+    }
+  });
 })

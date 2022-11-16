@@ -146,7 +146,7 @@ Then('I verify the contents for {string} report', (reportName) => {
                     )
                 })
             })
-    } else if (reportName == 'Ballot Status Report') {
+    } else if (reportName == 'Ballot Status') {
         reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
             .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
                 cy.request(downloadLink).then((resp) => {

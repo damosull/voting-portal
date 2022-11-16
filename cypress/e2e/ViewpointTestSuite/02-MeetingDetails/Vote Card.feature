@@ -63,7 +63,7 @@ Feature: Vote Card Tests
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37938
   @37938
-  Scenario: filter on voted/unvoted ballots
+  Scenario: Filter on voted/unvoted ballots
     Given I am logged in as the "CALPERS" User
     When I navigate to the meeting details page for the meeting "CAVOUB"
     Then I can view the Meeting Details page

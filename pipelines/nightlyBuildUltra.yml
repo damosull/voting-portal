@@ -1,8 +1,8 @@
 trigger: none
 
 schedules:
-  - cron: '25 8 * * 1-5'
-    displayName: 'Daily Build at 08:25 GMT'
+  - cron: '30 7 * * 1-5'
+    displayName: 'Daily Build at 07:30 GMT'
     always: true
     branches:
       include:
@@ -13,7 +13,7 @@ pool:
 
 jobs:
 - job: ViewpointAutomation
-  timeoutInMinutes: 55
+  timeoutInMinutes: 75
   steps:
   - script: |
       npm ci
