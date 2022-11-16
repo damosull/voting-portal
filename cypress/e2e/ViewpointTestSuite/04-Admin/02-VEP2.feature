@@ -81,7 +81,7 @@ Feature: Create, modify & delete a Vote Execution Profile
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4168
   @4168
   Scenario: Verify an Internal Admin user can delete an existing Vote Execution Profile
-    Given I set the setting "Permission.CustomerAdmin.VoteExecutionProfile.Delete" to "Allow" for the user "OPERS"
+    Given I set the setting "Permission.CustomerAdmin.VoteExecutionProfile.Delete" to "Allow" for the user "AUTOMATIONINTERNAL"
     When I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the URL "/Accounts/VEP/?CustomerID=187"
     Then I can view the Vote Execution page
