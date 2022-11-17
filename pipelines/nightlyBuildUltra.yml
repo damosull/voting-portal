@@ -1,8 +1,8 @@
 trigger: none
 
 schedules:
-  - cron: '30 7 * * 1-5'
-    displayName: 'Daily Build at 07:30 GMT'
+  - cron: '0 8 * * 1-5'
+    displayName: 'Daily Build at 08:00 GMT'
     always: true
     branches:
       include:
