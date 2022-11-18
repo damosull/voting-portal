@@ -2,15 +2,6 @@
 Feature: Filters related smoke tests
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56792
 
-  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28351
-  @28351
-  Scenario: Verify the workflow page elements and filter columns are displaying correctly and in the right order
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
-    And I navigate to the workflow page
-    Then I can view the workflow page
-    And I can see the filter columns are displayed in the correct order
-    And I should logout from the application
-
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40482
   @40482
   Scenario: Verify external user is able to add and remove a filter subscription
