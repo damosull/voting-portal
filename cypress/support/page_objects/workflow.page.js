@@ -78,6 +78,7 @@ class workflowPage {
     updateNumberOfBallotsButton() { return cy.get(".blue.secondary.btn-update-BallotID") }
     criteriaHeadings() { return cy.get('h4') }
     quickFiltersDiv() { return cy.get('#system-filters') }
+    selectedQuickFilterName() { return cy.get("a[class='highlightedFilter'] span[data-bind=' text: FilterName']") }
     customerNameInput() { return cy.get('.customerName-Search .k-input') }
     customerNameSearchResult() { return cy.get('#kendoCustomers-list .k-item') }
     filterSearchInput() { return cy.get("input[role='listbox']") }

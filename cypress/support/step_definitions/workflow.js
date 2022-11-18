@@ -173,6 +173,12 @@ Then('I should be {string} to see the text {string} on the UI', (condition, text
     }
 })
 
+Then('I can verify that "Upcoming Meetings" displayed under the "Quick Filters" category on the left side of the screen', () => {
+    workflowPage.quickFiltersDiv().contains('Upcoming Meetings').should('be.visible')
+    workflowPage.selectedQuickFilterName().should('contain.text','Upcoming Meetings')
+    workflowPage.selectedQuickFilterName().should('have.css', 'background-color', 'rgb(30, 64, 101)')
+})
+
 When('I navigate to {string} meeting', (company_name) => {
     workflowPage.containsText(company_name).click()
 })

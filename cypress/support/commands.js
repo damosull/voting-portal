@@ -75,7 +75,7 @@ Cypress.Commands.add('ChangeCustomerSetting', (state, settings, parameter) => {
       } else {
         custPermissions.SettingsViewModel[parameter] = false;
       }
-      
+
       const newBody = custPermissions;
       cy.request({
         method: 'PUT',
@@ -341,7 +341,7 @@ Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
             cy.get('[class="remove"]')
               .eq(i - 1)
               .click({ force: true });
-            cy.wait('@WorkflowExpansion', {responseTimeout: 90000});
+            cy.wait('@WorkflowExpansion', { responseTimeout: 90000 });
             cy.wait('@WorkflowSecuritiesWatchlists');
             cy.wait('@GetAvailableAssigneesForCustomer');
           }
@@ -351,7 +351,7 @@ Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
         for (let i = len; i >= 0; i--) {
           if (i > 3) {
             cy.get('[class="remove"]').eq(i - 1).click({ force: true });
-            cy.wait('@WorkflowExpansion', {responseTimeout: 90000});
+            cy.wait('@WorkflowExpansion', { responseTimeout: 90000 });
             cy.wait('@WorkflowSecuritiesWatchlists');
           }
         }
@@ -370,8 +370,8 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
     'ReportFilter'
   );
   cy.intercept('GET', '**/Api/Data//ListService/**?CustomerID=0').as('ListService');
-  cy.scrollTo('top', {ensureScrollable: false, easing: 'linear'});
-  cy.get('#btn-add-criteria').click({scrollBehavior: false});
+  cy.scrollTo('top', { ensureScrollable: false, easing: 'linear' });
+  cy.get('#btn-add-criteria').click({ scrollBehavior: false });
   searchText.forEach((value) => {
     cy.then(() => {
       cy.get('#txt-filter-criteria')
@@ -388,7 +388,7 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
   cy.contains('Apply').click({ scrollBehavior: false });
 
   if (!isReporting) {
-    cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').should('contain.text',searchText);
+    cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').should('contain.text', searchText);
   } else {
     cy.wait('@ReportFilter');
     cy.get('#report-criteria-controls > div > div > h4').each((h4) => {
@@ -581,7 +581,7 @@ Cypress.Commands.add('clickIfExist', (element) => {
     if (body.find(element).length > 0) {
       cy.get(element).then($header => {
         //Verify element is visible
-        if ($header.is(':visible')){
+        if ($header.is(':visible')) {
           cy.get(element).click();
         }
       })
@@ -601,7 +601,7 @@ Cypress.Commands.add('addControversyAlertFile', () => {
     } else if (response.status === 400) {
       cy.task('log', `CA File Exists!!`)
     } else {
-      expect(response.status).to.not.be.oneOf([500,501,502,503,504,509,511])
+      expect(response.status).to.not.be.oneOf([500, 501, 502, 503, 504, 509, 511])
     }
   });
 });
