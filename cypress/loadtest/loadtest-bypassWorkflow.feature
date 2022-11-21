@@ -7,8 +7,8 @@ Feature: Generate Load for Voting on Viewpoint bypassing Workflow page
     And I verify that there are ballots available for the meeting
     When I click on the Change Vote or Rationale button if it exists
     And I replace my FOR votes with AGAINST and vice-versa
-    And I click on the Vote button
     And I randomly wait between 7 and 12 seconds
+    And I click on the Vote button
     And I handle the override pop-up if it exists
     Then the vote should be submitted successfully
     And I randomly wait between 6 and 11 seconds
