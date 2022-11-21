@@ -12,6 +12,10 @@ Then('I can view the Meeting Details page', () => {
     meetingDetailsPage.getLoadingSpinner().should('not.exist')
 })
 
+Then('I verify that there are ballots available for the meeting', () => {
+    meetingDetailsPage.noBallotsAvailableMessage().should('not.be.visible')
+})
+
 Then('I can see the Vote, Take No Action and Instruct buttons', () => {
     cy.verifyMeetingOptionButtons()
 })
