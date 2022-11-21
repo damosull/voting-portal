@@ -60,6 +60,31 @@ When('I click on the Change Vote or Rationale button if it exists', () => {
     cy.verifyMeetingOptionButtons()
 })
 
+Then('I can verify that the voting buttons are disabled', () => {
+    meetingDetailsPage.voteNowButton().should('be.disabled')
+    meetingDetailsPage.voteNowButton().should('have.css', 'background-color', 'rgb(179, 188, 192)')
+    meetingDetailsPage.takeNoActionButton().should('be.disabled')
+    meetingDetailsPage.takeNoActionButton().should('have.css', 'background-color', 'rgb(179, 188, 192)')
+    meetingDetailsPage.instructButton().should('be.disabled')
+    meetingDetailsPage.instructButton().should('have.css', 'background-color', 'rgb(179, 188, 192)')
+})
+
+Then('I can verify the hover text for the voting buttons gives a valid message', () => {
+    let hoverText = 'You can only vote up until meeting date. If you need to vote, contact your Client Service Manager.'
+    meetingDetailsPage.voteNowButton().should('have.attr', 'title', hoverText)
+    meetingDetailsPage.takeNoActionButton().should('have.attr', 'title', hoverText)
+    meetingDetailsPage.instructButton().should('have.attr', 'title', hoverText)
+})
+
+Then('I can verify the research html and pdf links take user to the "We could not load the research paper" page', () => {
+    meetingDetailsPage.researchHtmlLink().invoke("removeAttr", "target").click()
+    meetingDetailsPage.containsText('We could not load the research paper').should('be.visible')
+    cy.go('back')
+    meetingDetailsPage.researchPdfLink().invoke("removeAttr", "target").click()
+    meetingDetailsPage.containsText('We could not load the research paper').should('be.visible')
+    cy.go('back')
+})
+
 Then('I should be {string} to see {string} on the UI', (isVisible, element) => {
     isVisible = isVisible.includes('unable') ? 'not.be.visible' : 'be.visible'
     switch (element) {
@@ -107,6 +132,9 @@ Then('I should be {string} to see {string} on the UI', (isVisible, element) => {
             break
         case "View All button":
             meetingDetailsPage.viewAllCommentsLink().should(isVisible)
+            break
+        case "rationales":
+            meetingDetailsPage.rationaleEditorContainer().should(isVisible)
             break
         default:
             meetingDetailsPage.containsText(element).should(isVisible)

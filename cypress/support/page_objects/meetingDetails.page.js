@@ -50,6 +50,8 @@ class meetingDetailsPage {
     pdfRadio() { return cy.get('#pdf') }
     exportButton() { return cy.get('#btn-export') }
     noBallotsAvailableMessage() { return cy.get('#no-votes-msg', { timeout: 5000 }) }
+    researchHtmlLink() { return cy.get('#research-html-doc') }
+    researchPdfLink() { return cy.get('#research-pdf-doc') }
 
 
     //Info Section
@@ -110,6 +112,7 @@ class meetingDetailsPage {
     policyRecLink() { return cy.get('td.vote-card-policy-rec a') }
     voteDecisionData() { return cy.get('td.vote-card-vote-dec') }
     votecardPolicyLink() { return cy.get('.votecard-policy-link') }
+    rationaleEditorContainer() { return cy.get('.rationale-editor-container .editable-input') }
 
 
     //Comments
