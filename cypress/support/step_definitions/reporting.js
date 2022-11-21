@@ -6,7 +6,6 @@ const configName_BallotVoteDataReport = `BallotVoteData_${unixTime}`
 const configName_ProxyVotingReport = `ProxyVotingReport_${unixTime}`
 const configName_VotingActivityReport = `VotingActivityReport_${unixTime}`
 const configName_PolicyReport = `PolicyReport_${unixTime}`
-const fileExtension = 'xlsx' /* Options: pdf, xls, xlsx */
 const votes = ['Proxy Voting Report', 'Vote Against Management (VAM) Summary', 'Votes Against Policy (VAP) Summary',
     'Number of Meetings', 'Number of Meetings With VAM', 'Number of Proposals With VAM',
     'Number of Meetings With Votes For Mgmt', 'Number of Proposals With Votes For Mgmt', 'Number of No Votes Cast']
@@ -18,7 +17,7 @@ const percentages = ['Number of Proposals', 'Number of Countries (Country of Tra
     '% of All Proposals Voted', '% of All Mgmt Proposals', '% of All ShrHldr Proposals']
 const reportColumns = ['Meeting Statistics Report', 'Ballot Statistics Report', 'Proposal Statistics Report',
     'Proposal Category Report', 'Proposal Type Report', 'Test - Header']
-let filename, rnd
+let filename, rnd, fileExtension = 'xlsx'
 
 
 When('I navigate to the Reporting page', () => {
@@ -399,7 +398,8 @@ Then('I expand Vote Comparison and select GL Recs Against Mgmt', () => {
     reportingPage.containsText('All meeting agenda items (1)').should('be.visible')
 })
 
-Then('I filter the report type', () => {
+Then('I filter the report type to {string}', (extension) => {
+    fileExtension = extension
     reportingPage.reportId().children().find('select').select(fileExtension.toUpperCase())
     reportingPage.meetingDateRange().invoke('attr', 'style', 'display: block')
 })
