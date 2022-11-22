@@ -1,4 +1,5 @@
 import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
+import dayjs from "dayjs"
 import workflowPage from "../page_objects/workflow.page"
 const constants = require('../constants')
 let meetingName
@@ -39,22 +40,22 @@ When('I search for the customer {string}', (customerName) => {
     workflowPage.selectCustomerInput().type('{downarrow}{enter}')
 })
 
-Then('I arrange the table in {string} order for {string}', (order,column_name) => {
+Then('I arrange the table in {string} order for {string}', (order, column_name) => {
     workflowPage.workflowLink().scrollIntoView()
     switch (column_name) {
         case "policy id":
-            workflowPage.policyIdColumnHeader().should('be.visible').click({ force:true, scrollBehavior: false })
+            workflowPage.policyIdColumnHeader().should('be.visible').click({ force: true, scrollBehavior: false })
             workflowPage.waitForWorkflowPageLoad()
             if (order.includes('descending')) {
-                workflowPage.policyIdColumnHeader().should('be.visible').click({ force:true, scrollBehavior: false })
+                workflowPage.policyIdColumnHeader().should('be.visible').click({ force: true, scrollBehavior: false })
                 workflowPage.waitForWorkflowPageLoad()
             }
             break
         case "control number":
-            workflowPage.controlNumberColumnHeader().should('be.visible').click({ force:true, scrollBehavior: false })
+            workflowPage.controlNumberColumnHeader().should('be.visible').click({ force: true, scrollBehavior: false })
             workflowPage.waitForWorkflowPageLoad()
             if (order.includes('descending')) {
-                workflowPage.controlNumberColumnHeader().should('be.visible').click({ force:true, scrollBehavior: false })
+                workflowPage.controlNumberColumnHeader().should('be.visible').click({ force: true, scrollBehavior: false })
                 workflowPage.waitForWorkflowPageLoad()
             }
             break
@@ -130,6 +131,27 @@ When('I click on the Meeting Date radio button', () => {
     workflowPage.meetingDateRadio().check()
 })
 
+When('I set the date filter as Next {int} days and Past {int} days', (nextDays, pastDays) => {
+    workflowPage.dateFilterModal().invoke('attr', 'style', 'display: block;')
+    workflowPage.nextDaysInput().prev().click()
+    workflowPage.nextDaysInput().clear().type(nextDays)
+    workflowPage.pastDaysInput().prev().click()
+    workflowPage.pastDaysInput().clear().type(pastDays)
+})
+
+When('I set the date filter between {int} and {int} days from today', (pastDays, nextDays) => {
+    let pastDate = dayjs().add(pastDays, 'days').format('DD/MM/YYYY')
+    let nextDate = dayjs().add(nextDays, 'days').format('DD/MM/YYYY')
+    workflowPage.dateFilterModal().invoke('attr', 'style', 'display: block;')
+    workflowPage.dateBetweenRadio().check()
+    workflowPage.dateStartInput().clear().type(pastDate)
+    workflowPage.dateEndInput().clear().type(nextDate)
+})
+
+When('I update the date filter', () => {
+    workflowPage.updateDateFilter().click()
+})
+
 Then('I click on the Columns dropdown', () => {
     workflowPage.columnsListButton().click({ force: true })
 })
@@ -165,6 +187,16 @@ Then('I navigate to the {int} meeting', (company_sequence) => {
     })
 })
 
+When('I navigate to a meeting with same deadline date and {int} meeting date ahead', (mdDays) => {
+    workflowPage.tableRows().eq(0).within(() => {
+        workflowPage.companyNameLink().invoke('attr', 'href').then(val => {
+            let meetingid = val.split('/Index/')[1]
+            cy.executeUpdateQuery(`UPDATE PX_Meeting SET MeetingDate = DATEADD(DAY, ${mdDays}, getdatE()) WHERE MeetingID = '${meetingid}'`)
+            cy.visit('MeetingDetails/Index/' + meetingid)
+        })
+    })
+})
+
 Then('I should be {string} to see the text {string} on the UI', (condition, text) => {
     if (condition.includes('unable')) {
         workflowPage.containsText(text).should('not.exist')
@@ -175,7 +207,7 @@ Then('I should be {string} to see the text {string} on the UI', (condition, text
 
 Then('I can verify that "Upcoming Meetings" displayed under the "Quick Filters" category on the left side of the screen', () => {
     workflowPage.quickFiltersDiv().contains('Upcoming Meetings').should('be.visible')
-    workflowPage.selectedQuickFilterName().should('contain.text','Upcoming Meetings')
+    workflowPage.selectedQuickFilterName().should('contain.text', 'Upcoming Meetings')
     workflowPage.selectedQuickFilterName().should('have.css', 'background-color', 'rgb(30, 64, 101)')
 })
 
@@ -423,7 +455,7 @@ Then('all the meetings on the screen have a CalPERS customer id', () => {
     // check all meetings in response have CalPERS customer id
     cy.wait('@WF_EXPANSION', { responseTimeout: 150000 }).then((xhr) => {
         //handle response. Cache service returns string, while DB returns object
-        const data = typeof(xhr.response.body) == 'string' ? JSON.parse(xhr.response.body) : xhr.response.body
+        const data = typeof (xhr.response.body) == 'string' ? JSON.parse(xhr.response.body) : xhr.response.body
         const items = data.items
 
         items.forEach((item) => {
@@ -624,5 +656,5 @@ Then('I should be able to deselect the system watch list from the workflow page'
 })
 
 Then('I can verify that the voted shares value matches the saved value', () => {
-    workflowPage.votedSharesData().should('contain.text',Cypress.env('partialVoteNominalAmount'))
+    workflowPage.votedSharesData().should('contain.text', Cypress.env('partialVoteNominalAmount'))
 })

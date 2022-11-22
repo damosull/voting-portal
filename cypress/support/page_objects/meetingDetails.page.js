@@ -27,7 +27,7 @@ class meetingDetailsPage {
     meetingsDateDropdown() { return cy.get('#btn-related-meetings-title-area > span') }
     meetingsDateDropdownModal() { return cy.get('.dropdown.related-meetings-list.open > ul > li') }
     workflowButton() { return cy.get('#workflow-link') }
-    voteNowButton() { return cy.get('#btn-vote-now') }
+    voteNowButton() { return cy.get('#btn-vote-now', { timeout: 5000 }) }
     takeNoActionButton() { return cy.get('#btn-take-no-action') }
     instructButton() { return cy.get('#btn-instruct') }
     unlockButton() { return cy.get(this.unlockButtonLocator) }
@@ -49,6 +49,9 @@ class meetingDetailsPage {
     exportBallotStatusReportButton() { return cy.get('#exportBallotStatusReport') }
     pdfRadio() { return cy.get('#pdf') }
     exportButton() { return cy.get('#btn-export') }
+    noBallotsAvailableMessage() { return cy.get('#no-votes-msg', { timeout: 5000 }) }
+    researchHtmlLink() { return cy.get('#research-html-doc') }
+    researchPdfLink() { return cy.get('#research-pdf-doc') }
 
 
     //Info Section
@@ -109,6 +112,7 @@ class meetingDetailsPage {
     policyRecLink() { return cy.get('td.vote-card-policy-rec a') }
     voteDecisionData() { return cy.get('td.vote-card-vote-dec') }
     votecardPolicyLink() { return cy.get('.votecard-policy-link') }
+    rationaleEditorContainer() { return cy.get('.rationale-editor-container .editable-input') }
 
 
     //Comments

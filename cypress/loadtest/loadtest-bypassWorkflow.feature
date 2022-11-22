@@ -5,6 +5,7 @@ Feature: Generate Load for Voting on Viewpoint bypassing Workflow page
     Given I launch a random meeting for a random user
     Then I can view the Meeting Details page
     And I randomly wait between 7 and 12 seconds
+    And I verify that there are ballots available for the meeting
     When I click on the Change Vote or Rationale button if it exists
     And I replace my FOR votes with AGAINST and vice-versa
     And I click on the Vote button

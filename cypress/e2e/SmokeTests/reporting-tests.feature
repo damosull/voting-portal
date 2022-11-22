@@ -8,7 +8,7 @@ Feature: Reporting related smoke tests
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
         And I select 'Voting Activity' Report Type
-        And I filter the report type
+        And I filter the report type to "xlsx"
         And I set the date range to the last 1 days
         And I select Decision Status Criteria
         And I select Voted criteria

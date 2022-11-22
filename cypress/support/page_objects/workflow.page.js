@@ -61,6 +61,13 @@ class workflowPage {
     // Filter section
     filterSectionDiv() { return cy.get('div#controls') }
     dateFilterLink() { return cy.get('#btn-date-modal') }
+    dateFilterModal() { return cy.get('#date-range-target-meeting-deadline') }
+    nextDaysInput() { return cy.get('#relative-next-days') }
+    pastDaysInput() { return cy.get('#relative-past-days') }
+    dateBetweenRadio() { return cy.get('#rdo-date-range-discrete') }
+    dateStartInput() { return cy.get('#discrete-date-start') }
+    dateEndInput() { return cy.get('#discrete-date-end') }
+    updateDateFilter() { return cy.get('#btn-meeting-deadline-date-update') }
     meetingDateRadio() { return cy.get('#rdo-meeting-date') }
     numberOfBallotsFilterLink() { return cy.get('#editorDiv1000 > h4') }
     addCriteriaButton() { return cy.get('#btn-add-criteria') }
