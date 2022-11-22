@@ -34,7 +34,7 @@ Feature: VAM/VAP Feature
   @44714 @44716
   Scenario: Live ballots with meeting date for past ballots whose meeting date has passed/Revote and no rationale entered for vote against policy
     Given I am logged in as the "RUSSELL" User
-    When I reduce 10 days from meeting date and navigate to the meeting details page for the meeting "RSNCVAP2"
+    When I set the meeting date to -10 days from today and navigate to the meeting details page for the meeting "RSNCVAP2"
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button
     And I clear the rationales for VAP entries and add rationales for other proposals

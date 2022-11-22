@@ -45,8 +45,8 @@ When('I navigate to the Meeting Details page for the saved meeting ID', () => {
     cy.visit(meetingId)
 })
 
-When('I reduce 10 days from meeting date and navigate to the meeting details page for the meeting {string}', (meetingID) => {
-    cy.SetMeetingDateXdaysFromCurrent(constants.MEETINGID[meetingID], -10)
+When('I set the meeting date to {int} days from today and navigate to the meeting details page for the meeting {string}', (noOfDays, meetingID) => {
+    cy.SetMeetingDateXdaysFromCurrent(constants.MEETINGID[meetingID], noOfDays)
     cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID])
 })
 
