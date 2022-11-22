@@ -170,20 +170,3 @@ Feature: Meetings related smoke tests
     When I select a random meeting
     Then I am able to iterate through rationales, add text entry, save and verify toast message for each entry
     And I should logout from the application
-
-
-  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/57032
-  @57032
-  Scenario: Generate Ballot status Report for a meeting via Meeting Details Page
-    Given I am logged in as the "CHARLESSCHWAB" User
-    When I navigate to the workflow page
-    Then I can view the workflow page
-    And I remove all existing selected criteria
-    When I select a random meeting
-    Then I can view the Meeting Details page
-    When I export the ballot status report
-    Then A toast message appears for "EXPORT_INITIATED"
-    When I click on the notification dropdown
-    Then I "verify ready to download of" the report for "Ballot Status Report"
-    And I verify the contents for "Ballot Status" report
-    And I should logout from the application

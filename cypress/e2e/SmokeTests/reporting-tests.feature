@@ -59,7 +59,7 @@ Feature: Reporting related smoke tests
         And I export the ballot status report
         Then A toast message appears for "EXPORT_INITIATED"
         When I click on the notification dropdown
-        And I "verify ready to download of" the report for "Ballot Status Report"
+        And I "verify ready to download of" the report for "Ballot Status"
         And I verify the contents for "Ballot Status" report
         And I should logout from the application
 

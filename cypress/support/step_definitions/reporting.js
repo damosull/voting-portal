@@ -78,6 +78,9 @@ Then('I select {string} column', (column) => {
 Then('I {string} the report for {string}', (action, reportName) => {
     let reportConfigName
     switch (reportName) {
+        case "Ballot Reconciliation":
+            reportConfigName = 'New Configuration'
+            break
         case "Ballot Vote Data":
             reportConfigName = configName_BallotVoteDataReport
             break
@@ -87,13 +90,10 @@ Then('I {string} the report for {string}', (action, reportName) => {
         case "Voting Activity":
             reportConfigName = configName_VotingActivityReport
             break
-        case "Ballot Status Report":
+        case "Ballot Status":
             reportConfigName = 'Ballot Status Report'
             break
         case "Engagement":
-            reportConfigName = 'New Configuration'
-            break
-        case "Ballot Reconciliation":
             reportConfigName = 'New Configuration'
             break
         case "Policy":
@@ -334,13 +334,6 @@ Then('I add all the columns', () => {
     reportingPage.selectedColumns().each((tr) => {
         cy.wrap(tr).find('input[type="checkbox"]').should('be.checked')
     })
-})
-
-Then('I add {string} reporting criteria', (criteria) => {
-    cy.AddMultipleCriteria([criteria], true)
-    // Click on configure colum drop down and checking that is opened
-    reportingPage.configureColumnsDropdown().click()
-    reportingPage.availableColumnsHeader().should('be.visible')
 })
 
 Then('I add the first 4 column option into the header list', () => {

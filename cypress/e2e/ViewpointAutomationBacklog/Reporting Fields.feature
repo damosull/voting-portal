@@ -10,7 +10,6 @@ Feature: Report related tests
     @37986
     Scenario: Generate Ballot Reconciliation Report, download and verify file headers
         When I navigate to the Reporting page
-        And I add 'Policy ID' reporting criteria
         And I add the first 4 column option into the header list
         And I click on the Apply button
         And I click on the download the report button
