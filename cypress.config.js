@@ -87,8 +87,8 @@ async function setupNodeEvents(on, config) {
 module.exports = defineConfig({
   defaultCommandTimeout: 20000,
   requestTimeout: 15000,
-  responseTimeout: 45000,
-  pageLoadTimeout: 60000,
+  responseTimeout: 30000,
+  pageLoadTimeout: 45000,
   numTestsKeptInMemory: 2,
   chromeWebSecurity: false,
   experimentalWebKitSupport: false,
