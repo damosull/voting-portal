@@ -187,6 +187,16 @@ Then('I navigate to the {int} meeting', (company_sequence) => {
     })
 })
 
+When('I navigate to a meeting with same deadline date and {int} meeting date ahead', (mdDays) => {
+    workflowPage.tableRows().eq(0).within(() => {
+        workflowPage.companyNameLink().invoke('attr', 'href').then(val => {
+            let meetingid = val.split('/Index/')[1]
+            cy.executeUpdateQuery(`UPDATE PX_Meeting SET MeetingDate = DATEADD(DAY, ${mdDays}, getdatE()) WHERE MeetingID = '${meetingid}'`)
+            cy.visit('MeetingDetails/Index/' + meetingid)
+        })
+    })
+})
+
 Then('I should be {string} to see the text {string} on the UI', (condition, text) => {
     if (condition.includes('unable')) {
         workflowPage.containsText(text).should('not.exist')

@@ -1,6 +1,6 @@
 Feature: Vote Upto Meeting Date
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9827
-#Test Case 27932 is duplicate and automated as part of 'Vote Button - MD6' feature file.
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9827
+  #Test Case 27932 is duplicate and automated as part of 'Vote Button - MD6' feature file.
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28496
   @28496
@@ -65,6 +65,25 @@ Feature: Vote Upto Meeting Date
     And I update the date filter
     Then I can view the workflow page
     When I select a random meeting
+    Then I can view the Meeting Details page
+    When I click on the Change Vote or Rationale button if it exists
+    And I replace my FOR votes with AGAINST and vice-versa
+    And I click on the Vote button
+    And I handle the override pop-up if it exists
+    Then the vote should be submitted successfully
+    And I should logout from the application
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/20638
+  @20638
+  Scenario: Verify that user can vote upto 23.59 prior to the meeting date on deadline day
+    Given I am logged in as the "RUSSELL" User
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    And I remove all existing selected criteria
+    When I set the date filter between 0 and 0 days from today
+    And I update the date filter
+    Then I can view the workflow page
+    When I navigate to a meeting with same deadline date and 1 meeting date ahead
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
     And I replace my FOR votes with AGAINST and vice-versa
