@@ -1,6 +1,6 @@
 @meeting @meeting-details
 Feature: Meetings related smoke tests
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56793
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56793
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56824
   @56824
@@ -169,4 +169,21 @@ Feature: Meetings related smoke tests
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     When I select a random meeting
     Then I am able to iterate through rationales, add text entry, save and verify toast message for each entry
+    And I should logout from the application
+
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/57032
+  @57032
+  Scenario: Generate Ballot status Report for a meeting via Meeting Details Page
+    Given I am logged in as the "CHARLESSCHWAB" User
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    And I remove all existing selected criteria
+    When I select a random meeting
+    Then I can view the Meeting Details page
+    When I export the ballot status report
+    Then A toast message appears for "EXPORT_INITIATED"
+    When I click on the notification dropdown
+    Then I "verify ready to download of" the report for "Ballot Status Report"
+    And I verify the contents for "Ballot Status" report
     And I should logout from the application

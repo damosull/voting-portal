@@ -1,4 +1,5 @@
 import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
+import dayjs from "dayjs"
 import reportingPage from "../page_objects/reporting.page"
 const constants = require('../constants')
 const unixTime = Math.floor(Date.now() / 1000)
@@ -313,12 +314,14 @@ Then('I select {string} Report Type', (report_type) => {
     cy.selectReportType(report_type)
 })
 
-Then('I select Interaction Date between {string} and {string}', (start_date, end_date) => {
+Then('I select Interaction Date between {int} and {int} days from today', (start_date, end_date) => {
     cy.wait('@CUSTOMER_NAME_SPECIAL')
+    let fromDate = dayjs().add(start_date, 'days').format('DD/MM/YYYY')
+    let toDate = dayjs().add(end_date, 'days').format('DD/MM/YYYY')
     reportingPage.dateCriteriaDropdown().first().should('be.visible').click()
     reportingPage.dateCriteriaBetweenRadio().check()
-    reportingPage.dateCriteriaStartDate().clear({ force: true }).type(start_date, { force: true })
-    reportingPage.dateCriteriaEndDate().clear({ force: true }).type(end_date, { force: true })
+    reportingPage.dateCriteriaStartDate().clear({ force: true }).type(fromDate, { force: true })
+    reportingPage.dateCriteriaEndDate().clear({ force: true }).type(toDate, { force: true })
 })
 
 Then('I click on the Update button', () => {
