@@ -22,9 +22,9 @@ Feature: Reporting related smoke tests
         When I click on the Download button to download the report
         Then the download initiated toast message appears
         And I "delete" the report for "Voting Activity"
-        When I click on the notification dropdown
+        When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Voting Activity"
-        When the voting activity report is downloaded
+        When I download the first report from the notification toolbar
         Then I verify some information for the downloaded "Voting Activity" report
         And I should logout from the application
 
@@ -41,7 +41,7 @@ Feature: Reporting related smoke tests
         And I click on the Download button to download the report
         Then the download initiated toast message appears
         And I "delete" the report for "Ballot Vote Data"
-        When I click on the notification dropdown
+        When I click on the notification toolbar
         And I "verify ready for download of" the report for "Ballot Vote Data"
         And I verify some information for the downloaded "Ballot Vote Data" report
         And I should logout from the application
@@ -58,7 +58,7 @@ Feature: Reporting related smoke tests
         And I select the first available meeting
         And I export the ballot status report
         Then A toast message appears for "EXPORT_INITIATED"
-        When I click on the notification dropdown
+        When I click on the notification toolbar
         And I "verify ready to download of" the report for "Ballot Status via MD Page"
         And I verify some information for the downloaded "Ballot Status via MD Page" report
         And I should logout from the application
@@ -74,7 +74,7 @@ Feature: Reporting related smoke tests
         When I select "2" meetings from the top
         And I generate a request for Workflow Export
         Then A toast message appears for "EXPORT_INITIATED"
-        When I click on the notification dropdown
+        When I click on the notification toolbar
         And I "verify ready to download of" the report for "Workflow Export"
         And I verify some information for the downloaded "Workflow Export" report
         And I should logout from the application

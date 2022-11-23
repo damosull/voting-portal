@@ -5,6 +5,7 @@ const constants = require('../constants')
 const unixTime = Math.floor(Date.now() / 1000)
 const configName_BallotVoteDataReport = `BallotVoteData_${unixTime}`
 const configName_BallotStatusReport = `BallotStatus_${unixTime}`
+const configName_MeetingSummaryReport = `MeetingSummaryReport_${unixTime}`
 const configName_PolicyReport = `PolicyReport_${unixTime}`
 const configName_ProxyVotingReport = `ProxyVotingReport_${unixTime}`
 const configName_VotingActivityReport = `VotingActivityReport_${unixTime}`
@@ -55,7 +56,7 @@ Then('I verify that all the relevant API calls for reporting page are made', () 
     cy.statusCode200('@DATE_RANGE')
 })
 
-Then('I click on the notification dropdown', () => {
+Then('I click on the notification toolbar', () => {
     reportingPage.notificationLink().click()
 })
 
@@ -86,6 +87,15 @@ Then('I {string} the report for {string}', (action, reportName) => {
         case "Ballot Vote Data":
             reportConfigName = configName_BallotVoteDataReport
             break
+        case "Engagement":
+            reportConfigName = 'New Configuration'
+            break
+        case "Meeting Summary":
+            reportConfigName = configName_MeetingSummaryReport
+            break
+        case "Policy":
+            reportConfigName = configName_PolicyReport
+            break
         case "Proxy Voting":
             reportConfigName = configName_ProxyVotingReport
             break
@@ -94,12 +104,6 @@ Then('I {string} the report for {string}', (action, reportName) => {
             break
         case "Ballot Status via MD Page":
             reportConfigName = 'Ballot Status Report'
-            break
-        case "Engagement":
-            reportConfigName = 'New Configuration'
-            break
-        case "Policy":
-            reportConfigName = configName_PolicyReport
             break
         case "Workflow Export":
             reportConfigName = 'Upcoming Meetings'
@@ -185,6 +189,18 @@ Then('I verify some information for the downloaded {string} report', (reportName
                     expect(resp.body).include(
                         'Customer Account Name,Customer Account Number,Custodian Name,Company Name,Meeting Date,Agenda Key,Country of Incorporation,Custodian Account Number,Customer Name,Deadline Date,Most Recent Note'
                     )
+                })
+            })
+    } else if (reportName == 'Meeting Summary') {
+        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
+            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+                cy.request(downloadLink).then((resp) => {
+                    expect(resp.status).to.eq(200)
+                    expect(resp.headers).to.have.property('content-disposition').contains(configName_MeetingSummaryReport)
+                    expect(resp.headers)
+                        .to.have.property('content-type')
+                        .contains('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                    expect(resp.body).to.have.length.greaterThan(1)
                 })
             })
     } else if (reportName == 'Policy') {
@@ -482,7 +498,7 @@ Then('the saved config name appears under My configuration section', () => {
     reportingPage.containsText('My configurations').siblings().find('span').should('contain', configName_VotingActivityReport)
 })
 
-Then('the voting activity report is downloaded', () => {
+Then('I download the first report from the notification toolbar', () => {
     cy.downloadFileLocal('Voting Activity')
     cy.assertFileProperties(configName_VotingActivityReport, fileExtension)
 })
