@@ -7,7 +7,7 @@ Feature: Reporting related smoke tests
     Scenario: Report - Voting Activity
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
-        And I select 'Voting Activity' Report Type
+        And I navigate to the report type page for "Voting Activity"
         And I filter the report type to "xlsx"
         And I set the date range to the last 1 days
         And I select Decision Status Criteria
@@ -19,7 +19,7 @@ Feature: Reporting related smoke tests
         And I "save" the report for "Voting Activity"
         Then the voting activity report saved message appears
         And the saved config name appears under My configuration section
-        When I click on the download the report button
+        When I click on the Download button to download the report
         Then the download initiated toast message appears
         And I "delete" the report for "Voting Activity"
         When I click on the notification dropdown
@@ -34,11 +34,11 @@ Feature: Reporting related smoke tests
     Scenario: Generate ballot vote data report, download and verify file
         Given I am logged in as the "RUSSELL" User
         When I navigate to the Reporting page
-        And I click on the "Ballot Vote Data" filter
+        And I navigate to the report type page for "Ballot Vote Data"
         And I set the meeting date to next date 2 and past date 2 days
         And I select "Ballot Voted Date" column
         And I "save" the report for "Ballot Vote Data"
-        And I click on the download the report button
+        And I click on the Download button to download the report
         Then the download initiated toast message appears
         And I "delete" the report for "Ballot Vote Data"
         When I click on the notification dropdown

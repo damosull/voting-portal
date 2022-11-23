@@ -25,6 +25,10 @@ When('I navigate to the Reporting page', () => {
     cy.visit('/Reporting')
 })
 
+When('I navigate to the report type page for {string}', (report_type) => {
+    cy.selectReportType(report_type)
+})
+
 Then('I select the {string} report', (reportType) => {
     reportingPage.containsText(reportType).click()
     reportingPage.getLoadingSpinner().should('not.exist')
@@ -52,12 +56,6 @@ Then('I verify that all the relevant API calls for reporting page are made', () 
 
 Then('I click on the notification dropdown', () => {
     reportingPage.notificationLink().click()
-})
-
-Then('I click on the {string} filter', (filter) => {
-    reportingPage.containsText(filter).click()
-    cy.wait('@BALLOT_VOTE')
-    cy.wait('@BALLOT_CRITERIA')
 })
 
 Then('I set the meeting date to next date {int} and past date {int} days', (nextDays, pastDays) => {
@@ -240,7 +238,7 @@ Then('I verify some information for the downloaded {string} report', (reportName
     }
 })
 
-Then('I click on the download the report button', () => {
+Then('I click on the Download button to download the report', () => {
     reportingPage.downloadButton().click()
 })
 
@@ -310,10 +308,6 @@ Then('I remove Subscription entry from Viewpoint on reporting page', () => {
     reportingPage.saveButton().click()
 })
 
-Then('I select {string} Report Type', (report_type) => {
-    cy.selectReportType(report_type)
-})
-
 Then('I select Interaction Date between {int} and {int} days from today', (start_date, end_date) => {
     cy.wait('@CUSTOMER_NAME_SPECIAL')
     let fromDate = dayjs().add(start_date, 'days').format('DD/MM/YYYY')
@@ -337,6 +331,7 @@ Then('I add all the columns', () => {
 })
 
 Then('I add the first 4 column option into the header list', () => {
+    reportingPage.configureColumnsDropdown().click()
     reportingPage.availableColumns().each((el, index) => {
         cy.wrap(el).find(':checkbox').check({ force: true })
         // Only select first 4 items
