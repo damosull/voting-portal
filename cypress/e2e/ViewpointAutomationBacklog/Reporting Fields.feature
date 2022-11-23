@@ -128,8 +128,8 @@ Feature: Report related tests
         And I should logout from the application
 
 
-    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
-    @37986 @37939
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/38014
+    @37986 @38014
     Scenario: Proxy Voting Report
         Given I am logged in as the "CHARLESSCHWAB" User
         When I navigate to the Reporting page
