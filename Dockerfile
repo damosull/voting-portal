@@ -1,5 +1,5 @@
 #Base Cypress Image
-FROM cypress/included:11.1.0
+FROM cypress/included:11.2.0
 
 #Working Directory in the container
 WORKDIR /cypress-tests
