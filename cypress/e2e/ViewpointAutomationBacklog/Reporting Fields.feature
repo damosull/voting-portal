@@ -93,7 +93,7 @@ Feature: Report related tests
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
-    @37986 @focus
+    @37986
     Scenario: Generate Meeting Summary Report, download and verify file headers
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
