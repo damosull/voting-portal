@@ -41,8 +41,7 @@ class reportingPage {
     subscriptionTableData() { return cy.get('#current-subscribers-list > tbody > tr > td') }
     deleteSubscriptionLink() { return cy.get('#current-subscribers-list > tbody > tr > td > i[class="fa fa-times"]') }
     meetingDateDropdown() { return cy.get('.MeetingDateEditor') }
-    meetingDateRange() { return cy.get('#date-range-target-MeetingDateRange') }
-    meetingDateRangeEditor() { return cy.get('.MeetingDateRangeEditor') }
+    meetingDateRange() { return cy.get("div[id^='date-range-target-']") }
     dateCriteriaDropdown() { return cy.get('#report-criteria-controls >div > h4') }
     meetingDateModal() { return cy.get('#date-range-target-MeetingDate') }
     dateCriteriaBetweenRadio() { return cy.get('[type="radio"]#rdo-date-range-discrete-InteractionDate') }

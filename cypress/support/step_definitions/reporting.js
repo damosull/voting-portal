@@ -4,9 +4,10 @@ import reportingPage from "../page_objects/reporting.page"
 const constants = require('../constants')
 const unixTime = Math.floor(Date.now() / 1000)
 const configName_BallotVoteDataReport = `BallotVoteData_${unixTime}`
+const configName_BallotStatusReport = `BallotStatus_${unixTime}`
+const configName_PolicyReport = `PolicyReport_${unixTime}`
 const configName_ProxyVotingReport = `ProxyVotingReport_${unixTime}`
 const configName_VotingActivityReport = `VotingActivityReport_${unixTime}`
-const configName_PolicyReport = `PolicyReport_${unixTime}`
 const votes = ['Proxy Voting Report', 'Vote Against Management (VAM) Summary', 'Votes Against Policy (VAP) Summary',
     'Number of Meetings', 'Number of Meetings With VAM', 'Number of Proposals With VAM',
     'Number of Meetings With Votes For Mgmt', 'Number of Proposals With Votes For Mgmt', 'Number of No Votes Cast']
@@ -79,6 +80,9 @@ Then('I {string} the report for {string}', (action, reportName) => {
         case "Ballot Reconciliation":
             reportConfigName = 'New Configuration'
             break
+        case "Ballot Status":
+            reportConfigName = configName_BallotStatusReport
+            break
         case "Ballot Vote Data":
             reportConfigName = configName_BallotVoteDataReport
             break
@@ -88,7 +92,7 @@ Then('I {string} the report for {string}', (action, reportName) => {
         case "Voting Activity":
             reportConfigName = configName_VotingActivityReport
             break
-        case "Ballot Status":
+        case "Ballot Status via MD Page":
             reportConfigName = 'Ballot Status Report'
             break
         case "Engagement":
@@ -97,18 +101,13 @@ Then('I {string} the report for {string}', (action, reportName) => {
         case "Policy":
             reportConfigName = configName_PolicyReport
             break
-        case "Workflow Export Report":
+        case "Workflow Export":
             reportConfigName = 'Upcoming Meetings'
             break
     }
 
     if (action == 'save') {
         cy.saveFilter(reportConfigName)
-        if (reportName.includes('Policy') || reportName.includes('Voting Activity') || reportName.includes('Proxy Voting')) {
-            cy.log('These reports do not trigger the ADD api call')
-        } else {
-            cy.wait('@ADD')
-        }
         reportingPage.containsText('My configurations').siblings().find('span').should('contain', reportConfigName)
     } else if (action == 'delete') {
         cy.deleteMyConfiguration(reportConfigName)
@@ -392,14 +391,13 @@ Then('I expand Vote Comparison and select GL Recs Against Mgmt', () => {
 Then('I filter the report type to {string}', (extension) => {
     fileExtension = extension
     reportingPage.reportId().children().find('select').select(fileExtension.toUpperCase())
-    reportingPage.meetingDateRange().invoke('attr', 'style', 'display: block')
 })
 
 Then('I set the date range to the last {int} days', (pastDays) => {
+    reportingPage.meetingDateRange().invoke('attr', 'style', 'display: block')
     reportingPage.dateRangeDaysInput().invoke('attr', 'style', 'display: block').clear()
     reportingPage.dateRangeDaysInput().invoke('attr', 'style', 'display: block').type(pastDays)
     reportingPage.containsText('Update').click()
-    reportingPage.meetingDateRangeEditor().contains(`Past ${pastDays} Days`)
 })
 
 When('I select Decision Status Criteria', () => {

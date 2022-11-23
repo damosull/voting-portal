@@ -1,12 +1,13 @@
 Feature: Report related tests
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
 #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
-#Automated Report: Ballot Reconciliation, Ballot Vote Data, Engagement, Policy, Proxy Voting, Voting Activity
-#Not Automated: Ballot Status, Meeting Summary, Proxy Voting Summary, Vote Results
+#Automated Report: Ballot Reconciliation, Ballot Status, Ballot Vote Data, Engagement, Policy, Proxy Voting, Voting Activity
+#Not Automated: Meeting Summary, Proxy Voting Summary, Vote Results
 
     Background:
         Given I am logged in as the "CALPERS" User
 
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
     @37986
     Scenario: Generate Ballot Reconciliation Report, download and verify file headers
         When I navigate to the Reporting page
@@ -19,6 +20,22 @@ Feature: Report related tests
         And I "verify ready for download of" the report for "Ballot Reconciliation"
         And I verify some information for the downloaded "Ballot Reconciliation" report
         And I should logout from the application
+
+
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
+    @37986
+    Scenario: Generate Ballot Status Report, download and verify file headers
+        When I navigate to the Reporting page
+        And I navigate to the report type page for "Ballot Status"
+        And I filter the report type to "xlsx"
+        And I "save" the report for "Ballot Status"
+        And I click on the Download button to download the report
+        Then the download initiated toast message appears
+        And I "delete" the report for "Ballot Status"
+        When I click on the notification dropdown
+        And I "verify ready for download of" the report for "Ballot Status"
+        # And I verify some information for the downloaded "Ballot Vote Data" report
+        # And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
@@ -109,7 +126,7 @@ Feature: Report related tests
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
-    @37986 @37939 @2754
+    @37986 @37939 @2754 @focus
     Scenario: Generate Voting Activity Report, download and verify file headers
         When I navigate to the Reporting page
         And I navigate to the report type page for "Voting Activity"

@@ -9,7 +9,7 @@ Feature: Reporting related smoke tests
         When I navigate to the Reporting page
         And I navigate to the report type page for "Voting Activity"
         And I filter the report type to "xlsx"
-        And I set the date range to the last 1 days
+        And I set the date range to the last 2 days
         And I select Decision Status Criteria
         And I select Voted criteria
         And I add columns to the report
@@ -59,8 +59,8 @@ Feature: Reporting related smoke tests
         And I export the ballot status report
         Then A toast message appears for "EXPORT_INITIATED"
         When I click on the notification dropdown
-        And I "verify ready to download of" the report for "Ballot Status"
-        And I verify some information for the downloaded "Ballot Status" report
+        And I "verify ready to download of" the report for "Ballot Status via MD Page"
+        And I verify some information for the downloaded "Ballot Status via MD Page" report
         And I should logout from the application
 
 
@@ -75,6 +75,6 @@ Feature: Reporting related smoke tests
         And I generate a request for Workflow Export
         Then A toast message appears for "EXPORT_INITIATED"
         When I click on the notification dropdown
-        And I "verify ready to download of" the report for "Workflow Export Report"
+        And I "verify ready to download of" the report for "Workflow Export"
         And I verify some information for the downloaded "Workflow Export" report
         And I should logout from the application
