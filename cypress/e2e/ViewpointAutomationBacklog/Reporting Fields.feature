@@ -16,7 +16,7 @@ Feature: Report related tests
         Then the download initiated toast message appears
         When I click on the notification dropdown
         And I "verify ready for download of" the report for "Ballot Reconciliation"
-        And I verify the contents for "Ballot Reconciliation" report
+        And I verify some information for the downloaded "Ballot Reconciliation" report
         And I should logout from the application
 
 
@@ -33,7 +33,7 @@ Feature: Report related tests
         And I "delete" the report for "Ballot Vote Data"
         When I click on the notification dropdown
         And I "verify ready for download of" the report for "Ballot Vote Data"
-        And I verify the contents for "Ballot Vote Data" report
+        And I verify some information for the downloaded "Ballot Vote Data" report
         And I should logout from the application
 
 
@@ -68,7 +68,7 @@ Feature: Report related tests
         Then the download initiated toast message appears
         When I click on the notification dropdown
         And I "verify ready for download of" the report for "Engagement"
-        And I verify the contents for "Engagement" report
+        And I verify some information for the downloaded "Engagement" report
         And I should logout from the application
 
 
@@ -85,7 +85,7 @@ Feature: Report related tests
         And I "delete" the report for "Policy"
         When I click on the notification dropdown
         And I "verify ready for download of" the report for "Policy"
-        And I verify the contents for "Policy" report
+        And I verify some information for the downloaded "Policy" report
         And I should logout from the application
 
 
@@ -103,7 +103,7 @@ Feature: Report related tests
         And I "delete" the report for "Proxy Voting"
         When I click on the notification dropdown
         And I "verify ready for download of" the report for "Proxy Voting"
-        And I verify the contents for "Proxy Voting" report
+        And I verify some information for the downloaded "Proxy Voting" report
         And I should logout from the application
 
 
@@ -129,5 +129,5 @@ Feature: Report related tests
         When I click on the notification dropdown
         Then I "verify ready for download of" the report for "Voting Activity"
         When the voting activity report is downloaded
-        Then I verify the contents for "Voting Activity" report
+        Then I verify some information for the downloaded "Voting Activity" report
         And I should logout from the application

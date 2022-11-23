@@ -25,7 +25,7 @@ Feature: Reporting related smoke tests
         When I click on the notification dropdown
         Then I "verify ready for download of" the report for "Voting Activity"
         When the voting activity report is downloaded
-        Then I verify the contents for "Voting Activity" report
+        Then I verify some information for the downloaded "Voting Activity" report
         And I should logout from the application
 
 
@@ -43,7 +43,7 @@ Feature: Reporting related smoke tests
         And I "delete" the report for "Ballot Vote Data"
         When I click on the notification dropdown
         And I "verify ready for download of" the report for "Ballot Vote Data"
-        And I verify the contents for "Ballot Vote Data" report
+        And I verify some information for the downloaded "Ballot Vote Data" report
         And I should logout from the application
 
 
@@ -60,7 +60,7 @@ Feature: Reporting related smoke tests
         Then A toast message appears for "EXPORT_INITIATED"
         When I click on the notification dropdown
         And I "verify ready to download of" the report for "Ballot Status"
-        And I verify the contents for "Ballot Status" report
+        And I verify some information for the downloaded "Ballot Status" report
         And I should logout from the application
 
 
@@ -76,5 +76,5 @@ Feature: Reporting related smoke tests
         Then A toast message appears for "EXPORT_INITIATED"
         When I click on the notification dropdown
         And I "verify ready to download of" the report for "Workflow Export Report"
-        And I verify the contents for "Workflow Export" report
+        And I verify some information for the downloaded "Workflow Export" report
         And I should logout from the application

@@ -131,7 +131,7 @@ Then('I {string} the report for {string}', (action, reportName) => {
     }
 })
 
-Then('I verify the contents for {string} report', (reportName) => {
+Then('I verify some information for the downloaded {string} report', (reportName) => {
     if (reportName == 'Ballot Vote Data') {
         reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
             .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
