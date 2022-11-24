@@ -8,6 +8,8 @@ const configName_BallotStatusReport = `BallotStatus_${unixTime}`
 const configName_MeetingSummaryReport = `MeetingSummaryReport_${unixTime}`
 const configName_PolicyReport = `PolicyReport_${unixTime}`
 const configName_ProxyVotingReport = `ProxyVotingReport_${unixTime}`
+const configName_ProxyVotingSummaryReport = `ProxyVotingSummaryReport_${unixTime}`
+const configName_VoteResultsReport = `VoteResultsReport_${unixTime}`
 const configName_VotingActivityReport = `VotingActivityReport_${unixTime}`
 const votes = ['Proxy Voting Report', 'Vote Against Management (VAM) Summary', 'Votes Against Policy (VAP) Summary',
     'Number of Meetings', 'Number of Meetings With VAM', 'Number of Proposals With VAM',
@@ -98,6 +100,12 @@ Then('I {string} the report for {string}', (action, reportName) => {
             break
         case "Proxy Voting":
             reportConfigName = configName_ProxyVotingReport
+            break
+        case "Proxy Voting Summary":
+            reportConfigName = configName_ProxyVotingSummaryReport
+            break
+        case "Vote Results":
+            reportConfigName = configName_VoteResultsReport
             break
         case "Voting Activity":
             reportConfigName = configName_VotingActivityReport

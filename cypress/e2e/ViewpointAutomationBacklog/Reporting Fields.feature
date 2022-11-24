@@ -1,8 +1,6 @@
 Feature: Report related tests
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
 #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
-#Automated Report: Ballot Reconciliation, Ballot Status, Ballot Vote Data, Engagement, Meeting Summary, Policy, Proxy Voting, Voting Activity
-#Not Automated: Proxy Voting Summary, Vote Results
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37972
     @37986 @37972
@@ -144,6 +142,41 @@ Feature: Report related tests
         When I click on the notification toolbar
         And I "verify ready for download of" the report for "Proxy Voting"
         And I verify some information for the downloaded "Proxy Voting" report
+        And I should logout from the application
+
+
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/38778
+    @37986 @38778
+    Scenario: Generate Proxy Voting Summary Report, download and verify file headers
+        Given I am logged in as the "OPERS" User
+        When I navigate to the Reporting page
+        And I navigate to the report type page for "Proxy Voting Summary"
+        And I filter the report type to "docx"
+        And I set the date range to the last 5 days
+        And I "save" the report for "Proxy Voting Summary"
+        When I click on the Download button to download the report
+        Then the download initiated toast message appears
+        And I "delete" the report for "Proxy Voting Summary"
+        When I click on the notification toolbar
+        Then I "verify ready for download of" the report for "Proxy Voting Summary"
+        Then I verify some information for the downloaded "Proxy Voting Summary" report
+        And I should logout from the application
+
+
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
+    @37986
+    Scenario: Generate Vote Results Report, download and verify file headers
+        Given I am logged in as the "OPERS" User
+        When I navigate to the Reporting page
+        And I navigate to the report type page for "Vote Results"
+        And I set the date range to the last 2 days
+        And I "save" the report for "Vote Results"
+        When I click on the Download button to download the report
+        Then the download initiated toast message appears
+        And I "delete" the report for "Vote Results"
+        When I click on the notification toolbar
+        Then I "verify ready for download of" the report for "Vote Results"
+        Then I verify some information for the downloaded "Vote Results" report
         And I should logout from the application
 
 
