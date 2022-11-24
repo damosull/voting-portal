@@ -1,9 +1,10 @@
+@37986 @37990
 Feature: Report related tests
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
 #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37972
-    @37986 @37972
+    @37972
     Scenario: Generate Ballot Reconciliation Report, download and verify file headers
         Given I am logged in as the "ROBECO" User
         When I navigate to the Reporting page
@@ -21,7 +22,7 @@ Feature: Report related tests
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37971
-    @37986 @37971
+    @37971
     Scenario: Generate Ballot Status Report, download and verify file headers
         Given I am logged in as the "CHARLESSCHWAB" User
         When I navigate to the Reporting page
@@ -41,7 +42,7 @@ Feature: Report related tests
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
-    @37986 @37962
+    @37962
     Scenario: Generate Ballot Vote Data Report, download and verify file headers
         Given I am logged in as the "OPERS" User
         When I navigate to the Reporting page
@@ -79,7 +80,7 @@ Feature: Report related tests
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37963
-    @37986 @37963
+    @37963
     Scenario: Generate Engagement report, download and verify file headers
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
@@ -97,8 +98,6 @@ Feature: Report related tests
         And I should logout from the application
 
 
-    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
-    @37986
     Scenario: Generate Meeting Summary Report, download and verify file headers
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
@@ -118,7 +117,7 @@ Feature: Report related tests
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37988
-    @37986 @37988
+    @37988
     Scenario: Generate Policy Report, download and verify file headers
         Given I am logged in as the "RUSSELL" User
         When I navigate to the Reporting page
@@ -138,7 +137,7 @@ Feature: Report related tests
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/38014
-    @37986 @38014
+    @38014
     Scenario: Generate Proxy Voting Report, download and verify file headers
         Given I am logged in as the "CHARLESSCHWAB" User
         When I navigate to the Reporting page
@@ -159,7 +158,7 @@ Feature: Report related tests
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/38778
-    @37986 @38778
+    @38778
     Scenario: Generate Proxy Voting Summary Report, download and verify file headers
         Given I am logged in as the "OPERS" User
         When I navigate to the Reporting page
@@ -178,8 +177,6 @@ Feature: Report related tests
         And I should logout from the application
 
 
-    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
-    @37986
     Scenario: Generate Vote Results Report, download and verify file headers
         Given I am logged in as the "OPERS" User
         When I navigate to the Reporting page
@@ -196,7 +193,7 @@ Feature: Report related tests
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
-    @37986 @37939 @2754
+    @37939 @2754
     Scenario: Generate Voting Activity Report, download and verify file headers
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
