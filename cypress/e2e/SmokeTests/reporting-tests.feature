@@ -67,7 +67,7 @@ Feature: Reporting related smoke tests
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56838
-    @56838 @focus
+    @56838
     Scenario: Verify user is able to download Workflow Export Request report
         Given I am logged in as the "NEUBERGER" User
         When I navigate to the workflow page
