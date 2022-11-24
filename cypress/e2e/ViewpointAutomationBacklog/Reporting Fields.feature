@@ -10,13 +10,13 @@ Feature: Report related tests
         And I set the meeting date to next date 5 and past date 0 days
         And I add the first 4 column option into the header list
         And I click on the Apply button
-        And I "save" the report for "Ballot Reconciliation"
-        And I click on the Download button to download the report
+        Then I "save" the report for "Ballot Reconciliation"
+        When I click on the Download button to download the report
         Then the download initiated toast message appears
         And I "delete" the report for "Ballot Reconciliation"
         When I click on the notification toolbar
         And I "verify ready for download of" the report for "Ballot Reconciliation"
-        And I verify some information for the downloaded "Ballot Reconciliation" report
+        Then I verify the report name and headers for Ballot Reconciliation Report
         And I should logout from the application
 
 
@@ -27,23 +27,26 @@ Feature: Report related tests
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Status"
         And I filter the report type to "xlsx"
-        And I "save" the report for "Ballot Status"
-        And I click on the Download button to download the report
+        And I set the date range to the last 1 days
+        Then I "save" the report for "Ballot Status"
+        When I click on the Download button to download the report
         Then the download initiated toast message appears
         And I "delete" the report for "Ballot Status"
         When I click on the notification toolbar
-        And I "verify ready for download of" the report for "Ballot Status"
-        # And I verify some information for the downloaded "Ballot Vote Data" report
-        # And I should logout from the application
+        Then I "verify ready for download of" the report for "Ballot Status"
+        When I download the first report from the notification toolbar
+        And I click on the notification toolbar
+        Then I verify the report name and a few columns for Ballot Status Report
+        And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
     @37986 @37962
     Scenario: Generate Ballot Vote Data Report, download and verify file
-        Given I am logged in as the "CALPERS" User
+        Given I am logged in as the "OPERS" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Vote Data"
-        And I set the meeting date to next date 2 and past date 2 days
+        And I set the meeting date to next date 1 and past date 1 days
         And I select "Ballot Voted Date" column
         And I "save" the report for "Ballot Vote Data"
         And I click on the Download button to download the report
@@ -51,7 +54,7 @@ Feature: Report related tests
         And I "delete" the report for "Ballot Vote Data"
         When I click on the notification toolbar
         And I "verify ready for download of" the report for "Ballot Vote Data"
-        And I verify some information for the downloaded "Ballot Vote Data" report
+        And I verify the report name and headers for Ballot Vote Data Report
         And I should logout from the application
 
 
@@ -78,7 +81,7 @@ Feature: Report related tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37963
     @37986 @37963
     Scenario: Generate Engagement report, download and verify file headers
-        Given I am logged in as the "CHARLESSCHWAB" User
+        Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Engagement"
         And I select Interaction Date between -2 and 0 days from today
@@ -90,7 +93,7 @@ Feature: Report related tests
         And I "delete" the report for "Ballot Reconciliation"
         When I click on the notification toolbar
         And I "verify ready for download of" the report for "Engagement"
-        And I verify some information for the downloaded "Engagement" report
+        And I verify the report name and headers for Engagement Report
         And I should logout from the application
 
 

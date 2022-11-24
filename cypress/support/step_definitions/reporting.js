@@ -71,7 +71,7 @@ Then('I select {string} column', (column) => {
 
 Then('I {string} the report for {string}', (action, reportName) => {
     //Generate Report Name by fetching name from step definition. Eg: BallotReconciliationReport_1669283634
-    let reportConfigName = `${reportName.replace(' ','')}Report_${unixTime}`
+    let reportConfigName = `${reportName.replaceAll(' ', '')}Report_${unixTime}`
 
     if (action == 'save') {
         cy.saveFilter(reportConfigName)
@@ -87,7 +87,7 @@ Then('I {string} the report for {string}', (action, reportName) => {
             expect($msg.first().text()).to.include(`${reportConfigName}`)
             expect($msg.first().text()).to.include(`is ready for download`)
         })
-    }  else if (action.includes('verify export ready')) {
+    } else if (action.includes('verify export ready')) {
         reportingPage.inboxContainerDiv().should('be.visible')
         reportingPage.inboxContainerMessages().should(($msg) => {
             expect($msg.first().text()).to.not.include(`fail`)
@@ -98,50 +98,61 @@ Then('I {string} the report for {string}', (action, reportName) => {
     }
 })
 
+Then('I verify the report name and headers for Ballot Reconciliation Report', () => {
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers).to.have.property('content-disposition').contains(`filename=BallotReconciliationReport`)
+            expect(resp.headers).to.have.property('content-type').eql('text/csv')
+            expect(resp.body).include('Customer Account Name,Customer Account Number,Custodian Name,Company Name,Meeting Date,Agenda Key,Country of Incorporation,Custodian Account Number,Customer Name,Deadline Date,Most Recent Note')
+        })
+    })
+})
+
+Then('I verify the report name and a few columns for Ballot Status Report', () => {
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers).to.have.property('content-disposition').contains(`filename=BallotStatusReport`)
+            expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        })
+    })
+    cy.parseXlsx(`cypress/downloads/BallotStatusReport_${unixTime}.xlsx`).then((xlxsData) => {
+        proposalSummary.forEach((fields) => {
+            expect(JSON.stringify(xlxsData)).to.include(fields)
+        })
+    })
+})
+
+Then('I verify the report name and headers for Ballot Vote Data Report', () => {
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers)
+                .to.have.property('content-disposition')
+                .contains(`filename=BallotVoteDataReport_${unixTime}.csv`)
+            expect(resp.headers).to.have.property('content-type').eql('text/csv')
+            expect(resp.body).include(
+                'Customer Account Name,Customer Account ID,Company,CUSIP,CINS,Country of Trade,Meeting Type,Meeting Date,Record Date,Proposal Order By,Proposal Label,Proposal Text,Proponent,Mgmt,GL Reco,Custom Policy,Vote Decision,For Or Against Mgmt,Rationale,Meeting Note,Ballot Voted Date,Issue Code,Issue Code Category,Shares Listed,Control Number Key,Ballot Status,Ballot Blocking,Agenda Key'
+            )
+        })
+    })
+})
+
+Then('I verify the report name and headers for Engagement Report', () => {
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers).to.have.property('content-disposition').contains('filename=EngagementReport')
+            expect(resp.headers).to.have.property('content-type').eql('text/csv')
+            expect(resp.body).to.have.length.greaterThan(1)
+            expect(resp.body).include('Company Name,Created Date,Date of Engagement,Other Participants,Themes,Type,Notes,Participant Name,Role,Title')
+        })
+    })
+})
+
 Then('I verify some information for the downloaded {string} report', (reportName) => {
-    if (reportName == 'Ballot Vote Data') {
-        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
-            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
-                cy.request(downloadLink).then((resp) => {
-                    expect(resp.status).to.eq(200)
-                    expect(resp.headers)
-                        .to.have.property('content-disposition')
-                        .contains(`filename=${configName_BallotVoteDataReport}.csv`)
-                    expect(resp.headers).to.have.property('content-type').eql('text/csv')
-                    expect(resp.body).include(
-                        'Customer Account Name,Customer Account ID,Company,CUSIP,CINS,Country of Trade,Meeting Type,Meeting Date,Record Date,Proposal Order By,Proposal Label,Proposal Text,Proponent,Mgmt,GL Reco,Custom Policy,Vote Decision,For Or Against Mgmt,Rationale,Meeting Note,Ballot Voted Date,Issue Code,Issue Code Category,Shares Listed,Control Number Key,Ballot Status,Ballot Blocking,Agenda Key'
-                    )
-                })
-            })
-    } else if (reportName == 'Ballot Status') {
-        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
-            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
-                cy.request(downloadLink).then((resp) => {
-                    expect(resp.status).to.eq(200)
-                    expect(resp.headers)
-                        .to.have.property('content-disposition')
-                        .contains('filename=BallotStatusReport.pdf')
-                    expect(resp.headers).to.have.property('content-type').eql('application/pdf')
-                    expect(resp.body).to.have.length.greaterThan(1)
-                    expect(resp.body).include('%PDF')
-                })
-            })
-    } else if (reportName == 'Engagement') {
-        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
-            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
-                cy.request(downloadLink).then((resp) => {
-                    expect(resp.status).to.eq(200)
-                    expect(resp.headers)
-                        .to.have.property('content-disposition')
-                        .contains('filename=-New-Configuration.csv')
-                    expect(resp.headers).to.have.property('content-type').eql('text/csv')
-                    expect(resp.body).to.have.length.greaterThan(1)
-                    expect(resp.body).include(
-                        'Company Name,Created Date,Date of Engagement,Other Participants,Themes,Type,Notes,Participant Name,Role,Title'
-                    )
-                })
-            })
-    } else if (reportName == 'Ballot Reconciliation') {
+    if (reportName == 'Ballot Reconciliation') {
         reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
             .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
                 cy.request(downloadLink).then((resp) => {
@@ -291,8 +302,8 @@ Then('I remove Subscription entry from Viewpoint on reporting page', () => {
 
 Then('I select Interaction Date between {int} and {int} days from today', (start_date, end_date) => {
     cy.wait('@CUSTOMER_NAME_SPECIAL')
-    let fromDate = dayjs().add(start_date, 'days').format('DD/MM/YYYY')
-    let toDate = dayjs().add(end_date, 'days').format('DD/MM/YYYY')
+    let fromDate = dayjs().add(start_date, 'days').format('MM/DD/YYYY')
+    let toDate = dayjs().add(end_date, 'days').format('MM/DD/YYYY')
     reportingPage.dateCriteriaDropdown().first().should('be.visible').click()
     reportingPage.dateCriteriaBetweenRadio().check()
     reportingPage.dateCriteriaStartDate().clear({ force: true }).type(fromDate, { force: true })
@@ -465,8 +476,12 @@ Then('the saved config name appears under My configuration section', () => {
 })
 
 Then('I download the first report from the notification toolbar', () => {
-    cy.downloadFileLocal('Voting Activity')
-    cy.assertFileProperties(configName_VotingActivityReport, fileExtension)
+    cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport')
+    cy.intercept('GET', '**/Downloads/DownloadExportFromUrl/?requestID=**').as('DownloadReport')
+    cy.intercept('GET', '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**').as('LoadInbox')
+    reportingPage.inboxContainerMessages().first().click()
+    cy.wait('@InboxReport')
+    cy.wait('@DownloadReport')
 })
 
 Then('The notification dropdown {string} contain a notification mentioning {string}', (isVisible, content) => {
