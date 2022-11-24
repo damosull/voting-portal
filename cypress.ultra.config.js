@@ -19,7 +19,7 @@ async function setupNodeEvents(on, config) {
 
   on('before:run', () => {
     fs.emptyDirSync('./test-results')
-    console.log(`INITIATING TESTS ON: ${config.baseUrl} at ${new Date().toISOString().split('T')[1].split('.')[0]} GMT`)
+    console.log(`INITIATING TESTS ON: ${config.baseUrl} at ${config.env.startTime.split('T')[1].split('.')[0]} GMT`)
     preprocessor.beforeRunHandler(config)
   })
 
@@ -71,12 +71,10 @@ async function setupNodeEvents(on, config) {
 
   on('after:run', async (results) => {
     if (results) {
-      console.log(`FINISHING TESTS ON: ${config.baseUrl} at ${new Date().toISOString().split('T')[1].split('.')[0]} GMT`)
-      const formatter = new Formatter()
-      const sourceFile = './test-results/cucumber/cucumber-messages.ndjson'
-      const outputFile = './test-results/cucumber/cucumber-report.json'
-      await formatter.parseCucumberJson(sourceFile, outputFile)
-      generateHTMLReport.reportGenerate()
+      const endTime = new Date(), formatter = new Formatter()
+      console.log(`FINISHING TESTS ON: ${config.baseUrl} at ${endTime.toISOString().split('T')[1].split('.')[0]} GMT`)
+      await formatter.parseCucumberJson('./test-results/cucumber/cucumber-messages.ndjson', './test-results/cucumber/cucumber-report.json')
+      generateHTMLReport.reportGenerate(config, endTime)
       await preprocessor.afterRunHandler(config)
     }
   })
