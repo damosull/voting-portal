@@ -2,6 +2,7 @@ import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import dayjs from "dayjs"
 import reportingPage from "../page_objects/reporting.page"
 const constants = require('../constants')
+const unixTime = Math.floor(Date.now() / 1000)
 const votes = ['Proxy Voting Report', 'Vote Against Management (VAM) Summary', 'Votes Against Policy (VAP) Summary',
     'Number of Meetings', 'Number of Meetings With VAM', 'Number of Proposals With VAM',
     'Number of Meetings With Votes For Mgmt', 'Number of Proposals With Votes For Mgmt', 'Number of No Votes Cast']
@@ -70,26 +71,29 @@ Then('I select {string} column', (column) => {
 
 Then('I {string} the report for {string}', (action, reportName) => {
     //Generate Report Name by fetching name from step definition. Eg: BallotReconciliationReport_1669283634
-    let reportConfigName = `${reportName.replace(' ','')}Report_${Math.floor(Date.now() / 1000)}`
+    let reportConfigName = `${reportName.replace(' ','')}Report_${unixTime}`
 
     if (action == 'save') {
         cy.saveFilter(reportConfigName)
         reportingPage.containsText('My configurations').siblings().find('span').should('contain', reportConfigName)
     } else if (action == 'delete') {
         cy.deleteMyConfiguration(reportConfigName)
-    } else if (action.includes('verify ready for download')) {
+    } else if (action.includes('verify ready')) {
         reportingPage.inboxContainerDiv().should('be.visible')
         reportingPage.inboxContainerMessages().should(($msg) => {
             expect($msg.first().text()).to.not.include(`fail`)
         })
         reportingPage.inboxContainer().should(($msg) => {
             expect($msg.first().text()).to.include(`${reportConfigName}`)
-            expect($msg.first().text()).to.include(`${constants.messages.reports.READY}`)
+            expect($msg.first().text()).to.include(`is ready for download`)
         })
-    } else if (action.includes('verify ready to download')) {
+    }  else if (action.includes('verify export ready')) {
+        reportingPage.inboxContainerDiv().should('be.visible')
+        reportingPage.inboxContainerMessages().should(($msg) => {
+            expect($msg.first().text()).to.not.include(`fail`)
+        })
         reportingPage.inboxContainer().should(($msg) => {
-            expect($msg.first().text()).to.include(`${reportConfigName}`)
-            expect($msg.first().text()).to.include(`is ready to download`)
+            expect($msg.first().text()).to.include(`export is ready to download`)
         })
     }
 })

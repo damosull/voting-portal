@@ -59,7 +59,7 @@ Feature: Reporting related smoke tests
         And I export the ballot status report
         Then A toast message appears for "EXPORT_INITIATED"
         When I click on the notification toolbar
-        And I "verify ready to download of" the report for "Ballot Status via MD Page"
+        And I "verify export ready" the report for "Ballot Status via MD Page"
         And I verify some information for the downloaded "Ballot Status via MD Page" report
         And I should logout from the application
 
@@ -75,6 +75,6 @@ Feature: Reporting related smoke tests
         And I generate a request for Workflow Export
         Then A toast message appears for "EXPORT_INITIATED"
         When I click on the notification toolbar
-        And I "verify ready to download of" the report for "Workflow Export"
+        And I "verify export ready" the report for "Workflow Export"
         And I verify some information for the downloaded "Workflow Export" report
         And I should logout from the application
