@@ -1,5 +1,5 @@
 @loadtest
-Feature: Generate Load for Voting on Viewpoint
+Feature: Generate Load for Voting on Viewpoint via Workflow page
 
   Scenario Outline: Vote on a random meeting for a random user
     Given I am logged in as a random external user
