@@ -9,7 +9,7 @@ Feature: Reporting related smoke tests
         When I navigate to the Reporting page
         And I navigate to the report type page for "Voting Activity"
         And I filter the report type to "xlsx"
-        And I set the date range to the next or last 2 days
+        And I set the date range to the next or last 3 days
         And I select Decision Status Criteria
         And I select Voted criteria
         And I add columns to the report
@@ -17,25 +17,25 @@ Feature: Reporting related smoke tests
         And I set the Header under the Grouping & Presentation
         And I add subscription to the report
         And I "save" the report for "Voting Activity"
-        Then the voting activity report saved message appears
-        And the saved config name appears under My configuration section
+        Then the report saved message appears
         When I click on the Download button to download the report
         Then the download initiated toast message appears
         And I "delete" the report for "Voting Activity"
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Voting Activity"
         When I download the first report from the notification toolbar
-        Then I verify some information for the downloaded "Voting Activity" report
+        And I click on the notification toolbar
+        Then I verify the report name and a few columns for Voting Activity Report
         And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
-    @37962 @focus
+    @37962
     Scenario: Generate ballot vote data report, download and verify file
         Given I am logged in as the "RUSSELL" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Vote Data"
-        And I set the meeting date to next date 2 and past date 2 days
+        And I set the meeting date to next date 1 and past date 1 days
         And I select "Ballot Voted Date" column
         And I "save" the report for "Ballot Vote Data"
         And I click on the Download button to download the report
@@ -43,7 +43,7 @@ Feature: Reporting related smoke tests
         And I "delete" the report for "Ballot Vote Data"
         When I click on the notification toolbar
         And I "verify ready for download of" the report for "Ballot Vote Data"
-        And I verify some information for the downloaded "Ballot Vote Data" report
+        And I verify the report name and headers for Ballot Vote Data Report
         And I should logout from the application
 
 

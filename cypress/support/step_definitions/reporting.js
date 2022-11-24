@@ -16,6 +16,8 @@ const columns_VotesPVreport = ['Proxy Voting Report', 'Vote Against Management (
     'Number of Meetings With Votes For Mgmt', 'Number of Proposals With Votes For Mgmt', 'Number of No Votes Cast']
 const columns_PercentagesPVreport = ['Number of Proposals', 'Number of Countries (Country of Trade)', '% of All Meetings Voted',
     '% of All Proposals Voted', '% of All Mgmt Proposals', '% of All ShrHldr Proposals']
+const columns_ProxyVotingSummaryReport = ['Proxy Voting Summary', 'Report Date Range', 'Meeting Date', 'Proposal', 'Mgmt Rec',
+    'ISIN', 'Country', 'Proponent']
 const columns_VotingActivityReport = ['Meeting Statistics Report', 'Ballot Statistics Report', 'Proposal Statistics Report',
     'Proposal Category Report', 'Proposal Type Report', 'Test - Header']
 let filename, rnd, fileExtension = 'xlsx'
@@ -223,31 +225,49 @@ Then('I verify the report name and a few columns for Proxy Voting Report', () =>
     })
 })
 
-Then('I verify some information for the downloaded {string} report', (reportName) => {
-    if (reportName == 'Voting Activity') {
-        cy.parseXlsx(`cypress/downloads/${configName_VotingActivityReport}.xlsx`).then((xlxsData) => {
-            columns_VotingActivityReport.forEach((fields) => {
-                expect(JSON.stringify(xlxsData)).to.include(fields)
-            })
+Then('I verify the report name and a few columns for Proxy Voting Summary Report', () => {
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers).to.have.property('content-disposition').contains(`filename=ProxyVotingSummaryReport`)
+            expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         })
-    } else if (reportName == 'Proxy Voting') {
-        reportingPage.inboxContainer().contains(configName_ProxyVotingReport).click()
-        // The following two waits are for the API's triggered by the download
-        cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport')
-        cy.wait('@InboxReport')
+    })
+    cy.parseXlsx(`cypress/downloads/ProxyVotingSummaryReport_${unixTime}.xlsx`).then((xlxsData) => {
+        columns_ProxyVotingSummaryReport.forEach((fields) => {
+            expect(JSON.stringify(xlxsData)).to.include(fields)
+        })
+    })
+})
 
-        cy.parseXlsx(`cypress/downloads/${configName_ProxyVotingReport}.xls`).then((xlxsData) => {
-            columns_VotesPVreport.forEach((fields) => {
-                expect(JSON.stringify(xlxsData)).to.include(fields)
-            })
-            columns_BVDandPVreports.forEach((fields) => {
-                expect(JSON.stringify(xlxsData)).to.include(fields)
-            })
-            columns_PercentagesPVreport.forEach((fields) => {
-                expect(JSON.stringify(xlxsData)).to.include(fields)
-            })
+Then('I verify the report name and headers for Vote Results Report', () => {
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers).to.have.property('content-disposition').contains(`filename=VoteResultsReport`)
+            expect(resp.headers).to.have.property('content-type').eql('text/csv')
+            expect(resp.body).include('Company,JobNum,MeetingDate,MeetingType,CustomerAccountID,SharesListed,IssueCode,ProposalLabel,ProposalText,Mgmt,CusPolicy,VoteDecision,VotesForPercentage,VotesAgainstPercentage,VotesAbstainPercentage,VotesWithheldPercentage,Votes1YearPercentage,Votes2YearsPercentage,Votes3YearsPercentage')
         })
-    } else if (reportName == 'Workflow Export') {
+    })
+})
+
+Then('I verify the report name and a few columns for Voting Activity Report', () => {
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers).to.have.property('content-disposition').contains(`filename=VotingActivityReport`)
+            expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        })
+    })
+    cy.parseXlsx(`cypress/downloads/VotingActivityReport_${unixTime}.xlsx`).then((xlxsData) => {
+        columns_VotingActivityReport.forEach((fields) => {
+            expect(JSON.stringify(xlxsData)).to.include(fields)
+        })
+    })
+})
+
+Then('I verify some information for the downloaded {string} report', (reportName) => {
+    if (reportName == 'Workflow Export') {
         reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
             .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
                 cy.request(downloadLink).then((resp) => {
@@ -398,7 +418,7 @@ When('I select Voted criteria', () => {
 })
 
 Then('I add columns to the report', () => {
-    reportingPage.columns_VotingActivityReport().then((columns) => {
+    reportingPage.reportColumns().then((columns) => {
         cy.wrap(columns).find('h3').invoke('attr', 'class', 'toggle')
         cy.wrap(columns).find('div').invoke('attr', 'style', 'display: block')
 
@@ -462,12 +482,8 @@ Then('I add subscription to the report', () => {
     })
 })
 
-Then('the voting activity report saved message appears', () => {
+Then('the report saved message appears', () => {
     reportingPage.toastMessage().should('contain.text', constants.messages.toast.REPORT_SAVED)
-})
-
-Then('the saved config name appears under My configuration section', () => {
-    reportingPage.containsText('My configurations').siblings().find('span').should('contain', configName_VotingActivityReport)
 })
 
 Then('I download the first report from the notification toolbar', () => {

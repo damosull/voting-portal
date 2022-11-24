@@ -126,14 +126,14 @@ Feature: Report related tests
         And I filter the report type to "xlsx"
         Then I set the first available Policy ID as the filter for Policy report
         And I "save" the report for "Policy"
-        And I click on the Download button to download the report
+        When I click on the Download button to download the report
         Then the download initiated toast message appears
         And I "delete" the report for "Policy"
         When I click on the notification toolbar
-        And I "verify ready for download of" the report for "Policy"
+        Then I "verify ready for download of" the report for "Policy"
         When I download the first report from the notification toolbar
         And I click on the notification toolbar
-        And I verify the report name and a few columns for Policy Report
+        Then I verify the report name and a few columns for Policy Report
         And I should logout from the application
 
 
@@ -146,15 +146,15 @@ Feature: Report related tests
         And I filter the report type to "xls"
         And I select the past 2 days
         And I expand Vote Comparison and select GL Recs Against Mgmt
-        And I "save" the report for "Proxy Voting"
-        And I click on the Download button to download the report
+        Then I "save" the report for "Proxy Voting"
+        When I click on the Download button to download the report
         Then the download initiated toast message appears
         And I "delete" the report for "Proxy Voting"
         When I click on the notification toolbar
-        And I "verify ready for download of" the report for "Proxy Voting"
+        Then I "verify ready for download of" the report for "Proxy Voting"
         When I download the first report from the notification toolbar
         And I click on the notification toolbar
-        And I verify the report name and a few columns for Proxy Voting Report
+        Then I verify the report name and a few columns for Proxy Voting Report
         And I should logout from the application
 
 
@@ -164,7 +164,7 @@ Feature: Report related tests
         Given I am logged in as the "OPERS" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Proxy Voting Summary"
-        And I filter the report type to "docx"
+        And I filter the report type to "xlsx"
         And I set the date range to the next or last 5 days
         And I "save" the report for "Proxy Voting Summary"
         When I click on the Download button to download the report
@@ -172,7 +172,9 @@ Feature: Report related tests
         And I "delete" the report for "Proxy Voting Summary"
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Proxy Voting Summary"
-        Then I verify some information for the downloaded "Proxy Voting Summary" report
+        When I download the first report from the notification toolbar
+        And I click on the notification toolbar
+        Then I verify the report name and a few columns for Proxy Voting Summary Report
         And I should logout from the application
 
 
@@ -189,7 +191,7 @@ Feature: Report related tests
         And I "delete" the report for "Vote Results"
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Vote Results"
-        Then I verify some information for the downloaded "Vote Results" report
+        Then I verify the report name and headers for Vote Results Report
         And I should logout from the application
 
 
@@ -208,13 +210,13 @@ Feature: Report related tests
         And I set the Header under the Grouping & Presentation
         And I add subscription to the report
         And I "save" the report for "Voting Activity"
-        Then the voting activity report saved message appears
-        And the saved config name appears under My configuration section
+        Then the report saved message appears
         When I click on the Download button to download the report
         Then the download initiated toast message appears
         And I "delete" the report for "Voting Activity"
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Voting Activity"
         When I download the first report from the notification toolbar
-        Then I verify some information for the downloaded "Voting Activity" report
+        And I click on the notification toolbar
+        Then I verify the report name and a few columns for Voting Activity Report
         And I should logout from the application

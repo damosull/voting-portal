@@ -26,7 +26,6 @@ class reportingPage {
     dateRangePastDaysInput() { return cy.get(':nth-child(2) > .k-widget > .k-numeric-wrap > .k-formatted-value') }
     columnsSeventhCheckbox() { return cy.get(':nth-child(7) > .report-column-ccb > .checkbox > .ccb') }
     reportColumns() { return cy.get('#rpt-columns') }
-    //applyButton() { return cy.get('.btn-container > .darkgrey') }
     applyButton() { return cy.get('.btn-container.clearfix').contains('Apply') }
     selectedCheckbox() { return cy.get('[data-bind="foreach: Columns.SelectedFixed"] > :nth-child(28) > td > .checkbox > .ccb') }
     saveNameInput() { return cy.get('#popupTextContainer') }
@@ -72,8 +71,6 @@ class reportingPage {
     reportPresentationHeader() { return cy.get('#ava-presentation-header') }
     reportPresentationFooter() { return cy.get('#ava-presentation-footer') }
     
-    
-
 }
 
 module.exports = new reportingPage()
