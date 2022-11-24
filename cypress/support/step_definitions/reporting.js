@@ -9,6 +9,8 @@ const columns_BVDandPVreports = ['Proposal Summary', 'Mgmt Proposals Voted FOR',
     'ShrHldr Proposals Voted Against/Withhold', 'ShrHldr Proposals Voted Abstain', 'ShrHldr Proposals With No Votes Cast']
 const columns_MeetingSummaryReport = ['Meeting Summary', 'Report Date Range', 'Report Parameters', 'Market', 'Issuer Name', 'Meeting Type',
     'Voted Shares', '# of Props', '1 yr', '3 yr', 'For', 'No Action', 'Unvoted', 'Grand Totals']
+const columns_PolicyReport = ['Policy Name', 'Policy Tag', 'Customer Name', 'Issue Code', 'Issue Code Description', 'General Approach',
+    'Rule Name', 'Description', 'Rule Parameter Value', 'Display Prompt']
 const columns_VotesPVreport = ['Proxy Voting Report', 'Vote Against Management (VAM) Summary', 'Votes Against Policy (VAP) Summary',
     'Number of Meetings', 'Number of Meetings With VAM', 'Number of Proposals With VAM',
     'Number of Meetings With Votes For Mgmt', 'Number of Proposals With Votes For Mgmt', 'Number of No Votes Cast']
@@ -176,7 +178,6 @@ Then('I verify the report name and a few columns for Meeting Summary Report', ()
             expect(resp.status).to.eq(200)
             expect(resp.headers).to.have.property('content-disposition').contains(`filename=MeetingSummaryReport`)
             expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-            expect(resp.body).to.have.length.greaterThan(1)
         })
     })
     cy.parseXlsx(`cypress/downloads/MeetingSummaryReport_${unixTime}.xlsx`).then((xlxsData) => {
@@ -186,36 +187,44 @@ Then('I verify the report name and a few columns for Meeting Summary Report', ()
     })
 })
 
-Then('I verify some information for the downloaded {string} report', (reportName) => {
-    if (reportName == 'Ballot Reconciliation') {
-        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
-            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
-                cy.request(downloadLink).then((resp) => {
-                    expect(resp.status).to.eq(200)
-                    expect(resp.headers)
-                        .to.have.property('content-disposition')
-                        .contains('filename=-New-Configuration.csv')
-                    expect(resp.headers).to.have.property('content-type').eql('text/csv')
+Then('I verify the report name and a few columns for Policy Report', () => {
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers).to.have.property('content-disposition').contains(`filename=PolicyReport`)
+            expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        })
+    })
+    cy.parseXlsx(`cypress/downloads/PolicyReport_${unixTime}.xlsx`).then((xlxsData) => {
+        columns_PolicyReport.forEach((fields) => {
+            expect(JSON.stringify(xlxsData)).to.include(fields)
+        })
+    })
+})
 
-                    expect(resp.body).to.have.length.greaterThan(1)
-                    expect(resp.body).include(
-                        'Customer Account Name,Customer Account Number,Custodian Name,Company Name,Meeting Date,Agenda Key,Country of Incorporation,Custodian Account Number,Customer Name,Deadline Date,Most Recent Note'
-                    )
-                })
-            })
-    } else if (reportName == 'Policy') {
-        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
-            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
-                cy.request(downloadLink).then((resp) => {
-                    expect(resp.status).to.eq(200)
-                    expect(resp.headers).to.have.property('content-disposition').contains(configName_PolicyReport)
-                    expect(resp.headers)
-                        .to.have.property('content-type')
-                        .contains('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-                    expect(resp.body).to.have.length.greaterThan(1)
-                })
-            })
-    } else if (reportName == 'Voting Activity') {
+Then('I verify the report name and a few columns for Proxy Voting Report', () => {
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers).to.have.property('content-disposition').contains(`filename=ProxyVotingReport`)
+            expect(resp.headers).to.have.property('content-type').eql('application/vnd.ms-excel')
+        })
+    })
+    cy.parseXlsx(`cypress/downloads/ProxyVotingReport_${unixTime}.xls`).then((xlxsData) => {
+        columns_VotesPVreport.forEach((fields) => {
+            expect(JSON.stringify(xlxsData)).to.include(fields)
+        })
+        columns_BVDandPVreports.forEach((fields) => {
+            expect(JSON.stringify(xlxsData)).to.include(fields)
+        })
+        columns_PercentagesPVreport.forEach((fields) => {
+            expect(JSON.stringify(xlxsData)).to.include(fields)
+        })
+    })
+})
+
+Then('I verify some information for the downloaded {string} report', (reportName) => {
+    if (reportName == 'Voting Activity') {
         cy.parseXlsx(`cypress/downloads/${configName_VotingActivityReport}.xlsx`).then((xlxsData) => {
             columns_VotingActivityReport.forEach((fields) => {
                 expect(JSON.stringify(xlxsData)).to.include(fields)
@@ -350,30 +359,10 @@ Then('I click on the Apply button', () => {
     reportingPage.applyButton().click()
 })
 
-Then('I remove any existing report criteria', () => {
-    reportingPage.pageBody().then(($body) => {
-        if ($body.find('#workflow-filter-list > div > div > ul > li').eq(0).length > 0) {
-            reportingPage.existingConfigurations().each(() => {
-                reportingPage.existingConfigurationsLink().click()
-                cy.wait('@GET_POLICY')
-                reportingPage.deleteConfigurationsLink().click()
-                cy.wait('@REMOVE')
-            })
-        }
-    })
-})
-
-Then('I verify the filters', () => {
-    cy.wait('@REPORT_TYPE')
-    reportingPage.reportExtensionSelect().select('Excel (.xls)').find(':selected').contains('Excel (.xls)')
-    reportingPage.reportExtensionSelect().select('Excel (.xlsx)').find(':selected').contains('Excel (.xlsx)')
-    reportingPage.policyIdEditor().click({ force: true })
-    reportingPage.policyIdCheckbox().check({ force: true })
-    reportingPage.policyIdUpdate().click({ force: true })
-})
-
-Then('I select Report Extension XLS', () => {
-    reportingPage.reportId().children().find('select').select('xls'.toUpperCase())
+Then('I set the first available Policy ID as the filter for Policy report', () => {
+    reportingPage.policyIdEditorModal().invoke('attr', 'style', 'display: block')
+    reportingPage.policyIdRadio().eq(0).check()
+    reportingPage.policyIdUpdate().click()
 })
 
 Then('I select the past {int} days', (pastDays) => {

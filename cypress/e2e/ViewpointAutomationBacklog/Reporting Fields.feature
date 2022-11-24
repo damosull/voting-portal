@@ -98,7 +98,7 @@ Feature: Report related tests
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
-    @37986 @focus
+    @37986
     Scenario: Generate Meeting Summary Report, download and verify file headers
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
@@ -123,15 +123,17 @@ Feature: Report related tests
         Given I am logged in as the "RUSSELL" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Policy"
-        And I remove any existing report criteria
-        Then I verify the filters
+        And I filter the report type to "xlsx"
+        Then I set the first available Policy ID as the filter for Policy report
         And I "save" the report for "Policy"
         And I click on the Download button to download the report
         Then the download initiated toast message appears
         And I "delete" the report for "Policy"
         When I click on the notification toolbar
         And I "verify ready for download of" the report for "Policy"
-        And I verify some information for the downloaded "Policy" report
+        When I download the first report from the notification toolbar
+        And I click on the notification toolbar
+        And I verify the report name and a few columns for Policy Report
         And I should logout from the application
 
 
@@ -141,7 +143,7 @@ Feature: Report related tests
         Given I am logged in as the "CHARLESSCHWAB" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Proxy Voting"
-        And I select Report Extension XLS
+        And I filter the report type to "xls"
         And I select the past 2 days
         And I expand Vote Comparison and select GL Recs Against Mgmt
         And I "save" the report for "Proxy Voting"
@@ -150,7 +152,9 @@ Feature: Report related tests
         And I "delete" the report for "Proxy Voting"
         When I click on the notification toolbar
         And I "verify ready for download of" the report for "Proxy Voting"
-        And I verify some information for the downloaded "Proxy Voting" report
+        When I download the first report from the notification toolbar
+        And I click on the notification toolbar
+        And I verify the report name and a few columns for Proxy Voting Report
         And I should logout from the application
 
 

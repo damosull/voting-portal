@@ -51,8 +51,8 @@ class reportingPage {
     existingConfigurationsLink() { return cy.get('#workflow-filter-list > div > div > ul > li:nth-child(1) > a').first() }
     deleteConfigurationsLink() { return cy.get('.dark-red.small.delete-btn') }
     reportExtensionSelect() { return cy.get('#report-adhoc-commands-container > div > select') }
-    policyIdEditor() { return cy.get('.PolicyIdEditor') }
-    policyIdCheckbox() { return cy.get('input[name="opt-PolicyId"]') }
+    policyIdEditorModal() { return cy.get('#single-select-target-PolicyId') }
+    policyIdRadio() { return cy.get('input[name="opt-PolicyId"]') }
     policyIdUpdate() { return cy.get('#btn-update-PolicyId') }
     reportId() { return cy.get('#rpt-report') }
     reportSubscriptions() { return cy.get('#rpt-subscriptions') }
