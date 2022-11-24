@@ -9,7 +9,7 @@ Feature: Reporting related smoke tests
         When I navigate to the Reporting page
         And I navigate to the report type page for "Voting Activity"
         And I filter the report type to "xlsx"
-        And I set the date range to the last 2 days
+        And I set the date range to the next or last 2 days
         And I select Decision Status Criteria
         And I select Voted criteria
         And I add columns to the report

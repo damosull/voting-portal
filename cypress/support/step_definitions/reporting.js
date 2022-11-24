@@ -3,16 +3,18 @@ import dayjs from "dayjs"
 import reportingPage from "../page_objects/reporting.page"
 const constants = require('../constants')
 const unixTime = Math.floor(Date.now() / 1000)
-const votes = ['Proxy Voting Report', 'Vote Against Management (VAM) Summary', 'Votes Against Policy (VAP) Summary',
-    'Number of Meetings', 'Number of Meetings With VAM', 'Number of Proposals With VAM',
-    'Number of Meetings With Votes For Mgmt', 'Number of Proposals With Votes For Mgmt', 'Number of No Votes Cast']
-const proposalSummary = ['Proposal Summary', 'Mgmt Proposals Voted FOR', 'Mgmt Proposals Voted Against/Withhold',
+const columns_BVDandPVreports = ['Proposal Summary', 'Mgmt Proposals Voted FOR', 'Mgmt Proposals Voted Against/Withhold',
     'Mgmt Proposals Voted Abstain', 'Mgmt Proposals With No Votes Cast', 'Mgmt Proposals Voted 1 Year',
     'Mgmt Proposals Voted 2 Years', 'Mgmt Proposals Voted 3 Years', 'ShrHldr Proposal Voted FOR',
     'ShrHldr Proposals Voted Against/Withhold', 'ShrHldr Proposals Voted Abstain', 'ShrHldr Proposals With No Votes Cast']
-const percentages = ['Number of Proposals', 'Number of Countries (Country of Trade)', '% of All Meetings Voted',
+const columns_MeetingSummaryReport = ['Meeting Summary', 'Report Date Range', 'Report Parameters', 'Market', 'Issuer Name', 'Meeting Type',
+    'Voted Shares', '# of Props', '1 yr', '3 yr', 'For', 'No Action', 'Unvoted', 'Grand Totals']
+const columns_VotesPVreport = ['Proxy Voting Report', 'Vote Against Management (VAM) Summary', 'Votes Against Policy (VAP) Summary',
+    'Number of Meetings', 'Number of Meetings With VAM', 'Number of Proposals With VAM',
+    'Number of Meetings With Votes For Mgmt', 'Number of Proposals With Votes For Mgmt', 'Number of No Votes Cast']
+const columns_PercentagesPVreport = ['Number of Proposals', 'Number of Countries (Country of Trade)', '% of All Meetings Voted',
     '% of All Proposals Voted', '% of All Mgmt Proposals', '% of All ShrHldr Proposals']
-const reportColumns = ['Meeting Statistics Report', 'Ballot Statistics Report', 'Proposal Statistics Report',
+const columns_VotingActivityReport = ['Meeting Statistics Report', 'Ballot Statistics Report', 'Proposal Statistics Report',
     'Proposal Category Report', 'Proposal Type Report', 'Test - Header']
 let filename, rnd, fileExtension = 'xlsx'
 
@@ -60,6 +62,23 @@ Then('I set the meeting date to next date {int} and past date {int} days', (next
     reportingPage.dateRangeNextDaysInput().type(nextDays)
     reportingPage.dateRangePastDaysInput().type(pastDays)
     reportingPage.containsText('Update').click()
+})
+
+Then('I set the date range to the next or last {int} days', (pastDays) => {
+    reportingPage.meetingDateRange().invoke('attr', 'style', 'display: block')
+    reportingPage.dateRangeDaysInput().invoke('attr', 'style', 'display: block').clear()
+    reportingPage.dateRangeDaysInput().invoke('attr', 'style', 'display: block').type(pastDays)
+    reportingPage.containsText('Update').click()
+})
+
+Then('I select the dates between {int} and {int} days from today', (start_date, end_date) => {
+    cy.wait('@CUSTOMER_NAME_SPECIAL')
+    let fromDate = dayjs().add(start_date, 'days').format('DD/MM/YYYY')
+    let toDate = dayjs().add(end_date, 'days').format('DD/MM/YYYY')
+    reportingPage.dateCriteriaDropdown().first().should('be.visible').click()
+    reportingPage.dateCriteriaBetweenRadio().check()
+    reportingPage.dateCriteriaStartDate().clear({ force: true }).type(fromDate, { force: true })
+    reportingPage.dateCriteriaEndDate().clear({ force: true }).type(toDate, { force: true })
 })
 
 Then('I select {string} column', (column) => {
@@ -118,7 +137,7 @@ Then('I verify the report name and a few columns for Ballot Status Report', () =
         })
     })
     cy.parseXlsx(`cypress/downloads/BallotStatusReport_${unixTime}.xlsx`).then((xlxsData) => {
-        proposalSummary.forEach((fields) => {
+        columns_BVDandPVreports.forEach((fields) => {
             expect(JSON.stringify(xlxsData)).to.include(fields)
         })
     })
@@ -151,6 +170,22 @@ Then('I verify the report name and headers for Engagement Report', () => {
     })
 })
 
+Then('I verify the report name and a few columns for Meeting Summary Report', () => {
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers).to.have.property('content-disposition').contains(`filename=MeetingSummaryReport`)
+            expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            expect(resp.body).to.have.length.greaterThan(1)
+        })
+    })
+    cy.parseXlsx(`cypress/downloads/MeetingSummaryReport_${unixTime}.xlsx`).then((xlxsData) => {
+        columns_MeetingSummaryReport.forEach((fields) => {
+            expect(JSON.stringify(xlxsData)).to.include(fields)
+        })
+    })
+})
+
 Then('I verify some information for the downloaded {string} report', (reportName) => {
     if (reportName == 'Ballot Reconciliation') {
         reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
@@ -168,18 +203,6 @@ Then('I verify some information for the downloaded {string} report', (reportName
                     )
                 })
             })
-    } else if (reportName == 'Meeting Summary') {
-        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
-            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
-                cy.request(downloadLink).then((resp) => {
-                    expect(resp.status).to.eq(200)
-                    expect(resp.headers).to.have.property('content-disposition').contains(configName_MeetingSummaryReport)
-                    expect(resp.headers)
-                        .to.have.property('content-type')
-                        .contains('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-                    expect(resp.body).to.have.length.greaterThan(1)
-                })
-            })
     } else if (reportName == 'Policy') {
         reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
             .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
@@ -194,7 +217,7 @@ Then('I verify some information for the downloaded {string} report', (reportName
             })
     } else if (reportName == 'Voting Activity') {
         cy.parseXlsx(`cypress/downloads/${configName_VotingActivityReport}.xlsx`).then((xlxsData) => {
-            reportColumns.forEach((fields) => {
+            columns_VotingActivityReport.forEach((fields) => {
                 expect(JSON.stringify(xlxsData)).to.include(fields)
             })
         })
@@ -205,13 +228,13 @@ Then('I verify some information for the downloaded {string} report', (reportName
         cy.wait('@InboxReport')
 
         cy.parseXlsx(`cypress/downloads/${configName_ProxyVotingReport}.xls`).then((xlxsData) => {
-            votes.forEach((fields) => {
+            columns_VotesPVreport.forEach((fields) => {
                 expect(JSON.stringify(xlxsData)).to.include(fields)
             })
-            proposalSummary.forEach((fields) => {
+            columns_BVDandPVreports.forEach((fields) => {
                 expect(JSON.stringify(xlxsData)).to.include(fields)
             })
-            percentages.forEach((fields) => {
+            columns_PercentagesPVreport.forEach((fields) => {
                 expect(JSON.stringify(xlxsData)).to.include(fields)
             })
         })
@@ -300,16 +323,6 @@ Then('I remove Subscription entry from Viewpoint on reporting page', () => {
     reportingPage.saveButton().click()
 })
 
-Then('I select Interaction Date between {int} and {int} days from today', (start_date, end_date) => {
-    cy.wait('@CUSTOMER_NAME_SPECIAL')
-    let fromDate = dayjs().add(start_date, 'days').format('MM/DD/YYYY')
-    let toDate = dayjs().add(end_date, 'days').format('MM/DD/YYYY')
-    reportingPage.dateCriteriaDropdown().first().should('be.visible').click()
-    reportingPage.dateCriteriaBetweenRadio().check()
-    reportingPage.dateCriteriaStartDate().clear({ force: true }).type(fromDate, { force: true })
-    reportingPage.dateCriteriaEndDate().clear({ force: true }).type(toDate, { force: true })
-})
-
 Then('I click on the Update button', () => {
     reportingPage.containsText('Update').click({ force: true })
 })
@@ -386,13 +399,6 @@ Then('I filter the report type to {string}', (extension) => {
     reportingPage.reportId().children().find('select').select(fileExtension.toUpperCase())
 })
 
-Then('I set the date range to the last {int} days', (pastDays) => {
-    reportingPage.meetingDateRange().invoke('attr', 'style', 'display: block')
-    reportingPage.dateRangeDaysInput().invoke('attr', 'style', 'display: block').clear()
-    reportingPage.dateRangeDaysInput().invoke('attr', 'style', 'display: block').type(pastDays)
-    reportingPage.containsText('Update').click()
-})
-
 When('I select Decision Status Criteria', () => {
     cy.AddMultipleCriteria(['Decision Status'], true)
 })
@@ -403,7 +409,7 @@ When('I select Voted criteria', () => {
 })
 
 Then('I add columns to the report', () => {
-    reportingPage.reportColumns().then((columns) => {
+    reportingPage.columns_VotingActivityReport().then((columns) => {
         cy.wrap(columns).find('h3').invoke('attr', 'class', 'toggle')
         cy.wrap(columns).find('div').invoke('attr', 'style', 'display: block')
 
