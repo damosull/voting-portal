@@ -68,6 +68,7 @@ Feature: Workflow related smoke tests
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56841
   #to https://dev.azure.com/glasslewis/Development/_workitems/edit/56847
+  @56841 @56842 @56843 @56844 @56845 @56846 @56847
   Scenario Outline: Verify user is able to apply the various ESG filters on the workflow page
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
@@ -75,31 +76,12 @@ Feature: Workflow related smoke tests
     Then I should be able to see the results only for <filter>
     And I should logout from the application
 
-    @56841
-    Examples:
-      | filter                       |
-      | "ESG Risk Rating Assessment" |
-    @56842
-    Examples:
-      | filter                         |
-      | "ESG Risk Exposure Assessment" |
-    @56843
-    Examples:
-      | filter                           |
-      | "ESG Risk Management Assessment" |
-    @56844
-    Examples:
-      | filter                              |
-      | "ESG Risk Rating Percentile Global" |
-    @56845
-    Examples:
-      | filter                                |
-      | "ESG Risk Rating Percentile Industry" |
-    @56846
     Examples:
       | filter                                    |
+      | "ESG Risk Rating Assessment"              |
+      | "ESG Risk Exposure Assessment"            |
+      | "ESG Risk Management Assessment"          |
+      | "ESG Risk Rating Percentile Global"       |
+      | "ESG Risk Rating Percentile Industry"     |
       | "ESG Risk Rating Percentile Sub Industry" |
-    @56847
-    Examples:
-      | filter                                |
-      | "ESG Risk Rating Highest Controversy" |
+      | "ESG Risk Rating Highest Controversy"     |
