@@ -10,8 +10,10 @@ Feature: Report related tests
         And I set the meeting date to next date 5 and past date 0 days
         And I add the first 4 column option into the header list
         And I click on the Apply button
+        And I "save" the report for "Ballot Reconciliation"
         And I click on the Download button to download the report
         Then the download initiated toast message appears
+        And I "delete" the report for "Ballot Reconciliation"
         When I click on the notification toolbar
         And I "verify ready for download of" the report for "Ballot Reconciliation"
         And I verify some information for the downloaded "Ballot Reconciliation" report
@@ -82,8 +84,10 @@ Feature: Report related tests
         And I select Interaction Date between -2 and 0 days from today
         And I click on the Update button
         And I add all the columns
+        And I "save" the report for "Engagement"
         And I click on the Download button to download the report
         Then the download initiated toast message appears
+        And I "delete" the report for "Ballot Reconciliation"
         When I click on the notification toolbar
         And I "verify ready for download of" the report for "Engagement"
         And I verify some information for the downloaded "Engagement" report

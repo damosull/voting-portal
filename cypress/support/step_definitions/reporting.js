@@ -2,15 +2,6 @@ import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import dayjs from "dayjs"
 import reportingPage from "../page_objects/reporting.page"
 const constants = require('../constants')
-const unixTime = Math.floor(Date.now() / 1000)
-const configName_BallotVoteDataReport = `BallotVoteData_${unixTime}`
-const configName_BallotStatusReport = `BallotStatus_${unixTime}`
-const configName_MeetingSummaryReport = `MeetingSummaryReport_${unixTime}`
-const configName_PolicyReport = `PolicyReport_${unixTime}`
-const configName_ProxyVotingReport = `ProxyVotingReport_${unixTime}`
-const configName_ProxyVotingSummaryReport = `ProxyVotingSummaryReport_${unixTime}`
-const configName_VoteResultsReport = `VoteResultsReport_${unixTime}`
-const configName_VotingActivityReport = `VotingActivityReport_${unixTime}`
 const votes = ['Proxy Voting Report', 'Vote Against Management (VAM) Summary', 'Votes Against Policy (VAP) Summary',
     'Number of Meetings', 'Number of Meetings With VAM', 'Number of Proposals With VAM',
     'Number of Meetings With Votes For Mgmt', 'Number of Proposals With Votes For Mgmt', 'Number of No Votes Cast']
@@ -78,45 +69,8 @@ Then('I select {string} column', (column) => {
 })
 
 Then('I {string} the report for {string}', (action, reportName) => {
-    let reportConfigName
-    switch (reportName) {
-        case "Ballot Reconciliation":
-            reportConfigName = 'New Configuration'
-            break
-        case "Ballot Status":
-            reportConfigName = configName_BallotStatusReport
-            break
-        case "Ballot Vote Data":
-            reportConfigName = configName_BallotVoteDataReport
-            break
-        case "Engagement":
-            reportConfigName = 'New Configuration'
-            break
-        case "Meeting Summary":
-            reportConfigName = configName_MeetingSummaryReport
-            break
-        case "Policy":
-            reportConfigName = configName_PolicyReport
-            break
-        case "Proxy Voting":
-            reportConfigName = configName_ProxyVotingReport
-            break
-        case "Proxy Voting Summary":
-            reportConfigName = configName_ProxyVotingSummaryReport
-            break
-        case "Vote Results":
-            reportConfigName = configName_VoteResultsReport
-            break
-        case "Voting Activity":
-            reportConfigName = configName_VotingActivityReport
-            break
-        case "Ballot Status via MD Page":
-            reportConfigName = 'Ballot Status Report'
-            break
-        case "Workflow Export":
-            reportConfigName = 'Upcoming Meetings'
-            break
-    }
+    //Generate Report Name by fetching name from step definition. Eg: BallotReconciliationReport_1669283634
+    let reportConfigName = `${reportName.replace(' ','')}Report_${Math.floor(Date.now() / 1000)}`
 
     if (action == 'save') {
         cy.saveFilter(reportConfigName)
