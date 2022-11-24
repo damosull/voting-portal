@@ -31,7 +31,7 @@ Feature: Reporting related smoke tests
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
     @37962
-    Scenario: Generate ballot vote data report, download and verify file
+    Scenario: Generate ballot vote data report, download and verify file headers
         Given I am logged in as the "RUSSELL" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Vote Data"

@@ -42,7 +42,7 @@ Feature: Report related tests
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
     @37986 @37962
-    Scenario: Generate Ballot Vote Data Report, download and verify file
+    Scenario: Generate Ballot Vote Data Report, download and verify file headers
         Given I am logged in as the "OPERS" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Vote Data"
@@ -139,7 +139,7 @@ Feature: Report related tests
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/38014
     @37986 @38014
-    Scenario: Proxy Voting Report
+    Scenario: Generate Proxy Voting Report, download and verify file headers
         Given I am logged in as the "CHARLESSCHWAB" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Proxy Voting"

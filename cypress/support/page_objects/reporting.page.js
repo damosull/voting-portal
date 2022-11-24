@@ -5,9 +5,9 @@ class reportingPage {
     getLoadingSpinner() { return cy.get('.k-loading-text') }
     toastMessage() { return cy.get('.toast-message') }
     notificationLink() { return cy.get('.notify-count') }
+    inboxContainer() { return cy.get('#inbox-results').parent() }
     inboxContainerDiv() { return cy.get('#inbox-container') }
-    inboxContainerMessages() { return cy.get('#inbox-container .msg-txt', { timeout: 15000 }) }
-    inboxContainer() { return cy.get('#inbox-container .msg-txt', { timeout: 180000 }) }
+    inboxContainerMessages(timeout) { return cy.get('#inbox-container .msg-txt', { timeout: timeout }) }
     inboxRows() { return cy.get('#inbox-container [data-pagelink1]') }
     containsText(text) { return cy.contains(text) }
     downloadButton() { return cy.get('#rpt-download-btn') }

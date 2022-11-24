@@ -57,7 +57,10 @@ Then('I verify that all the relevant API calls for reporting page are made', () 
 })
 
 Then('I click on the notification toolbar', () => {
+    cy.reload()
     reportingPage.notificationLink().click()
+    reportingPage.inboxContainer().invoke('attr', 'style', 'display: block')
+    reportingPage.inboxContainer().should('have.css', 'display', 'block')
 })
 
 Then('I set the meeting date to next date {int} and past date {int} days', (nextDays, pastDays) => {
@@ -103,19 +106,19 @@ Then('I {string} the report for {string}', (action, reportName) => {
         cy.deleteMyConfiguration(reportConfigName)
     } else if (action.includes('verify ready')) {
         reportingPage.inboxContainerDiv().should('be.visible')
-        reportingPage.inboxContainerMessages().should(($msg) => {
+        reportingPage.inboxContainerMessages(15000).should(($msg) => {
             expect($msg.first().text()).to.not.include(`fail`)
         })
-        reportingPage.inboxContainer().should(($msg) => {
+        reportingPage.inboxContainerMessages(180000).should(($msg) => {
             expect($msg.first().text()).to.include(`${reportConfigName}`)
             expect($msg.first().text()).to.include(`is ready for download`)
         })
     } else if (action.includes('verify export ready')) {
         reportingPage.inboxContainerDiv().should('be.visible')
-        reportingPage.inboxContainerMessages().should(($msg) => {
+        reportingPage.inboxContainerMessages(15000).should(($msg) => {
             expect($msg.first().text()).to.not.include(`fail`)
         })
-        reportingPage.inboxContainer().should(($msg) => {
+        reportingPage.inboxContainerMessages(180000).should(($msg) => {
             expect($msg.first().text()).to.include(`export is ready to download`)
         })
     }
@@ -490,7 +493,7 @@ Then('I download the first report from the notification toolbar', () => {
     cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport')
     cy.intercept('GET', '**/Downloads/DownloadExportFromUrl/?requestID=**').as('DownloadReport')
     cy.intercept('GET', '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**').as('LoadInbox')
-    reportingPage.inboxContainerMessages().first().click()
+    reportingPage.inboxContainerMessages(15000).first().click()
     cy.wait('@InboxReport')
     cy.wait('@DownloadReport')
 })
