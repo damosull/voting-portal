@@ -60,12 +60,14 @@ Feature: Reporting related smoke tests
         Then A toast message appears for "EXPORT_INITIATED"
         When I click on the notification toolbar
         And I "verify export ready" the report for "Ballot Status via MD Page"
-        And I verify some information for the downloaded "Ballot Status via MD Page" report
+        When I download the first report from the notification toolbar
+        And I click on the notification toolbar
+        And I verify the report name and a few columns for Ballot Status Report generated via Meeting Details page
         And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56838
-    @56838
+    @56838 @focus
     Scenario: Verify user is able to download Workflow Export Request report
         Given I am logged in as the "NEUBERGER" User
         When I navigate to the workflow page
@@ -76,5 +78,5 @@ Feature: Reporting related smoke tests
         Then A toast message appears for "EXPORT_INITIATED"
         When I click on the notification toolbar
         And I "verify export ready" the report for "Workflow Export"
-        And I verify some information for the downloaded "Workflow Export" report
+        And I verify the report name and headers for Workflow Export Report
         And I should logout from the application

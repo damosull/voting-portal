@@ -47,7 +47,7 @@ class meetingDetailsPage {
     previousMeetingLink() { return cy.get('#link-prev-meeting-id') }
     exportButtonDropdown() { return cy.get('#exportMeetingDetails > .nav > .dropdown > .dropdown-toggle') }
     exportBallotStatusReportButton() { return cy.get('#exportBallotStatusReport') }
-    pdfRadio() { return cy.get('#pdf') }
+    xlsRadio() { return cy.get('#xls') }
     exportButton() { return cy.get('#btn-export') }
     noBallotsAvailableMessage() { return cy.get('#no-votes-msg', { timeout: 5000 }) }
     researchHtmlLink() { return cy.get('#research-html-doc') }

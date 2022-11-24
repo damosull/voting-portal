@@ -20,6 +20,7 @@ const columns_ProxyVotingSummaryReport = ['Proxy Voting Summary', 'Report Date R
     'ISIN', 'Country', 'Proponent']
 const columns_VotingActivityReport = ['Meeting Statistics Report', 'Ballot Statistics Report', 'Proposal Statistics Report',
     'Proposal Category Report', 'Proposal Type Report', 'Test - Header']
+const columns_BallotStatusViaMDReport = ['Ballot Status Report', 'Decision Status', 'Vote Deadline Date', 'Vote Cast', 'Meeting Agenda']
 let filename, rnd, fileExtension = 'xlsx'
 
 
@@ -269,20 +270,30 @@ Then('I verify the report name and a few columns for Voting Activity Report', ()
     })
 })
 
-Then('I verify some information for the downloaded {string} report', (reportName) => {
-    if (reportName == 'Workflow Export') {
-        reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1')
-            .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
-                cy.request(downloadLink).then((resp) => {
-                    expect(resp.status).to.eq(200)
-                    expect(resp.headers)
-                        .to.have.property('content-disposition')
-                        .contains(`filename=Upcoming-Meetings.csv`)
-                    expect(resp.headers).to.have.property('content-type').eql('text/csv')
-                    expect(resp.body).include('Company Name,Agenda Key,Policy ID,Control Number,Decision Status,Security Country of Trade,Deadline Date,Meeting Date,Record Date,Meeting Type,Shares,Ballot Blocking')
-                })
-            })
-    }
+Then('I verify the report name and headers for Workflow Export Report', () => {
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers).to.have.property('content-disposition').contains(`filename=Upcoming-Meetings.csv`)
+            expect(resp.headers).to.have.property('content-type').eql('text/csv')
+            expect(resp.body).include('Company Name,Agenda Key,Policy ID,Control Number,Decision Status,Security Country of Trade,Deadline Date,Meeting Date,Record Date,Meeting Type,Shares,Ballot Blocking')
+        })
+    })
+})
+
+Then('I verify the report name and a few columns for Ballot Status Report generated via Meeting Details page', () => {
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers).to.have.property('content-disposition').contains(`filename=BallotStatusReport`)
+            expect(resp.headers).to.have.property('content-type').eql('application/vnd.ms-excel')
+        })
+    })
+    cy.parseXlsx(`cypress/downloads/BallotStatusReport.xls`).then((xlxsData) => {
+        columns_BallotStatusViaMDReport.forEach((fields) => {
+            expect(JSON.stringify(xlxsData)).to.include(fields)
+        })
+    })
 })
 
 Then('I click on the Download button to download the report', () => {
