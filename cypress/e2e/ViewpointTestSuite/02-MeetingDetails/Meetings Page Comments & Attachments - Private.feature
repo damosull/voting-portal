@@ -51,11 +51,11 @@ Feature: Meeting Page Comments & Attachments - Private
     And I remove all existing comments
     When I set the privacy dropdown to "Private"
     And I attach a file to the comment
-    And I add a comment by mentioning user "CalpersAutomation External Admin"
+    And I add a comment by mentioning user "CalPERS | ExtAdmin Sagar Maheshwari"
     And I submit the comment
     Then A toast message appears for "COMMENT_WITH_ATTACHMENT_SAVED"
     And I should logout from the application
-    When I am logged in as the "CALPERS" User
+    When I am logged in as the "CALPERS_SAGAR" User
     And I navigate to the Meeting Details page for the saved meeting ID
     And I verify that all the relevant API calls for meeting details page are made
     Then I should see "0" comments on the UI
@@ -73,7 +73,7 @@ Feature: Meeting Page Comments & Attachments - Private
     And I save the changes to the comment
     Then A toast message appears for "COMMENT_UPDATED"
     And I should logout from the application
-    When I am logged in as the "CALPERS" User
+    When I am logged in as the "CALPERS_SAGAR" User
     And I navigate to the Meeting Details page for the saved meeting ID
     And I verify that all the relevant API calls for meeting details page are made
     Then I should see "1" comments on the UI

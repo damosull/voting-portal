@@ -481,7 +481,7 @@ Then('The {string} functionality is {string}', (permission_name, isAvailable) =>
 Then('I export the ballot status report', () => {
     meetingDetailsPage.exportButtonDropdown().click()
     meetingDetailsPage.exportBallotStatusReportButton().click()
-    meetingDetailsPage.pdfRadio().click()
+    meetingDetailsPage.xlsRadio().check({ force: true })
     meetingDetailsPage.exportButton().click()
 })
 

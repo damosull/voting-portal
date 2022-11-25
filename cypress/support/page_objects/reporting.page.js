@@ -5,9 +5,9 @@ class reportingPage {
     getLoadingSpinner() { return cy.get('.k-loading-text') }
     toastMessage() { return cy.get('.toast-message') }
     notificationLink() { return cy.get('.notify-count') }
+    inboxContainer() { return cy.get('#inbox-results').parent() }
     inboxContainerDiv() { return cy.get('#inbox-container') }
-    inboxContainerMessages() { return cy.get('#inbox-container .msg-txt', { timeout: 15000 }) }
-    inboxContainer() { return cy.get('#inbox-container .msg-txt', { timeout: 180000 }) }
+    inboxContainerMessages(timeout) { return cy.get('#inbox-container .msg-txt', { timeout: timeout }) }
     inboxRows() { return cy.get('#inbox-container [data-pagelink1]') }
     containsText(text) { return cy.contains(text) }
     downloadButton() { return cy.get('#rpt-download-btn') }
@@ -26,7 +26,6 @@ class reportingPage {
     dateRangePastDaysInput() { return cy.get(':nth-child(2) > .k-widget > .k-numeric-wrap > .k-formatted-value') }
     columnsSeventhCheckbox() { return cy.get(':nth-child(7) > .report-column-ccb > .checkbox > .ccb') }
     reportColumns() { return cy.get('#rpt-columns') }
-    //applyButton() { return cy.get('.btn-container > .darkgrey') }
     applyButton() { return cy.get('.btn-container.clearfix').contains('Apply') }
     selectedCheckbox() { return cy.get('[data-bind="foreach: Columns.SelectedFixed"] > :nth-child(28) > td > .checkbox > .ccb') }
     saveNameInput() { return cy.get('#popupTextContainer') }
@@ -41,8 +40,7 @@ class reportingPage {
     subscriptionTableData() { return cy.get('#current-subscribers-list > tbody > tr > td') }
     deleteSubscriptionLink() { return cy.get('#current-subscribers-list > tbody > tr > td > i[class="fa fa-times"]') }
     meetingDateDropdown() { return cy.get('.MeetingDateEditor') }
-    meetingDateRange() { return cy.get('#date-range-target-MeetingDateRange') }
-    meetingDateRangeEditor() { return cy.get('.MeetingDateRangeEditor') }
+    meetingDateRange() { return cy.get("div[id^='date-range-target-']") }
     dateCriteriaDropdown() { return cy.get('#report-criteria-controls >div > h4') }
     meetingDateModal() { return cy.get('#date-range-target-MeetingDate') }
     dateCriteriaBetweenRadio() { return cy.get('[type="radio"]#rdo-date-range-discrete-InteractionDate') }
@@ -52,8 +50,8 @@ class reportingPage {
     existingConfigurationsLink() { return cy.get('#workflow-filter-list > div > div > ul > li:nth-child(1) > a').first() }
     deleteConfigurationsLink() { return cy.get('.dark-red.small.delete-btn') }
     reportExtensionSelect() { return cy.get('#report-adhoc-commands-container > div > select') }
-    policyIdEditor() { return cy.get('.PolicyIdEditor') }
-    policyIdCheckbox() { return cy.get('input[name="opt-PolicyId"]') }
+    policyIdEditorModal() { return cy.get('#single-select-target-PolicyId') }
+    policyIdRadio() { return cy.get('input[name="opt-PolicyId"]') }
     policyIdUpdate() { return cy.get('#btn-update-PolicyId') }
     reportId() { return cy.get('#rpt-report') }
     reportSubscriptions() { return cy.get('#rpt-subscriptions') }
@@ -73,8 +71,6 @@ class reportingPage {
     reportPresentationHeader() { return cy.get('#ava-presentation-header') }
     reportPresentationFooter() { return cy.get('#ava-presentation-footer') }
     
-    
-
 }
 
 module.exports = new reportingPage()

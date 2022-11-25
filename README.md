@@ -85,4 +85,4 @@ To run the tests within a docker container, you need the below:
 - Ensure you have the latest version of Docker Desktop Installed and running
 - Run `docker build -t votingportal-cypress .` . This will build the image
 - Now run `docker run votingportal-cypress --config specPattern=cypress/e2e/SmokeTests/*.feature`. You can replace the specPattern with your choice of test suite.
-- You can also use docker-compose to run a loadtest. Make required amendments to the `command` parameter on the docker-compose file, and then run `docker compose up --build --scale cypress=1`. You can amend the number of parallel instances you want to run.
+- You can also use docker-compose to run a loadtest. A loadtest readme is available in the `readmes` folder

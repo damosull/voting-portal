@@ -2,10 +2,22 @@ pool:
   name: 'VMSS - DEVOPS - QAUAT'
   
 parameters:
-- name: numInstance
-  displayName: "Number of Parallel Instances"
+- name: numInstancesAquaVia
+  displayName: "Parallel Sessions on Aqua Via Workflow Page"
   type: number
-  default: 1
+  default: 0
+- name: numInstancesAquaBypass
+  displayName: "Parallel Sessions on Aqua Bypassing Workflow Page"
+  type: number
+  default: 0
+- name: numInstancesUltraVia
+  displayName: "Parallel Sessions on Ultra Via Workflow Page"
+  type: number
+  default: 0
+- name: numInstancesUltraBypass
+  displayName: "Parallel Sessions on Ultra Bypassing Workflow Page"
+  type: number
+  default: 30
 - name: newImage
   displayName: "New Image?"
   type: boolean
@@ -31,7 +43,7 @@ jobs:
     displayName: 'Run Cypress Load'
     inputs:       
       targetType: 'inline'
-      script: 'docker compose up --scale cypress=${{ parameters.numInstance }}'
+      script: 'docker compose up --scale cypress-av=${{ parameters.numInstancesAquaVia }} --scale cypress-ab=${{ parameters.numInstancesAquaBypass }} --scale cypress-uv=${{ parameters.numInstancesUltraVia }} --scale cypress-ub=${{ parameters.numInstancesUltraBypass }}'
 
   - task: Bash@3
     displayName: 'Remove Exited Cypress Containers'

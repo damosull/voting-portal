@@ -1,6 +1,6 @@
 @meeting @meeting-details
 Feature: Meetings related smoke tests
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56793
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56793
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56824
   @56824

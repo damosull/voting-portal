@@ -1,9 +1,26 @@
 version: '3'
 services:
-  cypress:
+  #Service to run voting load on Aqua by selecting meetings via Workflow page 
+  cypress-av:
     build: .
     ipc: host
     image: votingportal-cypress
-    #Options for specPattern in below command - cypress/loadtest/loadtest-viaWorkflow.feature OR cypress/loadtest/loadtest-bypassWorkflow.feature
-    #Options for baseUrl in below command - https://viewpoint.aqua.glasslewis.com OR https://viewpoint.ultra.glasslewis.com
+    command: "--config reporter=spec,screenshotOnRunFailure=false,retries=0,specPattern=cypress/loadtest/loadtest-viaWorkflow.feature,baseUrl=https://viewpoint.aqua.glasslewis.com"
+  #Service to run voting load on Aqua by selecting meetings bypassing Workflow page
+  cypress-ab:
+    build: .
+    ipc: host
+    image: votingportal-cypress
+    command: "--config reporter=spec,screenshotOnRunFailure=false,retries=0,specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,baseUrl=https://viewpoint.aqua.glasslewis.com"
+  #Service to run voting load on Ultra by selecting meetings via Workflow page
+  cypress-uv:
+    build: .
+    ipc: host
+    image: votingportal-cypress
+    command: "--config reporter=spec,screenshotOnRunFailure=false,retries=0,specPattern=cypress/loadtest/loadtest-viaWorkflow.feature,baseUrl=https://viewpoint.ultra.glasslewis.com"
+  #Service to run voting load on Ultra by selecting meetings bypassing Workflow page
+  cypress-ub:
+    build: .
+    ipc: host
+    image: votingportal-cypress
     command: "--config reporter=spec,screenshotOnRunFailure=false,retries=0,specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,baseUrl=https://viewpoint.ultra.glasslewis.com"

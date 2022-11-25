@@ -506,54 +506,6 @@ Cypress.Commands.add('saveFilter', (filterName) => {
   cy.get('#apprise-btn-confirm').click();
 });
 
-Cypress.Commands.add('assertFileProperties', (configName, fileExtension) => {
-  cy.get('#inbox-container [data-pagelink1]')
-    .first()
-    .invoke('attr', 'data-pagelink1')
-    .should('contain', '/Downloads/DownloadExportFromUrl/?requestID=')
-    .then((downloadLink) => {
-      cy.request(downloadLink).then((resp) => {
-        expect(resp.status).to.eq(200);
-        expect(resp.headers)
-          .to.have.property('content-disposition')
-          .contains(`attachment; filename=${configName}.${fileExtension}`);
-        if (fileExtension == 'pdf') {
-          expect(resp.headers).to.have.property('content-type').eql('application/pdf');
-        } else if (fileExtension == 'xls') {
-          expect(resp.headers).to.have.property('content-type').eql('application/vnd.ms-excel');
-        } else if (fileExtension == 'xlsx') {
-          expect(resp.headers)
-            .to.have.property('content-type')
-            .eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        } else {
-          expect(resp.headers).to.have.property('content-type').eql('text/csv');
-        }
-      });
-    });
-});
-
-Cypress.Commands.add('downloadFileLocal', (report) => {
-  cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport');
-  cy.intercept('GET', '**/Downloads/DownloadExportFromUrl/?requestID=**').as('DownloadReport');
-  cy.intercept('GET', '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**').as('LoadInbox');
-
-  cy.get('#inbox-container .msg-txt').first().click();
-  // The following two waits are for the API's triggered by the donwload
-  cy.wait('@InboxReport');
-  cy.wait('@DownloadReport');
-
-  /* In some cases the notify-count click fails in the pipeline. I'm adding this click to ensure the modal is closed before opening again
-   The only "common" option I found between all the reports is the report name. So if the parameter is sent then it will click in the 
-   appropriate report. If not sent it will carry on with the normal flow
-  */
-  if (report) {
-    cy.selectReportType(report);
-  }
-
-  cy.get('.notify-count').click();
-  cy.wait('@LoadInbox');
-});
-
 Cypress.Commands.add('executeQuery', (query) => {
   // Execute the query only if a SELECT is sent as a parameter
   if (query.includes('SELECT')) {

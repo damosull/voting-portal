@@ -52,7 +52,7 @@ Feature: Customised Fields
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4575
     @4575
     Scenario: Verify a user can create a Custom Field Type Multi Select with Existing Workflow field Label Name & 2 same Label Names are displayed in Workflow grid & in Add Criteria dropdown
-        When I am logged in as the "ROBECO" User
+        When I am logged in as the "ROYALLONDON" User
         And I navigate to the customer details page
         And I select Custom Fields from The Customer Settings panel
         And I click Add Custom Field
