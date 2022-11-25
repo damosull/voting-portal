@@ -39,12 +39,16 @@ There was no requirement for the quality guild to produce any metrics for the lo
 You can run this loadtest via [this](https://dev.azure.com/glasslewis/Development/_build?definitionId=407) pipeline. Steps below:
 1. Launch the above URL.
 2. Click on `Run Pipeline`
-3. There are three parameters to this pipeline:
-    1. `Branch/tag` - Choose master to run with default settings (environment is ultra and script is bypass workflow). For a customized run, create a branch and make required changes to the command on the docker-compose.yml file.
-    2. `Number of Parallel Instances` - Choose the number of parallel users you want to hit the environment. Enter a number between 1 and 30
-    3. `New Image?` - keep this checked so that the pipeline uses the latest code to run tests
+3. There are 6 parameters to this pipeline:
+    1. `Branch/tag` - Let this be master to use latest stable changes.
+    2. `Parallel Sessions on Aqua Via Workflow Page` - Enter number of parallel users for this setup.
+    3. `Parallel Sessions on Aqua Bypassing Workflow Page` - Enter number of parallel users for this setup.
+    4. `Parallel Sessions on Ultra Via Workflow Page` - Enter number of parallel users for this setup.
+    5. `Parallel Sessions on Ultra Bypassing Workflow Page` - Enter number of parallel users for this setup.
+    6. `New Image?` - keep this checked so that the pipeline uses the latest code to run tests
 4. Click on `Run`
 
+Please note: The total number of parallel users should not be greater than 30, as thats what the VM is capable of.
 
 ## How to monitor the load?
 Always ensure that the load is doing what it's supposed to do by checking the logs. Once you run the pipeline, it will take about 5 minutes for the load to start on the test environment.
