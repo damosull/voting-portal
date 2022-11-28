@@ -78,5 +78,5 @@ Feature: Reporting related smoke tests
         Then A toast message appears for "EXPORT_INITIATED"
         When I click on the notification toolbar
         And I "verify export ready" the report for "Workflow Export"
-        And I verify the report name and headers for Workflow Export Report
+        And I verify the report name and headers for Workflow Export Report "csv"
         And I should logout from the application

@@ -271,8 +271,8 @@ Then('I should be able to verify that the column {string} is {string}', (columnN
 Then('I generate a request for Workflow Export as {string} for {string} fields', (extension, fields) => {
     workflowPage.exportWorkflowDropdown().click()
     workflowPage.exportResultsLink().click()
-    extension.includes('csv') ? cy.get('#csv').check() : cy.get('#html').check()
-    fields.includes('all') ? cy.get('#all').check() : cy.get('#displayed').check()
+    extension.includes('csv') ? cy.get('#csv').check({ force: true }) : cy.get('#html').check({ force: true })
+    fields.includes('all') ? cy.get('#all').check({ force: true }) : cy.get('#displayed').check({ force: true })
     workflowPage.exportResultsButton().click()
 })
 

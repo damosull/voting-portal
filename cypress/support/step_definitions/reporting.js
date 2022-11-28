@@ -270,13 +270,23 @@ Then('I verify the report name and a few columns for Voting Activity Report', ()
     })
 })
 
-Then('I verify the report name and headers for Workflow Export Report', () => {
-    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/DownloadExportFromUrl/?requestID=').then((downloadLink) => {
+Then('I verify the report name and headers for Workflow Export Report {string}', (extension) => {
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/Download').then((downloadLink) => {
         cy.request(downloadLink).then((resp) => {
             expect(resp.status).to.eq(200)
-            expect(resp.headers).to.have.property('content-disposition').contains(`filename=Upcoming-Meetings.csv`)
-            expect(resp.headers).to.have.property('content-type').eql('text/csv')
-            expect(resp.body).include('Company Name,Agenda Key,Policy ID,Control Number,Decision Status,Security Country of Trade,Deadline Date,Meeting Date,Record Date,Meeting Type,Shares,Ballot Blocking')
+            if (extension == 'csv') {
+                expect(resp.headers).to.have.property('content-disposition').contains(`filename=Upcoming-Meetings.csv`)
+                expect(resp.headers).to.have.property('content-type').eql('text/csv')
+                expect(resp.body).include('Company Name,Agenda Key,Policy ID,Control Number,Decision Status,Security Country of Trade,Deadline Date,Meeting Date,Record Date,Meeting Type,Shares,Ballot Blocking')
+            } else if (extension == 'html') {
+                expect(resp.headers).to.have.property('content-type').contains('text/html')
+                expect(resp.body).include('Company Name')
+                expect(resp.body).include('Agenda Key')
+                expect(resp.body).include('Decision Status')
+                expect(resp.body).include('Deadline Date')
+                expect(resp.body).include('Meeting Date')
+                expect(resp.body).include('Meeting Type')
+            }
         })
     })
 })
