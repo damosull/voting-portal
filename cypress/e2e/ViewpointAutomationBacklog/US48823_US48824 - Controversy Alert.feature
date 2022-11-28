@@ -9,7 +9,7 @@ Feature: Controversy Alert
     Then I can view the workflow page
     When I have added the column "Controversy Alert"
     And I can view the workflow page
-    And I select "2" meetings from the top
+    And I select 2 meetings from the top
     And I scroll to the end of the meetings table
     Then I should be able to see a "column" named "Controversy Alert"
     When I select "No" from the Quick Pick dropdown

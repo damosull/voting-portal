@@ -222,7 +222,7 @@ Then('I filter for meetings without ballots', () => {
     workflowPage.waitForWorkflowPageLoad()
 })
 
-When('I select {string} meetings from the top', (noOfMeetings) => {
+When('I select {int} meetings from the top', (noOfMeetings) => {
     for (var i = 0; i < Number(noOfMeetings); i++) {
         workflowPage.meetingCheckbox().eq(i).should('not.be.visible').check({ force: true })
     }
