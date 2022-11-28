@@ -74,7 +74,7 @@ Feature: Reporting related smoke tests
         Then I can view the workflow page
         And I remove all existing selected criteria
         When I select 2 meetings from the top
-        And I generate a request for Workflow Export
+        And I generate a request for Workflow Export as "csv" for "currently displayed" fields
         Then A toast message appears for "EXPORT_INITIATED"
         When I click on the notification toolbar
         And I "verify export ready" the report for "Workflow Export"
