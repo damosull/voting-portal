@@ -7,20 +7,8 @@ If you want to run automated tests on Viewpoint, but have little or no idea on h
 
 To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline`, put the command suggested below under `Build Parameters` and click `Run`
 
-## Running tests from Viewpoint Regression Test Suite
-- To run specific tests, mention the Azure test IDs in this command. For example, if I want to run test case ID 28722 and 40424, the command to use in the `Build Parameters` field would be `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/**/*.feature' --env tags='@28722 or @40724'`
-- To run multiple tests, just add those test IDs in the tags section of the above command, eg: `tags='@xyz or @abc or @lmn or @pqr or @fgh'`
-
-## Running tests from Automation Backlog Test Suite
-- To run specific tests, mention the Azure test IDs in this command. For example, if I want to run test case ID 50530, the command to use in the `Build Parameters` field would be `npx cypress run --config specPattern='cypress/e2e/ViewpointAutomationBacklog/*.feature' --env tags='@50530'`
-- To run multiple tests, just add those test IDs in the tags section of the above command, eg: `tags='@xyz or @abc or @lmn or @pqr or @fgh'`
-
-## Running tests from Viewpoint Automated Smoke Tests
-- To run specific tests, mention the tag found on the feature file. For example, if I want to run test cases for meeting details page, the command to use in the `Build Parameters` field would be `npx cypress run --config specPattern='cypress/e2e/SmokeTests/*.feature' --env tags='@meeting-details'`
-- To run all smoke tests, use the command: `npx cypress run --config specPattern='cypress/e2e/SmokeTests/*.feature'`
-
-## Running tests from any folder
-- To run specific tests without worrying about the test suite, mention the Azure test IDs in this command. For example, if I want to run test case ID 28722 and 50530, the command to use in the `Build Parameters` field would be `npx cypress run --config specPattern='**/*.feature' --env tags='@28722 or @50530'`
+## Running any test case from Azure DevOps
+- To run specific tests where you know the test ID(can be seen in the test URL), mention the Azure test IDs in this command. For example, if I want to run test case ID 28722 and 50530, the command to use in the `Build Parameters` field would be `npx cypress run --config specPattern='**/*.feature' --env tags='@28722 or @50530'`
 - To run multiple tests, just add those test IDs in the tags section of the above command, eg: `tags='@xyz or @abc or @lmn or @pqr or @fgh'`
 
 <br/><br/><br/>
