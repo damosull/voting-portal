@@ -11,7 +11,7 @@ Feature: Custom Fields
     And I filter for meetings without ballots
     And I have added the column <column_name>
     And I have added the column "Error Logged?"
-    When I select "5" meetings from the top
+    When I select 5 meetings from the top
     And I scroll to the end of the meetings table
     And I select <column_value> from the Quick Pick dropdown
     And I navigate to the workflow page

@@ -2,7 +2,7 @@ import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import dayjs from "dayjs"
 import workflowPage from "../page_objects/workflow.page"
 const constants = require('../constants')
-let meetingName
+let wfData = [], meetingName
 
 Then('I can view the workflow page', () => {
     workflowPage.getPageHeading().contains('Upcoming Meetings')
@@ -222,7 +222,7 @@ Then('I filter for meetings without ballots', () => {
     workflowPage.waitForWorkflowPageLoad()
 })
 
-When('I select {string} meetings from the top', (noOfMeetings) => {
+When('I select {int} meetings from the top', (noOfMeetings) => {
     for (var i = 0; i < Number(noOfMeetings); i++) {
         workflowPage.meetingCheckbox().eq(i).should('not.be.visible').check({ force: true })
     }
@@ -268,9 +268,11 @@ Then('I should be able to verify that the column {string} is {string}', (columnN
     }
 })
 
-Then('I generate a request for Workflow Export', () => {
+Then('I generate a request for Workflow Export as {string} for {string} fields', (extension, fields) => {
     workflowPage.exportWorkflowDropdown().click()
     workflowPage.exportResultsLink().click()
+    extension.includes('csv') ? cy.get('#csv').check({ force: true }) : cy.get('#html').check({ force: true })
+    fields.includes('all') ? cy.get('#all').check({ force: true }) : cy.get('#displayed').check({ force: true })
     workflowPage.exportResultsButton().click()
 })
 
@@ -589,7 +591,7 @@ When('I apply the System Watch list for {string}', (client) => {
 })
 
 Then('all the results on the table should belong to "Calpers"', () => {
-    workflowPage.allTableRows().then(($rows) => {
+    workflowPage.tableRows().then(($rows) => {
         $rows.each((index, value) => {
             const wlist = Cypress.$(value).find('td#metaname-SystemWatchlistsName > div > span').text()
             if (wlist === '') {
@@ -619,7 +621,7 @@ When('I apply the System Watch list', () => {
 })
 
 Then('all the results on the table should show relevant System Watch list and Meeting name', () => {
-    workflowPage.allTableRows().then(($rows) => {
+    workflowPage.tableRows().then(($rows) => {
         $rows.each((index, value) => {
             const mname = Cypress.$(value).find(`td#metaname-CompanyName > div > span > a`).text()
             if (mname === meetingName) {
@@ -657,4 +659,20 @@ Then('I should be able to deselect the system watch list from the workflow page'
 
 Then('I can verify that the voted shares value matches the saved value', () => {
     workflowPage.votedSharesData().should('contain.text', Cypress.env('partialVoteNominalAmount'))
+})
+
+When('I save the data from row {int} on the workflow grid', (rowNo) => {
+    workflowPage.rowData(rowNo).each((index, value) => {
+        wfData[value] = Cypress.$(index).text().trim()
+    })
+})
+
+Then('I verify the Workflow Export Report contains data seen on the UI', () => {
+    workflowPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/Downloads/').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            wfData.forEach((value) => {
+                expect(resp.body).include(value)
+            })
+        })
+    })
 })

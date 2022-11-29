@@ -1,7 +1,4 @@
-trigger:
-  branches:
-    include:
-      - master
+trigger: none
 
 schedules:
   - cron: '0 8 * * 1-5'

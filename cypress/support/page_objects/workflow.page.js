@@ -4,6 +4,7 @@ class workflowPage {
     getPageBody() { return cy.get('body') }
     getLoadingSpinner() { return cy.get('.k-loading-text', { timeout: 90000 }) }
     getInputBox() { return cy.get('input') }
+    inboxRows() { return cy.get('#inbox-container [data-pagelink1]') }
     containsText(text) { return cy.contains(text) }
     toastMessage() { return cy.get('.toast-message') }
     workflowLink() { return cy.get('#workflow-link.active') }
@@ -36,7 +37,7 @@ class workflowPage {
     meetingsHorizontalScrollBar() { return cy.get('.mCSB_dragger_bar') }
     policyIdTableData() { return cy.get('table > tbody > tr > td:nth-child(4)') }
     controlNumberTableData() { return cy.get('table > tbody > tr > td:nth-child(5)') }
-    allTableRows() { return cy.get('table > tbody >tr') }
+    rowData(rowNo) { return cy.get(`table > tbody > tr:nth-child(${rowNo}) > td`) }
     policyIdColumnHeader() { return cy.get("th[data-field='PolicyTag'] a[class='k-link']") }
     controlNumberColumnHeader() { return cy.get("th[data-field='BallotControlNumber'] a[class='k-link']") }
     votedSharesData() { return cy.get("#metaname-VotedShares") }
