@@ -193,7 +193,7 @@ Feature: Report related tests
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
-    @37939 @2754
+    @37939
     Scenario: Generate Voting Activity Report, download and verify file headers
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page

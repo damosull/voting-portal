@@ -1,4 +1,4 @@
-Feature: Report related tests
+Feature: Ballot Vote Data
     #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9733
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/32357
