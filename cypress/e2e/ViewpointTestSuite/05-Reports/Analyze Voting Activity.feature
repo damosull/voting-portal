@@ -11,6 +11,7 @@ Feature: Analyze Voting Activity
         And I set the date range to the next or last 3 days
         And I expand the Configure Columns section
         Then I verify the default field list for current selection for Voting Activity Report
+        And I randomly wait between 5 and 8 seconds
         And I "save" the report for "Voting Activity"
         Then the report saved message appears
         When I click on the Download button to download the report
