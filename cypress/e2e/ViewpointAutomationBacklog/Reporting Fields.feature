@@ -142,7 +142,7 @@ Feature: Report related tests
         Given I am logged in as the "CHARLESSCHWAB" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Proxy Voting"
-        And I filter the report type to "xls"
+        And I filter the report type to "xlsx"
         And I select the past 2 days
         And I expand Vote Comparison and select GL Recs Against Mgmt
         Then I "save" the report for "Proxy Voting"

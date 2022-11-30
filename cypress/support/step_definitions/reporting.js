@@ -228,10 +228,10 @@ Then('I verify the report name and a few columns for Proxy Voting Report', () =>
         cy.request(downloadLink).then((resp) => {
             expect(resp.status).to.eq(200)
             expect(resp.headers).to.have.property('content-disposition').contains(`filename=ProxyVotingReport`)
-            expect(resp.headers).to.have.property('content-type').eql('application/vnd.ms-excel')
+            expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         })
     })
-    cy.parseXlsx(`cypress/downloads/ProxyVotingReport_${unixTime}.xls`).then((xlxsData) => {
+    cy.parseXlsx(`cypress/downloads/ProxyVotingReport_${unixTime}.xlsx`).then((xlxsData) => {
         columns_VotesPVreport.forEach((fields) => {
             expect(JSON.stringify(xlxsData)).to.include(fields)
         })
