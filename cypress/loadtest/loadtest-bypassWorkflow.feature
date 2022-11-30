@@ -1,7 +1,7 @@
 @loadtest
 Feature: Generate Load for Voting on Viewpoint bypassing Workflow page
 
-  Scenario Outline: Vote on a random meeting for a random user
+  Scenario Outline: Vote on a random meeting for a random user bypassing Workflow page
     Given I launch a random meeting for a random user
     Then I can view the Meeting Details page
     And I randomly wait between 4 and 8 seconds

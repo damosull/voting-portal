@@ -1,7 +1,7 @@
 @loadtest
 Feature: Generate Load for Voting on Viewpoint via Workflow page
 
-  Scenario Outline: Vote on a random meeting for a random user
+  Scenario Outline: Vote on a random meeting for a random user via Workflow page
     Given I am logged in as a random external user
     When I navigate to the workflow page
     Then I can view the workflow page
