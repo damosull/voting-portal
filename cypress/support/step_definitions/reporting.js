@@ -34,6 +34,9 @@ const columns_BallotVoteDataAvailableSelection = ['Account Group', 'Agenda ID', 
     'Proxy Contest', 'Proxy ID', 'Region', 'Rejected Reason', 'Reporting Group', 'Republish Date', 'Research Proposal ID', 'Research Publish Date', 'RFS',
     'Sector', 'Shares Held', 'Shares on Loan', 'Target Publication Date', 'Ticker', 'Unique Proposal ID', 'Vote Results Percentage', 'Vote Results Share Breakdown',
     'Voted', 'Watch Lists', 'Winning Rule', 'With or Against GlassLewis', 'With or Against Policy', 'Workflow Notes', 'Voting Group']
+const columns_VotingActivityCurrentSelection = ['Ballot Security ID', 'Company Name', 'Contested', 'Country of Inc', 'Deadline Date', 'GL Recommendation',
+    'Meeting Date', 'Meeting Type', 'MGMT Recommendation', 'Policy Recommendation', 'Proponent', 'Proposal Description', 'Proposal Number', 'Rationale',
+    'Record Date', 'Region', 'Security Country of Trade', 'Security Type', 'Share blocking', 'Shares', 'Shares Held', 'Shares on Loan', 'Vote Decision', 'Vote Status']
 
 
 When('I navigate to the Reporting page', () => {
@@ -444,7 +447,7 @@ Then('I expand Vote Comparison and select GL Recs Against Mgmt', () => {
 
 Then('I filter the report type to {string}', (extension) => {
     fileExtension = extension
-    reportingPage.reportId().children().find('select').select(fileExtension.toUpperCase())
+    reportingPage.reportId().children().find('select').should('be.visible').select(fileExtension.toUpperCase())
 })
 
 When('I select Decision Status Criteria', () => {
@@ -555,5 +558,11 @@ Then('I verify the default field list for current selection for Ballot Vote Data
 Then('I verify the default field list for available selection for Ballot Vote Data Report', () => {
     columns_BallotVoteDataAvailableSelection.forEach((fields) => {
         reportingPage.availableSelectionColumnCheckboxByLabel(fields).should('exist')
+    })
+})
+
+Then('I verify the default field list for current selection for Voting Activity Report', () => {
+    columns_VotingActivityCurrentSelection.forEach((fields) => {
+        reportingPage.currentSelectionColumnCheckboxByLabel(fields).should('exist')
     })
 })

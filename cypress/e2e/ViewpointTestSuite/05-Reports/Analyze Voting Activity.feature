@@ -9,12 +9,8 @@ Feature: Analyze Voting Activity
         And I navigate to the report type page for "Voting Activity"
         And I filter the report type to "xlsx"
         And I set the date range to the next or last 3 days
-        And I select Decision Status Criteria
-        And I select Voted criteria
-        And I add columns to the report
-        And I set the Footer under the Grouping & Presentation
-        And I set the Header under the Grouping & Presentation
-        And I add subscription to the report
+        And I expand the Configure Columns section
+        Then I verify the default field list for current selection for Voting Activity Report
         And I "save" the report for "Voting Activity"
         Then the report saved message appears
         When I click on the Download button to download the report
