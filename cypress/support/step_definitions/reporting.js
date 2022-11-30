@@ -37,8 +37,11 @@ Then('I select the {string} report', (reportType) => {
     reportingPage.getLoadingSpinner().should('not.exist')
 })
 
-Then('I can verify that the {string} column should {string}', (columnName, visibility) => {
+When('I expand the Configure Columns section', () => {
     reportingPage.configureColumnsDropdown().should('be.visible').click()
+})
+
+Then('I can verify that the {string} column should {string}', (columnName, visibility) => {
     if (visibility === 'be visible') {
         visibility = 'contain'
     } else {
