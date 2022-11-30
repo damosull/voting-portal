@@ -3,6 +3,7 @@ import dayjs from "dayjs"
 import reportingPage from "../page_objects/reporting.page"
 const constants = require('../constants')
 const unixTime = Math.floor(Date.now() / 1000)
+let filename, rnd, fileExtension = 'xlsx'
 const columns_BVDandPVreports = ['Proposal Summary', 'Mgmt Proposals Voted FOR', 'Mgmt Proposals Voted Against/Withhold',
     'Mgmt Proposals Voted Abstain', 'Mgmt Proposals With No Votes Cast', 'Mgmt Proposals Voted 1 Year',
     'Mgmt Proposals Voted 2 Years', 'Mgmt Proposals Voted 3 Years', 'ShrHldr Proposal Voted FOR',
@@ -21,7 +22,18 @@ const columns_ProxyVotingSummaryReport = ['Proxy Voting Summary', 'Report Date R
 const columns_VotingActivityReport = ['Meeting Statistics Report', 'Ballot Statistics Report', 'Proposal Statistics Report',
     'Proposal Category Report', 'Proposal Type Report', 'Test - Header']
 const columns_BallotStatusViaMDReport = ['Ballot Status Report', 'Decision Status', 'Vote Deadline Date', 'Vote Cast', 'Meeting Agenda']
-let filename, rnd, fileExtension = 'xlsx'
+const columns_BallotVoteDataMandatory = ['Company', 'Meeting Date', 'Proposal Label', 'Agenda Key', 'Country of Trade', 'CUSIP', 'Custom Policy',
+    'Customer Account ID', 'Meeting Type', 'Mgmt', 'Proponent', 'Proposal Text', 'Record Date', 'Shares Listed', 'Vote Decision', 'Customer Account Name']
+const columns_BallotVoteDataCurrentSelection = ['Company', 'Meeting Date', 'Proposal Label', 'Agenda Key', 'CINS', 'Country of Trade', 'CUSIP', 'Custom Policy',
+    'Customer Account ID', 'For Or Against Mgmt', 'GL Reco', 'Ballot Blocking', 'Ballot Status', 'Control Number Key', 'Issue Code', 'Issue Code Category', 'Meeting Note',
+    'Meeting Type', 'Mgmt', 'Proponent', 'Proposal Order By', 'Proposal Text', 'Rationale', 'Record Date', 'Shares Listed', 'Vote Decision', 'Customer Account Name']
+const columns_BallotVoteDataAvailableSelection = ['Account Group', 'Agenda ID', 'Assignee', 'Ballot Created Date', 'Ballot Creation', 'Ballot ID',
+    'Ballot Voted Date', 'Company ID', 'Country of Origin', 'Custodian Key', 'Custodian Name', 'Custodian Account Number', 'Deadline Date', 'Decision Status',
+    'Director ID', 'General Approach', 'Industry', 'ISIN', 'Is Shareholder Proposal', 'Issue Code Description', 'Job Number', 'Last Instructed By',
+    'Last Instructed Date', 'Last Voted By', 'Meeting ID', 'Ownership Date', 'Ownership Percentage', 'People ID', 'Policy ID', 'Policy Rec Change Date',
+    'Proxy Contest', 'Proxy ID', 'Region', 'Rejected Reason', 'Reporting Group', 'Republish Date', 'Research Proposal ID', 'Research Publish Date', 'RFS',
+    'Sector', 'Shares Held', 'Shares on Loan', 'Target Publication Date', 'Ticker', 'Unique Proposal ID', 'Vote Results Percentage', 'Vote Results Share Breakdown',
+    'Voted', 'Watch Lists', 'Winning Rule', 'With or Against GlassLewis', 'With or Against Policy', 'Workflow Notes', 'Voting Group']
 
 
 When('I navigate to the Reporting page', () => {
@@ -526,4 +538,22 @@ Then('The notification dropdown {string} contain a notification mentioning {stri
     isVisible = isVisible.includes('not') ? 'not.exist' : 'exist'
     reportingPage.notificationLink().click()
     reportingPage.inboxContainerDiv().contains(content).should(isVisible)
+})
+
+Then('I verify that the mandatory fields cannot be removed from the configuration for Ballot Vote Data Report', () => {
+    columns_BallotVoteDataMandatory.forEach((fields) => {
+        reportingPage.columnCheckboxByLabel(fields).should('be.disabled')
+    })
+})
+
+Then('I verify the default field list for current selection for Ballot Vote Data Report', () => {
+    columns_BallotVoteDataCurrentSelection.forEach((fields) => {
+        reportingPage.currentSelectionColumnCheckboxByLabel(fields).should('exist')
+    })
+})
+
+Then('I verify the default field list for available selection for Ballot Vote Data Report', () => {
+    columns_BallotVoteDataAvailableSelection.forEach((fields) => {
+        reportingPage.availableSelectionColumnCheckboxByLabel(fields).should('exist')
+    })
 })

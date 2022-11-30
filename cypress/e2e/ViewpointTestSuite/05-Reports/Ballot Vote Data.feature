@@ -7,5 +7,8 @@ Feature: Report related tests
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Vote Data"
-        
-        #And I should logout from the application
+        And I expand the Configure Columns section
+        Then I verify that the mandatory fields cannot be removed from the configuration for Ballot Vote Data Report
+        And I verify the default field list for current selection for Ballot Vote Data Report
+        And I verify the default field list for available selection for Ballot Vote Data Report
+        And I should logout from the application
