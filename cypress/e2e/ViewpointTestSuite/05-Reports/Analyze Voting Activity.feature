@@ -4,7 +4,7 @@ Feature: Analyze Voting Activity
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2854
     @2854
     Scenario: Verify External User can download the Excel Ad-hoc Report from the Notification Toolbar
-        Given I am logged in as the "CALPERS" User
+        Given I am logged in as the "CHARLESSCHWAB" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Voting Activity"
         And I filter the report type to "xlsx"
