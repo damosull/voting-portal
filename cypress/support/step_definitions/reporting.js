@@ -76,9 +76,8 @@ Then('I verify that all the relevant API calls for reporting page are made', () 
 })
 
 Then('I click on the notification toolbar', () => {
-    cy.reload()
     reportingPage.notificationLink().click()
-    reportingPage.inboxContainer().invoke('attr', 'style', 'display: block')
+    //reportingPage.inboxContainer().invoke('attr', 'style', 'display: block')
     reportingPage.inboxContainer().should('have.css', 'display', 'block')
 })
 
@@ -320,6 +319,19 @@ Then('I verify the report name and a few columns for Ballot Status Report genera
     cy.parseXlsx(`cypress/downloads/BallotStatusReport.xls`).then((xlxsData) => {
         columns_BallotStatusViaMDReport.forEach((fields) => {
             expect(JSON.stringify(xlxsData)).to.include(fields)
+        })
+    })
+})
+
+Then('I verify the downloaded {string} is a pdf and has some content', (reportName) => {
+    //Generate Report Name by fetching name from step definition. Eg: BallotReconciliationReport_1669283634
+    let reportConfigName = reportName.replaceAll(' ', '')
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/Download').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers).to.have.property('content-disposition').contains(`filename=${reportConfigName}`)
+            expect(resp.headers).to.have.property('content-type').eql('application/pdf')
+            expect(resp.body).to.have.length.greaterThan(1)
         })
     })
 })
