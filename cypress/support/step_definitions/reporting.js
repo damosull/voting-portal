@@ -20,7 +20,7 @@ const columns_PercentagesPVreport = ['Number of Proposals', 'Number of Countries
 const columns_ProxyVotingSummaryReport = ['Proxy Voting Summary', 'Report Date Range', 'Meeting Date', 'Proposal', 'Mgmt Rec',
     'ISIN', 'Country', 'Proponent']
 const columns_VotingActivityReport = ['Meeting Statistics Report', 'Ballot Statistics Report', 'Proposal Statistics Report',
-    'Proposal Category Report', 'Proposal Type Report', 'Test - Header']
+    'Proposal Category Report', 'Proposal Type Report']
 const columns_BallotStatusViaMDReport = ['Ballot Status Report', 'Decision Status', 'Vote Deadline Date', 'Vote Cast', 'Meeting Agenda']
 const columns_BallotVoteDataMandatory = ['Company', 'Meeting Date', 'Proposal Label', 'Agenda Key', 'Country of Trade', 'CUSIP', 'Custom Policy',
     'Customer Account ID', 'Meeting Type', 'Mgmt', 'Proponent', 'Proposal Text', 'Record Date', 'Shares Listed', 'Vote Decision', 'Customer Account Name']
