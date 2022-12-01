@@ -76,8 +76,8 @@ Then('I verify that all the relevant API calls for reporting page are made', () 
 })
 
 Then('I click on the notification toolbar', () => {
-    reportingPage.notificationLink().click()
-    //reportingPage.inboxContainer().invoke('attr', 'style', 'display: block')
+    reportingPage.notificationLink().click().wait(500)
+    reportingPage.inboxContainer().invoke('attr', 'style', 'display: block')
     reportingPage.inboxContainer().should('have.css', 'display', 'block')
 })
 

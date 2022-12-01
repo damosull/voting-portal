@@ -288,10 +288,10 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
           cy.wrap(myConfig).eq(index).click();
           cy.contains('Delete').click();
           cy.get('.toast-message').should('contain.text', messages.toast.REPORT_DELETED);
-          cy.get('.toast-message').should('not.exist');
         }
       });
     });
+  cy.get('.toast-message').should('not.exist');
 });
 
 Cypress.Commands.add('getAutomationUserIDFromDB', (user) => {
