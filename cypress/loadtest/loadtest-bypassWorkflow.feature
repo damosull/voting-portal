@@ -61,3 +61,8 @@ Feature: Generate Load for Voting on Viewpoint bypassing Workflow page
       | "run"      |
       | "run"      |
       | "run"      |
+      | "run"      |
+      | "run"      |
+      | "run"      |
+      | "run"      |
+      | "run"      |
