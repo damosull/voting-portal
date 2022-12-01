@@ -33,7 +33,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56826
   @56826
   Scenario: Verify user is able to filter meetings with recommendations available
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "CHARLESSCHWAB" User
     And I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria

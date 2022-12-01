@@ -70,7 +70,10 @@ class reportingPage {
     reportPresentationInputFooter() { return cy.get('#ava-presentation-input-footer') }
     reportPresentationHeader() { return cy.get('#ava-presentation-header') }
     reportPresentationFooter() { return cy.get('#ava-presentation-footer') }
-    
+    columnCheckboxByLabel(label) { return cy.get('.report-column-label').contains(new RegExp("^" + label + "$"), { timeout: 15000 }).scrollIntoView().prev() }
+    currentSelectionColumnCheckboxByLabel(label) { return cy.get('#rpt-selected-columns').find('.report-column-label').contains(new RegExp("^" + label + "$"), { timeout: 15000 }).scrollIntoView().prev() }
+    availableSelectionColumnCheckboxByLabel(label) { return cy.get('#rpt-available-columns').find('.report-column-label').contains(new RegExp("^" + label + "$"), { timeout: 15000 }).scrollIntoView().prev() }
+
 }
 
 module.exports = new reportingPage()

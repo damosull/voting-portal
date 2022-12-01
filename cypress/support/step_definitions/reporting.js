@@ -3,6 +3,7 @@ import dayjs from "dayjs"
 import reportingPage from "../page_objects/reporting.page"
 const constants = require('../constants')
 const unixTime = Math.floor(Date.now() / 1000)
+let filename, rnd, fileExtension = 'xlsx'
 const columns_BVDandPVreports = ['Proposal Summary', 'Mgmt Proposals Voted FOR', 'Mgmt Proposals Voted Against/Withhold',
     'Mgmt Proposals Voted Abstain', 'Mgmt Proposals With No Votes Cast', 'Mgmt Proposals Voted 1 Year',
     'Mgmt Proposals Voted 2 Years', 'Mgmt Proposals Voted 3 Years', 'ShrHldr Proposal Voted FOR',
@@ -19,9 +20,23 @@ const columns_PercentagesPVreport = ['Number of Proposals', 'Number of Countries
 const columns_ProxyVotingSummaryReport = ['Proxy Voting Summary', 'Report Date Range', 'Meeting Date', 'Proposal', 'Mgmt Rec',
     'ISIN', 'Country', 'Proponent']
 const columns_VotingActivityReport = ['Meeting Statistics Report', 'Ballot Statistics Report', 'Proposal Statistics Report',
-    'Proposal Category Report', 'Proposal Type Report', 'Test - Header']
+    'Proposal Category Report', 'Proposal Type Report']
 const columns_BallotStatusViaMDReport = ['Ballot Status Report', 'Decision Status', 'Vote Deadline Date', 'Vote Cast', 'Meeting Agenda']
-let filename, rnd, fileExtension = 'xlsx'
+const columns_BallotVoteDataMandatory = ['Company', 'Meeting Date', 'Proposal Label', 'Agenda Key', 'Country of Trade', 'CUSIP', 'Custom Policy',
+    'Customer Account ID', 'Meeting Type', 'Mgmt', 'Proponent', 'Proposal Text', 'Record Date', 'Shares Listed', 'Vote Decision', 'Customer Account Name']
+const columns_BallotVoteDataCurrentSelection = ['Company', 'Meeting Date', 'Proposal Label', 'Agenda Key', 'CINS', 'Country of Trade', 'CUSIP', 'Custom Policy',
+    'Customer Account ID', 'For Or Against Mgmt', 'GL Reco', 'Ballot Blocking', 'Ballot Status', 'Control Number Key', 'Issue Code', 'Issue Code Category', 'Meeting Note',
+    'Meeting Type', 'Mgmt', 'Proponent', 'Proposal Order By', 'Proposal Text', 'Rationale', 'Record Date', 'Shares Listed', 'Vote Decision', 'Customer Account Name']
+const columns_BallotVoteDataAvailableSelection = ['Account Group', 'Agenda ID', 'Assignee', 'Ballot Created Date', 'Ballot Creation', 'Ballot ID',
+    'Ballot Voted Date', 'Company ID', 'Country of Origin', 'Custodian Key', 'Custodian Name', 'Custodian Account Number', 'Deadline Date', 'Decision Status',
+    'Director ID', 'General Approach', 'Industry', 'ISIN', 'Is Shareholder Proposal', 'Issue Code Description', 'Job Number', 'Last Instructed By',
+    'Last Instructed Date', 'Last Voted By', 'Meeting ID', 'Ownership Date', 'Ownership Percentage', 'People ID', 'Policy ID', 'Policy Rec Change Date',
+    'Proxy Contest', 'Proxy ID', 'Region', 'Rejected Reason', 'Reporting Group', 'Republish Date', 'Research Proposal ID', 'Research Publish Date', 'RFS',
+    'Sector', 'Shares Held', 'Shares on Loan', 'Target Publication Date', 'Ticker', 'Unique Proposal ID', 'Vote Results Percentage', 'Vote Results Share Breakdown',
+    'Voted', 'Watch Lists', 'Winning Rule', 'With or Against GlassLewis', 'With or Against Policy', 'Workflow Notes', 'Voting Group']
+const columns_VotingActivityCurrentSelection = ['Ballot Security ID', 'Company Name', 'Contested', 'Country of Inc', 'Deadline Date', 'GL Recommendation',
+    'Meeting Date', 'Meeting Type', 'MGMT Recommendation', 'Policy Recommendation', 'Proponent', 'Proposal Description', 'Proposal Number', 'Rationale',
+    'Record Date', 'Region', 'Security Country of Trade', 'Security Type', 'Share blocking', 'Shares', 'Shares Held', 'Shares on Loan', 'Vote Decision', 'Vote Status']
 
 
 When('I navigate to the Reporting page', () => {
@@ -37,8 +52,11 @@ Then('I select the {string} report', (reportType) => {
     reportingPage.getLoadingSpinner().should('not.exist')
 })
 
-Then('I can verify that the {string} column should {string}', (columnName, visibility) => {
+When('I expand the Configure Columns section', () => {
     reportingPage.configureColumnsDropdown().should('be.visible').click()
+})
+
+Then('I can verify that the {string} column should {string}', (columnName, visibility) => {
     if (visibility === 'be visible') {
         visibility = 'contain'
     } else {
@@ -58,8 +76,7 @@ Then('I verify that all the relevant API calls for reporting page are made', () 
 })
 
 Then('I click on the notification toolbar', () => {
-    cy.reload()
-    reportingPage.notificationLink().click()
+    reportingPage.notificationLink().click().wait(500)
     reportingPage.inboxContainer().invoke('attr', 'style', 'display: block')
     reportingPage.inboxContainer().should('have.css', 'display', 'block')
 })
@@ -213,10 +230,10 @@ Then('I verify the report name and a few columns for Proxy Voting Report', () =>
         cy.request(downloadLink).then((resp) => {
             expect(resp.status).to.eq(200)
             expect(resp.headers).to.have.property('content-disposition').contains(`filename=ProxyVotingReport`)
-            expect(resp.headers).to.have.property('content-type').eql('application/vnd.ms-excel')
+            expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         })
     })
-    cy.parseXlsx(`cypress/downloads/ProxyVotingReport_${unixTime}.xls`).then((xlxsData) => {
+    cy.parseXlsx(`cypress/downloads/ProxyVotingReport_${unixTime}.xlsx`).then((xlxsData) => {
         columns_VotesPVreport.forEach((fields) => {
             expect(JSON.stringify(xlxsData)).to.include(fields)
         })
@@ -302,6 +319,19 @@ Then('I verify the report name and a few columns for Ballot Status Report genera
     cy.parseXlsx(`cypress/downloads/BallotStatusReport.xls`).then((xlxsData) => {
         columns_BallotStatusViaMDReport.forEach((fields) => {
             expect(JSON.stringify(xlxsData)).to.include(fields)
+        })
+    })
+})
+
+Then('I verify the downloaded {string} is a pdf and has some content', (reportName) => {
+    //Generate Report Name by fetching name from step definition. Eg: BallotReconciliationReport_1669283634
+    let reportConfigName = reportName.replaceAll(' ', '')
+    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/Download').then((downloadLink) => {
+        cy.request(downloadLink).then((resp) => {
+            expect(resp.status).to.eq(200)
+            expect(resp.headers).to.have.property('content-disposition').contains(`filename=${reportConfigName}`)
+            expect(resp.headers).to.have.property('content-type').eql('application/pdf')
+            expect(resp.body).to.have.length.greaterThan(1)
         })
     })
 })
@@ -429,7 +459,7 @@ Then('I expand Vote Comparison and select GL Recs Against Mgmt', () => {
 
 Then('I filter the report type to {string}', (extension) => {
     fileExtension = extension
-    reportingPage.reportId().children().find('select').select(fileExtension.toUpperCase())
+    reportingPage.reportId().children().find('select').should('be.visible').select(fileExtension.toUpperCase())
 })
 
 When('I select Decision Status Criteria', () => {
@@ -523,4 +553,28 @@ Then('The notification dropdown {string} contain a notification mentioning {stri
     isVisible = isVisible.includes('not') ? 'not.exist' : 'exist'
     reportingPage.notificationLink().click()
     reportingPage.inboxContainerDiv().contains(content).should(isVisible)
+})
+
+Then('I verify that the mandatory fields cannot be removed from the configuration for Ballot Vote Data Report', () => {
+    columns_BallotVoteDataMandatory.forEach((fields) => {
+        reportingPage.columnCheckboxByLabel(fields).should('be.disabled')
+    })
+})
+
+Then('I verify the default field list for current selection for Ballot Vote Data Report', () => {
+    columns_BallotVoteDataCurrentSelection.forEach((fields) => {
+        reportingPage.currentSelectionColumnCheckboxByLabel(fields).should('exist')
+    })
+})
+
+Then('I verify the default field list for available selection for Ballot Vote Data Report', () => {
+    columns_BallotVoteDataAvailableSelection.forEach((fields) => {
+        reportingPage.availableSelectionColumnCheckboxByLabel(fields).should('exist')
+    })
+})
+
+Then('I verify the default field list for current selection for Voting Activity Report', () => {
+    columns_VotingActivityCurrentSelection.forEach((fields) => {
+        reportingPage.currentSelectionColumnCheckboxByLabel(fields).should('exist')
+    })
 })
