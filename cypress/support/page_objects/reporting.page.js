@@ -43,9 +43,10 @@ class reportingPage {
     meetingDateRange() { return cy.get("div[id^='date-range-target-']") }
     dateCriteriaDropdown() { return cy.get('#report-criteria-controls >div > h4') }
     meetingDateModal() { return cy.get('#date-range-target-MeetingDate') }
-    dateCriteriaBetweenRadio() { return cy.get('[type="radio"]#rdo-date-range-discrete-InteractionDate') }
-    dateCriteriaStartDate() { return cy.get('#discrete-date-start-InteractionDate') }
-    dateCriteriaEndDate() { return cy.get('#discrete-date-end-InteractionDate') }
+    dateCriteriaBetweenRadio() { return cy.get("input[id^='rdo-date-range-discrete']") }
+    dateCriteriaStartDate() { return cy.get("input[id^='discrete-date-start']").eq(0) }
+    dateCriteriaEndDate() { return cy.get("input[id^='discrete-date-end']") }
+    dateCriteriaStartDateSelect() { return cy.get("input[id^='discrete-date-start-MeetingDateRange_dateview']").find('.k-footer > a') }
     existingConfigurations() { return cy.get('#workflow-filter-list > div > div > ul > li') }
     existingConfigurationsLink() { return cy.get('#workflow-filter-list > div > div > ul > li:nth-child(1) > a').first() }
     deleteConfigurationsLink() { return cy.get('.dark-red.small.delete-btn') }
@@ -54,6 +55,7 @@ class reportingPage {
     policyIdRadio() { return cy.get('input[name="opt-PolicyId"]') }
     policyIdUpdate() { return cy.get('#btn-update-PolicyId') }
     reportId() { return cy.get('#rpt-report') }
+    reportCriteriaSection() { return cy.get('#rpt-criteria') }
     reportSubscriptions() { return cy.get('#rpt-subscriptions') }
     voteComparisonModal() { return cy.get('#vote-comparsion-target') }
     voteComparisonCheckboxes() { return cy.get('#vote-comparison-checkbox-group > div') }

@@ -97,13 +97,13 @@ Then('I set the date range to the next or last {int} days', (pastDays) => {
 })
 
 Then('I select the dates between {int} and {int} days from today', (start_date, end_date) => {
-    cy.wait('@CUSTOMER_NAME_SPECIAL')
-    let fromDate = dayjs().add(start_date, 'days').format('DD/MM/YYYY')
-    let toDate = dayjs().add(end_date, 'days').format('DD/MM/YYYY')
-    reportingPage.dateCriteriaDropdown().first().should('be.visible').click()
-    reportingPage.dateCriteriaBetweenRadio().check()
-    reportingPage.dateCriteriaStartDate().clear({ force: true }).type(fromDate, { force: true })
-    reportingPage.dateCriteriaEndDate().clear({ force: true }).type(toDate, { force: true })
+    let fromDate = dayjs().add(start_date, 'days').format('MM/DD/YYYY')
+    let toDate = dayjs().add(end_date, 'days').format('MM/DD/YYYY')
+    reportingPage.meetingDateRange().invoke('attr', 'style', 'display: block').wait(500)
+    reportingPage.dateCriteriaBetweenRadio().check().should('be.checked')
+    reportingPage.dateCriteriaStartDate().clear().type(fromDate)
+    reportingPage.dateCriteriaEndDate().clear().type(toDate)
+    reportingPage.containsText('Update').click()
 })
 
 Then('I select {string} column', (column) => {
@@ -577,4 +577,12 @@ Then('I verify the default field list for current selection for Voting Activity 
     columns_VotingActivityCurrentSelection.forEach((fields) => {
         reportingPage.currentSelectionColumnCheckboxByLabel(fields).should('exist')
     })
+})
+
+Then('I verify the default expanded and collapsed sections', () => {
+    reportingPage.reportId().find('h3').should('have.class','toggle')
+    reportingPage.reportCriteriaSection().find('h3').should('have.class','toggle')
+    reportingPage.reportColumns().find('h3').should('have.class','toggle closed')
+    reportingPage.reportPresentation().find('h3').should('have.class','toggle closed')
+    reportingPage.reportSubscriptions().find('h3').should('have.class','toggle closed')
 })
