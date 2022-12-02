@@ -46,7 +46,6 @@ class reportingPage {
     dateCriteriaBetweenRadio() { return cy.get("input[id^='rdo-date-range-discrete']") }
     dateCriteriaStartDate() { return cy.get("input[id^='discrete-date-start']") }
     dateCriteriaEndDate() { return cy.get("input[id^='discrete-date-end']") }
-    dateCriteriaStartDateSelect() { return cy.get("input[id^='discrete-date-start-MeetingDateRange_dateview']").find('.k-footer > a') }
     existingConfigurations() { return cy.get('#workflow-filter-list > div > div > ul > li') }
     existingConfigurationsLink() { return cy.get('#workflow-filter-list > div > div > ul > li:nth-child(1) > a').first() }
     deleteConfigurationsLink() { return cy.get('.dark-red.small.delete-btn') }
