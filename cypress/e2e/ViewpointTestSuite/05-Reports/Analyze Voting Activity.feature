@@ -44,3 +44,34 @@ Feature: Analyze Voting Activity
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Voting Activity Report
         And I should logout from the application
+
+
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2824
+    @2824
+    Scenario: Report Default Criteria for External user
+        Given I am logged in as the "CHARLESSCHWAB" User
+        When I navigate to the Reporting page
+        And I navigate to the report type page for "Voting Activity"
+        Then I verify the default expanded and collapsed sections
+        And I should be "able" to see "Past 90 Days" on the UI
+        When I select the dates between -4000 and -2 days from today
+        Then I should be "able" to see "Date Range cannot be longer than 10 years" on the UI
+        When I select the dates between -4 and 2 days from today
+        Then I should be "able" to see "Date range cannot include future dates" on the UI
+        And I should logout from the application
+
+
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2825
+    @2825
+    Scenario: Report Default Criteria for internal user
+        Given I am logged in as the "AUTOMATIONINTERNAL" User
+        When I navigate to the Reporting page
+        And I navigate to the report type page for "Voting Activity"
+        When I search for the customer "California Public Employee Retirement System"
+        Then I verify the default expanded and collapsed sections
+        And I should be "able" to see "Past 90 Days" on the UI
+        When I select the dates between -4000 and -2 days from today
+        Then I should be "able" to see "Date Range cannot be longer than 10 years" on the UI
+        When I select the dates between -4 and 2 days from today
+        Then I should be "able" to see "Date range cannot include future dates" on the UI
+        And I should logout from the application
