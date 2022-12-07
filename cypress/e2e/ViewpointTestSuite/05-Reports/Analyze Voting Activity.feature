@@ -2,7 +2,7 @@ Feature: Analyze Voting Activity
     #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9503
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2853
-    @2853
+    @2853 @focus
     Scenario: Verify External User can download the PDF Ad-hoc Report from the Notification Toolbar
         Given I am logged in as the "ROBECO" User
         When I navigate to the Reporting page
@@ -17,8 +17,11 @@ Feature: Analyze Voting Activity
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Voting Activity"
         When I download the first report from the notification toolbar
+        And I refresh the page
         And I click on the notification toolbar
-        Then I verify the downloaded "Voting Activity Report" is a pdf and has some content
+        Then I verify the downloaded report is a pdf and has some content
+        When I convert the downloaded PDF report to HTML
+        Then I verify the contents on the Voting Activity PDF Report
         And I should logout from the application
 
 

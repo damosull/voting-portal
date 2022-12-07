@@ -4,6 +4,10 @@ const xlsx = require('node-xlsx').default
 const sqlServer = require('cypress-sql-server')
 const Formatter = require('cucumber-json-report-formatter').Formatter
 const generateHTMLReport = require('./cypress/utils/cucumber-html-reporter')
+const readPdf = require('./cypress/utils/read-pdf')
+const { promisify } = require('util')
+const pdf2html = require('pdf2html')
+const toHtml = promisify(pdf2html.html)
 const createBundler = require("@bahmutov/cypress-esbuild-preprocessor")
 const preprocessor = require("@badeball/cypress-cucumber-preprocessor")
 const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild")
@@ -41,6 +45,11 @@ async function setupNodeEvents(on, config) {
       console.log(message)
       return null
     },
+  })
+
+  on('task', {
+    readPdf,
+    toHtml,
   })
 
   on('task', {
