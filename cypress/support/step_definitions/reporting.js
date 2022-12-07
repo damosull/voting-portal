@@ -3,7 +3,7 @@ import dayjs from "dayjs"
 import reportingPage from "../page_objects/reporting.page"
 const constants = require('../constants')
 const unixTime = Math.floor(Date.now() / 1000)
-let filename, rnd, fileExtension = 'xlsx'
+let reportConfigName, fileExtension = 'xlsx'
 const columns_BVDandPVreports = ['Proposal Summary', 'Mgmt Proposals Voted FOR', 'Mgmt Proposals Voted Against/Withhold',
     'Mgmt Proposals Voted Abstain', 'Mgmt Proposals With No Votes Cast', 'Mgmt Proposals Voted 1 Year',
     'Mgmt Proposals Voted 2 Years', 'Mgmt Proposals Voted 3 Years', 'ShrHldr Proposal Voted FOR',
@@ -115,7 +115,7 @@ Then('I select {string} column', (column) => {
 
 Then('I {string} the report for {string}', (action, reportName) => {
     //Generate Report Name by fetching name from step definition. Eg: BallotReconciliationReport_1669283634
-    let reportConfigName = `${reportName.replaceAll(' ', '')}Report_${unixTime}`
+    reportConfigName = `${reportName.replaceAll(' ', '')}Report_${unixTime}`
 
     if (action == 'save') {
         cy.saveFilter(reportConfigName)
@@ -287,6 +287,12 @@ Then('I verify the report name and a few columns for Voting Activity Report', ()
     })
 })
 
+Then('I verify the contents on the Voting Activity PDF Report', () => {
+    columns_VotingActivityReport.forEach((fields) => {
+        cy.contains(fields).should('be.visible')
+    })
+})
+
 Then('I verify the report name and headers for Workflow Export Report {string}', (extension) => {
     reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/Download').then((downloadLink) => {
         cy.request(downloadLink).then((resp) => {
@@ -323,9 +329,7 @@ Then('I verify the report name and a few columns for Ballot Status Report genera
     })
 })
 
-Then('I verify the downloaded {string} is a pdf and has some content', (reportName) => {
-    //Generate Report Name by fetching name from step definition. Eg: BallotReconciliationReport_1669283634
-    let reportConfigName = reportName.replaceAll(' ', '')
+Then('I verify the downloaded report is a pdf and has some content', () => {
     reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/Download').then((downloadLink) => {
         cy.request(downloadLink).then((resp) => {
             expect(resp.status).to.eq(200)
@@ -334,6 +338,14 @@ Then('I verify the downloaded {string} is a pdf and has some content', (reportNa
             expect(resp.body).to.have.length.greaterThan(1)
         })
     })
+})
+
+When('I convert the downloaded PDF report to HTML', () => {
+    cy.readFile(`cypress/downloads/${reportConfigName}.pdf`, 'utf8')
+    cy.task('toHtml', `cypress/downloads/${reportConfigName}.pdf`).then((html) => {
+        cy.document({ log: false }).invoke({ log: false }, 'write', html)
+    })
+    cy.screenshot({ capture: 'fullPage' })
 })
 
 Then('I click on the Download button to download the report', () => {
@@ -580,9 +592,9 @@ Then('I verify the default field list for current selection for Voting Activity 
 })
 
 Then('I verify the default expanded and collapsed sections', () => {
-    reportingPage.reportId().find('h3').should('have.class','toggle')
-    reportingPage.reportCriteriaSection().find('h3').should('have.class','toggle')
-    reportingPage.reportColumns().find('h3').should('have.class','toggle closed')
-    reportingPage.reportPresentation().find('h3').should('have.class','toggle closed')
-    reportingPage.reportSubscriptions().find('h3').should('have.class','toggle closed')
+    reportingPage.reportId().find('h3').should('have.class', 'toggle')
+    reportingPage.reportCriteriaSection().find('h3').should('have.class', 'toggle')
+    reportingPage.reportColumns().find('h3').should('have.class', 'toggle closed')
+    reportingPage.reportPresentation().find('h3').should('have.class', 'toggle closed')
+    reportingPage.reportSubscriptions().find('h3').should('have.class', 'toggle closed')
 })
