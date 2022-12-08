@@ -67,7 +67,7 @@ async function setupNodeEvents(on, config) {
 
   on('task', sqlServer.loadDBPlugin({
     userName: 'TestHarnessUser',
-    password: 'T3sthaUltr1arnessUs3r',
+    password: 't3$t4@12ness#Ultra#1619',
     server: 'MSSQL.ULTRA.DEV.GLASSLEWIS.NET',
     options: {
       database: 'GLP',
