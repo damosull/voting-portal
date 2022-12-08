@@ -36,6 +36,7 @@ Feature: Report related tests
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Ballot Status"
         When I download the first report from the notification toolbar
+        And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Ballot Status Report
         And I should logout from the application
@@ -111,6 +112,7 @@ Feature: Report related tests
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Meeting Summary"
         When I download the first report from the notification toolbar
+        And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Meeting Summary Report
         And I should logout from the application
@@ -131,6 +133,7 @@ Feature: Report related tests
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Policy"
         When I download the first report from the notification toolbar
+        And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Policy Report
         And I should logout from the application
@@ -152,6 +155,7 @@ Feature: Report related tests
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Proxy Voting"
         When I download the first report from the notification toolbar
+        And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Proxy Voting Report
         And I should logout from the application
@@ -172,6 +176,7 @@ Feature: Report related tests
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Proxy Voting Summary"
         When I download the first report from the notification toolbar
+        And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Proxy Voting Summary Report
         And I should logout from the application
@@ -214,6 +219,7 @@ Feature: Report related tests
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Voting Activity"
         When I download the first report from the notification toolbar
+        And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Voting Activity Report
         And I should logout from the application
