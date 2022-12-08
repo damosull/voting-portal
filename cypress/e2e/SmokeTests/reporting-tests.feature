@@ -24,6 +24,7 @@ Feature: Reporting related smoke tests
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Voting Activity"
         When I download the first report from the notification toolbar
+        And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Voting Activity Report
         And I should logout from the application
@@ -61,8 +62,9 @@ Feature: Reporting related smoke tests
         When I click on the notification toolbar
         And I "verify export ready" the report for "Ballot Status via MD Page"
         When I download the first report from the notification toolbar
+        And I refresh the page
         And I click on the notification toolbar
-        And I verify the report name and a few columns for Ballot Status Report generated via Meeting Details page
+        Then I verify the report name and a few columns for Ballot Status Report generated via Meeting Details page
         And I should logout from the application
 
 
