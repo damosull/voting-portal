@@ -148,7 +148,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56834
   @56834
   Scenario: Verify external user is able to add meeting note and post private comment
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "CHARLESSCHWAB" User
     And I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
