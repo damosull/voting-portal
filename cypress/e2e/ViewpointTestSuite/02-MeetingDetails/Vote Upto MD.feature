@@ -71,6 +71,8 @@ Feature: Vote Upto Meeting Date
     And I click on the Vote button
     And I handle the override pop-up if it exists
     Then the vote should be submitted successfully
+    When I navigate to the workflow page
+    Then I set the filter to Upcoming Meetings
     And I should logout from the application
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/20638
