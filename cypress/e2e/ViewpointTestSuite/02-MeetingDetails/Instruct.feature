@@ -21,7 +21,10 @@ Feature: Instruct
     When I should be able to use the Instruct functionality on the meeting
     Then I verify that the Instruct button has changed to Re-Instruct button
     When I navigate to the workflow page
-    Then I set the filter to Upcoming Meetings
+    And I set the filter to Upcoming Meetings
+    Then I can view the workflow page
+    When I select a random meeting
+    Then I can view the Meeting Details page
     And I should logout from the application
 
 
@@ -41,7 +44,10 @@ Feature: Instruct
     Then I can view the Meeting Details page
     And I can verify that the voting buttons are disabled
     When I navigate to the workflow page
-    Then I set the filter to Upcoming Meetings
+    And I set the filter to Upcoming Meetings
+    Then I can view the workflow page
+    When I select a random meeting
+    Then I can view the Meeting Details page
     And I should logout from the application
 
 
@@ -61,5 +67,8 @@ Feature: Instruct
     Then I can view the Meeting Details page
     And I can verify that the voting buttons are disabled
     When I navigate to the workflow page
-    Then I set the filter to Upcoming Meetings
+    And I set the filter to Upcoming Meetings
+    Then I can view the workflow page
+    When I select a random meeting
+    Then I can view the Meeting Details page
     And I should logout from the application
