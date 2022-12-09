@@ -84,7 +84,7 @@ class workflowPage {
     ballotCriteriaFilter() { return cy.get(".BallotIDEditor") }
     meetingWithoutBallotsRadio() { return cy.get("#rdo-equal-to") }
     updateNumberOfBallotsButton() { return cy.get(".blue.secondary.btn-update-BallotID") }
-    criteriaHeadings() { return cy.get('h4') }
+    criteriaHeadings() { return cy.get('h4').filter(':visible') }
     quickFiltersDiv() { return cy.get('#system-filters') }
     selectedQuickFilterName() { return cy.get("a[class='highlightedFilter'] span[data-bind=' text: FilterName']") }
     customerNameInput() { return cy.get('.customerName-Search .k-input') }

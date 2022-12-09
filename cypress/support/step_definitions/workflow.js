@@ -94,8 +94,8 @@ Then('I have added the criteria for {string} {string}', (criteria, value) => {
 
 Then('I have added the criteria for {string} with status {string}', (criteria, status) => {
     cy.AddMultipleCriteria([criteria])
-    workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false })
-    workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA')
+    workflowPage.criteriaHeadings().contains(criteria).first().click({ scrollBehavior: false })
+    workflowPage.criteriaHeadings().contains(criteria).first().next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA')
     cy.get('@FILTER_CRITERIA').should('be.visible').within(() => {
         workflowPage.getInputBox().eq(0).should('be.visible').type(status, { scrollBehavior: false })
         workflowPage.containsText(status).click({ scrollBehavior: false })

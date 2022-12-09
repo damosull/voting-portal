@@ -23,7 +23,9 @@ class reportingPage {
     dateRangeModal() { return cy.get('.date-range-target') }
     dateRangeDaysInput() { return cy.get('.k-formatted-value') }
     dateRangeNextDaysInput() { return cy.get(':nth-child(1) > .k-widget > .k-numeric-wrap > .k-formatted-value') }
+    dateRangeNextDaysHiddenInput() { return cy.get("input[id^='relative-next-days']").invoke('attr', 'style', 'display: block') }
     dateRangePastDaysInput() { return cy.get(':nth-child(2) > .k-widget > .k-numeric-wrap > .k-formatted-value') }
+    dateRangePastDaysHiddenInput() { return cy.get("input[id^='relative-past-days']").invoke('attr', 'style', 'display: block') }
     columnsSeventhCheckbox() { return cy.get(':nth-child(7) > .report-column-ccb > .checkbox > .ccb') }
     reportColumns() { return cy.get('#rpt-columns') }
     applyButton() { return cy.get('.btn-container.clearfix').contains('Apply') }

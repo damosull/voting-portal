@@ -83,9 +83,10 @@ Then('I click on the notification toolbar', () => {
 
 Then('I set the meeting date to next date {int} and past date {int} days', (nextDays, pastDays) => {
     reportingPage.dateRangeModal().invoke('attr', 'style', 'display: block')
-    reportingPage.dateRangeDaysInput().invoke('attr', 'style', 'display: block').clear()
-    reportingPage.dateRangeNextDaysInput().type(nextDays)
-    reportingPage.dateRangePastDaysInput().type(pastDays)
+    reportingPage.dateRangeNextDaysInput().clear()
+    reportingPage.dateRangeNextDaysHiddenInput().type(nextDays)
+    reportingPage.dateRangePastDaysInput().clear()
+    reportingPage.dateRangePastDaysHiddenInput().type(pastDays)
     reportingPage.containsText('Update').click()
 })
 
