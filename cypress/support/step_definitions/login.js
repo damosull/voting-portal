@@ -10,12 +10,10 @@ Given('I am on the login page of Viewpoint', () => {
 })
 
 Given('I am logged in as the {string} User', (username) => {
-    sessionStorage.clear()
     cy.loginWithAdmin(constants.USER[username])
 })
 
 Given('I am logged in as a random external user', () => {
-    sessionStorage.clear()
     let randomUserId = Math.floor(Math.random() * (Object.keys(constants.USER).length - 3) + 3)
     const username = Object.values(constants.USER)[randomUserId]
     //login & log the user and time
@@ -25,7 +23,6 @@ Given('I am logged in as a random external user', () => {
 })
 
 Given('I launch a random meeting for a random user', () => {
-    sessionStorage.clear()
     //fetch a random user and meeting
     let rand = Math.floor(Math.random() * meetings.length) + 1
     let username = meetings[rand].emailId
@@ -94,7 +91,6 @@ Then('I turn {string} the customer settings for {string} for {string}', (state, 
 })
 
 Given('I set the setting {string} to {string} for the user {string}', (feature, value, customer) => {
-    sessionStorage.clear()
     cy.loginWithAdmin(constants.USER.AUTOMATIONINTERNAL)
     cy.visit('/Users/UserProfile')
     cy.getAutomationUserIDFromDB(constants.USER[customer]).as('userid')
