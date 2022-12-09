@@ -251,7 +251,6 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
       // thus enabling us to query into it easily
       const $html = Cypress.$(body);
       const csrf = $html.find('input[name=csrf-token]').val();
-      Cypress.env('csrfToken', csrf)
 
       cy.request({
         method: 'POST',

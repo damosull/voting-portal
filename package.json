@@ -18,12 +18,12 @@
     "lint": "eslint cypress"
   },
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "14.0.0",
+    "@badeball/cypress-cucumber-preprocessor": "15.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "2.1.5",
     "cucumber-html-reporter": "5.5.0",
     "cucumber-json-report-formatter": "0.1.4",
-    "cypress": "11.2.0",
-    "cypress-multi-reporters": "1.6.1",
+    "cypress": "12.0.2",
+    "cypress-multi-reporters": "1.6.2",
     "cypress-sql-server": "1.0.0",
     "eslint-plugin-cypress": "2.12.1",
     "mocha-junit-reporter": "2.2.0",

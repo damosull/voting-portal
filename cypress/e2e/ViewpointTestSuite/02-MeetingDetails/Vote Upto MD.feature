@@ -25,7 +25,10 @@ Feature: Vote Upto Meeting Date
     And I can verify that the Quick Vote option and Vote Decision are read only
     And I am able to add meeting note and post private comment
     When I navigate to the workflow page
-    Then I set the filter to Upcoming Meetings
+    And I set the filter to Upcoming Meetings
+    Then I can view the workflow page
+    When I select a random meeting
+    Then I can view the Meeting Details page
     And I should logout from the application
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3288
@@ -50,7 +53,10 @@ Feature: Vote Upto Meeting Date
     Then I can view the Meeting Details page
     And I should be "able" to see "Account (1)" on the UI
     When I navigate to the workflow page
-    Then I set the filter to Upcoming Meetings
+    And I set the filter to Upcoming Meetings
+    Then I can view the workflow page
+    When I select a random meeting
+    Then I can view the Meeting Details page
     And I should logout from the application
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3388
@@ -71,6 +77,11 @@ Feature: Vote Upto Meeting Date
     And I click on the Vote button
     And I handle the override pop-up if it exists
     Then the vote should be submitted successfully
+    When I navigate to the workflow page
+    And I set the filter to Upcoming Meetings
+    Then I can view the workflow page
+    When I select a random meeting
+    Then I can view the Meeting Details page
     And I should logout from the application
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/20638
