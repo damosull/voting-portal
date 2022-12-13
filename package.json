@@ -22,7 +22,7 @@
     "@bahmutov/cypress-esbuild-preprocessor": "2.1.5",
     "cucumber-html-reporter": "5.5.0",
     "cucumber-json-report-formatter": "0.1.4",
-    "cypress": "12.0.2",
+    "cypress": "12.1.0",
     "cypress-multi-reporters": "1.6.2",
     "cypress-sql-server": "1.0.0",
     "eslint-plugin-cypress": "2.12.1",
