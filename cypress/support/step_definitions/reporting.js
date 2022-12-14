@@ -76,8 +76,10 @@ Then('I verify that all the relevant API calls for reporting page are made', () 
 })
 
 Then('I click on the notification toolbar', () => {
-    reportingPage.notificationLink().click().wait(500)
-    reportingPage.inboxContainer().invoke('attr', 'style', 'display: block')
+    reportingPage.notificationLink().click()
+    reportingPage.getLoadingSpinner().should('exist')
+    cy.wait('@INBOX')
+    reportingPage.getLoadingSpinner().should('not.exist')
     reportingPage.inboxContainer().should('have.css', 'display', 'block')
 })
 
@@ -554,12 +556,9 @@ Then('the report saved message appears', () => {
 })
 
 Then('I download the first report from the notification toolbar', () => {
-    cy.intercept('PUT', '**/Api/Data/Inbox/**').as('InboxReport')
-    cy.intercept('GET', '**/Downloads/DownloadExportFromUrl/?requestID=**').as('DownloadReport')
-    cy.intercept('GET', '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**').as('LoadInbox')
     reportingPage.inboxContainerMessages(15000).first().click()
-    cy.wait('@InboxReport')
-    cy.wait('@DownloadReport')
+    cy.wait('@INBOX')
+    cy.wait('@DOWNLOAD_REPORT')
 })
 
 Then('The notification dropdown {string} contain a notification mentioning {string}', (isVisible, content) => {
