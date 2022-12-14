@@ -8,7 +8,7 @@ class vepPage {
     newProfileButton() { return cy.get("button[data-bind='click: AddNew, visible: DisplayNewButton']") }
     allCheckboxes() { return cy.get(".vgcheckbox") }
     configurationNameLabel() { return cy.get('#text-label-name') }
-    configurationNameInput() { return cy.get('.editable-input') }
+    configurationNameInput() { return cy.get('.editable-input input') }
     configurationNameOkButton() { return cy.get(".editable-submit") }
     configurationNameCancelButton() { return cy.get(".editable-cancel") }
     configurationNameModifiedLabel() { return cy.get(".vep-modified") }
