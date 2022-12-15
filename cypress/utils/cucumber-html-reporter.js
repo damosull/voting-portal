@@ -1,10 +1,10 @@
 const reportGenerate = function (config, endDateAndTime) {
     let reporter = require('cucumber-html-reporter')
-    let seconds = Math.floor((endDateAndTime - (new Date(config.env.startTime))) / 1000)
+    let seconds = Math.floor((endDateAndTime - (new Date(config.env.startTime))) / 1000) + 1
     let minutes = Math.floor(seconds / 60)
     let hours = Math.floor(minutes / 60)
     minutes = minutes - (hours * 60)
-    seconds = seconds - (hours * 60 * 60) - (minutes * 60) + 1
+    seconds = seconds - (hours * 60 * 60) - (minutes * 60)
     let options = {
         name: 'Voting Portal Test Execution Report',
         brandTitle: 'Powered by Cypress',
