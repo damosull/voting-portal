@@ -171,6 +171,7 @@ export const API = {
     DASHBOARD_SETTINGS: '**/Api/Data/DashboardSettings/**',
     DASHBOARD_SUBSCRIPTION: '**/Api/Data/DashboardSubscription/**',
     DASHBOARD_PERMISSIONS: '**/Api/Data/DashboardPermissions/?_=**',
+    DOWNLOAD_REPORT: '**/Downloads/DownloadExportFromUrl/?requestID=**',
     ENGAGEMENT: '**/Engagement/?PageInfo%5BIgnorePagesize%5D=true&ReportType=Engagement&_=**',
     ESG_RANKINGS_FIELDS: '**/Api/Data/EsgRankingsFields**',
     FILTER_CRITERIA_EDITORS: '**/Api/WebUI/FilterCriteriaEditors**',
