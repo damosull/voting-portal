@@ -19,7 +19,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/39049
   @39049
   Scenario: Verify that the votes against Management are captured in filter criteria
-    Given I am logged in as the "WELLINGTON" User
+    Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
@@ -33,7 +33,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56826
   @56826
   Scenario: Verify user is able to filter meetings with recommendations pending
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "WELLINGTON" User
     And I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
