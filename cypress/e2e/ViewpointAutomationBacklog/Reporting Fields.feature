@@ -8,7 +8,7 @@ Feature: Report related tests
     Scenario: Generate Ballot Reconciliation Report, download and verify file headers
         Given I am logged in as the "ROBECO" User
         When I navigate to the Reporting page
-        And I set the meeting date to next date 5 and past date 0 days
+        And I set the meeting date to next date 5 and past date 2 days
         And I add the first 4 column option into the header list
         And I click on the Apply button
         Then I "save" the report for "Ballot Reconciliation"
@@ -28,7 +28,7 @@ Feature: Report related tests
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Status"
         And I filter the report type to "xlsx"
-        And I set the date range to the next or last 1 days
+        And I set the date range to the next or last 7 days
         Then I "save" the report for "Ballot Status"
         When I click on the Download button to download the report
         Then the download initiated toast message appears
@@ -48,7 +48,7 @@ Feature: Report related tests
         Given I am logged in as the "OPERS" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Vote Data"
-        And I set the meeting date to next date 1 and past date 1 days
+        And I set the meeting date to next date 2 and past date 5 days
         And I select "Ballot Voted Date" column
         And I "save" the report for "Ballot Vote Data"
         And I click on the Download button to download the report
@@ -86,7 +86,7 @@ Feature: Report related tests
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Engagement"
-        And I set the meeting date to next date 0 and past date 2 days
+        And I set the meeting date to next date 5 and past date 5 days
         And I click on the Update button
         And I add all the columns
         And I "save" the report for "Engagement"
@@ -146,7 +146,7 @@ Feature: Report related tests
         When I navigate to the Reporting page
         And I navigate to the report type page for "Proxy Voting"
         And I filter the report type to "xlsx"
-        And I select the past 2 days
+        And I select the past 7 days
         And I expand Vote Comparison and select GL Recs Against Mgmt
         Then I "save" the report for "Proxy Voting"
         When I click on the Download button to download the report
@@ -168,7 +168,7 @@ Feature: Report related tests
         When I navigate to the Reporting page
         And I navigate to the report type page for "Proxy Voting Summary"
         And I filter the report type to "xlsx"
-        And I set the date range to the next or last 5 days
+        And I set the date range to the next or last 10 days
         And I "save" the report for "Proxy Voting Summary"
         When I click on the Download button to download the report
         Then the download initiated toast message appears
@@ -186,7 +186,7 @@ Feature: Report related tests
         Given I am logged in as the "OPERS" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Vote Results"
-        And I set the date range to the next or last 2 days
+        And I set the date range to the next or last 7 days
         And I "save" the report for "Vote Results"
         When I click on the Download button to download the report
         Then the download initiated toast message appears
@@ -204,7 +204,7 @@ Feature: Report related tests
         When I navigate to the Reporting page
         And I navigate to the report type page for "Voting Activity"
         And I filter the report type to "xlsx"
-        And I set the date range to the next or last 3 days
+        And I set the date range to the next or last 7 days
         And I select Decision Status Criteria
         And I select Voted criteria
         And I add columns to the report
