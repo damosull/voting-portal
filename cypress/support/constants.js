@@ -56,7 +56,8 @@ export const messages = {
     PARTIAL_VOTE_INPUT_GREATER: 'You have not applied a valid amount. Please review values entered',
     PARTIAL_VOTE_CLEANED: 'Partial vote cleaned.',
     PARTIAL_VOTE_VALUES_UNCHANGED: 'At least 1 item should be modified in order to save.',
-    PARTIAL_VOTE_INCORRECT_PERCENTAGE: 'Percent should be between 0 and 100.'
+    PARTIAL_VOTE_INCORRECT_PERCENTAGE: 'Percent should be between 0 and 100.',
+    DOMESTIC_SPIN_EXTRA_FOR_VOTES: "'For' votes limit exceeded. There are item with multiple values voted with 'For'"
   },
 };
 
