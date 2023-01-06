@@ -102,3 +102,19 @@ When('I verify all Voting Groups in the DB are visible on the UI', () => {
     }
   });
 })
+
+When('I navigate to a domestic spin control meeting', () => {
+  let query = "SELECT top 10 ac.customerid, a.meetingid, a.AgendaKey, c.CustomerName from px_Agenda a \
+	join PX_Ballot b on b.AgendaID = a.AgendaID \
+	join AM_Account ac on ac.accountid = b.accountid \
+	join AA_Customer c on c.CustomerID = ac.CustomerID \
+	where a.AgendaID in (select agendaid from  px_Agendaitem ai \
+	join PX_AgendaItemGroup aig on aig.AgendaItemId = ai.AgendaItemID and ai.ProposalTypeCode = 'DS') \
+  and b.CreatedDate > DATEADD(DAY, -60, getdatE());"
+
+  cy.executeQuery(query).then((result) => {
+    let randomRow = Math.floor(Math.random() * result.length)
+    cy.AddTenDaysToMeetingDates(result[randomRow][1])
+    cy.visit(`MeetingDetails/Index/${result[randomRow][0]}/${result[randomRow][1]}`)
+  })
+})
