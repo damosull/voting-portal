@@ -86,7 +86,6 @@ export const MEETINGID = {
   CAVOAS: '1129879', //Calpers Voted
   CAVOCA: '1120004', //Calpers Meeting with Controversy Alert File
   CAIO: '1135360', //Calpers Meeting with Decision Status as Info Only
-  CAVOUB: '1141892', //Calpers Meeting with Unvoted Ballots
 
   //Russell (at least one against management & policy past 30 days)
   RSNCVAMAP: '1016711',
