@@ -64,8 +64,12 @@ Feature: Vote Card Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37938
   @37938
   Scenario: Filter on voted/unvoted ballots
-    Given I am logged in as the "CALPERS" User
-    When I navigate to the meeting details page for the meeting "CAVOUB"
+    Given I am logged in as the "RUSSELL" User
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    And I remove all existing selected criteria
+    And I have added the criteria for "Decision Status" with status "Manual Vote Required"
+    When I select a random meeting
     Then I can view the Meeting Details page
     And I can use the Filter on unvoted ballots functionality
     And I verify the vote tally modal is displayed when user clicks on the total voted hyperlink
