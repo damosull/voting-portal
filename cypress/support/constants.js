@@ -99,10 +99,8 @@ export const MEETINGID = {
   RSNCVAM2: '1070063',
 
   //Basic Recommendations pending meeting for Calpers
-  CPRP1: '1066197',
   CPRP2: '1065713',
   CPRP3: '1063534',
-  CPRP5: '1066044',
   CPRP6: '1066180',
 
   //Calpers Recommendations Pending (US meeting)

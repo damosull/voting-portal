@@ -6,13 +6,13 @@ Feature: Meetings related smoke tests
   @56824
   Scenario: Verify that the votes against Glass Lewis are captured in filter criteria
     Given I am logged in as the "RUSSELL" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
     When I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting the radio button for "One Against"
     And I select a random meeting
     Then I can view the Meeting Details page
-    Then the filtered results should display the data only for vote against Glass Lewis
+    And the filtered results should display the data only for vote against Glass Lewis
     And I should logout from the application
 
 
@@ -20,13 +20,13 @@ Feature: Meetings related smoke tests
   @39049
   Scenario: Verify that the votes against Management are captured in filter criteria
     Given I am logged in as the "RUSSELL" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
     When I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "One Against"
     And I select a random meeting
     Then I can view the Meeting Details page
-    Then the filtered results should display the data only for vote against Management
+    And the filtered results should display the data only for vote against Management
     And I should logout from the application
 
 
@@ -34,22 +34,22 @@ Feature: Meetings related smoke tests
   @56826
   Scenario: Verify user is able to filter meetings with recommendations pending
     Given I am logged in as the "WELLINGTON" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     When I select a random meeting
-    And I can see the Vote, Take No Action and Instruct buttons
+    Then I can see the Vote, Take No Action and Instruct buttons
     And I should logout from the application
 
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56827
   @56827
   Scenario: Verify user is able to do a quick vote
-    Given I am logged in as the "NEUBERGER" User
-    And I navigate to the workflow page
+    Given I am logged in as the "RUSSELL" User
+    When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
+    When I remove all existing selected criteria
     Then I can view the workflow page
     When I select a random meeting
     Then I can view the Meeting Details page
@@ -59,7 +59,7 @@ Feature: Meetings related smoke tests
     And I click on the Vote button
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
-    Then I should be "able" to see "Change Vote or Rationale" on the UI
+    And I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
 
 
@@ -96,11 +96,15 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56830
   @56830
   Scenario: Verify user is able to use the Instruct functionality on Recommendation Pending meeting
-    Given I am logged in as the "CALPERS" User
-    When I navigate to the meeting details page for the meeting "CPRP1"
+    Given I am logged in as the "NEUBERGER" User
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    When I remove all existing selected criteria
+    Then I can view the workflow page
+    When I have added the criteria for "Decision Status" with status "Recommendations Pending"
+    And I select a random meeting
     Then I can view the Meeting Details page
-    When I click on the Change Vote or Rationale button if it exists
-    Then I should be able to use the Instruct functionality on the meeting
+    And I should be able to use the Instruct functionality on the meeting
     And I should logout from the application
 
 
@@ -123,9 +127,13 @@ Feature: Meetings related smoke tests
   @56832
   Scenario: Verify user is able to take no action on a Recommendation Pending meeting
     Given I am logged in as the "CALPERS" User
-    When I navigate to the meeting details page for the meeting "CPRP5"
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    When I remove all existing selected criteria
+    Then I can view the workflow page
+    When I have added the criteria for "Decision Status" with status "Recommendations Pending"
+    And I select a random meeting
     Then I can view the Meeting Details page
-    When I click on the Change Vote or Rationale button if it exists
     And I should be able to use the Take No Action functionality on the meeting
     And I should be "able" to see "Change Vote or Rationale" on the UI
     And I should logout from the application
@@ -149,7 +157,7 @@ Feature: Meetings related smoke tests
   @56834
   Scenario: Verify external user is able to add meeting note and post private comment
     Given I am logged in as the "CHARLESSCHWAB" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
@@ -163,7 +171,7 @@ Feature: Meetings related smoke tests
   @56835
   Scenario: Verify external user is able to add comment to each rationale, save it and verify the toast message
     Given I am logged in as the "ROBECO" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
