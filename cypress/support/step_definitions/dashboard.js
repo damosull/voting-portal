@@ -42,12 +42,13 @@ Then('I select Subscriptions link', () => {
 Then('I click Add Subscription button', () => {
     dashboardPage.addSubscriptionButton().should('include.text', 'Add Subscription').click()
     dashboardPage.addSubscriptionPopupTitle().should('have.text', 'ADD SUBSCRIPTION')
+    dashboardPage.getLoadingSpinner().should('not.exist')
 })
 
 Then('I select Calpers External Admin from Users list on dashboard page', () => {
     dashboardPage.addSubscriptionPopupUserInput().type('Cal')
-    dashboardPage.addSubscriptionPopupUserDropdown().invoke('attr', 'style', 'display: block').should('be.visible')
-    dashboardPage.addSubscriptionPopupUserInput().type('{downarrow}{enter}')
+    dashboardPage.addSubscriptionPopupUserDropdown().should('be.visible')
+    dashboardPage.addSubscriptionPopupUserInput().type('{enter}')
 })
 
 Then('I enter Filename DashboardTest', () => {
