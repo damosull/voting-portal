@@ -2,13 +2,14 @@ class dashboardPage {
 
     pageTitle() { return cy.get('#dashboard-name') }
     pageBody() { return cy.get('body') }
+    getLoadingSpinner() { return cy.get('.k-loading-text') }
     subscriptionsContainerAtTheBottom() { return cy.get('#subscriptions-container > h3') }
     deleteSubscriptionLink() { return cy.get('#current-subscribers-list > tbody > tr > td > i[class="fa fa-times"]') }
     okButton() { return cy.get('#apprise-btn-confirm') }
     addSubscriptionButton() { return cy.get('#subscriptions-container > div.collapse.expand-collapse > div > span > a') }
     addSubscriptionPopupTitle() { return cy.get('#subscriptions-container-modal-dyn_wnd_title') }
-    addSubscriptionPopupUserInput() { return cy.get("input[role='listbox']") }
-    addSubscriptionPopupUserDropdown() { return cy.get('#subscription-users-select') }
+    addSubscriptionPopupUserInput() { return cy.get("input[aria-owns^='subscription-users-select_taglist']") }
+    addSubscriptionPopupUserDropdown() { return cy.get('#subscription-users-select_listbox') }
     addSubscriptionPopupFilenameInput() { return cy.get('#subscribed-file-name') }
     addSubscriptionPopupScheduleDropdown() { return cy.get('#schedule-type') }
     addSubscriptionPopupEveryHoursDropdown() { return cy.get('#daily-every-hours') }

@@ -22,7 +22,7 @@ Feature: Checking API calls with External user
 
     @56800
     Scenario: MeetingDetails page API calls are loading as expected
-        When I navigate to the meeting with id "1140230"
+        When I navigate to the meeting with id "1158107"
         Then I verify that all the relevant API calls for meeting details page are made
 
     @56801
