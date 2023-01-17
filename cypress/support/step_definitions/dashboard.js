@@ -46,7 +46,7 @@ Then('I click Add Subscription button', () => {
 })
 
 Then('I select Calpers External Admin from Users list on dashboard page', () => {
-    dashboardPage.addSubscriptionPopupUserInput().type('Cal')
+    dashboardPage.addSubscriptionPopupUserInput().type('Cal').click()
     dashboardPage.addSubscriptionPopupUserDropdown().should('be.visible')
     dashboardPage.addSubscriptionPopupUserInput().type('{enter}')
 })
