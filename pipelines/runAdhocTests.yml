@@ -2,7 +2,7 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: 'npx cypress run --env sql_server=$(sql_server),sql_password=$(sql_password) --spec cypress/e2e/SmokeTests/dashboard-tests.feature'
+    default: 'npx cypress run --spec cypress/e2e/SmokeTests/dashboard-tests.feature'
 
 trigger: none
 
@@ -27,6 +27,8 @@ jobs:
 
   - script: |
       export HTTP_PROXY=http://10.71.1.42:3128
+      export cypress_sql_server=$(sql_server)
+      export cypress_sql_password=$(sql_password)
       ${{ parameters.buildParameters }}
     displayName: 'Running Cypress Tests'
 
