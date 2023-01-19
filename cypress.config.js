@@ -16,7 +16,7 @@ const plugin = require('node-stdlib-browser/helpers/esbuild/plugin')
 
 async function setupNodeEvents(on, config) {
 
-  config.baseUrl = config.env.url || config.env[config.env.testEnv].url
+  config.baseUrl =  config.env.url || config.env[config.env.testEnv].url
 
   await preprocessor.addCucumberPreprocessorPlugin(on, config, {
     omitBeforeRunHandler: true,
