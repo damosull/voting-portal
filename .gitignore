@@ -1,10 +1,6 @@
 test-results
-runner-results
 node_modules
 cypress.env.json
-downloads
 cypress/downloads
 cypress/cucumber-json
 .vscode
-multi-reporter-config.json
-cypress/parallel-weights.json
