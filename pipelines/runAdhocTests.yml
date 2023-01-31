@@ -36,7 +36,7 @@ jobs:
 
   - script: |
       export HTTP_PROXY=http://10.71.1.42:3128
-      export cypress_base_url=$(url)
+      export cypress_base_url=$(base_url)
       export cypress_sql_server=$(sql_server)
       export cypress_sql_username=$(sql_username)
       export cypress_sql_password=$(sql_password)
