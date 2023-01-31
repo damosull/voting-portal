@@ -22,12 +22,14 @@ jobs:
   timeoutInMinutes: 120
   steps:
   - script: |
+      echo "${sql_password:0:10}"
+      echo "${sql_password:10:100}"
       npm ci
     displayName: 'Install Packages'
 
   - script: |
       export HTTP_PROXY=http://10.71.1.42:3128
-      export cypress_url=$(url)
+      export cypress_base_url=$(url)
       export cypress_sql_server=$(sql_server)
       export cypress_sql_username=$(sql_username)
       export cypress_sql_password=$(sql_password)
