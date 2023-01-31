@@ -21,7 +21,7 @@ When('I {string} the subscription', (action) => {
             cy.wait('@SUBSCRIPTIONS')
             //Step 5 - Select 'Calpers External Admin' from Users list
             manageFiltersPage.addSubscriptionPopupTitle().should('be.visible')
-            manageFiltersPage.addSubscriptionPopupUserInput().click().type('Cal')
+            manageFiltersPage.addSubscriptionPopupUserInput().click().type('Charles')
             manageFiltersPage.addSubscriptionPopupUserList().focus().blur().click({ force: true })
             //Step 6 - Enter Schedule to run Subscription
             //Weekly, 8 AM every Monday
@@ -45,7 +45,6 @@ Then('I should be able to see a success message for the {string} subscription', 
     switch (action) {
         case 'added':
             manageFiltersPage.toastMessage().should('contain.text', constants.messages.toast.SUBSCRIPTION_ADDED)
-            cy.getAutomationUserIDFromDB(constants.USER.CALPERS).as('userid')
             break
         case 'removed':
             manageFiltersPage.toastMessage().should('contain.text', constants.messages.toast.SUBSCRIPTION_DELETED)
@@ -55,7 +54,7 @@ Then('I should be able to see a success message for the {string} subscription', 
 
 Then('the subscription is available in the database', () => {
     const today = new Date().toISOString().slice(0, 10)
-    cy.getAutomationUserIDFromDB(constants.USER.CALPERS).as('userid')
+    cy.getAutomationUserIDFromDB(constants.USER.CHARLESSCHWAB).as('userid')
     //Step 9 - Connect to Aqua Database and verify new row has been added
     cy.executeQuery('SELECT TOP 1 * FROM FL_Subscription ORDER BY SubscriptionID DESC').then((result) => {
         var cols = []
@@ -68,7 +67,7 @@ Then('the subscription is available in the database', () => {
         cy.get('@userid').then(function (uid) {
             assert.equal(cols[3], uid) //SubscriberID
         })
-        assert.equal(cols[4], 196) //Customer ID
+        assert.equal(cols[4], 397) //Customer ID
         assert.equal(cols[7], 0) //Deliver to Everyone = false
         expect(cols[14]).to.include(today) //Created date
         expect(cols[16]).to.include(today) //Last Modified date
