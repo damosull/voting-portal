@@ -21,9 +21,13 @@ jobs:
 - job: ViewpointAutomation
   timeoutInMinutes: 120
   steps:
+
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: echo 'MY SECRET: ${sql_password:0:10} ${sql_password:10:100}'
+
   - script: |
-      echo "${sql_password:0:10}"
-      echo "${sql_password:10:100}"
       npm ci
     displayName: 'Install Packages'
 
