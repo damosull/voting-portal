@@ -21,7 +21,11 @@ jobs:
 
   - script: |
       export HTTP_PROXY=http://10.71.1.42:3128
-      npm run smokeUltra
+      export cypress_url=$(url)
+      export cypress_sql_server=$(sql_server)
+      export cypress_sql_username=$(sql_username)
+      export cypress_sql_password=$(sql_password)
+      CYPRESS_BASE_URL=$(url) npx cypress run --spec 'cypress/e2e/SmokeTests/dashboard-tests.feature'
     displayName: 'Running Cypress Tests'
 
   - task: PublishPipelineArtifact@1
