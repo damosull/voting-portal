@@ -348,7 +348,6 @@ When('I convert the downloaded PDF report to HTML', () => {
     cy.task('toHtml', `cypress/downloads/${reportConfigName}.pdf`).then((html) => {
         cy.document({ log: false }).invoke({ log: false }, 'write', html)
     })
-    cy.screenshot({ capture: 'fullPage' })
 })
 
 Then('I click on the Download button to download the report', () => {
