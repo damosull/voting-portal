@@ -25,7 +25,7 @@ jobs:
   - task: Bash@3
     inputs:
       targetType: 'inline'
-      script: echo 'MY SECRET: ${sql_password:0:10} ${sql_password:10:100}'
+      script: echo "${sql_password:0:10}"
 
   - script: |
       npm ci
