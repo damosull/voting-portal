@@ -21,7 +21,6 @@ jobs:
 - job: ViewpointAutomation
   timeoutInMinutes: 120
   steps:
-
   - script: |
       npm ci
     displayName: 'Install Packages'
