@@ -10,7 +10,6 @@ Given('I am on the login page of Viewpoint', () => {
 })
 
 Given('I am logged in as the {string} User', (username) => {
-    cy.task('log', `configs: ${JSON.stringify(Cypress.env())}`)
     cy.loginWithAdmin(constants.USER[username])
 })
 

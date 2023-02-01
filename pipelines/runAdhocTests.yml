@@ -2,7 +2,7 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: 'npx cypress run --config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
+    default: 'CYPRESS_BASE_URL=$(url) npx cypress run --config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
 
 trigger: none
 

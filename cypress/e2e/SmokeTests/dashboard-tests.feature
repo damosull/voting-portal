@@ -6,7 +6,7 @@ Feature: Dashboard related smoke tests
         Given I am logged in as the "CALPERS" User
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40490
-    @40490 @focus
+    @40490
     Scenario: Create Dashboard Subscription entry and validate in SB_Subscription Database table
         When I navigate to the dashboard page
         Then I select Subscriptions link
