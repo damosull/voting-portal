@@ -16,6 +16,8 @@ const plugin = require('node-stdlib-browser/helpers/esbuild/plugin')
 
 async function setupNodeEvents(on, config) {
 
+  config.baseUrl =  config.env.url || config.env[config.env.testEnv].url
+
   await preprocessor.addCucumberPreprocessorPlugin(on, config, {
     omitBeforeRunHandler: true,
     omitAfterRunHandler: true
@@ -66,9 +68,9 @@ async function setupNodeEvents(on, config) {
   })
 
   on('task', sqlServer.loadDBPlugin({
-    userName: 'TestHarnessUser',
-    password: 't3$t4@12ness#aQua#0932',
-    server: '10.71.5.54',
+    userName: config.env.sql_username || config.env[config.env.testEnv].sql_username,
+    password: config.env.sql_password || config.env[config.env.testEnv].sql_password,
+    server: config.env.sql_server || config.env[config.env.testEnv].sql_server,
     options: {
       database: 'GLP',
       encrypt: true,
@@ -119,6 +121,7 @@ module.exports = defineConfig({
     openMode: 0,
   },
   env: {
+    testEnv: 'aqua',
     startTime: new Date()
   },
   e2e: {

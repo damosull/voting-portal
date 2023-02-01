@@ -2,7 +2,7 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: 'npx cypress run --config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
+    default: 'CYPRESS_BASE_URL=$(url) npx cypress run --config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
 
 trigger: none
 
@@ -27,6 +27,10 @@ jobs:
 
   - script: |
       export HTTP_PROXY=http://10.71.1.42:3128
+      export cypress_url=$(url)
+      export cypress_sql_server=$(sql_server)
+      export cypress_sql_username=$(sql_username)
+      export cypress_sql_password=$(sql_password)
       ${{ parameters.buildParameters }}
     displayName: 'Running Cypress Tests'
 

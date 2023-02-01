@@ -19,6 +19,9 @@ Before starting the development of test cases, make sure:
 - You have nodejs installed. Can be downloaded from here - https://nodejs.org/en/
 - Once installed, open/reopen your cli tool, eg: powershell / git bash, and run the command `npm install -g yarn`
 - Then, navigate to the project root directory, and run the command `npm install`
+- Make a copy of the `cypress.env.example.json` file and rename it as `cypress.env.json`
+- In the `cypress.env.json` file, fill the correct DB credentials so that the relevant tests can connect to the test DB instances. Reach out to an existing Test Automation engineer or DBA to get the password.
+
 <br/><br/><br/>
 # Build and Test
 
