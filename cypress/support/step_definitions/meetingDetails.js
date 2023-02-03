@@ -157,7 +157,6 @@ Then('I can verify that the quick vote dropdown options display a list of valid 
     meetingDetailsPage.quickVoteOptions().contains('MGMT Rec').should('exist')
     meetingDetailsPage.quickVoteOptions().contains('GL Rec').should('exist')
     meetingDetailsPage.quickVoteOptions().contains('Policy Rec').should('exist')
-    //cy.wait(2000)
 })
 
 Then('I verify that the quick vote option for {string} is read only', (voteType) => {
