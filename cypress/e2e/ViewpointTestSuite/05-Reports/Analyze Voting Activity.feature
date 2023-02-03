@@ -2,7 +2,7 @@ Feature: Analyze Voting Activity
     #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9503
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2853
-    @2853
+    @2853 @focus
     Scenario: Verify External User can download the PDF Ad-hoc Report from the Notification Toolbar
         Given I am logged in as the "ROBECO" User
         When I navigate to the Reporting page
