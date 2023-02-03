@@ -8,3 +8,4 @@ cypress/cucumber-json
 .vscode
 multi-reporter-config.json
 cypress/parallel-weights.json
+.husky/_
