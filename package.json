@@ -12,7 +12,6 @@
     "smoke": "cypress run --config specPattern=cypress/e2e/SmokeTests/*.feature",
     "smokeUltra": "cypress run --env testEnv=ultra --config specPattern=cypress/e2e/SmokeTests/*.feature",
     "regression": "cypress run --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature",
-    "autobacklog": "cypress run --config specPattern=cypress/e2e/ViewpointAutomationBacklog/*.feature",
     "loadtest": "cypress run --env testEnv=ultra --config specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,retries=0",
     "loaddocker": "docker compose up --scale cypress=5",
     "lint": "eslint cypress"
@@ -20,8 +19,6 @@
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "15.1.3",
     "@bahmutov/cypress-esbuild-preprocessor": "2.1.5",
-    "cucumber-html-reporter": "5.5.0",
-    "cucumber-json-report-formatter": "0.1.4",
     "cypress": "12.5.1",
     "cypress-multi-reporters": "1.6.2",
     "cypress-sql-server": "1.0.0",
@@ -40,17 +37,9 @@
       "enabled": true,
       "output": "test-results/cucumber/cucumber-messages.ndjson"
     },
-    "json": {
-      "enabled": false,
-      "output": "test-results/cucumber/cucumber-report.json",
-      "formatter": "node",
-      "args": [
-        "cypress/utils/report-formatter.js"
-      ]
-    },
     "html": {
       "enabled": true,
-      "output": "test-results/cucumber/cucumber-report.html"
+      "output": "test-results/cucumber/cucumber_report.html"
     }
   },
   "eslintConfig": {
