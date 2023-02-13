@@ -2,10 +2,7 @@ const { defineConfig } = require('cypress')
 const fs = require('fs-extra')
 const xlsx = require('node-xlsx').default
 const sqlServer = require('cypress-sql-server')
-const readPdf = require('./cypress/utils/read-pdf')
-const { promisify } = require('util')
-const pdf2html = require('pdf2html')
-const toHtml = promisify(pdf2html.html)
+const { readPdf } = require("./cypress/utils/read-pdf");
 const createBundler = require("@bahmutov/cypress-esbuild-preprocessor")
 const preprocessor = require("@badeball/cypress-cucumber-preprocessor")
 const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild")
@@ -47,9 +44,8 @@ async function setupNodeEvents(on, config) {
     },
   })
 
-  on('task', {
-    readPdf,
-    toHtml,
+  on("task", {
+    readPdf: (pathToPdf) => readPdf(pathToPdf),
   })
 
   on('task', {
