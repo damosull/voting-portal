@@ -291,8 +291,9 @@ Then('I verify the report name and a few columns for Voting Activity Report', ()
 })
 
 Then('I verify the contents on the Voting Activity PDF Report', () => {
+    cy.readFile(`cypress/downloads/${reportConfigName}.pdf`, 'utf8')
     columns_VotingActivityReport.forEach((fields) => {
-        cy.contains(fields).should('be.visible')
+        cy.task('readPdf', `cypress/downloads/${reportConfigName}.pdf`).should('contain',fields)
     })
 })
 
@@ -329,24 +330,6 @@ Then('I verify the report name and a few columns for Ballot Status Report genera
         columns_BallotStatusViaMDReport.forEach((fields) => {
             expect(JSON.stringify(xlxsData)).to.include(fields)
         })
-    })
-})
-
-Then('I verify the downloaded report is a pdf and has some content', () => {
-    reportingPage.inboxRows().first().invoke('attr', 'data-pagelink1').should('contain', '/Download').then((downloadLink) => {
-        cy.request(downloadLink).then((resp) => {
-            expect(resp.status).to.eq(200)
-            expect(resp.headers).to.have.property('content-disposition').contains(`filename=${reportConfigName}`)
-            expect(resp.headers).to.have.property('content-type').eql('application/pdf')
-            expect(resp.body).to.have.length.greaterThan(1)
-        })
-    })
-})
-
-When('I convert the downloaded PDF report to HTML', () => {
-    cy.readFile(`cypress/downloads/${reportConfigName}.pdf`, 'utf8')
-    cy.task('toHtml', `cypress/downloads/${reportConfigName}.pdf`).then((html) => {
-        cy.document({ log: false }).invoke({ log: false }, 'write', html)
     })
 })
 
