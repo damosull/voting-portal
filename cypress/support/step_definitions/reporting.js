@@ -293,7 +293,7 @@ Then('I verify the report name and a few columns for Voting Activity Report', ()
 Then('I verify the contents on the Voting Activity PDF Report', () => {
     cy.readFile(`cypress/downloads/${reportConfigName}.pdf`, 'utf8')
     columns_VotingActivityReport.forEach((fields) => {
-        cy.task('readPdf', `cypress/downloads/${reportConfigName}.pdf`).should('contain',fields)
+        cy.task('readPdf', `cypress/downloads/${reportConfigName}.pdf`).should('contain', fields)
     })
 })
 
