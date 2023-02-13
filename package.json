@@ -29,8 +29,7 @@
     "mocha-junit-reporter": "2.2.0",
     "node-stdlib-browser": "1.2.0",
     "node-xlsx": "0.21.0",
-    "pdf-parse": "1.1.1",
-    "pdf2html": "2.6.7"
+    "pdf-parse": "1.1.1"
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": "cypress/support/step_definitions/*.js",
