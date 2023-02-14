@@ -12,27 +12,25 @@
     "smoke": "cypress run --config specPattern=cypress/e2e/SmokeTests/",
     "smokeUltra": "cypress run --env testEnv=ultra --config specPattern=cypress/e2e/SmokeTests/*.feature",
     "regression": "cypress run --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature",
-    "autobacklog": "cypress run --config specPattern=cypress/e2e/ViewpointAutomationBacklog/*.feature",
     "loadtest": "cypress run --env testEnv=ultra --config specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,retries=0",
     "loaddocker": "docker compose up --scale cypress=5",
     "lint": "eslint cypress",
-    "cy:parallel": "cypress-parallel -s smokeUltra -t 3 -d 'cypress/e2e/SmokeTests/' -a '\"--config retries=1\"'"
+    "prepare": "husky install"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "7.19.1",
     "@badeball/cypress-cucumber-preprocessor": "15.1.3",
     "@bahmutov/cypress-esbuild-preprocessor": "2.1.5",
-    "cucumber-html-reporter": "5.5.0",
-    "cucumber-json-report-formatter": "0.1.4",
-    "cypress": "12.5.0",
+    "cypress": "12.5.1",
     "cypress-multi-reporters": "1.6.2",
     "cypress-parallel": "0.12.0",
     "cypress-sql-server": "1.0.0",
     "eslint-plugin-cypress": "2.12.1",
+    "husky": "8.0.3",
     "mocha-junit-reporter": "2.2.0",
     "node-stdlib-browser": "1.2.0",
     "node-xlsx": "0.21.0",
-    "pdf-parse": "1.1.1",
-    "pdf2html": "2.6.7"
+    "pdf-parse": "1.1.1"
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": "cypress/support/step_definitions/*.js",
@@ -42,23 +40,26 @@
       "enabled": true,
       "output": "test-results/cucumber/cucumber-messages.ndjson"
     },
-    "json": {
-      "enabled": false,
-      "output": "test-results/cucumber/cucumber-report.json",
-      "formatter": "node",
-      "args": [
-        "cypress/utils/report-formatter.js"
-      ]
-    },
     "html": {
       "enabled": true,
-      "output": "test-results/cucumber/cucumber-report.html"
+      "output": "test-results/cucumber/cucumber_report.html"
     }
   },
   "eslintConfig": {
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+      "requireConfigFile": false,
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
     "extends": [
       "plugin:cypress/recommended"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   },
   "repository": {
     "type": "git",

@@ -2,12 +2,7 @@ const { defineConfig } = require('cypress')
 const fs = require('fs-extra')
 const xlsx = require('node-xlsx').default
 const sqlServer = require('cypress-sql-server')
-const Formatter = require('cucumber-json-report-formatter').Formatter
-const generateHTMLReport = require('./cypress/utils/cucumber-html-reporter')
-const readPdf = require('./cypress/utils/read-pdf')
-const { promisify } = require('util')
-const pdf2html = require('pdf2html')
-const toHtml = promisify(pdf2html.html)
+const { readPdf } = require('./cypress/utils/read-pdf')
 const createBundler = require("@bahmutov/cypress-esbuild-preprocessor")
 const preprocessor = require("@badeball/cypress-cucumber-preprocessor")
 const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild")
@@ -16,7 +11,7 @@ const plugin = require('node-stdlib-browser/helpers/esbuild/plugin')
 
 async function setupNodeEvents(on, config) {
 
-  config.baseUrl =  config.env.url || config.env[config.env.testEnv].url
+  config.baseUrl = config.env.url || config.env[config.env.testEnv].url
 
   await preprocessor.addCucumberPreprocessorPlugin(on, config, {
     omitBeforeRunHandler: true,
@@ -25,7 +20,7 @@ async function setupNodeEvents(on, config) {
 
   on('before:run', () => {
     fs.emptyDirSync('./test-results')
-    console.log(`INITIATING TESTS ON: ${config.baseUrl} at ${config.env.startTime.split('T')[1].split('.')[0]} GMT`)
+    console.log(`INITIATING TESTS ON: ${config.baseUrl} at ${new Date()}`)
     preprocessor.beforeRunHandler(config)
   })
 
@@ -50,8 +45,7 @@ async function setupNodeEvents(on, config) {
   })
 
   on('task', {
-    readPdf,
-    toHtml,
+    readPdf: (pathToPdf) => readPdf(pathToPdf),
   })
 
   on('task', {
@@ -82,10 +76,7 @@ async function setupNodeEvents(on, config) {
 
   on('after:run', async (results) => {
     if (results) {
-      const endTime = new Date(), formatter = new Formatter()
-      console.log(`FINISHING TESTS ON: ${config.baseUrl} at ${endTime.toISOString().split('T')[1].split('.')[0]} GMT`)
-      await formatter.parseCucumberJson('./test-results/cucumber/cucumber-messages.ndjson', './test-results/cucumber/cucumber-report.json')
-      generateHTMLReport.reportGenerate(config, endTime)
+      console.log(`FINISHING TESTS ON: ${config.baseUrl} at ${new Date()}`)
       await preprocessor.afterRunHandler(config)
     }
   })
