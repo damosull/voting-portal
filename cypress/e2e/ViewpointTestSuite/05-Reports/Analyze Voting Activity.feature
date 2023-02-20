@@ -1,8 +1,8 @@
 Feature: Analyze Voting Activity
     #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9503
 
-    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2853
-    @2853
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2753
+    @2753
     Scenario: Verify External User can download the PDF Ad-hoc Report from the Notification Toolbar
         Given I am logged in as the "ROBECO" User
         When I navigate to the Reporting page
@@ -23,8 +23,8 @@ Feature: Analyze Voting Activity
         And I should logout from the application
 
 
-    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2854
-    @2854
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2754
+    @2754
     Scenario: Verify External User can download the Excel Ad-hoc Report from the Notification Toolbar
         Given I am logged in as the "CHARLESSCHWAB" User
         When I navigate to the Reporting page
