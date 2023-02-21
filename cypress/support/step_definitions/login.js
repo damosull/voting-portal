@@ -39,8 +39,7 @@ Then('I should logout from the application', () => {
     cy.request({
         method: 'GET',
         url: '/Home/Logout',
-    }).then((resp) => {
-        //expect(resp.status).to.eq(200)
+    }).then(() => {
         cy.visit('/')
     })
 })
