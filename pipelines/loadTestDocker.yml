@@ -1,53 +1,53 @@
 pool:
   name: 'VMSS - DEVOPS - QAUAT'
-  
+
 parameters:
-- name: numInstancesAquaVia
-  displayName: "Parallel Sessions on Aqua Via Workflow Page"
-  type: number
-  default: 0
-- name: numInstancesAquaBypass
-  displayName: "Parallel Sessions on Aqua Bypassing Workflow Page"
-  type: number
-  default: 0
-- name: numInstancesUltraVia
-  displayName: "Parallel Sessions on Ultra Via Workflow Page"
-  type: number
-  default: 0
-- name: numInstancesUltraBypass
-  displayName: "Parallel Sessions on Ultra Bypassing Workflow Page"
-  type: number
-  default: 30
-- name: newImage
-  displayName: "New Image?"
-  type: boolean
-  default: true
+  - name: numInstancesAquaVia
+    displayName: 'Parallel Sessions on Aqua Via Workflow Page'
+    type: number
+    default: 0
+  - name: numInstancesAquaBypass
+    displayName: 'Parallel Sessions on Aqua Bypassing Workflow Page'
+    type: number
+    default: 0
+  - name: numInstancesUltraVia
+    displayName: 'Parallel Sessions on Ultra Via Workflow Page'
+    type: number
+    default: 0
+  - name: numInstancesUltraBypass
+    displayName: 'Parallel Sessions on Ultra Bypassing Workflow Page'
+    type: number
+    default: 30
+  - name: newImage
+    displayName: 'New Image?'
+    type: boolean
+    default: true
 
 trigger: none
 
 jobs:
-- job: ViewpointLoadTest
-  timeoutInMinutes: 75
-  steps:
-  - task: Bash@3
-    displayName: 'Build New Image'
-    condition: eq('${{ parameters.newImage }}', 'true')
-    inputs:       
-      targetType: 'inline'
-      script: |
-        docker ps --filter name=votingportal* --filter name=s-cypress* -aq | xargs docker rm -f
-        docker rmi votingportal-cypress -f
-        docker build -t votingportal-cypress .
+  - job: ViewpointLoadTest
+    timeoutInMinutes: 75
+    steps:
+      - task: Bash@3
+        displayName: 'Build New Image'
+        condition: eq('${{ parameters.newImage }}', 'true')
+        inputs:
+          targetType: 'inline'
+          script: |
+            docker ps --filter name=votingportal* --filter name=s-cypress* -aq | xargs docker rm -f
+            docker rmi votingportal-cypress -f
+            docker build -t votingportal-cypress .
 
-  - task: Bash@3
-    displayName: 'Run Cypress Load'
-    inputs:       
-      targetType: 'inline'
-      script: 'docker compose up --scale cypress-av=${{ parameters.numInstancesAquaVia }} --scale cypress-ab=${{ parameters.numInstancesAquaBypass }} --scale cypress-uv=${{ parameters.numInstancesUltraVia }} --scale cypress-ub=${{ parameters.numInstancesUltraBypass }}'
+      - task: Bash@3
+        displayName: 'Run Cypress Load'
+        inputs:
+          targetType: 'inline'
+          script: 'docker compose up --scale cypress-av=${{ parameters.numInstancesAquaVia }} --scale cypress-ab=${{ parameters.numInstancesAquaBypass }} --scale cypress-uv=${{ parameters.numInstancesUltraVia }} --scale cypress-ub=${{ parameters.numInstancesUltraBypass }}'
 
-  - task: Bash@3
-    displayName: 'Remove Exited Cypress Containers'
-    inputs:       
-      targetType: 'inline'
-      script: 'docker ps --filter name=votingportal* --filter name=s-cypress* -aq | xargs docker rm -f'
-    condition: always()
+      - task: Bash@3
+        displayName: 'Remove Exited Cypress Containers'
+        inputs:
+          targetType: 'inline'
+          script: 'docker ps --filter name=votingportal* --filter name=s-cypress* -aq | xargs docker rm -f'
+        condition: always()

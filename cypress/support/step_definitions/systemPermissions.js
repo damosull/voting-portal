@@ -1,12 +1,11 @@
-import { When, Then } from "@badeball/cypress-cucumber-preprocessor"
-
+import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 When('I navigate to the system permissions page', () => {
-    cy.visit('/systempermissions')
-})
+	cy.visit('/systempermissions');
+});
 
 Then('I verify that all the relevant API calls for system permissions page are made', () => {
-    //2 API Calls
-    cy.statusCode200('@CURRENT_USER')
-    cy.statusCode200('@PERMISSIONS')
-})
+	//2 API Calls
+	cy.statusCode200('@CURRENT_USER');
+	cy.statusCode200('@PERMISSIONS');
+});
