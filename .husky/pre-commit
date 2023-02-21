@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx prettier 'cypress/**/*.js' --write
+npm run prettier
 npm run lint
