@@ -237,8 +237,10 @@ export const API = {
 		WATCHLIST: '**/Api/Data/Watchlist/**',
 		WATCHLIST_SECURITIES: '**/Api/Data/WatchlistSecurities/**',
 		WATCHLIST_IDENTITY_SEARCH: '**/Api/Data/WatchlistIdentitySearch/**',
-		WEBUIRES_COMPANY_NAME_SPECIAL: '**/Api/WebUIRes/?path=/Scripts/EditorControls/CompanyNameSpecial/CustomerSpecial.js&_=**',
-		WEBUIRES_MULTI_SELECT_STATIC: '**/Api/WebUIRes/?path=/Scripts/EditorControls/MultiSelectStatic/MultiSelectStatic.js&_=**',
+		WEBUIRES_COMPANY_NAME_SPECIAL:
+			'**/Api/WebUIRes/?path=/Scripts/EditorControls/CompanyNameSpecial/CustomerSpecial.js&_=**',
+		WEBUIRES_MULTI_SELECT_STATIC:
+			'**/Api/WebUIRes/?path=/Scripts/EditorControls/MultiSelectStatic/MultiSelectStatic.js&_=**',
 		WEBUIRES_USER_SPECIAL: '**/Api/WebUIRes/?path=/Scripts/EditorControls//UserSpecial/UserSpecial.js&_=**',
 		WIDGET_META: '**/Api/Data/WidgetMeta/**',
 		WORKFLOW_CONFIGURE_COLUMNS: '**/Api/WebUI//Workflow/WorkflowConfigureColumns**',

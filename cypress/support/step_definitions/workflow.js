@@ -78,7 +78,12 @@ Then('I have added the criteria for {string} {string}', (criteria, value) => {
 	cy.AddMultipleCriteria([criteria]);
 	cy.intercept('GET', '**/GetSecurityStartsWith/?QueryValue=**').as('COMPANY_FILTER_SEARCH_RESULTS');
 	workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false });
-	workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA');
+	workflowPage
+		.criteriaHeadings()
+		.contains(criteria)
+		.next()
+		.invoke('attr', 'style', 'display: block;')
+		.as('FILTER_CRITERIA');
 	cy.get('@FILTER_CRITERIA')
 		.should('be.visible')
 		.within(() => {
@@ -98,7 +103,13 @@ Then('I have added the criteria for {string} {string}', (criteria, value) => {
 Then('I have added the criteria for {string} with status {string}', (criteria, status) => {
 	cy.AddMultipleCriteria([criteria]);
 	workflowPage.criteriaHeadings().contains(criteria).first().click({ scrollBehavior: false });
-	workflowPage.criteriaHeadings().contains(criteria).first().next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA');
+	workflowPage
+		.criteriaHeadings()
+		.contains(criteria)
+		.first()
+		.next()
+		.invoke('attr', 'style', 'display: block;')
+		.as('FILTER_CRITERIA');
 	cy.get('@FILTER_CRITERIA')
 		.should('be.visible')
 		.within(() => {
@@ -113,7 +124,12 @@ Then('I have added the criteria for {string} with status {string}', (criteria, s
 Then('I have added the criteria for {string} and checking the checkbox for {string}', (criteria, status) => {
 	cy.AddMultipleCriteria([criteria]);
 	workflowPage.criteriaHeadings().contains(criteria).click({ scrollBehavior: false });
-	workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA');
+	workflowPage
+		.criteriaHeadings()
+		.contains(criteria)
+		.next()
+		.invoke('attr', 'style', 'display: block;')
+		.as('FILTER_CRITERIA');
 	cy.get('@FILTER_CRITERIA')
 		.should('be.visible')
 		.within(() => {
@@ -216,7 +232,9 @@ When('I navigate to a meeting with same deadline date and {int} meeting date ahe
 				.invoke('attr', 'href')
 				.then((val) => {
 					let meetingid = val.split('/Index/')[1];
-					cy.executeUpdateQuery(`UPDATE PX_Meeting SET MeetingDate = DATEADD(DAY, ${mdDays}, getdatE()) WHERE MeetingID = '${meetingid}'`);
+					cy.executeUpdateQuery(
+						`UPDATE PX_Meeting SET MeetingDate = DATEADD(DAY, ${mdDays}, getdatE()) WHERE MeetingID = '${meetingid}'`
+					);
 					cy.visit('MeetingDetails/Index/' + meetingid);
 				});
 		});
@@ -230,11 +248,14 @@ Then('I should be {string} to see the text {string} on the UI', (condition, text
 	}
 });
 
-Then('I can verify that "Upcoming Meetings" displayed under the "Quick Filters" category on the left side of the screen', () => {
-	workflowPage.quickFiltersDiv().contains('Upcoming Meetings').should('be.visible');
-	workflowPage.selectedQuickFilterName().should('contain.text', 'Upcoming Meetings');
-	workflowPage.selectedQuickFilterName().should('have.css', 'background-color', 'rgb(30, 64, 101)');
-});
+Then(
+	'I can verify that "Upcoming Meetings" displayed under the "Quick Filters" category on the left side of the screen',
+	() => {
+		workflowPage.quickFiltersDiv().contains('Upcoming Meetings').should('be.visible');
+		workflowPage.selectedQuickFilterName().should('contain.text', 'Upcoming Meetings');
+		workflowPage.selectedQuickFilterName().should('have.css', 'background-color', 'rgb(30, 64, 101)');
+	}
+);
 
 When('I navigate to {string} meeting', (company_name) => {
 	workflowPage.containsText(company_name).click();
@@ -434,7 +455,12 @@ Then('There is no reference to my picklist {string} on the workflow page', (lbl)
 Then('I should be able to see the results only for {string}', (filterName) => {
 	workflowPage.workflowLink().scrollIntoView();
 	workflowPage.criteriaHeadings().contains(filterName).click({ scrollBehavior: false });
-	workflowPage.criteriaHeadings().contains(filterName).next().invoke('attr', 'style', 'display: block;').as('FILTER_CRITERIA');
+	workflowPage
+		.criteriaHeadings()
+		.contains(filterName)
+		.next()
+		.invoke('attr', 'style', 'display: block;')
+		.as('FILTER_CRITERIA');
 	switch (filterName) {
 		case 'ESG Risk Rating Assessment':
 			cy.get(workflowPage.ESG_Risk_Rating_Assessment_filter.editorModal).should('be.visible');
@@ -630,9 +656,11 @@ Then('all the results on the table should belong to "Calpers"', () => {
 		$rows.each((index, value) => {
 			const wlist = Cypress.$(value).find('td#metaname-SystemWatchlistsName > div > span').text();
 			if (wlist === '') {
-				cy.get(`.mCSB_container >table > tbody >tr:nth-child(${index + 1}) > td:nth-child(2) > div > span > a`).then((meet) => {
-					meetingName = meet.text();
-				});
+				cy.get(`.mCSB_container >table > tbody >tr:nth-child(${index + 1}) > td:nth-child(2) > div > span > a`).then(
+					(meet) => {
+						meetingName = meet.text();
+					}
+				);
 				cy.get(`.mCSB_container >table > tbody >tr:nth-child(${index + 1}) > td:nth-child(2) > div > span > a`).click();
 				return false;
 			}

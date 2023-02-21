@@ -83,7 +83,13 @@ const columns_VotingActivityReport = [
 	'Proposal Category Report',
 	'Proposal Type Report',
 ];
-const columns_BallotStatusViaMDReport = ['Ballot Status Report', 'Decision Status', 'Vote Deadline Date', 'Vote Cast', 'Meeting Agenda'];
+const columns_BallotStatusViaMDReport = [
+	'Ballot Status Report',
+	'Decision Status',
+	'Vote Deadline Date',
+	'Vote Cast',
+	'Meeting Agenda',
+];
 const columns_BallotVoteDataMandatory = [
 	'Company',
 	'Meeting Date',
@@ -348,7 +354,9 @@ Then('I verify the report name and a few columns for Ballot Status Report', () =
 			cy.request(downloadLink).then((resp) => {
 				expect(resp.status).to.eq(200);
 				expect(resp.headers).to.have.property('content-disposition').contains(`filename=BallotStatusReport`);
-				expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+				expect(resp.headers)
+					.to.have.property('content-type')
+					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
 	cy.parseXlsx(`cypress/downloads/BallotStatusReport_${unixTime}.xlsx`).then((xlxsData) => {
@@ -367,7 +375,9 @@ Then('I verify the report name and headers for Ballot Vote Data Report', () => {
 		.then((downloadLink) => {
 			cy.request(downloadLink).then((resp) => {
 				expect(resp.status).to.eq(200);
-				expect(resp.headers).to.have.property('content-disposition').contains(`filename=BallotVoteDataReport_${unixTime}.csv`);
+				expect(resp.headers)
+					.to.have.property('content-disposition')
+					.contains(`filename=BallotVoteDataReport_${unixTime}.csv`);
 				expect(resp.headers).to.have.property('content-type').eql('text/csv');
 				expect(resp.body).include(
 					'Customer Account Name,Customer Account ID,Company,CUSIP,CINS,Country of Trade,Meeting Type,Meeting Date,Record Date,Proposal Order By,Proposal Label,Proposal Text,Proponent,Mgmt,GL Reco,Custom Policy,Vote Decision,For Or Against Mgmt,Rationale,Meeting Note,Ballot Voted Date,Issue Code,Issue Code Category,Shares Listed,Control Number Key,Ballot Status,Ballot Blocking,Agenda Key'
@@ -388,7 +398,9 @@ Then('I verify the report name and headers for Engagement Report', () => {
 				expect(resp.headers).to.have.property('content-disposition').contains('filename=EngagementReport');
 				expect(resp.headers).to.have.property('content-type').eql('text/csv');
 				expect(resp.body).to.have.length.greaterThan(1);
-				expect(resp.body).include('Company Name,Created Date,Date of Engagement,Other Participants,Themes,Type,Notes,Participant Name,Role,Title');
+				expect(resp.body).include(
+					'Company Name,Created Date,Date of Engagement,Other Participants,Themes,Type,Notes,Participant Name,Role,Title'
+				);
 			});
 		});
 });
@@ -403,7 +415,9 @@ Then('I verify the report name and a few columns for Meeting Summary Report', ()
 			cy.request(downloadLink).then((resp) => {
 				expect(resp.status).to.eq(200);
 				expect(resp.headers).to.have.property('content-disposition').contains(`filename=MeetingSummaryReport`);
-				expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+				expect(resp.headers)
+					.to.have.property('content-type')
+					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
 	cy.parseXlsx(`cypress/downloads/MeetingSummaryReport_${unixTime}.xlsx`).then((xlxsData) => {
@@ -423,7 +437,9 @@ Then('I verify the report name and a few columns for Policy Report', () => {
 			cy.request(downloadLink).then((resp) => {
 				expect(resp.status).to.eq(200);
 				expect(resp.headers).to.have.property('content-disposition').contains(`filename=PolicyReport`);
-				expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+				expect(resp.headers)
+					.to.have.property('content-type')
+					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
 	cy.parseXlsx(`cypress/downloads/PolicyReport_${unixTime}.xlsx`).then((xlxsData) => {
@@ -443,7 +459,9 @@ Then('I verify the report name and a few columns for Proxy Voting Report', () =>
 			cy.request(downloadLink).then((resp) => {
 				expect(resp.status).to.eq(200);
 				expect(resp.headers).to.have.property('content-disposition').contains(`filename=ProxyVotingReport`);
-				expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+				expect(resp.headers)
+					.to.have.property('content-type')
+					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
 	cy.parseXlsx(`cypress/downloads/ProxyVotingReport_${unixTime}.xlsx`).then((xlxsData) => {
@@ -469,7 +487,9 @@ Then('I verify the report name and a few columns for Proxy Voting Summary Report
 			cy.request(downloadLink).then((resp) => {
 				expect(resp.status).to.eq(200);
 				expect(resp.headers).to.have.property('content-disposition').contains(`filename=ProxyVotingSummaryReport`);
-				expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+				expect(resp.headers)
+					.to.have.property('content-type')
+					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
 	cy.parseXlsx(`cypress/downloads/ProxyVotingSummaryReport_${unixTime}.xlsx`).then((xlxsData) => {
@@ -507,7 +527,9 @@ Then('I verify the report name and a few columns for Voting Activity Report', ()
 			cy.request(downloadLink).then((resp) => {
 				expect(resp.status).to.eq(200);
 				expect(resp.headers).to.have.property('content-disposition').contains(`filename=VotingActivityReport`);
-				expect(resp.headers).to.have.property('content-type').eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+				expect(resp.headers)
+					.to.have.property('content-type')
+					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
 	cy.parseXlsx(`cypress/downloads/VotingActivityReport_${unixTime}.xlsx`).then((xlxsData) => {
@@ -687,7 +709,12 @@ Then('I select the past {int} days', (pastDays) => {
 
 Then('I expand Vote Comparison and select GL Recs Against Mgmt', () => {
 	reportingPage.voteComparisonModal().invoke('attr', 'style', 'display: block');
-	reportingPage.voteComparisonCheckboxes().contains('GL Recs Against Mgmt').siblings().check({ force: true }).should('be.checked');
+	reportingPage
+		.voteComparisonCheckboxes()
+		.contains('GL Recs Against Mgmt')
+		.siblings()
+		.check({ force: true })
+		.should('be.checked');
 	reportingPage.voteComparisonUpdateButton().click();
 	reportingPage.containsText('All meeting agenda items (1)').should('be.visible');
 });

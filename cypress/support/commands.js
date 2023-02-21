@@ -7,9 +7,12 @@ Cypress.Commands.add('SetPaginationAndVerify', (numItemsPerPage, num) => {
 		'style',
 		'display: block'
 	);
-	cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').select(numItemsPerPage, {
-		timeout: 50000,
-	});
+	cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').select(
+		numItemsPerPage,
+		{
+			timeout: 50000,
+		}
+	);
 	cy.get('#md-ballots-grid-results').find('tr').its('length').should('eq', num);
 	cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select')
 		.find(':selected')
@@ -226,7 +229,9 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 	cy.intercept('GET', API.GET.WEBUIRES_USER_SPECIAL).as('WEBUIRES_USER_SPECIAL');
 	cy.intercept('GET', API.GET.WIDGET_META).as('WIDGET_META');
 	cy.intercept('GET', API.GET.WORKFLOW_CONFIGURE_COLUMNS).as('WORKFLOW_CONFIGURE_COLUMNS');
-	cy.intercept('GET', API.GET.WORKFLOW_CONFIGURE_COLUMNS_WITH_NO_SEARCH).as('WORKFLOW_CONFIGURE_COLUMNS_WITH_NO_SEARCH');
+	cy.intercept('GET', API.GET.WORKFLOW_CONFIGURE_COLUMNS_WITH_NO_SEARCH).as(
+		'WORKFLOW_CONFIGURE_COLUMNS_WITH_NO_SEARCH'
+	);
 	cy.intercept('GET', API.GET.WORKFLOW_FILTER_CRITERIA_EDITORS).as('WORKFLOW_FILTER_CRITERIA_EDITORS');
 	cy.intercept('GET', API.GET.WORKFLOW_META_DATA).as('WORKFLOW_META_DATA');
 	cy.intercept('GET', API.GET.WORKFLOW_META_DATA_1).as('WORKFLOW_META_DATA_1');
@@ -268,7 +273,8 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 				if (!success) {
 					console.log(`Check console for details => User: ${user} ${JSON.stringify(resp.body)}`);
 				}
-				expect(success, `Looks like login failed, try to manually login with user: ${user} & password: ${PASSWORD}`).to.be.true;
+				expect(success, `Looks like login failed, try to manually login with user: ${user} & password: ${PASSWORD}`).to
+					.be.true;
 			});
 		});
 });
@@ -298,9 +304,11 @@ Cypress.Commands.add('getAutomationUserIDFromDB', (user) => {
 });
 
 Cypress.Commands.add('getAutomationUsernameFromDB', (user) => {
-	cy.executeQuery(`SELECT UserFirstName + ' ' + UserLastName FROM[GLP].[dbo].[UM_User] where LoginID = '${user}'`).then((result) => {
-		return result;
-	});
+	cy.executeQuery(`SELECT UserFirstName + ' ' + UserLastName FROM[GLP].[dbo].[UM_User] where LoginID = '${user}'`).then(
+		(result) => {
+			return result;
+		}
+	);
 });
 
 Cypress.Commands.add('getCustomerIDFromDB', (user) => {
@@ -357,10 +365,13 @@ Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
 });
 
 Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
-	cy.intercept('GET', '**/Api/WebUI//WorkflowFilterCriteriaEditors/ForField?fields=**&objectType=WorkflowExpansion&customerId=0&_=**').as(
-		'WorkflowFilter'
+	cy.intercept(
+		'GET',
+		'**/Api/WebUI//WorkflowFilterCriteriaEditors/ForField?fields=**&objectType=WorkflowExpansion&customerId=0&_=**'
+	).as('WorkflowFilter');
+	cy.intercept('GET', '**//Api/WebUI/FilterCriteriaEditors/ForField?fields=**&objectType=**&customerId=0&_=**').as(
+		'ReportFilter'
 	);
-	cy.intercept('GET', '**//Api/WebUI/FilterCriteriaEditors/ForField?fields=**&objectType=**&customerId=0&_=**').as('ReportFilter');
 	cy.intercept('GET', '**/Api/Data//ListService/**?CustomerID=0').as('ListService');
 	cy.scrollTo('top', { ensureScrollable: false, easing: 'linear' });
 	cy.get('#btn-add-criteria').click({ scrollBehavior: false });
@@ -380,7 +391,10 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
 	cy.contains('Apply').click({ scrollBehavior: false });
 
 	if (!isReporting) {
-		cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').should('contain.text', searchText);
+		cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').should(
+			'contain.text',
+			searchText
+		);
 	} else {
 		cy.wait('@ReportFilter');
 		cy.get('#report-criteria-controls > div > div > h4').each((h4) => {

@@ -48,10 +48,13 @@ When('I navigate to the Meeting Details page for the saved meeting ID', () => {
 	cy.visit(meetingId);
 });
 
-When('I set the meeting date to {int} days from today and navigate to the meeting details page for the meeting {string}', (noOfDays, meetingID) => {
-	cy.SetMeetingDateXdaysFromCurrent(constants.MEETINGID[meetingID], noOfDays);
-	cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID]);
-});
+When(
+	'I set the meeting date to {int} days from today and navigate to the meeting details page for the meeting {string}',
+	(noOfDays, meetingID) => {
+		cy.SetMeetingDateXdaysFromCurrent(constants.MEETINGID[meetingID], noOfDays);
+		cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID]);
+	}
+);
 
 When('I click on the Change Vote or Rationale button', () => {
 	meetingDetailsPage.unlockButton().click();
@@ -79,14 +82,17 @@ Then('I can verify the hover text for the voting buttons gives a valid message',
 	meetingDetailsPage.instructButton().should('have.attr', 'title', hoverText);
 });
 
-Then('I can verify the research html and pdf links take user to the "We could not load the research paper" page', () => {
-	meetingDetailsPage.researchHtmlLink().invoke('removeAttr', 'target').click();
-	meetingDetailsPage.containsText('We could not load the research paper').should('be.visible');
-	cy.go('back');
-	meetingDetailsPage.researchPdfLink().invoke('removeAttr', 'target').click();
-	meetingDetailsPage.containsText('We could not load the research paper').should('be.visible');
-	cy.go('back');
-});
+Then(
+	'I can verify the research html and pdf links take user to the "We could not load the research paper" page',
+	() => {
+		meetingDetailsPage.researchHtmlLink().invoke('removeAttr', 'target').click();
+		meetingDetailsPage.containsText('We could not load the research paper').should('be.visible');
+		cy.go('back');
+		meetingDetailsPage.researchPdfLink().invoke('removeAttr', 'target').click();
+		meetingDetailsPage.containsText('We could not load the research paper').should('be.visible');
+		cy.go('back');
+	}
+);
 
 Then('I should be {string} to see {string} on the UI', (isVisible, element) => {
 	isVisible = isVisible.includes('unable') ? 'not.be.visible' : 'be.visible';
@@ -217,9 +223,15 @@ Then('I replace my FOR votes with AGAINST and vice-versa', () => {
 				var option1 = Cypress.$(value).find('option').eq(1).text();
 				var option2 = Cypress.$(value).find('option').eq(2).text();
 				if (Cypress.$(value).find('option').eq(1).text() !== selected) {
-					cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).select(option1, { force: true });
+					cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).select(
+						option1,
+						{ force: true }
+					);
 				} else {
-					cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).select(option2, { force: true });
+					cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).select(
+						option2,
+						{ force: true }
+					);
 				}
 			}
 		});
@@ -244,13 +256,16 @@ When('I click on the next meeting button', () => {
 	meetingDetailsPage.nextMeetingLink().click();
 });
 
-Then('I can see the other items on Custom Policy Rationale modal like Policy ID, Rationale, Replace Rationale, Item Number and Proposal', () => {
-	meetingDetailsPage.customPolicyRationaleModalTableHeader('Policy ID').should('be.visible');
-	meetingDetailsPage.customPolicyRationaleModalTableHeader('Rationale').should('be.visible');
-	meetingDetailsPage.customPolicyRationaleModalTableHeader('Replace Rationale').should('be.visible');
-	meetingDetailsPage.customPolicyRationaleModalItem().should('be.visible');
-	meetingDetailsPage.customPolicyRationaleModalProposal().should('be.visible');
-});
+Then(
+	'I can see the other items on Custom Policy Rationale modal like Policy ID, Rationale, Replace Rationale, Item Number and Proposal',
+	() => {
+		meetingDetailsPage.customPolicyRationaleModalTableHeader('Policy ID').should('be.visible');
+		meetingDetailsPage.customPolicyRationaleModalTableHeader('Rationale').should('be.visible');
+		meetingDetailsPage.customPolicyRationaleModalTableHeader('Replace Rationale').should('be.visible');
+		meetingDetailsPage.customPolicyRationaleModalItem().should('be.visible');
+		meetingDetailsPage.customPolicyRationaleModalProposal().should('be.visible');
+	}
+);
 
 Then('I can verify that I am unable to access Custom Policy Rationale modal for policy rec column', () => {
 	meetingDetailsPage.policyRecLabel().find('a').should('have.length', 0);
@@ -304,7 +319,10 @@ Then('I can verify that the Quick Vote option and Vote Decision are read only', 
 	meetingDetailsPage.quickVoteDropdown().should('have.attr', 'aria-disabled', 'true');
 	meetingDetailsPage.voteCardRow().then(($rows) => {
 		$rows.each((index) => {
-			cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).should('have.attr', 'disabled');
+			cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).should(
+				'have.attr',
+				'disabled'
+			);
 		});
 	});
 });
@@ -313,7 +331,9 @@ Then('I can verify that the Quick Vote option is disabled and Vote Decision opti
 	meetingDetailsPage.quickVoteDropdown().should('have.attr', 'aria-disabled', 'true');
 	meetingDetailsPage.voteCardRow().then(($rows) => {
 		$rows.each((index) => {
-			cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).should('not.exist');
+			cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).should(
+				'not.exist'
+			);
 		});
 	});
 });
@@ -463,7 +483,10 @@ Then('I vote for an item which had no previous vote with Glass Lewis Recommendat
 			const rec = Cypress.$(value).find('td.vote-card-policy-rec').text();
 			const glRec = Cypress.$(value).find('td:nth-of-type(4)').text();
 			if (rec.includes('Manual')) {
-				cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).select(glRec, { force: true });
+				cy.get(`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.vote-card-vote-dec > select`).select(
+					glRec,
+					{ force: true }
+				);
 			}
 		});
 	});
@@ -546,7 +569,9 @@ Then('I verify the vote tally modal is displayed when user clicks on the total v
 Then('I verify that the vote tally modal contains all the expected headers', () => {
 	meetingDetailsPage.voteTallyPopupDiv().within(() => {
 		meetingDetailsPage
-			.containsText('Selecting the number of ballots voted or not voted for a policy will apply the appropriate filter in the vote card')
+			.containsText(
+				'Selecting the number of ballots voted or not voted for a policy will apply the appropriate filter in the vote card'
+			)
 			.should('be.visible');
 		meetingDetailsPage.containsText('Policy ID').should('be.visible');
 		meetingDetailsPage.containsText('Ballots Voted').should('be.visible');
@@ -654,7 +679,9 @@ Then('I clear the rationales for VAM entries and VAP entries and add rationales 
 						.scrollIntoView()
 						.click({ force: true });
 					cy.get(
-						`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+						`#md-votecard-grid-results > tr:nth-child(${
+							index + 1
+						}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
 					).clear({ force: true });
 					cy.get(
 						`#md-votecard-grid-results > tr:nth-child(${
@@ -666,10 +693,14 @@ Then('I clear the rationales for VAM entries and VAP entries and add rationales 
 						.scrollIntoView()
 						.click({ force: true });
 					cy.get(
-						`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+						`#md-votecard-grid-results > tr:nth-child(${
+							index + 1
+						}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
 					).clear({ force: true });
 					cy.get(
-						`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+						`#md-votecard-grid-results > tr:nth-child(${
+							index + 1
+						}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
 					).type('test', { force: true });
 					cy.get(
 						`#md-votecard-grid-results > tr:nth-child(${
@@ -693,7 +724,9 @@ Then('I clear the rationales for VAM entries and add rationales for other propos
 						.scrollIntoView()
 						.click({ force: true });
 					cy.get(
-						`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+						`#md-votecard-grid-results > tr:nth-child(${
+							index + 1
+						}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
 					).clear({ force: true });
 					cy.get(
 						`#md-votecard-grid-results > tr:nth-child(${
@@ -705,10 +738,14 @@ Then('I clear the rationales for VAM entries and add rationales for other propos
 						.scrollIntoView()
 						.click({ force: true });
 					cy.get(
-						`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+						`#md-votecard-grid-results > tr:nth-child(${
+							index + 1
+						}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
 					).clear({ force: true });
 					cy.get(
-						`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+						`#md-votecard-grid-results > tr:nth-child(${
+							index + 1
+						}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
 					).type('test', { force: true });
 					cy.get(
 						`#md-votecard-grid-results > tr:nth-child(${
@@ -732,7 +769,9 @@ Then('I clear the rationales for VAP entries and add rationales for other propos
 						.scrollIntoView()
 						.click({ force: true });
 					cy.get(
-						`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+						`#md-votecard-grid-results > tr:nth-child(${
+							index + 1
+						}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
 					).clear({ force: true });
 					cy.get(
 						`#md-votecard-grid-results > tr:nth-child(${
@@ -744,10 +783,14 @@ Then('I clear the rationales for VAP entries and add rationales for other propos
 						.scrollIntoView()
 						.click({ force: true });
 					cy.get(
-						`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+						`#md-votecard-grid-results > tr:nth-child(${
+							index + 1
+						}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
 					).clear({ force: true });
 					cy.get(
-						`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+						`#md-votecard-grid-results > tr:nth-child(${
+							index + 1
+						}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
 					).type('test', { force: true });
 					cy.get(
 						`#md-votecard-grid-results > tr:nth-child(${
@@ -769,10 +812,14 @@ Then('I enter rationales for all proposals in the meeting', () => {
 					.scrollIntoView()
 					.click({ force: true });
 				cy.get(
-					`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+					`#md-votecard-grid-results > tr:nth-child(${
+						index + 1
+					}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
 				).clear({ force: true });
 				cy.get(
-					`#md-votecard-grid-results > tr:nth-child(${index + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+					`#md-votecard-grid-results > tr:nth-child(${
+						index + 1
+					}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
 				).type('test rationale', { force: true });
 				cy.get(
 					`#md-votecard-grid-results > tr:nth-child(${
@@ -859,68 +906,71 @@ Then('I filter for {string} account', (filterValue) => {
 	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 });
 
-Then('I can verify that the vote card summary remains unchanged when user changes the filters on {string}', (filterValue) => {
-	meetingDetailsPage.totalVotedLink().should(($el) => {
-		return (preTotalVoted = $el.text());
-	});
-	meetingDetailsPage.totalNotVotedLink().should(($el) => {
-		return (preTotalNotVoted = $el.text());
-	});
-	//Change Filter Value based on Account / Account Group / Policy
-	if (filterValue.includes('account group')) {
-		meetingDetailsPage.accountGroupButton().click();
-		meetingDetailsPage
-			.accountGroupButton()
-			.invoke('text')
-			.then((text) => {
-				if (text.includes('(1)')) {
-					meetingDetailsPage.selectAllAccountGroupCheckbox().check({ force: true });
-				} else {
-					meetingDetailsPage.selectAllAccountGroupCheckbox().uncheck({ force: true });
-					meetingDetailsPage.individualAccountGroupCheckbox().eq(0).check({ force: true });
-				}
-			});
-		meetingDetailsPage.updateAccountGroupButton().click({ scrollBehavior: false });
-	} else if (filterValue.includes('policy')) {
-		meetingDetailsPage.policyButton().click();
-		meetingDetailsPage
-			.policyButton()
-			.invoke('text')
-			.then((text) => {
-				if (text.includes('(1)')) {
-					meetingDetailsPage.selectAllPolicyCheckbox().check({ force: true });
-				} else {
-					meetingDetailsPage.selectAllPolicyCheckbox().uncheck({ force: true });
-					meetingDetailsPage.individualPolicyCheckbox().eq(0).check({ force: true });
-				}
-			});
-		meetingDetailsPage.updatePolicyButton().click({ scrollBehavior: false });
-	} else {
-		meetingDetailsPage.accountButton().click();
-		meetingDetailsPage
-			.accountButton()
-			.invoke('text')
-			.then((text) => {
-				if (text.includes('(1)')) {
-					meetingDetailsPage.selectAllAccountCheckbox().check({ force: true });
-				} else {
-					meetingDetailsPage.selectAllAccountCheckbox().uncheck({ force: true });
-					meetingDetailsPage.individualAccountCheckbox().eq(0).check({ force: true });
-				}
-			});
-		meetingDetailsPage.updateAccountButton().click({ scrollBehavior: false });
+Then(
+	'I can verify that the vote card summary remains unchanged when user changes the filters on {string}',
+	(filterValue) => {
+		meetingDetailsPage.totalVotedLink().should(($el) => {
+			return (preTotalVoted = $el.text());
+		});
+		meetingDetailsPage.totalNotVotedLink().should(($el) => {
+			return (preTotalNotVoted = $el.text());
+		});
+		//Change Filter Value based on Account / Account Group / Policy
+		if (filterValue.includes('account group')) {
+			meetingDetailsPage.accountGroupButton().click();
+			meetingDetailsPage
+				.accountGroupButton()
+				.invoke('text')
+				.then((text) => {
+					if (text.includes('(1)')) {
+						meetingDetailsPage.selectAllAccountGroupCheckbox().check({ force: true });
+					} else {
+						meetingDetailsPage.selectAllAccountGroupCheckbox().uncheck({ force: true });
+						meetingDetailsPage.individualAccountGroupCheckbox().eq(0).check({ force: true });
+					}
+				});
+			meetingDetailsPage.updateAccountGroupButton().click({ scrollBehavior: false });
+		} else if (filterValue.includes('policy')) {
+			meetingDetailsPage.policyButton().click();
+			meetingDetailsPage
+				.policyButton()
+				.invoke('text')
+				.then((text) => {
+					if (text.includes('(1)')) {
+						meetingDetailsPage.selectAllPolicyCheckbox().check({ force: true });
+					} else {
+						meetingDetailsPage.selectAllPolicyCheckbox().uncheck({ force: true });
+						meetingDetailsPage.individualPolicyCheckbox().eq(0).check({ force: true });
+					}
+				});
+			meetingDetailsPage.updatePolicyButton().click({ scrollBehavior: false });
+		} else {
+			meetingDetailsPage.accountButton().click();
+			meetingDetailsPage
+				.accountButton()
+				.invoke('text')
+				.then((text) => {
+					if (text.includes('(1)')) {
+						meetingDetailsPage.selectAllAccountCheckbox().check({ force: true });
+					} else {
+						meetingDetailsPage.selectAllAccountCheckbox().uncheck({ force: true });
+						meetingDetailsPage.individualAccountCheckbox().eq(0).check({ force: true });
+					}
+				});
+			meetingDetailsPage.updateAccountButton().click({ scrollBehavior: false });
+		}
+		//Wait for page to load and then compare values
+		meetingDetailsPage.getLoadingSpinner().should('not.be.visible');
+		meetingDetailsPage.totalVotedLink().should(($el) => {
+			postTotalVoted = $el.text();
+			expect(postTotalVoted).to.equal(preTotalVoted);
+		});
+		meetingDetailsPage.totalNotVotedLink().should(($el) => {
+			postTotalNotVoted = $el.text();
+			expect(postTotalNotVoted).to.equal(preTotalNotVoted);
+		});
 	}
-	//Wait for page to load and then compare values
-	meetingDetailsPage.getLoadingSpinner().should('not.be.visible');
-	meetingDetailsPage.totalVotedLink().should(($el) => {
-		postTotalVoted = $el.text();
-		expect(postTotalVoted).to.equal(preTotalVoted);
-	});
-	meetingDetailsPage.totalNotVotedLink().should(($el) => {
-		postTotalNotVoted = $el.text();
-		expect(postTotalNotVoted).to.equal(preTotalNotVoted);
-	});
-});
+);
 
 Then('I can use the Filter on unvoted ballots functionality', () => {
 	meetingDetailsPage.filterUnvotedBallotsButton().click();
@@ -1011,7 +1061,13 @@ Then('I should be able to verify the pagination works as expected on the ballot 
 });
 
 Then('I should be able to verify the pagination is displayed on the ballot section page', () => {
-	const custColumns = ['Custodian Account Number', 'Custodian Id', 'Custodian Name', 'Customer Account Name', 'Customer Account Number'];
+	const custColumns = [
+		'Custodian Account Number',
+		'Custodian Id',
+		'Custodian Name',
+		'Customer Account Name',
+		'Customer Account Number',
+	];
 	const columnLabels = ['BallotsGrid3', 'BallotsGrid17', 'BallotsGrid18', 'BallotsGrid2', 'BallotsGrid11'];
 	//Step 3 - User Clicks on 'Columns' button
 	meetingDetailsPage.ballotsColumnsDropdown().click();
@@ -1060,40 +1116,43 @@ Then('I should be able to verify the chosen pagination is autosaved on the ballo
 	cy.SetPaginationAndVerify('10', 10);
 });
 
-Then('I should be able to toggle between "Management" Multiple Agendas in the Vote card page for specific meeting type', () => {
-	//Step 4 - Click on the 'Management' vote card dropdown
-	meetingDetailsPage.managementDropdown().invoke('attr', 'class', 'dropdown related-meetings-list open');
+Then(
+	'I should be able to toggle between "Management" Multiple Agendas in the Vote card page for specific meeting type',
+	() => {
+		//Step 4 - Click on the 'Management' vote card dropdown
+		meetingDetailsPage.managementDropdown().invoke('attr', 'class', 'dropdown related-meetings-list open');
 
-	//Step 5 - Verify 'Ballots' section will only display specific 'Management' agenda type ballot details [Eg : Management - 934050888]
-	meetingDetailsPage.ballotSectionSpan().then(function (val) {
-		const agenda = val.text();
-		expect(agenda).to.include(constants.MEETINGID.NBCOMMO_AGENDA1);
-	});
-	meetingDetailsPage.ballotSectionLinks().then(function (ctrlnum) {
-		const displayedCtrlNum = ctrlnum.text();
-		expect(displayedCtrlNum).to.include(constants.MEETINGID.NBCOMMO_CTRLNUM1);
-	});
+		//Step 5 - Verify 'Ballots' section will only display specific 'Management' agenda type ballot details [Eg : Management - 934050888]
+		meetingDetailsPage.ballotSectionSpan().then(function (val) {
+			const agenda = val.text();
+			expect(agenda).to.include(constants.MEETINGID.NBCOMMO_AGENDA1);
+		});
+		meetingDetailsPage.ballotSectionLinks().then(function (ctrlnum) {
+			const displayedCtrlNum = ctrlnum.text();
+			expect(displayedCtrlNum).to.include(constants.MEETINGID.NBCOMMO_CTRLNUM1);
+		});
 
-	//Step 6 - Select another 'Management' Vote card in the dropdown list[Eg: Management -934050915]
-	//Expected - Vote Card page gets refreshed and 'Ballots' section gets updated with the 'Agenda Type' as 'Management' and 'Ballot Control Number' as different to that of previous 'Management' number
-	meetingDetailsPage.ballotSectionThirdLink().click();
-	cy.wait('@GET_AGENDA');
+		//Step 6 - Select another 'Management' Vote card in the dropdown list[Eg: Management -934050915]
+		//Expected - Vote Card page gets refreshed and 'Ballots' section gets updated with the 'Agenda Type' as 'Management' and 'Ballot Control Number' as different to that of previous 'Management' number
+		meetingDetailsPage.ballotSectionThirdLink().click();
+		cy.wait('@GET_AGENDA');
 
-	meetingDetailsPage.ballotSectionSpan().then(function (val) {
-		const agenda = val.text();
-		expect(agenda).to.include(constants.MEETINGID.NBCOMMO_AGENDA2);
-	});
+		meetingDetailsPage.ballotSectionSpan().then(function (val) {
+			const agenda = val.text();
+			expect(agenda).to.include(constants.MEETINGID.NBCOMMO_AGENDA2);
+		});
 
-	//verify all agendas can can be listed
-	meetingDetailsPage.managementDropdown().invoke('attr', 'class', 'dropdown related-meetings-list open');
-	meetingDetailsPage.ballotSectionFourthLink().click();
-	cy.wait('@GET_AGENDA');
+		//verify all agendas can can be listed
+		meetingDetailsPage.managementDropdown().invoke('attr', 'class', 'dropdown related-meetings-list open');
+		meetingDetailsPage.ballotSectionFourthLink().click();
+		cy.wait('@GET_AGENDA');
 
-	meetingDetailsPage.ballotSectionSpan().then(function (val) {
-		const agenda = val.text();
-		expect(agenda).to.include(constants.MEETINGID.NBCOMMO_AGENDA3);
-	});
-});
+		meetingDetailsPage.ballotSectionSpan().then(function (val) {
+			const agenda = val.text();
+			expect(agenda).to.include(constants.MEETINGID.NBCOMMO_AGENDA3);
+		});
+	}
+);
 
 Then('the meeting id should match the expected current meeting id and previous meeting id', () => {
 	var idMeeting = [1101707, 1129790];
@@ -1307,8 +1366,12 @@ Then('I am able to iterate through rationales, add text entry, save and verify t
 			cy.get(`tr:nth-child(${$idx + 1}) > td.cell-with-rationale > div > div > span`)
 				.scrollIntoView()
 				.click({ force: true });
-			cy.get(`tr:nth-child(${$idx + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`).clear({ force: true });
-			cy.get(`tr:nth-child(${$idx + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`).type('test', { force: true });
+			cy.get(
+				`tr:nth-child(${$idx + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+			).clear({ force: true });
+			cy.get(
+				`tr:nth-child(${$idx + 1}) > td.cell-with-rationale > div > div > div > div.editable-input > textarea`
+			).type('test', { force: true });
 			cy.get(
 				`tr:nth-child(${
 					$idx + 1
@@ -1362,19 +1425,22 @@ Then('I can verify that the default field "Control Number" is not available in t
 		});
 });
 
-Then('I can verify that the user gets the appropriate results for "Custodian" in the responsive search of the "Columns" Modal', () => {
-	// Step 8 - Verify that the user enter a character (e.g.: 'Custodian') in the responsive search of the "Columns" Modal
-	meetingDetailsPage.ballotSectionCompanyNameInput().last().type('Custodian');
+Then(
+	'I can verify that the user gets the appropriate results for "Custodian" in the responsive search of the "Columns" Modal',
+	() => {
+		// Step 8 - Verify that the user enter a character (e.g.: 'Custodian') in the responsive search of the "Columns" Modal
+		meetingDetailsPage.ballotSectionCompanyNameInput().last().type('Custodian');
 
-	meetingDetailsPage
-		.ballotSectionData()
-		.find('#mytable > ul > li')
-		.each(($column) => {
-			expect($column.text().trim()).to.have.string('Custodian');
-		});
+		meetingDetailsPage
+			.ballotSectionData()
+			.find('#mytable > ul > li')
+			.each(($column) => {
+				expect($column.text().trim()).to.have.string('Custodian');
+			});
 
-	meetingDetailsPage.ballotCancelButton().eq(1).click();
-});
+		meetingDetailsPage.ballotCancelButton().eq(1).click();
+	}
+);
 
 Then('I can verify that the ballot section displays just the results based on the policy filtered', () => {
 	// Check which position the column "Policy ID" is and wrapped into the object index
@@ -1562,12 +1628,18 @@ Then('I add the user {string} to shared with field', (sharedWith) => {
 	meetingDetailsPage.editShareUserInput().type(sharedWith).wait(1000).type('{enter}');
 });
 
-Then('I should be able to view the default placeholder, shared with dropdown and attachment button in comments section', () => {
-	meetingDetailsPage.commentTextArea().invoke('attr', 'placeholder').should('eq', 'Post a comment, mention a @user...');
-	meetingDetailsPage.shareVisibilityDropdown().should('contain.text', 'Shared With');
-	meetingDetailsPage.sharedWithDropdown().should('contain.text', 'Everyone');
-	meetingDetailsPage.attachFileButton().should('be.visible');
-});
+Then(
+	'I should be able to view the default placeholder, shared with dropdown and attachment button in comments section',
+	() => {
+		meetingDetailsPage
+			.commentTextArea()
+			.invoke('attr', 'placeholder')
+			.should('eq', 'Post a comment, mention a @user...');
+		meetingDetailsPage.shareVisibilityDropdown().should('contain.text', 'Shared With');
+		meetingDetailsPage.sharedWithDropdown().should('contain.text', 'Everyone');
+		meetingDetailsPage.attachFileButton().should('be.visible');
+	}
+);
 
 When('I add a comment with {int} characters', (noOfCharacters) => {
 	cy.randomString(noOfCharacters).then((data) => {
@@ -1609,7 +1681,11 @@ Then('I can verify that the radio buttons are displayed for NOMINAL & PERCENT fi
 Then('I can verify that all partial vote percent on the page is {int}', (value) => {
 	meetingDetailsPage.partialVotePercentAllInput().then(($rows) => {
 		$rows.each((index) => {
-			meetingDetailsPage.partialVotePercentAllInput().eq(index).invoke('attr', 'aria-valuenow').should('eq', String(value));
+			meetingDetailsPage
+				.partialVotePercentAllInput()
+				.eq(index)
+				.invoke('attr', 'aria-valuenow')
+				.should('eq', String(value));
 		});
 	});
 });

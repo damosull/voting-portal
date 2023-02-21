@@ -5,7 +5,8 @@ class meetingDetailsPage {
 	warningPopUpLocator = '#vote-warnings-and-errors-modal';
 	votedBallotsLocator = '[data-bind="visible: override.votedBallotsBoxVisible"] > .ccb';
 	takeNoActionBallotsLocator = '[data-bind="visible: override.tnaBallotsBoxVisible"] > .ccb';
-	ballotsSearchClearInputLocator = "ul[id='txt-responsive-search-md-controlNumberKeyFiltering_taglist'] span[class='k-icon k-delete']";
+	ballotsSearchClearInputLocator =
+		"ul[id='txt-responsive-search-md-controlNumberKeyFiltering_taglist'] span[class='k-icon k-delete']";
 	clearPartialVoteButtonLocator = '#btn-clear-partial-vote';
 
 	//Header
@@ -475,10 +476,14 @@ class meetingDetailsPage {
 		return cy.get('#ballotActivityLogGrid > div > table > tbody > tr:nth-child(1) > td');
 	}
 	ballotsPerPageDropdown() {
-		return cy.get(`#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select`);
+		return cy.get(
+			`#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select`
+		);
 	}
 	ballotsPerPageDropdownText() {
-		return cy.get(`#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > span > span.k-input`);
+		return cy.get(
+			`#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > span > span.k-input`
+		);
 	}
 	ballotsColumnsDropdown() {
 		return cy.get('#btn-mdballots-details-config-columns');
@@ -487,7 +492,9 @@ class meetingDetailsPage {
 		return cy.get('#ballots-configure-columns-target');
 	}
 	ballotsColumnsInput() {
-		return cy.get('#ballots-configure-columns-target-dynamic > .clearfix > #configure-columns-modal > .input > #txt-filter-col-name');
+		return cy.get(
+			'#ballots-configure-columns-target-dynamic > .clearfix > #configure-columns-modal > .input > #txt-filter-col-name'
+		);
 	}
 	ballotsColumnsLabelFor(forValue) {
 		return cy.get(`label[for='${forValue}']`);
