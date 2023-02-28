@@ -5,22 +5,22 @@ services:
     build: .
     ipc: host
     image: votingportal-cypress
-    command: '--config reporter=spec,screenshotOnRunFailure=false,retries=0,specPattern=cypress/loadtest/loadtest-viaWorkflow.feature,baseUrl=https://viewpoint.aqua.glasslewis.com'
+    command: '--config reporter=spec,screenshotOnRunFailure=false,retries=0,specPattern=cypress/loadtest/loadtest-viaWorkflow.feature --env url=https://viewpoint.aqua.glasslewis.com'
   #Service to run voting load on Aqua by selecting meetings bypassing Workflow page
   cypress-ab:
     build: .
     ipc: host
     image: votingportal-cypress
-    command: '--config reporter=spec,screenshotOnRunFailure=false,retries=0,specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,baseUrl=https://viewpoint.aqua.glasslewis.com'
+    command: '--config reporter=spec,screenshotOnRunFailure=false,retries=0,specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature --env url=https://viewpoint.aqua.glasslewis.com'
   #Service to run voting load on Ultra by selecting meetings via Workflow page
   cypress-uv:
     build: .
     ipc: host
     image: votingportal-cypress
-    command: '--config reporter=spec,screenshotOnRunFailure=false,retries=0,specPattern=cypress/loadtest/loadtest-viaWorkflow.feature,baseUrl=https://viewpoint.ultra.glasslewis.com'
+    command: '--config reporter=spec,screenshotOnRunFailure=false,retries=0,specPattern=cypress/loadtest/loadtest-viaWorkflow.feature --env url=https://viewpoint.ultra.glasslewis.com'
   #Service to run voting load on Ultra by selecting meetings bypassing Workflow page
   cypress-ub:
     build: .
     ipc: host
     image: votingportal-cypress
-    command: '--config reporter=spec,screenshotOnRunFailure=false,retries=0,specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,baseUrl=https://viewpoint.ultra.glasslewis.com'
+    command: '--config reporter=spec,screenshotOnRunFailure=false,retries=0,specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature --env url=https://viewpoint.ultra.glasslewis.com'
