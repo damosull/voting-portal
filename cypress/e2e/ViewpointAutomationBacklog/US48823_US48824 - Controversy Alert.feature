@@ -1,19 +1,17 @@
 Feature: Controversy Alert
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/50256
   @50256
   Scenario: Verify "Controversy Alert" field displays in the Configure Columns dropdown list
-    Given I am logged in as the "CHARLESSCHWAB" User
+    Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
     Then I can view the workflow page
     When I have added the column "Controversy Alert"
     And I can view the workflow page
-    And I select 2 meetings from the top
     And I scroll to the end of the meetings table
     Then I should be able to see a "column" named "Controversy Alert"
-    When I select "No" from the Quick Pick dropdown
-    Then I should be able to see "Yes|No|Pick one" in the column "Controversy Alert"
+    And I should be able to see "Yes|No|" in the column "Controversy Alert"
     And I should be able to verify that the column "Controversy Alert" is "checked"
     And I should logout from the application
 
@@ -21,11 +19,11 @@ Feature: Controversy Alert
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/50285
   @50285
   Scenario: Verify that the Controversy File name hyperlink does not display
-    Given I am logged in as the "CHARLESSCHWAB" User
+    Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
-    When I have added the criteria for "Controversy Alert" and checking the checkbox for "No"
+    When I have added the criteria for "Controversy Alert" and selecting the radio button for "No"
     And I have added the column "Controversy Alert"
     And I can view the workflow page
     And I select a random meeting
