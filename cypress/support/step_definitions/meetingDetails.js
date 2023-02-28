@@ -662,7 +662,7 @@ Then('I should be able to verify the UI shows filename with "..." and its extens
 			});
 			meetingDetailsPage.controversyAlertLink().invoke('removeAttr', 'target').click();
 		});
-	cy.readFile(`${Cypress.config('downloadsFolder')}/AutomationTest123.pdf`).should((fileContent) => {
+	cy.readFile(`${Cypress.config('downloadsFolder')}/AutomationTest12345.pdf`).should((fileContent) => {
 		expect(fileContent.length).to.be.gt(100);
 	});
 });

@@ -209,7 +209,7 @@ class workflowPage {
 		return cy.get('#filterPreferenceControl > div > #controls > div > div > h4:nth-child(n+2)').should('be.visible');
 	}
 	criteriaOption() {
-		return cy.get('.SingleSelect > div > div > div');
+		return cy.get('input[type="radio"]').filter(':visible').prev();
 	}
 	updateButton() {
 		return cy.get("button[id^='btn-update']").filter(':visible');
