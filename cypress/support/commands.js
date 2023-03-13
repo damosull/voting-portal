@@ -329,7 +329,6 @@ Cypress.Commands.add('logout', () => {
 });
 
 Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
-	cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
 	cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists/').as('WorkflowSecuritiesWatchlists');
 	cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('GetAvailableAssigneesForCustomer');
 
@@ -342,7 +341,7 @@ Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
 						cy.get('[class="remove"]')
 							.eq(i - 1)
 							.click({ force: true });
-						cy.wait('@WorkflowExpansion', { responseTimeout: 90000 });
+						cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 90000 });
 						cy.wait('@WorkflowSecuritiesWatchlists');
 						cy.wait('@GetAvailableAssigneesForCustomer');
 					}
@@ -354,7 +353,7 @@ Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
 						cy.get('[class="remove"]')
 							.eq(i - 1)
 							.click({ force: true });
-						cy.wait('@WorkflowExpansion', { responseTimeout: 90000 });
+						cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 90000 });
 						cy.wait('@WorkflowSecuritiesWatchlists');
 					}
 				}
@@ -404,7 +403,6 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
 });
 
 Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
-	cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
 	cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists/').as('WorkflowSecuritiesWatchlists');
 	cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('GetAvailableAssigneesForCustomer');
 
@@ -425,7 +423,7 @@ Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
 	cy.get('.editor-modal > div > button').eq(0).click();
 
 	if (!isReporting) {
-		cy.wait('@WorkflowExpansion');
+		cy.wait('@WORKFLOW_EXPANSION');
 		cy.wait('@WorkflowSecuritiesWatchlists');
 		cy.wait('@GetAvailableAssigneesForCustomer');
 	}
