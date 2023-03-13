@@ -37,7 +37,7 @@ When('I search for the customer {string}', (customerName) => {
 	workflowPage.selectCustomerShadowInput().click({ force: true }).type('{del}', { force: true });
 	workflowPage.selectCustomerInput().clear({ force: true }).type(customerName);
 	workflowPage.selectCustomerDropdown().should('be.visible');
-	cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WF_EXPANSION');
+	cy.intercept('POST', '**/Api/Data/WorkflowExpansion*').as('WF_EXPANSION');
 	workflowPage.selectCustomerInput().type('{downarrow}{enter}');
 });
 

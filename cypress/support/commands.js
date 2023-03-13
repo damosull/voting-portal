@@ -329,7 +329,7 @@ Cypress.Commands.add('logout', () => {
 });
 
 Cypress.Commands.add('removeAllExistingSelectedCriteria', (isInternal) => {
-	cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
+	cy.intercept('POST', '**/Api/Data/WorkflowExpansion*').as('WorkflowExpansion');
 	cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists/').as('WorkflowSecuritiesWatchlists');
 	cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('GetAvailableAssigneesForCustomer');
 
@@ -404,7 +404,7 @@ Cypress.Commands.add('AddMultipleCriteria', (searchText, isReporting) => {
 });
 
 Cypress.Commands.add('addCriteriaStatus', (statusToSearch, isReporting) => {
-	cy.intercept('POST', '**/Api/Data/WorkflowExpansion').as('WorkflowExpansion');
+	cy.intercept('POST', '**/Api/Data/WorkflowExpansion*').as('WorkflowExpansion');
 	cy.intercept('POST', '**/Api/Data/WorkflowSecuritiesWatchlists/').as('WorkflowSecuritiesWatchlists');
 	cy.intercept('POST', '**/Api/Data/Assignee/GetAvailableAssigneesForCustomer').as('GetAvailableAssigneesForCustomer');
 

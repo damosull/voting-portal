@@ -133,7 +133,7 @@ export const API = {
 		REPORTS_CRITERIA: '**/Api/WebUI//ReportsCriteria/ForCriterias?&objectType=BallotReconciliation',
 		VOTE: '**/Api/Data/Vote',
 		VOTE_REQUEST_VALIDATION: '**/Api/Data/VoteRequestValidation',
-		WORKFLOW_EXPANSION: '**/Api/Data/WorkflowExpansion',
+		WORKFLOW_EXPANSION: '**/Api/Data/WorkflowExpansion*',
 		WORKFLOW_SECURITIES_WATCHLIST: '**/Api/Data/WorkflowSecuritiesWatchlists',
 		POST_USER_LISTS: '**/Api/Data/UsersLists/**',
 		POST_CUSTODIAN_LIST: '**/Api/Data/CustodianList/**',
