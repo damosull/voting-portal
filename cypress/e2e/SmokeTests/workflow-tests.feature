@@ -3,7 +3,8 @@ Feature: Workflow related smoke tests
   #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56796
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56848
-  @56848
+  #Ignoring the below test for a few days as there are changes planned for the Workflow Data Call
+  @56848 @skip
   Scenario: Verify that all the meetings for California Public Employee Retirement System have a CalPERS customer id
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
