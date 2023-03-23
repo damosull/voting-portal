@@ -33,7 +33,7 @@ Feature: Reporting related smoke tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
     @37962
     Scenario: Generate ballot vote data report, download and verify file headers
-        Given I am logged in as the "RUSSELL" User
+        Given I am logged in as the "PUTNAM" User
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Vote Data"
         And I set the meeting date to next date 1 and past date 1 days
