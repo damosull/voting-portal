@@ -292,9 +292,9 @@ Then('I select the dates between {int} and {int} days from today', (start_date, 
 
 Then('I select {string} column', (column) => {
 	reportingPage.configureColumnsDropdown().click();
-	reportingPage.columnsSeventhCheckbox().click({ force: true });
+	reportingPage.columnCheckbox(column).click({ force: true });
 	reportingPage.applyButton().click({ force: true });
-	reportingPage.selectedCheckbox().should('contain.text', column);
+	reportingPage.currentSelectionColumnsDiv().should('contain.text', column);
 });
 
 Then('I {string} the report for {string}', (action, reportName) => {
