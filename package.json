@@ -21,10 +21,10 @@
 	"devDependencies": {
 		"eslint": "8.36.0",
 		"eslint-plugin-cypress": "2.12.1",
-		"prettier": "2.8.6"
+		"prettier": "2.8.7"
 	},
 	"dependencies": {
-		"@badeball/cypress-cucumber-preprocessor": "15.1.5",
+		"@badeball/cypress-cucumber-preprocessor": "16.0.0",
 		"@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
 		"cypress": "12.8.1",
 		"cypress-multi-reporters": "1.6.3",
@@ -46,6 +46,10 @@
 		"html": {
 			"enabled": true,
 			"output": "test-results/cucumber/cucumber_report.html"
+		},
+		"json": {
+			"enabled": true,
+			"output": "test-results/cucumber/cucumber_report.json"
 		}
 	},
 	"eslintConfig": {
