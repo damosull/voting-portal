@@ -46,10 +46,6 @@
 		"html": {
 			"enabled": true,
 			"output": "test-results/cucumber/cucumber_report.html"
-		},
-		"json": {
-			"enabled": true,
-			"output": "test-results/cucumber/cucumber_report.json"
 		}
 	},
 	"eslintConfig": {
