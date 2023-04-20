@@ -19,21 +19,21 @@
 		"prepare": "husky install"
 	},
 	"devDependencies": {
-		"eslint": "8.36.0",
+		"eslint": "8.38.0",
 		"eslint-plugin-cypress": "2.12.1",
-		"prettier": "2.8.5"
+		"prettier": "2.8.7"
 	},
 	"dependencies": {
-		"@badeball/cypress-cucumber-preprocessor": "15.1.5",
+		"@badeball/cypress-cucumber-preprocessor": "16.0.3",
 		"@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
-		"cypress": "12.8.1",
+		"cypress": "12.10.0",
 		"cypress-cloud": "1.5.3",
 		"cypress-multi-reporters": "1.6.3",
 		"cypress-sql-server": "1.0.0",
 		"husky": "8.0.3",
 		"mocha-junit-reporter": "2.2.0",
 		"node-stdlib-browser": "1.2.0",
-		"node-xlsx": "0.21.0",
+		"node-xlsx": "0.21.2",
 		"pdf-parse": "1.1.1"
 	},
 	"cypress-cucumber-preprocessor": {
@@ -75,7 +75,7 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "npm run lint"
+			"pre-commit": "npm run prettier && npm run lint"
 		}
 	}
 }

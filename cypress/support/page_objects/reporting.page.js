@@ -71,8 +71,8 @@ class reportingPage {
 	dateRangePastDaysHiddenInput() {
 		return cy.get("input[id^='relative-past-days']").invoke('attr', 'style', 'display: block');
 	}
-	columnsSeventhCheckbox() {
-		return cy.get(':nth-child(7) > .report-column-ccb > .checkbox > .ccb');
+	columnCheckbox(label) {
+		return cy.get('label[class*="report-column-label"]').contains(label);
 	}
 	reportColumns() {
 		return cy.get('#rpt-columns');
@@ -80,8 +80,8 @@ class reportingPage {
 	applyButton() {
 		return cy.get('.btn-container.clearfix').contains('Apply');
 	}
-	selectedCheckbox() {
-		return cy.get('[data-bind="foreach: Columns.SelectedFixed"] > :nth-child(28) > td > .checkbox > .ccb');
+	currentSelectionColumnsDiv() {
+		return cy.get('#rpt-selected-columns');
 	}
 	saveNameInput() {
 		return cy.get('#popupTextContainer');
