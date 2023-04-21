@@ -11,9 +11,9 @@ const stdLibBrowser = require('node-stdlib-browser');
 const plugin = require('node-stdlib-browser/helpers/esbuild/plugin');
 
 async function setupNodeEvents(on, config) {
-	cloudPlugin(on, config);
 	config.baseUrl = config.env.url || config.env[config.env.testEnv].url;
 
+	await cloudPlugin(on, config);
 	await preprocessor.addCucumberPreprocessorPlugin(on, config, {
 		omitBeforeRunHandler: true,
 		omitAfterRunHandler: true,
