@@ -12,20 +12,14 @@ jobs:
     pool:
       name: 'Build Pipelines VMSS - QAUAT'
     strategy:
-      parallel: 3
+      parallel: 5
     steps:
       - script: npm ci
-        displayName: 'Install NPM dependencies'
+        displayName: 'Install NPM Dependencies'
 
       - script: |
-          npx print-env AGENT
-          npx print-env BUILD
-          npx print-env SYSTEM
           export HTTP_PROXY=http://10.71.1.42:3128
-          export cypress_url=$(url)
-          export cypress_sql_server=$(sql_server)
-          export cypress_sql_username=$(sql_username)
-          export cypress_sql_password=$(sql_password)
+          export cypress_url=$(url) cypress_sql_server=$(sql_server) cypress_sql_username=$(sql_username) cypress_sql_password=$(sql_password)
           npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER ${{ parameters.buildParameters }}
         displayName: 'Run Cypress tests'
         env:
