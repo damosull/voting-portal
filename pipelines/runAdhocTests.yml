@@ -22,15 +22,12 @@ jobs:
           export cypress_url=$(url) cypress_sql_server=$(sql_server) cypress_sql_username=$(sql_username) cypress_sql_password=$(sql_password)
           npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER ${{ parameters.buildParameters }}
         displayName: 'Run Cypress tests'
-        env:
-          # avoid warnings about terminal
-          TERM: xterm
 
       - task: PublishPipelineArtifact@1
         displayName: 'Publish Cucumber Report'
         inputs:
           targetPath: 'test-results/cucumber/cucumber_report.html'
-          artifact: 'Report-$(System.JobId)-$(System.JobAttempt)'
+          artifact: 'Report-Run$(System.JobAttempt)-Instance$(System.JobPositionInPhase)'
         continueOnError: true
         condition: succeededOrFailed()
 
@@ -38,7 +35,7 @@ jobs:
         displayName: 'Publish Failure Screenshots'
         inputs:
           targetPath: 'test-results/screenshots'
-          artifact: 'Screenshots-$(System.JobAttempt)'
+          artifact: 'Screenshots-Run$(System.JobAttempt)-Instance$(System.JobPositionInPhase)'
         continueOnError: true
         condition: failed()
 
