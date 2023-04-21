@@ -9,3 +9,4 @@ cypress/cucumber-json
 multi-reporter-config.json
 cypress/parallel-weights.json
 .husky/_
+.idea
