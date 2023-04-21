@@ -257,6 +257,14 @@ class workflowPage {
 		return cy.get('#btn-update-CompanyName');
 	}
 
+	tableData() {
+		return cy.get("tbody[role='rowgroup']");
+	}
+
+	highlightedFilter() {
+		return cy.get("a[class='highlightedFilter']");
+	}
+
 	//Common Functions
 	waitForWorkflowPageLoad() {
 		this.getLoadingSpinner({ timeout: 120000 }).should('not.exist');
