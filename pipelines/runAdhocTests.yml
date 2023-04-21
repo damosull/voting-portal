@@ -2,43 +2,41 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: 'CYPRESS_BASE_URL=$(url) npx cypress run --config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
+    default: '--config specPattern=cypress/e2e/SmokeTests/*.feature'
 
 trigger: none
 
-schedules:
-  - cron: '0 20 * * 4'
-    displayName: 'Weekly Regression - Every Thu @ 8PM GMT'
-    always: true
-    branches:
-      include:
-        - master
-
-pool:
-  name: 'Build Pipelines VMSS - QAUAT'
-
 jobs:
-  - job: ViewpointAutomation
+  - job: Viewpoint_Adhoc
     timeoutInMinutes: 120
+    pool:
+      name: 'Build Pipelines VMSS - QAUAT'
+    strategy:
+      parallel: 3
     steps:
-      - script: |
-          npm ci
-        displayName: 'Install Packages'
+      - script: npm ci
+        displayName: 'Install NPM dependencies'
 
       - script: |
+          npx print-env AGENT
+          npx print-env BUILD
+          npx print-env SYSTEM
           export HTTP_PROXY=http://10.71.1.42:3128
           export cypress_url=$(url)
           export cypress_sql_server=$(sql_server)
           export cypress_sql_username=$(sql_username)
           export cypress_sql_password=$(sql_password)
-          ${{ parameters.buildParameters }}
-        displayName: 'Running Cypress Tests'
+          npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER ${{ parameters.buildParameters }}
+        displayName: 'Run Cypress tests'
+        env:
+          # avoid warnings about terminal
+          TERM: xterm
 
       - task: PublishPipelineArtifact@1
         displayName: 'Publish Cucumber Report'
         inputs:
           targetPath: 'test-results/cucumber/cucumber_report.html'
-          artifact: 'Report-$(System.JobAttempt)'
+          artifact: 'Report-$(System.JobId)-$(System.JobAttempt)'
         continueOnError: true
         condition: succeededOrFailed()
 
