@@ -9,6 +9,7 @@ Feature: API Smoke Tests - Internal User
     Scenario: Workflow page API calls are loading as expected
         When I navigate to the workflow page
         Then I verify that all the relevant API calls for workflow page are made for "internal" user
+        And I verify the workflow table and filters have loaded
 
     @56810
     Scenario: Dashboard page API calls are loading as expected

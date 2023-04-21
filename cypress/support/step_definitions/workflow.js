@@ -741,3 +741,9 @@ Then('I verify the Workflow Export Report contains data seen on the UI', () => {
 			});
 		});
 });
+
+Then('I verify the workflow table and filters have loaded', () => {
+	workflowPage.tableData().should('be.visible');
+	workflowPage.highlightedFilter().should('be.visible');
+	workflowPage.addCriteriaButton().should('be.visible').and('have.text', 'Add Criteria');
+});
