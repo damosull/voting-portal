@@ -579,6 +579,30 @@ class meetingDetailsPage {
 	closePartialVoteModalButton() {
 		return cy.get("div[id^='partial-vote-kendo-modal'] a[href='#'][class='k-window-action k-link']");
 	}
+
+	infoSectionTitle() {
+		return cy.get('.floatleft.toggle.info-toggle');
+	}
+
+	voteTallyTable() {
+		return cy.get('#md-vote-tally-summary');
+	}
+
+	commentSection() {
+		return cy.get('#meeting-details-comments');
+	}
+
+	meetingMaterialsSection() {
+		return cy.get('#meeting-materials');
+	}
+
+	activitySection() {
+		return cy.get('#meeting-details-activity');
+	}
+
+	voteResultSection() {
+		return cy.get('#meeting-vote-results');
+	}
 }
 
 module.exports = new meetingDetailsPage();

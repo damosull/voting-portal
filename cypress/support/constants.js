@@ -230,7 +230,7 @@ export const API = {
 		USER_PROFILE_HTML: '**/Api/WebUI/Users/UserProfileHtml?_=**',
 		USER_SCREEN_FILTERS: '**/Api/Data/UserScreenFilters/**',
 		USER_VIEW_MODEL_VALIDATION_RULES: '**/Api/Data/UserViewModelValidationRules/?_=**',
-		VOTE_AGAINST_POLICY_WL: '**/Api/Data/VoteAgainstPolicyWL/Get?customerId=0&_=**',
+		VOTE_AGAINST_POLICY_WL: '**/Api/Data/VoteAgainstPolicyWL/Get?customerId=196&_=**',
 		VOTE_CARD: '**/Api/Data/MetaData/?typeName=VoteCard&customerId=0&_=**',
 		VOTE_CARD_GRID_STATE: '**/Api/Data/VoteCardGridState/?_=**',
 		WATCHLIST: '**/Api/Data/Watchlist/**',
@@ -249,7 +249,7 @@ export const API = {
 		WORKFLOW_META_DATA_1: '**/Api/Data/WorkflowMetaData/?typeName=WorkflowExpansion&customerId**',
 		WORKFLOW_META_DATA_2: '**/Api/Data/WorkflowMetaData/?typeName=WorkflowExpansion&showDenied=true&customerId**',
 		WORKFLOW_WIDGET_DATA: '**/Api/Data/WorkflowWidgetData**',
-		WORKFLOW_RESEARCH_INFO: '**/Api/Data/WorkflowResearchInfo/GetWFResearch?CustomerID=0&_=**',
+		WORKFLOW_RESEARCH_INFO: '**/Api/Data/WorkflowResearchInfo/GetWFResearch?CustomerID=196&_=**',
 	},
 	PUT: {
 		BALLOT_GRID_STATE: '**/Api/Data/BallotsGridState',
