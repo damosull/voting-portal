@@ -2,7 +2,7 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: '--config specPattern=cypress/e2e/SmokeTests/*.feature'
+    default: '--config specPattern=cypress/e2e/SmokeTests/api-*.feature,retries=0'
 
 trigger: none
 
@@ -16,14 +16,14 @@ jobs:
     steps:
       - script: |
           echo "cypress_url=$(url) cypress_sql_server=$(sql_server) cypress_sql_username=$(sql_username) cypress_sql_password=$(sql_password)"
-#          npm ci
+          npm ci
         displayName: 'Install NPM Dependencies'
 
-      # - script: |
-      #     export HTTP_PROXY=http://10.71.1.42:3128
-      #     export cypress_url=$(url) cypress_sql_server=$(sql_server) cypress_sql_username=$(sql_username) cypress_sql_password=$(sql_password)
-      #     npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER ${{ parameters.buildParameters }}
-      #   displayName: 'Run Cypress tests'
+      - script: |
+          export HTTP_PROXY=http://10.71.1.42:3128
+          export cypress_url=$(url) cypress_sql_server=$(sql_server) cypress_sql_username=$(sql_username) cypress_sql_password=$(sql_password)
+          npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER ${{ parameters.buildParameters }}
+        displayName: 'Run Cypress tests'
 
       # - task: PublishPipelineArtifact@1
       #   displayName: 'Publish Cucumber Report'
