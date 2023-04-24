@@ -1011,7 +1011,7 @@ Then('I should be able to see the results for the Ballots filter', () => {
 	meetingDetailsPage.ballotsButton().should('contain.text', '(1)');
 });
 
-Then('I verify that all the relevant API calls for meeting details page are made', () => {
+Then('I verify that all the relevant API calls for meeting details page are made for {string} user', (userType) => {
 	//35 API Calls
 	cy.statusCode200('@CURRENT_USER');
 	cy.statusCode200('@SETTINGS_READ');
@@ -1027,7 +1027,6 @@ Then('I verify that all the relevant API calls for meeting details page are made
 	cy.statusCode200('@MEETING_SECURITY_WATCHLIST');
 	cy.statusCode200('@META_BALLOTS_GRID');
 	cy.statusCode200('@BALLOTS_GRID_STATE');
-	cy.statusCode200('@ASSIGNED_MEETING_ID');
 	cy.statusCode200('@VOTE_AGAINST_POLICY_WL');
 	cy.statusCode200('@MEETING_DETAILS_ACTIVITY');
 	cy.statusCode200('@GET_FILINGS');
@@ -1036,6 +1035,10 @@ Then('I verify that all the relevant API calls for meeting details page are made
 	cy.statusCode200('@SEARCH_BALLOTS_WITH_SIMILAR_AGENDAS');
 	cy.statusCode200('@COMMENTS');
 	cy.statusCode200('@SHARE_MEETING_MODAL');
+
+	if (userType.includes('external')) {
+		cy.statusCode200('@ASSIGNED_MEETING_ID');
+	}
 });
 
 Then('I click on the control number for {string}', (controlNumber) => {
@@ -1850,6 +1853,16 @@ Then('I can verify that the set partial vote modal is read only for past meeting
 	meetingDetailsPage.partialVotePercentInput().should('be.disabled');
 	meetingDetailsPage.closePartialVoteModalButton().click();
 	meetingDetailsPage.setPartialVoteButton().should('be.visible');
+});
+
+Then('I verify all the meeting sections have loaded', () => {
+	meetingDetailsPage.infoSectionTitle().should('be.visible').and('have.text', 'Info');
+	meetingDetailsPage.voteTallyTable().should('be.visible');
+	meetingDetailsPage.commentSection().should('be.visible');
+	meetingDetailsPage.ballotSectionDiv().should('be.visible');
+	meetingDetailsPage.meetingMaterialsSection().should('be.visible');
+	meetingDetailsPage.activitySection().should('be.visible');
+	meetingDetailsPage.voteResultSection().should('be.visible');
 });
 
 /*Functions*/

@@ -65,3 +65,9 @@ Feature: API Smoke Tests - Internal User
     Scenario: Watch list page API calls are loading as expected
         When I navigate to the manage watchlist page
         Then I verify that all the relevant API calls for manage watchlist page are made
+
+    @56821
+    Scenario: MeetingDetails page API calls are loading as expected
+        When I navigate to the URL "/MeetingDetails/Index/196/1173535"
+        Then I verify that all the relevant API calls for meeting details page are made for "internal" user
+        And I verify all the meeting sections have loaded
