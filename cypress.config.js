@@ -1,4 +1,5 @@
 const { defineConfig } = require('cypress');
+const { cloudPlugin } = require('cypress-cloud/plugin');
 const fs = require('fs-extra');
 const xlsx = require('node-xlsx').default;
 const sqlServer = require('cypress-sql-server');
@@ -12,6 +13,7 @@ const plugin = require('node-stdlib-browser/helpers/esbuild/plugin');
 async function setupNodeEvents(on, config) {
 	config.baseUrl = config.env.url || config.env[config.env.testEnv].url;
 
+	await cloudPlugin(on, config);
 	await preprocessor.addCucumberPreprocessorPlugin(on, config, {
 		omitBeforeRunHandler: true,
 		omitAfterRunHandler: true,

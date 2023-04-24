@@ -2,7 +2,7 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: 'CYPRESS_BASE_URL=$(url) npx cypress run --config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
+    default: '--config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
 
 trigger: none
 
@@ -14,31 +14,28 @@ schedules:
       include:
         - master
 
-pool:
-  name: 'Build Pipelines VMSS - QAUAT'
-
 jobs:
-  - job: ViewpointAutomation
+  - job: Viewpoint_Adhoc
     timeoutInMinutes: 120
+    pool:
+      name: 'Build Pipelines VMSS - QAUAT'
+    strategy:
+      parallel: 3
     steps:
-      - script: |
-          npm ci
-        displayName: 'Install Packages'
+      - script: npm ci
+        displayName: 'Install NPM Dependencies'
 
       - script: |
           export HTTP_PROXY=http://10.71.1.42:3128
-          export cypress_url=$(url)
-          export cypress_sql_server=$(sql_server)
-          export cypress_sql_username=$(sql_username)
-          export cypress_sql_password=$(sql_password)
-          ${{ parameters.buildParameters }}
-        displayName: 'Running Cypress Tests'
+          export cypress_url=$(url) cypress_sql_server=$(sql_server) cypress_sql_username=$(sql_username) cypress_sql_password=$(sql_password)
+          npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER ${{ parameters.buildParameters }}
+        displayName: 'Run Cypress tests'
 
       - task: PublishPipelineArtifact@1
         displayName: 'Publish Cucumber Report'
         inputs:
           targetPath: 'test-results/cucumber/cucumber_report.html'
-          artifact: 'Report-$(System.JobAttempt)'
+          artifact: 'Report-Run$(System.JobAttempt)-Instance$(System.JobPositionInPhase)'
         continueOnError: true
         condition: succeededOrFailed()
 
@@ -46,7 +43,7 @@ jobs:
         displayName: 'Publish Failure Screenshots'
         inputs:
           targetPath: 'test-results/screenshots'
-          artifact: 'Screenshots-$(System.JobAttempt)'
+          artifact: 'Screenshots-Run$(System.JobAttempt)-Instance$(System.JobPositionInPhase)'
         continueOnError: true
         condition: failed()
 

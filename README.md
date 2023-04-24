@@ -21,11 +21,11 @@ To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glass
 
 Before starting the development of test cases, make sure:
 
-- You have nodejs installed. Can be downloaded from here - https://nodejs.org/en/
+- You have nodejs installed (latest version of Node 16). Can be downloaded from here - https://nodejs.org/en/
 - Once installed, open/reopen your cli tool, eg: powershell / git bash, and run the command `npm install -g yarn`
 - Then, navigate to the project root directory, and run the command `npm install`
 - Make a copy of the `cypress.env.example.json` file and rename it as `cypress.env.json`
-- In the `cypress.env.json` file, fill the correct DB credentials so that the relevant tests can connect to the test DB instances. Reach out to an existing Test Automation engineer or DBA to get the password.
+- In the `cypress.env.json` file, fill the correct DB credentials so that the relevant tests can connect to the test DB instances. Reach out to an existing Test Automation engineer to get the password.
 
 <br/>
 
@@ -87,3 +87,25 @@ To run the tests within a docker container, you need the below:
 - Run `docker build -t votingportal-cypress .` . This will build the image
 - Now run `docker run votingportal-cypress --config specPattern=cypress/e2e/SmokeTests/*.feature`. You can replace the specPattern with your choice of test suite.
 - You can also use docker-compose to run a loadtest. A loadtest readme is available in the `readmes` folder
+
+<br/>
+
+# Sorry Cypress Integration
+
+We have integrated sorry cypress with some of our pipelines. This helps with parallel execution of tests.
+
+A summary of the changes made to this repository for sorry cypress integration is referenced from [here](https://docs.sorry-cypress.dev/guide/get-started).
+
+Sample run command - `npx cypress-cloud run --parallel --record --key xxx --ci-build-id 123 --config specPattern=cypress/e2e/SmokeTests/*.feature`
+
+How to use this locally:
+
+1. Open different shell / git bash windows (if you want to run 3 parallel sessions, open 3 different windows)
+2. Copy the above run command. Make sure the build-id is not the same as any previous run.
+3. Run the command in all the open shell windows. Ensure the command is exactly the same, as the director service checks the build-id and runs tests in parallel when build-id is the same.
+
+Sorry Cypress Host URLs:
+
+- [Dashboard](https://sorrycypress-dashboard.devops.glasslewis.net/projects)
+- [Director Service](https://sorrycypress-director.devops.glasslewis.net)
+- [API](https://sorrycypress-api.devops.glasslewis.net)
