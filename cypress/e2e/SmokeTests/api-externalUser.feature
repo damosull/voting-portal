@@ -23,8 +23,9 @@ Feature: Checking API calls with External user
 
     @56800
     Scenario: MeetingDetails page API calls are loading as expected
-        When I navigate to the meeting with id "1158107"
-        Then I verify that all the relevant API calls for meeting details page are made
+        When I navigate to the meeting with id "1173535"
+        Then I verify that all the relevant API calls for meeting details page are made for "external" user
+        And I verify all the meeting sections have loaded
 
     @56801
     Scenario: Password change page API calls are loading as expected
