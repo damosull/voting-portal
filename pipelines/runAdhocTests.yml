@@ -2,7 +2,7 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: '--config specPattern=cypress/e2e/SmokeTests/api-*.feature,retries=0'
+    default: '--config specPattern=cypress/e2e/SmokeTests/*.feature'
 
 trigger: none
 
