@@ -2,9 +2,17 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: '--config specPattern=cypress/e2e/SmokeTests/*.feature'
+    default: '--config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
 
 trigger: none
+
+schedules:
+  - cron: '0 20 * * 4'
+    displayName: 'Weekly Regression - Every Thu @ 8PM GMT'
+    always: true
+    branches:
+      include:
+        - master
 
 jobs:
   - job: Viewpoint_Adhoc
