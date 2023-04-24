@@ -11,8 +11,8 @@ jobs:
     timeoutInMinutes: 120
     pool:
       name: 'Build Pipelines VMSS - QAUAT'
-    strategy:
-      parallel: 3
+    # strategy:
+    #   parallel: 3
     steps:
       - script: |
           echo "cypress_url=$(url) cypress_sql_server=$(sql_server) cypress_sql_username=$(sql_username) cypress_sql_password=$(sql_password)"
