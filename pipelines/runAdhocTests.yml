@@ -14,9 +14,10 @@ jobs:
     # strategy:
     #   parallel: 3
     steps:
-      - script: |
-          echo "cypress_url=$(url) cypress_sql_server=$(sql_server) cypress_sql_username=$(sql_username) cypress_sql_password=$(sql_password)"
-          npm ci
+      - script: echo "cypress_url=$(url) cypress_sql_server=$(sql_server) cypress_sql_username=$(sql_username) cypress_sql_password=$(sql_password)"
+        displayName: "Print environment variable values"
+    
+      - script: npm ci
         displayName: 'Install NPM Dependencies'
 
       - script: |
