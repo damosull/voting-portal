@@ -14,37 +14,39 @@ jobs:
     strategy:
       parallel: 3
     steps:
-      - script: npm ci
+      - script: |
+          echo "cypress_url=$(url) cypress_sql_server=$(sql_server) cypress_sql_username=$(sql_username) cypress_sql_password=$(sql_password)"
+#          npm ci
         displayName: 'Install NPM Dependencies'
 
-      - script: |
-          export HTTP_PROXY=http://10.71.1.42:3128
-          export cypress_url=$(url) cypress_sql_server=$(sql_server) cypress_sql_username=$(sql_username) cypress_sql_password=$(sql_password)
-          npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER ${{ parameters.buildParameters }}
-        displayName: 'Run Cypress tests'
+      # - script: |
+      #     export HTTP_PROXY=http://10.71.1.42:3128
+      #     export cypress_url=$(url) cypress_sql_server=$(sql_server) cypress_sql_username=$(sql_username) cypress_sql_password=$(sql_password)
+      #     npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER ${{ parameters.buildParameters }}
+      #   displayName: 'Run Cypress tests'
 
-      - task: PublishPipelineArtifact@1
-        displayName: 'Publish Cucumber Report'
-        inputs:
-          targetPath: 'test-results/cucumber/cucumber_report.html'
-          artifact: 'Report-Run$(System.JobAttempt)-Instance$(System.JobPositionInPhase)'
-        continueOnError: true
-        condition: succeededOrFailed()
+      # - task: PublishPipelineArtifact@1
+      #   displayName: 'Publish Cucumber Report'
+      #   inputs:
+      #     targetPath: 'test-results/cucumber/cucumber_report.html'
+      #     artifact: 'Report-Run$(System.JobAttempt)-Instance$(System.JobPositionInPhase)'
+      #   continueOnError: true
+      #   condition: succeededOrFailed()
 
-      - task: PublishPipelineArtifact@1
-        displayName: 'Publish Failure Screenshots'
-        inputs:
-          targetPath: 'test-results/screenshots'
-          artifact: 'Screenshots-Run$(System.JobAttempt)-Instance$(System.JobPositionInPhase)'
-        continueOnError: true
-        condition: failed()
+      # - task: PublishPipelineArtifact@1
+      #   displayName: 'Publish Failure Screenshots'
+      #   inputs:
+      #     targetPath: 'test-results/screenshots'
+      #     artifact: 'Screenshots-Run$(System.JobAttempt)-Instance$(System.JobPositionInPhase)'
+      #   continueOnError: true
+      #   condition: failed()
 
-      - task: PublishTestResults@2
-        displayName: 'Publish Test Results'
-        inputs:
-          testResultsFormat: 'JUnit'
-          testResultsFiles: '**/result-*.xml'
-          searchFolder: '$(System.DefaultWorkingDirectory)/test-results/tests-output'
-          mergeTestResults: true
-          failTaskOnFailedTests: false
-        condition: succeededOrFailed()
+      # - task: PublishTestResults@2
+      #   displayName: 'Publish Test Results'
+      #   inputs:
+      #     testResultsFormat: 'JUnit'
+      #     testResultsFiles: '**/result-*.xml'
+      #     searchFolder: '$(System.DefaultWorkingDirectory)/test-results/tests-output'
+      #     mergeTestResults: true
+      #     failTaskOnFailedTests: false
+      #   condition: succeededOrFailed()
