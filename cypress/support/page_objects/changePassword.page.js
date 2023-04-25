@@ -1,21 +1,21 @@
 class changePasswordPage {
 	changePasswordTitle() {
-		return cy.get("div[class='form-horizontal clearfix'] h4");
+		return cy.get(".form-horizontal.clearfix h4");
 	}
 
-	currentPasswordLabel(){
+	currentPasswordLabel() {
 		return cy.get("div[data-bind='visible: askCurrentPassword'] label[for='set-psw-newpsw']");
 	}
 
-	newPasswordLabel(){
+	newPasswordLabel() {
 		return cy.get(".control-label").contains('New Password');
 	}
 
-	confirmNewPasswordLabel(){
+	confirmNewPasswordLabel() {
 		return cy.get("label[for='set-psw-confirmation']");
 	}
 
-	updateButton(){
+	updateButton() {
 		return cy.get("#up-btn-save");
 	}
 }
