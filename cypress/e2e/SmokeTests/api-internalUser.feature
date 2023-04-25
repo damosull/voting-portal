@@ -15,6 +15,7 @@ Feature: API Smoke Tests - Internal User
     Scenario: Dashboard page API calls are loading as expected
         When I navigate to the dashboard page
         Then I verify that all the relevant API calls for dashboard page are made
+        And I verify a couple of widgets have loaded
 
     @56811
     Scenario: Reporting page API calls are loading as expected
