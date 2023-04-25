@@ -204,5 +204,4 @@ Then('I verify a couple of widgets have loaded', () => {
 	dashboardPage.widgetModalContent().eq(1).should('be.visible');
 	dashboardPage.widgetModalContent().eq(2).should('be.visible');
 	dashboardPage.widgetModalContent().eq(3).should('be.visible');
-
 });
