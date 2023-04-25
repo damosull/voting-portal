@@ -31,6 +31,7 @@ Feature: Checking API calls with External user
     Scenario: Password change page API calls are loading as expected
         When I navigate to the change password page
         Then I verify that all the relevant API calls for change password page are made
+        Then I verify the fields to change password have loaded
 
     @56802
     Scenario: User Profile page API calls are loading as expected

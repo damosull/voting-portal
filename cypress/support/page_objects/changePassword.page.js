@@ -16,9 +16,8 @@ class changePasswordPage {
 	}
 
 	updateButton(){
-		return cy.get("");
+		return cy.get("#up-btn-save");
 	}
-
 }
 
 module.exports = new changePasswordPage();
