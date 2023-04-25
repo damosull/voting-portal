@@ -198,3 +198,11 @@ Then('I remove widget', () => {
 			cy.wrap(wdgt).find('div > a[title="Remove"]').should('be.visible').click();
 		});
 });
+
+Then('I verify a couple of widgets have loaded', () => {
+	dashboardPage.widgetModalContent().eq(0).should('be.visible');
+	dashboardPage.widgetModalContent().eq(1).should('be.visible');
+	dashboardPage.widgetModalContent().eq(2).should('be.visible');
+	dashboardPage.widgetModalContent().eq(3).should('be.visible');
+
+});
