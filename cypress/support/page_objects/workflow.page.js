@@ -265,6 +265,11 @@ class workflowPage {
 		return cy.get("a[class='highlightedFilter']");
 	}
 
+	//Data Source
+	dataSourceTitle() {
+		return cy.get("[class='span11']>h2");
+	}
+
 	//Common Functions
 	waitForWorkflowPageLoad() {
 		this.getLoadingSpinner({ timeout: 120000 }).should('not.exist');
