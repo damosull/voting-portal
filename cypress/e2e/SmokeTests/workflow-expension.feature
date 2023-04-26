@@ -1,5 +1,5 @@
-@api @api-external
-Feature: Checking UI and API's data in workflow-expansion
+@workflow @workflow-expansion
+Feature: Verify UI and API's data in workflow-expansion
 
     Background:
         Given I am logged in as the "CALPERS" User
