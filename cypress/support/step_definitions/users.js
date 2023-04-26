@@ -34,3 +34,7 @@ Then('I fill the required details for a new user and submit', () => {
 Then('the new user should be created successfully', () => {
 	usersPage.successMessage().should('contain.text', constants.messages.toast.USER_CREATED_SUCCESSFULLY);
 });
+
+Then('I verify Users table has loaded', () => {
+	usersPage.tableData().should('be.visible');
+});
