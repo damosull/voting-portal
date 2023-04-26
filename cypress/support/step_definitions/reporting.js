@@ -846,8 +846,8 @@ Then('I verify the default expanded and collapsed sections', () => {
 	reportingPage.reportSubscriptions().find('h3').should('have.class', 'toggle closed');
 });
 
-Then('I verify all the report types and the h3 contents have loaded', () => {
-	reportingPage.reportTypes().should('be.visible').contains('Ballot Reconciliation');
+Then('I verify that the reporting page has loaded successfully', () => {
+	reportingPage.reportTypes().contains('Ballot Reconciliation').should('be.visible');
 	reportingPage.reportTypes().should('be.visible').contains('Ballot Status');
 	reportingPage.reportTypes().should('be.visible').contains('Ballot Vote Data');
 	reportingPage.reportTypes().should('be.visible').contains('Engagement');
@@ -861,5 +861,4 @@ Then('I verify all the report types and the h3 contents have loaded', () => {
 	reportingPage.reportColumns().find('h3').should('be.visible').and('have.text', 'Configure Columns');
 	reportingPage.reportPresentation().find('h3').should('be.visible').and('have.text', 'Grouping & Presentation');
 	reportingPage.reportSubscriptions().find('h3').should('be.visible').and('have.text', 'Subscriptions');
-
 });
