@@ -264,8 +264,6 @@ class workflowPage {
 	highlightedFilter() {
 		return cy.get("a[class='highlightedFilter']");
 	}
-
-	//Data Source
 	dataSourceTitle() {
 		return cy.get("[class='span11']>h2");
 	}

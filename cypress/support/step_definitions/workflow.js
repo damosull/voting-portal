@@ -748,14 +748,15 @@ Then('I verify the workflow table and filters have loaded', () => {
 	workflowPage.addCriteriaButton().should('be.visible').and('have.text', 'Add Criteria');
 });
 
-Then('I can see data source title {string} is visibled', (title) => {
-	workflowPage.dataSourceTitle().should('have.text', title);
+Then('I can see data source title {string} is visible', (title) => {
+	// workflowPage.dataSourceTitle().should('be.visible');
+	workflowPage.dataSourceTitle().should('be.visible').and('have.text', title);
 });
 
 When('I store data from UI table and {string} API within the page', (api) => {
 	switch (api) {
 		case 'WorkflowExpansionPerformanceAggregated':
-			cy.wait('@EXPANSION_PERFORMANCE_AGGREGATED')
+			cy.wait('@WORKFLOW_EXPANSION_PERFORMANCE_AGGREGATED')
 				.its('response.statusCode')
 				.should('eq', 200)
 				.then(() => {
@@ -764,7 +765,7 @@ When('I store data from UI table and {string} API within the page', (api) => {
 				});
 			break;
 		case 'WorkflowExpansionDbAggregated':
-			cy.wait('@EXPANSION_DB_AGGREGATED')
+			cy.wait('@WORKFLOW_EXPANSION_DB_AGGREGATED')
 				.its('response.statusCode')
 				.should('eq', 200)
 				.then(() => {
@@ -777,7 +778,7 @@ When('I store data from UI table and {string} API within the page', (api) => {
 	}
 });
 
-Then('datas from {string} table and {string} table are equal', (first_table, second_table) => {
+Then('the data from {string} table and {string} table are equal', (first_table, second_table) => {
 	cy.get(first_table).then(($table1) => {
 		cy.get(second_table).then(($table2) => {
 			expect($table1).to.deep.equal($table2);
@@ -785,11 +786,11 @@ Then('datas from {string} table and {string} table are equal', (first_table, sec
 	});
 });
 
-Then('datas from CacheAggregated API and DbAggregated API are equal', () => {
-	cy.get('@EXPANSION_DB_AGGREGATED').then((dbResp) => {
+Then('the data from CacheAggregated API and DbAggregated API are equal', () => {
+	cy.get('@WORKFLOW_EXPANSION_DB_AGGREGATED').then((dbResp) => {
 		//verify properties inside items of 2 apis
 		let dbAggregated = dbResp.response.body;
-		cy.get('@EXPANSION_PERFORMANCE_AGGREGATED').then((cacheRes) => {
+		cy.get('@WORKFLOW_EXPANSION_PERFORMANCE_AGGREGATED').then((cacheRes) => {
 			const cacheAggregated = JSON.parse(cacheRes.response.body);
 			for (let i = 0; i < dbAggregated.items.length; i++) {
 				const listDbAggregatedItems = dbAggregated.items[i];
