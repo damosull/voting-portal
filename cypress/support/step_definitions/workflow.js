@@ -749,7 +749,6 @@ Then('I verify the workflow table and filters have loaded', () => {
 });
 
 Then('I can see data source title {string} is visible', (title) => {
-	// workflowPage.dataSourceTitle().should('be.visible');
 	workflowPage.dataSourceTitle().should('be.visible').and('have.text', title);
 });
 
