@@ -14,6 +14,8 @@ export const USER = {
 	ROYALLONDON: 'RoyalLondonAutomation@glasslewis.com',
 	RUSSELL: 'RussellAutomation@glasslewis.com',
 	WELLINGTON: 'WellingtonAutomation@glasslewis.com',
+	VMO_INTERNAL: 'vmo_internal@glasslewis.com',
+	VMO_EXTERNAL: 'vmo_external@glasslewis.com',
 };
 
 export const PASSWORD = 'Test12345%';
@@ -138,6 +140,8 @@ export const API = {
 		POST_USER_LISTS: '**/Api/Data/UsersLists/**',
 		POST_CUSTODIAN_LIST: '**/Api/Data/CustodianList/**',
 		SEARCH_BALLOTS_WITH_SIMILAR_AGENDAS: '**/Api/Data/SearchBallotsWithSimilarAgendas**',
+		EXPANSION_PERFORMANCE_AGGREGATED: '**/Api/Data/WorkflowExpansionPerformanceAggregated**',
+		EXPANSION_DB_AGGREGATED: '**/Api/Data/WorkflowExpansionDbAggregated',
 	},
 	GET: {
 		ACCOUNTS_GRID_STATE: '**/Api/Data/AccountsGridState/**',

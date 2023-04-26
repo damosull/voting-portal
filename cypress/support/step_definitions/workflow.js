@@ -747,3 +747,65 @@ Then('I verify the workflow table and filters have loaded', () => {
 	workflowPage.highlightedFilter().should('be.visible');
 	workflowPage.addCriteriaButton().should('be.visible').and('have.text', 'Add Criteria');
 });
+
+Then('I can see data source title {string} is visibled', (title) => {
+	workflowPage.dataSourceTitle().should('have.text', title);
+});
+
+When('I store data from UI table and {string} API within the page', (api) => {
+	switch (api) {
+		case 'WorkflowExpansionPerformanceAggregated':
+			cy.wait('@EXPANSION_PERFORMANCE_AGGREGATED')
+				.its('response.statusCode')
+				.should('eq', 200)
+				.then(() => {
+					workflowPage.getLoadingSpinner().should('not.exist');
+					workflowPage.tableRows().invoke('text').as('CacheAggregatedTable');
+				});
+			break;
+		case 'WorkflowExpansionDbAggregated':
+			cy.wait('@EXPANSION_DB_AGGREGATED')
+				.its('response.statusCode')
+				.should('eq', 200)
+				.then(() => {
+					workflowPage.getLoadingSpinner().should('not.exist');
+					workflowPage.tableRows().invoke('text').as('DbAggregatedTable');
+				});
+			break;
+		default:
+			throw new Error('undefined API given');
+	}
+});
+
+Then('datas from {string} table and {string} table are equal', (first_table, second_table) => {
+	cy.get(first_table).then(($table1) => {
+		cy.get(second_table).then(($table2) => {
+			expect($table1).to.deep.equal($table2);
+		});
+	});
+});
+
+Then('datas from CacheAggregated API and DbAggregated API are equal', () => {
+	cy.get('@EXPANSION_DB_AGGREGATED').then((dbResp) => {
+		//verify properties inside items of 2 apis
+		let dbAggregated = dbResp.response.body;
+		cy.get('@EXPANSION_PERFORMANCE_AGGREGATED').then((cacheRes) => {
+			const cacheAggregated = JSON.parse(cacheRes.response.body);
+			for (let i = 0; i < dbAggregated.items.length; i++) {
+				const listDbAggregatedItems = dbAggregated.items[i];
+
+				const listDbProperties = Object.getOwnPropertyNames(listDbAggregatedItems);
+
+				for (const property of listDbProperties) {
+					expect(listDbAggregatedItems[property]).to.equal(cacheAggregated.items[i][property]);
+				}
+			}
+			//verify the rest properties in 2 apis
+			expect(dbAggregated.Source).to.equal('DbAggregated');
+			expect(cacheAggregated.Source).to.equal('CacheAggregated');
+			expect(cacheAggregated.pages).to.equal(dbAggregated.pages);
+			expect(cacheAggregated.totalCount).to.equal(dbAggregated.totalCount);
+			expect(cacheAggregated.lookups).to.deep.equal(dbAggregated.lookups);
+		});
+	});
+});
