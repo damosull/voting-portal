@@ -35,6 +35,6 @@ Then('the new user should be created successfully', () => {
 	usersPage.successMessage().should('contain.text', constants.messages.toast.USER_CREATED_SUCCESSFULLY);
 });
 
-Then('I verify Users table has loaded', () => {
+Then('I verify that the users page for an internal user has loaded successfully', () => {
 	usersPage.tableData().should('be.visible');
 });
