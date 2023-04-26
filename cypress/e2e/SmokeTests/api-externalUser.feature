@@ -79,5 +79,5 @@ Feature: Checking API calls with External user
         Then I can see data source title 'Database only; NO EXPANSION' is visibled
         And I verify the workflow table and filters have loaded
         When I store data from UI table and 'WorkflowExpansionDbAggregated' API within the page
-        And datas from '@CacheAggregatedTable' table and '@DbAggregatedTable' table are equal
+        Then datas from '@CacheAggregatedTable' table and '@DbAggregatedTable' table are equal
         And datas from CacheAggregated API and DbAggregated API are equal
