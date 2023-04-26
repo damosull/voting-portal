@@ -848,15 +848,15 @@ Then('I verify the default expanded and collapsed sections', () => {
 
 Then('I verify that the reporting page has loaded successfully', () => {
 	reportingPage.reportTypes().contains('Ballot Reconciliation').should('be.visible');
-	reportingPage.reportTypes().should('be.visible').contains('Ballot Status');
-	reportingPage.reportTypes().should('be.visible').contains('Ballot Vote Data');
-	reportingPage.reportTypes().should('be.visible').contains('Engagement');
-	reportingPage.reportTypes().should('be.visible').contains('Meeting Summary');
-	reportingPage.reportTypes().should('be.visible').contains('Policy');
-	reportingPage.reportTypes().should('be.visible').contains('Proxy Voting');
-	reportingPage.reportTypes().should('be.visible').contains('Proxy Voting Summary');
-	reportingPage.reportTypes().should('be.visible').contains('Vote Results');
-	reportingPage.reportTypes().should('be.visible').contains('Voting Activity');
+	reportingPage.reportTypes().contains('Ballot Status').should('be.visible');
+	reportingPage.reportTypes().contains('Ballot Vote Data').should('be.visible');
+	reportingPage.reportTypes().contains('Engagement').should('be.visible');
+	reportingPage.reportTypes().contains('Meeting Summary').should('be.visible');
+	reportingPage.reportTypes().contains('Policy').should('be.visible');
+	reportingPage.reportTypes().contains('Proxy Voting').should('be.visible');
+	reportingPage.reportTypes().contains('Proxy Voting Summary').should('be.visible');
+	reportingPage.reportTypes().contains('Vote Results').should('be.visible');
+	reportingPage.reportTypes().contains('Voting Activity').should('be.visible');
 	reportingPage.reportCriteriaSection().find('h3').should('be.visible').and('have.text', 'Filter Criteria');
 	reportingPage.reportColumns().find('h3').should('be.visible').and('have.text', 'Configure Columns');
 	reportingPage.reportPresentation().find('h3').should('be.visible').and('have.text', 'Grouping & Presentation');
