@@ -21,6 +21,7 @@ Feature: Checking API calls with External user
     Scenario: Reporting page API calls are loading as expected
         When I navigate to the Reporting page
         Then I verify that all the relevant API calls for reporting page are made
+        And I verify all the report types and the h3 contents have loaded
 
     @56800
     Scenario: MeetingDetails page API calls are loading as expected

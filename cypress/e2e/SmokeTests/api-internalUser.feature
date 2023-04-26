@@ -21,6 +21,7 @@ Feature: API Smoke Tests - Internal User
     Scenario: Reporting page API calls are loading as expected
         When I navigate to the Reporting page
         Then I verify that all the relevant API calls for reporting page are made
+        And I verify all the report types and the h3 contents have loaded
 
     @56812
     Scenario: Password change page API calls are loading as expected

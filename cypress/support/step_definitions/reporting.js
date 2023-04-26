@@ -845,3 +845,21 @@ Then('I verify the default expanded and collapsed sections', () => {
 	reportingPage.reportPresentation().find('h3').should('have.class', 'toggle closed');
 	reportingPage.reportSubscriptions().find('h3').should('have.class', 'toggle closed');
 });
+
+Then('I verify all the report types and the h3 contents have loaded', () => {
+	reportingPage.reportTypes().should('be.visible').contains('Ballot Reconciliation');
+	reportingPage.reportTypes().should('be.visible').contains('Ballot Status');
+	reportingPage.reportTypes().should('be.visible').contains('Ballot Vote Data');
+	reportingPage.reportTypes().should('be.visible').contains('Engagement');
+	reportingPage.reportTypes().should('be.visible').contains('Meeting Summary');
+	reportingPage.reportTypes().should('be.visible').contains('Policy');
+	reportingPage.reportTypes().should('be.visible').contains('Proxy Voting');
+	reportingPage.reportTypes().should('be.visible').contains('Proxy Voting Summary');
+	reportingPage.reportTypes().should('be.visible').contains('Vote Results');
+	reportingPage.reportTypes().should('be.visible').contains('Voting Activity');
+	reportingPage.reportCriteriaSection().find('h3').should('be.visible').and('have.text', 'Filter Criteria');
+	reportingPage.reportColumns().find('h3').should('be.visible').and('have.text', 'Configure Columns');
+	reportingPage.reportPresentation().find('h3').should('be.visible').and('have.text', 'Grouping & Presentation');
+	reportingPage.reportSubscriptions().find('h3').should('be.visible').and('have.text', 'Subscriptions');
+
+});
