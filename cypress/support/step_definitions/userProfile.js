@@ -1,4 +1,5 @@
 import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import userProfilePage from '../page_objects/userProfile.page';
 
 When('I navigate to the user profile page', () => {
 	cy.visit('/Users/UserProfile');
@@ -21,4 +22,12 @@ Then('I verify that all the relevant API calls for internal users profile page a
 	cy.statusCode200('@USER_PROFILE_HTML');
 	cy.statusCode200('@USER_CREATOR_PERMISSIONS');
 	cy.statusCode200('@USER_VIEW_MODEL_VALIDATION_RULES');
+});
+
+Then('I verify a couple of fields have loaded', ()=> {
+  userProfilePage.userProfileTitle().should('be.visible').and('have.text', 'User Profile');
+	userProfilePage.firstNameLabel().should('be.visible').and('have.text', 'First Name');
+	userProfilePage.emailLabel().should('be.visible').and('have.text', 'Email');
+	userProfilePage.loginTypeLabel().should('be.visible').and('have.text', 'Login Type');
+	userProfilePage.updateButton().should('be.visible').and('have.text', 'Update');
 });
