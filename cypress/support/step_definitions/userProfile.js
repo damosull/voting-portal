@@ -24,7 +24,7 @@ Then('I verify that all the relevant API calls for internal users profile page a
 	cy.statusCode200('@USER_VIEW_MODEL_VALIDATION_RULES');
 });
 
-Then('I verify a couple of fields have loaded', ()=> {
+Then('I verify that the user profile page has loaded successfully', ()=> {
   userProfilePage.userProfileTitle().should('be.visible').and('have.text', 'User Profile');
 	userProfilePage.firstNameLabel().should('be.visible').and('have.text', 'First Name');
 	userProfilePage.emailLabel().should('be.visible').and('have.text', 'Email');

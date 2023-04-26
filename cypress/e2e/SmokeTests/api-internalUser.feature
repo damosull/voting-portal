@@ -32,7 +32,7 @@ Feature: API Smoke Tests - Internal User
     Scenario: User Profile page API calls are loading as expected
         When I navigate to the user profile page
         Then I verify that all the relevant API calls for user profile page are made
-        And I verify a couple of fields have loaded
+        And I verify that the user profile page has loaded successfully
 
     @56814
     Scenario: Customer user profile page API calls are loading as expected
