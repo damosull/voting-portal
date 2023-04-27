@@ -41,3 +41,12 @@ Then('I should be able to assign the watchlist successfully', () => {
 	workflowPage.watchlistSearchInput().type(constants.testWatchlistName, { force: true });
 	workflowPage.watchlistScrollableContainer().should('include.text', constants.testWatchlistName);
 });
+
+Then('I verify that the manage watchlist page has loaded successfully', ()=>{
+	watchlistPage.allWatchlistsSection().contains('ASX 300 Index').should('be.visible');
+	watchlistPage.allWatchlistsSection().contains('Equity Plan Advisory Service').should('be.visible');
+	watchlistPage.allWatchlistsSection().contains('ESG Profile Universe').should('be.visible');
+	watchlistPage.allWatchlistsSection().contains('Glass Lewis Conflicts of Interest').should('be.visible');
+	watchlistPage.summaryTitle().should('be.visible').and('have.text','Summary');
+	watchlistPage.watchlistNameLabel().should('be.visible').and('have.text','Watchlist name');
+});
