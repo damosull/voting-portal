@@ -70,7 +70,7 @@ Feature: API Smoke Tests - Internal User
     Scenario: Watch list page API calls are loading as expected
         When I navigate to the manage watchlist page
         Then I verify that all the relevant API calls for manage watchlist page are made
-        And I verify the all watch lists section and summary section have loaded successfully
+        And I verify that the manage watchlist page has loaded successfully
 
     @56821
     Scenario: MeetingDetails page API calls are loading as expected

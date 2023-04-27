@@ -42,7 +42,7 @@ Then('I should be able to assign the watchlist successfully', () => {
 	workflowPage.watchlistScrollableContainer().should('include.text', constants.testWatchlistName);
 });
 
-Then('I verify the all watch lists section and summary section have loaded successfully', ()=>{
+Then('I verify that the manage watchlist page has loaded successfully', ()=>{
 	watchlistPage.allWatchlistsSection().contains('ASX 300 Index').should('be.visible');
 	watchlistPage.allWatchlistsSection().contains('Equity Plan Advisory Service').should('be.visible');
 	watchlistPage.allWatchlistsSection().contains('ESG Profile Universe').should('be.visible');
