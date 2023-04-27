@@ -1,6 +1,6 @@
 @api @api-external
 Feature: Checking API calls with External user
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56790
+    #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56790
 
     Background:
         Given I am logged in as the "CALPERS" User
@@ -21,6 +21,7 @@ Feature: Checking API calls with External user
     Scenario: Reporting page API calls are loading as expected
         When I navigate to the Reporting page
         Then I verify that all the relevant API calls for reporting page are made
+        And I verify that the reporting page has loaded successfully
 
     @56800
     Scenario: MeetingDetails page API calls are loading as expected
@@ -38,6 +39,7 @@ Feature: Checking API calls with External user
     Scenario: User Profile page API calls are loading as expected
         When I navigate to the user profile page
         Then I verify that all the relevant API calls for user profile page are made
+        And I verify that the user profile page has loaded successfully
 
     @56803
     Scenario: Customer profile / Accounts page API calls are loading as expected

@@ -26,6 +26,9 @@ class usersPage {
 	successMessage() {
 		return cy.get('.toast-message');
 	}
+	tableData() {
+		return cy.get("tbody[role='rowgroup']");
+	}
 }
 
 module.exports = new usersPage();
