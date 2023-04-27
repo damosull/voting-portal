@@ -55,6 +55,7 @@ Feature: Checking API calls with External user
     Scenario: Customer profile / Rationale library page API calls are loading as expected
         When I navigate to the rationale page
         Then I verify that all the relevant API calls for rationale page are made
+        And I verify the add rationale button has loaded
 
     @56806
     Scenario: Customer details page API calls are loading as expected
