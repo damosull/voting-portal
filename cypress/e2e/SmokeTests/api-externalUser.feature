@@ -70,3 +70,4 @@ Feature: Checking API calls with External user
     Scenario: Watch list page API calls are loading as expected
         When I navigate to the manage watchlist page
         Then I verify that all the relevant API calls for manage watchlist page are made
+        And I verify the all watch lists section and summary section have loaded for "external" user
