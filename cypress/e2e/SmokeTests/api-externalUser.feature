@@ -50,7 +50,7 @@ Feature: Checking API calls with External user
     Scenario: Customer profile / CustomFields page API calls are loading as expected
         When I navigate to the custom fields page
         Then I verify that all the relevant API calls for custom fields page are made
-        And I verify that a couple of fields have loaded successfully
+        And I verify that the custom fields page has loaded successfully
 
     @56805
     Scenario: Customer profile / Rationale library page API calls are loading as expected

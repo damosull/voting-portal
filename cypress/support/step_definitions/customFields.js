@@ -115,7 +115,7 @@ Then('The picklist created {string} should be orange in colour', (name) => {
 	customFieldsPage.filterColumnNameInput().clear();
 });
 
-Then('I verify that a couple of fields have loaded successfully', () => {
+Then('I verify that the custom fields page has loaded successfully', () => {
 	customFieldsPage.highlightActiveField().should('be.visible');
 	customFieldsPage.customFieldTypeDropdown().should('be.visible');
 	customFieldsPage.labelNameText().should('be.visible');
