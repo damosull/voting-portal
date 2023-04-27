@@ -96,3 +96,18 @@ Then('I remove all existing subscriptions', () => {
 		}
 	});
 });
+Then('I verify that all the relevant API calls for manage filters page are made', ()=> {
+	cy.statusCode200('@CURRENT_USER');
+	cy.statusCode200('@FILTERS_DIRECTORY');
+	cy.statusCode200('@GET_FOR_USER');
+	cy.statusCode200('@RENT_USER_COLLEAGUES');
+	cy.statusCode200('@GET_BY_ID');
+	cy.statusCode200('@SUBSCRIPTION_FILTER');
+	cy.statusCode200('@FILTER_TO_SHARE');
+	cy.statusCode200('@REPORT_TYPE');
+});
+Then('I verify quick filters and Summary & Subscription have loaded successfully', ()=> {
+	manageFiltersPage.summaryTitle().should('be.visible').and('have.text','Summary ');
+	manageFiltersPage.filterNameLabel().should('be.visible').and('have.text','Filter Name');
+	manageFiltersPage.addSubscriptionButton().should('be.visible').and('have.text','Add Subscription');
+});

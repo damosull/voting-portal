@@ -41,6 +41,16 @@ class manageFiltersPage {
 	toastMessage() {
 		return cy.get('.toast-message');
 	}
+
+	summaryTitle(){
+		return cy.get("#mf-summary h1");
+	}
+
+	filterNameLabel(){
+		return cy.get(".row.row-spaced div:nth-child(1) label:nth-child(1)");
+	}
+
+
 }
 
 module.exports = new manageFiltersPage();
