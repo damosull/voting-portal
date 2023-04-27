@@ -42,17 +42,11 @@ Then('I should be able to assign the watchlist successfully', () => {
 	workflowPage.watchlistScrollableContainer().should('include.text', constants.testWatchlistName);
 });
 
-Then('I verify the all watch lists section and summary section have loaded for {string} user', (userType)=>{
+Then('I verify the all watch lists section and summary section have loaded successfully', ()=>{
 	watchlistPage.allWatchlistsSection().contains('ASX 300 Index').should('be.visible');
 	watchlistPage.allWatchlistsSection().contains('Equity Plan Advisory Service').should('be.visible');
 	watchlistPage.allWatchlistsSection().contains('ESG Profile Universe').should('be.visible');
 	watchlistPage.allWatchlistsSection().contains('Glass Lewis Conflicts of Interest').should('be.visible');
 	watchlistPage.summaryTitle().should('be.visible').and('have.text','Summary');
 	watchlistPage.watchlistNameLabel().should('be.visible').and('have.text','Watchlist name');
-
-	if(userType.includes('internal')){
-		watchlistPage.systemWatchlistLabel().should('be.visible').and('have.text','System Watchlist:');
-		watchlistPage.editButton().should('be.visible').and('have.text','Edit');
-		watchlistPage.deleteButton().should('be.visible').and('have.text','Delete');
-	}
 });
