@@ -32,18 +32,6 @@ class watchlistPage {
 	watchlistNameLabel(){
 		return cy.get("#selected-filter-name label");
 	}
-
-	editButton(){
-		return cy.get(".darkgrey.edit-btn");
-	}
-
-	systemWatchlistLabel(){
-		return cy.get("div[data-bind='visible: isSystemContext'] label").contains('System Watchlist:');
-	}
-
-	deleteButton(){
-		return cy.get(".dark-red.small[data-bind='click: WLOperations.Delete,visible: IsDeleteable']");
-	}
 }
 
 module.exports = new watchlistPage();
