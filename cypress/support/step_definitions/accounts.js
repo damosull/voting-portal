@@ -1,4 +1,5 @@
 import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import accountsPage from '../page_objects/accounts.page';
 
 When('I navigate to the accounts page', () => {
 	cy.visit('/Accounts/Index');
@@ -14,4 +15,8 @@ Then('I verify that all the relevant API calls for accounts page are made', () =
 	cy.statusCode200('@WEBUIRES_MULTI_SELECT_STATIC');
 	cy.statusCode200('@ACCOUNTS_NEW');
 	cy.statusCode200('@LIST_SERVICE_ACCOUNT_STATUS_CODE');
+});
+
+Then('I verify that the accounts page has loaded successfully', () => {
+	accountsPage.tableData().should('be.visible');
 });
