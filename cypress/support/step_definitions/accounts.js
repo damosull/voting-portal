@@ -17,6 +17,6 @@ Then('I verify that all the relevant API calls for accounts page are made', () =
 	cy.statusCode200('@LIST_SERVICE_ACCOUNT_STATUS_CODE');
 });
 
-Then('I verify Customer table has loaded successfully', () => {
+Then('I verify that the accounts page has loaded successfully', () => {
 	accountsPage.tableData().should('be.visible');
 });

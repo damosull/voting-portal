@@ -45,7 +45,7 @@ Feature: Checking API calls with External user
     Scenario: Customer profile / Accounts page API calls are loading as expected
         When I navigate to the accounts page
         Then I verify that all the relevant API calls for accounts page are made
-        And I verify Customer table has loaded successfully
+        And I verify that the accounts page has loaded successfully
 
     @56804
     Scenario: Customer profile / CustomFields page API calls are loading as expected
