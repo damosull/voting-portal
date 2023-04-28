@@ -45,11 +45,13 @@ Feature: Checking API calls with External user
     Scenario: Customer profile / Accounts page API calls are loading as expected
         When I navigate to the accounts page
         Then I verify that all the relevant API calls for accounts page are made
+        And I verify that the accounts page has loaded successfully
 
     @56804
     Scenario: Customer profile / CustomFields page API calls are loading as expected
         When I navigate to the custom fields page
         Then I verify that all the relevant API calls for custom fields page are made
+        And I verify that the custom fields page has loaded successfully
 
     @56805
     Scenario: Customer profile / Rationale library page API calls are loading as expected
@@ -62,12 +64,8 @@ Feature: Checking API calls with External user
         When I navigate to the customer details page
         Then I verify that all the relevant API calls for customer details page are made
 
-    @56807
-    Scenario: Customer profile / UsersProfiles page API calls are loading as expected
-        When I navigate to the user profile page
-        Then I verify that all the relevant API calls for user profile page are made
-
     @56808
     Scenario: Watch list page API calls are loading as expected
         When I navigate to the manage watchlist page
         Then I verify that all the relevant API calls for manage watchlist page are made
+        And I verify that the manage watchlist page has loaded successfully

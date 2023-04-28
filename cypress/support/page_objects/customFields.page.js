@@ -62,6 +62,9 @@ class customFieldsPage {
 	picklistLabel() {
 		return cy.get('#results-list > li:nth-child(1) > div > label');
 	}
+	highlightActiveField() {
+		return cy.get("a[class='highlightedFilter'] span[data-bind='text: Name']");
+	}
 }
 
 module.exports = new customFieldsPage();
