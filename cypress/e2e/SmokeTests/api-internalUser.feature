@@ -79,6 +79,12 @@ Feature: API Smoke Tests - Internal User
         Then I verify that all the relevant API calls for meeting details page are made for "internal" user
         And I verify all the meeting sections have loaded
 
+    @56822
+    Scenario: Manage filters page API calls are loading as expected
+        When I navigate to the Manage Filters page
+        Then I verify that all the relevant API calls for manage filters page are made
+        And I verify that the manage filters page for an "internal" user has loaded successfully
+
     @56823
     Scenario: Users profiles / CustomerID page API calls are loading as expected
         When I navigate to the URL "/Users/UsersProfiles/?CustomerID=690"

@@ -57,17 +57,25 @@ Feature: Checking API calls with External user
     Scenario: Customer profile / Rationale library page API calls are loading as expected
         When I navigate to the rationale page
         Then I verify that all the relevant API calls for rationale page are made
+        And I verify that the rationale page has loaded successfully
 
     @56806
     Scenario: Customer details page API calls are loading as expected
         When I navigate to the customer details page
         Then I verify that all the relevant API calls for customer details page are made
+        And I verify that the custom details page has loaded successfully
 
     @56808
     Scenario: Watch list page API calls are loading as expected
         When I navigate to the manage watchlist page
         Then I verify that all the relevant API calls for manage watchlist page are made
         And I verify that the manage watchlist page has loaded successfully
+
+    @56809
+    Scenario: Manage filters page API calls are loading as expected
+        When I navigate to the Manage Filters page
+        Then I verify that all the relevant API calls for manage filters page are made
+        And I verify that the manage filters page for an "external" user has loaded successfully
 
     @56810
     Scenario: Users Profiles page API calls are loading as expected

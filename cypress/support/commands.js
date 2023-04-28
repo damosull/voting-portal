@@ -242,6 +242,8 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 	cy.intercept('GET', API.GET.WORKFLOW_META_DATA_2).as('WORKFLOW_META_DATA_2');
 	cy.intercept('GET', API.GET.WORKFLOW_RESEARCH_INFO).as('WORKFLOW_RESEARCH_INFO');
 	cy.intercept('GET', API.GET.WORKFLOW_WIDGET_DATA).as('WORKFLOW_WIDGET_DATA');
+	cy.intercept('GET', API.GET.GET_BY_ID).as('GET_BY_ID');
+	cy.intercept('GET', API.GET.FILTER_TO_SHARE).as('FILTER_TO_SHARE');
 	cy.intercept('GET', API.GET.VOTING_GROUP_SEARCH).as('VOTING_GROUP_SEARCH');
 
 	// PUT
