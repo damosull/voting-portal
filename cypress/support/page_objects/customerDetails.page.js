@@ -17,7 +17,7 @@ class customerDetailsPage {
 	summarySection() {
 		return cy.get('#Summary');
 	}
-	glassLewisCustomerIDValue() {
+	glassLewisCustomerIdValue() {
 		return cy.get("span[data-bind='text:CustomerDetails.SummaryViewModel.GlpCustomerID']");
 	}
 }
