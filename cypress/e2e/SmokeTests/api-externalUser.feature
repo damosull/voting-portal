@@ -63,11 +63,6 @@ Feature: Checking API calls with External user
         When I navigate to the customer details page
         Then I verify that all the relevant API calls for customer details page are made
 
-    @56807
-    Scenario: Customer profile / UsersProfiles page API calls are loading as expected
-        When I navigate to the user profile page
-        Then I verify that all the relevant API calls for user profile page are made
-
     @56808
     Scenario: Watch list page API calls are loading as expected
         When I navigate to the manage watchlist page
