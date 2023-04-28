@@ -96,18 +96,35 @@ Then('I remove all existing subscriptions', () => {
 		}
 	});
 });
+
 Then('I verify that all the relevant API calls for manage filters page are made', ()=> {
 	cy.statusCode200('@CURRENT_USER');
 	cy.statusCode200('@FILTERS_DIRECTORY');
 	cy.statusCode200('@GET_FOR_USER');
-	cy.statusCode200('@RENT_USER_COLLEAGUES');
+	cy.statusCode200('@GET_CURRENT_USER_COLLEAGUES');
 	cy.statusCode200('@GET_BY_ID');
 	cy.statusCode200('@SUBSCRIPTION_FILTER');
 	cy.statusCode200('@FILTER_TO_SHARE');
 	cy.statusCode200('@REPORT_TYPE');
 });
-Then('I verify quick filters and Summary & Subscription have loaded successfully', ()=> {
+
+Then('I verify that the manage filters page for an {string} user has loaded successfully', (userType)=>  {
+	if (userType.includes('external')){
+		manageFiltersPage.quickFiltersSection().contains('Advanced Filter').and('be.visible');
+	}
+
+	manageFiltersPage.quickFiltersSection().contains('Contested Meetings').and('be.visible');
+	manageFiltersPage.quickFiltersSection().contains('Glass Lewis Conflicts of Interest').and('be.visible');
+	manageFiltersPage.quickFiltersSection().contains('Proxy Paper Republications').and('be.visible');
+	manageFiltersPage.quickFiltersSection().contains('Report Feedback Statements').and('be.visible');
+	manageFiltersPage.quickFiltersSection().contains('Requires Attention').and('be.visible');
+	manageFiltersPage.quickFiltersSection().contains('Sustainalytics ESG').and('be.visible');
+	manageFiltersPage.quickFiltersSection().contains('Upcoming Meetings').and('be.visible');
+	manageFiltersPage.quickFiltersSection().contains('Sustainalytics ESG').scrollIntoView();
+	manageFiltersPage.quickFiltersSection().contains('Vote Rejections').and('be.visible');
+	manageFiltersPage.quickFiltersSection().contains('Votes Against Management').and('be.visible');
+	manageFiltersPage.quickFiltersSection().contains('Votes Against Policy').and('be.visible');
 	manageFiltersPage.summaryTitle().should('be.visible').and('have.text','Summary ');
 	manageFiltersPage.filterNameLabel().should('be.visible').and('have.text','Filter Name');
-	manageFiltersPage.addSubscriptionButton().should('be.visible').and('have.text','Add Subscription');
+	manageFiltersPage.subscriptionsTitle().should('be.visible').and('have.text','Subscriptions');
 });
