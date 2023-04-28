@@ -192,7 +192,7 @@ export const API = {
 		GET_MARKUP_MEETING_DETAILS: '**/MeetingDetails/GetMarkup/**',
 		GET_MEETING_ID: '**/Api/Data/MdData/GetAFD?MeetingId=**',
 		GET_MARKUP_WORKFLOW: '**/Workflow/GetMarkup**',
-		GET_USER_LIST: '**/Api/WebUI/Users/GetUsersList?_=**',
+		GET_USER_LIST: '**/Api/WebUI/Users/GetUsersList**',
 		GET_USER_PERMISSION: '**/Api/Data//MdPermissions/GetUserPermissions**',
 		GET_VEP_DETAILS: '**/Api/Data/VepConfigCrud/GetDetails**',
 		GET_POLICY: '**/Api/Data/Policy/GetById/**',
@@ -252,6 +252,7 @@ export const API = {
 		WORKFLOW_META_DATA_2: '**/Api/Data/WorkflowMetaData/?typeName=WorkflowExpansion&showDenied=true&customerId**',
 		WORKFLOW_WIDGET_DATA: '**/Api/Data/WorkflowWidgetData**',
 		WORKFLOW_RESEARCH_INFO: '**/Api/Data/WorkflowResearchInfo/GetWFResearch?CustomerID=**',
+		VOTING_GROUP_SEARCH: '**/Api/Data/VotingGroupSearch/?QueryValue=**',
 	},
 	PUT: {
 		BALLOT_GRID_STATE: '**/Api/Data/BallotsGridState',

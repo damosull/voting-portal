@@ -68,3 +68,9 @@ Feature: Checking API calls with External user
         When I navigate to the manage watchlist page
         Then I verify that all the relevant API calls for manage watchlist page are made
         And I verify that the manage watchlist page has loaded successfully
+
+    @56810
+    Scenario: Users Profiles page API calls are loading as expected
+        When I navigate to the users profiles page
+        Then I verify that all the relevant API calls for users profiles page are made for "external"
+        And I verify that the users profiles page has loaded successfully
