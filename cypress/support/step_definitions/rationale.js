@@ -16,6 +16,6 @@ Then('I verify that all the relevant API calls for rationale page are made', () 
 	cy.statusCode200('@POSHYTIP_EDITABLE');
 });
 
-Then('I verify the add rationale button has loaded', () => {
+Then('I verify that the rationale page has loaded successfully', () => {
 	rationalePage.addRationaleButton().should('be.visible');
 });
