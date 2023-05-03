@@ -212,6 +212,9 @@ class reportingPage {
 	reportPresentationFooter() {
 		return cy.get('#ava-presentation-footer');
 	}
+	reportTypes() {
+		return cy.get("ul[data-bind='foreach: ReportsTypes']");
+	}
 	columnCheckboxByLabel(label) {
 		return cy
 			.get('.report-column-label')

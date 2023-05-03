@@ -14,6 +14,12 @@ class customerDetailsPage {
 	customFieldsLink() {
 		return cy.get('#leftcol > nav > ul:nth-child(6) > li:nth-child(1) > a');
 	}
+	summarySection() {
+		return cy.get('#Summary');
+	}
+	glassLewisCustomerIdValue() {
+		return cy.get("span[data-bind='text:CustomerDetails.SummaryViewModel.GlpCustomerID']");
+	}
 }
 
 module.exports = new customerDetailsPage();

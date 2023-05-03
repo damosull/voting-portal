@@ -86,6 +86,9 @@ class dashboardPage {
 	widgetModal() {
 		return cy.get('div.row.handler.widget-header');
 	}
+	widgetModalContent() {
+		return cy.get('div.row.widget-content');
+	}
 	addWidgetCheckbox(value) {
 		return cy.get(`#results-list > li > div > input[value='${value}']`);
 	}

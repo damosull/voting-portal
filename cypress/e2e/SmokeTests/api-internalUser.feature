@@ -15,21 +15,25 @@ Feature: API Smoke Tests - Internal User
     Scenario: Dashboard page API calls are loading as expected
         When I navigate to the dashboard page
         Then I verify that all the relevant API calls for dashboard page are made
+        And I verify a couple of widgets have loaded
 
     @56811
     Scenario: Reporting page API calls are loading as expected
         When I navigate to the Reporting page
         Then I verify that all the relevant API calls for reporting page are made
+        And I verify that the reporting page has loaded successfully
 
     @56812
     Scenario: Password change page API calls are loading as expected
         When I navigate to the change password page
         Then I verify that all the relevant API calls for change password page are made
+        And I verify the fields to change password have loaded
 
     @56813
     Scenario: User Profile page API calls are loading as expected
         When I navigate to the user profile page
         Then I verify that all the relevant API calls for user profile page are made
+        And I verify that the user profile page has loaded successfully
 
     @56814
     Scenario: Customer user profile page API calls are loading as expected
@@ -40,6 +44,7 @@ Feature: API Smoke Tests - Internal User
     Scenario: Users page API calls are loading as expected
         When I navigate to the users page
         Then I verify that all the relevant API calls for users page are made
+        And I verify that the users page for an internal user has loaded successfully
 
     @56816
     Scenario: Internal Users Profiles page API calls are loading as expected
@@ -65,9 +70,16 @@ Feature: API Smoke Tests - Internal User
     Scenario: Watch list page API calls are loading as expected
         When I navigate to the manage watchlist page
         Then I verify that all the relevant API calls for manage watchlist page are made
+        And I verify that the manage watchlist page has loaded successfully
 
     @56821
     Scenario: MeetingDetails page API calls are loading as expected
         When I navigate to the URL "/MeetingDetails/Index/196/1173535"
         Then I verify that all the relevant API calls for meeting details page are made for "internal" user
         And I verify all the meeting sections have loaded
+
+    @56822
+    Scenario: Manage filters page API calls are loading as expected
+        When I navigate to the Manage Filters page
+        Then I verify that all the relevant API calls for manage filters page are made
+        And I verify that the manage filters page for an "internal" user has loaded successfully

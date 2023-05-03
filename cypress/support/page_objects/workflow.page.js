@@ -264,6 +264,9 @@ class workflowPage {
 	highlightedFilter() {
 		return cy.get("a[class='highlightedFilter']");
 	}
+	dataSourceTitle() {
+		return cy.get("[class='span11']>h2");
+	}
 
 	//Common Functions
 	waitForWorkflowPageLoad() {

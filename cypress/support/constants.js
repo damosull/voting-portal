@@ -134,6 +134,8 @@ export const API = {
 		VOTE: '**/Api/Data/Vote',
 		VOTE_REQUEST_VALIDATION: '**/Api/Data/VoteRequestValidation',
 		WORKFLOW_EXPANSION: '**/Api/Data/WorkflowExpansion*',
+		WORKFLOW_EXPANSION_DB_AGGREGATED: '**/Api/Data/WorkflowExpansionDbAggregated',
+		WORKFLOW_EXPANSION_PERFORMANCE_AGGREGATED: '**/Api/Data/WorkflowExpansionPerformanceAggregated',
 		WORKFLOW_SECURITIES_WATCHLIST: '**/Api/Data/WorkflowSecuritiesWatchlists',
 		POST_USER_LISTS: '**/Api/Data/UsersLists/**',
 		POST_CUSTODIAN_LIST: '**/Api/Data/CustodianList/**',
