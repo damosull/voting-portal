@@ -1,4 +1,5 @@
 import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import custodiansPage from '../page_objects/custodians.page';
 
 When('I navigate to the custodians page', () => {
 	cy.visit('/Custodians/Index');
@@ -13,4 +14,8 @@ Then('I verify that all the relevant API calls for custodians page are made', ()
 	cy.statusCode200('@WEBUIRES_MULTI_SELECT_STATIC');
 	cy.statusCode200('@POST_CUSTODIAN_LIST');
 	cy.statusCode200('@LIST_SERVICE_STATUS_CODE');
+});
+
+Then('I verify that the Custodians page for an internal user has loaded successfully', () => {
+	custodiansPage.custodiansTableData().should('be.visible');
 });
