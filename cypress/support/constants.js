@@ -235,6 +235,7 @@ export const API = {
 		VOTE_AGAINST_POLICY_WL: '**/Api/Data/VoteAgainstPolicyWL/Get?customerId=**',
 		VOTE_CARD: '**/Api/Data/MetaData/?typeName=VoteCard&customerId=0&_=**',
 		VOTE_CARD_GRID_STATE: '**/Api/Data/VoteCardGridState/?_=**',
+		VOTING_GROUP_SEARCH: '**/Api/Data/VotingGroupSearch/?QueryValue=**',
 		WATCHLIST: '**/Api/Data/Watchlist/**',
 		WATCHLIST_SECURITIES: '**/Api/Data/WatchlistSecurities/**',
 		WATCHLIST_IDENTITY_SEARCH: '**/Api/Data/WatchlistIdentitySearch/**',
@@ -252,7 +253,6 @@ export const API = {
 		WORKFLOW_META_DATA_2: '**/Api/Data/WorkflowMetaData/?typeName=WorkflowExpansion&showDenied=true&customerId**',
 		WORKFLOW_WIDGET_DATA: '**/Api/Data/WorkflowWidgetData**',
 		WORKFLOW_RESEARCH_INFO: '**/Api/Data/WorkflowResearchInfo/GetWFResearch?CustomerID=**',
-		VOTING_GROUP_SEARCH: '**/Api/Data/VotingGroupSearch/?QueryValue=**',
 	},
 	PUT: {
 		BALLOT_GRID_STATE: '**/Api/Data/BallotsGridState',

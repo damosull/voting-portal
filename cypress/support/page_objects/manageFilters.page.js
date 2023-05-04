@@ -42,20 +42,20 @@ class manageFiltersPage {
 		return cy.get('.toast-message');
 	}
 
-	summaryTitle(){
-		return cy.get("#mf-summary h1");
+	summaryTitle() {
+		return cy.get('#mf-summary h1');
 	}
 
-	filterNameLabel(){
-		return cy.get(".row.row-spaced div:nth-child(1) label:nth-child(1)");
+	filterNameLabel() {
+		return cy.get('.row.row-spaced div:nth-child(1) label:nth-child(1)');
 	}
 
-	quickFiltersSection(){
-		return cy.get(".scrollableContainer span");
+	quickFiltersSection() {
+		return cy.get('.scrollableContainer span');
 	}
 
-	subscriptionsTitle(){
-		return cy.get("#mf-subscriptions h1");
+	subscriptionsTitle() {
+		return cy.get('#mf-subscriptions h1');
 	}
 }
 

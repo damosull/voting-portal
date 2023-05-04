@@ -97,7 +97,7 @@ Then('I remove all existing subscriptions', () => {
 	});
 });
 
-Then('I verify that all the relevant API calls for manage filters page are made', ()=> {
+Then('I verify that all the relevant API calls for manage filters page are made', () => {
 	cy.statusCode200('@CURRENT_USER');
 	cy.statusCode200('@FILTERS_DIRECTORY');
 	cy.statusCode200('@GET_FOR_USER');
@@ -108,8 +108,8 @@ Then('I verify that all the relevant API calls for manage filters page are made'
 	cy.statusCode200('@REPORT_TYPE');
 });
 
-Then('I verify that the manage filters page for an {string} user has loaded successfully', (userType)=>  {
-	if (userType.includes('external')){
+Then('I verify that the manage filters page for an {string} user has loaded successfully', (userType) => {
+	if (userType.includes('external')) {
 		manageFiltersPage.quickFiltersSection().contains('Advanced Filter').and('be.visible');
 	}
 
@@ -124,7 +124,7 @@ Then('I verify that the manage filters page for an {string} user has loaded succ
 	manageFiltersPage.quickFiltersSection().contains('Vote Rejections').and('be.visible');
 	manageFiltersPage.quickFiltersSection().contains('Votes Against Management').and('be.visible');
 	manageFiltersPage.quickFiltersSection().contains('Votes Against Policy').and('be.visible');
-	manageFiltersPage.summaryTitle().should('be.visible').and('have.text','Summary ');
-	manageFiltersPage.filterNameLabel().should('be.visible').and('have.text','Filter Name');
-	manageFiltersPage.subscriptionsTitle().should('be.visible').and('have.text','Subscriptions');
+	manageFiltersPage.summaryTitle().should('be.visible').and('have.text', 'Summary ');
+	manageFiltersPage.filterNameLabel().should('be.visible').and('have.text', 'Filter Name');
+	manageFiltersPage.subscriptionsTitle().should('be.visible').and('have.text', 'Subscriptions');
 });
