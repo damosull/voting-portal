@@ -39,6 +39,7 @@ Feature: API Smoke Tests - Internal User
     Scenario: Customer user profile page API calls are loading as expected
         When I navigate to the customers page
         Then I verify that all the relevant API calls for customer user page are made
+        And I verify that the customers page has loaded successfully
 
     @56815
     Scenario: Users page API calls are loading as expected
