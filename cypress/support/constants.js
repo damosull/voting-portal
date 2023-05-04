@@ -203,7 +203,7 @@ export const API = {
 		LIST_SERVICE_ACCOUNT_STATUS_CODE: '**/Api/Data//ListService/AccountStatusCode?CustomerID=**',
 		LIST_SERVICE_POLICY_ID: '**/Api/Data/ListService/PolicyId**',
 		LIST_SERVICE_STATUS_CODE: '**/Api/Data//ListService/StatusCode?CustomerID=**',
-		LIST_SERVICE_VP_ONLY_WATCHLIST: '**/Api/Data/ListService/VpOnlyWatchlists?_=**',
+		LIST_SERVICE_VP_ONLY_WATCHLIST: '**/Api/Data/ListService/VpOnlyWatchlists**',
 		LOAD_INBOX: '**/Api/Data/Inbox/?Top=10&IsQueryOnly=false&_=**',
 		MANAGE_FILTERS: '**/ManageFilters',
 		MEETING_MATERIALS: '**/Api/Data/MeetingMaterials/**',
@@ -252,6 +252,7 @@ export const API = {
 		WORKFLOW_META_DATA_2: '**/Api/Data/WorkflowMetaData/?typeName=WorkflowExpansion&showDenied=true&customerId**',
 		WORKFLOW_WIDGET_DATA: '**/Api/Data/WorkflowWidgetData**',
 		WORKFLOW_RESEARCH_INFO: '**/Api/Data/WorkflowResearchInfo/GetWFResearch?CustomerID=**',
+		USERS_FOR_CUSTOMER: '**/Api/Data/UsersForCustomer/?customerId=**',
 	},
 	PUT: {
 		BALLOT_GRID_STATE: '**/Api/Data/BallotsGridState',

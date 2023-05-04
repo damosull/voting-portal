@@ -83,3 +83,9 @@ Feature: API Smoke Tests - Internal User
         When I navigate to the Manage Filters page
         Then I verify that all the relevant API calls for manage filters page are made
         And I verify that the manage filters page for an "internal" user has loaded successfully
+
+    @56823
+    Scenario: Customer details page API calls are loading as expected
+        When I navigate to the URL "/CustomerDetails/?CustomerID=690"
+        Then I verify that all the relevant API calls for customer details page are made for "internal" user
+        And I verify that the customer details page has loaded successfully for "internal" user

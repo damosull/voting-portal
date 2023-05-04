@@ -62,8 +62,8 @@ Feature: Checking API calls with External user
     @56806
     Scenario: Customer details page API calls are loading as expected
         When I navigate to the customer details page
-        Then I verify that all the relevant API calls for customer details page are made
-        And I verify that the custom details page has loaded successfully
+        Then I verify that all the relevant API calls for customer details page are made for "external" user
+        And I verify that the customer details page has loaded successfully for "external" user
 
     @56808
     Scenario: Watch list page API calls are loading as expected
