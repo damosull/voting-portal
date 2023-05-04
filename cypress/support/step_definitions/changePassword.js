@@ -16,5 +16,5 @@ Then('I verify the fields to change password have loaded', () => {
 	changePasswordPage.currentPasswordLabel().should('be.visible').and('have.text', 'Current Password');
 	changePasswordPage.newPasswordLabel().should('be.visible').and('have.text', 'New Password');
 	changePasswordPage.confirmNewPasswordLabel().should('be.visible').and('have.text', 'Confirm New Password');
-	changePasswordPage.updateButton().should('be.visible').and('have.text','Update');
+	changePasswordPage.updateButton().should('be.visible').and('have.text', 'Update');
 });

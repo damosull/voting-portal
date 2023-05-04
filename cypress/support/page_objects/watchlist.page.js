@@ -21,16 +21,16 @@ class watchlistPage {
 		return cy.get('#workflow-filter-list > div > div');
 	}
 
-	allWatchlistsSection(){
+	allWatchlistsSection() {
 		return cy.get("ul[data-bind='foreach: WLOperations.WLsList']");
 	}
 
-	summaryTitle(){
+	summaryTitle() {
 		return cy.get("div[id='WLMain'] div:nth-child(1) h2:nth-child(1)");
 	}
 
-	watchlistNameLabel(){
-		return cy.get("#selected-filter-name label");
+	watchlistNameLabel() {
+		return cy.get('#selected-filter-name label');
 	}
 }
 

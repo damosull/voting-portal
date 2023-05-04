@@ -1,6 +1,6 @@
 class changePasswordPage {
 	changePasswordTitle() {
-		return cy.get(".form-horizontal.clearfix h4");
+		return cy.get('.form-horizontal.clearfix h4');
 	}
 
 	currentPasswordLabel() {
@@ -8,7 +8,7 @@ class changePasswordPage {
 	}
 
 	newPasswordLabel() {
-		return cy.get(".control-label").contains('New Password');
+		return cy.get('.control-label').contains('New Password');
 	}
 
 	confirmNewPasswordLabel() {
@@ -16,7 +16,7 @@ class changePasswordPage {
 	}
 
 	updateButton() {
-		return cy.get("#up-btn-save");
+		return cy.get('#up-btn-save');
 	}
 }
 
