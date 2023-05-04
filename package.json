@@ -15,7 +15,7 @@
 		"loadtest": "cypress run --env testEnv=ultra --config specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,retries=0",
 		"loaddocker": "docker compose up --scale cypress=5",
 		"lint": "eslint cypress",
-		"prettier": "prettier --write \"**/*.{js,json}\"",
+		"prettier": "prettier --write \"**/*.{js,json}\" && git add -A .",
 		"prepare": "husky install"
 	},
 	"devDependencies": {
@@ -26,8 +26,8 @@
 	"dependencies": {
 		"@badeball/cypress-cucumber-preprocessor": "16.0.3",
 		"@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
-		"cypress": "12.10.0",
-		"cypress-cloud": "1.7.3",
+		"cypress": "12.11.0",
+		"cypress-cloud": "1.7.4",
 		"cypress-multi-reporters": "1.6.3",
 		"cypress-sql-server": "1.0.0",
 		"husky": "8.0.3",
