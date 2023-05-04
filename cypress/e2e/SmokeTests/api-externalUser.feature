@@ -76,3 +76,9 @@ Feature: Checking API calls with External user
         When I navigate to the Manage Filters page
         Then I verify that all the relevant API calls for manage filters page are made
         And I verify that the manage filters page for an "external" user has loaded successfully
+
+    @56810
+    Scenario: Users Profiles page API calls are loading as expected
+        When I navigate to the users profiles page
+        Then I verify that all the relevant API calls for users profiles page are made for "external" user
+        And I verify that the users profiles page has loaded successfully
