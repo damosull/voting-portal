@@ -29,3 +29,7 @@ Then('I verify that all the relevant API calls for customer user page are made',
 	cy.statusCode200('@POST_CUSTOMER_DYNAMIC');
 	cy.statusCode200('@LIST_SERVICE_STATUS_CODE');
 });
+
+Then('I verify that the customers page has loaded successfully', () => {
+	customersPage.customerTable().should('be.visible');
+});
