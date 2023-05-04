@@ -1,22 +1,22 @@
 class userProfilePage {
-	userProfileTitle(){
-		return cy.get(".floatleft h1");
+	userProfileTitle() {
+		return cy.get('.floatleft h1');
 	}
 
-	firstNameLabel(){
+	firstNameLabel() {
 		return cy.get("label[for='userDetails_UserFirstName']");
 	}
 
-	emailLabel(){
+	emailLabel() {
 		return cy.get("label[for='ContactEmail']");
 	}
 
-	loginTypeLabel(){
+	loginTypeLabel() {
 		return cy.get("label[for='userDetails_LoginType']");
 	}
 
 	updateButton() {
-		return cy.get("#up-btn-save");
+		return cy.get('#up-btn-save');
 	}
 }
 

@@ -34,8 +34,11 @@ Then('I select Custom Fields from The Customer Settings panel', () => {
 });
 
 Then('I verify that the custom details page has loaded successfully', () => {
-	customerDetailsPage.customerNameLabel().should('be.visible').and('have.text','California Public Employee Retirement System (CalPERS)');
-	customerDetailsPage.customFieldsLink().should('be.visible').and('have.text','Custom Fields');
+	customerDetailsPage
+		.customerNameLabel()
+		.should('be.visible')
+		.and('have.text', 'California Public Employee Retirement System (CalPERS)');
+	customerDetailsPage.customFieldsLink().should('be.visible').and('have.text', 'Custom Fields');
 	customerDetailsPage.summarySection().should('be.visible');
-	customerDetailsPage.glassLewisCustomerIdValue().should('be.visible').and('have.text','CAL095');
+	customerDetailsPage.glassLewisCustomerIdValue().should('be.visible').and('have.text', 'CAL095');
 });
