@@ -749,6 +749,8 @@ Then('I verify the workflow table and filters have loaded', () => {
 });
 
 Then('I can see data source title {string} is visible', (title) => {
+	cy.intercept('POST', constants.API.POST.WORKFLOW_EXPANSION_DB).as('WORKFLOW_EXPANSION_DB');
+	cy.intercept('POST', constants.API.POST.WORKFLOW_EXPANSION_PERFORMANCE).as('WORKFLOW_EXPANSION_PERFORMANCE');
 	workflowPage.dataSourceTitle().should('be.visible').and('have.text', title);
 });
 
@@ -772,6 +774,24 @@ When('I store data from UI table and {string} API within the page', (api) => {
 					workflowPage.tableRows().invoke('text').as('DbAggregatedTable');
 				});
 			break;
+		case 'WorkflowExpansionDB':
+			cy.wait('@WORKFLOW_EXPANSION_DB')
+				.its('response.statusCode')
+				.should('eq', 200)
+				.then(() => {
+					workflowPage.waitForWorkflowPageLoad();
+					workflowPage.tableRows().invoke('text').as('DbTable');
+				});
+			break;
+		case 'WorkflowExpansionPerformance':
+			cy.wait('@WORKFLOW_EXPANSION_PERFORMANCE')
+				.its('response.statusCode')
+				.should('eq', 200)
+				.then(() => {
+					workflowPage.waitForWorkflowPageLoad();
+					workflowPage.tableRows().invoke('text').as('CacheTable');
+				});
+			break;
 		default:
 			throw new Error('undefined API given');
 	}
@@ -788,24 +808,79 @@ Then('the data from {string} table and {string} table are equal', (first_table, 
 Then('the data from CacheAggregated API and DbAggregated API are equal', () => {
 	cy.get('@WORKFLOW_EXPANSION_DB_AGGREGATED').then((dbResp) => {
 		//verify properties inside items of 2 apis
+		let listDbItemsData = [];
+		let listCacheItemsData = [];
 		let dbAggregated = dbResp.response.body;
 		cy.get('@WORKFLOW_EXPANSION_PERFORMANCE_AGGREGATED').then((cacheRes) => {
 			const cacheAggregated = JSON.parse(cacheRes.response.body);
-			for (let i = 0; i < dbAggregated.items.length; i++) {
-				const listDbAggregatedItems = dbAggregated.items[i];
+			//make sure the items list in both APIs are the same before we start verify inside properties value
+			expect(dbAggregated.items.length).to.equal(cacheAggregated.items.length);
 
-				const listDbProperties = Object.getOwnPropertyNames(listDbAggregatedItems);
+			//start the loop and put all properties values into lists using db's properties as a reference
+			for (let i = 0; i < dbAggregated.items.length; i++) {
+				const dbAggregatedItem = dbAggregated.items[i];
+				const cacheAggregatedItem = cacheAggregated.items[i];
+
+				const listDbProperties = Object.getOwnPropertyNames(dbAggregatedItem);
 
 				for (const property of listDbProperties) {
-					expect(listDbAggregatedItems[property]).to.equal(cacheAggregated.items[i][property]);
+					listDbItemsData.push(dbAggregatedItem[property]);
+					listCacheItemsData.push(cacheAggregatedItem[property]);
 				}
 			}
-			//verify the rest properties in 2 apis
+			expect(listDbItemsData).to.deep.equal(listCacheItemsData);
+			// verify the rest properties in 2 apis
 			expect(dbAggregated.Source).to.equal('DbAggregated');
 			expect(cacheAggregated.Source).to.equal('CacheAggregated');
 			expect(cacheAggregated.pages).to.equal(dbAggregated.pages);
 			expect(cacheAggregated.totalCount).to.equal(dbAggregated.totalCount);
 			expect(cacheAggregated.lookups).to.deep.equal(dbAggregated.lookups);
+		});
+	});
+});
+
+Then('the data from DbNonAggregated API and CacheNonAggregated API are equal', () => {
+	//verify all properties except agendas and lookups.meetingIDs
+	cy.get('@WORKFLOW_EXPANSION_DB').then((dbRes) => {
+		let listDbItemsData = [];
+		let listCacheItemsData = [];
+		let dbNonAggregated = dbRes.response.body;
+		cy.get('@WORKFLOW_EXPANSION_PERFORMANCE').then((cacheRes) => {
+			let cacheNonAggregated = JSON.parse(cacheRes.response.body);
+			expect(dbNonAggregated.items.length).to.equal(cacheNonAggregated.items.length);
+
+			for (let i = 0; i < dbNonAggregated.items.length; i++) {
+				let dbNonAggregatedItem = dbNonAggregated.items[i];
+				let cacheNonAggregatedItem = cacheNonAggregated.items[i];
+
+				let listDbProperties = Object.getOwnPropertyNames(dbNonAggregatedItem);
+				let listDbSummariesProperties = Object.getOwnPropertyNames(dbNonAggregatedItem.Summaries);
+
+				for (const property of listDbProperties) {
+					if (property !== 'Summaries' && property !== 'Agendas') {
+						listCacheItemsData.push(cacheNonAggregatedItem[property]);
+						listDbItemsData.push(dbNonAggregatedItem[property]);
+					}
+				}
+				for (const summariesProperty of listDbSummariesProperties) {
+					if (
+						//ignore HasBallotData since it's not needed in the test
+						//ignore some Date related properties since it contains not stable data
+						summariesProperty !== 'HasBallotData' &&
+						summariesProperty !== 'TargetPublicationDate' &&
+						summariesProperty !== 'ResearchPublishDate' &&
+						summariesProperty !== 'ResearchRePublishDate'
+					) {
+						listCacheItemsData.push(cacheNonAggregatedItem.Summaries[summariesProperty]);
+						listDbItemsData.push(dbNonAggregatedItem.Summaries[summariesProperty]);
+					}
+				}
+			}
+			expect(listDbItemsData).to.deep.equal(listCacheItemsData);
+			expect(dbNonAggregated.Source).to.equal('DB');
+			expect(cacheNonAggregated.Source).to.equal('Cache');
+			expect(dbNonAggregated.pages).to.equal(cacheNonAggregated.pages);
+			expect(dbNonAggregated.totalCount).to.equal(cacheNonAggregated.totalCount);
 		});
 	});
 });
