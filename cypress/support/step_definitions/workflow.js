@@ -89,19 +89,11 @@ Then('I have added the criteria for {string} {string}', (criteria, value) => {
 				cy.intercept('GET', '**/GetSecurityStartsWith/?QueryValue=**').as('COMPANY_FILTER_SEARCH_RESULTS');
 				workflowPage.filterSearchInput().type(Cypress.env('companyName'));
 				cy.wait('@COMPANY_FILTER_SEARCH_RESULTS');
-				workflowPage.filterSearchInput().type('{enter}');
-				workflowPage.updateComanyName().click({ scrollBehavior: false });
-			} else if (value.includes('first Agenda Key')) {
-				cy.intercept('POST', '**/ListService/?listName=AgendaKey').as('AGENDA_FILTER_SEARCH_RESULTS');
-				cy.get('@FirstAgendaKeyData').then((res) => {
-					workflowPage.filterSearchInput().type(res);
-					cy.wait('@AGENDA_FILTER_SEARCH_RESULTS');
-					workflowPage.filterSearchInput().type('{enter}');
-					workflowPage.updateAgendaKey().click({ scrollBehavior: false });
-				});
 			} else {
-				throw new Error('undefined value given');
+				workflowPage.filterSearchInput().type(value);
 			}
+			workflowPage.filterSearchInput().type('{enter}');
+			workflowPage.updateComanyName().click({ scrollBehavior: false });
 		});
 	cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 });
 	workflowPage.waitForWorkflowPageLoad();
@@ -757,8 +749,6 @@ Then('I verify the workflow table and filters have loaded', () => {
 });
 
 Then('I can see data source title {string} is visible', (title) => {
-	cy.intercept('POST', constants.API.POST.WORKFLOW_EXPANSION_DB).as('WORKFLOW_EXPANSION_DB');
-	cy.intercept('POST', constants.API.POST.WORKFLOW_EXPANSION_PERFORMANCE).as('WORKFLOW_EXPANSION_PERFORMANCE');
 	workflowPage.dataSourceTitle().should('be.visible').and('have.text', title);
 });
 
@@ -905,7 +895,7 @@ Then('I store first Agenda Key number', () => {
 		});
 });
 
-Then('I get the response for cacheNonAggregated API', () => {
+Then('I get the response for {string} API', (api) => {
 	//request API and store response as an env variable
 	cy.get('#csrf-token', { timeout: 90000 })
 		.should('exist')
@@ -913,7 +903,7 @@ Then('I get the response for cacheNonAggregated API', () => {
 		.then((csrf) => {
 			cy.request({
 				method: 'POST',
-				url: `/Api/Data/WorkflowExpansionPerformance`,
+				url: `/Api/Data/${api}`,
 				form: true,
 				headers: {
 					CSRFToken: csrf,
@@ -1019,100 +1009,102 @@ Then('I get the response for cacheNonAggregated API', () => {
 					},
 				},
 			}).then((response) => {
-				let cacheRes = JSON.parse(response.body);
-				Cypress.env('CacheNonAggregated', cacheRes);
+				if (api === 'WorkflowExpansionPerformance') {
+					let cacheRes = JSON.parse(response.body);
+					Cypress.env('CacheNonAggregated', cacheRes);
+					cy.log(Cypress.env('CacheNonAggregated'));
+				} else {
+					Cypress.env('DbNonAggregated', response.body);
+					cy.log(Cypress.env('DbNonAggregated'));
+				}
 			});
 		});
 });
 
 Then('{string} property from DbNonAggregated and CacheNonAggregated API are equal', (property) => {
 	//Verify all inner properties except Summaries
-	cy.get('@WORKFLOW_EXPANSION_DB').then((dbRes) => {
-		let listDbValue = [];
-		let listCacheValue = [];
+	let listDbValue = [];
+	let listCacheValue = [];
 
-		switch (property) {
-			case 'Agendas':
-				let dbNonAggregatedAgenda = dbRes.response.body.items[0].Agendas[0];
-				let cacheNonAggregatedAgenda = Cypress.env('CacheNonAggregated').items[0].Agendas[0];
-				let listDbAgendaProperties = Object.getOwnPropertyNames(dbNonAggregatedAgenda);
+	switch (property) {
+		case 'Agendas':
+			let dbNonAggregatedAgenda = Cypress.env('DbNonAggregated').items[0].Agendas[0];
+			let cacheNonAggregatedAgenda = Cypress.env('CacheNonAggregated').items[0].Agendas[0];
+			let listDbAgendaProperties = Object.getOwnPropertyNames(dbNonAggregatedAgenda);
 
-				for (const property of listDbAgendaProperties) {
-					if (property !== 'Summaries' && property !== 'Policies') {
-						listDbValue.push(dbNonAggregatedAgenda[property]);
-						listCacheValue.push(cacheNonAggregatedAgenda[property]);
-					}
+			for (const property of listDbAgendaProperties) {
+				if (property !== 'Summaries' && property !== 'Policies') {
+					listDbValue.push(dbNonAggregatedAgenda[property]);
+					listCacheValue.push(cacheNonAggregatedAgenda[property]);
 				}
-				break;
-			case 'Agendas.Policies':
-				let dbNonAggregatedAgendaPolicies = dbRes.response.body.items[0].Agendas[0].Policies[0];
-				let cacheNonAggregatedAgendaPolicies = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0];
-				let listDbPoliciesProperties = Object.getOwnPropertyNames(dbNonAggregatedAgendaPolicies);
+			}
+			break;
+		case 'Agendas.Policies':
+			let dbNonAggregatedAgendaPolicies = Cypress.env('DbNonAggregated').items[0].Agendas[0].Policies[0];
+			let cacheNonAggregatedAgendaPolicies = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0];
+			let listDbPoliciesProperties = Object.getOwnPropertyNames(dbNonAggregatedAgendaPolicies);
 
-				for (const property of listDbPoliciesProperties) {
-					if (property !== 'Summaries' && property !== 'Ballots') {
-						listDbValue.push(dbNonAggregatedAgendaPolicies[property]);
-						listCacheValue.push(cacheNonAggregatedAgendaPolicies[property]);
-					}
+			for (const property of listDbPoliciesProperties) {
+				if (property !== 'Summaries' && property !== 'Ballots') {
+					listDbValue.push(dbNonAggregatedAgendaPolicies[property]);
+					listCacheValue.push(cacheNonAggregatedAgendaPolicies[property]);
 				}
-				break;
-			case 'Agendas.Policies.Ballots':
-				let dbNonAggregatedBallots = dbRes.response.body.items[0].Agendas[0].Policies[0].Ballots[0];
-				let cacheNonAggregatedBallots = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
-				let listDbBallotsProperties = Object.getOwnPropertyNames(dbNonAggregatedBallots);
+			}
+			break;
+		case 'Agendas.Policies.Ballots':
+			let dbNonAggregatedBallots = Cypress.env('DbNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
+			let cacheNonAggregatedBallots = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
+			let listDbBallotsProperties = Object.getOwnPropertyNames(dbNonAggregatedBallots);
 
-				for (const property of listDbBallotsProperties) {
-					if (property !== 'Summaries') {
-						listDbValue.push(dbNonAggregatedBallots[property]);
-						listCacheValue.push(cacheNonAggregatedBallots[property]);
-					}
+			for (const property of listDbBallotsProperties) {
+				if (property !== 'Summaries') {
+					listDbValue.push(dbNonAggregatedBallots[property]);
+					listCacheValue.push(cacheNonAggregatedBallots[property]);
 				}
-				break;
-			case 'lookups.MeetingIDs':
-				expect(dbRes.response.body.lookups.MeetingIDs).to.deep.equal(
-					Cypress.env('CacheNonAggregated').lookups.MeetingIDs
-				);
-				break;
-			default:
-				throw new Error('undefined property given');
-		}
-		expect(listDbValue).to.deep.equal(listCacheValue);
-	});
+			}
+			break;
+		case 'lookups.MeetingIDs':
+			expect(Cypress.env('DbNonAggregated').lookups.MeetingIDs).to.deep.equal(
+				Cypress.env('CacheNonAggregated').lookups.MeetingIDs
+			);
+			break;
+		default:
+			throw new Error('undefined property given');
+	}
+	expect(listDbValue).to.deep.equal(listCacheValue);
 });
 
 Then('all Summaries property from DbNonAggregated and CacheNonAggregated API are equal', () => {
 	//in here we will verify Agendas.Summaries/Agendas.Policies.Summaries/Agenda.Policies.Ballots.Summaries
-	cy.get('@WORKFLOW_EXPANSION_DB').then((dbRes) => {
-		let listDbValue = [];
-		let listCacheValue = [];
+	let listDbValue = [];
+	let listCacheValue = [];
 
-		let dbNonAggregatedAgenda = dbRes.response.body.items[0].Agendas[0];
-		let dbNonAggregatedAgendaPolicies = dbRes.response.body.items[0].Agendas[0].Policies[0];
-		let dbNonAggregatedBallots = dbRes.response.body.items[0].Agendas[0].Policies[0].Ballots[0];
+	let dbNonAggregatedAgenda = Cypress.env('DbNonAggregated').items[0].Agendas[0];
+	let dbNonAggregatedPolicies = Cypress.env('DbNonAggregated').items[0].Agendas[0].Policies[0];
+	let dbNonAggregatedBallots = Cypress.env('DbNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
 
-		let cacheNonAggregatedAgenda = Cypress.env('CacheNonAggregated').items[0].Agendas[0];
-		let cacheNonAggregatedAgendaPolicies = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0];
-		let cacheNonAggregatedBallots = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
+	let cacheNonAggregatedAgenda = Cypress.env('CacheNonAggregated').items[0].Agendas[0];
+	let cacheNonAggregatedPolicies = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0];
+	let cacheNonAggregatedBallots = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
 
-		let listDbSummaries = Object.getOwnPropertyNames(dbRes.response.body.items[0].Summaries);
+	let listDbSummaries = Object.getOwnPropertyNames(Cypress.env('DbNonAggregated').items[0].Summaries);
 
-		for (const summariesProperty of listDbSummaries) {
-			if (
-				summariesProperty !== 'HasBallotData' &&
-				summariesProperty !== 'TargetPublicationDate' &&
-				summariesProperty !== 'ResearchPublishDate' &&
-				summariesProperty !== 'ResearchRePublishDate'
-			) {
-				listDbValue.push(dbNonAggregatedAgenda.Summaries[summariesProperty]);
-				listCacheValue.push(cacheNonAggregatedAgenda.Summaries[summariesProperty]);
+	for (const summariesProperty of listDbSummaries) {
+		if (
+			summariesProperty !== 'HasBallotData' &&
+			summariesProperty !== 'TargetPublicationDate' &&
+			summariesProperty !== 'ResearchPublishDate' &&
+			summariesProperty !== 'ResearchRePublishDate'
+		) {
+			listDbValue.push(dbNonAggregatedAgenda.Summaries[summariesProperty]);
+			listCacheValue.push(cacheNonAggregatedAgenda.Summaries[summariesProperty]);
 
-				listDbValue.push(dbNonAggregatedAgendaPolicies.Summaries[summariesProperty]);
-				listCacheValue.push(cacheNonAggregatedAgendaPolicies.Summaries[summariesProperty]);
+			listDbValue.push(dbNonAggregatedPolicies.Summaries[summariesProperty]);
+			listCacheValue.push(cacheNonAggregatedPolicies.Summaries[summariesProperty]);
 
-				listDbValue.push(dbNonAggregatedBallots.Summaries[summariesProperty]);
-				listCacheValue.push(cacheNonAggregatedBallots.Summaries[summariesProperty]);
-			}
+			listDbValue.push(dbNonAggregatedBallots.Summaries[summariesProperty]);
+			listCacheValue.push(cacheNonAggregatedBallots.Summaries[summariesProperty]);
 		}
-		expect(listDbValue).to.deep.equal(listCacheValue);
-	});
+	}
+	expect(listDbValue).to.deep.equal(listCacheValue);
 });
