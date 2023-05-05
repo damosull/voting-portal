@@ -35,7 +35,7 @@ Feature: Verify UI and API's data in workflow-expansion
     @59998
     Scenario: Verify lookups, Agendas mostly focus on Summaries and inner property of Agendas(Polices, Policies.Ballots)
         When I navigate to the URL '/Workflow'
-        When I arrange the table in 'ascending' order for 'control number'
+        And I arrange the table in 'ascending' order for 'control number'
         Then I verify the workflow table and filters have loaded
         When I store first Agenda Key number
         And I get the response for 'WorkflowExpansionPerformance' API
