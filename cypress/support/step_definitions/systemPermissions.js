@@ -11,7 +11,7 @@ Then('I verify that all the relevant API calls for system permissions page are m
 	cy.statusCode200('@PERMISSIONS');
 });
 
-Then('I verify that the system permissions page for an internal user has loaded successfully', () => {
+Then('I verify that the {string} page for an internal user has loaded successfully', () => {
 	systemPermissionsItems.forEach((item) => {
 		systemPermissionsPage.systemPermissionsSectionHeading(item).should('be.visible');
 	});

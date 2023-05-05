@@ -63,7 +63,7 @@ Feature: API Smoke Tests - Internal User
     Scenario: System Permissions page API calls are loading as expected
         When I navigate to the system permissions page
         Then I verify that all the relevant API calls for system permissions page are made
-        And I verify that the system permissions page for an internal user has loaded successfully
+        And I verify that the "System Permissions" page for an internal user has loaded successfully
         When I expand the "Administration - System Permissions" section
         Then the "Administration - System Permissions" section is expanded successfully
 
@@ -71,6 +71,12 @@ Feature: API Smoke Tests - Internal User
     Scenario: User Permissions page API calls are loading as expected
         When I navigate to the User Permissions page
         Then I verify that all the relevant API calls for user permissions page are made
+        When I type "RobecoAutomation External Admin" into the user name input
+        Then the search results for "RobecoAutomation External Admin" are loaded successfully
+        When I choose the first element from the dropdown
+        And I verify that the "User Permissions" page for an internal user has loaded successfully
+        When I expand the "Administration - System Permissions" section
+        Then the "Administration - System Permissions" section is expanded successfully
 
     @56820
     Scenario: Watch list page API calls are loading as expected
