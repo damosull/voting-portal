@@ -101,3 +101,9 @@ Feature: API Smoke Tests - Internal User
         When I navigate to the URL "/Users/UsersProfiles/?CustomerID=690"
         Then I verify that all the relevant API calls for users profiles page are made for "internal" user
         And I verify that the users profiles page has loaded successfully
+
+    @56824
+    Scenario: Vote execution profile page API calls are loading as expected
+        When I navigate to the URL "/Accounts/VEP/?CustomerID=690"
+        Then I verify that all the relevant API calls for vote execution profile page are made
+        And I verify that the vote execution profile page has loaded successfully
