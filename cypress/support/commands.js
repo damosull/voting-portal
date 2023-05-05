@@ -188,6 +188,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 	cy.intercept('GET', API.GET.GET_POLICY).as('GET_POLICY');
 	cy.intercept('GET', API.GET.GET_USER_PERMISSION).as('GET_USER_PERMISSION');
 	cy.intercept('GET', API.GET.GET_VEP_DETAILS).as('GET_VEP_DETAILS');
+	cy.intercept('GET', API.GET.GET_WD_CRITERIA_COLUMN).as('GET_WD_CRITERIA_COLUMN');
 	cy.intercept('GET', API.GET.GL_BLOG_DATA).as('GL_BLOG_DATA');
 	cy.intercept('GET', API.GET.IDENTITY_SEARCH).as('IDENTITY_SEARCH');
 	cy.intercept('GET', API.GET.INBOX).as('INBOX');
@@ -196,6 +197,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 	cy.intercept('GET', API.GET.LIST_SERVICE_POLICY_ID).as('LIST_SERVICE_POLICY_ID');
 	cy.intercept('GET', API.GET.LIST_SERVICE_STATUS_CODE).as('LIST_SERVICE_STATUS_CODE');
 	cy.intercept('GET', API.GET.LIST_SERVICE_VP_ONLY_WATCHLIST).as('LIST_SERVICE_VP_ONLY_WATCHLIST');
+	cy.intercept('GET', API.GET.LIST_SERVICE_DECISION_STATUS).as('LIST_SERVICE_DECISION_STATUS');
 	cy.intercept('GET', API.GET.LOAD_INBOX).as('LOAD_INBOX');
 	cy.intercept('GET', API.GET.MEETING_SECURITY_WATCHLIST).as('MEETING_SECURITY_WATCHLIST');
 	cy.intercept('GET', API.GET.MEETING_MATERIALS).as('MEETING_MATERIALS');
@@ -214,6 +216,9 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 	cy.intercept('GET', API.GET.SEARCH_TOOLBAR).as('SEARCH_TOOLBAR');
 	cy.intercept('GET', API.GET.SETTINGS_READ).as('SETTINGS_READ');
 	cy.intercept('GET', API.GET.SHARE_MEETING_LISTS).as('SHARE_MEETING_LISTS');
+	cy.intercept('GET', API.GET.SITE_CONFIG).as('SITE_CONFIG');
+	cy.intercept('GET', API.GET.SITE_CONFIG_GET_DEFAULT).as('SITE_CONFIG_GET_DEFAULT');
+	cy.intercept('GET', API.GET.SITE_CONFIG_ID).as('SITE_CONFIG_ID');
 	cy.intercept('GET', API.GET.SUBSCRIPTIONS).as('SUBSCRIPTIONS');
 	cy.intercept('GET', API.GET.SUSTAIN_ANALYTICS).as('SUSTAIN_ANALYTICS');
 	cy.intercept('GET', API.GET.SPA).as('SPA');
