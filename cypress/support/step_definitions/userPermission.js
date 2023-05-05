@@ -55,3 +55,7 @@ When('I navigate to User Permissions page for {string}', (username) => {
 Then('I click on the {string} dropdown', (setting) => {
 	cy.contains(setting).should('be.visible').click();
 });
+
+Then('the search results for {string} are loaded successfully', (username) => {
+	userPermissionPage.userNameInputList().should('be.visible').and('have.text', username);
+});
