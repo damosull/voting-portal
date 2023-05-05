@@ -126,3 +126,22 @@ Then('I delete the visible vote execution profile', () => {
 	vepPage.deleteButton().click();
 	cy.wait('@DELETE_VEP_PROFILE').its('response.statusCode').should('eq', 204);
 });
+
+Then('I verify that all the relevant API calls for vote execution profile page are made', () => {
+	cy.statusCode200('@CURRENT_USER');
+	cy.statusCode200('@LIST_SERVICE_VP_ONLY_WATCHLIST');
+	cy.statusCode200('@LIST_SERVICE_VOTING_GROUP_VEP');
+	cy.statusCode200('@LIST_SERVICE_PRIORITY_LEVEL');
+	cy.statusCode200('@LIST_SERVICE_COUNTRY');
+	cy.statusCode200('@VEP_CONFIG_CRUD');
+	cy.statusCode200('@GET_VEP_DETAILS');
+	cy.statusCode200('@VEP_CRITERIA_META_DATA');
+});
+
+Then('I verify that the vote execution profile page has loaded successfully', () => {
+	vepPage.votingGroupsLabel().should('be.visible').and('have.text', 'Paradice-All');
+	vepPage.configurationNameLabel().should('be.visible').and('have.text', 'PIM0916');
+	vepPage.priorityLevelLabel().should('be.visible').and('have.text', 'Priority level');
+	vepPage.marketSpecific().should('be.visible').and('have.text', 'Market specific');
+	vepPage.votingInstructionsLabel().should('be.visible').and('have.text', 'Voting instructions');
+});
