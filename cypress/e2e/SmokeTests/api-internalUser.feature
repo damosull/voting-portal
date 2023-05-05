@@ -63,11 +63,20 @@ Feature: API Smoke Tests - Internal User
     Scenario: System Permissions page API calls are loading as expected
         When I navigate to the system permissions page
         Then I verify that all the relevant API calls for system permissions page are made
+        And I verify that the "System Permissions" page for an internal user has loaded successfully
+        When I expand the "Administration - System Permissions" section
+        Then the "Administration - System Permissions" section is expanded successfully
 
     @56819
     Scenario: User Permissions page API calls are loading as expected
         When I navigate to the User Permissions page
         Then I verify that all the relevant API calls for user permissions page are made
+        When I type "RobecoAutomation External Admin" into the user name input
+        Then the search results for "RobecoAutomation External Admin" are loaded successfully
+        When I choose the first element from the dropdown
+        And I verify that the "User Permissions" page for an internal user has loaded successfully
+        When I expand the "Administration - System Permissions" section
+        Then the "Administration - System Permissions" section is expanded successfully
 
     @56820
     Scenario: Watch list page API calls are loading as expected
@@ -92,6 +101,18 @@ Feature: API Smoke Tests - Internal User
         When I navigate to the URL "/Users/UsersProfiles/?CustomerID=690"
         Then I verify that all the relevant API calls for users profiles page are made for "internal" user
         And I verify that the users profiles page has loaded successfully
+
+    @56824
+    Scenario: Customer details page API calls are loading as expected
+        When I navigate to the URL "/CustomerDetails/?CustomerID=690"
+        Then I verify that all the relevant API calls for customer details page are made for "internal" user
+        And I verify that the customer details page has loaded successfully for "internal" user
+
+    @56825
+    Scenario: Vote execution profile page API calls are loading as expected
+        When I navigate to the URL "/Accounts/VEP/?CustomerID=690"
+        Then I verify that all the relevant API calls for vote execution profile page are made
+        And I verify that the vote execution profile page has loaded successfully
 
     @56828
     Scenario: Customer admin group page API calls are loading as expected
