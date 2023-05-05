@@ -884,7 +884,6 @@ Then('the data from DbNonAggregated API and CacheNonAggregated API are equal', (
 });
 
 Then('I store first Agenda Key number', () => {
-	//capture first Agenda Key after filter and store it as an env variable
 	workflowPage
 		.agendaKeyData()
 		.first()
@@ -956,7 +955,7 @@ Then('I get the response for {string} API', (api) => {
 							Expressions: [
 								{
 									Operator: 'IN',
-									Value: Cypress.env('FirstAgendaKey'), //put AgendaKey env Variable here
+									Value: Cypress.env('FirstAgendaKey'),
 									ValueSemantics: '0',
 									SiblingJoin: 'and',
 								},
@@ -966,57 +965,28 @@ Then('I get the response for {string} API', (api) => {
 					},
 					SelectedFields: {
 						Fields: {
-							0: {
-								ID: '1',
-							},
-							1: {
-								ID: '2',
-							},
-							2: {
-								ID: '15',
-							},
-							3: {
-								ID: '39',
-							},
-							4: {
-								ID: '17',
-							},
-							5: {
-								ID: '10',
-							},
-							6: {
-								ID: '8',
-							},
-							7: {
-								ID: '3',
-							},
-							8: {
-								ID: '7',
-							},
-							9: {
-								ID: '4',
-							},
-							10: {
-								ID: '5',
-							},
-							11: {
-								ID: '6',
-							},
-							12: {
-								ID: '11',
-							},
+							0: { ID: '1' },
+							1: { ID: '2' },
+							2: { ID: '15' },
+							3: { ID: '39' },
+							4: { ID: '17' },
+							5: { ID: '10' },
+							6: { ID: '8' },
+							7: { ID: '3' },
+							8: { ID: '7' },
+							9: { ID: '4' },
+							10: { ID: '5' },
+							11: { ID: '6' },
+							12: { ID: '11' },
 						},
 					},
 				},
 			}).then((response) => {
-				if (api === 'WorkflowExpansionPerformance') {
-					let cacheRes = JSON.parse(response.body);
-					Cypress.env('CacheNonAggregated', cacheRes);
-					cy.log(Cypress.env('CacheNonAggregated'));
-				} else {
-					Cypress.env('DbNonAggregated', response.body);
-					cy.log(Cypress.env('DbNonAggregated'));
-				}
+				const isPerformanceApi = api.includes('Performance');
+				const envKey = isPerformanceApi ? 'CacheNonAggregated' : 'DbNonAggregated';
+				const envValue = isPerformanceApi ? JSON.parse(response.body) : response.body;
+
+				Cypress.env(envKey, envValue);
 			});
 		});
 });
@@ -1064,9 +1034,9 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 			}
 			break;
 		case 'lookups.MeetingIDs':
-			expect(Cypress.env('DbNonAggregated').lookups.MeetingIDs).to.deep.equal(
-				Cypress.env('CacheNonAggregated').lookups.MeetingIDs
-			);
+			const meetingIdsFromCache = Cypress.env('CacheNonAggregated').lookups.MeetingIDs;
+			const meetingIdsFromDb = Cypress.env('DbNonAggregated').lookups.MeetingIDs;
+			expect(meetingIdsFromDb).to.deep.equal(meetingIdsFromCache);
 			break;
 		default:
 			throw new Error('undefined property given');
