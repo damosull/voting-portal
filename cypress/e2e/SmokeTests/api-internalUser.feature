@@ -63,6 +63,9 @@ Feature: API Smoke Tests - Internal User
     Scenario: System Permissions page API calls are loading as expected
         When I navigate to the system permissions page
         Then I verify that all the relevant API calls for system permissions page are made
+        And I verify that the system permissions page for an internal user has loaded successfully
+        When I expand the "Administration - System Permissions" section
+        Then the "Administration - System Permissions" section is expanded successfully
 
     @56819
     Scenario: User Permissions page API calls are loading as expected
