@@ -172,6 +172,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 	cy.intercept('GET', API.GET.FILTER_PREFERENCE).as('FILTER_PREFERENCE');
 	cy.intercept('GET', API.GET.FILTERS_DIRECTORY).as('FILTERS_DIRECTORY');
 	cy.intercept('GET', API.GET.FILTERS).as('FILTERS');
+	cy.intercept('GET', API.GET.FILTER_TO_SHARE).as('FILTER_TO_SHARE');
 	cy.intercept('GET', API.GET.GET_ACCOUNT_FILTERS_BY_SCREEN_ID).as('GET_ACCOUNT_FILTERS_BY_SCREEN_ID');
 	cy.intercept('GET', API.GET.GET_AUTHENTICATED_USER).as('GET_AUTHENTICATED_USER');
 	cy.intercept('GET', API.GET.GET_CURRENT_USER_COLLEAGUES).as('GET_CURRENT_USER_COLLEAGUES');
@@ -189,6 +190,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 	cy.intercept('GET', API.GET.GET_USER_PERMISSION).as('GET_USER_PERMISSION');
 	cy.intercept('GET', API.GET.GET_VEP_DETAILS).as('GET_VEP_DETAILS');
 	cy.intercept('GET', API.GET.GL_BLOG_DATA).as('GL_BLOG_DATA');
+	cy.intercept('GET', API.GET.GET_BY_ID).as('GET_BY_ID');
 	cy.intercept('GET', API.GET.IDENTITY_SEARCH).as('IDENTITY_SEARCH');
 	cy.intercept('GET', API.GET.INBOX).as('INBOX');
 	cy.intercept('GET', API.GET.LIST_SERVICE).as('LIST_SERVICE');
@@ -222,9 +224,11 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 	cy.intercept('GET', API.GET.USER_PROFILE_HTML).as('USER_PROFILE_HTML');
 	cy.intercept('GET', API.GET.USER_SCREEN_FILTERS).as('USER_SCREEN_FILTERS');
 	cy.intercept('GET', API.GET.USER_VIEW_MODEL_VALIDATION_RULES).as('USER_VIEW_MODEL_VALIDATION_RULES');
+	cy.intercept('GET', API.GET.USERS_FOR_CUSTOMER).as('USERS_FOR_CUSTOMER');
 	cy.intercept('GET', API.GET.VOTE_AGAINST_POLICY_WL).as('VOTE_AGAINST_POLICY_WL');
 	cy.intercept('GET', API.GET.VOTE_CARD).as('VOTE_CARD');
 	cy.intercept('GET', API.GET.VOTE_CARD_GRID_STATE).as('VOTE_CARD_GRID_STATE');
+	cy.intercept('GET', API.GET.VOTING_GROUP_SEARCH).as('VOTING_GROUP_SEARCH');
 	cy.intercept('GET', API.GET.WATCHLIST).as('WATCHLIST');
 	cy.intercept('GET', API.GET.WATCHLIST_SECURITIES).as('WATCHLIST_SECURITIES');
 	cy.intercept('GET', API.GET.WATCHLIST_IDENTITY_SEARCH).as('WATCHLIST_IDENTITY_SEARCH');
@@ -242,9 +246,6 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 	cy.intercept('GET', API.GET.WORKFLOW_META_DATA_2).as('WORKFLOW_META_DATA_2');
 	cy.intercept('GET', API.GET.WORKFLOW_RESEARCH_INFO).as('WORKFLOW_RESEARCH_INFO');
 	cy.intercept('GET', API.GET.WORKFLOW_WIDGET_DATA).as('WORKFLOW_WIDGET_DATA');
-	cy.intercept('GET', API.GET.GET_BY_ID).as('GET_BY_ID');
-	cy.intercept('GET', API.GET.FILTER_TO_SHARE).as('FILTER_TO_SHARE');
-	cy.intercept('GET', API.GET.USERS_FOR_CUSTOMER).as('USERS_FOR_CUSTOMER');
 
 	// PUT
 	cy.intercept('PUT', API.PUT.BALLOT_GRID_STATE).as('BALLOT_GRID_STATE');

@@ -39,6 +39,7 @@ Feature: API Smoke Tests - Internal User
     Scenario: Customer user profile page API calls are loading as expected
         When I navigate to the customers page
         Then I verify that all the relevant API calls for customer user page are made
+        And I verify that the customers page has loaded successfully
 
     @56815
     Scenario: Users page API calls are loading as expected
@@ -48,8 +49,9 @@ Feature: API Smoke Tests - Internal User
 
     @56816
     Scenario: Internal Users Profiles page API calls are loading as expected
-        When I navigate to the internal users profile page
+        When I navigate to the users profiles page
         Then I verify that all the relevant API calls for internal users profile page are made
+        And I verify that the users profiles page has loaded successfully
 
     @56817
     Scenario: Custodians page API calls are loading as expected
@@ -86,6 +88,12 @@ Feature: API Smoke Tests - Internal User
         And I verify that the manage filters page for an "internal" user has loaded successfully
 
     @56823
+    Scenario: Users profiles / CustomerID page API calls are loading as expected
+        When I navigate to the URL "/Users/UsersProfiles/?CustomerID=690"
+        Then I verify that all the relevant API calls for users profiles page are made for "internal" user
+        And I verify that the users profiles page has loaded successfully
+
+    @56824
     Scenario: Customer details page API calls are loading as expected
         When I navigate to the URL "/CustomerDetails/?CustomerID=690"
         Then I verify that all the relevant API calls for customer details page are made for "internal" user
