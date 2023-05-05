@@ -56,6 +56,18 @@ class vepPage {
 	saveVoteExecutionButton() {
 		return cy.get("button[data-bind='click: OnNewFieldSaveClicked, visible: DisplaySaveButton']");
 	}
+
+	priorityLevelLabel() {
+		return cy.get('#priority-market .content-left h3');
+	}
+
+	marketSpecific() {
+		return cy.get('#priority-market .content-right h3');
+	}
+
+	votingInstructionsLabel() {
+		return cy.get('.section.clearfix h3');
+	}
 }
 
 module.exports = new vepPage();
