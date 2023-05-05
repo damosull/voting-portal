@@ -21,7 +21,7 @@ class workflowPage {
 		return cy.get('.toast-message');
 	}
 	workflowLink() {
-		return cy.get('#workflow-link.active');
+		return cy.get('#workflow-link');
 	}
 	mainSearchInput() {
 		return cy.get('#toolbarSearchFieldInput');
