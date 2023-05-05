@@ -23,6 +23,9 @@ class customersPage {
 	customerNameLinks() {
 		return cy.get('#customer-grid-kendo > div.k-grid-content > table > tbody > tr > td:nth-child(2) > a');
 	}
+	customerTable() {
+		return cy.get("tbody[role='rowgroup']");
+	}
 }
 
 module.exports = new customersPage();
