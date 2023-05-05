@@ -1025,43 +1025,6 @@ Then('I get the response for cacheNonAggregated API', () => {
 		});
 });
 
-Then('all Summaries property from DbNonAggregated and CacheNonAggregated API are equal', () => {
-	//in here we will verify Agendas.Summaries/Agendas.Policies.Summaries/Agenda.Policies.Ballots.Summaries
-	cy.get('@WORKFLOW_EXPANSION_DB').then((dbRes) => {
-		let listDbValue = [];
-		let listCacheValue = [];
-
-		let dbNonAggregatedAgenda = dbRes.response.body.items[0].Agendas[0];
-		let dbNonAggregatedAgendaPolicies = dbRes.response.body.items[0].Agendas[0].Policies[0];
-		let dbNonAggregatedBallots = dbRes.response.body.items[0].Agendas[0].Policies[0].Ballots[0];
-
-		let cacheNonAggregatedAgenda = Cypress.env('CacheNonAggregated').items[0].Agendas[0];
-		let cacheNonAggregatedAgendaPolicies = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0];
-		let cacheNonAggregatedBallots = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
-
-		let listDbSummaries = Object.getOwnPropertyNames(dbRes.response.body.items[0].Summaries);
-
-		for (const summariesProperty of listDbSummaries) {
-			if (
-				summariesProperty !== 'HasBallotData' &&
-				summariesProperty !== 'TargetPublicationDate' &&
-				summariesProperty !== 'ResearchPublishDate' &&
-				summariesProperty !== 'ResearchRePublishDate'
-			) {
-				listDbValue.push(dbNonAggregatedAgenda.Summaries[summariesProperty]);
-				listCacheValue.push(cacheNonAggregatedAgenda.Summaries[summariesProperty]);
-
-				listDbValue.push(dbNonAggregatedAgendaPolicies.Summaries[summariesProperty]);
-				listCacheValue.push(cacheNonAggregatedAgendaPolicies.Summaries[summariesProperty]);
-
-				listDbValue.push(dbNonAggregatedBallots.Summaries[summariesProperty]);
-				listCacheValue.push(cacheNonAggregatedBallots.Summaries[summariesProperty]);
-			}
-		}
-		expect(listDbValue).to.deep.equal(listCacheValue);
-	});
-});
-
 Then('{string} property from DbNonAggregated and CacheNonAggregated API are equal', (property) => {
 	//Verify all inner properties except Summaries
 	cy.get('@WORKFLOW_EXPANSION_DB').then((dbRes) => {
@@ -1112,6 +1075,43 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 				break;
 			default:
 				throw new Error('undefined property given');
+		}
+		expect(listDbValue).to.deep.equal(listCacheValue);
+	});
+});
+
+Then('all Summaries property from DbNonAggregated and CacheNonAggregated API are equal', () => {
+	//in here we will verify Agendas.Summaries/Agendas.Policies.Summaries/Agenda.Policies.Ballots.Summaries
+	cy.get('@WORKFLOW_EXPANSION_DB').then((dbRes) => {
+		let listDbValue = [];
+		let listCacheValue = [];
+
+		let dbNonAggregatedAgenda = dbRes.response.body.items[0].Agendas[0];
+		let dbNonAggregatedAgendaPolicies = dbRes.response.body.items[0].Agendas[0].Policies[0];
+		let dbNonAggregatedBallots = dbRes.response.body.items[0].Agendas[0].Policies[0].Ballots[0];
+
+		let cacheNonAggregatedAgenda = Cypress.env('CacheNonAggregated').items[0].Agendas[0];
+		let cacheNonAggregatedAgendaPolicies = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0];
+		let cacheNonAggregatedBallots = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
+
+		let listDbSummaries = Object.getOwnPropertyNames(dbRes.response.body.items[0].Summaries);
+
+		for (const summariesProperty of listDbSummaries) {
+			if (
+				summariesProperty !== 'HasBallotData' &&
+				summariesProperty !== 'TargetPublicationDate' &&
+				summariesProperty !== 'ResearchPublishDate' &&
+				summariesProperty !== 'ResearchRePublishDate'
+			) {
+				listDbValue.push(dbNonAggregatedAgenda.Summaries[summariesProperty]);
+				listCacheValue.push(cacheNonAggregatedAgenda.Summaries[summariesProperty]);
+
+				listDbValue.push(dbNonAggregatedAgendaPolicies.Summaries[summariesProperty]);
+				listCacheValue.push(cacheNonAggregatedAgendaPolicies.Summaries[summariesProperty]);
+
+				listDbValue.push(dbNonAggregatedBallots.Summaries[summariesProperty]);
+				listCacheValue.push(cacheNonAggregatedBallots.Summaries[summariesProperty]);
+			}
 		}
 		expect(listDbValue).to.deep.equal(listCacheValue);
 	});
