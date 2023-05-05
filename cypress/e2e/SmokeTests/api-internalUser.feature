@@ -92,3 +92,9 @@ Feature: API Smoke Tests - Internal User
         When I navigate to the URL "/Users/UsersProfiles/?CustomerID=690"
         Then I verify that all the relevant API calls for users profiles page are made for "internal" user
         And I verify that the users profiles page has loaded successfully
+
+    @56827
+    Scenario: Customer profile / Rationale library page API calls are loading as expected
+        When I navigate to the URL "/CustomerDetails/Rationale/?CustomerID=690"
+        Then I verify that all the relevant API calls for rationale page are made
+        And I verify that the rationale page has loaded successfully
