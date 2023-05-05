@@ -260,6 +260,7 @@ export const API = {
 		WORKFLOW_META_DATA_2: '**/Api/Data/WorkflowMetaData/?typeName=WorkflowExpansion&showDenied=true&customerId**',
 		WORKFLOW_WIDGET_DATA: '**/Api/Data/WorkflowWidgetData**',
 		WORKFLOW_RESEARCH_INFO: '**/Api/Data/WorkflowResearchInfo/GetWFResearch?CustomerID=**',
+		USERS_FOR_CUSTOMER: '**/Api/Data/UsersForCustomer/?customerId=**',
 	},
 	PUT: {
 		BALLOT_GRID_STATE: '**/Api/Data/BallotsGridState',
