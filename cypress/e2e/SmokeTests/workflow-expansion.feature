@@ -31,3 +31,19 @@ Feature: Verify UI and API's data in workflow-expansion
         When I store data from UI table and 'WorkflowExpansionPerformance' API within the page
         Then the data from '@CacheTable' table and '@DbTable' table are equal
         And the data from DbNonAggregated API and CacheNonAggregated API are equal
+
+    @59998
+    Scenario: Verify lookups, Agendas mostly focus on Summaries and inner property of Agendas(Polices, Policies.Ballots)
+        When I navigate to the URL '/Workflow/Db'
+        Then I can see data source title 'Database only, no server side meeting aggregation; full Expansion' is visible
+        When I arrange the table in 'ascending' order for 'control number'
+        Then I verify the workflow table and filters have loaded
+        When I store first Agenda Key number
+        And I have added the criteria for 'Agenda Key' 'with the first Agenda Key value that was stored'
+        And I store data from UI table and 'WorkflowExpansionDB' API within the page
+        And I get the response for cacheNonAggregated API
+        Then 'Agendas' property from DbNonAggregated and CacheNonAggregated API are equal
+        And 'Agendas.Policies' property from DbNonAggregated and CacheNonAggregated API are equal
+        And 'Agendas.Policies.Ballots' property from DbNonAggregated and CacheNonAggregated API are equal
+        And 'lookups.MeetingIDs' property from DbNonAggregated and CacheNonAggregated API are equal
+        And all Summaries property from DbNonAggregated and CacheNonAggregated API are equal
