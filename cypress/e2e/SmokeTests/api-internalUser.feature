@@ -68,6 +68,8 @@ Feature: API Smoke Tests - Internal User
     Scenario: User Permissions page API calls are loading as expected
         When I navigate to the User Permissions page
         Then I verify that all the relevant API calls for user permissions page are made
+        When I type "RobecoAutomation External Admin" into the user name input
+        Then the search results for "RobecoAutomation External Admin" are loaded successfully
 
     @56820
     Scenario: Watch list page API calls are loading as expected
