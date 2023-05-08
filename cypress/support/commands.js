@@ -148,6 +148,9 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 	cy.intercept('GET', API.GET.BALLOT_VOTE).as('BALLOT_VOTE');
 	cy.intercept('GET', API.GET.BALLOTS_GRID_STATE).as('BALLOTS_GRID_STATE');
 	cy.intercept('GET', API.GET.CURRENT_USER).as('CURRENT_USER');
+	cy.intercept('GET', API.GET.CUSTOMER_ADMIN_GROUP_GET_ALL_BY_CUSTOMER_ID).as(
+		'CUSTOMER_ADMIN_GROUP_GET_ALL_BY_CUSTOMER_ID'
+	);
 	cy.intercept('GET', API.GET.CUSTODIAN_GRID_STATE).as('CUSTODIAN_GRID_STATE');
 	cy.intercept('GET', API.GET.CUSTOM_FIELDS).as('CUSTOM_FIELDS');
 	cy.intercept('GET', API.GET.CUSTOM_FIELDS_2).as('CUSTOM_FIELDS_2');
@@ -195,6 +198,7 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 	cy.intercept('GET', API.GET.GET_BY_ID).as('GET_BY_ID');
 	cy.intercept('GET', API.GET.IDENTITY_SEARCH).as('IDENTITY_SEARCH');
 	cy.intercept('GET', API.GET.INBOX).as('INBOX');
+	cy.intercept('GET', API.GET.LIST_GROUP_MEMBER_GET_ACCOUNT).as('LIST_GROUP_MEMBER_GET_ACCOUNT');
 	cy.intercept('GET', API.GET.LIST_SERVICE).as('LIST_SERVICE');
 	cy.intercept('GET', API.GET.LIST_SERVICE_ACCOUNT_STATUS_CODE).as('LIST_SERVICE_ACCOUNT_STATUS_CODE');
 	cy.intercept('GET', API.GET.LIST_SERVICE_COUNTRY).as('LIST_SERVICE_COUNTRY');
