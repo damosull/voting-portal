@@ -998,6 +998,7 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 
 	switch (property) {
 		case 'Agendas':
+			{
 			let dbNonAggregatedAgenda = Cypress.env('DbNonAggregated').items[0].Agendas[0];
 			let cacheNonAggregatedAgenda = Cypress.env('CacheNonAggregated').items[0].Agendas[0];
 			let listDbAgendaProperties = Object.getOwnPropertyNames(dbNonAggregatedAgenda);
@@ -1009,7 +1010,9 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 				}
 			}
 			break;
+			}
 		case 'Agendas.Policies':
+			{
 			let dbNonAggregatedAgendaPolicies = Cypress.env('DbNonAggregated').items[0].Agendas[0].Policies[0];
 			let cacheNonAggregatedAgendaPolicies = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0];
 			let listDbPoliciesProperties = Object.getOwnPropertyNames(dbNonAggregatedAgendaPolicies);
@@ -1021,7 +1024,9 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 				}
 			}
 			break;
+		}
 		case 'Agendas.Policies.Ballots':
+			{
 			let dbNonAggregatedBallots = Cypress.env('DbNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
 			let cacheNonAggregatedBallots = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
 			let listDbBallotsProperties = Object.getOwnPropertyNames(dbNonAggregatedBallots);
@@ -1033,11 +1038,14 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 				}
 			}
 			break;
+		}
 		case 'lookups.MeetingIDs':
+			
 			const meetingIdsFromCache = Cypress.env('CacheNonAggregated').lookups.MeetingIDs;
 			const meetingIdsFromDb = Cypress.env('DbNonAggregated').lookups.MeetingIDs;
 			expect(meetingIdsFromDb).to.deep.equal(meetingIdsFromCache);
 			break;
+			
 		default:
 			throw new Error('undefined property given');
 	}
