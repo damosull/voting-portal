@@ -40,15 +40,14 @@ jobs:
         displayName: 'Install NPM Dependencies'
 
       - script: |
+          export HTTP_PROXY=http://10.71.1.42:3128
           if [ ${{ parameters.environment }} == 'aqua' ]; then
+            echo "cypress_url=https://viewpoint.aqua.glasslewis.com cypress_sql_server=10.71.5.54 cypress_sql_username=TestHarnessUser cypress_sql_password=$(aqua_sql_password)"
             export cypress_url=https://viewpoint.aqua.glasslewis.com cypress_sql_server=10.71.5.54 cypress_sql_username=TestHarnessUser cypress_sql_password=$(aqua_sql_password)
           else
+            echo "cypress_url=https://viewpoint.ultra.glasslewis.com cypress_sql_server=10.70.5.54 cypress_sql_username=TestHarnessUser cypress_sql_password=$(ultra_sql_password)"
             export cypress_url=https://viewpoint.ultra.glasslewis.com cypress_sql_server=10.70.5.54 cypress_sql_username=TestHarnessUser cypress_sql_password=$(ultra_sql_password)
           fi
-        displayName: 'Set Cypress Variables'
-
-      - script: |
-          export HTTP_PROXY=http://10.71.1.42:3128
           ${{ parameters.buildParameters }}
         displayName: 'Run Cypress tests'
 
