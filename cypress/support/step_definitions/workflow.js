@@ -997,12 +997,9 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 	let listCacheValue = [];
 
 	switch (property) {
-		case 'Agendas':
-			// eslint-disable-next-line no-case-declarations
+		case 'Agendas': {
 			let dbNonAggregatedAgenda = Cypress.env('DbNonAggregated').items[0].Agendas[0];
-			// eslint-disable-next-line no-case-declarations
 			let cacheNonAggregatedAgenda = Cypress.env('CacheNonAggregated').items[0].Agendas[0];
-			// eslint-disable-next-line no-case-declarations
 			let listDbAgendaProperties = Object.getOwnPropertyNames(dbNonAggregatedAgenda);
 
 			for (const property of listDbAgendaProperties) {
@@ -1012,12 +1009,10 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 				}
 			}
 			break;
-		case 'Agendas.Policies':
-			// eslint-disable-next-line no-case-declarations
+		}
+		case 'Agendas.Policies': {
 			let dbNonAggregatedAgendaPolicies = Cypress.env('DbNonAggregated').items[0].Agendas[0].Policies[0];
-			// eslint-disable-next-line no-case-declarations
 			let cacheNonAggregatedAgendaPolicies = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0];
-			// eslint-disable-next-line no-case-declarations
 			let listDbPoliciesProperties = Object.getOwnPropertyNames(dbNonAggregatedAgendaPolicies);
 
 			for (const property of listDbPoliciesProperties) {
@@ -1027,12 +1022,10 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 				}
 			}
 			break;
-		case 'Agendas.Policies.Ballots':
-			// eslint-disable-next-line no-case-declarations
+		}
+		case 'Agendas.Policies.Ballots': {
 			let dbNonAggregatedBallots = Cypress.env('DbNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
-			// eslint-disable-next-line no-case-declarations
 			let cacheNonAggregatedBallots = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
-			// eslint-disable-next-line no-case-declarations
 			let listDbBallotsProperties = Object.getOwnPropertyNames(dbNonAggregatedBallots);
 
 			for (const property of listDbBallotsProperties) {
@@ -1042,13 +1035,13 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 				}
 			}
 			break;
-		case 'lookups.MeetingIDs':
-			// eslint-disable-next-line no-case-declarations
+		}
+		case 'lookups.MeetingIDs': {
 			const meetingIdsFromCache = Cypress.env('CacheNonAggregated').lookups.MeetingIDs;
-			// eslint-disable-next-line no-case-declarations
 			const meetingIdsFromDb = Cypress.env('DbNonAggregated').lookups.MeetingIDs;
 			expect(meetingIdsFromDb).to.deep.equal(meetingIdsFromCache);
 			break;
+		}
 		default:
 			throw new Error('undefined property given');
 	}
