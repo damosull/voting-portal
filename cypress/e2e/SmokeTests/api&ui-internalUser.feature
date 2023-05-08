@@ -1,4 +1,4 @@
-@api @api-internal
+@api @api-internal @ui @ui-internal
 Feature: Checking API calls and UI Page load with Internal user
 #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56790
 

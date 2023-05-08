@@ -1,4 +1,4 @@
-@api @api-external
+@api @api-external @ui @ui-external
 Feature: Checking API calls and UI Page load with External user
     #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56790
 
