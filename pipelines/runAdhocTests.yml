@@ -1,14 +1,14 @@
 parameters:
+  - name: buildParameters
+    displayName: 'Build Parameters'
+    type: string
+    default: 'npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER --config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
   - name: environment
     displayName: 'Test Environment'
     default: 'aqua'
     values:
       - 'aqua'
       - 'ultra'
-  - name: buildParameters
-    displayName: 'Build Parameters'
-    type: string
-    default: 'npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER --config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
   - name: runParallel
     displayName: 'Run Tests In Parallel?'
     type: boolean
@@ -40,11 +40,12 @@ jobs:
         displayName: 'Install NPM Dependencies'
 
       - script: |
-          if [ $(environment) == 'aqua' ]; then
+          if [ ${{ parameters.environment }} == 'aqua' ]; then
             export cypress_url=https://viewpoint.aqua.glasslewis.com cypress_sql_server=10.71.5.54 cypress_sql_username=TestHarnessUser cypress_sql_password=$(aqua_sql_password)
           else
             export cypress_url=https://viewpoint.ultra.glasslewis.com cypress_sql_server=10.70.5.54 cypress_sql_username=TestHarnessUser cypress_sql_password=$(ultra_sql_password)
           fi
+        displayName: 'Set Cypress Variables'
 
       - script: |
           export HTTP_PROXY=http://10.71.1.42:3128
