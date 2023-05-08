@@ -100,6 +100,9 @@ class workflowPage {
 	meetingsHorizontalScrollBar() {
 		return cy.get('.mCSB_dragger_bar');
 	}
+	agendaKeyData() {
+		return cy.get('table > tbody > tr > td:nth-child(3)');
+	}
 	policyIdTableData() {
 		return cy.get('table > tbody > tr > td:nth-child(4)');
 	}
@@ -256,7 +259,9 @@ class workflowPage {
 	updateComanyName() {
 		return cy.get('#btn-update-CompanyName');
 	}
-
+	updateAgendaKey() {
+		return cy.get('#btn-update-AgendaKey');
+	}
 	tableData() {
 		return cy.get("tbody[role='rowgroup']");
 	}
