@@ -4,8 +4,8 @@ Feature: Verify UI and API's data in workflow-expansion
     Background:
         Given I am logged in as the "CALPERS" User
 
-    @59640
-    Scenario Outline: verify UI test to compare Aggregate cache data with DB data
+    @59640 @59641
+    Scenario Outline: verify UI test to compare Aggregate/NonAggregated cache data with DB data
         When I navigate to the URL <Cache_URL>
         Then I can see data source title <Cache_URL> is visible
         When I arrange the table in 'ascending' order for 'control number'
