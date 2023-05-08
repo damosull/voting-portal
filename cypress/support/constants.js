@@ -157,7 +157,7 @@ export const API = {
 		CUSTODIAN_GRID_STATE: '**/Api/Data/CustodianGridState//?_=**',
 		CUSTOMER_ADMIN_GROUP_GET_ALL_BY_CUSTOMER_ID: '**/Api/Data/CustomerAdminGroups/GetAllByCustomerId?**',
 		CURRENT_USER: '**/Api/Data/CurrentUser/**',
-		CUSTOM_FIELDS: '**/Api/Data/CustomFields/?customerId=0&_=**',
+		CUSTOM_FIELDS: '**/Api/Data/CustomFields/?customerId=**',
 		CUSTOM_FIELDS_2: '**/Api/Data/CustomFields/GetDetails?fieldId=**',
 		CUSTOMER_DETAILS: '**/Api/Data/CustomerDetails/**',
 		CUSTOMER_NAME_SPECIAL: '**/CompanyNameSpecial/**',
