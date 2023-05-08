@@ -27,6 +27,20 @@ export const TESTUSER = {
 	ROLE: 'User',
 };
 
+export const PAGES = {
+	WORKFLOW_DB: '/Workflow/Db',
+	WORKFLOW_PERFORMANCE: '/Workflow/Performance',
+	WORKFLOW_DB_AGGREGATED: '/Workflow/DbAggregated',
+	WORKFLOW_PERFORMANCE_AGGREGATED: '/Workflow/CacheAggregated',
+};
+
+export const WORKFLOW_HEADINGS = {
+	WORKFLOW_DB: 'Database only, no server side meeting aggregation; full Expansion',
+	WORKFLOW_PERFORMANCE: 'Cache only, no server side meeting aggregation; full Expansion',
+	WORKFLOW_DB_AGGREGATED: 'Database only; NO EXPANSION',
+	WORKFLOW_PERFORMANCE_AGGREGATED: 'Cache only; NO EXPANSION',
+};
+
 export const messages = {
 	toast: {
 		DOWNLOAD_STARTED: 'Your download was initiated. It will appear in the toolbar shortly.',

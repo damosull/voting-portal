@@ -62,21 +62,21 @@ async function setupNodeEvents(on, config) {
 		},
 	});
 
-	on(
-		'task',
-		sqlServer.loadDBPlugin({
-			userName: config.env.sql_username || config.env[config.env.testEnv].sql_username,
-			password: config.env.sql_password || config.env[config.env.testEnv].sql_password,
-			server: config.env.sql_server || config.env[config.env.testEnv].sql_server,
-			options: {
-				database: 'GLP',
-				encrypt: true,
-				rowCollectionOnRequestCompletion: true,
-				trustServerCertificate: true,
-				validateBulkLoadParameters: true,
-			},
-		})
-	);
+	// on(
+	// 	'task',
+	// 	sqlServer.loadDBPlugin({
+	// 		userName: config.env.sql_username || config.env[config.env.testEnv].sql_username,
+	// 		password: config.env.sql_password || config.env[config.env.testEnv].sql_password,
+	// 		server: config.env.sql_server || config.env[config.env.testEnv].sql_server,
+	// 		options: {
+	// 			database: 'GLP',
+	// 			encrypt: true,
+	// 			rowCollectionOnRequestCompletion: true,
+	// 			trustServerCertificate: true,
+	// 			validateBulkLoadParameters: true,
+	// 		},
+	// 	})
+	// );
 
 	on('after:run', async (results) => {
 		if (results) {
@@ -117,6 +117,7 @@ module.exports = defineConfig({
 	},
 	env: {
 		testEnv: 'aqua',
+		url: 'https://viewpoint.aqua.glasslewis.com',
 		startTime: new Date(),
 	},
 	e2e: {
