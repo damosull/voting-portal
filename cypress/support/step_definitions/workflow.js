@@ -998,8 +998,11 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 
 	switch (property) {
 		case 'Agendas':
+			// eslint-disable-next-line no-case-declarations
 			let dbNonAggregatedAgenda = Cypress.env('DbNonAggregated').items[0].Agendas[0];
+			// eslint-disable-next-line no-case-declarations
 			let cacheNonAggregatedAgenda = Cypress.env('CacheNonAggregated').items[0].Agendas[0];
+			// eslint-disable-next-line no-case-declarations
 			let listDbAgendaProperties = Object.getOwnPropertyNames(dbNonAggregatedAgenda);
 
 			for (const property of listDbAgendaProperties) {
@@ -1010,8 +1013,11 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 			}
 			break;
 		case 'Agendas.Policies':
+			// eslint-disable-next-line no-case-declarations
 			let dbNonAggregatedAgendaPolicies = Cypress.env('DbNonAggregated').items[0].Agendas[0].Policies[0];
+			// eslint-disable-next-line no-case-declarations
 			let cacheNonAggregatedAgendaPolicies = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0];
+			// eslint-disable-next-line no-case-declarations
 			let listDbPoliciesProperties = Object.getOwnPropertyNames(dbNonAggregatedAgendaPolicies);
 
 			for (const property of listDbPoliciesProperties) {
@@ -1022,8 +1028,11 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 			}
 			break;
 		case 'Agendas.Policies.Ballots':
+			// eslint-disable-next-line no-case-declarations
 			let dbNonAggregatedBallots = Cypress.env('DbNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
+			// eslint-disable-next-line no-case-declarations
 			let cacheNonAggregatedBallots = Cypress.env('CacheNonAggregated').items[0].Agendas[0].Policies[0].Ballots[0];
+			// eslint-disable-next-line no-case-declarations
 			let listDbBallotsProperties = Object.getOwnPropertyNames(dbNonAggregatedBallots);
 
 			for (const property of listDbBallotsProperties) {
@@ -1034,7 +1043,9 @@ Then('{string} property from DbNonAggregated and CacheNonAggregated API are equa
 			}
 			break;
 		case 'lookups.MeetingIDs':
+			// eslint-disable-next-line no-case-declarations
 			const meetingIdsFromCache = Cypress.env('CacheNonAggregated').lookups.MeetingIDs;
+			// eslint-disable-next-line no-case-declarations
 			const meetingIdsFromDb = Cypress.env('DbNonAggregated').lookups.MeetingIDs;
 			expect(meetingIdsFromDb).to.deep.equal(meetingIdsFromCache);
 			break;
@@ -1077,4 +1088,15 @@ Then('all Summaries property from DbNonAggregated and CacheNonAggregated API are
 		}
 	}
 	expect(listDbValue).to.deep.equal(listCacheValue);
+});
+
+Then('The Customer Name field is blank', () => {
+	workflowPage.customerNameInput().should('have.value', '');
+});
+
+Then('I cannot click on any of the meetings', () => {
+	workflowPage.meeting().should('not.exist');
+});
+When('I search for a customer named {string}', (customer) => {
+	workflowPage.customerNameInput().type(customer);
 });

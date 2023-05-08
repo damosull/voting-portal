@@ -113,3 +113,11 @@ Feature: API Smoke Tests - Internal User
         When I navigate to the URL "/Accounts/VEP/?CustomerID=690"
         Then I verify that all the relevant API calls for vote execution profile page are made
         And I verify that the vote execution profile page has loaded successfully
+
+    @56831
+    Scenario: Internal user to be able to search for a customer and navigate to a meeting
+        When I navigate to the workflow page
+        Then The Customer Name field is blank
+        And I cannot click on any of the meetings
+        When I search for a customer named "Robeco"
+        Then I can see the Workflow grid update with the meetings for Robeco
