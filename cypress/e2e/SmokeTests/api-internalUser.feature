@@ -119,3 +119,9 @@ Feature: API Smoke Tests - Internal User
         When I navigate to the URL "/CustomerDetails/CustomFields/?CustomerID=690"
         Then I verify that all the relevant API calls for custom fields page are made
         And I verify that the custom fields page has loaded successfully
+
+    @56827
+    Scenario: Customer profile / Rationale library page API calls are loading as expected
+        When I navigate to the URL "/CustomerDetails/Rationale/?CustomerID=690"
+        Then I verify that all the relevant API calls for rationale page are made
+        And I verify that the rationale page has loaded successfully
