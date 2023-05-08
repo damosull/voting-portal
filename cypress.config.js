@@ -117,7 +117,6 @@ module.exports = defineConfig({
 	},
 	env: {
 		testEnv: 'aqua',
-		url: 'https://viewpoint.aqua.glasslewis.com',
 		startTime: new Date(),
 	},
 	e2e: {
