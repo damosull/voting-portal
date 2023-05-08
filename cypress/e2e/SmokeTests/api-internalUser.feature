@@ -114,6 +114,12 @@ Feature: API Smoke Tests - Internal User
         Then I verify that all the relevant API calls for vote execution profile page are made
         And I verify that the vote execution profile page has loaded successfully
 
+    @56826
+    Scenario: Customer profile / CustomFields page API calls are loading as expected
+        When I navigate to the URL "/CustomerDetails/CustomFields/?CustomerID=690"
+        Then I verify that all the relevant API calls for custom fields page are made
+        And I verify that the custom fields page has loaded successfully
+
     @56827
     Scenario: Customer profile / Rationale library page API calls are loading as expected
         When I navigate to the URL "/CustomerDetails/Rationale/?CustomerID=690"

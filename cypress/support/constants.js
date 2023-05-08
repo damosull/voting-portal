@@ -156,7 +156,7 @@ export const API = {
 		COMMENTS_IDENTITY_SEARCH: '**/Api/Data/CommentsIdentitySearch/**',
 		CUSTODIAN_GRID_STATE: '**/Api/Data/CustodianGridState//?_=**',
 		CURRENT_USER: '**/Api/Data/CurrentUser/**',
-		CUSTOM_FIELDS: '**/Api/Data/CustomFields/?customerId=0&_=**',
+		CUSTOM_FIELDS: '**/Api/Data/CustomFields/?customerId=**',
 		CUSTOM_FIELDS_2: '**/Api/Data/CustomFields/GetDetails?fieldId=**',
 		CUSTOMER_DETAILS: '**/Api/Data/CustomerDetails/**',
 		CUSTOMER_NAME_SPECIAL: '**/CompanyNameSpecial/**',
