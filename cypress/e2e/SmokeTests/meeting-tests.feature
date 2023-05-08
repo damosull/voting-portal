@@ -40,7 +40,7 @@ Feature: Meetings related smoke tests
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     When I select a random meeting
     Then I can view the Meeting Details page
-    Then I can see the Vote, Take No Action and Instruct buttons
+    And I can see the Vote, Take No Action and Instruct buttons
     And I should logout from the application
 
 
