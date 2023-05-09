@@ -1034,14 +1034,10 @@ Then('all Summaries property from DbNonAggregated and CacheNonAggregated API are
 	expect(listDbValue).to.deep.equal(listCacheValue);
 });
 
-Then('The Customer Name field is blank', () => {
+Then('the Customer Name field is blank', () => {
 	workflowPage.customerNameInput().should('have.value', '');
 });
 
 Then('I cannot click on any of the meetings', () => {
 	workflowPage.meeting().should('not.exist');
-});
-
-When('I click on a random meeting', () => {
-	workflowPage.companyName().eq(0).click();
 });

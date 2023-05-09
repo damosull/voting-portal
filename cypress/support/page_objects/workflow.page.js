@@ -338,10 +338,6 @@ class workflowPage {
 		company: 'SK Innovation',
 		policy: 'Wellington',
 	};
-
-	companyName() {
-		return cy.get('#metaname-CompanyName .lnkMeetingDetails');
-	}
 }
 
 module.exports = new workflowPage();

@@ -2,8 +2,8 @@
 Feature: Workflow related smoke tests
   #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56796
 
-  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56848
-  #Ignoring the below test for a few days as there are changes planned for the Workflow Data Call
+#  TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56848
+#  Ignoring the below test for a few days as there are changes planned for the Workflow Data Call
   @56848 @skip
   Scenario: Verify that all the meetings for California Public Employee Retirement System have a CalPERS customer id
     Given I am logged in as the "AUTOMATIONINTERNAL" User
@@ -91,10 +91,11 @@ Feature: Workflow related smoke tests
   @59875
   Scenario: Internal user to be able to search for a customer and navigate to a meeting
     Given I am logged in as the "AUTOMATIONINTERNAL" User
-    When I can view the workflow page
-    Then The Customer Name field is blank
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    And the Customer Name field is blank
     And I cannot click on any of the meetings
     When I search for the customer "California Public Employee Retirement System"
     Then I verify the workflow table and filters have loaded
-    When I click on a random meeting
+    When I select a random meeting
     Then I can view the Meeting Details page
