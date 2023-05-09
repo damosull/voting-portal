@@ -2,7 +2,17 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: '--config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
+    default: 'npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER --config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
+  - name: environment
+    displayName: 'Test Environment'
+    default: 'aqua'
+    values:
+      - 'aqua'
+      - 'ultra'
+  - name: runParallel
+    displayName: 'Run Tests In Parallel?'
+    type: boolean
+    default: true
 
 trigger: none
 
@@ -20,15 +30,25 @@ jobs:
     pool:
       name: 'Build Pipelines VMSS - QAUAT'
     strategy:
-      parallel: 3
+      ${{ if eq(parameters.runParallel, true) }}:
+        parallel: 3
+      ${{ else }}:
+        parallel: 1
+
     steps:
       - script: npm ci
         displayName: 'Install NPM Dependencies'
 
       - script: |
           export HTTP_PROXY=http://10.71.1.42:3128
-          export cypress_url=$(url) cypress_sql_server=$(sql_server) cypress_sql_username=$(sql_username) cypress_sql_password=$(sql_password)
-          npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER ${{ parameters.buildParameters }}
+          export cypress_url=https://viewpoint.${{ parameters.environment }}.glasslewis.com
+          export cypress_sql_username=$(sql_username)
+          if [ ${{ parameters.environment }} == 'aqua' ]; then
+            export cypress_sql_server=$(aqua_sql_server)  cypress_sql_password=$(aqua_sql_password)
+          else
+            export cypress_sql_server=$(ultra_sql_server) cypress_sql_password=$(ultra_sql_password)
+          fi
+          ${{ parameters.buildParameters }}
         displayName: 'Run Cypress tests'
 
       - task: PublishPipelineArtifact@1
