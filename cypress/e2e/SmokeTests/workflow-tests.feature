@@ -86,3 +86,15 @@ Feature: Workflow related smoke tests
       | "ESG Risk Rating Percentile Industry"     |
       | "ESG Risk Rating Percentile Sub Industry" |
       | "ESG Risk Rating Highest Controversy"     |
+
+  #to https://dev.azure.com/glasslewis/Development/_workitems/edit/59875
+  @59875
+  Scenario: Internal user to be able to search for a customer and navigate to a meeting
+    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    When I can view the workflow page
+    Then The Customer Name field is blank
+    And I cannot click on any of the meetings
+    When I search for the customer "California Public Employee Retirement System"
+    Then I verify the workflow table and filters have loaded
+    When I click on a random meeting
+    Then I can view the Meeting Details page

@@ -1041,6 +1041,7 @@ Then('The Customer Name field is blank', () => {
 Then('I cannot click on any of the meetings', () => {
 	workflowPage.meeting().should('not.exist');
 });
-When('I search for a customer named {string}', (customer) => {
-	workflowPage.customerNameInput().type(customer);
+
+When('I click on a random meeting', () => {
+	workflowPage.companyName().eq(0).click();
 });

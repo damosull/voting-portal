@@ -131,11 +131,3 @@ Feature: Checking API calls and UI Page load with Internal user
         When I navigate to the URL "/CustomerAdminGroups/Index/?CustomerID=690"
         Then I verify that all the relevant API calls for customer admin group page are made
         And I verify that the customer admin group page has loaded successfully
-
-    @56830
-    Scenario: Internal user to be able to search for a customer and navigate to a meeting
-        When I navigate to the workflow page
-        Then The Customer Name field is blank
-        And I cannot click on any of the meetings
-        When I search for a customer named "Robeco"
-        Then I can see the Workflow grid update with the meetings for Robeco
