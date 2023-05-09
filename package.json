@@ -19,14 +19,14 @@
 		"prepare": "husky install"
 	},
 	"devDependencies": {
-		"eslint": "8.39.0",
+		"eslint": "8.40.0",
 		"eslint-plugin-cypress": "2.12.1",
 		"prettier": "2.8.8"
 	},
 	"dependencies": {
 		"@badeball/cypress-cucumber-preprocessor": "16.0.3",
 		"@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
-		"cypress": "12.11.0",
+		"cypress": "12.10.0",
 		"cypress-cloud": "1.7.4",
 		"cypress-multi-reporters": "1.6.3",
 		"cypress-sql-server": "1.0.0",

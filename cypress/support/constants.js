@@ -27,6 +27,20 @@ export const TESTUSER = {
 	ROLE: 'User',
 };
 
+export const PAGES = {
+	WORKFLOW_DB: '/Workflow/Db',
+	WORKFLOW_PERFORMANCE: '/Workflow/Performance',
+	WORKFLOW_DB_AGGREGATED: '/Workflow/DbAggregated',
+	WORKFLOW_PERFORMANCE_AGGREGATED: '/Workflow/CacheAggregated',
+};
+
+export const WORKFLOW_HEADINGS = {
+	WORKFLOW_DB: 'Database only, no server side meeting aggregation; full Expansion',
+	WORKFLOW_PERFORMANCE: 'Cache only, no server side meeting aggregation; full Expansion',
+	WORKFLOW_DB_AGGREGATED: 'Database only; NO EXPANSION',
+	WORKFLOW_PERFORMANCE_AGGREGATED: 'Cache only; NO EXPANSION',
+};
+
 export const messages = {
 	toast: {
 		DOWNLOAD_STARTED: 'Your download was initiated. It will appear in the toolbar shortly.',
@@ -155,8 +169,9 @@ export const API = {
 		COMMENTS: '**/Api/Data/Comments/**',
 		COMMENTS_IDENTITY_SEARCH: '**/Api/Data/CommentsIdentitySearch/**',
 		CUSTODIAN_GRID_STATE: '**/Api/Data/CustodianGridState//?_=**',
+		CUSTOMER_ADMIN_GROUP_GET_ALL_BY_CUSTOMER_ID: '**/Api/Data/CustomerAdminGroups/GetAllByCustomerId?**',
 		CURRENT_USER: '**/Api/Data/CurrentUser/**',
-		CUSTOM_FIELDS: '**/Api/Data/CustomFields/?customerId=0&_=**',
+		CUSTOM_FIELDS: '**/Api/Data/CustomFields/?customerId=**',
 		CUSTOM_FIELDS_2: '**/Api/Data/CustomFields/GetDetails?fieldId=**',
 		CUSTOMER_DETAILS: '**/Api/Data/CustomerDetails/**',
 		CUSTOMER_NAME_SPECIAL: '**/CompanyNameSpecial/**',
@@ -202,7 +217,8 @@ export const API = {
 		GL_BLOG_DATA: '**/Api/Data/GLBlogData**',
 		IDENTITY_SEARCH: '**/Api/Data/ShareMeetingIdentitySearch/**',
 		INBOX: '**/Api/Data/Inbox/**',
-		LIST_SERVICE: '**/Api/Data//ListService/**',
+		LIST_GROUP_MEMBER_GET_ACCOUNT: '**/Api/Data//ListGroupMembers/GetAccountsMetaData**',
+		LIST_SERVICE: '/Api/Data//ListService/**',
 		LIST_SERVICE_ACCOUNT_STATUS_CODE: '**/Api/Data//ListService/AccountStatusCode?CustomerID=**',
 		LIST_SERVICE_POLICY_ID: '**/Api/Data/ListService/PolicyId**',
 		LIST_SERVICE_STATUS_CODE: '**/Api/Data//ListService/StatusCode?CustomerID=**',
