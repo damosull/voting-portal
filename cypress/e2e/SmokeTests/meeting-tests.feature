@@ -39,7 +39,8 @@ Feature: Meetings related smoke tests
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     When I select a random meeting
-    Then I can see the Vote, Take No Action and Instruct buttons
+    Then I can view the Meeting Details page
+    And I can see the Vote, Take No Action and Instruct buttons
     And I should logout from the application
 
 
@@ -176,5 +177,6 @@ Feature: Meetings related smoke tests
     And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     When I select a random meeting
-    Then I am able to iterate through rationales, add text entry, save and verify toast message for each entry
+    Then I can view the Meeting Details page
+    And I am able to iterate through rationales, add text entry, save and verify toast message for each entry
     And I should logout from the application
