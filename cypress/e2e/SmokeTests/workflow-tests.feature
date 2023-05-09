@@ -87,7 +87,6 @@ Feature: Workflow related smoke tests
       | "ESG Risk Rating Percentile Sub Industry" |
       | "ESG Risk Rating Highest Controversy"     |
 
-  #to https://dev.azure.com/glasslewis/Development/_workitems/edit/59875
   @59875
   Scenario: Internal user to be able to search for a customer and navigate to a meeting
     Given I am logged in as the "AUTOMATIONINTERNAL" User
