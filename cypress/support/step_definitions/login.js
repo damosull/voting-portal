@@ -60,7 +60,9 @@ When('I refresh the page', () => {
 });
 
 When('I navigate to the URL {string}', (url) => {
-	cy.visit(url);
+	const isWorkFlowUrl = url.includes('WORKFLOW');
+	const chosenUrl = isWorkFlowUrl ? constants.PAGES[url] : url;
+	cy.visit(chosenUrl);
 });
 
 Then('I turn {string} the customer settings for {string} for {string}', (state, feature, customer) => {

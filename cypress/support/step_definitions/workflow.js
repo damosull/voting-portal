@@ -749,138 +749,87 @@ Then('I verify the workflow table and filters have loaded', () => {
 });
 
 Then('I can see data source title {string} is visible', (title) => {
-	workflowPage.dataSourceTitle().should('be.visible').and('have.text', title);
+	workflowPage.dataSourceTitle().should('be.visible').and('have.text', constants.WORKFLOW_HEADINGS[title]);
 });
 
-When('I store data from UI table and {string} API within the page', (api) => {
-	switch (api) {
-		case 'WorkflowExpansionPerformanceAggregated':
-			cy.wait('@WORKFLOW_EXPANSION_PERFORMANCE_AGGREGATED')
-				.its('response.statusCode')
-				.should('eq', 200)
-				.then(() => {
-					workflowPage.getLoadingSpinner().should('not.exist');
-					workflowPage.tableRows().invoke('text').as('CacheAggregatedTable');
-				});
-			break;
-		case 'WorkflowExpansionDbAggregated':
-			cy.wait('@WORKFLOW_EXPANSION_DB_AGGREGATED')
-				.its('response.statusCode')
-				.should('eq', 200)
-				.then(() => {
-					workflowPage.getLoadingSpinner().should('not.exist');
-					workflowPage.tableRows().invoke('text').as('DbAggregatedTable');
-				});
-			break;
-		case 'WorkflowExpansionDB':
-			cy.wait('@WORKFLOW_EXPANSION_DB')
-				.its('response.statusCode')
-				.should('eq', 200)
-				.then(() => {
-					workflowPage.waitForWorkflowPageLoad();
-					workflowPage.tableRows().invoke('text').as('DbTable');
-				});
-			break;
-		case 'WorkflowExpansionPerformance':
-			cy.wait('@WORKFLOW_EXPANSION_PERFORMANCE')
-				.its('response.statusCode')
-				.should('eq', 200)
-				.then(() => {
-					workflowPage.waitForWorkflowPageLoad();
-					workflowPage.tableRows().invoke('text').as('CacheTable');
-				});
-			break;
-		default:
-			throw new Error('undefined API given');
-	}
-});
-
-Then('the data from {string} table and {string} table are equal', (first_table, second_table) => {
-	cy.get(first_table).then(($table1) => {
-		cy.get(second_table).then(($table2) => {
-			expect($table1).to.deep.equal($table2);
-		});
+When('I store data from UI {string} within the page', (table) => {
+	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.tableRows().invoke('text').as(`${table}`);
+	cy.get(`@${table}`).then((tableValue) => {
+		Cypress.env(`${table}`, tableValue);
 	});
+});
+
+Then('the data from {string} table and {string} table are equal', (table1, table2) => {
+	expect(Cypress.env(`${table1}`)).to.deep.equal(Cypress.env(`${table2}`));
 });
 
 Then('the data from CacheAggregated API and DbAggregated API are equal', () => {
-	cy.get('@WORKFLOW_EXPANSION_DB_AGGREGATED').then((dbResp) => {
-		//verify properties inside items of 2 apis
-		let listDbItemsData = [];
-		let listCacheItemsData = [];
-		let dbAggregated = dbResp.response.body;
-		cy.get('@WORKFLOW_EXPANSION_PERFORMANCE_AGGREGATED').then((cacheRes) => {
-			const cacheAggregated = JSON.parse(cacheRes.response.body);
-			//make sure the items list in both APIs are the same before we start verify inside properties value
-			expect(dbAggregated.items.length).to.equal(cacheAggregated.items.length);
+	//verify properties inside items of 2 apis
+	let listDbItemsData = [];
+	let listCacheItemsData = [];
+	//make sure the items list in both APIs are the same before we start verify inside properties value
+	expect(Cypress.env('DbAggregated').items.length).to.equal(Cypress.env('CacheAggregated').items.length);
 
-			//start the loop and put all properties values into lists using db's properties as a reference
-			for (let i = 0; i < dbAggregated.items.length; i++) {
-				const dbAggregatedItem = dbAggregated.items[i];
-				const cacheAggregatedItem = cacheAggregated.items[i];
+	//start the loop and put all properties values into lists using db's properties as a reference
+	for (let i = 0; i < Cypress.env('DbAggregated').items.length; i++) {
+		const dbAggregatedItem = Cypress.env('DbAggregated').items[i];
+		const cacheAggregatedItem = Cypress.env('CacheAggregated').items[i];
 
-				const listDbProperties = Object.getOwnPropertyNames(dbAggregatedItem);
+		const listDbProperties = Object.getOwnPropertyNames(dbAggregatedItem);
 
-				for (const property of listDbProperties) {
-					listDbItemsData.push(dbAggregatedItem[property]);
-					listCacheItemsData.push(cacheAggregatedItem[property]);
-				}
-			}
-			expect(listDbItemsData).to.deep.equal(listCacheItemsData);
-			// verify the rest properties in 2 apis
-			expect(dbAggregated.Source).to.equal('DbAggregated');
-			expect(cacheAggregated.Source).to.equal('CacheAggregated');
-			expect(cacheAggregated.pages).to.equal(dbAggregated.pages);
-			expect(cacheAggregated.totalCount).to.equal(dbAggregated.totalCount);
-			expect(cacheAggregated.lookups).to.deep.equal(dbAggregated.lookups);
-		});
-	});
+		for (const property of listDbProperties) {
+			listDbItemsData.push(dbAggregatedItem[property]);
+			listCacheItemsData.push(cacheAggregatedItem[property]);
+		}
+	}
+	expect(listDbItemsData).to.deep.equal(listCacheItemsData);
+	// verify the rest properties in 2 apis
+	expect(Cypress.env('DbAggregated').Source).to.equal('DbAggregated');
+	expect(Cypress.env('CacheAggregated').Source).to.equal('CacheAggregated');
+	expect(Cypress.env('CacheAggregated').pages).to.equal(Cypress.env('DbAggregated').pages);
+	expect(Cypress.env('CacheAggregated').totalCount).to.equal(Cypress.env('DbAggregated').totalCount);
+	expect(Cypress.env('CacheAggregated').lookups).to.deep.equal(Cypress.env('DbAggregated').lookups);
 });
 
 Then('the data from DbNonAggregated API and CacheNonAggregated API are equal', () => {
-	//verify all properties except agendas and lookups.meetingIDs
-	cy.get('@WORKFLOW_EXPANSION_DB').then((dbRes) => {
-		let listDbItemsData = [];
-		let listCacheItemsData = [];
-		let dbNonAggregated = dbRes.response.body;
-		cy.get('@WORKFLOW_EXPANSION_PERFORMANCE').then((cacheRes) => {
-			let cacheNonAggregated = JSON.parse(cacheRes.response.body);
-			expect(dbNonAggregated.items.length).to.equal(cacheNonAggregated.items.length);
+	let listDbItemsData = [];
+	let listCacheItemsData = [];
 
-			for (let i = 0; i < dbNonAggregated.items.length; i++) {
-				let dbNonAggregatedItem = dbNonAggregated.items[i];
-				let cacheNonAggregatedItem = cacheNonAggregated.items[i];
+	expect(Cypress.env('DbNonAggregated').items.length).to.equal(Cypress.env('CacheNonAggregated').items.length);
 
-				let listDbProperties = Object.getOwnPropertyNames(dbNonAggregatedItem);
-				let listDbSummariesProperties = Object.getOwnPropertyNames(dbNonAggregatedItem.Summaries);
+	for (let i = 0; i < Cypress.env('DbNonAggregated').items.length; i++) {
+		let dbNonAggregatedItem = Cypress.env('DbNonAggregated').items[i];
+		let cacheNonAggregatedItem = Cypress.env('CacheNonAggregated').items[i];
 
-				for (const property of listDbProperties) {
-					if (property !== 'Summaries' && property !== 'Agendas') {
-						listCacheItemsData.push(cacheNonAggregatedItem[property]);
-						listDbItemsData.push(dbNonAggregatedItem[property]);
-					}
-				}
-				for (const summariesProperty of listDbSummariesProperties) {
-					if (
-						//ignore HasBallotData since it's not needed in the test
-						//ignore some Date related properties since it contains not stable data
-						summariesProperty !== 'HasBallotData' &&
-						summariesProperty !== 'TargetPublicationDate' &&
-						summariesProperty !== 'ResearchPublishDate' &&
-						summariesProperty !== 'ResearchRePublishDate'
-					) {
-						listCacheItemsData.push(cacheNonAggregatedItem.Summaries[summariesProperty]);
-						listDbItemsData.push(dbNonAggregatedItem.Summaries[summariesProperty]);
-					}
-				}
+		let listDbProperties = Object.getOwnPropertyNames(dbNonAggregatedItem);
+		let listDbSummariesProperties = Object.getOwnPropertyNames(dbNonAggregatedItem.Summaries);
+
+		for (const property of listDbProperties) {
+			if (property !== 'Summaries' && property !== 'Agendas') {
+				listCacheItemsData.push(cacheNonAggregatedItem[property]);
+				listDbItemsData.push(dbNonAggregatedItem[property]);
 			}
-			expect(listDbItemsData).to.deep.equal(listCacheItemsData);
-			expect(dbNonAggregated.Source).to.equal('DB');
-			expect(cacheNonAggregated.Source).to.equal('Cache');
-			expect(dbNonAggregated.pages).to.equal(cacheNonAggregated.pages);
-			expect(dbNonAggregated.totalCount).to.equal(cacheNonAggregated.totalCount);
-		});
-	});
+		}
+		for (const summariesProperty of listDbSummariesProperties) {
+			if (
+				//ignore HasBallotData since it's not needed in the test
+				//ignore some Date related properties since it contains not stable data
+				summariesProperty !== 'HasBallotData' &&
+				summariesProperty !== 'TargetPublicationDate' &&
+				summariesProperty !== 'ResearchPublishDate' &&
+				summariesProperty !== 'ResearchRePublishDate'
+			) {
+				listCacheItemsData.push(cacheNonAggregatedItem.Summaries[summariesProperty]);
+				listDbItemsData.push(dbNonAggregatedItem.Summaries[summariesProperty]);
+			}
+		}
+	}
+	expect(listDbItemsData).to.deep.equal(listCacheItemsData);
+	expect(Cypress.env('DbNonAggregated').Source).to.equal('DB');
+	expect(Cypress.env('CacheNonAggregated').Source).to.equal('Cache');
+	expect(Cypress.env('DbNonAggregated').pages).to.equal(Cypress.env('CacheNonAggregated').pages);
+	expect(Cypress.env('DbNonAggregated').totalCount).to.equal(Cypress.env('CacheNonAggregated').totalCount);
 });
 
 Then('I store first Agenda Key number', () => {
@@ -982,8 +931,10 @@ Then('I get the response for {string} API', (api) => {
 					},
 				},
 			}).then((response) => {
+				const isAggregatedApi = api.includes('Aggregated');
 				const isPerformanceApi = api.includes('Performance');
-				const envKey = isPerformanceApi ? 'CacheNonAggregated' : 'DbNonAggregated';
+
+				const envKey = `${isPerformanceApi ? 'Cache' : 'Db'}${isAggregatedApi ? 'Aggregated' : 'NonAggregated'}`;
 				const envValue = isPerformanceApi ? JSON.parse(response.body) : response.body;
 
 				Cypress.env(envKey, envValue);
