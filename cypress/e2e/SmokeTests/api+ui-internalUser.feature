@@ -133,6 +133,12 @@ Feature: Checking API calls and UI Page load with Internal user
         And I verify that the customer admin group page has loaded successfully
 
     @56829
+    Scenario: Site configuration page API's and UI page are loading as expected
+        When I navigate to the URL "/WebDisclosure/SiteConfiguration/?CustomerID=690"
+        Then I verify that all the relevant API calls for site configuration page are made
+        And I verify that the site configuration page has loaded successfully
+
+    @56830
     Scenario: Accounts page API's and UI page are loading as expected
         When I navigate to the URL "/Accounts/Index/?CustomerID=690"
         Then I verify that all the relevant API calls for accounts page are made
