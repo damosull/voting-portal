@@ -9,6 +9,9 @@ Feature: Workflow related smoke tests
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
     Then I can view the workflow page
+    When I search for the customer ""
+    Then the Customer Name field is blank
+    And I can view the workflow page
     When I search for the customer "California Public Employee Retirement System"
     Then all the meetings on the screen have a CalPERS customer id
     And I should logout from the application
@@ -29,10 +32,13 @@ Feature: Workflow related smoke tests
 
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56850
-  @56850
+  @56850 @focus
   Scenario: Verify internal user is able to add columns from the table on workflow page
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
+    When I search for the customer ""
+    Then the Customer Name field is blank
+    And I can view the workflow page
     When I search for the customer "California Public Employee Retirement System"
     And I try to add the first four available Sustainalytics ESG columns
     Then I should be able to see these "four" columns on the workflow table
@@ -42,10 +48,13 @@ Feature: Workflow related smoke tests
 
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56851
-  @56851
+  @56851 @focus
   Scenario: Verify internal user is able to remove columns from the table on workflow page
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
+    When I search for the customer ""
+    Then the Customer Name field is blank
+    And I can view the workflow page
     When I search for the customer "California Public Employee Retirement System"
     And I try to remove the first column on the workflow table
     Then I should be unable to see the first column on the workflow table
