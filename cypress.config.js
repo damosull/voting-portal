@@ -117,7 +117,7 @@ module.exports = defineConfig({
 		},
 	},
 	retries: {
-		runMode: 1,
+		runMode: 2,
 		openMode: 0,
 	},
 	env: {
