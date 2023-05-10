@@ -81,6 +81,7 @@ async function setupNodeEvents(on, config) {
 	on('after:run', async (results) => {
 		if (results) {
 			console.log(`FINISHING TESTS ON: ${config.baseUrl} at ${new Date()}`);
+			await fs.copy('./test-results/screenshots', './test-screenshots');
 			await preprocessor.afterRunHandler(config);
 		}
 	});
@@ -111,7 +112,7 @@ module.exports = defineConfig({
 		},
 	},
 	retries: {
-		runMode: 2,
+		runMode: 1,
 		openMode: 0,
 	},
 	env: {
