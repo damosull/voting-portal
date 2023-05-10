@@ -1,3 +1,5 @@
+name: '$(Build.DefinitionName)-$(Date:yyyyMMdd)$(Rev:.r)'
+
 parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
