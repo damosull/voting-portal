@@ -80,13 +80,13 @@ async function setupNodeEvents(on, config) {
 
 	on('after:run', async (results) => {
 		if (results) {
-			console.log(`FINISHING TESTS ON: ${config.baseUrl} at ${new Date()}`);
 			try {
 				await fs.copy('./test-results/screenshots', './test-screenshots');
 				console.log('screenshots found! moving them to common directory...');
 			} catch (e) {
 				console.log('screenshots not found! moving on with the tests...');
 			}
+			console.log(`FINISHING TESTS ON: ${config.baseUrl} at ${new Date()}`);
 			await preprocessor.afterRunHandler(config);
 		}
 	});
