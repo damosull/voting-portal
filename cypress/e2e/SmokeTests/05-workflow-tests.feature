@@ -32,7 +32,7 @@ Feature: Workflow related smoke tests
 
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56850
-  @56850 @focus
+  @56850
   Scenario: Verify internal user is able to add columns from the table on workflow page
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
@@ -48,7 +48,7 @@ Feature: Workflow related smoke tests
 
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56851
-  @56851 @focus
+  @56851
   Scenario: Verify internal user is able to remove columns from the table on workflow page
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
