@@ -35,7 +35,8 @@ Feature: Workflow related smoke tests
   @56850
   Scenario: Verify internal user is able to add columns from the table on workflow page
     Given I am logged in as the "AUTOMATIONINTERNAL" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
+    Then I can view the workflow page
     When I search for the customer ""
     Then the Customer Name field is blank
     And I can view the workflow page
@@ -51,7 +52,8 @@ Feature: Workflow related smoke tests
   @56851
   Scenario: Verify internal user is able to remove columns from the table on workflow page
     Given I am logged in as the "AUTOMATIONINTERNAL" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
+    Then I can view the workflow page
     When I search for the customer ""
     Then the Customer Name field is blank
     And I can view the workflow page
