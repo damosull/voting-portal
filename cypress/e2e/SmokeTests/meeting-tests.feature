@@ -2,6 +2,21 @@
 Feature: Meetings related smoke tests
   #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56793
 
+  @59875
+  Scenario: Internal user to be able to search for a customer and navigate to a meeting
+    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    When I search for the customer ""
+    Then the Customer Name field is blank
+    And I cannot click on any of the meetings
+    When I search for the customer "California Public Employee Retirement System"
+    Then I verify the workflow table and filters have loaded
+    When I select a random meeting
+    Then I can view the Meeting Details page
+    And I should logout from the application
+
+
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56824
   @56824
   Scenario: Verify that the votes against Glass Lewis are captured in filter criteria

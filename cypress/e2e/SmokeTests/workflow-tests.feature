@@ -86,15 +86,3 @@ Feature: Workflow related smoke tests
       | "ESG Risk Rating Percentile Industry"     |
       | "ESG Risk Rating Percentile Sub Industry" |
       | "ESG Risk Rating Highest Controversy"     |
-
-  @59875
-  Scenario: Internal user to be able to search for a customer and navigate to a meeting
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
-    When I navigate to the workflow page
-    Then I can view the workflow page
-    And the Customer Name field is blank
-    And I cannot click on any of the meetings
-    When I search for the customer "California Public Employee Retirement System"
-    Then I verify the workflow table and filters have loaded
-    When I select a random meeting
-    Then I can view the Meeting Details page

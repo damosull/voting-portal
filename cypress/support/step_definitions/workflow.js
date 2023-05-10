@@ -35,9 +35,14 @@ When('I remove all existing selected criteria for the internal user', () => {
 
 When('I search for the customer {string}', (customerName) => {
 	workflowPage.selectCustomerShadowInput().click({ force: true }).type('{del}', { force: true });
-	workflowPage.selectCustomerInput().clear({ force: true }).type(customerName);
-	workflowPage.selectCustomerDropdown().should('be.visible');
-	workflowPage.selectCustomerInput().type('{downarrow}{enter}');
+	workflowPage.selectCustomerInput().clear({ force: true });
+	if (customerName != '') {
+		workflowPage.selectCustomerInput().type(customerName);
+		workflowPage.selectCustomerDropdown().should('be.visible');
+		workflowPage.selectCustomerInput().type('{downarrow}{enter}');
+	} else {
+		workflowPage.quickFiltersDiv().contains('Upcoming Meetings').click();
+	}
 });
 
 Then('I arrange the table in {string} order for {string}', (order, column_name) => {
