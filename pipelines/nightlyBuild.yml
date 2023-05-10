@@ -14,7 +14,7 @@ jobs:
   - job: ViewpointAutomation
     timeoutInMinutes: 75
     pool:
-    name: 'Build Pipelines VMSS - QAUAT'
+      name: 'Build Pipelines VMSS - QAUAT'
     strategy:
       parallel: 3
     steps:
