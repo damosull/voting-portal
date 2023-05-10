@@ -35,7 +35,7 @@ jobs:
         displayName: 'Publish Cucumber Report'
         inputs:
           targetPath: 'test-results/cucumber/cucumber_report.html'
-          artifact: 'Report-$(System.JobAttempt)'
+          artifact: 'Report-Run$(System.JobAttempt)-Instance$(System.JobPositionInPhase)'
         continueOnError: true
         condition: succeededOrFailed()
 
@@ -43,7 +43,7 @@ jobs:
         displayName: 'Publish Failure Screenshots'
         inputs:
           targetPath: 'test-screenshots'
-          artifact: 'Screenshots-$(System.JobAttempt)'
+          artifact: 'Screenshots-Run$(System.JobAttempt)-Instance$(System.JobPositionInPhase)'
         continueOnError: true
         condition: failed()
 
