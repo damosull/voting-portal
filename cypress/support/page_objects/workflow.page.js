@@ -275,7 +275,7 @@ class workflowPage {
 
 	//Common Functions
 	waitForWorkflowPageLoad() {
-		this.getLoadingSpinner({ timeout: 120000 }).should('not.exist');
+		this.getLoadingSpinner().should('not.exist');
 	}
 
 	checkFilterCriteria(criteria) {

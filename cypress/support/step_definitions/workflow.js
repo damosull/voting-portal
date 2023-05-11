@@ -443,7 +443,7 @@ Then('I should be able to verify the different column actions on the workflow pa
 	cy.addCriteriaStatus(['Recommendations Available']);
 
 	//Step 9 - Go Back to the Workflow Page, Verify Removed Columns are not displayed/Auto Saved [Eg : Decision Status, Ballot Status etc]
-	workflowPage.columnsListButton().click({ timeout: 10000 });
+	workflowPage.columnsListButton().click();
 	columns.forEach((column) => {
 		workflowPage.columnNameInput().type(column);
 		workflowPage.columnLabelValue(column).should('be.checked');
@@ -850,7 +850,7 @@ Then('I store first Agenda Key number', () => {
 
 Then('I get the response for {string} API', (api) => {
 	//request API and store response as an env variable
-	cy.get('#csrf-token', { timeout: 90000 })
+	cy.get('#csrf-token')
 		.should('exist')
 		.invoke('attr', 'value')
 		.then((csrf) => {
