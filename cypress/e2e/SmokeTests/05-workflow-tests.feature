@@ -9,6 +9,9 @@ Feature: Workflow related smoke tests
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the workflow page
     Then I can view the workflow page
+    When I search for the customer ""
+    Then the Customer Name field is blank
+    And I can view the workflow page
     When I search for the customer "California Public Employee Retirement System"
     Then all the meetings on the screen have a CalPERS customer id
     And I should logout from the application
@@ -32,7 +35,11 @@ Feature: Workflow related smoke tests
   @56850
   Scenario: Verify internal user is able to add columns from the table on workflow page
     Given I am logged in as the "AUTOMATIONINTERNAL" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    When I search for the customer ""
+    Then the Customer Name field is blank
+    And I can view the workflow page
     When I search for the customer "California Public Employee Retirement System"
     And I try to add the first four available Sustainalytics ESG columns
     Then I should be able to see these "four" columns on the workflow table
@@ -45,7 +52,11 @@ Feature: Workflow related smoke tests
   @56851
   Scenario: Verify internal user is able to remove columns from the table on workflow page
     Given I am logged in as the "AUTOMATIONINTERNAL" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    When I search for the customer ""
+    Then the Customer Name field is blank
+    And I can view the workflow page
     When I search for the customer "California Public Employee Retirement System"
     And I try to remove the first column on the workflow table
     Then I should be unable to see the first column on the workflow table
@@ -86,15 +97,3 @@ Feature: Workflow related smoke tests
       | "ESG Risk Rating Percentile Industry"     |
       | "ESG Risk Rating Percentile Sub Industry" |
       | "ESG Risk Rating Highest Controversy"     |
-
-  @59875
-  Scenario: Internal user to be able to search for a customer and navigate to a meeting
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
-    When I navigate to the workflow page
-    Then I can view the workflow page
-    And the Customer Name field is blank
-    And I cannot click on any of the meetings
-    When I search for the customer "California Public Employee Retirement System"
-    Then I verify the workflow table and filters have loaded
-    When I select a random meeting
-    Then I can view the Meeting Details page

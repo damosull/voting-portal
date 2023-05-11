@@ -37,7 +37,7 @@ To run cypress, just execute the following command:
 - `npx cypress run` or `yarn test` - Runs Cypress tests to completion. By default will run all tests headlessly in the Electron browser
 - `npm run smoke` or `yarn smoke` - Runs All Smoke Tests
 - `npm run regression` or `yarn regression` - Runs All Regression Tests
-- `npx cypress run --spec "cypress/e2e/SmokeTests/dashboard-tests.feature"` - Runs a specific spec file
+- `npx cypress run --spec "cypress/e2e/SmokeTests/09-filters-tests.feature"` - Runs a specific spec file
 - `npx cypress run --config specPattern="cypress/e2e/ViewpointTestSuite/02-MeetingDetails/*.feature"` - Runs all tests in a specific folder
 
 **NOTE:** To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline` and put the command under `Build Parameters` and click `Run`
