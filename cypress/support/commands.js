@@ -554,11 +554,11 @@ Cypress.Commands.add('executeQuery', (query) => {
 });
 
 Cypress.Commands.add('statusCode200', (param) => {
-	cy.wait(param, { timeout: 60000 }).its('response.statusCode').should('eq', 200);
+	cy.wait(param).its('response.statusCode').should('eq', 200);
 });
 
 Cypress.Commands.add('statusCode204', (param) => {
-	cy.wait(param, { timeout: 60000 }).its('response.statusCode').should('eq', 204);
+	cy.wait(param).its('response.statusCode').should('eq', 204);
 });
 
 Cypress.Commands.add('elementShouldNotExist', (element) => {

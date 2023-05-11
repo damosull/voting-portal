@@ -218,7 +218,7 @@ class reportingPage {
 	columnCheckboxByLabel(label) {
 		return cy
 			.get('.report-column-label')
-			.contains(new RegExp('^' + label + '$'), { timeout: 15000 })
+			.contains(new RegExp('^' + label + '$'))
 			.scrollIntoView()
 			.prev();
 	}
@@ -226,7 +226,7 @@ class reportingPage {
 		return cy
 			.get('#rpt-selected-columns')
 			.find('.report-column-label')
-			.contains(new RegExp('^' + label + '$'), { timeout: 15000 })
+			.contains(new RegExp('^' + label + '$'))
 			.scrollIntoView()
 			.prev();
 	}
@@ -234,7 +234,7 @@ class reportingPage {
 		return cy
 			.get('#rpt-available-columns')
 			.find('.report-column-label')
-			.contains(new RegExp('^' + label + '$'), { timeout: 15000 })
+			.contains(new RegExp('^' + label + '$'))
 			.scrollIntoView()
 			.prev();
 	}

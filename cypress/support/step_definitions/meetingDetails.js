@@ -1048,7 +1048,7 @@ Then('I click on the control number for {string}', (controlNumber) => {
 Then('I should be able to verify the pagination works as expected on the ballot section page', () => {
 	//Step 3 - verify the pagination default is set to '10'.
 	meetingDetailsPage.ballotsPerPageDropdown().invoke('attr', 'style', 'display: block');
-	meetingDetailsPage.ballotsPerPageDropdown().select('10', { timeout: 50000 });
+	meetingDetailsPage.ballotsPerPageDropdown().select('10');
 	meetingDetailsPage.ballotsPerPageDropdownText().then(function (val) {
 		const numBallots = val.text();
 		expect(numBallots).to.equal('10');
