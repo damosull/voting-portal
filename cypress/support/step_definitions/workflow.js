@@ -760,15 +760,11 @@ Then('I can see data source title {string} is visible', (title) => {
 When('I store data from UI {string} within the page', (table) => {
 	workflowPage.waitForWorkflowPageLoad();
 	//remove hidden data before store all the texts
-	cy.get("span[class='hidden-grid']")
-		.invoke('remove')
-		.then(() => {
-			workflowPage.tableRows().invoke('text').as(`${table}`);
-			cy.get(`@${table}`).then((tableValue) => {
-				Cypress.env(`${table}`, tableValue);
-				cy.log(Cypress.env(`${table}`));
-			});
-		});
+	workflowPage.hiddenData().invoke('remove');
+	workflowPage.tableRows().invoke('text').as(`${table}`);
+	cy.get(`@${table}`).then((tableValue) => {
+		Cypress.env(`${table}`, tableValue);
+	});
 });
 
 Then('the data from {string} table and {string} table are equal', (table1, table2) => {
@@ -1053,7 +1049,7 @@ Then('I cannot click on any of the meetings', () => {
 	workflowPage.meeting().should('not.exist');
 });
 
-Then('I enable all columns', () => {
+When('I enable all columns', () => {
 	workflowPage.waitForWorkflowPageLoad();
 	workflowPage.columnsListButton().click();
 	workflowPage.columnListUnCheckbox().check({ force: true });

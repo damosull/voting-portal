@@ -115,6 +115,9 @@ class workflowPage {
 	rowData(rowNo) {
 		return cy.get(`table > tbody > tr:nth-child(${rowNo}) > td`);
 	}
+	hiddenData() {
+		return cy.get("span[class='hidden-grid']");
+	}
 	policyIdColumnHeader() {
 		return cy.get("th[data-field='PolicyTag'] a[class='k-link']");
 	}
