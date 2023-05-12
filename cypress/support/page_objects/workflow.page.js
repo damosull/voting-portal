@@ -82,6 +82,9 @@ class workflowPage {
 	columnNameInput() {
 		return cy.get('#txt-filter-col-name');
 	}
+	columnListUnCheckbox() {
+		return cy.get("div[id='mytable'] li:not([style^=display]) input");
+	}
 	columnLabelValue(value) {
 		return cy.get(`input[value='${value}']`);
 	}
@@ -111,6 +114,9 @@ class workflowPage {
 	}
 	rowData(rowNo) {
 		return cy.get(`table > tbody > tr:nth-child(${rowNo}) > td`);
+	}
+	hiddenData() {
+		return cy.get("span[class='hidden-grid']");
 	}
 	policyIdColumnHeader() {
 		return cy.get("th[data-field='PolicyTag'] a[class='k-link']");
@@ -263,7 +269,7 @@ class workflowPage {
 		return cy.get('#btn-update-AgendaKey');
 	}
 	tableData() {
-		return cy.get("tbody[role='rowgroup']");
+		return cy.get("tbody[role='rowgroup']", { timeout: 90000 });
 	}
 
 	highlightedFilter() {

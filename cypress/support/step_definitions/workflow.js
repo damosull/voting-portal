@@ -167,8 +167,8 @@ When('I set the date filter as Next {int} days and Past {int} days', (nextDays, 
 });
 
 When('I set the date filter between {int} and {int} days from today', (pastDays, nextDays) => {
-	let pastDate = dayjs().add(pastDays, 'days').format('DD/MM/YYYY');
-	let nextDate = dayjs().add(nextDays, 'days').format('DD/MM/YYYY');
+	let pastDate = dayjs().add(pastDays, 'days').format('MM/DD/YYYY');
+	let nextDate = dayjs().add(nextDays, 'days').format('MM/DD/YYYY');
 	workflowPage.dateFilterModal().invoke('attr', 'style', 'display: block;');
 	workflowPage.dateBetweenRadio().check();
 	workflowPage.dateStartInput().clear().type(pastDate);
@@ -759,6 +759,8 @@ Then('I can see data source title {string} is visible', (title) => {
 
 When('I store data from UI {string} within the page', (table) => {
 	workflowPage.waitForWorkflowPageLoad();
+	//remove hidden data before store all the texts
+	workflowPage.hiddenData().invoke('remove');
 	workflowPage.tableRows().invoke('text').as(`${table}`);
 	cy.get(`@${table}`).then((tableValue) => {
 		Cypress.env(`${table}`, tableValue);
@@ -1045,4 +1047,13 @@ Then('the Customer Name field is blank', () => {
 
 Then('I cannot click on any of the meetings', () => {
 	workflowPage.meeting().should('not.exist');
+});
+
+When('I enable all columns', () => {
+	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.columnsListButton().click();
+	workflowPage.columnListUnCheckbox().check({ force: true });
+	workflowPage.columnApplyButton().click();
+	workflowPage.getLoadingSpinner().should('exist');
+	workflowPage.waitForWorkflowPageLoad();
 });
