@@ -6,20 +6,28 @@ Feature: Verify UI and API's data in workflow-expansion
 
     @59640 @59641
     Scenario Outline: verify UI test to compare Aggregate/NonAggregated cache data with DB data
-        When I navigate to the URL <Cache_URL>
-        Then I can see data source title <Cache_URL> is visible
+        When I navigate to the URL <cache_url>
+        Then I can see data source title <cache_url> is visible
         When I arrange the table in 'ascending' order for 'control number'
+        And I enable all columns
+        And I click on the Meeting Date radio button
+        And I set the date filter between -30 and -1 days from today
+        And I update the date filter
         Then I verify the workflow table and filters have loaded
-        When I store data from UI <Cache_UI_Table> within the page
-        And I navigate to the URL <Db_URL>
-        Then I can see data source title <Db_URL> is visible
-        When I arrange the table in 'ascending' order for 'control number'
+        When I store data from UI <cache_UI_table> within the page
+        And I navigate to the URL <db_url>
+        Then I can see data source title <db_url> is visible
+        And I arrange the table in 'ascending' order for 'control number'
+        And I enable all columns
+        When I click on the Meeting Date radio button
+        And I set the date filter between -30 and -1 days from today
+        And I update the date filter
         Then I verify the workflow table and filters have loaded
-        When I store data from UI <Db_UI_Table> within the page
-        Then the data from <Cache_UI_Table> table and <Db_UI_Table> table are equal
+        When I store data from UI <db_UI_table> within the page
+        Then the data from <cache_UI_table> table and <db_UI_table> table are equal
 
         Examples:
-            | Cache_URL                         | Cache_UI_Table         | Db_URL                   | Db_UI_Table         |
+            | cache_url                         | cache_UI_table         | db_url                   | db_UI_table         |
             | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' |
             | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           |
 

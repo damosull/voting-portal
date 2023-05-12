@@ -82,6 +82,9 @@ class workflowPage {
 	columnNameInput() {
 		return cy.get('#txt-filter-col-name');
 	}
+	columnListUnCheckbox() {
+		return cy.get("div[id='mytable'] li:not([style^=display]) input");
+	}
 	columnLabelValue(value) {
 		return cy.get(`input[value='${value}']`);
 	}
@@ -263,7 +266,7 @@ class workflowPage {
 		return cy.get('#btn-update-AgendaKey');
 	}
 	tableData() {
-		return cy.get("tbody[role='rowgroup']");
+		return cy.get("tbody[role='rowgroup']", { timeout: 90000 });
 	}
 
 	highlightedFilter() {
