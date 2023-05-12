@@ -1,11 +1,9 @@
 @workflow @workflow-expansion
 Feature: Verify UI and API's data in workflow-expansion
 
-    Background:
-        Given I am logged in as the "CALPERS" User
-
     @59640 @59641
     Scenario Outline: verify UI test to compare Aggregate/NonAggregated cache data with DB data
+        Given I am logged in as the <customer> User
         When I navigate to the URL <cache_url>
         Then I can see data source title <cache_url> is visible
         And I verify the workflow table and filters have loaded
@@ -31,12 +29,13 @@ Feature: Verify UI and API's data in workflow-expansion
         Then the data from <cache_UI_table> table and <db_UI_table> table are equal
 
         Examples:
-            | cache_url                         | cache_UI_table         | db_url                   | db_UI_table         |
-            | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' |
-            | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           |
+            | customer  | cache_url                         | cache_UI_table         | db_url                   | db_UI_table         |
+            | "CALPERS" | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' |
+            | "CALPERS" | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           |
 
     @60136
     Scenario: verify API data to compare aggregate cache data with DB data
+        Given I am logged in as the "EVELYN" User
         When I navigate to the workflow page
         And I arrange the table in 'ascending' order for 'control number'
         Then I verify the workflow table and filters have loaded
@@ -47,6 +46,7 @@ Feature: Verify UI and API's data in workflow-expansion
 
     @59998
     Scenario: Verify API data to compare NonAggregated cache data with DB data
+        Given I am logged in as the "ROBECO" User
         When I navigate to the workflow page
         And I arrange the table in 'ascending' order for 'control number'
         Then I verify the workflow table and filters have loaded

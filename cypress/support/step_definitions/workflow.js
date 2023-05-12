@@ -179,6 +179,21 @@ When('I update the date filter', () => {
 	workflowPage.updateDateFilter().click();
 });
 
+Then('I verify the workflow table and filters have loaded', () => {
+	workflowPage.tableData().should('be.visible');
+	workflowPage.highlightedFilter().should('be.visible');
+	workflowPage.addCriteriaButton().should('be.visible').and('have.text', 'Add Criteria');
+});
+
+When('I enable all columns', () => {
+	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.columnsListButton().click();
+	workflowPage.columnListUnCheckbox().check({ force: true });
+	workflowPage.columnApplyButton().click();
+	workflowPage.getLoadingSpinner().should('exist');
+	workflowPage.waitForWorkflowPageLoad();
+});
+
 Then('I click on the Columns dropdown', () => {
 	workflowPage.columnsListButton().click({ force: true });
 });
@@ -747,12 +762,6 @@ Then('I verify the Workflow Export Report contains data seen on the UI', () => {
 		});
 });
 
-Then('I verify the workflow table and filters have loaded', () => {
-	workflowPage.tableData().should('be.visible');
-	workflowPage.highlightedFilter().should('be.visible');
-	workflowPage.addCriteriaButton().should('be.visible').and('have.text', 'Add Criteria');
-});
-
 Then('I can see data source title {string} is visible', (title) => {
 	workflowPage.dataSourceTitle().should('be.visible').and('have.text', constants.WORKFLOW_HEADINGS[title]);
 });
@@ -768,7 +777,7 @@ When('I store data from UI {string} within the page', (table) => {
 });
 
 Then('the data from {string} table and {string} table are equal', (table1, table2) => {
-	expect(Cypress.env(`${table1}`)).to.deep.equal(Cypress.env(`${table2}`));
+	expect(Cypress.env(`${table1}`)).to.deep.equal(Cypress.env(`${table2}`), 'Cache Data did not match DB Data!');
 });
 
 Then('the data from CacheAggregated API and DbAggregated API are equal', () => {
@@ -1047,13 +1056,4 @@ Then('the Customer Name field is blank', () => {
 
 Then('I cannot click on any of the meetings', () => {
 	workflowPage.meeting().should('not.exist');
-});
-
-When('I enable all columns', () => {
-	workflowPage.waitForWorkflowPageLoad();
-	workflowPage.columnsListButton().click();
-	workflowPage.columnListUnCheckbox().check({ force: true });
-	workflowPage.columnApplyButton().click();
-	workflowPage.getLoadingSpinner().should('exist');
-	workflowPage.waitForWorkflowPageLoad();
 });
