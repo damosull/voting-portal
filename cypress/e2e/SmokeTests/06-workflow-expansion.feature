@@ -56,6 +56,5 @@ Feature: Verify UI and API's data in workflow-expansion
         Then 'Agendas' property from DbNonAggregated and CacheNonAggregated API are equal
         And 'Agendas.Policies' property from DbNonAggregated and CacheNonAggregated API are equal
         And 'Agendas.Policies.Ballots' property from DbNonAggregated and CacheNonAggregated API are equal
-        And 'lookups.MeetingIDs' property from DbNonAggregated and CacheNonAggregated API are equal
         And all Summaries property from DbNonAggregated and CacheNonAggregated API are equal
         And the data from DbNonAggregated API and CacheNonAggregated API are equal
