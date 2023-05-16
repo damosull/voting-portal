@@ -869,6 +869,7 @@ Then('I get the response for {string} API', (api) => {
 				method: 'POST',
 				url: `/Api/Data/${api}`,
 				form: true,
+				timeout: 60000,
 				headers: {
 					CSRFToken: csrf,
 				},
