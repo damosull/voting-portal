@@ -27,7 +27,6 @@ Feature: Reporting related smoke tests
         And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Voting Activity Report
-        And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
@@ -45,7 +44,6 @@ Feature: Reporting related smoke tests
         When I click on the notification toolbar
         And I "verify ready for download of" the report for "Ballot Vote Data"
         And I verify the report name and headers for Ballot Vote Data Report
-        And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56837
@@ -65,7 +63,6 @@ Feature: Reporting related smoke tests
         And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Ballot Status Report generated via Meeting Details page
-        And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56838
@@ -81,4 +78,3 @@ Feature: Reporting related smoke tests
         When I click on the notification toolbar
         And I "verify export ready" the report for "Workflow Export"
         And I verify the report name and headers for Workflow Export Report "csv"
-        And I should logout from the application

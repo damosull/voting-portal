@@ -37,12 +37,11 @@ Feature: Verify UI and API's data in workflow-expansion
     Scenario: verify API data to compare aggregate cache data with DB data
         Given I am logged in as the "EVELYN" User
         When I navigate to the workflow page
-        And I arrange the table in 'ascending' order for 'control number'
         Then I verify the workflow table and filters have loaded
         When I store first Agenda Key number
         And I get the response for 'WorkflowExpansionDbAggregated' API
         And I get the response for 'WorkflowExpansionPerformanceAggregated' API
-        And the data from CacheAggregated API and DbAggregated API are equal
+        Then the data from CacheAggregated API and DbAggregated API are equal
 
     @59998
     Scenario: Verify API data to compare NonAggregated cache data with DB data
