@@ -27,7 +27,6 @@ Feature: Verify UI and API's data in workflow-expansion
         Then I can view the workflow page
         When I store data from UI <db_UI_table> within the page
         Then the data from <cache_UI_table> table and <db_UI_table> table are equal
-        And I should logout from the application
 
         Examples:
             | customer  | cache_url                         | cache_UI_table         | db_url                   | db_UI_table         |
@@ -43,7 +42,6 @@ Feature: Verify UI and API's data in workflow-expansion
         And I get the response for 'WorkflowExpansionDbAggregated' API
         And I get the response for 'WorkflowExpansionPerformanceAggregated' API
         Then the data from CacheAggregated API and DbAggregated API are equal
-        And I should logout from the application
 
     @59998
     Scenario: Verify API data to compare NonAggregated cache data with DB data
@@ -60,4 +58,3 @@ Feature: Verify UI and API's data in workflow-expansion
         And 'lookups.MeetingIDs' property from DbNonAggregated and CacheNonAggregated API are equal
         And all Summaries property from DbNonAggregated and CacheNonAggregated API are equal
         And the data from DbNonAggregated API and CacheNonAggregated API are equal
-        And I should logout from the application
