@@ -6,14 +6,16 @@ let wfData = [],
 	meetingName;
 
 Then('I can view the workflow page', () => {
-	workflowPage.getPageHeading().contains('Upcoming Meetings');
+	workflowPage.controlNumberColumnHeader().should('be.visible');
 	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.tableData().should('be.visible');
+	workflowPage.highlightedFilter().should('be.visible');
+	workflowPage.addCriteriaButton().should('be.visible').and('have.text', 'Add Criteria');
 	workflowPage.workflowMenuButton().should('exist');
 });
 
 Then('I navigate to the workflow page', () => {
 	cy.visit('/Workflow');
-	workflowPage.getLoadingSpinner().should('exist');
 });
 
 Then('I set the filter to Upcoming Meetings', () => {
@@ -177,12 +179,6 @@ When('I set the date filter between {int} and {int} days from today', (pastDays,
 
 When('I update the date filter', () => {
 	workflowPage.updateDateFilter().click();
-});
-
-Then('I verify the workflow table and filters have loaded', () => {
-	workflowPage.tableData().should('be.visible');
-	workflowPage.highlightedFilter().should('be.visible');
-	workflowPage.addCriteriaButton().should('be.visible').and('have.text', 'Add Criteria');
 });
 
 When('I enable all columns', () => {

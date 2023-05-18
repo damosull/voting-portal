@@ -11,7 +11,7 @@ Feature: Meetings related smoke tests
     Then the Customer Name field is blank
     And I cannot click on any of the meetings
     When I search for the customer "California Public Employee Retirement System"
-    Then I verify the workflow table and filters have loaded
+    Then I can view the workflow page
     When I select a random meeting
     Then I can view the Meeting Details page
     And I should logout from the application

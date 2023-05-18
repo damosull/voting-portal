@@ -21,6 +21,9 @@ class reportingPage {
 	inboxContainerMessages(timeout) {
 		return cy.get('#inbox-container .msg-txt', { timeout: timeout });
 	}
+	inboxContainerDate() {
+		return cy.get('#inbox-container .msg-date');
+	}
 	inboxRows() {
 		return cy.get('#inbox-container [data-pagelink1]');
 	}

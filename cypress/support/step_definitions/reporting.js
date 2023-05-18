@@ -315,6 +315,9 @@ Then('I {string} the report for {string}', (action, reportName) => {
 			expect($msg.first().text()).to.include(`${reportConfigName}`);
 			expect($msg.first().text()).to.include(`is ready for download`);
 		});
+		reportingPage.inboxContainerDate().should(($msg) => {
+			expect($msg.first().text(), 'looks like the timestamp is not visible on the UI').to.include('seconds ago');
+		});
 	} else if (action.includes('verify export ready')) {
 		reportingPage.inboxContainerDiv().should('be.visible');
 		reportingPage.inboxContainerMessages(15000).should(($msg) => {
@@ -322,6 +325,9 @@ Then('I {string} the report for {string}', (action, reportName) => {
 		});
 		reportingPage.inboxContainerMessages(180000).should(($msg) => {
 			expect($msg.first().text()).to.include(`export is ready to download`);
+		});
+		reportingPage.inboxContainerDate().should(($msg) => {
+			expect($msg.first().text(), 'looks like the timestamp is not visible on the UI').to.include('seconds ago');
 		});
 	}
 });
