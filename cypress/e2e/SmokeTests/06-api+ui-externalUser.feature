@@ -9,7 +9,7 @@ Feature: Checking API calls and UI Page load with External user
     Scenario: Workflow page API's and UI page are loading successfully
         When I navigate to the workflow page
         Then I verify that all the relevant API calls for workflow page are made for "external" user
-        And I verify the workflow table and filters have loaded
+        And I can view the workflow page
 
     @56798
     Scenario: Dashboard page API's and UI page are loading successfully

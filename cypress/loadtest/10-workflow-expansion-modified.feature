@@ -11,7 +11,7 @@
 #     Scenario Outline: verify UI test to compare Aggregate/NonAggregated cache data with DB data
 #         When I navigate to the URL <cache_url>
 #         Then I can see data source title <cache_url> is visible
-#         And I verify the workflow table and filters have loaded
+#         And I can view the workflow page
 #         When I remove all existing selected criteria
 #         Then I can view the workflow page
 #         When I set the date filter between -30 and -28 days from today
@@ -22,7 +22,7 @@
 #         When I store data from UI <cache_UI_table> within the page
 #         And I navigate to the URL <db_url>
 #         Then I can see data source title <db_url> is visible
-#         And I verify the workflow table and filters have loaded
+#         And I can view the workflow page
 #         When I remove all existing selected criteria
 #         Then I can view the workflow page
 #         When I set the date filter between -30 and -28 days from today
@@ -42,7 +42,7 @@
 #     Scenario: verify API data to compare aggregate cache data with DB data
 #         When I navigate to the workflow page
 #         And I arrange the table in 'ascending' order for 'control number'
-#         Then I verify the workflow table and filters have loaded
+#         Then I can view the workflow page
 #         When I store first Agenda Key number
 #         And I get the response for 'WorkflowExpansionDbAggregated' API
 #         And I get the response for 'WorkflowExpansionPerformanceAggregated' API
@@ -52,7 +52,7 @@
 #     Scenario: Verify API data to compare NonAggregated cache data with DB data
 #         When I navigate to the workflow page
 #         And I arrange the table in 'ascending' order for 'control number'
-#         Then I verify the workflow table and filters have loaded
+#         Then I can view the workflow page
 #         When I store first Agenda Key number
 #         And I get the response for 'WorkflowExpansionPerformance' API
 #         And I get the response for 'WorkflowExpansionDb' API
