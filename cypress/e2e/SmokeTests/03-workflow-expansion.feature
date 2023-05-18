@@ -35,7 +35,7 @@ Feature: Verify UI and API's data in workflow-expansion
 
     @60136
     Scenario: verify API data to compare aggregate cache data with DB data
-        Given I am logged in as the "EVELYN" User
+        Given I am logged in as the "PUTNAM" User
         When I navigate to the workflow page
         Then I verify the workflow table and filters have loaded
         When I store first Agenda Key number
