@@ -33,7 +33,7 @@ Feature: Verify UI and API's data in workflow-expansion
             | "CALPERS" | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' |
             | "CALPERS" | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           |
 
-    @60136 @focus
+    @60136
     Scenario: verify API data to compare aggregate cache data with DB data
         Given I am logged in as the "PUTNAM" User
         When I navigate to the workflow page
