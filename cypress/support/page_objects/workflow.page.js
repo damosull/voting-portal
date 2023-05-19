@@ -5,8 +5,8 @@ class workflowPage {
 	getPageBody() {
 		return cy.get('body');
 	}
-	getLoadingSpinner() {
-		return cy.get('.k-loading-text', { timeout: 90000 });
+	getLoadingSpinner(timeout) {
+		return cy.get('.k-loading-text', { timeout: timeout });
 	}
 	getInputBox() {
 		return cy.get('input');
@@ -280,8 +280,12 @@ class workflowPage {
 	}
 
 	//Common Functions
+	waitForWorkflowSpinner() {
+		this.getLoadingSpinner(15000).should('exist');
+	}
+
 	waitForWorkflowPageLoad() {
-		this.getLoadingSpinner().should('not.exist');
+		this.getLoadingSpinner(90000).should('not.exist');
 	}
 
 	checkFilterCriteria(criteria) {
