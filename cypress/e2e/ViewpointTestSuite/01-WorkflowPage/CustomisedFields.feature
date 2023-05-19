@@ -57,7 +57,7 @@ Feature: Customised Fields
         And I select Custom Fields from The Customer Settings panel
         And I click Add Custom Field
         And I select 'Picklist - multi select' from the dropdown list
-        When I enter a label value 'Controversy Alert' and click OK button
+        When I enter a label value 'Test Automation' and click OK button
         And I enter a first picklist value of 'text1' and click OK button
         And I enter a second picklist value of 'text2' and click OK button
         And I enter a third picklist value of 'text3' and click OK button
@@ -67,6 +67,7 @@ Feature: Customised Fields
         When I navigate to the workflow page
         Then I can view the workflow page
         And I click on the Columns dropdown
-        Then The picklist created 'Controversy Alert' should be present in the column list unchecked
-        And The picklist created 'Controversy Alert' should be orange in colour
+        Then The picklist created 'Test Automation' should be present in the column list unchecked
+        And The picklist created 'Test Automation' should be orange in colour
+        And I delete the active 'Test Automation' picklist
         And I should logout from the application
