@@ -5,8 +5,8 @@
 	"author": "Quality Guild",
 	"license": "ISC",
 	"scripts": {
-		"open": "cypress open --e2e --browser electron --config specPattern=cypress/**/*.feature",
-		"openUltra": "cypress open --e2e --browser electron --env testEnv=ultra --config specPattern=cypress/**/*.feature",
+		"open": "cypress open --e2e --browser electron",
+		"openUltra": "cypress open --e2e --browser electron --env testEnv=ultra",
 		"test": "cypress run",
 		"testUltra": "cypress run --env testEnv=ultra",
 		"smoke": "cypress run --config specPattern=cypress/e2e/SmokeTests/*.feature",

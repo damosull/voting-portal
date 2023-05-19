@@ -1,5 +1,5 @@
 Feature: Create, modify & delete a Vote Execution Profile
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9245
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9245
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4165
   @4165
@@ -8,7 +8,7 @@ Feature: Create, modify & delete a Vote Execution Profile
     When I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the URL "/Accounts/VEP/?CustomerID=187"
     Then I can view the Vote Execution page
-    And I verify that the Vote Execution Profile On checkbox is disabled
+    #And I verify that the Vote Execution Profile On checkbox is disabled - skip due to US56268
     When I click on the New Profile button
     And I click on the Configuration Name label
     And I amend the configuration name to "Test"
@@ -85,7 +85,7 @@ Feature: Create, modify & delete a Vote Execution Profile
     When I am logged in as the "AUTOMATIONINTERNAL" User
     And I navigate to the URL "/Accounts/VEP/?CustomerID=187"
     Then I can view the Vote Execution page
-    And I uncheck the Vote Execution Profile On checkbox
+    #And I uncheck the Vote Execution Profile On checkbox - skip due to US56268
     And I delete the visible vote execution profile
     When I click on Edit button for Voting Groups
     And I select "first" voting group
@@ -97,7 +97,8 @@ Feature: Create, modify & delete a Vote Execution Profile
 
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4168
-  @4168
+  #Skipping due to implementation of https://dev.azure.com/glasslewis/Development/_workitems/edit/56268
+  @4168 @skip
   Scenario: Verify an Internal Admin user can delete an existing Vote Execution Profile
     Given I set the setting "Permission.CustomerAdmin.VoteExecutionProfile.View" to "Allow" for the user "OPERS"
     Given I set the setting "Permission.CustomerAdmin.VoteExecutionProfile.Modify" to "Allow" for the user "OPERS"
