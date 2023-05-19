@@ -16,11 +16,12 @@ Then('I can view the workflow page', () => {
 
 Then('I navigate to the workflow page', () => {
 	cy.visit('/Workflow');
+	workflowPage.getLoadingSpinner(15000).should('exist');
 });
 
 Then('I set the filter to Upcoming Meetings', () => {
 	workflowPage.quickFiltersDiv().contains('Sustainalytics ESG').click();
-	workflowPage.getLoadingSpinner().should('exist');
+	workflowPage.getLoadingSpinner(15000).should('exist');
 	workflowPage.waitForWorkflowPageLoad();
 	workflowPage.quickFiltersDiv().contains('Upcoming Meetings').click();
 });
@@ -186,7 +187,7 @@ When('I enable all columns', () => {
 	workflowPage.columnsListButton().click();
 	workflowPage.columnListUnCheckbox().check({ force: true });
 	workflowPage.columnApplyButton().click();
-	workflowPage.getLoadingSpinner().should('exist');
+	workflowPage.getLoadingSpinner(15000).should('exist');
 	workflowPage.waitForWorkflowPageLoad();
 });
 
