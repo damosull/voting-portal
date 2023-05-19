@@ -21,7 +21,7 @@ Feature: Verify UI and API's data in workflow-expansion
         And I can view the workflow page
         When I remove all existing selected criteria
         Then I can view the workflow page
-        # # Below steps are commented as it is waiting fix for BUG 60221
+        # Below steps are commented as it is waiting fix for BUG 60221
         # When I set the date filter between -30 and -28 days from today
         # And I update the date filter
         # Then I can view the workflow page
