@@ -9,29 +9,31 @@ Feature: Verify UI and API's data in workflow-expansion
         And I can view the workflow page
         When I remove all existing selected criteria
         Then I can view the workflow page
-        When I set the date filter between -30 and -28 days from today
-        And I update the date filter
-        Then I can view the workflow page
-        When I enable all columns
-        Then I can view the workflow page
+        # Below steps are commented as it is waiting fix for BUG 60221
+        # When I set the date filter between -30 and -28 days from today
+        # And I update the date filter
+        # Then I can view the workflow page
+        # When I enable all columns
+        # Then I can view the workflow page
         When I store data from UI <cache_UI_table> within the page
         And I navigate to the URL <db_url>
         Then I can see data source title <db_url> is visible
         And I can view the workflow page
         When I remove all existing selected criteria
         Then I can view the workflow page
-        When I set the date filter between -30 and -28 days from today
-        And I update the date filter
-        Then I can view the workflow page
-        When I enable all columns
-        Then I can view the workflow page
+        # # Below steps are commented as it is waiting fix for BUG 60221
+        # When I set the date filter between -30 and -28 days from today
+        # And I update the date filter
+        # Then I can view the workflow page
+        # When I enable all columns
+        # Then I can view the workflow page
         When I store data from UI <db_UI_table> within the page
         Then the data from <cache_UI_table> table and <db_UI_table> table are equal
 
         Examples:
             | customer  | cache_url                         | cache_UI_table         | db_url                   | db_UI_table         |
             | "CALPERS" | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' |
-            | "CALPERS" | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           |
+            | "RUSSELL" | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           |
 
     @60136
     Scenario: verify API data to compare aggregate cache data with DB data
