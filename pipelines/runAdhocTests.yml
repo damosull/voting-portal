@@ -64,7 +64,7 @@ jobs:
       - task: PublishPipelineArtifact@1
         displayName: 'Publish Failure Screenshots'
         inputs:
-          targetPath: 'test-results/screenshots'
+          targetPath: 'test-screenshots'
           artifact: 'Screenshots-Run$(System.JobAttempt)-Instance$(System.JobPositionInPhase)'
         continueOnError: true
         condition: failed()
