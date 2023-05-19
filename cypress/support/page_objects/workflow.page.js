@@ -280,6 +280,10 @@ class workflowPage {
 	}
 
 	//Common Functions
+	waitForWorkflowSpinner() {
+		this.getLoadingSpinner(15000).should('exist');
+	}
+
 	waitForWorkflowPageLoad() {
 		this.getLoadingSpinner(90000).should('not.exist');
 	}
