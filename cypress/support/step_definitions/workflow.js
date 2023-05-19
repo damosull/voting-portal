@@ -765,8 +765,7 @@ Then('I can see data source title {string} is visible', (title) => {
 
 When('I store data from UI {string} within the page', (table) => {
 	workflowPage.waitForWorkflowPageLoad();
-	//Below line is commented as it is waiting fix for BUG 60221
-	//workflowPage.hiddenData().invoke('remove');
+	workflowPage.hiddenData().invoke('remove');
 	workflowPage.tableRows().invoke('text').as(`${table}`);
 	cy.get(`@${table}`).then((tableValue) => {
 		Cypress.env(`${table}`, tableValue);
