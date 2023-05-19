@@ -4,7 +4,7 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: 'npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER --config retries=1,specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature'
+    default: 'npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER --config retries=1,specPattern=cypress/e2e/**/*.feature'
   - name: environment
     displayName: 'Test Environment'
     default: 'aqua'
@@ -12,9 +12,14 @@ parameters:
       - 'aqua'
       - 'ultra'
   - name: runParallel
-    displayName: 'Run Tests In Parallel?'
-    type: boolean
-    default: true
+    displayName: 'Number of parallel instances'
+    type: number
+    default: 5
+    values:
+      - 1
+      - 3
+      - 5
+      - 8
 
 trigger: none
 
@@ -32,10 +37,7 @@ jobs:
     pool:
       name: 'Build Pipelines VMSS - QAUAT'
     strategy:
-      ${{ if eq(parameters.runParallel, true) }}:
-        parallel: 3
-      ${{ else }}:
-        parallel: 1
+      parallel: ${{ parameters.runParallel }}
 
     steps:
       - script: npm ci
