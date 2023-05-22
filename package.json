@@ -19,12 +19,12 @@
 		"prepare": "husky install"
 	},
 	"devDependencies": {
-		"eslint": "8.40.0",
-		"eslint-plugin-cypress": "2.12.1",
+		"eslint": "8.41.0",
+		"eslint-plugin-cypress": "2.13.3",
 		"prettier": "2.8.8"
 	},
 	"dependencies": {
-		"@badeball/cypress-cucumber-preprocessor": "16.0.3",
+		"@badeball/cypress-cucumber-preprocessor": "17.1.1",
 		"@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
 		"cypress": "12.12.0",
 		"cypress-cloud": "1.7.4",
@@ -63,7 +63,10 @@
 		"extends": [
 			"plugin:cypress/recommended",
 			"eslint:recommended"
-		]
+		],
+		"rules": {
+			"cypress/unsafe-to-chain-command": "warn"
+		}
 	},
 	"prettier": {
 		"trailingComma": "es5",
