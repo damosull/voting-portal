@@ -27,12 +27,12 @@ Feature: Meeting Page Comments & Attachments - Share With
     And I should logout from the application
     When I am logged in as the "RUSSELL" User
     And I navigate to the Meeting Details page for the saved meeting ID
-    And I verify that all the relevant API calls for meeting details page are made
+    And I verify that all the relevant API calls for meeting details page are made for "external" user
     Then I should see "0" comments on the UI
     And I should logout from the application
     When I am logged in as the "CALPERS" User
     And I navigate to the Meeting Details page for the saved meeting ID
-    And I verify that all the relevant API calls for meeting details page are made
+    And I verify that all the relevant API calls for meeting details page are made for "external" user
     Then I should see "1" comments on the UI
     And I remove all existing comments
     And I should logout from the application
@@ -57,12 +57,12 @@ Feature: Meeting Page Comments & Attachments - Share With
     When I login via the UI with the user "CALPERS_SAGAR"
     Then I can view the workflow page
     When I navigate to the Meeting Details page for the saved meeting ID
-    And I verify that all the relevant API calls for meeting details page are made
+    And I verify that all the relevant API calls for meeting details page are made for "external" user
     Then I should see "0" comments on the UI
     And I should logout from the application
     When I am logged in as the "CALPERS" User
     And I navigate to the Meeting Details page for the saved meeting ID
-    And I verify that all the relevant API calls for meeting details page are made
+    And I verify that all the relevant API calls for meeting details page are made for "external" user
     Then I should see "1" comments on the UI
     And The notification dropdown "should" contain a notification mentioning "You were mentioned by"
     And I remove all existing comments
@@ -89,13 +89,13 @@ Feature: Meeting Page Comments & Attachments - Share With
     When I login via the UI with the user "CALPERS_SAGAR"
     Then I can view the workflow page
     When I navigate to the Meeting Details page for the saved meeting ID
-    And I verify that all the relevant API calls for meeting details page are made
+    And I verify that all the relevant API calls for meeting details page are made for "external" user
     Then I should see "1" comments on the UI
     And The notification dropdown "should not" contain a notification mentioning "You were mentioned by"
     And I should logout from the application
     When I am logged in as the "CALPERS" User
     And I navigate to the Meeting Details page for the saved meeting ID
-    And I verify that all the relevant API calls for meeting details page are made
+    And I verify that all the relevant API calls for meeting details page are made for "external" user
     Then I should see "1" comments on the UI
     And The notification dropdown "should" contain a notification mentioning "You were mentioned by"
     And I remove all existing comments
@@ -118,7 +118,7 @@ Feature: Meeting Page Comments & Attachments - Share With
     When I login via the UI with the user "CALPERS_SAGAR"
     Then I can view the workflow page
     When I navigate to the Meeting Details page for the saved meeting ID
-    And I verify that all the relevant API calls for meeting details page are made
+    And I verify that all the relevant API calls for meeting details page are made for "external" user
     Then I should see "1" comments on the UI
     When I attach a file to the comment
     And I add a comment and submit
@@ -132,7 +132,7 @@ Feature: Meeting Page Comments & Attachments - Share With
     And I should logout from the application
     When I am logged in as the "CALPERS" User
     And I navigate to the Meeting Details page for the saved meeting ID
-    And I verify that all the relevant API calls for meeting details page are made
+    And I verify that all the relevant API calls for meeting details page are made for "external" user
     Then I should see "0" comments on the UI
     And I should logout from the application
 
@@ -154,7 +154,7 @@ Feature: Meeting Page Comments & Attachments - Share With
     And I should logout from the application
     When I am logged in as the "CALPERS" User
     When I navigate to the Meeting Details page for the saved meeting ID
-    And I verify that all the relevant API calls for meeting details page are made
+    And I verify that all the relevant API calls for meeting details page are made for "external" user
     Then I should see "1" comments on the UI
     And The notification dropdown "should" contain a notification mentioning "You were mentioned by"
     When I delete the existing comment
