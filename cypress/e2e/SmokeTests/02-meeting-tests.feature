@@ -3,7 +3,7 @@ Feature: Meetings related smoke tests
   #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56793
 
   @59875
-  Scenario: Internal user to be able to search for a customer and navigate to a meeting
+  Scenario: Verify internal user to be able to search for a customer and navigate to a meeting
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     When I navigate to the workflow page
     Then I can view the workflow page
@@ -14,48 +14,6 @@ Feature: Meetings related smoke tests
     Then I can view the workflow page
     When I select a random meeting
     Then I can view the Meeting Details page
-    And I should logout from the application
-
-
-  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56824
-  @56824
-  Scenario: Verify that the votes against Glass Lewis are captured in filter criteria
-    Given I am logged in as the "RUSSELL" User
-    When I navigate to the workflow page
-    Then I can view the workflow page
-    And I remove all existing selected criteria
-    When I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting the radio button for "One Against"
-    And I select a random meeting
-    Then I can view the Meeting Details page
-    And the filtered results should display the data only for vote against Glass Lewis
-    And I should logout from the application
-
-
-  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/39049
-  @39049
-  Scenario: Verify that the votes against Management are captured in filter criteria
-    Given I am logged in as the "RUSSELL" User
-    When I navigate to the workflow page
-    Then I can view the workflow page
-    And I remove all existing selected criteria
-    When I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "One Against"
-    And I select a random meeting
-    Then I can view the Meeting Details page
-    And the filtered results should display the data only for vote against Management
-    And I should logout from the application
-
-
-  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56826
-  @56826
-  Scenario: Verify user is able to filter meetings with recommendations pending
-    Given I am logged in as the "WELLINGTON" User
-    When I navigate to the workflow page
-    Then I can view the workflow page
-    And I remove all existing selected criteria
-    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
-    When I select a random meeting
-    Then I can view the Meeting Details page
-    And I can see the Vote, Take No Action and Instruct buttons
     And I should logout from the application
 
 
@@ -76,6 +34,20 @@ Feature: Meetings related smoke tests
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
     And I should be "able" to see "Change Vote or Rationale" on the UI
+    And I should logout from the application
+
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/568235
+  @56835
+  Scenario: Verify external user is able to add comment to each rationale, save it and verify the toast message
+    Given I am logged in as the "ROBECO" User
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    And I remove all existing selected criteria
+    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
+    When I select a random meeting
+    Then I can view the Meeting Details page
+    And I am able to iterate through rationales, add text entry, save and verify toast message for each entry
     And I should logout from the application
 
 
@@ -155,6 +127,48 @@ Feature: Meetings related smoke tests
     And I should logout from the application
 
 
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56824
+  @56824
+  Scenario: Verify that the votes against Glass Lewis are captured in filter criteria
+    Given I am logged in as the "RUSSELL" User
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    And I remove all existing selected criteria
+    When I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting the radio button for "One Against"
+    And I select a random meeting
+    Then I can view the Meeting Details page
+    And the filtered results should display the data only for vote against Glass Lewis
+    And I should logout from the application
+
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/39049
+  @39049
+  Scenario: Verify that the votes against Management are captured in filter criteria
+    Given I am logged in as the "RUSSELL" User
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    And I remove all existing selected criteria
+    When I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "One Against"
+    And I select a random meeting
+    Then I can view the Meeting Details page
+    And the filtered results should display the data only for vote against Management
+    And I should logout from the application
+
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56826
+  @56826
+  Scenario: Verify user is able to filter meetings with recommendations pending
+    Given I am logged in as the "WELLINGTON" User
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    And I remove all existing selected criteria
+    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
+    When I select a random meeting
+    Then I can view the Meeting Details page
+    And I can see the Vote, Take No Action and Instruct buttons
+    And I should logout from the application
+
+
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56833
   @56833
   Scenario: Verify user is able to share a meeting with another user
@@ -180,18 +194,4 @@ Feature: Meetings related smoke tests
     When I select a random meeting
     Then I can view the Meeting Details page
     And I am able to add meeting note and post private comment
-    And I should logout from the application
-
-
-  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/568235
-  @56835
-  Scenario: Verify external user is able to add comment to each rationale, save it and verify the toast message
-    Given I am logged in as the "ROBECO" User
-    When I navigate to the workflow page
-    Then I can view the workflow page
-    And I remove all existing selected criteria
-    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
-    When I select a random meeting
-    Then I can view the Meeting Details page
-    And I am able to iterate through rationales, add text entry, save and verify toast message for each entry
     And I should logout from the application
