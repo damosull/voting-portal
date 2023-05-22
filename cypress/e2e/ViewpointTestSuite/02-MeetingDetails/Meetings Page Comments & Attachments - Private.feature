@@ -57,13 +57,13 @@ Feature: Meeting Page Comments & Attachments - Private
     And I should logout from the application
     When I am logged in as the "CALPERS_SAGAR" User
     And I navigate to the Meeting Details page for the saved meeting ID
-    And I verify that all the relevant API calls for meeting details page are made
+    And I verify that all the relevant API calls for meeting details page are made for "external" user
     Then I should see "0" comments on the UI
     And The notification dropdown "should not" contain a notification mentioning "You were mentioned by"
     And I should logout from the application
     When I am logged in as the "AUTOMATIONEXTERNAL" User
     And I navigate to the Meeting Details page for the saved meeting ID
-    Then I verify that all the relevant API calls for meeting details page are made
+    Then I verify that all the relevant API calls for meeting details page are made for "external" user
     When I edit the comment
     And I amend the privacy dropdown to "Shared With"
     And I amend the shared with field to "nothing"
@@ -75,7 +75,7 @@ Feature: Meeting Page Comments & Attachments - Private
     And I should logout from the application
     When I am logged in as the "CALPERS_SAGAR" User
     And I navigate to the Meeting Details page for the saved meeting ID
-    And I verify that all the relevant API calls for meeting details page are made
+    And I verify that all the relevant API calls for meeting details page are made for "external" user
     Then I should see "1" comments on the UI
     And The notification dropdown "should" contain a notification mentioning "You were mentioned by"
     And I remove all existing comments
