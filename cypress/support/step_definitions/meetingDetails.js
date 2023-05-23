@@ -835,32 +835,12 @@ Then('the following alert is displayed in Vote Tally section {string}', (message
 	meetingDetailsPage.validationMessage().contains(message);
 });
 
-Then('I check the Job Number hyperlink with the Job Number of {string} and {string}', (jobNumberOne, jobNumberTwo) => {
-	meetingDetailsPage.jobNumberLink(jobNumberOne).should('be.visible');
-	meetingDetailsPage.jobNumberLink(jobNumberTwo).should('be.visible');
+Then('I check the Job Number hyperlink with the Job Number of {string}', (jobNumber) => {
+	meetingDetailsPage.jobNumberLink(jobNumber).should('be.visible');
 });
 
 Then('the given agendas appears on the page', () => {
-	var voteCard = [
-		'Elect Alain Bouchard',
-		'Elect Paule Doré',
-		'Elect Julie Godin',
-		'Elect Serge Godin',
-		'Elect André Imbeau',
-		'Elect Gilles Labbé',
-		'Elect Michael B. Pedersen',
-		'Elect Stephen S. Poloz',
-		'Elect Mary Powell',
-		'Elect Alison C. Reed',
-		'Elect Michael E. Roach',
-		'Elect George D. Schindler',
-		'Elect Kathy N. Waller',
-		'Elect Joakim Westh',
-		'Elect Frank Witter',
-		'Appointment of Auditor and Authority to Set Fees',
-		'Shareholder Proposal Regarding Report on Non-Management Employee Representation on the Board',
-		'Shareholder Proposal Regarding French as Official Company Language',
-	];
+	var voteCard = ['Accounts and Reports', 'Appointment of Auditor', 'Adoption of New Articles'];
 
 	voteCard.forEach(function (proposals) {
 		cy.contains(proposals);
