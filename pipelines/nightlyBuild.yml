@@ -14,18 +14,13 @@ jobs:
   - job: ViewpointAutomation
     timeoutInMinutes: 75
     pool:
-      name: 'Build Pipelines VMSS - QAUAT'
+      name: 'VMSS - DEV - QAUAT'
     strategy:
       parallel: 3
     steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: '16.20.0'
-        displayName: 'Install Node.js'
-
       - script: |
           npm ci
-        displayName: 'Install Packages'
+        displayName: 'Install Node Dependencies'
 
       - script: |
           export HTTP_PROXY=http://10.71.1.42:3128
@@ -34,7 +29,7 @@ jobs:
           export cypress_sql_username=$(sql_username)
           export cypress_sql_password=$(sql_password)
           npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER --config specPattern=cypress/e2e/SmokeTests/*.feature
-        displayName: 'Running Cypress Tests'
+        displayName: 'Run Cypress Tests'
 
       - task: PublishPipelineArtifact@1
         displayName: 'Publish Failure Screenshots'
