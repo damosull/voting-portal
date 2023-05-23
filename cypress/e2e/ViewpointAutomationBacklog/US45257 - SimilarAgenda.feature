@@ -10,10 +10,10 @@ Feature: Similar Agendas
     Then I can view the Meeting Details page
     And the given agendas appears on the page
     And the following alert is displayed in Vote Tally section "There are other agendas available for this company. Please review them below:"
-    And I check the Job Number hyperlink with the Job Number of "P93385"
+    And I check the Job Number hyperlink with job number "P93385"
     When I navigate to the URL "/MeetingDetails/Index/1187592"
     Then I can view the Meeting Details page
     And the given agendas appears on the page
     And the following alert is displayed in Vote Tally section "There are other agendas available for this company. Please review them below:"
-    And I check the Job Number hyperlink with the Job Number of "882633"
+    And I check the Job Number hyperlink with job number "882633"
     And I should logout from the application

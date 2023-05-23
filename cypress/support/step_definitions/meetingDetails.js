@@ -835,7 +835,7 @@ Then('the following alert is displayed in Vote Tally section {string}', (message
 	meetingDetailsPage.validationMessage().contains(message);
 });
 
-Then('I check the Job Number hyperlink with the Job Number of {string}', (jobNumber) => {
+Then('I check the Job Number hyperlink with job number {string}', (jobNumber) => {
 	meetingDetailsPage.jobNumberLink(jobNumber).should('be.visible');
 });
 
