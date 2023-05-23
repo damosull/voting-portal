@@ -104,7 +104,7 @@ Feature: Report related tests
         When I navigate to the Reporting page
         And I navigate to the report type page for "Meeting Summary"
         And I filter the report type to "xlsx"
-        And I set the date range to the next or last 10 days
+        And I set the date range to the next or last 14 days
         And I "save" the report for "Meeting Summary"
         When I click on the Download button to download the report
         Then the download initiated toast message appears
@@ -168,7 +168,7 @@ Feature: Report related tests
         When I navigate to the Reporting page
         And I navigate to the report type page for "Proxy Voting Summary"
         And I filter the report type to "xlsx"
-        And I set the date range to the next or last 10 days
+        And I set the date range to the next or last 15 days
         And I "save" the report for "Proxy Voting Summary"
         When I click on the Download button to download the report
         Then the download initiated toast message appears

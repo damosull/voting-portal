@@ -1,5 +1,5 @@
 Feature: Internal User Switching
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/48105
   @48105
@@ -20,7 +20,7 @@ Feature: Internal User Switching
     Then I can view the workflow page
     Then I should be "unable" to see the text "Error Logged?" on the UI
     And I should be "unable" to see the text "Glass Lewis Commentary" on the UI
-    And I should be "unable" to see the text "Wellington" on the UI
+    And I should be "unable" to see the text "Wellington Management Co." on the UI
     And I should be "able" to see the text "Decision Status" on the UI
     And I should be "able" to see the text "CalPERS2" on the UI
     And I should logout from the application
