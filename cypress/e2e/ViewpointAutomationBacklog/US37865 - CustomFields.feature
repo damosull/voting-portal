@@ -26,5 +26,5 @@ Feature: Custom Fields
     And I should logout from the application
 
     Examples:
-      | column_name         | column_value |
-      | "Controversy Alert" | "Yes"        |
+      | column_name        | column_value |
+      | "Meeting Audited?" | "Yes"        |
