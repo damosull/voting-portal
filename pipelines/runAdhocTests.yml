@@ -35,18 +35,13 @@ jobs:
   - job: Viewpoint_Adhoc
     timeoutInMinutes: 120
     pool:
-      name: 'Build Pipelines VMSS - QAUAT'
+      name: 'VMSS - DEV - QAUAT'
     strategy:
       parallel: ${{ parameters.runParallel }}
 
     steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: '16.20.0'
-        displayName: 'Install Node.js'
-
       - script: npm ci
-        displayName: 'Install NPM Dependencies'
+        displayName: 'Install Node Dependencies'
 
       - script: |
           export HTTP_PROXY=http://10.71.1.42:3128
