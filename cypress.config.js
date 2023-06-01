@@ -100,6 +100,7 @@ module.exports = defineConfig({
 	responseTimeout: 30000,
 	pageLoadTimeout: 60000,
 	numTestsKeptInMemory: 2,
+	experimentalMemoryManagement: true,
 	chromeWebSecurity: false,
 	screenshotsFolder: 'test-results/screenshots',
 	videosFolder: 'test-results/videos',
