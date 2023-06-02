@@ -293,12 +293,18 @@ Cypress.Commands.add('loginWithAdmin', (user) => {
 				},
 			}).then((resp) => {
 				expect(resp.status).to.eq(200);
-				const success = resp.body.Succeded;
-				if (!success) {
-					console.log(`Check console for details => User: ${user} ${JSON.stringify(resp.body)}`);
-				}
-				expect(success, `Looks like login failed, try to manually login with user: ${user} & password: ${PASSWORD}`).to
-					.be.true;
+				expect(resp.body.Succeded, `Login failed with user: ${user} & password: ${PASSWORD}`).to.be.true;
+				//clear draft filters saved for the user
+				cy.request({
+					method: 'DELETE',
+					url: '/Home/RemoveDraftFilter',
+
+					headers: {
+						CSRFToken: csrf,
+					},
+				}).then((resp) => {
+					expect(resp.status).to.eq(200);
+				});
 			});
 		});
 });
