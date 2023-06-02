@@ -5,10 +5,9 @@ Feature: Display the Ballot Voting History
   @40606
   Scenario: Verify user is able to configure column actions
     Given I am logged in as the "CALPERS" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
     Then I can view the workflow page
-    When I remove all existing selected criteria
-    Then I should be able to verify the different column actions on the workflow page
+    And I should be able to verify the different column actions on the workflow page
     And I should logout from the application
 
 
@@ -27,9 +26,6 @@ Feature: Display the Ballot Voting History
   @40724
   Scenario: Verify pagination is displayed on the ballot section page
     Given I am logged in as the "RUSSELL" User
-    And I navigate to the workflow page
-    Then I can view the workflow page
-    And I remove all existing selected criteria
     When I navigate to the meeting details page for the meeting "RBNCRP"
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
@@ -41,9 +37,6 @@ Feature: Display the Ballot Voting History
   @40724
   Scenario: Verify chosen pagination is autosaved on the ballot section page
     Given I am logged in as the "RUSSELL" User
-    And I navigate to the workflow page
-    Then I can view the workflow page
-    And I remove all existing selected criteria
     When I navigate to the meeting details page for the meeting "RLNCDRP"
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
@@ -55,9 +48,6 @@ Feature: Display the Ballot Voting History
   @40734
   Scenario: Verify User can Toggle between 'Management' Multiple Agendas in the Vote card page for specific meeting type
     Given I am logged in as the "NEUBERGER" User
-    And I navigate to the workflow page
-    Then I can view the workflow page
-    And I remove all existing selected criteria
     When I navigate to the meeting details page for the meeting "NBCOMMO"
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
@@ -69,14 +59,13 @@ Feature: Display the Ballot Voting History
   @40741
   Scenario: Verify User can see 'Ballot Activity Log' gets updated in the Vote Card page
     Given I am logged in as the "RUSSELL" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
     Then the filtered results should be displayed
     When I select a random meeting
     Then I can view the Meeting Details page
-    And I quick vote "For" on the meeting
+    When I quick vote "For" on the meeting
     And I capture the value of Total Not Voted
     And I click on the Vote button
     And I handle the override pop-up if it exists

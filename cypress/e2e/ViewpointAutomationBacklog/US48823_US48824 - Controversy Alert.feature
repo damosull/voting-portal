@@ -20,9 +20,8 @@ Feature: Controversy Alert
   @50285
   Scenario: Verify that the Controversy File name hyperlink does not display
     Given I am logged in as the "RUSSELL" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I have added the criteria for "Controversy Alert" and selecting the radio button for "No"
     And I have added the column "Controversy Alert"
     And I can view the workflow page

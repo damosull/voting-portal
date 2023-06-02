@@ -38,15 +38,14 @@ Feature: Add/Remove System Watchlist
   @37790
   Scenario: Verify user is able to process Vote, Take No Action and Review Required actions
     Given I am logged in as the "RUSSELL" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
     Then the filtered results should be displayed
     And I save the filter
     When I select a random meeting
     Then I can view the Meeting Details page
-    And I quick vote "For" on the meeting
+    When I quick vote "For" on the meeting
     And I capture the value of Total Not Voted
     And I click on the Vote button
     And I handle the override pop-up if it exists

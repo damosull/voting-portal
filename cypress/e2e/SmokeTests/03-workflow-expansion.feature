@@ -7,8 +7,6 @@ Feature: Verify UI and API's data in workflow-expansion
         When I navigate to the URL <cache_url>
         Then I can see data source title <cache_url> is visible
         And I can view the workflow page
-        When I remove all existing selected criteria
-        Then I can view the workflow page
         When I set the date filter between -30 and -28 days from today
         And I update the date filter
         Then I can view the workflow page
@@ -18,8 +16,6 @@ Feature: Verify UI and API's data in workflow-expansion
         And I navigate to the URL <db_url>
         Then I can see data source title <db_url> is visible
         And I can view the workflow page
-        When I remove all existing selected criteria
-        Then I can view the workflow page
         When I set the date filter between -30 and -28 days from today
         And I update the date filter
         Then I can view the workflow page

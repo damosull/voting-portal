@@ -52,7 +52,6 @@ Feature: Reporting related smoke tests
         Given I am logged in as the "WELLINGTON" User
         When I navigate to the workflow page
         Then I can view the workflow page
-        And I remove all existing selected criteria
         And I have added the criteria for "Decision Status" with status "Recommendations Pending"
         And I select the first available meeting
         And I export the ballot status report
@@ -71,7 +70,6 @@ Feature: Reporting related smoke tests
         Given I am logged in as the "NEUBERGER" User
         When I navigate to the workflow page
         Then I can view the workflow page
-        And I remove all existing selected criteria
         When I select 2 meetings from the top
         And I generate a request for Workflow Export as "csv" for "currently displayed" fields
         Then A toast message appears for "EXPORT_INITIATED"

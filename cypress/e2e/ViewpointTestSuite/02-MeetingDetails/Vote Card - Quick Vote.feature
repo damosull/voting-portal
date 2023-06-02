@@ -7,7 +7,6 @@ Feature: Vote Card - Quick Vote
     Given I am logged in as the "RUSSELL" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I have added the criteria for "Decision Status" with status "Recommendations Available"
     And I arrange the table in "descending" order for "control number"
     And I select a random meeting
@@ -35,7 +34,6 @@ Feature: Vote Card - Quick Vote
     Given I am logged in as the "WELLINGTON" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
     And I arrange the table in "descending" order for "control number"
     And I select the first available meeting
@@ -58,7 +56,6 @@ Feature: Vote Card - Quick Vote
     Given I am logged in as the "CALPERS" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I have added the criteria for "Decision Status" with status "Manual Vote Required"
     And I arrange the table in "descending" order for "control number"
     And I select the first available meeting
@@ -103,7 +100,6 @@ Feature: Vote Card - Quick Vote
     Given I am logged in as the "WELLINGTON" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
     And I arrange the table in "descending" order for "control number"
     And I select a random meeting

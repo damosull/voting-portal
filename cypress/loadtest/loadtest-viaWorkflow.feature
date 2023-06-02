@@ -5,7 +5,6 @@ Feature: Generate Load for Voting on Viewpoint via Workflow page
     Given I am logged in as a random external user
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I set the meetings per page value to <iterations>
     Then I can view the workflow page
     When I select a random meeting

@@ -31,11 +31,6 @@ When('I remove all existing selected criteria', () => {
 	workflowPage.waitForWorkflowPageLoad();
 });
 
-When('I remove all existing selected criteria for the internal user', () => {
-	cy.removeAllExistingSelectedCriteria(true);
-	workflowPage.waitForWorkflowPageLoad();
-});
-
 When('I search for the customer {string}', (customerName) => {
 	workflowPage.selectCustomerShadowInput().click({ force: true }).type('{del}', { force: true });
 	workflowPage.selectCustomerInput().clear({ force: true });

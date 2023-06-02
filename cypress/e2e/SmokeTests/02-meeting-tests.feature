@@ -23,8 +23,6 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "RUSSELL" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    When I remove all existing selected criteria
-    Then I can view the workflow page
     When I select a random meeting
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
@@ -43,9 +41,8 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "ROBECO" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
-    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
-    When I select a random meeting
+    When I have added the criteria for "Decision Status" with status "Recommendations Pending"
+    And I select a random meeting
     Then I can view the Meeting Details page
     And I am able to iterate through rationales, add text entry, save and verify toast message for each entry
     And I should logout from the application
@@ -87,8 +84,6 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "NEUBERGER" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    When I remove all existing selected criteria
-    Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
     And I select a random meeting
     Then I can view the Meeting Details page
@@ -117,8 +112,6 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "CALPERS" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    When I remove all existing selected criteria
-    Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
     And I select a random meeting
     Then I can view the Meeting Details page
@@ -133,7 +126,6 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "RUSSELL" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting the radio button for "One Against"
     And I select a random meeting
     Then I can view the Meeting Details page
@@ -147,7 +139,6 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "RUSSELL" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "One Against"
     And I select a random meeting
     Then I can view the Meeting Details page
@@ -161,9 +152,8 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "WELLINGTON" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
-    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
-    When I select a random meeting
+    When I have added the criteria for "Decision Status" with status "Recommendations Pending"
+    And I select a random meeting
     Then I can view the Meeting Details page
     And I can see the Vote, Take No Action and Instruct buttons
     And I should logout from the application
@@ -189,9 +179,8 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "CHARLESSCHWAB" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
-    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
-    When I select a random meeting
+    When I have added the criteria for "Decision Status" with status "Recommendations Pending"
+    And I select a random meeting
     Then I can view the Meeting Details page
     And I am able to add meeting note and post private comment
     And I should logout from the application

@@ -8,10 +8,9 @@ Feature: Instruct
     Given I am logged in as the "CHARLESSCHWAB" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
-    Then I can view the workflow page
     When I click on the Meeting Date radio button
-    And I set the date filter between 1 and 1 days from today
+    Then I can view the workflow page
+    When I set the date filter between 1 and 1 days from today
     And I update the date filter
     Then I can view the workflow page
     When I select a random meeting
@@ -34,10 +33,9 @@ Feature: Instruct
     Given I am logged in as the "CALPERS" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
-    Then I can view the workflow page
     When I click on the Meeting Date radio button
-    And I set the date filter between 0 and 0 days from today
+    Then I can view the workflow page
+    When I set the date filter between 0 and 0 days from today
     And I update the date filter
     Then I can view the workflow page
     When I select a random meeting
@@ -57,10 +55,9 @@ Feature: Instruct
     Given I am logged in as the "IMF" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
-    Then I can view the workflow page
     When I click on the Meeting Date radio button
-    And I set the date filter as Next 0 days and Past 30 days
+    Then I can view the workflow page
+    When I set the date filter as Next 0 days and Past 30 days
     And I update the date filter
     Then I can view the workflow page
     When I select a random meeting
