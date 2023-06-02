@@ -12,7 +12,6 @@
 #         When I navigate to the URL <cache_url>
 #         Then I can see data source title <cache_url> is visible
 #         And I can view the workflow page
-#         When I remove all existing selected criteria
 #         Then I can view the workflow page
 #         When I set the date filter between -30 and -28 days from today
 #         And I update the date filter

@@ -7,7 +7,6 @@ Feature: Custom Policy Rationale & Custom Policy Rationale & Associated Rulename
     Given I am logged in as the "CALPERS" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
     And I select a random meeting
     Then I can view the Meeting Details page
@@ -29,7 +28,6 @@ Feature: Custom Policy Rationale & Custom Policy Rationale & Associated Rulename
     When I am logged in as the "CALPERS" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "One Against"
     And I select a random meeting
     Then I can view the Meeting Details page
@@ -52,7 +50,6 @@ Feature: Custom Policy Rationale & Custom Policy Rationale & Associated Rulename
     When I am logged in as the "CALPERS" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "One Against"
     And I select a random meeting
     Then I can view the Meeting Details page

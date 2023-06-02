@@ -5,13 +5,12 @@ Feature: Custom Fields
   @37902
   Scenario Outline: Custom Fields work for meetings with no ballots
     Given I am logged in as the "RUSSELL" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
-    And I filter for meetings without ballots
+    When I filter for meetings without ballots
     And I have added the column <column_name>
     And I have added the column "Error Logged?"
-    When I select 5 meetings from the top
+    And I select 5 meetings from the top
     And I scroll to the end of the meetings table
     And I select <column_value> from the Quick Pick dropdown
     And I navigate to the workflow page

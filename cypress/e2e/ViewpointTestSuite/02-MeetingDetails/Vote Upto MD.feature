@@ -8,7 +8,6 @@ Feature: Vote Upto Meeting Date
     Given I am logged in as the "CHARLESSCHWAB" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I click on the Meeting Date radio button
     And I set the date filter as Next 0 days and Past 30 days
     And I update the date filter
@@ -37,7 +36,6 @@ Feature: Vote Upto Meeting Date
     Given I am logged in as the "RUSSELL" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I click on the Meeting Date radio button
     And I set the date filter between 0 and 0 days from today
     And I update the date filter
@@ -65,7 +63,6 @@ Feature: Vote Upto Meeting Date
     Given I am logged in as the "RUSSELL" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I click on the Meeting Date radio button
     And I set the date filter between 1 and 1 days from today
     And I update the date filter
@@ -90,7 +87,6 @@ Feature: Vote Upto Meeting Date
     Given I am logged in as the "RUSSELL" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     When I set the date filter between 0 and 0 days from today
     And I update the date filter
     Then I can view the workflow page

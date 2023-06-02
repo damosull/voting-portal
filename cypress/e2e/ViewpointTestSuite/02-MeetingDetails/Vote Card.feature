@@ -1,5 +1,5 @@
 Feature: Vote Card Tests
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28430
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28430
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28433
   @28433
@@ -7,10 +7,9 @@ Feature: Vote Card Tests
     Given I am logged in as the "CALPERS" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
-    And I have added the criteria for "Decision Status" with status "Voted"
+    When I have added the criteria for "Decision Status" with status "Voted"
     And I have added the criteria for "Customer Account" with status "SWIM"
-    When I select a random meeting
+    And I select a random meeting
     Then I can view the Meeting Details page
     And I can verify that the Account filter has the value "SWIM"
     And I can verify that the vote card summary remains unchanged when user changes the filters on "account"
@@ -45,7 +44,6 @@ Feature: Vote Card Tests
     Given I am logged in as the "ROBECO" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     And I arrange the table in "descending" order for "control number"
     When I select a random meeting
     Then I can view the Meeting Details page
@@ -67,7 +65,6 @@ Feature: Vote Card Tests
     Given I am logged in as the "RUSSELL" User
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Manual Vote Required"
     When I select a random meeting
     Then I can view the Meeting Details page

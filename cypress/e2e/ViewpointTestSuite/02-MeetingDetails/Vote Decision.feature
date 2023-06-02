@@ -7,7 +7,6 @@ Feature: Vote Decision Tests
     Given I am logged in as the "RUSSELL" User
     And I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Manual Vote Required"
     When I select a random meeting
     Then I can view the Meeting Details page
@@ -23,7 +22,6 @@ Feature: Vote Decision Tests
     Given I am logged in as the "ROBECO" User
     And I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     And I select a random meeting
     Then I can view the Meeting Details page
@@ -38,7 +36,6 @@ Feature: Vote Decision Tests
     Given I am logged in as the "CALPERS" User
     And I navigate to the workflow page
     Then I can view the workflow page
-    And I remove all existing selected criteria
     And I have added the criteria for "Decision Status" with status <decision_staus>
     And I navigate to the <company_sequence> meeting
     Then I can view the Meeting Details page
