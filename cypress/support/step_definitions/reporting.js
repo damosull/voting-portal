@@ -222,15 +222,19 @@ const columns_VotingActivityCurrentSelection = [
 
 When('I navigate to the Reporting page', () => {
 	cy.visit('/Reporting');
+	reportingPage.dateRangeDropdown().should('be.visible');
 });
 
-When('I navigate to the report type page for {string}', (report_type) => {
-	cy.selectReportType(report_type);
-});
-
-Then('I select the {string} report', (reportType) => {
+When('I choose the report type to be {string}', (reportType) => {
 	reportingPage.containsText(reportType).click();
 	reportingPage.getLoadingSpinner().should('not.exist');
+	reportingPage.chosenReportLabel().should('contain.text', reportType);
+});
+
+Then('I filter the report type to {string}', (extension) => {
+	reportingPage.reportId().should('be.visible');
+	reportingPage.getLoadingSpinner().should('not.exist');
+	reportingPage.reportId().children().find('select').select(extension.toUpperCase());
 });
 
 When('I expand the Configure Columns section', () => {
@@ -723,11 +727,6 @@ Then('I expand Vote Comparison and select GL Recs Against Mgmt', () => {
 		.should('be.checked');
 	reportingPage.voteComparisonUpdateButton().click();
 	reportingPage.containsText('All meeting agenda items (1)').should('be.visible');
-});
-
-Then('I filter the report type to {string}', (extension) => {
-	fileExtension = extension;
-	reportingPage.reportId().children().find('select').should('be.visible').select(fileExtension.toUpperCase());
 });
 
 When('I select Decision Status Criteria', () => {

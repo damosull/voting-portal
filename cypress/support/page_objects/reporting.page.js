@@ -47,6 +47,9 @@ class reportingPage {
 	includeAllButton() {
 		return cy.get('div.btn-container.clearfix > button.blue.small');
 	}
+	chosenReportLabel() {
+		return cy.get('h5[data-bind="text: SelectedReportType().Name"]');
+	}
 	availableColumnsHeader() {
 		return cy.get('#rpt-available-columns-header');
 	}
@@ -55,6 +58,9 @@ class reportingPage {
 	}
 	selectedColumns() {
 		return cy.get('#rpt-selected-columns > div > table > tbody > tr');
+	}
+	dateRangeDropdown() {
+		return cy.get('#btn-date-modal');
 	}
 	dateRangeModal() {
 		return cy.get('.date-range-target');

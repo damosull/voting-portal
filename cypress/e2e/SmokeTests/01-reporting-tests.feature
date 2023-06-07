@@ -7,7 +7,7 @@ Feature: Reporting related smoke tests
     Scenario: Report - Voting Activity
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
-        And I navigate to the report type page for "Voting Activity"
+        And I choose the report type to be "Voting Activity"
         And I filter the report type to "xlsx"
         And I set the date range to the next or last 3 days
         And I select Decision Status Criteria
@@ -34,7 +34,7 @@ Feature: Reporting related smoke tests
     Scenario: Generate ballot vote data report, download and verify file headers
         Given I am logged in as the "PUTNAM" User
         When I navigate to the Reporting page
-        And I navigate to the report type page for "Ballot Vote Data"
+        And I choose the report type to be "Ballot Vote Data"
         And I set the meeting date to next date 1 and past date 1 days
         And I select "Ballot Voted Date" column
         And I "save" the report for "Ballot Vote Data"

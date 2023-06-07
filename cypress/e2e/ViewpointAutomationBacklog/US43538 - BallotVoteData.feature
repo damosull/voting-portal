@@ -16,7 +16,7 @@ Feature: Ballot Vote Data Report
     And I should logout from the application
     Given I am logged in as the "RUSSELL" User
     And I navigate to the Reporting page
-    And I select the "Ballot Vote Data" report
+    And I choose the report type to be "Ballot Vote Data"
     When I expand the Configure Columns section
     Then I can verify that the "ACSI" column should "not be visible"
     And I should logout from the application
@@ -36,7 +36,7 @@ Feature: Ballot Vote Data Report
     And I should logout from the application
     Given I am logged in as the "RUSSELL" User
     And I navigate to the Reporting page
-    And I select the "Ballot Vote Data" report
+    And I choose the report type to be "Ballot Vote Data"
     When I expand the Configure Columns section
     Then I can verify that the "ACSI" column should "be visible"
     And I should logout from the application
