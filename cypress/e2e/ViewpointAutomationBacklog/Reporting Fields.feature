@@ -25,7 +25,7 @@ Feature: Report related tests
     Scenario: Generate Ballot Status Report, download and verify file headers
         Given I am logged in as the "CHARLESSCHWAB" User
         When I navigate to the Reporting page
-        And I choose the report type to be "Ballot Status"
+        And I choose the report type "Ballot Status"
         And I filter the report type to "xlsx"
         And I set the date range to the next or last 7 days
         Then I "save" the report for "Ballot Status"
@@ -45,7 +45,7 @@ Feature: Report related tests
     Scenario: Generate Ballot Vote Data Report, download and verify file headers
         Given I am logged in as the "OPERS" User
         When I navigate to the Reporting page
-        And I choose the report type to be "Ballot Vote Data"
+        And I choose the report type "Ballot Vote Data"
         And I set the meeting date to next date 2 and past date 5 days
         And I select "Ballot Voted Date" column
         And I "save" the report for "Ballot Vote Data"
@@ -62,7 +62,7 @@ Feature: Report related tests
     Scenario: Create Ballot Vote Subscription entry and validate in SB_Subscription Database table
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
-        And I choose the report type to be "Ballot Vote Data"
+        And I choose the report type "Ballot Vote Data"
         And I "save" the report for "Ballot Vote Data"
         And I Add Subscription
         And I select Calpers External Admin from Users list on reporting page
@@ -81,7 +81,7 @@ Feature: Report related tests
     Scenario: Generate Engagement report, download and verify file headers
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
-        And I choose the report type to be "Engagement"
+        And I choose the report type "Engagement"
         And I set the meeting date to next date 5 and past date 5 days
         And I click on the Update button
         And I add all the columns
@@ -97,7 +97,7 @@ Feature: Report related tests
     Scenario: Generate Meeting Summary Report, download and verify file headers
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
-        And I choose the report type to be "Meeting Summary"
+        And I choose the report type "Meeting Summary"
         And I filter the report type to "xlsx"
         And I set the date range to the next or last 14 days
         And I "save" the report for "Meeting Summary"
@@ -117,7 +117,7 @@ Feature: Report related tests
     Scenario: Generate Policy Report, download and verify file headers
         Given I am logged in as the "RUSSELL" User
         When I navigate to the Reporting page
-        And I choose the report type to be "Policy"
+        And I choose the report type "Policy"
         And I filter the report type to "xlsx"
         Then I set the first available Policy ID as the filter for Policy report
         And I "save" the report for "Policy"
@@ -137,7 +137,7 @@ Feature: Report related tests
     Scenario: Generate Proxy Voting Report, download and verify file headers
         Given I am logged in as the "CHARLESSCHWAB" User
         When I navigate to the Reporting page
-        And I choose the report type to be "Proxy Voting"
+        And I choose the report type "Proxy Voting"
         And I filter the report type to "xlsx"
         And I select the past 7 days
         And I expand Vote Comparison and select GL Recs Against Mgmt
@@ -158,7 +158,7 @@ Feature: Report related tests
     Scenario: Generate Proxy Voting Summary Report, download and verify file headers
         Given I am logged in as the "OPERS" User
         When I navigate to the Reporting page
-        And I choose the report type to be "Proxy Voting Summary"
+        And I choose the report type "Proxy Voting Summary"
         And I filter the report type to "xlsx"
         And I set the date range to the next or last 15 days
         And I "save" the report for "Proxy Voting Summary"
@@ -176,7 +176,7 @@ Feature: Report related tests
     Scenario: Generate Vote Results Report, download and verify file headers
         Given I am logged in as the "OPERS" User
         When I navigate to the Reporting page
-        And I choose the report type to be "Vote Results"
+        And I choose the report type "Vote Results"
         And I set the date range to the next or last 7 days
         And I "save" the report for "Vote Results"
         When I click on the Download button to download the report
@@ -192,9 +192,9 @@ Feature: Report related tests
     Scenario: Generate Voting Activity Report, download and verify file headers
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
-        And I choose the report type to be "Voting Activity"
+        And I choose the report type "Voting Activity"
         And I filter the report type to "xlsx"
-        And I set the date range to the next or last 2 days
+        And I set the date range to the next or last 7 days
         And I select Decision Status Criteria
         And I select Voted criteria
         And I add columns to the report

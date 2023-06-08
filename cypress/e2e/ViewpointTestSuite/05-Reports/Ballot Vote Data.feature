@@ -6,7 +6,7 @@ Feature: Ballot Vote Data
     Scenario: Ballot vote data report - fields options
         Given I am logged in as the "CALPERS" User
         When I navigate to the Reporting page
-        And I choose the report type to be "Ballot Vote Data"
+        And I choose the report type "Ballot Vote Data"
         And I expand the Configure Columns section
         Then I verify that the mandatory fields cannot be removed from the configuration for Ballot Vote Data Report
         And I verify the default field list for current selection for Ballot Vote Data Report
