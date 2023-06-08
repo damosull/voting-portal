@@ -26,7 +26,7 @@
 	"dependencies": {
 		"@badeball/cypress-cucumber-preprocessor": "17.2.1",
 		"@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
-		"cypress": "12.13.0",
+		"cypress": "12.14.0",
 		"cypress-cloud": "1.7.4",
 		"cypress-multi-reporters": "1.6.3",
 		"cypress-sql-server": "1.0.0",
