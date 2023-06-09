@@ -225,7 +225,7 @@ When('I navigate to the Reporting page', () => {
 	reportingPage.dateRangeDropdown().should('be.visible');
 });
 
-When('I navigate to the report type {string}', (reportType) => {
+When('I navigate to the report type page for {string}', (reportType) => {
 	reportingPage.containsText(reportType).click();
 	reportingPage.getLoadingSpinner().should('not.exist');
 	reportingPage.chosenReportLabel().should('contain.text', reportType);
