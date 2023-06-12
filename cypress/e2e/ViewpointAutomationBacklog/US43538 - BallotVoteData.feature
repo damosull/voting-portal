@@ -1,6 +1,6 @@
 Feature: Ballot Vote Data Report
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
-#User Story - https://dev.azure.com/glasslewis/Development/_workitems/edit/43538
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
+  #User Story - https://dev.azure.com/glasslewis/Development/_workitems/edit/43538
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/43546
   @43546
@@ -16,7 +16,7 @@ Feature: Ballot Vote Data Report
     And I should logout from the application
     Given I am logged in as the "RUSSELL" User
     And I navigate to the Reporting page
-    And I select the "Ballot Vote Data" report
+    And I navigate to the report type page for "Ballot Vote Data"
     When I expand the Configure Columns section
     Then I can verify that the "ACSI" column should "not be visible"
     And I should logout from the application
@@ -36,7 +36,7 @@ Feature: Ballot Vote Data Report
     And I should logout from the application
     Given I am logged in as the "RUSSELL" User
     And I navigate to the Reporting page
-    And I select the "Ballot Vote Data" report
+    And I navigate to the report type page for "Ballot Vote Data"
     When I expand the Configure Columns section
     Then I can verify that the "ACSI" column should "be visible"
     And I should logout from the application

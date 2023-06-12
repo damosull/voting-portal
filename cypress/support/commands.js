@@ -530,19 +530,6 @@ Cypress.Commands.add('parseXlsx', (inputFile) => {
 	return cy.task('parseXlsx', { filePath: inputFile });
 });
 
-Cypress.Commands.add('selectReportType', (report) => {
-	cy.get('#workflow-filter-list > div > ul > li').then(($rows) => {
-		$rows.each((index, value) => {
-			const input = report;
-			const reportType = Cypress.$(value).find(`a > span`).text();
-			if (reportType === input) {
-				cy.get(`#workflow-filter-list > div > ul > li:nth-child(${index + 1}) > a > span`).click();
-				return false;
-			}
-		});
-	});
-});
-
 Cypress.Commands.add('saveFilter', (filterName) => {
 	cy.contains('Save As').click();
 	cy.get('#popupTextContainer').should('be.visible').type(filterName);

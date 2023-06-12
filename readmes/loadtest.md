@@ -22,6 +22,37 @@ B) Bypass Workflow Page:
 4. Logout
 5. Repeat this over and over
 
+NOTE: For Bypass Workflow Page, please remember to update the list of meetings in fixtures/meetings.json file. How to do it?
+1. Connect to DB of the test environment
+2. Run the below query:<br/>
+_USE GLP;
+select distinct m.meetingid as meetingId, u.* from PX_Meeting m 
+	join px_Agenda a on m.meetingid = a.meetingid
+	join PX_Ballot b on b.AgendaID = a.AgendaID
+	join AM_Account ac on ac.accountid = b.accountid
+	join (
+		select LoginID as emailId, CustomerID from um_user u
+			join aa_customerdivision cd on u.CustomerDivisionID = cd.CustomerDivisionID
+		where loginid in
+		('CalpersAutomation@glasslewis.com',
+		  'CharlesSchwabAutomation@glasslewis.com',
+		  'EvelynAutomation@glasslewis.com',
+		  'FederatedAutomation@glasslewis.com',
+		  'IFMAutomation@glasslewis.com',
+		  'NeubergerAutomation@glasslewis.com',
+		  'OpersAutomation@glasslewis.com',
+		  'PutnamAutomation@glasslewis.com',
+		  'RobecoAutomation@glasslewis.com',
+		  'RoyalLondonAutomation@glasslewis.com',
+		  'RussellAutomation@glasslewis.com',
+		  'WellingtonAutomation@glasslewis.com')) u on u.CustomerID = ac.CustomerID
+	where ISNULL(b.SubCustodianCutOffDate, m.MeetingDate) > getdate()+13_
+<br/>
+3. Copy the results, including the header
+4. Convert this data into a json, using any csvtojson tool or website.
+5. Replace the data in the meetings.json with the converted data.
+6. Commit this change on a new branch and run the tests on this branch.
+
 ## Tech behind it?
 
 We have built a customized test script to perform the above actions. We then use a combination of docker images and docker-compose to start multiple containers at once so that the application has several parallel users voting at the same time. Our current VMSS infrastructure has been tested to support up to thirty parallel sessions.

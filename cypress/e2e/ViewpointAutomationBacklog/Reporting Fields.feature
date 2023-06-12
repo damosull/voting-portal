@@ -1,7 +1,7 @@
 @37986 @37990
 Feature: Report related tests
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
-#TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
+    #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
+    #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37986
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37972
     @37972
@@ -18,7 +18,6 @@ Feature: Report related tests
         When I click on the notification toolbar
         And I "verify ready for download of" the report for "Ballot Reconciliation"
         Then I verify the report name and headers for Ballot Reconciliation Report
-        And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37971
@@ -39,7 +38,6 @@ Feature: Report related tests
         And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Ballot Status Report
-        And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
@@ -57,7 +55,6 @@ Feature: Report related tests
         When I click on the notification toolbar
         And I "verify ready for download of" the report for "Ballot Vote Data"
         And I verify the report name and headers for Ballot Vote Data Report
-        And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40409
@@ -77,7 +74,6 @@ Feature: Report related tests
         And I verify Column data for UserIds and Filename
         And I remove Subscription entry from Viewpoint on reporting page
         And I "delete" the report for "Ballot Vote Data"
-        And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37963
@@ -96,7 +92,6 @@ Feature: Report related tests
         When I click on the notification toolbar
         And I "verify ready for download of" the report for "Engagement"
         And I verify the report name and headers for Engagement Report
-        And I should logout from the application
 
 
     Scenario: Generate Meeting Summary Report, download and verify file headers
@@ -115,7 +110,6 @@ Feature: Report related tests
         And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Meeting Summary Report
-        And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37988
@@ -136,7 +130,6 @@ Feature: Report related tests
         And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Policy Report
-        And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/38014
@@ -158,7 +151,6 @@ Feature: Report related tests
         And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Proxy Voting Report
-        And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/38778
@@ -179,7 +171,6 @@ Feature: Report related tests
         And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Proxy Voting Summary Report
-        And I should logout from the application
 
 
     Scenario: Generate Vote Results Report, download and verify file headers
@@ -194,7 +185,6 @@ Feature: Report related tests
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Vote Results"
         Then I verify the report name and headers for Vote Results Report
-        And I should logout from the application
 
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
@@ -222,4 +212,3 @@ Feature: Report related tests
         And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Voting Activity Report
-        And I should logout from the application
