@@ -42,6 +42,7 @@ Feature: Analyze Voting Activity
         When I click on the notification toolbar
         Then I "verify ready for download of" the report for "Voting Activity"
         When I download the first report from the notification toolbar
+        And I refresh the page
         And I click on the notification toolbar
         Then I verify the report name and a few columns for Voting Activity Report
         And I should logout from the application
