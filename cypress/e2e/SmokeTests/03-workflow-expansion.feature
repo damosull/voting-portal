@@ -26,7 +26,7 @@ Feature: Verify UI and API's data in workflow-expansion
 
         Examples:
             | customer  | cache_url                         | cache_UI_table         | db_url                   | db_UI_table         |
-            | "CALPERS" | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' |
+            | "EVELYN"  | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' |
             | "CALPERS" | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           |
 
     @60136
