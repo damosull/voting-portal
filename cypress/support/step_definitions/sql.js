@@ -76,24 +76,6 @@ Then('I delete the created test watchlist from database', () => {
 	);
 });
 
-Then('I cleanup the newly created user from the database to reuse the test script', () => {
-	cy.sqlServer(
-		`
-    DELETE FROM GLP.dbo.UM_UserPreferences
-    WHERE userID IN (
-      SELECT userID FROM GLP.dbo.UM_User
-      WHERE LoginID = '` +
-			constants.TESTUSER.CONTACTEMAIL +
-			`'
-      )
-    DELETE FROM GLP.dbo.UM_User
-    WHERE LoginID = '` +
-			constants.TESTUSER.CONTACTEMAIL +
-			`'
-    `
-	);
-});
-
 When('I delete all existing Vote Execution Profiles for the customer with id {int}', (customerID) => {
 	cy.sqlServer(`DELETE FROM GLP.dbo.PX_VP_VoteExecutionProfileVotingGroups WHERE VoteExecutionProfileId in
    (SELECT VoteExecutionProfileId FROM GLP.dbo.PX_VP_VoteExecutionProfiles WHERE CustomerId = '${customerID}')`);

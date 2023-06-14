@@ -24,7 +24,9 @@ Then('I fill the required details for a new user and submit', () => {
 	usersPage.addNewUserButton().click();
 	usersPage.userFirstName().type(constants.TESTUSER.FIRSNAME);
 	usersPage.userLastName().type(constants.TESTUSER.LASTNAME);
-	usersPage.contactEmail().type(constants.TESTUSER.CONTACTEMAIL);
+	cy.randomString(8).then((data) => {
+		usersPage.contactEmail().type(`automation-${data}@glasslewis.com`);
+	});
 	usersPage.userType().select(constants.TESTUSER.TYPE);
 	usersPage.customerNameDropDown().select(constants.TESTUSER.CUSTOMERNAME);
 	usersPage.userRole().select(constants.TESTUSER.ROLE);

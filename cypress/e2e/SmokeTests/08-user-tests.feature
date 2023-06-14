@@ -15,7 +15,6 @@ Feature: User related smoke tests
   @39053
   Scenario: Verify internal user is able to create a new Calpers external user
     Given I am logged in as the "AUTOMATIONINTERNAL" User
-    And I cleanup the newly created user from the database to reuse the test script
     When I navigate to the users page
     And I fill the required details for a new user and submit
     Then the new user should be created successfully
