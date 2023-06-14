@@ -110,13 +110,7 @@ module.exports = defineConfig({
 	screenshotOnRunFailure: true,
 	video: false,
 	videoCompression: 8,
-	reporter: 'cypress-multi-reporters',
-	reporterOptions: {
-		reporterEnabled: 'spec, mocha-junit-reporter',
-		mochaJunitReporterReporterOptions: {
-			mochaFile: 'test-results/tests-output/result-[hash].xml',
-		},
-	},
+	reporter: 'spec',
 	retries: {
 		runMode: 2,
 		openMode: 0,

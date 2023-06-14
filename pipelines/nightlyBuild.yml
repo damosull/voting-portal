@@ -38,13 +38,3 @@ jobs:
           artifact: 'Screenshots-Run$(System.JobAttempt)-Instance$(System.JobPositionInPhase)'
         continueOnError: true
         condition: failed()
-
-      - task: PublishTestResults@2
-        displayName: 'Publish Test Results'
-        inputs:
-          testResultsFormat: 'JUnit'
-          testResultsFiles: '**/result-*.xml'
-          searchFolder: '$(System.DefaultWorkingDirectory)/test-results/tests-output'
-          mergeTestResults: true
-          failTaskOnFailedTests: false
-        condition: succeededOrFailed()
