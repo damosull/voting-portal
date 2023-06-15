@@ -82,7 +82,7 @@ class workflowPage {
 	columnNameInput() {
 		return cy.get('#txt-filter-col-name');
 	}
-	columnListUnCheckbox() {
+	columnListCheckbox() {
 		return cy.get("div[id='mytable'] li:not([style^=display]) input");
 	}
 	columnLabelValue(value) {
