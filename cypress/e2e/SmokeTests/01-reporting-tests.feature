@@ -1,4 +1,4 @@
-@reporting
+@reporting @retries(1)
 Feature: Reporting related smoke tests
     #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56794
 
