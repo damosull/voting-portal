@@ -180,8 +180,7 @@ When('I update the date filter', () => {
 When('I enable all columns', () => {
 	workflowPage.waitForWorkflowPageLoad();
 	workflowPage.columnsListButton().click();
-	workflowPage.columnListCheckbox().check({ force: true });
-	workflowPage.columnListCheckbox().should('be.checked');
+	workflowPage.columnListCheckbox().check({ force: true }).should('be.checked');
 	workflowPage.columnApplyButton().click({ force: true });
 	workflowPage.waitForWorkflowSpinner();
 	workflowPage.waitForWorkflowPageLoad();
