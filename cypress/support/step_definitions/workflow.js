@@ -184,6 +184,7 @@ When('I enable all columns', () => {
 	workflowPage.columnApplyButton().click({ force: true });
 	workflowPage.waitForWorkflowSpinner();
 	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.allColumnHeadingLabel().its('length').should('be.greaterThan', 40);
 });
 
 Then('I click on the Columns dropdown', () => {

@@ -88,6 +88,9 @@ class workflowPage {
 	columnLabelValue(value) {
 		return cy.get(`input[value='${value}']`);
 	}
+	allColumnHeadingLabel() {
+		return cy.get('th');
+	}
 	columnDataTitle(column) {
 		return cy.get(`th[data-title='${column}']`);
 	}
