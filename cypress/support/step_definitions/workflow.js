@@ -627,9 +627,6 @@ When('I apply the policy criteria for one of the policies', () => {
 	cy.wait('@LIST_SERVICE');
 	// Step 3 - User selects one policy from the list (e.g. TCW-TH) & clicks Update
 	cy.addCriteriaStatus([`${workflowPage.workflowFilterData.policy}`]);
-	cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 });
-	cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
-	cy.wait('@GET_AVAILABLE_ASSIGNEES_CUSTOMER');
 });
 
 Then('I click on the control number link', () => {
