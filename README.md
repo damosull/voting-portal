@@ -61,7 +61,7 @@ Using Cucumber tags gives great advantage to run the test cases of your choice. 
 
 **NOTE:** To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline` and put the command under `Build Parameters` and click `Run`
 
-- **Run specific tests from regression suite if you don't know the folders - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/**/\*.feature' --env tags='@28722 or @40724'`**
+- **Run specific tests from regression suite if you don't know the folders - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/**/*.feature' --env tags='@28722 or @40724'`**
 - Run specific test from specific folder - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/02-MeetingDetails/Vote Button - MD6.feature' --env tags='@3289'`
 - Run all tests from specific folder - `npx cypress run --spec 'cypress/e2e/ViewpointTestSuite/02-MeetingDetails/Vote Card.feature'`
 - Run all meeting details regression tests - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/02-MeetingDetails/*.feature'`
