@@ -1,4 +1,4 @@
-@workflow @workflow-expansion @retries(1)
+@workflow @workflow-expansion
 Feature: Verify UI and API's data in workflow-expansion
 
     @59640 @59641
