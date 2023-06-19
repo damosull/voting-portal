@@ -5,6 +5,11 @@ const constants = require('../constants');
 let wfData = [],
 	meetingName;
 
+When('I navigate to the workflow page', () => {
+	cy.visit('/Workflow');
+	cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 120000 });
+});
+
 Then('I can view the workflow page', () => {
 	workflowPage.controlNumberColumnHeader().should('be.visible');
 	workflowPage.waitForWorkflowPageLoad();
@@ -12,11 +17,6 @@ Then('I can view the workflow page', () => {
 	workflowPage.highlightedFilter().should('be.visible');
 	workflowPage.addCriteriaButton().should('be.visible').and('have.text', 'Add Criteria');
 	workflowPage.workflowMenuButton().should('exist');
-});
-
-Then('I navigate to the workflow page', () => {
-	cy.visit('/Workflow');
-	workflowPage.waitForWorkflowSpinner();
 });
 
 Then('I set the filter to Upcoming Meetings', () => {
