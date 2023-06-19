@@ -106,6 +106,5 @@ How to use this locally:
 
 Sorry Cypress Host URLs:
 
-- [Dashboard](https://sorrycypress-dashboard.devops.glasslewis.net/projects)
-- [Director Service](https://sorrycypress-director.devops.glasslewis.net)
-- [API](https://sorrycypress-api.devops.glasslewis.net)
+- [Dashboard](https://sorrycypress-dashboard-devops.glasslewis.net/projects)
+- [Director Service](https://sorrycypress-director-pipeline.devops.glasslewis.net)

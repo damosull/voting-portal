@@ -25,9 +25,11 @@ Feature: Verify UI and API's data in workflow-expansion
         Then the data from <cache_UI_table> table and <db_UI_table> table are equal
 
         Examples:
-            | customer  | cache_url                         | cache_UI_table         | db_url                   | db_UI_table         |
-            | "EVELYN"  | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' |
-            | "CALPERS" | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           |
+            | customer     | cache_url                         | cache_UI_table         | db_url                   | db_UI_table         |
+            | "EVELYN"     | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' |
+            | "CALPERS"    | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           |
+            | "RUSSELL"    | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' |
+            | "WELLINGTON" | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           |
 
     @60136
     Scenario: verify API data to compare aggregate cache data with DB data

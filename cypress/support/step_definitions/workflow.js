@@ -5,6 +5,11 @@ const constants = require('../constants');
 let wfData = [],
 	meetingName;
 
+When('I navigate to the workflow page', () => {
+	cy.visit('/Workflow');
+	cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 120000 });
+});
+
 Then('I can view the workflow page', () => {
 	workflowPage.controlNumberColumnHeader().should('be.visible');
 	workflowPage.waitForWorkflowPageLoad();
@@ -12,11 +17,6 @@ Then('I can view the workflow page', () => {
 	workflowPage.highlightedFilter().should('be.visible');
 	workflowPage.addCriteriaButton().should('be.visible').and('have.text', 'Add Criteria');
 	workflowPage.workflowMenuButton().should('exist');
-});
-
-Then('I navigate to the workflow page', () => {
-	cy.visit('/Workflow');
-	workflowPage.waitForWorkflowSpinner();
 });
 
 Then('I set the filter to Upcoming Meetings', () => {
@@ -180,10 +180,11 @@ When('I update the date filter', () => {
 When('I enable all columns', () => {
 	workflowPage.waitForWorkflowPageLoad();
 	workflowPage.columnsListButton().click();
-	workflowPage.columnListUnCheckbox().check({ force: true });
-	workflowPage.columnApplyButton().click();
+	workflowPage.columnListCheckbox().check({ force: true }).should('be.checked');
+	workflowPage.columnApplyButton().click({ force: true });
 	workflowPage.waitForWorkflowSpinner();
 	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.allColumnHeadingLabel().its('length').should('be.greaterThan', 40);
 });
 
 Then('I click on the Columns dropdown', () => {
@@ -626,9 +627,6 @@ When('I apply the policy criteria for one of the policies', () => {
 	cy.wait('@LIST_SERVICE');
 	// Step 3 - User selects one policy from the list (e.g. TCW-TH) & clicks Update
 	cy.addCriteriaStatus([`${workflowPage.workflowFilterData.policy}`]);
-	cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 });
-	cy.wait('@WORKFLOW_SECURITIES_WATCHLIST');
-	cy.wait('@GET_AVAILABLE_ASSIGNEES_CUSTOMER');
 });
 
 Then('I click on the control number link', () => {
