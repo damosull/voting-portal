@@ -752,7 +752,7 @@ Then('I verify the Workflow Export Report contains data seen on the UI', () => {
 		});
 });
 
-Then('I can see data source title {string} is visible', (title) => {
+Then('I can see data source title for {string} is visible', (title) => {
 	workflowPage.dataSourceTitle().should('be.visible').and('have.text', constants.WORKFLOW_HEADINGS[title]);
 });
 
