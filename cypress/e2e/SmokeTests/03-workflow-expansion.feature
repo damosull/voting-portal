@@ -7,7 +7,7 @@ Feature: Verify UI and API's data in workflow-expansion
         When I navigate to the URL <cache_url>
         Then I can see data source title <cache_url> is visible
         And I can view the workflow page
-        When I set the date filter between -30 and -28 days from today
+        When I set the date filter between <start_date> and <end_date> days from today
         And I update the date filter
         Then I can view the workflow page
         When I enable all columns
@@ -16,7 +16,7 @@ Feature: Verify UI and API's data in workflow-expansion
         And I navigate to the URL <db_url>
         Then I can see data source title <db_url> is visible
         And I can view the workflow page
-        When I set the date filter between -30 and -28 days from today
+        When I set the date filter between <start_date> and <end_date> days from today
         And I update the date filter
         Then I can view the workflow page
         When I enable all columns
@@ -25,11 +25,11 @@ Feature: Verify UI and API's data in workflow-expansion
         Then the data from <cache_UI_table> table and <db_UI_table> table are equal
 
         Examples:
-            | customer     | cache_url                         | cache_UI_table         | db_url                   | db_UI_table         |
-            | "EVELYN"     | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' |
-            | "CALPERS"    | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           |
-            | "RUSSELL"    | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' |
-            | "WELLINGTON" | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           |
+            | customer     | cache_url                         | cache_UI_table         | db_url                   | db_UI_table         | start_date | end_date |
+            | "EVELYN"     | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' | -30        | -28      |
+            | "CALPERS"    | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           | -40        | -38      |
+            | "RUSSELL"    | "WORKFLOW_PERFORMANCE_AGGREGATED" | 'CacheAggregatedTable' | "WORKFLOW_DB_AGGREGATED" | 'DbAggregatedTable' | -15        | -13      |
+            | "WELLINGTON" | "WORKFLOW_PERFORMANCE"            | 'CacheTable'           | "WORKFLOW_DB"            | 'DbTable'           | 0          | 2        |
 
     @60136
     Scenario: verify API data to compare aggregate cache data with DB data
