@@ -350,8 +350,7 @@ Then('I should be able to use the Instruct functionality on the meeting', () => 
 			meetingDetailsPage.proceedButton().click();
 		}
 	});
-	meetingDetailsPage.instructedSuccessMessage().should('be.visible');
-	meetingDetailsPage.getLoadingSpinner().should('not.exist');
+	toastContains('Instructed successfully');
 });
 
 Then('I should be able to use the Take No Action functionality on the meeting', () => {
@@ -366,8 +365,7 @@ Then('I should be able to use the Take No Action functionality on the meeting', 
 			meetingDetailsPage.proceedButton().click();
 		}
 	});
-	meetingDetailsPage.voteSuccessMessage().should('be.visible');
-	meetingDetailsPage.getLoadingSpinner().should('not.exist');
+	toastContains('Vote success');
 });
 
 Then('I should get a popup window with a warning and OK and Cancel buttons', () => {
@@ -440,8 +438,7 @@ Then('The Proceed button should be enabled', () => {
 });
 
 Then('I can see a Vote success message', () => {
-	meetingDetailsPage.voteSuccessMessage().should('be.visible');
-	meetingDetailsPage.getLoadingSpinner().should('not.exist');
+	toastContains('Vote success');
 });
 
 Then('I verify the vote tally section by checking the total votes and hyperlinks', () => {
@@ -1772,8 +1769,7 @@ Then('I should be able to verify the Take No Action functionality for a partiall
 			meetingDetailsPage.proceedButton().click();
 		}
 	});
-	meetingDetailsPage.voteSuccessMessage().should('be.visible');
-	meetingDetailsPage.getLoadingSpinner().should('not.exist');
+	toastContains('Vote success');
 });
 
 Then('I can verify that I cannot enter alphanumeric values in percentage and nominal textboxes', () => {
@@ -1849,4 +1845,11 @@ Then('I verify all the meeting sections have loaded', () => {
 //compare arrays
 function arraysEqual(a1, a2) {
 	return JSON.stringify(a1) == JSON.stringify(a2);
+}
+
+//verify toast message contents
+function toastContains(msg) {
+	meetingDetailsPage.toastMessageDiv().should('be.visible');
+	meetingDetailsPage.toastMessageDiv(2000).should('have.text', msg);
+	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 }
