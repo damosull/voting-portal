@@ -19,20 +19,14 @@ class meetingDetailsPage {
 	containsText(text) {
 		return cy.contains(text);
 	}
-	voteSuccessMessage() {
-		return cy.contains('Vote success');
-	}
-	instructedSuccessMessage() {
-		return cy.contains('Instructed successfully');
-	}
 	glassLewisLogoLink() {
 		return cy.get("a[id='logo-link'] span");
 	}
 	toastMessage() {
 		return cy.get('.toast-message');
 	}
-	toastMessageDiv() {
-		return cy.get('#toast-container');
+	toastMessageDiv(timeout) {
+		return cy.get('#toast-container', { timeout: timeout });
 	}
 	floatingContainer() {
 		return cy.get('.floating-container.clearfix.float-on');

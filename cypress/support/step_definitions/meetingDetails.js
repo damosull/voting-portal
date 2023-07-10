@@ -350,7 +350,8 @@ Then('I should be able to use the Instruct functionality on the meeting', () => 
 			meetingDetailsPage.proceedButton().click();
 		}
 	});
-	meetingDetailsPage.instructedSuccessMessage().should('be.visible');
+	meetingDetailsPage.toastMessageDiv().should('be.visible');
+	meetingDetailsPage.toastMessageDiv(2000).should('have.text', 'Instructed successfully');
 	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 });
 
@@ -366,7 +367,8 @@ Then('I should be able to use the Take No Action functionality on the meeting', 
 			meetingDetailsPage.proceedButton().click();
 		}
 	});
-	meetingDetailsPage.voteSuccessMessage().should('be.visible');
+	meetingDetailsPage.toastMessageDiv().should('be.visible');
+	meetingDetailsPage.toastMessageDiv(2000).should('have.text', 'Vote success');
 	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 });
 
@@ -440,7 +442,8 @@ Then('The Proceed button should be enabled', () => {
 });
 
 Then('I can see a Vote success message', () => {
-	meetingDetailsPage.voteSuccessMessage().should('be.visible');
+	meetingDetailsPage.toastMessageDiv().should('be.visible');
+	meetingDetailsPage.toastMessageDiv(2000).should('have.text', 'Vote success');
 	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 });
 
@@ -1772,7 +1775,8 @@ Then('I should be able to verify the Take No Action functionality for a partiall
 			meetingDetailsPage.proceedButton().click();
 		}
 	});
-	meetingDetailsPage.voteSuccessMessage().should('be.visible');
+	meetingDetailsPage.toastMessageDiv().should('be.visible');
+	meetingDetailsPage.toastMessageDiv(2000).should('have.text', 'Vote success');
 	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 });
 
