@@ -19,15 +19,15 @@
 		"prepare": "husky install"
 	},
 	"devDependencies": {
-		"eslint": "8.43.0",
+		"eslint": "8.44.0",
 		"eslint-plugin-cypress": "2.13.3",
-		"prettier": "2.8.8"
+		"prettier": "3.0.0"
 	},
 	"dependencies": {
 		"@badeball/cypress-cucumber-preprocessor": "18.0.1",
 		"@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
-		"cypress": "12.14.0",
-		"cypress-cloud": "1.7.4",
+		"cypress": "12.17.0",
+		"cypress-cloud": "1.9.1",
 		"cypress-sql-server": "1.0.0",
 		"husky": "8.0.3",
 		"node-stdlib-browser": "1.2.0",
