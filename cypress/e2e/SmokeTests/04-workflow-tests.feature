@@ -7,7 +7,7 @@ Feature: Workflow related smoke tests
   @56848 @skip
   Scenario: Verify that all the meetings for California Public Employee Retirement System have a CalPERS customer id
     Given I am logged in as the "AUTOMATIONINTERNAL" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
     Then I can view the workflow page
     When I search for the customer ""
     Then the Customer Name field is blank
@@ -21,7 +21,7 @@ Feature: Workflow related smoke tests
   @56849
   Scenario: Verify external user is able to navigate to the correct meeting detail and company page
     Given I am logged in as the "CALPERS" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
     Then I can view the workflow page
     When I search for a company on the search bar and choose meetings
     Then I can view the Meeting Details page
@@ -67,7 +67,7 @@ Feature: Workflow related smoke tests
   @40729
   Scenario: Verify ballot section display the correct results when filter is applied from the workflow page
     Given I am logged in as the "WELLINGTON" User
-    And I navigate to the workflow page
+    When I navigate to the workflow page
     Then I can view the workflow page
     When I apply the policy criteria for one of the policies
     And I click on the control number link
@@ -83,8 +83,8 @@ Feature: Workflow related smoke tests
   @56841 @56842 @56843 @56844 @56845 @56846 @56847
   Scenario Outline: Verify user is able to apply the various ESG filters on the workflow page
     Given I am logged in as the "CALPERS" User
-    And I navigate to the workflow page
-    When I have added the filter criteria <filter>
+    When I navigate to the workflow page
+    And I have added the filter criteria <filter>
     Then I should be able to see the results only for <filter>
     And I should logout from the application
 
