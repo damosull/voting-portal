@@ -55,8 +55,14 @@ class workflowPage {
 	companyNameLink() {
 		return cy.get('[data-js="meeting-details-link"]').first();
 	}
+	companyNameLinks() {
+		return cy.get("[id='metaname-CompanyName'] a");
+	}
 	scrollEndButton() {
 		return cy.get('#btn-scroll-end');
+	}
+	systemWatchLists() {
+		return cy.get("[id='metaname-SystemWatchlistsName'] div");
 	}
 	meetingCheckbox() {
 		return cy.get('input[name^="ckbSelMeeting"]');
@@ -150,8 +156,8 @@ class workflowPage {
 	updateWatchListButton() {
 		return cy.get('#md-btn-update-security-watchlists');
 	}
-	watchListCheckbox() {
-		return cy.get('#md-watchlistsEditorItem2783');
+	watchListCheckbox(sytemWatchListId) {
+		return cy.get(`[id="${sytemWatchListId}"]`);
 	}
 	securityWatchListCount() {
 		return cy.get('span[data-bind="text: SecurityWatchlistsCount"]');
@@ -293,6 +299,11 @@ class workflowPage {
 
 	checkFilterCriteria(criteria) {
 		this.columnLabelValue(criteria).check({ force: true });
+	}
+
+	//Pagination Section
+	nextPage() {
+		return cy.get("[title='Go to the next page']");
 	}
 
 	//Constants pertaining to workflow page
