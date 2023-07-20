@@ -1865,7 +1865,6 @@ function arraysEqual(a1, a2) {
 //verify toast message contents
 function toastContains(msg) {
 	meetingDetailsPage.toastMessageDiv().should('be.visible');
-	//Comment this message assertion due to changes from developers
-	// meetingDetailsPage.toastMessageDiv(2000).should('have.text', msg);
+	meetingDetailsPage.toastMessageDiv().should('have.text', msg);
 	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 }

@@ -1,7 +1,6 @@
 import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import dayjs from 'dayjs';
 import workflowPage from '../page_objects/workflow.page';
-import meetingDetailsPage from '../page_objects/meetingDetails.page';
 const constants = require('../constants');
 let wfData = [],
 	meetingName;
@@ -662,13 +661,12 @@ When('I apply the System Watch list for {string}', (client) => {
 });
 
 Then('all the results on the table should belong to "Calpers"', () => {
-	const clickNextPage = () => workflowPage.nextPage().click();
 	const pageLimit = 10;
 	//loop through table and click on meeting that does not have system watch list
 	function loopOverRows(page, rows) {
 		const firstEmptyElementIdx = rows.findIndex((row) => row === '');
 		if (firstEmptyElementIdx < 0) {
-			clickNextPage();
+			workflowPage.nextPage().click();
 			scanOverTableInPage(page + 1);
 		} else {
 			//store meeting name
@@ -688,7 +686,7 @@ Then('all the results on the table should belong to "Calpers"', () => {
 			throw new Error('No matching data was found. Please config data by manually before running the test');
 		}
 		let systemWatchList = [];
-		meetingDetailsPage.getLoadingSpinner().should('not.exist');
+		workflowPage.waitForWorkflowPageLoad();
 		workflowPage
 			.systemWatchLists()
 			.each((element) => {
@@ -716,12 +714,11 @@ When('I apply the System Watch list', () => {
 });
 
 Then('all the results on the table should show relevant System Watch list and Meeting name', () => {
-	const clickNextPage = () => workflowPage.nextPage().click();
 	const pageLimit = 10;
 	function loopOverRows(page, rows) {
 		const configedMeetingNameIndex = rows.findIndex((row) => row === meetingName);
 		if (configedMeetingNameIndex < 0) {
-			clickNextPage();
+			workflowPage.nextPage().click();
 			scanOverTableInPage(page + 1);
 		} else {
 			workflowPage
@@ -741,7 +738,7 @@ Then('all the results on the table should show relevant System Watch list and Me
 			throw new Error('No matching data was found. Please config data by manually before running the test');
 		}
 		let meetingNames = [];
-		meetingDetailsPage.getLoadingSpinner().should('not.exist');
+		workflowPage.waitForWorkflowPageLoad();
 		workflowPage
 			.companyNameLinks()
 			.each((element) => {
@@ -765,13 +762,11 @@ Then('I should be able to deselect the watch list from the previous scenario', (
 Then('I should be able to deselect the system watch list from the workflow page', () => {
 	workflowPage.waitForWorkflowPageLoad();
 
-	const clickNextPage = () => workflowPage.nextPage().click();
 	const pageLimit = 10;
-
 	function loopOverRows(page, rows) {
 		const configedMeetingNameIndex = rows.findIndex((row) => row === meetingName);
 		if (configedMeetingNameIndex < 0) {
-			clickNextPage();
+			workflowPage.nextPage().click();
 			scanOverTableInPage(page + 1);
 		} else {
 			workflowPage
@@ -787,7 +782,7 @@ Then('I should be able to deselect the system watch list from the workflow page'
 			throw new Error('No matching data was found. Please config data by manually before running the test');
 		}
 		let meetingNames = [];
-		meetingDetailsPage.getLoadingSpinner().should('not.exist');
+		workflowPage.waitForWorkflowPageLoad();
 		workflowPage
 			.companyNameLinks()
 			.each((element) => {
