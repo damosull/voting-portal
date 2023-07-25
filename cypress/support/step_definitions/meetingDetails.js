@@ -1453,17 +1453,32 @@ Then('I clear the list of watchlists', () => {
 	cy.url().then((url) => {
 		meetingId = url;
 	});
-	meetingDetailsPage.watchListsDropdown().click({ force: true });
-	meetingDetailsPage.systemWatchListsDiv().each((el) => {
-		cy.wrap(el).find(':checkbox').uncheck({ force: true });
-	});
-	meetingDetailsPage.systemWatchListSecondCheckbox().check({ force: true });
-	meetingDetailsPage.systemWatchListSecondCheckboxLabel().then(function (el) {
-		const syswl = el.text();
-		expect(syswl.includes(`2020 Pay-for-Performance 'F' Grades`)).to.be.true;
-	});
-	meetingDetailsPage.systemWatchListUpdateButton().click({ force: true });
-	meetingDetailsPage.watchListsDropdownLabelNumber().eq(1).should('have.text', '1');
+	meetingDetailsPage
+		.getLoadingSpinner()
+		.should('not.exist')
+		.then(() => {
+			meetingDetailsPage.watchListsDropdown().click({ force: true });
+			meetingDetailsPage.getLoadingSpinner().should('not.exist');
+			meetingDetailsPage.systemWatchListsDiv().each((el) => {
+				cy.wrap(el).find(':checkbox').uncheck({ force: true });
+			});
+			meetingDetailsPage
+				.systemWatchListCheckBox()
+				.eq(0)
+				.invoke('attr', 'id')
+				.then((id) => {
+					Cypress.env('sytemWatchListId', id);
+				});
+			meetingDetailsPage
+				.systemWatchListCheckboxLabel()
+				.eq(0)
+				.then((watchListName) => {
+					Cypress.env('systemWatchListApplied', watchListName.text());
+				});
+			meetingDetailsPage.systemWatchListCheckBox().eq(0).click({ force: true });
+			meetingDetailsPage.systemWatchListUpdateButton().click({ force: true });
+			meetingDetailsPage.watchListsDropdownLabelNumber().eq(1).should('have.text', '1');
+		});
 });
 
 Then('I can verify that {string} is displayed in the {string} field in the ballot section', (value) => {
@@ -1850,6 +1865,6 @@ function arraysEqual(a1, a2) {
 //verify toast message contents
 function toastContains(msg) {
 	meetingDetailsPage.toastMessageDiv().should('be.visible');
-	meetingDetailsPage.toastMessageDiv(2000).should('have.text', msg);
+	meetingDetailsPage.toastMessageDiv().should('have.text', msg);
 	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 }

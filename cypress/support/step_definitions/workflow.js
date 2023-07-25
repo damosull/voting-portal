@@ -661,20 +661,42 @@ When('I apply the System Watch list for {string}', (client) => {
 });
 
 Then('all the results on the table should belong to "Calpers"', () => {
-	workflowPage.tableRows().then(($rows) => {
-		$rows.each((index, value) => {
-			const wlist = Cypress.$(value).find('td#metaname-SystemWatchlistsName > div > span').text();
-			if (wlist === '') {
-				cy.get(`.mCSB_container >table > tbody >tr:nth-child(${index + 1}) > td:nth-child(2) > div > span > a`).then(
-					(meet) => {
-						meetingName = meet.text();
-					}
-				);
-				cy.get(`.mCSB_container >table > tbody >tr:nth-child(${index + 1}) > td:nth-child(2) > div > span > a`).click();
-				return false;
-			}
-		});
-	});
+	//loop through table and click on meeting that does not have system watch list
+	function loopOverRows(page, rows) {
+		const firstEmptyElementIdx = rows.findIndex((row) => row === '');
+		if (firstEmptyElementIdx < 0) {
+			workflowPage.nextPage().click();
+			scanOverTableInPage(page + 1);
+		} else {
+			//store meeting name
+			workflowPage
+				.companyNameLinks()
+				.eq(firstEmptyElementIdx)
+				.then((meeting) => {
+					meetingName = meeting.text();
+				});
+			workflowPage.companyNameLinks().eq(firstEmptyElementIdx).click({ force: true });
+		}
+	}
+
+	//loop through table to get empty system watch list meeting
+	function scanOverTableInPage(page) {
+		if (page > 10) {
+			throw new Error('No matching data was found. Please config data by manually before running the test');
+		}
+		let systemWatchList = [];
+		workflowPage.waitForWorkflowPageLoad();
+		workflowPage
+			.systemWatchLists()
+			.each((element) => {
+				systemWatchList.push(element.text());
+			})
+			.then(() => {
+				loopOverRows(page, systemWatchList);
+			});
+	}
+
+	scanOverTableInPage(1);
 });
 
 When('I apply the System Watch list', () => {
@@ -684,41 +706,91 @@ When('I apply the System Watch list', () => {
 	workflowPage.columnNameInput().clear();
 	workflowPage.columnApplyButton().click({ force: true });
 	cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 });
-	workflowPage.scrollEndButton().click({ waitForAnimations: false });
+	workflowPage.scrollEndButton().click({ force: true }, { waitForAnimations: false });
 	cy.RemoveCriteriaIfExists('#editorDiv10', '#remove-editorDiv10');
 	cy.RemoveCriteriaIfExists('#editorDiv49', '#remove-editorDiv49');
 	cy.RemoveCriteriaIfExists('#editorDiv51', '#remove-editorDiv51');
 });
 
 Then('all the results on the table should show relevant System Watch list and Meeting name', () => {
-	workflowPage.tableRows().then(($rows) => {
-		$rows.each((index, value) => {
-			const mname = Cypress.$(value).find(`td#metaname-CompanyName > div > span > a`).text();
-			if (mname === meetingName) {
-				cy.get(`.mCSB_container >table > tbody >tr:nth-child(${index + 1}) > td:nth-child(2) > div > span > a`).click();
-				return false;
-			}
-		});
-	});
-	workflowPage.watchListDropDownButton().click({ force: true });
-	workflowPage.watchListCheckbox().should('be.checked');
-	workflowPage.securityWatchListCount().eq(1).should('have.text', '1');
+	function loopOverRows(page, rows) {
+		const configedMeetingNameIndex = rows.findIndex((row) => row === meetingName);
+		if (configedMeetingNameIndex < 0) {
+			workflowPage.nextPage().click();
+			scanOverTableInPage(page + 1);
+		} else {
+			workflowPage
+				.systemWatchLists()
+				.eq(configedMeetingNameIndex)
+				.should('have.text', Cypress.env('systemWatchListApplied'));
+			workflowPage.companyNameLinks().eq(configedMeetingNameIndex).click({ force: true });
+			workflowPage.watchListDropDownButton().click({ force: true });
+			workflowPage.watchListCheckbox(Cypress.env('sytemWatchListId')).should('be.checked');
+			workflowPage.securityWatchListCount().eq(1).should('have.text', '1');
+		}
+	}
+
+	//loop through table to get matching meeting
+	function scanOverTableInPage(page) {
+		if (page > 10) {
+			throw new Error('No matching data was found. Please config data by manually before running the test');
+		}
+		let meetingNames = [];
+		workflowPage.waitForWorkflowPageLoad();
+		workflowPage
+			.companyNameLinks()
+			.each((element) => {
+				meetingNames.push(element.text());
+			})
+			.then(() => {
+				loopOverRows(page, meetingNames);
+			});
+	}
+	scanOverTableInPage(1);
 });
 
 Then('I should be able to deselect the watch list from the previous scenario', () => {
 	workflowPage.watchListButton().click({ force: true });
-	workflowPage.watchListCheckbox().uncheck({ force: true });
-	workflowPage.watchListCheckbox().should('not.be.checked');
+	workflowPage.watchListCheckbox(Cypress.env('sytemWatchListId')).uncheck({ force: true });
+	workflowPage.watchListCheckbox(Cypress.env('sytemWatchListId')).should('not.be.checked');
 	workflowPage.updateWatchListButton().click({ force: true });
 	workflowPage.securityWatchListCount().should('have.text', '0');
 });
 
 Then('I should be able to deselect the system watch list from the workflow page', () => {
-	//load workflow page and verify
-	cy.visit('/Workflow');
-	cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 });
-	cy.statusCode200('@WORKFLOW_SECURITIES_WATCHLIST');
 	workflowPage.waitForWorkflowPageLoad();
+
+	function loopOverRows(page, rows) {
+		const configedMeetingNameIndex = rows.findIndex((row) => row === meetingName);
+		if (configedMeetingNameIndex < 0) {
+			workflowPage.nextPage().click();
+			scanOverTableInPage(page + 1);
+		} else {
+			workflowPage
+				.systemWatchLists()
+				.eq(configedMeetingNameIndex)
+				.should('not.have.text', Cypress.env('systemWatchListApplied'));
+		}
+	}
+
+	//loop through table to get matching meeting
+	function scanOverTableInPage(page) {
+		if (page > 10) {
+			throw new Error('No matching data was found. Please config data by manually before running the test');
+		}
+		let meetingNames = [];
+		workflowPage.waitForWorkflowPageLoad();
+		workflowPage
+			.companyNameLinks()
+			.each((element) => {
+				meetingNames.push(element.text());
+			})
+			.then(() => {
+				loopOverRows(page, meetingNames);
+			});
+	}
+	scanOverTableInPage(1);
+
 	//deselect system watch list
 	workflowPage.columnsListButton().click();
 	workflowPage.columnNameInput().type('System Watch List(s)');

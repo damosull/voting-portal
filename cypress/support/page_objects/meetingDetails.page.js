@@ -78,11 +78,11 @@ class meetingDetailsPage {
 	systemWatchListsDiv() {
 		return cy.get('div.clearfix.scrollableContainer.systemListOfWatchlists');
 	}
-	systemWatchListSecondCheckbox() {
-		return cy.get('#md-watchlistsEditorItem2783');
+	systemWatchListCheckBox() {
+		return cy.get("[class='listOfWatchlists floatright'] input[id*='md-watchlistsEditor']");
 	}
-	systemWatchListSecondCheckboxLabel() {
-		return cy.get('#divEditorWl2783 > label');
+	systemWatchListCheckboxLabel() {
+		return cy.get("[class='listOfWatchlists floatright'] label[for*='md-watchlistsEditorItem']");
 	}
 	systemWatchListUpdateButton() {
 		return cy.get('#md-btn-update-security-watchlists');

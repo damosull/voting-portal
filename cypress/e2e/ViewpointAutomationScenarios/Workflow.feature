@@ -1,5 +1,5 @@
 Feature: Add/Remove System Watchlist
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=39057
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=37349&suiteId=39057
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37827
   @37827
@@ -30,7 +30,9 @@ Feature: Add/Remove System Watchlist
     Given I am logged in as the "AUTOMATIONINTERNAL" User
     When I navigate to the Meeting Details page for the saved meeting ID
     Then I should be able to deselect the watch list from the previous scenario
-    And I should be able to deselect the system watch list from the workflow page
+    When I navigate to the workflow page
+    And  I apply the System Watch list for "California Public"
+    Then I should be able to deselect the system watch list from the workflow page
     And I should logout from the application
 
 
