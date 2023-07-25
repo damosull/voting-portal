@@ -78,7 +78,7 @@ class meetingDetailsPage {
 	systemWatchListsDiv() {
 		return cy.get('div.clearfix.scrollableContainer.systemListOfWatchlists');
 	}
-	sytermWatchListCheckBox() {
+	systemWatchListCheckBox() {
 		return cy.get("[class='listOfWatchlists floatright'] input[id*='md-watchlistsEditor']");
 	}
 	systemWatchListCheckboxLabel() {

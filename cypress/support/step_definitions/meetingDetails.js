@@ -1463,7 +1463,7 @@ Then('I clear the list of watchlists', () => {
 				cy.wrap(el).find(':checkbox').uncheck({ force: true });
 			});
 			meetingDetailsPage
-				.sytermWatchListCheckBox()
+				.systemWatchListCheckBox()
 				.eq(0)
 				.invoke('attr', 'id')
 				.then((id) => {
@@ -1475,7 +1475,7 @@ Then('I clear the list of watchlists', () => {
 				.then((watchListName) => {
 					Cypress.env('systemWatchListApplied', watchListName.text());
 				});
-			meetingDetailsPage.sytermWatchListCheckBox().eq(0).click({ force: true });
+			meetingDetailsPage.systemWatchListCheckBox().eq(0).click({ force: true });
 			meetingDetailsPage.systemWatchListUpdateButton().click({ force: true });
 			meetingDetailsPage.watchListsDropdownLabelNumber().eq(1).should('have.text', '1');
 		});
