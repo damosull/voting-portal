@@ -156,8 +156,8 @@ class workflowPage {
 	updateWatchListButton() {
 		return cy.get('#md-btn-update-security-watchlists');
 	}
-	watchListCheckbox(sytemWatchListId) {
-		return cy.get(`[id="${sytemWatchListId}"]`);
+	watchListCheckbox(systemWatchListId) {
+		return cy.get(`[id="${systemWatchListId}"]`);
 	}
 	securityWatchListCount() {
 		return cy.get('span[data-bind="text: SecurityWatchlistsCount"]');
