@@ -71,13 +71,13 @@ Feature: Checking API calls and UI Page load with External user
         Then I verify that all the relevant API calls for manage watchlist page are made
         And I verify that the manage watchlist page has loaded successfully
 
-    @56809
+    @59829
     Scenario: Manage filters page API's and UI page are loading successfully
         When I navigate to the Manage Filters page
         Then I verify that all the relevant API calls for manage filters page are made
         And I verify that the manage filters page for an "external" user has loaded successfully
 
-    @56810
+    @59830
     Scenario: Users Profiles page API's and UI page are loading successfully
         When I navigate to the users profiles page
         Then I verify that all the relevant API calls for users profiles page are made for "external" user
