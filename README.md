@@ -8,11 +8,11 @@ This repo consists of the cypress end-to-end tests for Viewpoint application.
 
 If you want to run automated tests on Viewpoint, but have little or no idea on how to run specific test scripts, then follow below steps. This will help you run specific automated test scripts from the Viewpoint Regression Test Suite, Automation Backlog Test Suite or the Automated Smoke Tests.
 
-To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline`, put the command suggested below under `Build Parameters` and click `Run`
+To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline`, put the command suggested below under `Build Parameters`. Choose the test environment as required and make sure you change the number of parallel instances to 1. Then, Click `Run`.
 
 ## Running any test case from Azure DevOps
 
-- To run specific tests where you know the test ID(can be seen in the test URL), mention the Azure test IDs in this command. For example, if I want to run test case ID 28722 and 50530, the command to use in the `Build Parameters` field would be `npx cypress run --config specPattern='**/*.feature' --env tags='@28722 or @50530'`
+- To run specific tests where you know the test ID(can be seen in the test URL), mention the Azure test IDs in this command. For example, if I want to run test case ID 28722, the command to use in the `Build Parameters` field would be `npx cypress run --env tags=@28722`
 - To run multiple tests, just add those test IDs in the tags section of the above command, eg: `tags='@xyz or @abc or @lmn or @pqr or @fgh'`
 
 <br/>
@@ -22,16 +22,20 @@ To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glass
 Before starting the development of test cases, make sure:
 
 - You have nodejs installed (latest version of Node 16). Can be downloaded from here - https://nodejs.org/en/
-- Once installed, open/reopen your cli tool, eg: powershell / git bash, and run the command `npm install -g yarn`
-- Then, navigate to the project root directory, and run the command `npm install`
+- Once installed, open/reopen your cli tool, eg: powershell / git bash / cmd, and run the command `npm install -g yarn`
+- Clone the repository in your machine. One way to do that is by navigating to the directory where you want the repository on your cli tool, and then running the command `git clone https://glasslewis@dev.azure.com/glasslewis/Development/_git/votingportal-automation-tests`
+- Then, navigate to the project root directory by running `cd votingportal-automation-tests`, and run the command `npm install`
 - Make a copy of the `cypress.env.example.json` file and rename it as `cypress.env.json`
 - In the `cypress.env.json` file, fill the correct DB credentials so that the relevant tests can connect to the test DB instances. Reach out to an existing Test Automation engineer to get the password.
+- Now run `git checkout -b <your_branch_name>` to create your own working branch.
 
 <br/>
 
 # Build and Test
 
 To run cypress, just execute the following command:
+
+**NOTE:** If you want to run the tests on Ultra(UAT), just add this to the end of the command `--env testEnv=ultra`
 
 - `npx cypress open` or `yarn open` - Opens the Cypress Test Runner in interactive mode.
 - `npx cypress run` or `yarn test` - Runs Cypress tests to completion. By default will run all tests headlessly in the Electron browser
@@ -40,15 +44,13 @@ To run cypress, just execute the following command:
 - `npx cypress run --spec "cypress/e2e/SmokeTests/09-filters-tests.feature"` - Runs a specific spec file
 - `npx cypress run --config specPattern="cypress/e2e/ViewpointTestSuite/02-MeetingDetails/*.feature"` - Runs all tests in a specific folder
 
-**NOTE:** To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline` and put the command under `Build Parameters` and click `Run`
+**NOTE:** To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline` and put the command under `Build Parameters`. Choose the test environment as required and make sure you change the number of parallel instances to 1. Then, Click `Run`.
 
 <br/>
 
 # Running With Tags
 
 Using Cucumber tags gives great advantage to run the test cases of your choice. All the tests in this repo have been tagged, either as a set OR as the ID of invidiual test case. You can use the command as seen in below examples.
-
-**NOTE:** With the current version of cucumber preprocessor, the cucumber report will mark the unexecuted tests as `Unknown/Skipped`, and will mark the executed tests as `Passed` or `Failed`. The `Unknown/Skipped` tests can be ignored.
 
 - Run specific test from entire test suite - `npx cypress run --env tags='@40729'`
 - Run multiple tests from entire test suite - `npx cypress run --env tags='@40729 or @3331 or @28433 or @28474'`
@@ -59,13 +61,13 @@ Using Cucumber tags gives great advantage to run the test cases of your choice. 
 
 # Running Viewpoint Regression Tests
 
-**NOTE:** To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline` and put the command under `Build Parameters` and click `Run`
+**NOTE:** To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline` and put the command under `Build Parameters`. Choose the test environment as required and make sure you change the number of parallel instances to 1. Then, Click `Run`.
 
 - **Run specific tests from regression suite if you don't know the folders - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/**/*.feature' --env tags='@28722 or @40724'`**
 - Run specific test from specific folder - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/02-MeetingDetails/Vote Button - MD6.feature' --env tags='@3289'`
 - Run all tests from specific folder - `npx cypress run --spec 'cypress/e2e/ViewpointTestSuite/02-MeetingDetails/Vote Card.feature'`
 - Run all meeting details regression tests - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/02-MeetingDetails/*.feature'`
-- Run entire resgression suite - `npm run regression`
+- Run entire regression suite - `npm run regression`
 
 <br/>
 
