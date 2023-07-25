@@ -661,7 +661,6 @@ When('I apply the System Watch list for {string}', (client) => {
 });
 
 Then('all the results on the table should belong to "Calpers"', () => {
-	const pageLimit = 10;
 	//loop through table and click on meeting that does not have system watch list
 	function loopOverRows(page, rows) {
 		const firstEmptyElementIdx = rows.findIndex((row) => row === '');
@@ -682,7 +681,7 @@ Then('all the results on the table should belong to "Calpers"', () => {
 
 	//loop through table to get empty system watch list meeting
 	function scanOverTableInPage(page) {
-		if (page > pageLimit) {
+		if (page > 10) {
 			throw new Error('No matching data was found. Please config data by manually before running the test');
 		}
 		let systemWatchList = [];
