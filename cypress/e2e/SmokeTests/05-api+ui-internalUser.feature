@@ -84,61 +84,61 @@ Feature: Checking API calls and UI Page load with Internal user
         Then I verify that all the relevant API calls for manage watchlist page are made
         And I verify that the manage watchlist page has loaded successfully
 
-    @56821
+    @59808
     Scenario: MeetingDetails page API's and UI page are loading successfully
         When I navigate to the URL "/MeetingDetails/Index/196/1173535"
         Then I verify that all the relevant API calls for meeting details page are made for "internal" user
         And I verify all the meeting sections have loaded
 
-    @56822
+    @59814
     Scenario: Manage filters page API's and UI page are loading successfully
         When I navigate to the Manage Filters page
         Then I verify that all the relevant API calls for manage filters page are made
         And I verify that the manage filters page for an "internal" user has loaded successfully
 
-    @56823
+    @59800
     Scenario: Users profiles / CustomerID page API's and UI page are loading successfully
         When I navigate to the URL "/Users/UsersProfiles/?CustomerID=690"
         Then I verify that all the relevant API calls for users profiles page are made for "internal" user
         And I verify that the users profiles page has loaded successfully
 
-    @56824
+    @59809
     Scenario: Customer details page API's and UI page are loading successfully
         When I navigate to the URL "/CustomerDetails/?CustomerID=690"
         Then I verify that all the relevant API calls for customer details page are made for "internal" user
         And I verify that the customer details page has loaded successfully for "internal" user
 
-    @56825
+    @59813
     Scenario: Vote execution profile page API's and UI page are loading successfully
         When I navigate to the URL "/Accounts/VEP/?CustomerID=690"
         Then I verify that all the relevant API calls for vote execution profile page are made
         And I verify that the vote execution profile page has loaded successfully
 
-    @56826
+    @59810
     Scenario: Customer profile / CustomFields page API's and UI page are loading successfully
         When I navigate to the URL "/CustomerDetails/CustomFields/?CustomerID=690"
         Then I verify that all the relevant API calls for custom fields page are made
         And I verify that the custom fields page has loaded successfully
 
-    @56827
+    @59811
     Scenario: Customer profile / Rationale library page API's and UI page are loading successfully
         When I navigate to the URL "/CustomerDetails/Rationale/?CustomerID=690"
         Then I verify that all the relevant API calls for rationale page are made
         And I verify that the rationale page has loaded successfully
 
-    @56828
+    @59812
     Scenario: Customer admin group page API's and UI page are loading successfully
         When I navigate to the URL "/CustomerAdminGroups/Index/?CustomerID=690"
         Then I verify that all the relevant API calls for customer admin group page are made
         And I verify that the customer admin group page has loaded successfully
 
-    @56829
+    @59816
     Scenario: Site configuration page API's and UI page are loading as expected
         When I navigate to the URL "/WebDisclosure/SiteConfiguration/?CustomerID=690"
         Then I verify that all the relevant API calls for site configuration page are made
         And I verify that the site configuration page has loaded successfully
 
-    @56830
+    @59817
     Scenario: Accounts page API's and UI page are loading as expected
         When I navigate to the URL "/Accounts/Index/?CustomerID=690"
         Then I verify that all the relevant API calls for accounts page are made
