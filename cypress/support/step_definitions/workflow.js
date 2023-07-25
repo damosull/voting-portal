@@ -713,7 +713,6 @@ When('I apply the System Watch list', () => {
 });
 
 Then('all the results on the table should show relevant System Watch list and Meeting name', () => {
-	const pageLimit = 10;
 	function loopOverRows(page, rows) {
 		const configedMeetingNameIndex = rows.findIndex((row) => row === meetingName);
 		if (configedMeetingNameIndex < 0) {
@@ -733,7 +732,7 @@ Then('all the results on the table should show relevant System Watch list and Me
 
 	//loop through table to get matching meeting
 	function scanOverTableInPage(page) {
-		if (page > pageLimit) {
+		if (page > 10) {
 			throw new Error('No matching data was found. Please config data by manually before running the test');
 		}
 		let meetingNames = [];
@@ -761,7 +760,6 @@ Then('I should be able to deselect the watch list from the previous scenario', (
 Then('I should be able to deselect the system watch list from the workflow page', () => {
 	workflowPage.waitForWorkflowPageLoad();
 
-	const pageLimit = 10;
 	function loopOverRows(page, rows) {
 		const configedMeetingNameIndex = rows.findIndex((row) => row === meetingName);
 		if (configedMeetingNameIndex < 0) {
@@ -777,7 +775,7 @@ Then('I should be able to deselect the system watch list from the workflow page'
 
 	//loop through table to get matching meeting
 	function scanOverTableInPage(page) {
-		if (page > pageLimit) {
+		if (page > 10) {
 			throw new Error('No matching data was found. Please config data by manually before running the test');
 		}
 		let meetingNames = [];
