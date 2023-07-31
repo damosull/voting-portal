@@ -526,8 +526,8 @@ Cypress.Commands.add('AddCriteriaOption', (searchText, inputValue) => {
 	cy.contains('Apply').click({ scrollBehavior: false, force: true });
 });
 
-Cypress.Commands.add('parseXlsx', (inputFile) => {
-	return cy.task('parseXlsx', { filePath: inputFile });
+Cypress.Commands.add('parseXlsx', (inputFile, inputSheet, inputRows) => {
+	return cy.task('parseXlsx', { filePath: inputFile, sheetName: inputSheet, rows: inputRows });
 });
 
 Cypress.Commands.add('saveFilter', (filterName) => {

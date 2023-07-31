@@ -50,10 +50,10 @@ async function setupNodeEvents(on, config) {
 	});
 
 	on('task', {
-		parseXlsx({ filePath }) {
+		parseXlsx({ filePath, sheetName, rows }) {
 			return new Promise((resolve, reject) => {
 				try {
-					const jsonData = xlsx.parse(fs.readFileSync(filePath));
+					const jsonData = xlsx.parse(filePath, { sheets: sheetName, sheetRows: rows });
 					resolve(jsonData);
 				} catch (e) {
 					reject(e);

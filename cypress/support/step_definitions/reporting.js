@@ -369,9 +369,9 @@ Then('I verify the report name and a few columns for Ballot Status Report', () =
 					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
-	cy.parseXlsx(`cypress/downloads/BallotStatusReport_${unixTime}.xlsx`).then((xlxsData) => {
+	cy.parseXlsx(`cypress/downloads/BallotStatusReport_${unixTime}.xlsx`, 'Sheet1').then((xlsxData) => {
 		columns_BVDandPVreports.forEach((fields) => {
-			expect(JSON.stringify(xlxsData)).to.include(fields);
+			expect(JSON.stringify(xlsxData)).to.include(fields);
 		});
 	});
 });
@@ -430,9 +430,9 @@ Then('I verify the report name and a few columns for Meeting Summary Report', ()
 					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
-	cy.parseXlsx(`cypress/downloads/MeetingSummaryReport_${unixTime}.xlsx`).then((xlxsData) => {
+	cy.parseXlsx(`cypress/downloads/MeetingSummaryReport_${unixTime}.xlsx`).then((xlsxData) => {
 		columns_MeetingSummaryReport.forEach((fields) => {
-			expect(JSON.stringify(xlxsData)).to.include(fields);
+			expect(JSON.stringify(xlsxData)).to.include(fields);
 		});
 	});
 });
@@ -452,9 +452,9 @@ Then('I verify the report name and a few columns for Policy Report', () => {
 					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
-	cy.parseXlsx(`cypress/downloads/PolicyReport_${unixTime}.xlsx`).then((xlxsData) => {
+	cy.parseXlsx(`cypress/downloads/PolicyReport_${unixTime}.xlsx`).then((xlsxData) => {
 		columns_PolicyReport.forEach((fields) => {
-			expect(JSON.stringify(xlxsData)).to.include(fields);
+			expect(JSON.stringify(xlsxData)).to.include(fields);
 		});
 	});
 });
@@ -474,15 +474,15 @@ Then('I verify the report name and a few columns for Proxy Voting Report', () =>
 					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
-	cy.parseXlsx(`cypress/downloads/ProxyVotingReport_${unixTime}.xlsx`).then((xlxsData) => {
+	cy.parseXlsx(`cypress/downloads/ProxyVotingReport_${unixTime}.xlsx`).then((xlsxData) => {
 		columns_VotesPVreport.forEach((fields) => {
-			expect(JSON.stringify(xlxsData)).to.include(fields);
+			expect(JSON.stringify(xlsxData)).to.include(fields);
 		});
 		columns_BVDandPVreports.forEach((fields) => {
-			expect(JSON.stringify(xlxsData)).to.include(fields);
+			expect(JSON.stringify(xlsxData)).to.include(fields);
 		});
 		columns_PercentagesPVreport.forEach((fields) => {
-			expect(JSON.stringify(xlxsData)).to.include(fields);
+			expect(JSON.stringify(xlsxData)).to.include(fields);
 		});
 	});
 });
@@ -502,9 +502,9 @@ Then('I verify the report name and a few columns for Proxy Voting Summary Report
 					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
-	cy.parseXlsx(`cypress/downloads/ProxyVotingSummaryReport_${unixTime}.xlsx`).then((xlxsData) => {
+	cy.parseXlsx(`cypress/downloads/ProxyVotingSummaryReport_${unixTime}.xlsx`).then((xlsxData) => {
 		columns_ProxyVotingSummaryReport.forEach((fields) => {
-			expect(JSON.stringify(xlxsData)).to.include(fields);
+			expect(JSON.stringify(xlsxData)).to.include(fields);
 		});
 	});
 });
@@ -542,9 +542,9 @@ Then('I verify the report name and a few columns for Voting Activity Report', ()
 					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
-	cy.parseXlsx(`cypress/downloads/VotingActivityReport_${unixTime}.xlsx`).then((xlxsData) => {
+	cy.parseXlsx(`cypress/downloads/VotingActivityReport_${unixTime}.xlsx`, undefined, 3).then((xlsxData) => {
 		columns_VotingActivityReport.forEach((fields) => {
-			expect(JSON.stringify(xlxsData)).to.include(fields);
+			expect(JSON.stringify(xlsxData)).to.include(fields);
 		});
 	});
 });
@@ -597,9 +597,9 @@ Then('I verify the report name and a few columns for Ballot Status Report genera
 				expect(resp.headers).to.have.property('content-type').eql('application/vnd.ms-excel');
 			});
 		});
-	cy.parseXlsx(`cypress/downloads/BallotStatusReport.xls`).then((xlxsData) => {
+	cy.parseXlsx(`cypress/downloads/BallotStatusReport.xls`).then((xlsxData) => {
 		columns_BallotStatusViaMDReport.forEach((fields) => {
-			expect(JSON.stringify(xlxsData)).to.include(fields);
+			expect(JSON.stringify(xlsxData)).to.include(fields);
 		});
 	});
 });
