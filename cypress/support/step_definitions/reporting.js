@@ -369,7 +369,7 @@ Then('I verify the report name and a few columns for Ballot Status Report', () =
 					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
-	cy.parseXlsx(`cypress/downloads/BallotStatusReport_${unixTime}.xlsx`).then((xlxsData) => {
+	cy.parseXlsx(`cypress/downloads/BallotStatusReport_${unixTime}.xlsx`, 'Sheet1').then((xlxsData) => {
 		columns_BVDandPVreports.forEach((fields) => {
 			expect(JSON.stringify(xlxsData)).to.include(fields);
 		});
@@ -542,7 +542,7 @@ Then('I verify the report name and a few columns for Voting Activity Report', ()
 					.eql('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			});
 		});
-	cy.parseXlsx(`cypress/downloads/VotingActivityReport_${unixTime}.xlsx`).then((xlxsData) => {
+	cy.parseXlsx(`cypress/downloads/VotingActivityReport_${unixTime}.xlsx`, undefined, 3).then((xlxsData) => {
 		columns_VotingActivityReport.forEach((fields) => {
 			expect(JSON.stringify(xlxsData)).to.include(fields);
 		});
