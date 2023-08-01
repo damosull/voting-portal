@@ -21,4 +21,4 @@ Feature: Analyze Voting Activity Report - End to End Tests
 
     Examples:
       | user      | start_date | end_date |
-      | "CALPERS" | -60        | -60      |
+      | "CALPERS" | -49        | -49      |

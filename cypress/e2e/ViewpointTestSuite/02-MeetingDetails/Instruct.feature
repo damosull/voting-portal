@@ -52,7 +52,7 @@ Feature: Instruct
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28498
   @28498
   Scenario: Verify 'Instruct' button will not appear when meeting date has passed
-    Given I am logged in as the "IMF" User
+    Given I am logged in as the "IFM" User
     When I navigate to the workflow page
     Then I can view the workflow page
     When I click on the Meeting Date radio button
