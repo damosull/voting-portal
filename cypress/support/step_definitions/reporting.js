@@ -294,6 +294,12 @@ Then('I select the dates between {int} and {int} days from today', (start_date, 
 	reportingPage.containsText('Update').click();
 });
 
+When('I have added the reporting criteria for {string} with status {string}', (criteria, status) => {
+	cy.AddMultipleCriteria([criteria], true);
+	cy.addCriteriaStatus([status], true);
+	reportingPage.containsText(`${[criteria].toString()} (1)`);
+});
+
 Then('I select {string} column', (column) => {
 	reportingPage.configureColumnsDropdown().click();
 	reportingPage.columnCheckbox(column).click({ force: true });
@@ -556,6 +562,24 @@ Then('I verify the contents on the Voting Activity PDF Report', () => {
 	});
 });
 
+Then('the number of meetings should match in the AVA report', () => {
+	cy.parseXlsx(`cypress/downloads/VotingActivityReport_${unixTime}.xlsx`, 'Meeting_Aggregate', 10).then((xlsxData) => {
+		expect(xlsxData[0].data[9][11]).to.eq(Cypress.env('noOfMeetingsInDB'));
+	});
+});
+
+Then('a random company name from the DB should be available in the AVA report', () => {
+	cy.parseXlsx(`cypress/downloads/VotingActivityReport_${unixTime}.xlsx`, 'Ballot_RawData').then((xlsxData) => {
+		expect(JSON.stringify(xlsxData)).to.include(Cypress.env('companyName'));
+	});
+	cy.parseXlsx(`cypress/downloads/VotingActivityReport_${unixTime}.xlsx`, 'Meeting_RawData').then((xlsxData) => {
+		expect(JSON.stringify(xlsxData)).to.include(Cypress.env('companyName'));
+	});
+	cy.parseXlsx(`cypress/downloads/VotingActivityReport_${unixTime}.xlsx`, 'Proposal_RawData').then((xlsxData) => {
+		expect(JSON.stringify(xlsxData)).to.include(Cypress.env('companyName'));
+	});
+});
+
 Then('I verify the report name and headers for Workflow Export Report {string}', (extension) => {
 	reportingPage
 		.inboxRows()
@@ -729,16 +753,7 @@ Then('I expand Vote Comparison and select GL Recs Against Mgmt', () => {
 	reportingPage.containsText('All meeting agenda items (1)').should('be.visible');
 });
 
-When('I select Decision Status Criteria', () => {
-	cy.AddMultipleCriteria(['Decision Status'], true);
-});
-
-When('I select Voted criteria', () => {
-	cy.addCriteriaStatus(['Voted'], true);
-	reportingPage.containsText(`${['Decision Status'].toString()} (1)`);
-});
-
-Then('I add columns to the report', () => {
+Then('I set minimal columns for the AVA Report', () => {
 	reportingPage.reportColumns().then((columns) => {
 		cy.wrap(columns).find('h3').invoke('attr', 'class', 'toggle');
 		cy.wrap(columns).find('div').invoke('attr', 'style', 'display: block');

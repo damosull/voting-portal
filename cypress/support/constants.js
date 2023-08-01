@@ -16,6 +16,10 @@ export const USER = {
 	WELLINGTON: 'WellingtonAutomation@glasslewis.com',
 };
 
+export const USERID = {
+	CALPERS: 196,
+};
+
 export const PASSWORD = 'Test12345%';
 
 export const TESTUSER = {
