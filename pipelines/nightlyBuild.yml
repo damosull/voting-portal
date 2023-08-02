@@ -28,6 +28,9 @@ jobs:
           export cypress_sql_server=$(sql_server)
           export cypress_sql_username=$(sql_username)
           export cypress_sql_password=$(sql_password)
+          if [ $(environment) == 'aqua' ]; then
+            export cypress_tags="not @sso"
+          fi
           npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER --config specPattern=cypress/e2e/SmokeTests/*.feature
         displayName: 'Run Cypress Tests'
 
