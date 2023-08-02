@@ -35,6 +35,7 @@ Feature: User related smoke tests
 
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/61733
+  #NOTE: This test will not pass in Aqua as SSO services are installed only on Ultra
   @61733 @sso
   Scenario Outline: Verify SSO users are redirected to their relevant organisation page
     Given I am on the SSO Login page
