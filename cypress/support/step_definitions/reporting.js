@@ -580,6 +580,19 @@ Then('a random company name from the DB should be available in the AVA report', 
 	});
 });
 
+Then('a random company name from the DB should be available in the BVD report', () => {
+	// cy.parseXlsx(`cypress/downloads/BallotVoteDataReport_${unixTime}.csv`).then((xlsxData) => {
+	// 	expect(JSON.stringify(xlsxData)).to.include(Cypress.env('companyName'));
+	// });
+	cy.parseXlsx(`cypress/downloads/BallotVoteDataReport_1690905824.csv`).then((xlsxData) => {
+		let companies = [];
+		for (let index = 0; index < xlsxData[0].data.length; index++) {
+			companies.push(xlsxData[0].data[index][2]);
+		}
+		expect(JSON.stringify(companies)).to.include(Cypress.env('companyName'));
+	});
+});
+
 Then('I verify the report name and headers for Workflow Export Report {string}', (extension) => {
 	reportingPage
 		.inboxRows()
