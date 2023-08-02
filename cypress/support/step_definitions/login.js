@@ -134,3 +134,27 @@ Then('I randomly wait between {int} and {int} seconds', (min, max) => {
 	let randomWaitInMilliseconds = Math.floor(Math.random() * (max * 1000 - min * 1000)) + min * 1000;
 	cy.wait(randomWaitInMilliseconds);
 });
+
+Given('I am on the SSO Login page', () => {
+	cy.visit('/ExternalSamlAuth/SamlLogin');
+	loginPage.usernameInput().should('be.visible');
+});
+
+When('I SSO login with the email address {string}', (emailid) => {
+	loginPage.usernameInput().type(emailid);
+	loginPage.signInButton().click();
+});
+
+When('I should be redirected to the {string} login page', (companyName) => {
+	loginPage.ssoConfirmationLabel().should('be.visible');
+	switch (companyName) {
+		case 'BOfA':
+			cy.origin('https://fedsso-pp.bankofamerica.com', () => {
+				cy.url().should('include', '/bofa-customform-ui/login');
+				cy.get("img[alt='Bank of America Logo']").should('be.visible');
+			});
+			break;
+		default:
+			throw new Error('sso customer not recognized!');
+	}
+});

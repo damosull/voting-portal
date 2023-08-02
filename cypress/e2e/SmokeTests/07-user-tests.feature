@@ -1,6 +1,6 @@
 @user
 Feature: User related smoke tests
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56795
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56795
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56839
   @56839
@@ -32,4 +32,16 @@ Feature: User related smoke tests
     Then I should be able to search for the new watchlist
     And I should be able to assign the watchlist successfully
     And I should logout from the application
+
+
+  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/61733
+  @61733 @sso
+  Scenario Outline: Verify SSO users are redirected to their relevant organisation page
+    Given I am on the SSO Login page
+    When I SSO login with the email address <emailid>
+    Then I should be redirected to the <company> login page
+
+    Examples:
+      | emailid                  | company |
+      | "donna.chitman@bofa.com" | "BOfA"  |
 
