@@ -21,7 +21,7 @@
 	"devDependencies": {
 		"eslint": "8.46.0",
 		"eslint-plugin-cypress": "2.13.3",
-		"prettier": "3.0.0"
+		"prettier": "3.0.1"
 	},
 	"dependencies": {
 		"@badeball/cypress-cucumber-preprocessor": "18.0.2",
