@@ -145,16 +145,15 @@ When('I SSO login with the email address {string}', (emailid) => {
 	loginPage.signInButton().click();
 });
 
-When('I should be redirected to the {string} login page', (companyName) => {
-	loginPage.ssoConfirmationLabel().should('be.visible');
-	switch (companyName) {
-		case 'BOfA':
-			cy.origin('https://fedsso-pp.bankofamerica.com', () => {
-				cy.url().should('include', '/bofa-customform-ui/login');
-				cy.get("img[alt='Bank of America Logo']").should('be.visible');
-			});
-			break;
-		default:
-			throw new Error('sso customer not recognized!');
+When('I should be redirected to the Bank Of America login page', () => {
+	//SSO is enabled only in Ultra
+	if (Cypress.env('testEnv') == 'ultra') {
+		loginPage.ssoConfirmationLabel().should('be.visible');
+		cy.origin('https://fedsso-pp.bankofamerica.com', () => {
+			cy.url().should('include', '/bofa-customform-ui/login');
+			cy.get("img[alt='Bank of America Logo']").should('be.visible');
+		});
+	} else {
+		loginPage.usernameInput().should('be.visible');
 	}
 });
