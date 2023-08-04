@@ -1,5 +1,6 @@
 import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import dashboardPage from '../page_objects/dashboard.page';
+import * as dateUtils from '../../utils/date';
 const constants = require('../constants');
 
 When('I navigate to the dashboard page', () => {
@@ -81,39 +82,37 @@ Then('I verify Toast message - Subscription added', () => {
 
 Then('I connect to Aqua Database and verify new row has been added to SB_Subscription table', () => {
 	cy.getAutomationUserIDFromDB(constants.USER.CALPERS).as('userid');
-	const today = new Date().toISOString().slice(0, 10);
 	// Step 11 - Connect to Aqua Database and verify new row has been added to SB_Subscription table
 	cy.executeQuery('SELECT TOP 1 * FROM SB_Subscription ORDER BY SubscriptionID DESC').then((result) => {
-		var cols = [];
-		for (var j = 0; j < result.length; j++) {
-			cols.push(result[j]);
-		}
 		// Step 12 - Verify SB_Subscription table Column data for correct data
-		//verify Active
-		assert.equal(cols[2], 1);
+		// Verify Active
+		expect(result[0].IsActive).to.be.true;
 		// SubscriberID
-		cy.get('@userid').then(function (user_id) {
-			assert.equal(cols[3], user_id);
+		cy.get('@userid').then((uidResult) => {
+			expect(result[0].SubscriberID).to.equal(uidResult[0].UserID);
 		});
 		// Check Frequency XML for schedule
-		expect(cols[9]).to.include('<EveryHours>5</EveryHours>');
+		expect(result[0].Frequency).to.include('<EveryHours>5</EveryHours>');
 		// Customer ID
-		assert.equal(cols[17], 196);
+		expect(result[0].CustomerID).to.equal(196);
 		// Deliver to Everyone = false
-		assert.equal(cols[7], 0);
+		expect(result[0].DeliverToEveryone).to.be.false;
 		// Created date
-		expect(cols[14]).to.include(today);
+		cy.compare2Dates(result[0].CreatedDate, dateUtils.getCurrentTime());
 		// Last Modified date
-		expect(cols[16]).to.include(today);
+		cy.compare2Dates(result[0].LastModifiedDate, dateUtils.getCurrentTime());
 		// Created by
-		cy.get('@userid').then(function (user_id) {
-			assert.equal(cols[13], user_id);
+		cy.get('@userid').then((uidResult) => {
+			expect(result[0].LastModifiedBy).to.equal(uidResult[0].UserID);
 		});
 		// Verify Filename
-		assert.equal(cols[12], 'DashboardTest');
+		expect(result[0].FileName).to.equal('DashboardTest');
 		// Check emailsettings table for Subject,header & footer
-		expect(cols[18]).to.include('{"Subject":"DashboardSubjectTest","Header":"TestHeader","Footer":"TestFooter"}');
-		expect(cols).to.have.length(19); //Total Fields
+		expect(result[0].EmailSettings).to.equal(
+			'{"Subject":"DashboardSubjectTest","Header":"TestHeader","Footer":"TestFooter"}'
+		);
+		// Total Fields
+		expect(Object.keys(result[0]).length).to.equal(19);
 	});
 });
 

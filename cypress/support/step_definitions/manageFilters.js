@@ -1,5 +1,6 @@
 import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import manageFiltersPage from '../page_objects/manageFilters.page';
+import * as dateUtils from '../../utils/date';
 const constants = require('../constants');
 
 When('I navigate to the Manage Filters page', () => {
@@ -53,29 +54,30 @@ Then('I should be able to see a success message for the {string} subscription', 
 });
 
 Then('the subscription is available in the database', () => {
-	const today = new Date().toISOString().slice(0, 10);
 	cy.getAutomationUserIDFromDB(constants.USER.CHARLESSCHWAB).as('userid');
 	//Step 9 - Connect to Aqua Database and verify new row has been added
 	cy.executeQuery('SELECT TOP 1 * FROM FL_Subscription ORDER BY SubscriptionID DESC').then((result) => {
-		var cols = [];
-		for (var j = 0; j < result.length; j++) {
-			cols.push(result[j]);
-		}
-
 		//Step 10 - Verify FL_Subscription table Column data correct data
-		assert.equal(cols[2], 1); //verify Active
-		cy.get('@userid').then(function (uid) {
-			assert.equal(cols[3], uid); //SubscriberID
+		// Verify Active
+		expect(result[0].IsActive).to.be.true;
+		// SubscriberID
+		cy.get('@userid').then((uidResult) => {
+			expect(result[0].UserID).to.equal(uidResult[0].UserID);
 		});
-		assert.equal(cols[4], 397); //Customer ID
-		assert.equal(cols[7], 0); //Deliver to Everyone = false
-		expect(cols[14]).to.include(today); //Created date
-		expect(cols[16]).to.include(today); //Last Modified date
-		cy.get('@userid').then(function (uid) {
-			assert.equal(cols[13], uid); //Created By
+		// Customer ID
+		expect(result[0].CustomerID).to.equal(397);
+		// Deliver to Everyone = false
+		expect(result[0].IsEveryone).to.be.false;
+		// Created date
+		cy.compare2Dates(result[0].CreatedDate, dateUtils.getCurrentTime());
+		// Last Modified date
+		cy.compare2Dates(result[0].LastModifiedDate, dateUtils.getCurrentTime());
+		// Created by
+		cy.get('@userid').then((uidResult) => {
+			expect(result[0].LastModifiedBy).to.equal(uidResult[0].UserID);
 		});
-
-		expect(cols).to.have.length(19); //Total Fields
+		// Total Fields
+		expect(Object.keys(result[0]).length).to.equal(19);
 	});
 });
 

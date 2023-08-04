@@ -650,22 +650,24 @@ Then('I verify Column data for UserIds and Filename', () => {
 	cy.getAutomationUserIDFromDB(constants.USER.CALPERS).as('userid');
 	// Connect to Aqua Database and verify new row has been added
 	cy.executeQuery('SELECT TOP 1 * FROM SB_Subscription ORDER BY SubscriptionID DESC').then((result) => {
-		var cols = [];
-		for (var j = 0; j < result.length; j++) {
-			cols.push(result[j]);
-		}
-		// Verify Column data for UserIds and Filename
-		assert.equal(cols[2], 1); // Verify Active
-		cy.get('@userid').then(function (uid) {
-			assert.equal(cols[3], uid); // SubscriberID
+		// Verify Active
+		expect(result[0].IsActive).to.be.true;
+		// SubscriberID
+		cy.get('@userid').then((uidResult) => {
+			expect(result[0].SubscriberID).to.equal(uidResult[0].UserID);
 		});
-		assert.equal(cols[7], 0); // Deliver to Everyone = false
-		assert.equal(cols[12], 'SubscribeTest'); // Filename
-		cy.get('@userid').then(function (uid) {
-			assert.equal(cols[13], uid); // Created by
+		// Deliver to Everyone = false
+		expect(result[0].DeliverToEveryone).to.be.false;
+		// Verify Filename
+		expect(result[0].FileName).to.equal('SubscribeTest');
+		// Created by
+		cy.get('@userid').then((uidResult) => {
+			expect(result[0].LastModifiedBy).to.equal(uidResult[0].UserID);
 		});
-		assert.equal(cols[17], 196); // Customer ID
-		expect(cols).to.have.length(19); // Total Fields
+		// Customer ID
+		expect(result[0].CustomerID).to.equal(196);
+		// Total Fields
+		expect(Object.keys(result[0]).length).to.equal(19);
 	});
 });
 

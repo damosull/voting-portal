@@ -1,6 +1,4 @@
 import './commands';
-import sqlServer from 'cypress-sql-server';
-sqlServer.loadDBCommands();
 
 Cypress.on('uncaught:exception', () => false);
 
