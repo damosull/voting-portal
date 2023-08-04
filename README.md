@@ -21,7 +21,7 @@ To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glass
 
 Before starting the development of test cases, make sure:
 
-- You have nodejs installed (latest version of Node 16). Can be downloaded from here - https://nodejs.org/en/
+- You have nodejs installed (latest version of Node 18). Can be downloaded from here - https://nodejs.org/en/
 - Once installed, open/reopen your cli tool, eg: powershell / git bash / cmd, and run the command `npm install -g yarn`
 - Clone the repository in your machine. One way to do that is by navigating to the directory where you want the repository on your cli tool, and then running the command `git clone https://glasslewis@dev.azure.com/glasslewis/Development/_git/votingportal-automation-tests`
 - Then, navigate to the project root directory by running `cd votingportal-automation-tests`, and run the command `npm install`

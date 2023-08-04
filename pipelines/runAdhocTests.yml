@@ -40,12 +40,17 @@ jobs:
       parallel: ${{ parameters.runParallel }}
 
     steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '18.17.0'
+        displayName: 'Install Latest Node.js'
+
       - script: npm ci
         displayName: 'Install Node Dependencies'
 
       - script: |
           export HTTP_PROXY=http://10.71.1.42:3128
-          export cypress_url=https://viewpoint.${{ parameters.environment }}.glasslewis.com
+          export cypress_testEnv=${{ parameters.environment }}
           export cypress_sql_username=$(sql_username)
           if [ ${{ parameters.environment }} == 'aqua' ]; then
             export cypress_sql_server=$(aqua_sql_server)  cypress_sql_password=$(aqua_sql_password)

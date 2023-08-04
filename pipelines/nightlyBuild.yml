@@ -18,6 +18,11 @@ jobs:
     strategy:
       parallel: 3
     steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '18.17.0'
+        displayName: 'Install Latest Node.js'
+
       - script: |
           npm ci
         displayName: 'Install Node Dependencies'
