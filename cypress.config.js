@@ -12,6 +12,7 @@ const plugin = require('node-stdlib-browser/helpers/esbuild/plugin');
 
 async function setupNodeEvents(on, config) {
 	config.baseUrl = config.env.url || config.env[config.env.testEnv].url;
+	config.env.testEnv = config.baseUrl.split('.')[1].split('.')[0]; //set environment based on URL
 
 	await cloudPlugin(on, config);
 	await preprocessor.addCucumberPreprocessorPlugin(on, config, {
@@ -21,7 +22,7 @@ async function setupNodeEvents(on, config) {
 
 	on('before:run', () => {
 		fs.emptyDirSync('./test-results');
-		console.log(`INITIATING TESTS ON: ${config.baseUrl} at ${new Date()}`);
+		console.log(`INITIATING TESTS ON: ${config.env.testEnv} at ${new Date()}`);
 		preprocessor.beforeRunHandler(config);
 	});
 
