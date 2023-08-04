@@ -8,11 +8,9 @@ const queryTestDb = (query, config) => {
 		port: 1433,
 		database: 'GLP',
 		options: {
-			trustedConnection: true,
 			encrypt: false,
 			rowCollectionOnRequestCompletion: true,
 			trustServerCertificate: true,
-			validateBulkLoadParameters: true,
 		},
 	};
 	return new Promise((resolve, reject) => {
