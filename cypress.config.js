@@ -2,13 +2,13 @@ const { defineConfig } = require('cypress');
 const { cloudPlugin } = require('cypress-cloud/plugin');
 const fs = require('fs-extra');
 const xlsx = require('node-xlsx').default;
-const sqlServer = require('cypress-sql-server');
 const { readPdf } = require('./cypress/utils/read-pdf');
 const createBundler = require('@bahmutov/cypress-esbuild-preprocessor');
 const preprocessor = require('@badeball/cypress-cucumber-preprocessor');
 const createEsbuildPlugin = require('@badeball/cypress-cucumber-preprocessor/esbuild');
 const stdLibBrowser = require('node-stdlib-browser');
 const plugin = require('node-stdlib-browser/helpers/esbuild/plugin');
+const { queryTestDb } = require('./cypress/utils/queryDB');
 
 async function setupNodeEvents(on, config) {
 	config.baseUrl = config.env.url || config.env[config.env.testEnv].url;
@@ -63,21 +63,11 @@ async function setupNodeEvents(on, config) {
 		},
 	});
 
-	on(
-		'task',
-		sqlServer.loadDBPlugin({
-			userName: config.env.sql_username || config.env[config.env.testEnv].sql_username,
-			password: config.env.sql_password || config.env[config.env.testEnv].sql_password,
-			server: config.env.sql_server || config.env[config.env.testEnv].sql_server,
-			options: {
-				database: 'GLP',
-				encrypt: true,
-				rowCollectionOnRequestCompletion: true,
-				trustServerCertificate: true,
-				validateBulkLoadParameters: true,
-			},
-		})
-	);
+	on('task', {
+		queryDb: (query) => {
+			return queryTestDb(query, config);
+		},
+	});
 
 	on('after:run', async (results) => {
 		if (results) {

@@ -28,8 +28,8 @@
 		"@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
 		"cypress": "12.17.3",
 		"cypress-cloud": "1.9.3",
-		"cypress-sql-server": "1.0.0",
 		"husky": "8.0.3",
+		"mssql": "9.1.1",
 		"node-stdlib-browser": "1.2.0",
 		"node-xlsx": "0.23.0",
 		"pdf-parse": "1.1.1"

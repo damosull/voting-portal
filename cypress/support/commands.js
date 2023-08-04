@@ -1,5 +1,6 @@
 import { API, messages, PASSWORD } from '../support/constants';
 import controversyAlertJsonBody from '../fixtures/controversyAlertBody';
+import * as dateUtils from '../utils/date';
 
 Cypress.Commands.add('SetPaginationAndVerify', (numItemsPerPage, num) => {
 	cy.get('#ballots-grid > div.k-pager-wrap.k-grid-pager.k-widget > span.k-pager-sizes.k-label > span > select').invoke(
@@ -21,7 +22,7 @@ Cypress.Commands.add('SetPaginationAndVerify', (numItemsPerPage, num) => {
 
 //make sure all dates are current with this meeting id
 Cypress.Commands.add('AddTenDaysToMeetingDates', (meetingId) => {
-	cy.executeUpdateQuery(
+	cy.executeQuery(
 		`UPDATE PX_Meeting SET
         MeetingDate = DATEADD(DAY, 10, getdatE()),
         FileProcessingDate = DATEADD(DAY, -1, getdatE()),
@@ -37,7 +38,7 @@ Cypress.Commands.add('AddTenDaysToMeetingDates', (meetingId) => {
 });
 
 Cypress.Commands.add('SetMeetingDateXdaysFromCurrent', (meetingId, days) => {
-	cy.executeUpdateQuery(
+	cy.executeQuery(
 		`UPDATE PX_Meeting SET
         MeetingDate = DATEADD(DAY, ${days}, getdatE()),
         FileProcessingDate = DATEADD(DAY, -1, getdatE()),
@@ -52,13 +53,16 @@ Cypress.Commands.add('SetMeetingDateXdaysFromCurrent', (meetingId, days) => {
 	);
 });
 
-Cypress.Commands.add('executeUpdateQuery', (query) => {
-	// Execute the query only if a SELECT is sent as a parameter
-	if (query.includes('UPDATE')) {
-		cy.sqlServer(query);
-	} else {
-		cy.log('Enter a valid query');
-	}
+Cypress.Commands.add('executeQuery', (query) => {
+	cy.task('queryDb', query).then((result) => {
+		return result.recordset;
+	});
+});
+
+Cypress.Commands.add('compare2Dates', (date1, date2) => {
+	const syncDate1 = dateUtils.convertDate(date1, 'YYYY-MM-DD');
+	const syncDate2 = dateUtils.convertDate(date2, 'YYYY-MM-DD');
+	expect(syncDate1).to.equal(syncDate2);
 });
 
 Cypress.Commands.add('ChangeCustomerSetting', (state, settings, parameter) => {
@@ -535,15 +539,6 @@ Cypress.Commands.add('saveFilter', (filterName) => {
 	cy.get('#popupTextContainer').should('be.visible').type(filterName);
 	cy.get('#apprise-btn-undefined').should('be.visible'); //the ID of this button should be fixed
 	cy.get('#apprise-btn-confirm').click();
-});
-
-Cypress.Commands.add('executeQuery', (query) => {
-	// Execute the query only if a SELECT is sent as a parameter
-	if (query.includes('SELECT')) {
-		cy.sqlServer(query);
-	} else {
-		cy.log('Enter a valid query');
-	}
 });
 
 Cypress.Commands.add('statusCode200', (param) => {
