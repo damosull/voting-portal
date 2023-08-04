@@ -11,7 +11,7 @@ const plugin = require('node-stdlib-browser/helpers/esbuild/plugin');
 const { queryTestDb } = require('./cypress/utils/queryDB');
 
 async function setupNodeEvents(on, config) {
-	config.baseUrl = config.env.url || config.env[config.env.testEnv].url;
+	config.baseUrl = `https://viewpoint.${config.env.testEnv}.glasslewis.com`;
 
 	await cloudPlugin(on, config);
 	await preprocessor.addCucumberPreprocessorPlugin(on, config, {
@@ -107,11 +107,9 @@ module.exports = defineConfig({
 	},
 	env: {
 		testEnv: 'aqua',
-		startTime: new Date(),
 	},
 	e2e: {
 		setupNodeEvents,
-		baseUrl: 'https://viewpoint.aqua.glasslewis.com',
 		specPattern: '**/*.feature',
 	},
 });

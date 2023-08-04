@@ -21,7 +21,7 @@
 	"devDependencies": {
 		"eslint": "8.46.0",
 		"eslint-plugin-cypress": "2.13.3",
-		"prettier": "3.0.0"
+		"prettier": "3.0.1"
 	},
 	"dependencies": {
 		"@badeball/cypress-cucumber-preprocessor": "18.0.2",
@@ -29,7 +29,7 @@
 		"cypress": "12.17.3",
 		"cypress-cloud": "1.9.3",
 		"husky": "8.0.3",
-		"mssql": "9.1.1",
+		"mssql": "9.1.2",
 		"node-stdlib-browser": "1.2.0",
 		"node-xlsx": "0.23.0",
 		"pdf-parse": "1.1.1"
