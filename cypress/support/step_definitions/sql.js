@@ -5,7 +5,7 @@ let query = null;
 Then('I capture meeting ID by running the query {string}', (queryType) => {
 	if (queryType.includes('with specific Proposal Type Code and Recommended By Code')) {
 		query =
-			"SELECT TOP 1 a.meetingid from PX_ProposalRecommendations rec\
+			"SELECT TOP 1 a.MeetingID from PX_ProposalRecommendations rec\
   	join PX_AgendaItem ai on rec.AgendaItemID = ai.AgendaItemID	join PX_Agenda a on a.AgendaID = ai.AgendaID\
     join PX_Ballot b on b.AgendaID = a.AgendaID and b.NoOfShares>0	join AM_Account ac on ac.AccountID = b.AccountID\
     where RecommendedVoteCode like 'inv%' and ProposalTypeCode <> 'D' and RecommendedByCode = 'Management' and CustomerID = '196'\
@@ -19,8 +19,8 @@ Then('I capture meeting ID by running the query {string}', (queryType) => {
     order by MeetingDate desc";
 	}
 
-	cy.executeQuery(query).then((meetingId) => {
-		Cypress.env('meetingId', meetingId);
+	cy.executeQuery(query).then((result) => {
+		Cypress.env('meetingId', result[0].MeetingID);
 	});
 });
 
@@ -50,8 +50,8 @@ Then('I verify that the DB has updated with the absolute amount', () => {
   where m.IsAllowPartialVote ='1' AND Cus.CustomerID = 196 AND YEAR (votedeadlinedate)= 2023\
   and b.AbsoluteAmount = ${Cypress.env('partialVoteNominalAmount')}`;
 
-	cy.executeQuery(query).then((amount) => {
-		expect(amount.toString()).to.equal(Cypress.env('partialVoteNominalAmount'));
+	cy.executeQuery(query).then((result) => {
+		expect(result[0].AbsoluteAmount.toString()).to.equal(Cypress.env('partialVoteNominalAmount'));
 	});
 });
 
@@ -62,13 +62,13 @@ Then('I verify that the absolute amount for the current meeting is correct', () 
   where m.IsAllowPartialVote ='1' AND Cus.CustomerID = 196 AND YEAR (votedeadlinedate)= 2023\
   and m.MeetingID = ${Cypress.env('meetingId')}`;
 
-	cy.executeQuery(query).then((amount) => {
-		expect(Cypress.env('partialVoteNominalAmount')).to.contain(amount);
+	cy.executeQuery(query).then((result) => {
+		expect(Cypress.env('partialVoteNominalAmount')).to.equal(result[0].AbsoluteAmount.toString());
 	});
 });
 
 Then('I delete the created test watchlist from database', () => {
-	cy.sqlServer(
+	cy.executeQuery(
 		`
     DELETE FROM [GLP].[dbo].[PX_WatchListSecurity]
     WHERE WatchListID IN (
@@ -95,9 +95,9 @@ Then('I delete the created test watchlist from database', () => {
 });
 
 When('I delete all existing Vote Execution Profiles for the customer with id {int}', (customerID) => {
-	cy.sqlServer(`DELETE FROM GLP.dbo.PX_VP_VoteExecutionProfileVotingGroups WHERE VoteExecutionProfileId in
+	cy.executeQuery(`DELETE FROM GLP.dbo.PX_VP_VoteExecutionProfileVotingGroups WHERE VoteExecutionProfileId in
    (SELECT VoteExecutionProfileId FROM GLP.dbo.PX_VP_VoteExecutionProfiles WHERE CustomerId = '${customerID}')`);
-	cy.sqlServer(`DELETE FROM GLP.dbo.PX_VP_VoteExecutionProfiles WHERE CustomerId = '${customerID}'`);
+	cy.executeQuery(`DELETE FROM GLP.dbo.PX_VP_VoteExecutionProfiles WHERE CustomerId = '${customerID}'`);
 });
 
 When('I verify all Voting Groups in the DB are visible on the UI', () => {
@@ -110,9 +110,9 @@ When('I verify all Voting Groups in the DB are visible on the UI', () => {
   INNER JOIN AM_Account A ON A.VotingGroupId = AG.AccountGroupId \
   INNER JOIN UM_UserPreferences UP ON A.VotingGroupId=UP.PurposeID AND PurposeCode='VotingGroup' AND AG.CustomerID=187;";
 	cy.executeQuery(query).then((result) => {
-		for (var j = 0; j < result.length; j++) {
-			cy.contains(result[j][1]).should('be.visible');
-		}
+		result.forEach((dbRecord) => {
+			cy.contains(dbRecord.Name).should('be.visible');
+		});
 	});
 });
 
@@ -128,7 +128,7 @@ When('I navigate to a domestic spin control meeting', () => {
 
 	cy.executeQuery(query).then((result) => {
 		let randomRow = Math.floor(Math.random() * result.length);
-		cy.AddTenDaysToMeetingDates(result[randomRow][1]);
-		cy.visit(`MeetingDetails/Index/${result[randomRow][0]}/${result[randomRow][1]}`);
+		cy.AddTenDaysToMeetingDates(result[randomRow].meetingid);
+		cy.visit(`MeetingDetails/Index/${result[randomRow].customerid}/${result[randomRow].meetingid}`);
 	});
 });

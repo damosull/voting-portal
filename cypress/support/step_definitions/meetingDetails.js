@@ -1,6 +1,7 @@
 import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import meetingDetailsPage from '../page_objects/meetingDetails.page';
 import workflowPage from '../page_objects/workflow.page';
+import * as dateUtils from '../../utils/date';
 const constants = require('../constants');
 let meetingId, preTotalVoted, preTotalNotVoted, postTotalVoted, postTotalNotVoted;
 
@@ -1228,20 +1229,15 @@ Then('I provide the details like the username to share with and submitted', () =
 });
 
 Then('I verify that the request was saved in the database', () => {
-	let today = new Date().toISOString().slice(0, 10);
 	cy.getAutomationUserIDFromDB(constants.USER.CALPERS).as('userid');
 	//Step 11 - Connect to Aqua GLP Database and verify new row has been added to PX_ShareMeeting table
 	cy.executeQuery('SELECT TOP 1 * FROM PX_ShareMeeting ORDER BY ShareMeetingID DESC').then((result) => {
-		var cols = [];
-		for (var j = 0; j < result.length; j++) {
-			cols.push(result[j]);
-		}
 		//Step 12 - Verify PX_ShareMeeting table Column data for correct data
-		cy.get('@userid').then(function (uid) {
-			assert.equal(cols[1], uid); //verify Auatomation QaUat User id
+		cy.get('@userid').then((uidResult) => {
+			expect(result[0].SharerID).to.equal(uidResult[0].UserID); //verify Auatomation QaUat User id
 		});
-		expect(cols[3]).to.include(today); //Created date
-		assert.equal(cols[4], 'This is a test comment'); //verify Comment
+		cy.compare2Dates(result[0].CreationDate, dateUtils.getCurrentTime()); //Verify Created date
+		expect(result[0].Comments).to.equal('This is a test comment'); //verify Comment
 	});
 });
 

@@ -4,7 +4,7 @@ parameters:
   - name: buildParameters
     displayName: 'Build Parameters'
     type: string
-    default: 'npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER --config retries=1,specPattern=cypress/e2e/**/*.feature'
+    default: 'npx cypress-cloud run --parallel --record --key xxx --ci-build-id $BUILD_BUILDNUMBER --config specPattern=cypress/e2e/**/*.feature'
   - name: environment
     displayName: 'Test Environment'
     default: 'aqua'
@@ -45,7 +45,7 @@ jobs:
 
       - script: |
           export HTTP_PROXY=http://10.71.1.42:3128
-          export cypress_url=https://viewpoint.${{ parameters.environment }}.glasslewis.com
+          export cypress_testEnv=${{ parameters.environment }}
           export cypress_sql_username=$(sql_username)
           if [ ${{ parameters.environment }} == 'aqua' ]; then
             export cypress_sql_server=$(aqua_sql_server)  cypress_sql_password=$(aqua_sql_password)
