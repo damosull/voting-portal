@@ -9,7 +9,7 @@ const queryTestDb = (query, config) => {
 		database: 'GLP',
 		options: {
 			trustedConnection: true,
-			encrypt: true,
+			encrypt: false,
 			rowCollectionOnRequestCompletion: true,
 			trustServerCertificate: true,
 			validateBulkLoadParameters: true,

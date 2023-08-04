@@ -21,7 +21,7 @@ async function setupNodeEvents(on, config) {
 
 	on('before:run', () => {
 		fs.emptyDirSync('./test-results');
-		console.log(`INITIATING TESTS ON: ${config.env.testEnv} at ${new Date()}`);
+		console.log(`INITIATING TESTS ON: ${config.baseUrl} at ${new Date()}`);
 		preprocessor.beforeRunHandler(config);
 	});
 
