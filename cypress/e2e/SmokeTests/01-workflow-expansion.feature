@@ -26,9 +26,9 @@ Feature: Verify UI and API's data in workflow-expansion
 
         Examples:
             | customer     | cache                             | database                 | start_date | end_date |
-            | "EVELYN"     | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -30        | -28      |
+            | "RUSSELL"    | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -30        | -28      |
             | "CALPERS"    | "WORKFLOW_PERFORMANCE"            | "WORKFLOW_DB"            | -40        | -38      |
-            | "RUSSELL"    | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -15        | -13      |
+            | "EVELYN"     | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -15        | -13      |
             | "WELLINGTON" | "WORKFLOW_PERFORMANCE"            | "WORKFLOW_DB"            | 0          | 2        |
 
     @60136
