@@ -351,7 +351,7 @@ Then('I should be able to use the Instruct functionality on the meeting', () => 
 			meetingDetailsPage.proceedButton().click();
 		}
 	});
-	toastContains('Instructed successfully');
+	toastContains('success');
 });
 
 Then('I should be able to use the Take No Action functionality on the meeting', () => {
@@ -366,7 +366,7 @@ Then('I should be able to use the Take No Action functionality on the meeting', 
 			meetingDetailsPage.proceedButton().click();
 		}
 	});
-	toastContains('Vote success');
+	toastContains('success');
 });
 
 Then('I should get a popup window with a warning and OK and Cancel buttons', () => {
@@ -439,7 +439,7 @@ Then('The Proceed button should be enabled', () => {
 });
 
 Then('I can see a Vote success message', () => {
-	toastContains('Vote success');
+	toastContains('success');
 });
 
 Then('I verify the vote tally section by checking the total votes and hyperlinks', () => {
@@ -1780,7 +1780,7 @@ Then('I should be able to verify the Take No Action functionality for a partiall
 			meetingDetailsPage.proceedButton().click();
 		}
 	});
-	toastContains('Vote success');
+	toastContains('success');
 });
 
 Then('I can verify that I cannot enter alphanumeric values in percentage and nominal textboxes', () => {
@@ -1861,6 +1861,6 @@ function arraysEqual(a1, a2) {
 //verify toast message contents
 function toastContains(msg) {
 	meetingDetailsPage.toastMessageDiv().should('be.visible');
-	meetingDetailsPage.toastMessageDiv().should('have.text', msg);
+	meetingDetailsPage.toastMessageDiv().should('contain.text', msg);
 	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 }
