@@ -581,15 +581,28 @@ Then('a random company name from the DB should be available in the AVA report', 
 });
 
 Then('a random company name from the DB should be available in the BVD report', () => {
-	// cy.parseXlsx(`cypress/downloads/BallotVoteDataReport_${unixTime}.csv`).then((xlsxData) => {
-	// 	expect(JSON.stringify(xlsxData)).to.include(Cypress.env('companyName'));
-	// });
-	cy.parseXlsx(`cypress/downloads/BallotVoteDataReport_1690905824.csv`).then((xlsxData) => {
+	cy.parseXlsx(`cypress/downloads/BallotVoteDataReport_${unixTime}.csv`).then((xlsxData) => {
 		let companies = [];
 		for (let index = 0; index < xlsxData[0].data.length; index++) {
 			companies.push(xlsxData[0].data[index][2]);
 		}
 		expect(JSON.stringify(companies)).to.include(Cypress.env('companyName'));
+	});
+});
+
+Then('one of the proposal items from a meeting should be available in the BVD report', () => {
+	let proposalQuery = `select top 1 ProposalText from PX_AgendaItem ai
+	JOIN PX_Agenda a ON a.AgendaID = ai.AgendaID
+	JOIN PX_Meeting m ON a.MeetingID = m.MeetingID
+	where m.MeetingID = ${Cypress.env('meetingId')};`;
+	cy.executeQuery(proposalQuery).then((result) => {
+		cy.parseXlsx(`cypress/downloads/BallotVoteDataReport_${unixTime}.csv`).then((xlsxData) => {
+			let proposals = [];
+			for (let index = 0; index < xlsxData[0].data.length; index++) {
+				proposals.push(xlsxData[0].data[index][11]);
+			}
+			expect(JSON.stringify(proposals)).to.include(result[0].ProposalText);
+		});
 	});
 });
 

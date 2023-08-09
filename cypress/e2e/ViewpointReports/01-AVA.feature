@@ -2,7 +2,7 @@
 Feature: Analyze Voting Activity Report - End to End Tests
 
   Scenario Outline: Verify AVA report is as expected for Xlsx
-    Given I am logged in as the <user> User
+    Given I am logged in as a random external user
     When I navigate to the Reporting page
     And I navigate to the report type page for "Voting Activity"
     And I filter the report type to "xlsx"
@@ -15,10 +15,11 @@ Feature: Analyze Voting Activity Report - End to End Tests
     When I click on the notification toolbar
     Then I "verify ready for download of" the report for "Voting Activity"
     When I download the first report from the notification toolbar
-    And I capture the data from GLP DB to compare with AVA report for <user> between <start_date> and <end_date>
-    Then a random company name from the DB should be available in the AVA report
-    And the number of meetings should match in the AVA report
+    When I capture the data from API to compare with AVA report between <start_date> and <end_date>
+    Then the number of meetings should match in the AVA report
+    And a random company name from the DB should be available in the AVA report
+    And I should logout from the application
 
     Examples:
-      | user      | start_date | end_date |
-      | "CALPERS" | -49        | -49      |
+      | start_date | end_date |
+      | -49        | -46      |
