@@ -3,7 +3,7 @@ Feature: Verify UI and API's data in workflow-expansion
 
     @59640 @59641
     Scenario Outline: verify UI test to compare Aggregate/NonAggregated cache data with DB data
-        Given I am logged in as the <customer> User
+        Given I am logged in as the <customer> user
         When I navigate to the URL <cache>
         Then I can see data source title for <cache> is visible
         And I can view the workflow page
