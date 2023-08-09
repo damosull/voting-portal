@@ -3,7 +3,7 @@ Feature: Checking API calls and UI Page load with External user
     #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56790
 
     Background:
-        Given I am logged in as the "CALPERS" User
+        Given I am logged in as the "CALPERS" user
 
     @56797
     Scenario: Workflow page API's and UI page are loading successfully

@@ -1,9 +1,9 @@
 @dashboard
 Feature: Dashboard related smoke tests
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56791
+    #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=56788&suiteId=56791
 
     Background:
-        Given I am logged in as the "CALPERS" User
+        Given I am logged in as the "CALPERS" user
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40490
     @40490

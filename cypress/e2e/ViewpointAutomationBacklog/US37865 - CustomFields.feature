@@ -1,10 +1,10 @@
 Feature: Custom Fields
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37902
   @37902
   Scenario Outline: Custom Fields work for meetings with no ballots
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I filter for meetings without ballots

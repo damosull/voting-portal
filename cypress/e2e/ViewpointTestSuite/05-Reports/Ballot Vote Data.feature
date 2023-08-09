@@ -4,7 +4,7 @@ Feature: Ballot Vote Data
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/32357
     @32357
     Scenario: Ballot vote data report - fields options
-        Given I am logged in as the "CALPERS" User
+        Given I am logged in as the "CALPERS" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Vote Data"
         And I expand the Configure Columns section

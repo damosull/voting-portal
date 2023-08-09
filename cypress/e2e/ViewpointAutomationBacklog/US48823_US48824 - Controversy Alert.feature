@@ -4,7 +4,7 @@ Feature: Controversy Alert
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/50256
   @50256
   Scenario: Verify "Controversy Alert" field displays in the Configure Columns dropdown list
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I navigate to the workflow page
     Then I can view the workflow page
     When I have added the column "Controversy Alert"
@@ -19,7 +19,7 @@ Feature: Controversy Alert
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/50285
   @50285
   Scenario: Verify that the Controversy File name hyperlink does not display
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Controversy Alert" and selecting the radio button for "No"
@@ -34,10 +34,10 @@ Feature: Controversy Alert
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/50281
   @50281
   Scenario: Verify user is able to download controversy alert PDF file
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     And I turn "on" the customer settings for "Controversy Alert" for "California Public Employee Retirement System (CalPERS)"
     Then I should logout from the application
-    When I am logged in as the "AUTOMATIONEXTERNAL" User
+    When I am logged in as the "AUTOMATIONEXTERNAL" user
     And I add a controversy alert file for the meeting
     And I navigate to the meeting details page for the meeting "CAVOCA"
     Then I can view the Meeting Details page
@@ -49,10 +49,10 @@ Feature: Controversy Alert
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/50530
   @50530
   Scenario: Turning Off the Controversy alert in customer settings
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     And I turn "off" the customer settings for "Controversy Alert" for "California Public Employee Retirement System (CalPERS)"
     Then I should logout from the application
-    When I am logged in as the "AUTOMATIONEXTERNAL" User
+    When I am logged in as the "AUTOMATIONEXTERNAL" user
     And I add a controversy alert file for the meeting
     And I navigate to the meeting details page for the meeting "CAVOCA"
     Then I can view the Meeting Details page
@@ -63,10 +63,10 @@ Feature: Controversy Alert
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/50531
   @50531
   Scenario: Turning On the Controversy alert in customer settings
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     And I turn "on" the customer settings for "Controversy Alert" for "California Public Employee Retirement System (CalPERS)"
     Then I should logout from the application
-    When I am logged in as the "AUTOMATIONEXTERNAL" User
+    When I am logged in as the "AUTOMATIONEXTERNAL" user
     And I add a controversy alert file for the meeting
     And I navigate to the meeting details page for the meeting "CAVOCA"
     Then I can view the Meeting Details page

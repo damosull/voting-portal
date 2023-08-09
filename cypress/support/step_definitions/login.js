@@ -9,7 +9,7 @@ Given('I am on the login page of Viewpoint', () => {
 	loginPage.usernameInput().should('be.visible');
 });
 
-Given('I am logged in as the {string} User', (username) => {
+Given('I am logged in as the {string} user', (username) => {
 	cy.loginWithAdmin(constants.USER[username]);
 });
 

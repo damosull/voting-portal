@@ -4,7 +4,7 @@ Feature: Meetings related smoke tests
 
   @59875
   Scenario: Verify internal user to be able to search for a customer and navigate to a meeting
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I search for the customer ""
@@ -20,7 +20,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56827
   @56827
   Scenario: Verify user is able to do a quick vote
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I select a random meeting
@@ -38,7 +38,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/568235
   @56835
   Scenario: Verify external user is able to add comment to each rationale, save it and verify the toast message
-    Given I am logged in as the "ROBECO" User
+    Given I am logged in as the "ROBECO" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
@@ -51,7 +51,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56828
   @56828
   Scenario: Verify user is able to vote on a US Recommendation Pending meeting
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the meeting details page for the meeting "CPRP4"
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
@@ -66,7 +66,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56829
   @56829
   Scenario: Verify user is able to vote on a Global Recommendation Pending meeting
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the meeting details page for the meeting "CPRP2"
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
@@ -81,7 +81,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56830
   @56830
   Scenario: Verify user is able to use the Instruct functionality on Recommendation Pending meeting
-    Given I am logged in as the "NEUBERGER" User
+    Given I am logged in as the "NEUBERGER" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
@@ -94,7 +94,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56831
   @56831
   Scenario: Verify user is able to quickvote on a Global Recommendation Pending meeting
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the meeting details page for the meeting "CPRP3"
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
@@ -109,7 +109,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56832
   @56832
   Scenario: Verify user is able to take no action on a Recommendation Pending meeting
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
@@ -123,7 +123,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56824
   @56824
   Scenario: Verify that the votes against Glass Lewis are captured in filter criteria
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting the radio button for "One Against"
@@ -136,7 +136,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/39049
   @39049
   Scenario: Verify that the votes against Management are captured in filter criteria
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "One Against"
@@ -149,7 +149,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56826
   @56826
   Scenario: Verify user is able to filter meetings with recommendations pending
-    Given I am logged in as the "WELLINGTON" User
+    Given I am logged in as the "WELLINGTON" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
@@ -162,7 +162,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56833
   @56833
   Scenario: Verify user is able to share a meeting with another user
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the meeting details page for the meeting "CPRP6"
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
@@ -176,7 +176,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56834
   @56834
   Scenario: Verify external user is able to add meeting note and post private comment
-    Given I am logged in as the "CHARLESSCHWAB" User
+    Given I am logged in as the "CHARLESSCHWAB" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"

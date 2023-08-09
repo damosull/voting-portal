@@ -4,7 +4,7 @@ Feature: Analyze Voting Activity
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2753
     @2753
     Scenario: Verify External User can download the PDF Ad-hoc Report from the Notification Toolbar
-        Given I am logged in as the "ROBECO" User
+        Given I am logged in as the "ROBECO" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Voting Activity"
         And I filter the report type to "pdf"
@@ -26,7 +26,7 @@ Feature: Analyze Voting Activity
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2754
     @2754
     Scenario: Verify External User can download the Excel Ad-hoc Report from the Notification Toolbar
-        Given I am logged in as the "CHARLESSCHWAB" User
+        Given I am logged in as the "CHARLESSCHWAB" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Voting Activity"
         And I filter the report type to "xlsx"
@@ -51,7 +51,7 @@ Feature: Analyze Voting Activity
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2824
     @2824
     Scenario: Report Default Criteria for External user
-        Given I am logged in as the "CHARLESSCHWAB" User
+        Given I am logged in as the "CHARLESSCHWAB" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Voting Activity"
         Then I verify the default expanded and collapsed sections
@@ -66,7 +66,7 @@ Feature: Analyze Voting Activity
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2825
     @2825
     Scenario: Report Default Criteria for internal user
-        Given I am logged in as the "AUTOMATIONINTERNAL" User
+        Given I am logged in as the "AUTOMATIONINTERNAL" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Voting Activity"
         When I search for the customer "California Public Employee Retirement System"

@@ -5,7 +5,7 @@ Feature: CR # 23401 - Company Interactions
     @3728
     Scenario: Verify External Admin user cannot view Engagements in the company page when the system permission "View Interaction" is turned off for External Admin role
         Given I set the setting "Permission.CompanyPage.ViewInteraction" to "Deny" for the user "ROBECO"
-        When I am logged in as the "ROBECO" User
+        When I am logged in as the "ROBECO" user
         Then I can view the workflow page
         And I select a random meeting
         And I click the Company link

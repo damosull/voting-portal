@@ -4,7 +4,7 @@ Feature: Workflow Export
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3358
     @3358
     Scenario: Verify User can export 'Current View' into 'CSV' file under the my filters
-        Given I am logged in as the "PUTNAM" User
+        Given I am logged in as the "PUTNAM" user
         When I navigate to the workflow page
         Then I can view the workflow page
         When I select 2 meetings from the top
@@ -21,7 +21,7 @@ Feature: Workflow Export
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2727
     @2727 @3339
     Scenario: Verify User can export 'All Available Fields' into 'CSV' file under the 'My Filters'
-        Given I am logged in as the "PUTNAM" User
+        Given I am logged in as the "PUTNAM" user
         When I navigate to the workflow page
         Then I can view the workflow page
         When I select 2 meetings from the top

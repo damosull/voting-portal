@@ -1,17 +1,17 @@
 Feature: Partial Vote Enhancement Tests
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28714
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28714
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28721
   @28721
   Scenario: Verify NO 'Set Partial Vote' button available for historical meetings where they don't hold the security for that meeting
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
     And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
     And I should logout from the application
-    When I am logged in as the "PUTNAM" User
+    When I am logged in as the "PUTNAM" user
     And I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
     And I should be "able" to see "You do not have ballots for this meeting" on the UI
@@ -21,7 +21,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28722
   @28722
   Scenario: Verify 'Set Partial Vote' modal will be available for Past meetings but will be read only
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     Then I can verify that the set partial vote modal is read only for past meetings
     And I should logout from the application
@@ -30,7 +30,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28723
   @28723
   Scenario: Verify User will receive toast message 'You have not applied a valid amount (%) please review values entered' if the total % equals to 100%
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
@@ -60,7 +60,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28726
   @28726
   Scenario: Verify user can click 'Clear partial vote' button to clear previously saved partial vote and reset back to the "Partial Vote Percentage" Value on the Customer Profile Page
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
     And I can see the Partial Vote Applied button
@@ -89,7 +89,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28725
   @28725
   Scenario: Verify user can click 'Clear partial vote' button to clear previously saved partial vote
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
@@ -120,7 +120,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28727
   @28727
   Scenario: Verify warning message displays when user has set partial vote and navigates away from Meeting Details page WITHOUT VOTING
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page

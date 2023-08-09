@@ -5,7 +5,7 @@ Feature: Instruct
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3056
   @3056
   Scenario: User can Instruct on meeting up to 23.59 PST day prior to Meeting date
-    Given I am logged in as the "CHARLESSCHWAB" User
+    Given I am logged in as the "CHARLESSCHWAB" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I click on the Meeting Date radio button
@@ -30,7 +30,7 @@ Feature: Instruct
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28497
   @28497
   Scenario: Verify on day of meeting 'Instruct' button will be available but disabled
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I click on the Meeting Date radio button
@@ -52,7 +52,7 @@ Feature: Instruct
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28498
   @28498
   Scenario: Verify 'Instruct' button will not appear when meeting date has passed
-    Given I am logged in as the "IFM" User
+    Given I am logged in as the "IFM" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I click on the Meeting Date radio button

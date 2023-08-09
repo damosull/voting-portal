@@ -1,10 +1,10 @@
 Feature: Vote Tally Folder Tests
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9447
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9447
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2590
   @2590
   Scenario: Verify a user lands on current Meeting it displays correct Vote Tally Counts for Combination of ballots
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     Then I can view the workflow page
     And I arrange the table in "descending" order for "control number"
@@ -44,11 +44,11 @@ Feature: Vote Tally Folder Tests
     Then I can verify that the vote card summary remains unchanged when user changes the filters on "account"
     And I should logout from the application
 
-  
+
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28455
   @28455
   Scenario: Verify when a user lands on current Meeting it displays correct Vote Tally Counts after Voting
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
@@ -68,12 +68,12 @@ Feature: Vote Tally Folder Tests
     And I verify that the vote tally modal displays a value for each table column
     And I close the vote tally popup
     And I should logout from the application
-    
+
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28456
   @28456
   Scenario: Verify Vote Tally has correct counts for meeting with Decision Status = Recommendations Available
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     And I arrange the table in "descending" order for "control number"
@@ -98,7 +98,7 @@ Feature: Vote Tally Folder Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28457
   @28457
   Scenario: Verify Vote Tally has correct counts for meeting with Decision Status = Manual Vote Required
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Manual Vote Required"
@@ -123,7 +123,7 @@ Feature: Vote Tally Folder Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28458
   @28458
   Scenario: Verify when a user lands on current Meeting with Decision Status = Info Only it displays correct  Vote Tally Counts for Info Only
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the meeting details page for the meeting "CAIO"
     Then I can view the Meeting Details page
     And I verify the vote tally section displays counts of total voted and total not voted items
@@ -140,7 +140,7 @@ Feature: Vote Tally Folder Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28459
   @28459
   Scenario: Verify a user lands on current Meeting it displays correct Vote Tally counts
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the Meeting Details page for the saved meeting ID
     Then I can view the Meeting Details page
     And I should be "able" to see "Voted under Vote Tally" on the UI
@@ -152,11 +152,11 @@ Feature: Vote Tally Folder Tests
     And I close the vote tally popup
     And I should logout from the application
 
-  
+
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28460
   @28460
   Scenario: Verify that Vote Tally section does not change based on Filtering on the Meeting Details page
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     And I arrange the table in "descending" order for "policy id"

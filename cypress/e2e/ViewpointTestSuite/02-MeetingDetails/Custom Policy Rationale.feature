@@ -1,10 +1,10 @@
 Feature: Custom Policy Rationale & Custom Policy Rationale & Associated Rulename
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9456
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9456
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/2569
   @2569
   Scenario: Verify no pre-populated rationale will be available when Decision Status = Recommendations Pending and Policy Rec = N/A
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
@@ -19,13 +19,13 @@ Feature: Custom Policy Rationale & Custom Policy Rationale & Associated Rulename
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4379
   @4379
   Scenario: Verify user permissions for 'View Rule Name' - Explicitly Denied
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     When I navigate to User Permissions page for "CALPERS"
     And I click on the "Workflow Meetings Vote Card" dropdown
     Then I change the "View Rule Name" user permission to "Explicitly Denied"
     And I click on the Submit changes button
     And I should logout from the application
-    When I am logged in as the "CALPERS" User
+    When I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "One Against"
@@ -41,13 +41,13 @@ Feature: Custom Policy Rationale & Custom Policy Rationale & Associated Rulename
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4379
   @4379
   Scenario: Verify user permissions for 'View Rule Name' - Role Default
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     When I navigate to User Permissions page for "CALPERS"
     And I click on the "Workflow Meetings Vote Card" dropdown
     Then I change the "View Rule Name" user permission to "Role Default"
     And I click on the Submit changes button
     And I should logout from the application
-    When I am logged in as the "CALPERS" User
+    When I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "One Against"

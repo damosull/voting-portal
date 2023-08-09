@@ -5,7 +5,7 @@ Feature: Create, modify & delete a Vote Execution Profile
   @4165
   Scenario: Verify an Internal Admin can create a Vote Execution Profile and assign a voting group
     Given I delete all existing Vote Execution Profiles for the customer with id 187
-    When I am logged in as the "AUTOMATIONINTERNAL" User
+    When I am logged in as the "AUTOMATIONINTERNAL" user
     And I navigate to the URL "/Accounts/VEP/?CustomerID=187"
     Then I can view the Vote Execution page
     #And I verify that the Vote Execution Profile On checkbox is disabled - skip due to US56268
@@ -44,7 +44,7 @@ Feature: Create, modify & delete a Vote Execution Profile
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4166
   @4166
   Scenario: Verify an Internal Admin user can modify an existing Vote Execution Profile & Save New Vote Execution Profile Configuration Name
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     When I navigate to the URL "/Accounts/VEP/?CustomerID=544"
     Then I can view the Vote Execution page
     When I click on the Configuration Name label
@@ -65,7 +65,7 @@ Feature: Create, modify & delete a Vote Execution Profile
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4167 https://dev.azure.com/glasslewis/Development/_workitems/edit/4211
   @4167 @4211
   Scenario: Verify an Internal Admin user can modify an existing Vote Execution Profile & "Save" the changes
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     When I navigate to the URL "/Accounts/VEP/?CustomerID=696"
     Then I can view the Vote Execution page
     And I save the current voting groups
@@ -82,7 +82,7 @@ Feature: Create, modify & delete a Vote Execution Profile
   @4168
   Scenario: Verify an Internal Admin user can delete an existing Vote Execution Profile
     Given I set the setting "Permission.CustomerAdmin.VoteExecutionProfile.Delete" to "Allow" for the user "AUTOMATIONINTERNAL"
-    When I am logged in as the "AUTOMATIONINTERNAL" User
+    When I am logged in as the "AUTOMATIONINTERNAL" user
     And I navigate to the URL "/Accounts/VEP/?CustomerID=187"
     Then I can view the Vote Execution page
     #And I uncheck the Vote Execution Profile On checkbox - skip due to US56268
@@ -103,7 +103,7 @@ Feature: Create, modify & delete a Vote Execution Profile
     Given I set the setting "Permission.CustomerAdmin.VoteExecutionProfile.View" to "Allow" for the user "OPERS"
     Given I set the setting "Permission.CustomerAdmin.VoteExecutionProfile.Modify" to "Allow" for the user "OPERS"
     Given I set the setting "Permission.CustomerAdmin.VoteExecutionProfile.Delete" to "Allow" for the user "OPERS"
-    When I am logged in as the "OPERS" User
+    When I am logged in as the "OPERS" user
     And I navigate to the URL "/Accounts/VEP/"
     Then I can view the Vote Execution page
     And I delete the visible vote execution profile

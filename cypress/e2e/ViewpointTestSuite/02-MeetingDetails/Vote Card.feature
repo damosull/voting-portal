@@ -4,7 +4,7 @@ Feature: Vote Card Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28433
   @28433
   Scenario: Verify the Vote Card Summary Details do not change when a user filters on an Account on the Meeting Details page
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Voted"
@@ -19,7 +19,7 @@ Feature: Vote Card Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28435
   @28435
   Scenario: Verify filtering on Account does not impact Vote Tally section of the Meeting Details page
-    Given I am logged in as the "ROBECO" User
+    Given I am logged in as the "ROBECO" user
     When I navigate to the meeting details page for the meeting "RBVOAC"
     Then I can view the Meeting Details page
     And I can verify that the Account filter has the value "189506"
@@ -30,7 +30,7 @@ Feature: Vote Card Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28434
   @28434
   Scenario: Verify filtering on Account Group does NOT impact Vote Tally section
-    Given I am logged in as the "ROBECO" User
+    Given I am logged in as the "ROBECO" user
     When I navigate to the meeting details page for the meeting "RBVOAG"
     Then I can view the Meeting Details page
     And I can verify that the Account Group filter has the value "ProxyExchange Accounts"
@@ -41,7 +41,7 @@ Feature: Vote Card Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37937
   @37937
   Scenario: Vote card ballot filtering
-    Given I am logged in as the "ROBECO" User
+    Given I am logged in as the "ROBECO" user
     When I navigate to the workflow page
     Then I can view the workflow page
     And I arrange the table in "descending" order for "control number"
@@ -62,7 +62,7 @@ Feature: Vote Card Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37938
   @37938
   Scenario: Filter on voted/unvoted ballots
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     And I have added the criteria for "Decision Status" with status "Manual Vote Required"

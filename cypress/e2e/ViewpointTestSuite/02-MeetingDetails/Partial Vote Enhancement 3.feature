@@ -1,10 +1,10 @@
 Feature: Partial Vote Enhancement Tests
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28714
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28714
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28728
   @28728
   Scenario: Verify 'Set Partial Vote' button still displays when partial vote has not been set and the user Votes on a meeting
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
@@ -17,7 +17,7 @@ Feature: Partial Vote Enhancement Tests
     Then I can see a Vote success message
     And I can see the Set Partial Vote button
     And I should logout from the application
-    When I am logged in as the "CALPERS" User
+    When I am logged in as the "CALPERS" user
     And I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
     And I click on the Change Vote or Rationale button if it exists
@@ -32,7 +32,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28729
   @28729
   Scenario: Verify 'Partial Vote Applied' button is displayed when user filters on one account and sets partial vote, BUT 'Set Partial Vote' button is displayed when user THEN filters on another account that does not have partial vote applied
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
@@ -61,7 +61,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28731
   @28731
   Scenario: Verify User receives toast message "At least 1 item must be greater than zero" when the total % equals to 0%
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
@@ -77,7 +77,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28732
   @28732
   Scenario: Verify user receives toast message 'You have not applied a valid amount please review values entered' when user enters a value equal to No of Shares
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
@@ -101,7 +101,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28733
   @28733
   Scenario: Verify User can set a '%' value in the 'Set Partial Vote' modal and Instruct a meeting
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
@@ -119,7 +119,7 @@ Feature: Partial Vote Enhancement Tests
     Then I should be able to use the Instruct functionality on the meeting
     And I can see the Partial Vote Applied button
     And I should logout from the application
-    When I am logged in as the "CALPERS" User
+    When I am logged in as the "CALPERS" user
     And I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
     And I can see the Partial Vote Applied button
@@ -129,7 +129,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28734
   @28734
   Scenario: Verify User can set a 'NOMINAL' value in the 'Set Partial Vote' modal and 'Instruct' a meeting
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page

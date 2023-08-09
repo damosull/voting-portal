@@ -5,7 +5,7 @@ Feature: Vote Upto Meeting Date
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28496
   @28496
   Scenario: Verify that correct details displayed where the meeting date has passed
-    Given I am logged in as the "ROBECO" User
+    Given I am logged in as the "ROBECO" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I click on the Meeting Date radio button
@@ -33,7 +33,7 @@ Feature: Vote Upto Meeting Date
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3288
   @3288
   Scenario: Verify that user cannot vote after 23.59 PST prior to the meeting date
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I click on the Meeting Date radio button
@@ -60,7 +60,7 @@ Feature: Vote Upto Meeting Date
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3388
   @3388
   Scenario: Verify that user can vote upto 23.59 (SF time) the day before the meeting date
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I click on the Meeting Date radio button
@@ -84,7 +84,7 @@ Feature: Vote Upto Meeting Date
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/20638
   @20638
   Scenario: Verify that user can vote upto 23.59 prior to the meeting date on deadline day
-    Given I am logged in as the "ROBECO" User
+    Given I am logged in as the "ROBECO" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I set the date filter between 0 and 0 days from today

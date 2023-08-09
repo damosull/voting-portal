@@ -1,10 +1,10 @@
 Feature: Vote Decision Tests
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28472
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28472
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28476
   @28476
   Scenario: Verify that warning message  "You are voting against your custom policy for items xx.xx" is not be displayed when Policy Rec = Manual
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "RUSSELL" user
     And I navigate to the workflow page
     Then I can view the workflow page
     And I have added the criteria for "Decision Status" with status "Manual Vote Required"
@@ -19,7 +19,7 @@ Feature: Vote Decision Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28474
   @28474
   Scenario: Verify that a Validation Message is displayed
-    Given I am logged in as the "ROBECO" User
+    Given I am logged in as the "ROBECO" user
     And I navigate to the workflow page
     Then I can view the workflow page
     And I have added the criteria for "Decision Status" with status "Recommendations Pending"
@@ -33,7 +33,7 @@ Feature: Vote Decision Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28473 https://dev.azure.com/glasslewis/Development/_workitems/edit/28475
   @28473 @28475
   Scenario Outline: Verify Validation Messages
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I navigate to the workflow page
     Then I can view the workflow page
     And I have added the criteria for "Decision Status" with status <decision_staus>
@@ -45,6 +45,6 @@ Feature: Vote Decision Tests
     And I should logout from the application
 
     Examples:
-    | decision_staus              | company_sequence  |
-    | "Manual Vote Required"      | 1                 |
-    | "Manual Vote Required"      | 2                 |
+      | decision_staus         | company_sequence |
+      | "Manual Vote Required" | 1                |
+      | "Manual Vote Required" | 2                |

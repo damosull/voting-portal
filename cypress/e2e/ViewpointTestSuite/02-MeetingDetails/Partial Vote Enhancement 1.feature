@@ -1,10 +1,10 @@
 Feature: Partial Vote Enhancement Tests
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28714
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28714
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28715
   @28715
   Scenario: Verify No Warning Message displayed when the user has set a combination partial vote & then navigated away from the Meeting Details page when the user has VOTED
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
@@ -38,7 +38,7 @@ Feature: Partial Vote Enhancement Tests
     And I scroll to the end of the meetings table
     Then I can verify that the voted shares value matches the saved value
     And I should logout from the application
-    When I am logged in as the "CALPERS" User
+    When I am logged in as the "CALPERS" user
     And I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
     And I can see the Partial Vote Applied button
@@ -48,7 +48,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28716
   @28716
   Scenario: Verify User can choose to 'Vote' where user has chosen a 'NOMINAL' value in the  'Set Partial Vote' modal
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
@@ -84,7 +84,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28717
   @28717
   Scenario: Verify user can select 'Take No Action' where user has chosen '%' option in the 'Set Partial Vote' modal
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
@@ -105,7 +105,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28718
   @28718
   Scenario: Verify user can select 'Take No Action' option where user has chosen 'NOMINAL' option in the 'Set Partial Vote' modal
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
@@ -129,7 +129,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28719
   @28719
   Scenario: Verify user cannot enter alphanumerics in the 'Set Partial Vote' modal
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
@@ -145,7 +145,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28720
   @28720
   Scenario: Verify system throws an error message if User selects 'Value' that is more than the Total 'No. of Shares' in the Set Partial Vote modal
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page

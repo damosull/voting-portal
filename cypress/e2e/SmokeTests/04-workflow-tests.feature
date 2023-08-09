@@ -6,7 +6,7 @@ Feature: Workflow related smoke tests
   #Ignoring the below test for a few days as there are changes planned for the Workflow Data Call
   @56848 @skip
   Scenario: Verify that all the meetings for California Public Employee Retirement System have a CalPERS customer id
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I search for the customer ""
@@ -20,7 +20,7 @@ Feature: Workflow related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56849
   @56849
   Scenario: Verify external user is able to navigate to the correct meeting detail and company page
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I search for a company on the search bar and choose meetings
@@ -34,7 +34,7 @@ Feature: Workflow related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56850
   @56850
   Scenario: Verify internal user is able to add columns from the table on workflow page
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I search for the customer ""
@@ -51,7 +51,7 @@ Feature: Workflow related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56851
   @56851
   Scenario: Verify internal user is able to remove columns from the table on workflow page
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I search for the customer ""
@@ -66,7 +66,7 @@ Feature: Workflow related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40729
   @40729
   Scenario: Verify ballot section display the correct results when filter is applied from the workflow page
-    Given I am logged in as the "WELLINGTON" User
+    Given I am logged in as the "WELLINGTON" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I apply the policy criteria for one of the policies
@@ -82,7 +82,7 @@ Feature: Workflow related smoke tests
   #to https://dev.azure.com/glasslewis/Development/_workitems/edit/56847
   @56841 @56842 @56843 @56844 @56845 @56846 @56847
   Scenario Outline: Verify user is able to apply the various ESG filters on the workflow page
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     And I have added the filter criteria <filter>
     Then I should be able to see the results only for <filter>

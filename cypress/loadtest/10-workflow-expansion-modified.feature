@@ -5,7 +5,7 @@
 # Feature: Verify UI and API's data in workflow-expansion
 
 #     Background:
-#         Given I am logged in as the "CALPERS" User
+#         Given I am logged in as the "CALPERS" user
 
 #     @59640 @59641
 #     Scenario Outline: verify UI test to compare Aggregate/NonAggregated cache data with DB data
