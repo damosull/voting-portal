@@ -14,7 +14,7 @@ Feature: User related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/39053
   @39053
   Scenario: Verify internal user is able to create a new Calpers external user
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     When I navigate to the users page
     And I fill the required details for a new user and submit
     Then the new user should be created successfully
@@ -24,7 +24,7 @@ Feature: User related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56840
   @56840
   Scenario: Verify user is able to create a watchlist and assign it
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I delete the created test watchlist from database
     When I navigate to the manage watchlist page
     And I create a new watchlist

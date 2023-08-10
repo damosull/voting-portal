@@ -3,7 +3,7 @@ Feature: Verify UI and API's data in workflow-expansion
 
     @59640 @59641
     Scenario Outline: verify UI test to compare Aggregate/NonAggregated cache data with DB data
-        Given I am logged in as the <customer> User
+        Given I am logged in as the <customer> user
         When I navigate to the URL <cache>
         Then I can see data source title for <cache> is visible
         And I can view the workflow page
@@ -33,7 +33,7 @@ Feature: Verify UI and API's data in workflow-expansion
 
     @60136
     Scenario: verify API data to compare aggregate cache data with DB data
-        Given I am logged in as the "PUTNAM" User
+        Given I am logged in as the "PUTNAM" user
         When I navigate to the workflow page
         Then I can view the workflow page
         When I store first Agenda Key number
@@ -43,7 +43,7 @@ Feature: Verify UI and API's data in workflow-expansion
 
     @59998
     Scenario: Verify API data to compare NonAggregated cache data with DB data
-        Given I am logged in as the "ROBECO" User
+        Given I am logged in as the "ROBECO" user
         When I navigate to the workflow page
         And I arrange the table in 'ascending' order for 'control number'
         Then I can view the workflow page

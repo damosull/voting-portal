@@ -4,7 +4,7 @@ Feature: Workflow Export
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/29585
     @29585
     Scenario: Verify User can Export selected Companies 'Current view' HTML file under the Specific saved filter
-        Given I am logged in as the "CALPERS" User
+        Given I am logged in as the "CALPERS" user
         When I navigate to the workflow page
         Then I can view the workflow page
         When I select 2 meetings from the top
@@ -21,7 +21,7 @@ Feature: Workflow Export
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3367
     @3367
     Scenario: Verify User can Export 'HTML' file of 'All available fields' from the Workflow data
-        Given I am logged in as the "CALPERS" User
+        Given I am logged in as the "CALPERS" user
         When I navigate to the workflow page
         Then I can view the workflow page
         When I select 2 meetings from the top

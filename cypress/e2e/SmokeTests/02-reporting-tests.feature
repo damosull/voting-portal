@@ -5,14 +5,13 @@ Feature: Reporting related smoke tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
     @37939
     Scenario: Report - Voting Activity
-        Given I am logged in as the "CALPERS" User
+        Given I am logged in as the "CALPERS" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Voting Activity"
         And I filter the report type to "xlsx"
         And I set the date range to the next or last 3 days
-        And I select Decision Status Criteria
-        And I select Voted criteria
-        And I add columns to the report
+        And I have added the reporting criteria for "Decision Status" with status "Voted"
+        And I set minimal columns for the AVA Report
         And I set the Footer under the Grouping & Presentation
         And I set the Header under the Grouping & Presentation
         And I add subscription to the report
@@ -32,7 +31,7 @@ Feature: Reporting related smoke tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
     @37962
     Scenario: Generate ballot vote data report, download and verify file headers
-        Given I am logged in as the "PUTNAM" User
+        Given I am logged in as the "PUTNAM" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Vote Data"
         And I set the meeting date to next date 1 and past date 1 days
@@ -49,7 +48,7 @@ Feature: Reporting related smoke tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56837
     @56837
     Scenario: Verify user is able to download Ballot status report generated via Meeting Details page
-        Given I am logged in as the "WELLINGTON" User
+        Given I am logged in as the "WELLINGTON" user
         When I navigate to the workflow page
         Then I can view the workflow page
         And I have added the criteria for "Decision Status" with status "Recommendations Pending"
@@ -67,7 +66,7 @@ Feature: Reporting related smoke tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56838
     @56838
     Scenario: Verify user is able to download Workflow Export Request report
-        Given I am logged in as the "NEUBERGER" User
+        Given I am logged in as the "NEUBERGER" user
         When I navigate to the workflow page
         Then I can view the workflow page
         When I select 2 meetings from the top

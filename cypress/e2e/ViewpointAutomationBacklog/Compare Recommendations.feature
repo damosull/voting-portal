@@ -1,10 +1,10 @@
 Feature: Compare Policy Recommendations
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/define?planId=48536&suiteId=48537
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/48678
   @48678
   Scenario: Compare Policy Recommendations to GL Recommendations
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     And I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting the radio button for "All"
     And I select a random meeting
@@ -22,7 +22,7 @@ Feature: Compare Policy Recommendations
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/48395
   @48395
   Scenario: Compare Policy Recommendations to Management Recommendations
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     And I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "All"
     And I select a random meeting

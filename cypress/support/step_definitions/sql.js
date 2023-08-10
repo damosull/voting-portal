@@ -1,9 +1,8 @@
 import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
 const constants = require('../constants');
+let query = null;
 
 Then('I capture meeting ID by running the query {string}', (queryType) => {
-	let query;
-
 	if (queryType.includes('with specific Proposal Type Code and Recommended By Code')) {
 		query =
 			"SELECT TOP 1 a.MeetingID from PX_ProposalRecommendations rec\
@@ -26,7 +25,7 @@ Then('I capture meeting ID by running the query {string}', (queryType) => {
 });
 
 Then('I verify that the DB has updated with the absolute amount', () => {
-	let query = `SELECT TOP 1 b.AbsoluteAmount from PX_Meeting m with (nolock)\
+	query = `SELECT TOP 1 b.AbsoluteAmount from PX_Meeting m with (nolock)\
   join PX_Agenda a with (nolock)on a.MeetingID= m.MeetingID join PX_Ballot b with (nolock)on b.AgendaID = a.AgendaID\
   join am_account acc with(nolock)on acc.accountid = b.accountid join AA_customer cus with(nolock)on cus.customerid = acc.customerid\
   where m.IsAllowPartialVote ='1' AND Cus.CustomerID = 196 AND YEAR (votedeadlinedate)= 2023\
@@ -38,7 +37,7 @@ Then('I verify that the DB has updated with the absolute amount', () => {
 });
 
 Then('I verify that the absolute amount for the current meeting is correct', () => {
-	let query = `SELECT TOP 1 b.AbsoluteAmount from PX_Meeting m with (nolock)\
+	query = `SELECT TOP 1 b.AbsoluteAmount from PX_Meeting m with (nolock)\
   join PX_Agenda a with (nolock)on a.MeetingID= m.MeetingID join PX_Ballot b with (nolock)on b.AgendaID = a.AgendaID\
   join am_account acc with(nolock)on acc.accountid = b.accountid join AA_customer cus with(nolock)on cus.customerid = acc.customerid\
   where m.IsAllowPartialVote ='1' AND Cus.CustomerID = 196 AND YEAR (votedeadlinedate)= 2023\
@@ -83,7 +82,7 @@ When('I delete all existing Vote Execution Profiles for the customer with id {in
 });
 
 When('I verify all Voting Groups in the DB are visible on the UI', () => {
-	let query =
+	query =
 		"SELECT DISTINCT \
   CAST(AG.AccountGroupId AS NVARCHAR) AS Code, \
   AG.GroupName AS Name, \
@@ -99,7 +98,7 @@ When('I verify all Voting Groups in the DB are visible on the UI', () => {
 });
 
 When('I navigate to a domestic spin control meeting', () => {
-	let query =
+	query =
 		"SELECT top 10 ac.customerid, a.meetingid, a.AgendaKey, c.CustomerName from px_Agenda a \
 	join PX_Ballot b on b.AgendaID = a.AgendaID \
 	join AM_Account ac on ac.accountid = b.accountid \

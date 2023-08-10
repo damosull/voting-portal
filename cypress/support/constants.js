@@ -6,7 +6,7 @@ export const USER = {
 	CHARLESSCHWAB: 'CharlesSchwabAutomation@glasslewis.com',
 	EVELYN: 'EvelynAutomation@glasslewis.com',
 	FEDERATED: 'FederatedAutomation@glasslewis.com',
-	IMF: 'IFMAutomation@glasslewis.com',
+	IFM: 'IFMAutomation@glasslewis.com',
 	NEUBERGER: 'NeubergerAutomation@glasslewis.com',
 	OPERS: 'OpersAutomation@glasslewis.com',
 	PUTNAM: 'PutnamAutomation@glasslewis.com',
@@ -14,6 +14,21 @@ export const USER = {
 	ROYALLONDON: 'RoyalLondonAutomation@glasslewis.com',
 	RUSSELL: 'RussellAutomation@glasslewis.com',
 	WELLINGTON: 'WellingtonAutomation@glasslewis.com',
+};
+
+export const USERID = {
+	CALPERS: 196,
+	CHARLESSCHWAB: 397,
+	EVELYN: 773,
+	FEDERATED: 390,
+	IFM: 721,
+	NEUBERGER: 281,
+	OPERS: 187,
+	PUTNAM: 396,
+	ROBECO: 535,
+	ROYALLONDON: 742,
+	RUSSELL: 544,
+	WELLINGTON: 388,
 };
 
 export const PASSWORD = 'Test12345%';

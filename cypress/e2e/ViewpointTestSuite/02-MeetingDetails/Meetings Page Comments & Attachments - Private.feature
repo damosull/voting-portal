@@ -1,10 +1,10 @@
 Feature: Meeting Page Comments & Attachments - Private
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9257
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9257
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28568
   @28568
   Scenario: Verify user can add/edit/delete comments with attachments on the Meeting page with privacy set to Private
-    Given I am logged in as the "AUTOMATIONEXTERNAL" User
+    Given I am logged in as the "AUTOMATIONEXTERNAL" user
     And I navigate to the workflow page
     Then I can view the workflow page
     When I select a random meeting
@@ -32,7 +32,7 @@ Feature: Meeting Page Comments & Attachments - Private
     When I delete the existing comment
     Then A toast message appears for "COMMENT_DELETED"
     And I should logout from the application
-    When I am logged in as the "CALPERS" User
+    When I am logged in as the "CALPERS" user
     And I navigate to the Meeting Details page for the saved meeting ID
     Then I can view the Meeting Details page
     And I cannot see an existing comment on the meeting
@@ -42,7 +42,7 @@ Feature: Meeting Page Comments & Attachments - Private
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28569
   @28569
   Scenario: Verify when a user changes the privacy settings of a Comment in a Meeting Details page from Private to Shared with, @mentioned user receives a notification
-    Given I am logged in as the "AUTOMATIONEXTERNAL" User
+    Given I am logged in as the "AUTOMATIONEXTERNAL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I select a random meeting
@@ -55,13 +55,13 @@ Feature: Meeting Page Comments & Attachments - Private
     And I submit the comment
     Then A toast message appears for "COMMENT_WITH_ATTACHMENT_SAVED"
     And I should logout from the application
-    When I am logged in as the "CALPERS_SAGAR" User
+    When I am logged in as the "CALPERS_SAGAR" user
     And I navigate to the Meeting Details page for the saved meeting ID
     And I verify that all the relevant API calls for meeting details page are made for "external" user
     Then I should see "0" comments on the UI
     And The notification dropdown "should not" contain a notification mentioning "You were mentioned by"
     And I should logout from the application
-    When I am logged in as the "AUTOMATIONEXTERNAL" User
+    When I am logged in as the "AUTOMATIONEXTERNAL" user
     And I navigate to the Meeting Details page for the saved meeting ID
     Then I verify that all the relevant API calls for meeting details page are made for "external" user
     When I edit the comment
@@ -73,7 +73,7 @@ Feature: Meeting Page Comments & Attachments - Private
     And I save the changes to the comment
     Then A toast message appears for "COMMENT_UPDATED"
     And I should logout from the application
-    When I am logged in as the "CALPERS_SAGAR" User
+    When I am logged in as the "CALPERS_SAGAR" user
     And I navigate to the Meeting Details page for the saved meeting ID
     And I verify that all the relevant API calls for meeting details page are made for "external" user
     Then I should see "1" comments on the UI

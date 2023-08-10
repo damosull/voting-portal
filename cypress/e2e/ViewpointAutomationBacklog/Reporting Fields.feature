@@ -6,7 +6,7 @@ Feature: Report related tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37972
     @37972
     Scenario: Generate Ballot Reconciliation Report, download and verify file headers
-        Given I am logged in as the "ROBECO" User
+        Given I am logged in as the "ROBECO" user
         When I navigate to the Reporting page
         And I set the meeting date to next date 5 and past date 2 days
         And I add the first 4 column option into the header list
@@ -23,7 +23,7 @@ Feature: Report related tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37971
     @37971
     Scenario: Generate Ballot Status Report, download and verify file headers
-        Given I am logged in as the "CHARLESSCHWAB" User
+        Given I am logged in as the "CHARLESSCHWAB" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Status"
         And I filter the report type to "xlsx"
@@ -43,7 +43,7 @@ Feature: Report related tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37962
     @37962
     Scenario: Generate Ballot Vote Data Report, download and verify file headers
-        Given I am logged in as the "OPERS" User
+        Given I am logged in as the "OPERS" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Vote Data"
         And I set the meeting date to next date 2 and past date 5 days
@@ -60,7 +60,7 @@ Feature: Report related tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/40409
     @40409
     Scenario: Create Ballot Vote Subscription entry and validate in SB_Subscription Database table
-        Given I am logged in as the "CALPERS" User
+        Given I am logged in as the "CALPERS" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Ballot Vote Data"
         And I "save" the report for "Ballot Vote Data"
@@ -79,7 +79,7 @@ Feature: Report related tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37963
     @37963
     Scenario: Generate Engagement report, download and verify file headers
-        Given I am logged in as the "CALPERS" User
+        Given I am logged in as the "CALPERS" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Engagement"
         And I set the meeting date to next date 5 and past date 5 days
@@ -95,7 +95,7 @@ Feature: Report related tests
 
 
     Scenario: Generate Meeting Summary Report, download and verify file headers
-        Given I am logged in as the "CALPERS" User
+        Given I am logged in as the "CALPERS" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Meeting Summary"
         And I filter the report type to "xlsx"
@@ -115,7 +115,7 @@ Feature: Report related tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37988
     @37988
     Scenario: Generate Policy Report, download and verify file headers
-        Given I am logged in as the "RUSSELL" User
+        Given I am logged in as the "RUSSELL" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Policy"
         And I filter the report type to "xlsx"
@@ -135,7 +135,7 @@ Feature: Report related tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/38014
     @38014
     Scenario: Generate Proxy Voting Report, download and verify file headers
-        Given I am logged in as the "CHARLESSCHWAB" User
+        Given I am logged in as the "CHARLESSCHWAB" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Proxy Voting"
         And I filter the report type to "xlsx"
@@ -156,7 +156,7 @@ Feature: Report related tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/38778
     @38778
     Scenario: Generate Proxy Voting Summary Report, download and verify file headers
-        Given I am logged in as the "OPERS" User
+        Given I am logged in as the "OPERS" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Proxy Voting Summary"
         And I filter the report type to "xlsx"
@@ -174,7 +174,7 @@ Feature: Report related tests
 
 
     Scenario: Generate Vote Results Report, download and verify file headers
-        Given I am logged in as the "OPERS" User
+        Given I am logged in as the "OPERS" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Vote Results"
         And I set the date range to the next or last 7 days
@@ -190,14 +190,13 @@ Feature: Report related tests
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37939
     @37939
     Scenario: Generate Voting Activity Report, download and verify file headers
-        Given I am logged in as the "CALPERS" User
+        Given I am logged in as the "CALPERS" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Voting Activity"
         And I filter the report type to "xlsx"
         And I set the date range to the next or last 7 days
-        And I select Decision Status Criteria
-        And I select Voted criteria
-        And I add columns to the report
+        And I have added the reporting criteria for "Decision Status" with status "Voted"
+        And I set minimal columns for the AVA Report
         And I set the Footer under the Grouping & Presentation
         And I set the Header under the Grouping & Presentation
         And I add subscription to the report

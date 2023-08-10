@@ -4,7 +4,7 @@ Feature: Add/Remove System Watchlist
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37827
   @37827
   Scenario: Verify internal user is able to add System Watch list
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     And I navigate to the workflow page
     Then I can view the workflow page
     When I apply the System Watch list for "California Public"
@@ -16,7 +16,7 @@ Feature: Add/Remove System Watchlist
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37827
   @37827
   Scenario: Verify external user is able to verify System Watch list and Meeting name
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I navigate to the workflow page
     Then I can view the workflow page
     When I apply the System Watch list
@@ -27,7 +27,7 @@ Feature: Add/Remove System Watchlist
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37827
   @37827
   Scenario: Verify internal user is able to verify System Watch list and deselect them
-    Given I am logged in as the "AUTOMATIONINTERNAL" User
+    Given I am logged in as the "AUTOMATIONINTERNAL" user
     When I navigate to the Meeting Details page for the saved meeting ID
     Then I should be able to deselect the watch list from the previous scenario
     When I navigate to the workflow page
@@ -39,7 +39,7 @@ Feature: Add/Remove System Watchlist
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/37790
   @37790
   Scenario: Verify user is able to process Vote, Take No Action and Review Required actions
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"

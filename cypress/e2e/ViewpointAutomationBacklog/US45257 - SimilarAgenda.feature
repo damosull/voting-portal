@@ -5,7 +5,7 @@ Feature: Similar Agendas
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/47144
   @47144
   Scenario: Validate that similar agendas are shown in the vote registration warning
-    Given I am logged in as the "WELLINGTON" User
+    Given I am logged in as the "WELLINGTON" user
     When I navigate to the URL "/MeetingDetails/Index/1186995"
     Then I can view the Meeting Details page
     And the given agendas appears on the page

@@ -7,11 +7,8 @@ let meetingId, preTotalVoted, preTotalNotVoted, postTotalVoted, postTotalNotVote
 
 Then('I can view the Meeting Details page', () => {
 	cy.wait('@GET_MEETING_ID', { requestTimeout: 30000, responseTimeout: 75000 });
-	cy.wait('@RELATED_MEETINGS', {
-		requestTimeout: 30000,
-		responseTimeout: 75000,
-	});
-	cy.wait('@VOTE_TALLY', { responseTimeout: 75000 });
+	cy.wait('@RELATED_MEETINGS', { requestTimeout: 30000, responseTimeout: 75000 });
+	cy.wait('@VOTE_TALLY', { requestTimeout: 30000, responseTimeout: 75000 });
 	cy.url().should('include', '/MeetingDetails/Index/');
 	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 });

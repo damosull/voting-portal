@@ -1,4 +1,4 @@
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, attach } from '@badeball/cypress-cucumber-preprocessor';
 import loginPage from '../page_objects/login.page';
 import meetings from '../../fixtures/meetings.json';
 const constants = require('../constants');
@@ -9,7 +9,7 @@ Given('I am on the login page of Viewpoint', () => {
 	loginPage.usernameInput().should('be.visible');
 });
 
-Given('I am logged in as the {string} User', (username) => {
+Given('I am logged in as the {string} user', (username) => {
 	cy.loginWithAdmin(constants.USER[username]);
 });
 
@@ -19,6 +19,7 @@ Given('I am logged in as a random external user', () => {
 	//login & log the user and time
 	//cy.log('Random Number Is: ' + randomUserId + ' & logging in with: ' + username)
 	cy.task('log', `logging in with: ${username} at ${new Date().toISOString().split('T')[1].split('.')[0]} GMT`);
+	attach(`logging in with: ${username}`);
 	cy.loginWithAdmin(username);
 });
 

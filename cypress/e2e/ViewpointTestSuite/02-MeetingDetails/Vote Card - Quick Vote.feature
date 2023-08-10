@@ -1,10 +1,10 @@
 Feature: Vote Card - Quick Vote
-#Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28461
+  #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=28461
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28462
   @28462
   Scenario: Verify that if a user selects Quick Vote option where Research Paper is published & votes on the Vote Card
-    Given I am logged in as the "RUSSELL" User
+    Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Available"
@@ -31,7 +31,7 @@ Feature: Vote Card - Quick Vote
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28463
   @28463
   Scenario: Verify that an Error Message is displayed when a user selects an invalid Quick Vote option
-    Given I am logged in as the "WELLINGTON" User
+    Given I am logged in as the "WELLINGTON" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
@@ -53,7 +53,7 @@ Feature: Vote Card - Quick Vote
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28464
   @28464
   Scenario: Verify that if a user select Quick Vote "Policy Rec" & vote on the vote card
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Manual Vote Required"
@@ -77,7 +77,7 @@ Feature: Vote Card - Quick Vote
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28465
   @28465
   Scenario: Verify that if a user select Quick Vote where Research Paper is published, ALL Mgmt Recs = Undetermined & user votes on the vote card
-    Given I am logged in as the "CALPERS" User
+    Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "with specific Proposal Type Code and Recommended By Code"
     When I navigate to the meeting details page for the captured meeting ID
     Then I can view the Meeting Details page
@@ -97,7 +97,7 @@ Feature: Vote Card - Quick Vote
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28466
   @28466
   Scenario: Verify that if a user select Quick Vote "Against/Withold" & vote on the vote card
-    Given I am logged in as the "WELLINGTON" User
+    Given I am logged in as the "WELLINGTON" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"

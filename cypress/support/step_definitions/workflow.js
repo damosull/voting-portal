@@ -209,6 +209,7 @@ Then('I set the meetings per page value to {string}', (pages) => {
 });
 
 When('I select a random meeting', () => {
+	workflowPage.tableRows().should('be.visible');
 	workflowPage
 		.tableRows()
 		.its('length')
@@ -1119,4 +1120,77 @@ Then('the Customer Name field is blank', () => {
 
 Then('I cannot click on any of the meetings', () => {
 	workflowPage.meeting().should('not.exist');
+});
+
+When('I capture the data from API to compare with AVA report between {int} and {int}', (start_date, end_date) => {
+	let dateStart = dayjs().add(start_date, 'days').format('YYYY|MM|DD');
+	let dateEnd = dayjs().add(end_date, 'days').format('YYYY|MM|DD');
+	cy.get('#csrf-token')
+		.should('exist')
+		.invoke('attr', 'value')
+		.then((csrf) => {
+			cy.request({
+				method: 'POST',
+				url: `/Api/Data/WorkflowExpansionDbAggregated`,
+				form: true,
+				timeout: 60000,
+				headers: {
+					CSRFToken: csrf,
+				},
+				body: {
+					PageInfo: {
+						IgnorePagesize: 'false',
+						Page: '1',
+						PageSize: '10',
+					},
+					SortInfo: [
+						{
+							FieldName: 'MeetingDate',
+							SortDirection: 'asc',
+						},
+					],
+					FilterInfo: {
+						0: {
+							FieldName: 'MeetingDate',
+							CollectionMemberFieldname: '',
+							ValueType: '0',
+							Expressions: [
+								{
+									Operator: 'Between',
+									Value: `${dateStart},${dateEnd}`,
+									ValueSemantics: '0',
+									SiblingJoin: 'and',
+								},
+							],
+							IsPreprocessorFilter: 'false',
+						},
+						1: {
+							FieldName: 'BallotID',
+							CollectionMemberFieldname: '',
+							ValueType: '0',
+							Expressions: [
+								{
+									Operator: 'IsGreaterThan',
+									Value: '0',
+									ValueSemantics: '0',
+									SiblingJoin: 'and',
+								},
+							],
+							IsPreprocessorFilter: 'false',
+						},
+					},
+					SelectedFields: {
+						Fields: {
+							0: { ID: '1' },
+							1: { ID: '2' },
+							2: { ID: '7' },
+						},
+					},
+				},
+			}).then((response) => {
+				Cypress.env('noOfMeetingsInDB', response.body.totalCount);
+				Cypress.env('companyName', response.body.items[0].CompanyName);
+				Cypress.env('meetingId', response.body.items[1].MeetingID);
+			});
+		});
 });
