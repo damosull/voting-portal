@@ -126,7 +126,7 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
-    When I have added the criteria for "Policy Recs With/Against Glass Lewis" and selecting the radio button for "One Against"
+    When I have added the criteria for "Votes With/Against Glass Lewis" and selecting the radio button for "One Against"
     And I select a random meeting
     Then I can view the Meeting Details page
     And the filtered results should display the data only for vote against Glass Lewis
@@ -139,7 +139,7 @@ Feature: Meetings related smoke tests
     Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
-    When I have added the criteria for "Policy Recs With/Against Management" and selecting the radio button for "One Against"
+    When I have added the criteria for "Votes With/Against Management" and selecting the radio button for "One Against"
     And I select a random meeting
     Then I can view the Meeting Details page
     And the filtered results should display the data only for vote against Management

@@ -527,19 +527,13 @@ Then('I can see the filter columns are displayed in the correct order', () => {
 	});
 });
 
-Then('all the meetings on the screen have a CalPERS customer id', () => {
-	// check all meetings in response have CalPERS customer id
-	cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 }).then((xhr) => {
+Then('all the meetings on the screen have a {string} customer id', (customerName) => {
+	cy.get('@WORKFLOW_EXPANSION').then((xhr) => {
 		//handle response. Cache service returns string, while DB returns object
-		const data = typeof xhr.response.body == 'string' ? JSON.parse(xhr.response.body) : xhr.response.body;
-		const items = data.items;
-
+		const items = typeof xhr.response.body == 'string' ? JSON.parse(xhr.response.body).items : xhr.response.body.items;
+		expect(items[0].CustomerID, 'Cache Service is Down!').to.not.be.undefined;
 		items.forEach((item) => {
-			const ballots = item.Agendas[0].Policies[0].Ballots;
-			ballots.forEach((ballot) => {
-				const value = ballot.Summaries.CustomerID.Value;
-				expect(value).to.equal(196);
-			});
+			expect(item.CustomerID).to.equal(constants.USERID[customerName]);
 		});
 	});
 });
