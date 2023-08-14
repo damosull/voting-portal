@@ -10,7 +10,7 @@ Feature: Generate Load for Voting on Viewpoint bypassing Workflow page
     And I replace my FOR votes with AGAINST and vice-versa
     And I click on the Vote button
     And I handle the override pop-up if it exists
-    Then the vote should be submitted successfully
+    Then I can see a Vote success message
     And I randomly wait between 5 and 10 seconds
     And I should logout from the application
     
