@@ -109,7 +109,7 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56832
   @56832
   Scenario: Verify user is able to take no action on a Recommendation Pending meeting
-    Given I am logged in as a random external user
+    Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
