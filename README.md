@@ -48,6 +48,17 @@ To run cypress, just execute the following command:
 
 <br/>
 
+# Test Folders
+
+This is what the different test folders mean and their location on Azure DevOps is mentioned below:
+
+- `SmokeTests` - These are the basic smoke tests for Voting Portal application which ensures all important pages and functionalities are working as expected. The test cases for these are located [`here`](https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=56788&suiteId=56790).
+- `RegressionSuite` - These are the tests which have been automated from the 2800+ tests in the old regression suite. The test cases for these are located [`here`](https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9216).
+- `Reports` - These are the tests which have been automated to improve automation coverage for reports. The test cases for these are located [`here`](https://glasslewis-my.sharepoint.com/:x:/p/smaheshwari/EYlZL1aLmUlJj8nVuU4DXOYBsgTD0bSTr1WncQaeRMcYCQ).
+- `AutomationScenarios` - These are the tests which were designed to be automated and also the tests which were designed for features from 2021. The test cases for these are located either in [`Automation Backlog`](https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=48536&suiteId=48537) or [`Automation Scenarios`](https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=37349&suiteId=37350).
+
+<br/>
+
 # Running With Tags
 
 Using Cucumber tags gives great advantage to run the test cases of your choice. All the tests in this repo have been tagged, either as a set OR as the ID of invidiual test case. You can use the command as seen in below examples.
