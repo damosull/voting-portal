@@ -209,6 +209,7 @@ Then('I set the meetings per page value to {string}', (pages) => {
 });
 
 When('I select a random meeting', () => {
+	workflowPage.waitForWorkflowPageLoad();
 	workflowPage.tableRows().should('be.visible');
 	workflowPage
 		.tableRows()
