@@ -26,10 +26,10 @@ Feature: Verify UI and API's data in workflow-expansion
 
         Examples:
             | customer     | cache                             | database                 | start_date | end_date |
-            | "RUSSELL"    | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -30        | -28      |
-            | "CALPERS"    | "WORKFLOW_PERFORMANCE"            | "WORKFLOW_DB"            | -40        | -38      |
-            | "EVELYN"     | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -15        | -13      |
-            | "WELLINGTON" | "WORKFLOW_PERFORMANCE"            | "WORKFLOW_DB"            | 0          | 2        |
+            | "RUSSELL"    | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -60        | -54      |
+            | "CALPERS"    | "WORKFLOW_PERFORMANCE"            | "WORKFLOW_DB"            | -40        | -34      |
+            | "EVELYN"     | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -20        | -14      |
+            | "WELLINGTON" | "WORKFLOW_PERFORMANCE"            | "WORKFLOW_DB"            | 0          | 7        |
 
     @60136
     Scenario: verify API data to compare aggregate cache data with DB data
