@@ -422,10 +422,6 @@ Then('I handle the override pop-up if it exists', () => {
 	});
 });
 
-Then('the vote should be submitted successfully', () => {
-	cy.wait('@VOTE', { requestTimeout: 45000, responseTimeout: 100000 }).its('response.statusCode').should('eq', 204);
-});
-
 Then('I select the checkbox and click Proceed', () => {
 	meetingDetailsPage.checkboxOverride().should('be.visible').click();
 	meetingDetailsPage.proceedButton().click();

@@ -11,7 +11,7 @@
 		"testUltra": "cypress run --env testEnv=ultra",
 		"smoke": "cypress run --config specPattern=cypress/e2e/SmokeTests/*.feature",
 		"smokeUltra": "cypress run --env testEnv=ultra --config specPattern=cypress/e2e/SmokeTests/*.feature",
-		"regression": "cypress run --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature",
+		"regression": "cypress run --config specPattern=cypress/e2e/RegressionSuite/**/*.feature",
 		"loadtest": "cypress run --env testEnv=ultra --config specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,retries=0",
 		"loaddocker": "docker compose up --scale cypress=5",
 		"lint": "eslint cypress",
@@ -19,14 +19,14 @@
 		"prepare": "husky install"
 	},
 	"devDependencies": {
-		"eslint": "8.46.0",
+		"eslint": "8.47.0",
 		"eslint-plugin-cypress": "2.14.0",
-		"prettier": "3.0.1"
+		"prettier": "3.0.2"
 	},
 	"dependencies": {
 		"@badeball/cypress-cucumber-preprocessor": "18.0.4",
 		"@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
-		"cypress": "12.17.3",
+		"cypress": "12.17.4",
 		"cypress-cloud": "1.9.3",
 		"husky": "8.0.3",
 		"mssql": "9.1.3",
@@ -72,6 +72,7 @@
 		"useTabs": true,
 		"printWidth": 120,
 		"semi": true,
-		"singleQuote": true
+		"singleQuote": true,
+		"quoteProps": "preserve"
 	}
 }
