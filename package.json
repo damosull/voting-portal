@@ -11,7 +11,7 @@
 		"testUltra": "cypress run --env testEnv=ultra",
 		"smoke": "cypress run --config specPattern=cypress/e2e/SmokeTests/*.feature",
 		"smokeUltra": "cypress run --env testEnv=ultra --config specPattern=cypress/e2e/SmokeTests/*.feature",
-		"regression": "cypress run --config specPattern=cypress/e2e/ViewpointTestSuite/**/*.feature",
+		"regression": "cypress run --config specPattern=cypress/e2e/RegressionSuite/**/*.feature",
 		"loadtest": "cypress run --env testEnv=ultra --config specPattern=cypress/loadtest/loadtest-bypassWorkflow.feature,retries=0",
 		"loaddocker": "docker compose up --scale cypress=5",
 		"lint": "eslint cypress",

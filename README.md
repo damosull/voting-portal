@@ -42,7 +42,7 @@ To run cypress, just execute the following command:
 - `npm run smoke` or `yarn smoke` - Runs All Smoke Tests
 - `npm run regression` or `yarn regression` - Runs All Regression Tests
 - `npx cypress run --spec "cypress/e2e/SmokeTests/09-filters-tests.feature"` - Runs a specific spec file
-- `npx cypress run --config specPattern="cypress/e2e/ViewpointTestSuite/02-MeetingDetails/*.feature"` - Runs all tests in a specific folder
+- `npx cypress run --config specPattern="cypress/e2e/RegressionSuite/02-MeetingDetails/*.feature"` - Runs all tests in a specific folder
 
 **NOTE:** To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline` and put the command under `Build Parameters`. Choose the test environment as required and make sure you change the number of parallel instances to 1. Then, Click `Run`.
 
@@ -65,8 +65,8 @@ Using Cucumber tags gives great advantage to run the test cases of your choice. 
 
 - Run specific test from entire test suite - `npx cypress run --env tags='@40729'`
 - Run multiple tests from entire test suite - `npx cypress run --env tags='@40729 or @3331 or @28433 or @28474'`
-- Run specific test from specific file - `npx cypress run --spec 'cypress/e2e/ViewpointAutomationBacklog/Compare Recommendations.feature' --env tags='@48678'`
-- Run multiple tests from specific folder - `npx cypress run --config specPattern="cypress/e2e/ViewpointTestSuite/02-MeetingDetails/*.feature" --env tags='@40724 or @40734'`
+- Run specific test from specific file - `npx cypress run --spec 'cypress/e2e/AutomationScenarios/Compare Recommendations.feature' --env tags='@48678'`
+- Run multiple tests from specific folder - `npx cypress run --config specPattern="cypress/e2e/RegressionSuite/02-MeetingDetails/*.feature" --env tags='@40724 or @40734'`
 
 <br/>
 
@@ -74,10 +74,10 @@ Using Cucumber tags gives great advantage to run the test cases of your choice. 
 
 **NOTE:** To run tests on Azure Pipelines, go to [`this link`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430), click on `Run pipeline` and put the command under `Build Parameters`. Choose the test environment as required and make sure you change the number of parallel instances to 1. Then, Click `Run`.
 
-- **Run specific tests from regression suite if you don't know the folders - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/**/*.feature' --env tags='@28722 or @40724'`**
-- Run specific test from specific folder - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/02-MeetingDetails/Vote Button - MD6.feature' --env tags='@3289'`
-- Run all tests from specific folder - `npx cypress run --spec 'cypress/e2e/ViewpointTestSuite/02-MeetingDetails/Vote Card.feature'`
-- Run all meeting details regression tests - `npx cypress run --config specPattern='cypress/e2e/ViewpointTestSuite/02-MeetingDetails/*.feature'`
+- **Run specific tests from regression suite if you don't know the folders - `npx cypress run --config specPattern='cypress/e2e/RegressionSuite/**/*.feature' --env tags='@28722 or @40724'`**
+- Run specific test from specific folder - `npx cypress run --config specPattern='cypress/e2e/RegressionSuite/02-MeetingDetails/Vote Button - MD6.feature' --env tags='@3289'`
+- Run all tests from specific folder - `npx cypress run --spec 'cypress/e2e/RegressionSuite/02-MeetingDetails/Vote Card.feature'`
+- Run all meeting details regression tests - `npx cypress run --config specPattern='cypress/e2e/RegressionSuite/02-MeetingDetails/*.feature'`
 - Run entire regression suite - `npm run regression`
 
 <br/>
