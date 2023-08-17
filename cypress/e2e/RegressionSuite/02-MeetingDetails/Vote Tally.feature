@@ -124,7 +124,7 @@ Feature: Vote Tally Folder Tests
   @28458
   Scenario: Verify when a user lands on current Meeting with Decision Status = Info Only it displays correct  Vote Tally Counts for Info Only
     Given I am logged in as the "CALPERS" user
-    When I navigate to the meeting details page for the meeting "CAIO"
+    When I navigate to the meeting with id 1135360
     Then I can view the Meeting Details page
     And I verify the vote tally section displays counts of total voted and total not voted items
     And I should be "able" to see "Info Only under Vote Tally" on the UI

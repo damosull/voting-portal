@@ -133,6 +133,9 @@ class workflowPage {
 	controlNumberColumnHeader() {
 		return cy.get("th[data-field='BallotControlNumber'] a[class='k-link']");
 	}
+	securityCountryOfTradeColumnHeader() {
+		return cy.get("th[data-field='SecurityCountryOfTrade'] a[class='k-link']");
+	}
 	votedSharesData() {
 		return cy.get('#metaname-VotedShares');
 	}

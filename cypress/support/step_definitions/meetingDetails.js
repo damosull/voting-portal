@@ -27,8 +27,7 @@ Then('I can verify I am on the Meeting Details page', () => {
 	meetingDetailsPage.accountButton().should('be.visible');
 });
 
-When('I navigate to the meeting with id {string}', (meetingId) => {
-	cy.AddTenDaysToMeetingDates(meetingId);
+When('I navigate to the meeting with id {int}', (meetingId) => {
 	cy.visit('MeetingDetails/Index/' + meetingId);
 });
 
@@ -1221,7 +1220,7 @@ Then('I provide the details like the username to share with and submitted', () =
 	meetingDetailsPage.shareMeetingConfirmButton().click();
 });
 
-Then('I verify that the request was saved in the database', () => {
+Then('I verify that the request to share meeting was saved in the database', () => {
 	cy.getAutomationUserIDFromDB(constants.USER.CALPERS).as('userid');
 	//Step 11 - Connect to Aqua GLP Database and verify new row has been added to PX_ShareMeeting table
 	cy.executeQuery('SELECT TOP 1 * FROM PX_ShareMeeting ORDER BY ShareMeetingID DESC').then((result) => {
