@@ -109,7 +109,7 @@ When('I navigate to a domestic spin control meeting', () => {
 
 	cy.executeQuery(query).then((result) => {
 		let randomRow = Math.floor(Math.random() * result.length);
-		cy.AddTenDaysToMeetingDates(result[randomRow].meetingid);
+		cy.SetMeetingDateXdaysFromToday(result[randomRow].meetingid, 10);
 		cy.visit(`MeetingDetails/Index/${result[randomRow].customerid}/${result[randomRow].meetingid}`);
 	});
 });

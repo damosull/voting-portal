@@ -39,7 +39,7 @@ Feature: Controversy Alert
     Then I should logout from the application
     When I am logged in as the "AUTOMATIONEXTERNAL" user
     And I add a controversy alert file for the meeting
-    And I navigate to the meeting with id 1217702
+    And I navigate to the meeting details page for the meeting "CAVOCA"
     Then I can view the Meeting Details page
     And I should be "able" to see "Controversy Alert link" on the UI
     And I should be able to verify the UI shows filename with "..." and its extension is .pdf
@@ -54,7 +54,7 @@ Feature: Controversy Alert
     Then I should logout from the application
     When I am logged in as the "AUTOMATIONEXTERNAL" user
     And I add a controversy alert file for the meeting
-    And I navigate to the meeting with id 1217702
+    And I navigate to the meeting details page for the meeting "CAVOCA"
     Then I can view the Meeting Details page
     And I should be "unable" to see "Controversy Alert link" on the UI
     And I should logout from the application
@@ -68,7 +68,7 @@ Feature: Controversy Alert
     Then I should logout from the application
     When I am logged in as the "AUTOMATIONEXTERNAL" user
     And I add a controversy alert file for the meeting
-    And I navigate to the meeting with id 1217702
+    And I navigate to the meeting details page for the meeting "CAVOCA"
     Then I can view the Meeting Details page
     And I should be "able" to see "Controversy Alert link" on the UI
     And I should logout from the application

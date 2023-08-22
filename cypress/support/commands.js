@@ -37,16 +37,16 @@ Cypress.Commands.add('AddTenDaysToMeetingDates', (meetingId) => {
 	);
 });
 
-Cypress.Commands.add('SetMeetingDateXdaysFromCurrent', (meetingId, days) => {
+Cypress.Commands.add('SetMeetingDateXdaysFromToday', (meetingId, days) => {
 	cy.executeQuery(
 		`UPDATE PX_Meeting SET
         MeetingDate = DATEADD(DAY, ${days}, getdatE()),
-        FileProcessingDate = DATEADD(DAY, -1, getdatE()),
-        HoldReconciliationDate = DATEADD(DAY, 10, getdatE()),
-        LastModifiedDate = DATEADD(DAY, 10, getdatE()),
-        RecordDate = DATEADD(DAY, 10, getdatE()),
-        SharesDependentChangeDate = DATEADD(DAY, 10, getdatE()),
-        VoteDeadlineDate = DATEADD(DAY, 10, getdatE())
+        FileProcessingDate = DATEADD(DAY, ${days}, getdatE()),
+        HoldReconciliationDate = DATEADD(DAY, ${days}, getdatE()),
+        LastModifiedDate = DATEADD(DAY, ${days - 5}, getdatE()),
+        RecordDate = DATEADD(DAY, ${days - 5}, getdatE()),
+        SharesDependentChangeDate = DATEADD(DAY, ${days}, getdatE()),
+        VoteDeadlineDate = DATEADD(DAY, ${days - 1}, getdatE())
         WHERE MeetingID IN (` +
 			meetingId +
 			`)`

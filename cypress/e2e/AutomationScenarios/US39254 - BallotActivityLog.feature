@@ -26,7 +26,7 @@ Feature: Display the Ballot Voting History
   @40724
   Scenario: Verify pagination is displayed on the ballot section page
     Given I am logged in as the "RUSSELL" user
-    When I navigate to the meeting details page for the meeting "RBNCRP"
+    When I navigate to the meeting with id 1058810
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
     Then I should be able to verify the pagination is displayed on the ballot section page

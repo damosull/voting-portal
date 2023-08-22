@@ -32,12 +32,10 @@ When('I navigate to the meeting with id {int}', (meetingId) => {
 });
 
 When('I navigate to the meeting details page for the meeting {string}', (meetingID) => {
-	cy.AddTenDaysToMeetingDates(constants.MEETINGID[meetingID]);
 	cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID]);
 });
 
 When('I navigate to the meeting details page for the captured meeting ID', () => {
-	cy.AddTenDaysToMeetingDates(Cypress.env('meetingId'));
 	cy.visit('MeetingDetails/Index/' + Cypress.env('meetingId'));
 });
 
@@ -45,10 +43,14 @@ When('I navigate to the Meeting Details page for the saved meeting ID', () => {
 	cy.visit(meetingId);
 });
 
+When('I add {int} days to the meeting {string}', (noOfDays, meetingId) => {
+	cy.SetMeetingDateXdaysFromToday(constants.MEETINGID[meetingId], noOfDays);
+});
+
 When(
 	'I set the meeting date to {int} days from today and navigate to the meeting details page for the meeting {string}',
 	(noOfDays, meetingID) => {
-		cy.SetMeetingDateXdaysFromCurrent(constants.MEETINGID[meetingID], noOfDays);
+		cy.SetMeetingDateXdaysFromToday(constants.MEETINGID[meetingID], noOfDays);
 		cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID]);
 	}
 );
@@ -1825,7 +1827,7 @@ Then('the partial vote percent is automatically corrected to 100%', () => {
 });
 
 Then('I can verify that the set partial vote modal is read only for past meetings', () => {
-	cy.SetMeetingDateXdaysFromCurrent(Cypress.env('meetingId'), -10);
+	cy.SetMeetingDateXdaysFromToday(Cypress.env('meetingId'), -10);
 	cy.visit('MeetingDetails/Index/' + Cypress.env('meetingId'));
 	meetingDetailsPage.setPartialVoteButton().should('be.visible').click();
 	meetingDetailsPage.partialVoteNominalInput().should('be.disabled');
