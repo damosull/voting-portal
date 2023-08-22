@@ -51,8 +51,11 @@ Feature: Meetings related smoke tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56828
   @56828
   Scenario: Verify user is able to vote on a US Recommendation Pending meeting
-    Given I am logged in as the "CALPERS" user
-    When I navigate to the meeting details page for the meeting "CPRP4"
+    Given I am logged in as the "WELLINGTON" user
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    When I have added the criteria for "Security Country of Trade" with status "United States"
+    And I select a random meeting
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
     And I quick vote "For" on the meeting
@@ -67,7 +70,10 @@ Feature: Meetings related smoke tests
   @56829
   Scenario: Verify user is able to vote on a Global Recommendation Pending meeting
     Given I am logged in as the "CALPERS" user
-    When I navigate to the meeting details page for the meeting "CPRP2"
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    When I have added the criteria for "Security Country of Trade" with status "United Kingdom"
+    And I select a random meeting
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
     And I quick vote "For" on the meeting
@@ -95,7 +101,10 @@ Feature: Meetings related smoke tests
   @56831
   Scenario: Verify user is able to quickvote on a Global Recommendation Pending meeting
     Given I am logged in as the "CALPERS" user
-    When I navigate to the meeting details page for the meeting "CPRP3"
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    When I arrange the table in "ascending" order for "Security Country of Trade"
+    And I select a random meeting
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
     And I quick vote "For" on the meeting
@@ -163,13 +172,14 @@ Feature: Meetings related smoke tests
   @56833
   Scenario: Verify user is able to share a meeting with another user
     Given I am logged in as the "CALPERS" user
-    When I navigate to the meeting details page for the meeting "CPRP6"
+    When I navigate to the workflow page
+    Then I can view the workflow page
+    When I select a random meeting
     Then I can view the Meeting Details page
-    When I click on the Change Vote or Rationale button if it exists
-    And I click on the share meeting option
+    When I click on the share meeting option
     And I provide the details like the username to share with and submitted
     Then A toast message appears for "SHARE_MEETING_REQUEST_SAVED"
-    And I verify that the request was saved in the database
+    And I verify that the request to share meeting was saved in the database
     And I should logout from the application
 
 

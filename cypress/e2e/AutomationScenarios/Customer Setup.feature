@@ -5,7 +5,7 @@ Feature: Navigation from meeting details page to company page
   @43760
   Scenario: Verify user can navigate from Meeting Details page to Company page and the associated meetings in meetings dropdown on Company Page all include text '20'
     Given I am logged in as the "CALPERS" user
-    When I navigate to the meeting with id "1101707"
+    When I navigate to the meeting details page for the meeting "1101707"
     Then I can view the Meeting Details page
     And the meeting id should match the expected current meeting id and previous meeting id
     And the company id should match the expected company id

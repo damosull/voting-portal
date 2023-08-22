@@ -27,29 +27,34 @@ Then('I can verify I am on the Meeting Details page', () => {
 	meetingDetailsPage.accountButton().should('be.visible');
 });
 
-When('I navigate to the meeting with id {string}', (meetingId) => {
-	cy.AddTenDaysToMeetingDates(meetingId);
-	cy.visit('MeetingDetails/Index/' + meetingId);
-});
-
 When('I navigate to the meeting details page for the meeting {string}', (meetingID) => {
-	cy.AddTenDaysToMeetingDates(constants.MEETINGID[meetingID]);
-	cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID]);
-});
-
-When('I navigate to the meeting details page for the captured meeting ID', () => {
-	cy.AddTenDaysToMeetingDates(Cypress.env('meetingId'));
-	cy.visit('MeetingDetails/Index/' + Cypress.env('meetingId'));
+	//check if user passed the meetingId or a constant from constants.js
+	if (meetingID.includes('environment variable')) {
+		cy.visit('MeetingDetails/Index/' + Cypress.env('meetingId'));
+	} else if (meetingId.match(/^[0-9]+$/) != null) {
+		cy.visit('MeetingDetails/Index/' + meetingId);
+	} else {
+		cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID]);
+	}
 });
 
 When('I navigate to the Meeting Details page for the saved meeting ID', () => {
 	cy.visit(meetingId);
 });
 
+When('I add {int} days to the meeting {string}', (noOfDays, meetingId) => {
+	//check if user passed the meetingId or a constant from constants.js
+	if (meetingId.match(/^[0-9]+$/) != null) {
+		cy.SetMeetingDateXdaysFromToday(meetingId, noOfDays);
+	} else {
+		cy.SetMeetingDateXdaysFromToday(constants.MEETINGID[meetingId], noOfDays);
+	}
+});
+
 When(
 	'I set the meeting date to {int} days from today and navigate to the meeting details page for the meeting {string}',
 	(noOfDays, meetingID) => {
-		cy.SetMeetingDateXdaysFromCurrent(constants.MEETINGID[meetingID], noOfDays);
+		cy.SetMeetingDateXdaysFromToday(constants.MEETINGID[meetingID], noOfDays);
 		cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID]);
 	}
 );
@@ -1221,7 +1226,7 @@ Then('I provide the details like the username to share with and submitted', () =
 	meetingDetailsPage.shareMeetingConfirmButton().click();
 });
 
-Then('I verify that the request was saved in the database', () => {
+Then('I verify that the request to share meeting was saved in the database', () => {
 	cy.getAutomationUserIDFromDB(constants.USER.CALPERS).as('userid');
 	//Step 11 - Connect to Aqua GLP Database and verify new row has been added to PX_ShareMeeting table
 	cy.executeQuery('SELECT TOP 1 * FROM PX_ShareMeeting ORDER BY ShareMeetingID DESC').then((result) => {
@@ -1826,7 +1831,7 @@ Then('the partial vote percent is automatically corrected to 100%', () => {
 });
 
 Then('I can verify that the set partial vote modal is read only for past meetings', () => {
-	cy.SetMeetingDateXdaysFromCurrent(Cypress.env('meetingId'), -10);
+	cy.SetMeetingDateXdaysFromToday(Cypress.env('meetingId'), -10);
 	cy.visit('MeetingDetails/Index/' + Cypress.env('meetingId'));
 	meetingDetailsPage.setPartialVoteButton().should('be.visible').click();
 	meetingDetailsPage.partialVoteNominalInput().should('be.disabled');

@@ -20,7 +20,7 @@ Feature: Vote Card Tests
   @28435
   Scenario: Verify filtering on Account does not impact Vote Tally section of the Meeting Details page
     Given I am logged in as the "ROBECO" user
-    When I navigate to the meeting details page for the meeting "RBVOAC"
+    When I navigate to the meeting details page for the meeting "1134546"
     Then I can view the Meeting Details page
     And I can verify that the Account filter has the value "189506"
     And I can verify that the vote card summary remains unchanged when user changes the filters on "account"
@@ -31,7 +31,7 @@ Feature: Vote Card Tests
   @28434
   Scenario: Verify filtering on Account Group does NOT impact Vote Tally section
     Given I am logged in as the "ROBECO" user
-    When I navigate to the meeting details page for the meeting "RBVOAG"
+    When I navigate to the meeting details page for the meeting "1135872"
     Then I can view the Meeting Details page
     And I can verify that the Account Group filter has the value "ProxyExchange Accounts"
     And I can verify that the vote card summary remains unchanged when user changes the filters on "account group"

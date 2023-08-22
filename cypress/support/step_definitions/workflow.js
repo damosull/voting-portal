@@ -62,6 +62,20 @@ Then('I arrange the table in {string} order for {string}', (order, column_name) 
 				workflowPage.waitForWorkflowPageLoad();
 			}
 			break;
+		case 'Security Country of Trade':
+			workflowPage
+				.securityCountryOfTradeColumnHeader()
+				.should('be.visible')
+				.click({ force: true, scrollBehavior: false });
+			workflowPage.waitForWorkflowPageLoad();
+			if (order.includes('descending')) {
+				workflowPage
+					.securityCountryOfTradeColumnHeader()
+					.should('be.visible')
+					.click({ force: true, scrollBehavior: false });
+				workflowPage.waitForWorkflowPageLoad();
+			}
+			break;
 	}
 });
 

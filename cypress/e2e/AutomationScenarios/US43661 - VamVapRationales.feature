@@ -8,6 +8,7 @@ Feature: VAM/VAP Feature
     And I turn "on" the customer settings for "VAM and VAP" for "Russell Investments"
     Then I should logout from the application
     When I am logged in as the "RUSSELL" user
+    And I add 10 days to the meeting "RSNCVAMAP"
     And I navigate to the meeting details page for the meeting "RSNCVAMAP"
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button
@@ -22,6 +23,7 @@ Feature: VAM/VAP Feature
   @44714 @44716
   Scenario: Live ballots with meeting date for future ballots whose meeting date has passed/Revote and rationale is entered for vote against management
     Given I am logged in as the "RUSSELL" user
+    And I add 10 days to the meeting "RSNCVAM2"
     When I navigate to the meeting details page for the meeting "RSNCVAM2"
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button
@@ -47,6 +49,7 @@ Feature: VAM/VAP Feature
   @44714 @44716
   Scenario: Live ballots with meeting date for future ballots whose meeting date has passed/Revote and no rationale entered for vote against management
     Given I am logged in as the "RUSSELL" user
+    And I add 10 days to the meeting "RSNCVAM1"
     When I navigate to the meeting details page for the meeting "RSNCVAM1"
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button

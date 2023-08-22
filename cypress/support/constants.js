@@ -101,18 +101,10 @@ export const MEETINGID = {
 	NBCOMMO_AGENDA3: '935281206',
 	NBCOMMO_CTRLNUM1: '8193294880136089',
 
-	WLNCVTD: '1062764', // Charles Schwab - Non Contested - Voted
-	WLNCVTD_CTRLNUM: '4000153399354', // Charles Schwab - Non Contested - Voted
-
 	RLNCDRP: '1057618', //Russell - Non Contested -  Recommendations Pending
-	RBNCRP: '1058810', //Robeco - Non Contested -  Recommendations Pending
-	RBVOAC: '1134546', //Robeco Voted with 2 values for Decision Status
-	RBVOAG: '1135872', //Robeco Voted with >1 Account Groups
 
 	//Calpers
-	CANCRA: '1066065',
 	CAVOCA: '1129879', //Calpers Meeting with Controversy Alert File
-	CAIO: '1135360', //Calpers Meeting with Decision Status as Info Only
 
 	//Russell (at least one against management & policy past 30 days)
 	RSNCVAMAP: '1016711',
@@ -124,14 +116,6 @@ export const MEETINGID = {
 	//Russell (at least one against management past 30 days)
 	RSNCVAM1: '1068747',
 	RSNCVAM2: '1070063',
-
-	//Basic Recommendations pending meeting for Calpers
-	CPRP2: '1065713',
-	CPRP3: '1063534',
-	CPRP6: '1066180',
-
-	//Calpers Recommendations Pending (US meeting)
-	CPRP4: '1057963',
 };
 
 export const testWatchlistName = 'Watchlist_Assignment_tests';

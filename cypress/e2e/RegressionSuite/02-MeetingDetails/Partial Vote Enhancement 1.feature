@@ -6,7 +6,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: Verify No Warning Message displayed when the user has set a combination partial vote & then navigated away from the Meeting Details page when the user has VOTED
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I save the company name
     And I click on the Clear Partial Vote link if it exists
@@ -35,11 +35,15 @@ Feature: Partial Vote Enhancement Tests
     And I remove all existing selected criteria
     And I have added the column "Voted Shares"
     When I have added the criteria for "Company Name" "from this test"
-    And I scroll to the end of the meetings table
+    And I click on the Meeting Date radio button
+    And I set the date filter between 0 and 120 days from today
+    And I update the date filter
+    Then I can view the workflow page
+    When I scroll to the end of the meetings table
     Then I can verify that the voted shares value matches the saved value
     And I should logout from the application
     When I am logged in as the "CALPERS" user
-    And I navigate to the meeting details page for the captured meeting ID
+    And I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I can see the Partial Vote Applied button
     And I should logout from the application
@@ -50,7 +54,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: Verify User can choose to 'Vote' where user has chosen a 'NOMINAL' value in the  'Set Partial Vote' modal
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I save the company name
     And I click on the Clear Partial Vote link if it exists
@@ -74,6 +78,10 @@ Feature: Partial Vote Enhancement Tests
     Then I can view the workflow page
     And I remove all existing selected criteria
     When I have added the criteria for "Company Name" "from this test"
+    And I click on the Meeting Date radio button
+    And I set the date filter between 0 and 120 days from today
+    And I update the date filter
+    Then I can view the workflow page
     And I have added the column "Voted Shares"
     Then I can view the workflow page
     And I scroll to the end of the meetings table
@@ -86,7 +94,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: Verify user can select 'Take No Action' where user has chosen '%' option in the 'Set Partial Vote' modal
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
@@ -107,7 +115,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: Verify user can select 'Take No Action' option where user has chosen 'NOMINAL' option in the 'Set Partial Vote' modal
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
@@ -131,7 +139,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: Verify user cannot enter alphanumerics in the 'Set Partial Vote' modal
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
@@ -147,7 +155,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: Verify system throws an error message if User selects 'Value' that is more than the Total 'No. of Shares' in the Set Partial Vote modal
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
