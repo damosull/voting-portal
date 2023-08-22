@@ -347,7 +347,7 @@ Cypress.Commands.add('getAutomationUsernameFromDB', (user) => {
 
 Cypress.Commands.add('getCustomerIDFromDB', (user) => {
 	cy.executeQuery(`SELECT CustomerID FROM [GLP].[dbo].[AA_Customer] where CustomerName = '${user}'`).then((result) => {
-		return result;
+		return result[0].CustomerID;
 	});
 });
 
