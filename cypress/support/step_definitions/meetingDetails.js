@@ -44,7 +44,12 @@ When('I navigate to the Meeting Details page for the saved meeting ID', () => {
 });
 
 When('I add {int} days to the meeting {string}', (noOfDays, meetingId) => {
-	cy.SetMeetingDateXdaysFromToday(constants.MEETINGID[meetingId], noOfDays);
+	//check if user passed the meetingId or a constant from constants.js
+	if (meetingId.match(/^[0-9]+$/) != null) {
+		cy.SetMeetingDateXdaysFromToday(meetingId, noOfDays);
+	} else {
+		cy.SetMeetingDateXdaysFromToday(constants.MEETINGID[meetingId], noOfDays);
+	}
 });
 
 When(

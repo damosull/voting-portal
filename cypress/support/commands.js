@@ -20,23 +20,6 @@ Cypress.Commands.add('SetPaginationAndVerify', (numItemsPerPage, num) => {
 		.should('have.text', numItemsPerPage);
 });
 
-//make sure all dates are current with this meeting id
-Cypress.Commands.add('AddTenDaysToMeetingDates', (meetingId) => {
-	cy.executeQuery(
-		`UPDATE PX_Meeting SET
-        MeetingDate = DATEADD(DAY, 10, getdatE()),
-        FileProcessingDate = DATEADD(DAY, -1, getdatE()),
-        HoldReconciliationDate = DATEADD(DAY, 10, getdatE()),
-        LastModifiedDate = DATEADD(DAY, 10, getdatE()),
-        RecordDate = DATEADD(DAY, 10, getdatE()),
-        SharesDependentChangeDate = DATEADD(DAY, 10, getdatE()),
-        VoteDeadlineDate = DATEADD(DAY, 10, getdatE())
-        WHERE MeetingID IN (` +
-			meetingId +
-			`)`
-	);
-});
-
 Cypress.Commands.add('SetMeetingDateXdaysFromToday', (meetingId, days) => {
 	cy.executeQuery(
 		`UPDATE PX_Meeting SET
