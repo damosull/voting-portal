@@ -31,15 +31,11 @@ When('I navigate to the meeting details page for the meeting {string}', (meeting
 	//check if user passed the meetingId or a constant from constants.js
 	if (meetingId.match(/^[0-9]+$/) != null) {
 		cy.visit('MeetingDetails/Index/' + meetingId);
-	} else if (meetingID.contains('DB')) {
+	} else if (meetingID.contains('variable')) {
 		cy.visit('MeetingDetails/Index/' + Cypress.env('meetingId'));
 	} else {
 		cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID]);
 	}
-});
-
-When('I navigate to the meeting details page for the captured meeting ID', () => {
-	cy.visit('MeetingDetails/Index/' + Cypress.env('meetingId'));
 });
 
 When('I navigate to the Meeting Details page for the saved meeting ID', () => {

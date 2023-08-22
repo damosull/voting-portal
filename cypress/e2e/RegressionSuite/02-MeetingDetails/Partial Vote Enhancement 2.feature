@@ -6,13 +6,13 @@ Feature: Partial Vote Enhancement Tests
   Scenario: Verify NO 'Set Partial Vote' button available for historical meetings where they don't hold the security for that meeting
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
     And I should logout from the application
     When I am logged in as the "PUTNAM" user
-    And I navigate to the meeting details page for the captured meeting ID
+    And I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I should be "able" to see "You do not have ballots for this meeting" on the UI
     And I should logout from the application
@@ -32,7 +32,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: Verify User will receive toast message 'You have not applied a valid amount (%) please review values entered' if the total % equals to 100%
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
@@ -61,7 +61,7 @@ Feature: Partial Vote Enhancement Tests
   @28726
   Scenario: Verify user can click 'Clear partial vote' button to clear previously saved partial vote and reset back to the "Partial Vote Percentage" Value on the Customer Profile Page
     Given I am logged in as the "CALPERS" user
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I can see the Partial Vote Applied button
     When I click on the Partial Vote Applied button
@@ -91,7 +91,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: Verify user can click 'Clear partial vote' button to clear previously saved partial vote
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I click on the Change Vote or Rationale button if it exists
     And I click on the Clear Partial Vote link if it exists
@@ -122,7 +122,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: Verify warning message displays when user has set partial vote and navigates away from Meeting Details page WITHOUT VOTING
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button

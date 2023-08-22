@@ -6,7 +6,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: BUG-4886 - New Partial Voting Default Percent on Customer Level Changes TC1
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
@@ -21,7 +21,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: BUG-4886 - New Partial Voting Default Percent on Customer Level Changes TC2
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
@@ -37,7 +37,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: BUG-4886 - New Partial Voting Default Percent on Customer Level Changes TC3
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
@@ -54,7 +54,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: BUG-4886 - New Partial Voting Default Percent on Customer Level Changes TC4
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
@@ -72,7 +72,7 @@ Feature: Partial Vote Enhancement Tests
   Scenario: BUG-4886 - New Partial Voting Default Percent on Customer Level Changes TC5
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
-    When I navigate to the meeting details page for the captured meeting ID
+    When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I click on the Clear Partial Vote link if it exists
     And I can see the Set Partial Vote button
