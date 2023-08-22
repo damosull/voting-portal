@@ -27,12 +27,15 @@ Then('I can verify I am on the Meeting Details page', () => {
 	meetingDetailsPage.accountButton().should('be.visible');
 });
 
-When('I navigate to the meeting with id {int}', (meetingId) => {
-	cy.visit('MeetingDetails/Index/' + meetingId);
-});
-
 When('I navigate to the meeting details page for the meeting {string}', (meetingID) => {
-	cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID]);
+	//check if user passed the meetingId or a constant from constants.js
+	if (meetingId.match(/^[0-9]+$/) != null) {
+		cy.visit('MeetingDetails/Index/' + meetingId);
+	} else if (meetingID.contains('DB')) {
+		cy.visit('MeetingDetails/Index/' + Cypress.env('meetingId'));
+	} else {
+		cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID]);
+	}
 });
 
 When('I navigate to the meeting details page for the captured meeting ID', () => {
