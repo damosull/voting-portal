@@ -338,11 +338,11 @@ Cypress.Commands.add('getAutomationUserIDFromDB', (user) => {
 });
 
 Cypress.Commands.add('getAutomationUsernameFromDB', (user) => {
-	cy.executeQuery(`SELECT UserFirstName + ' ' + UserLastName FROM[GLP].[dbo].[UM_User] where LoginID = '${user}'`).then(
-		(result) => {
-			return result;
-		}
-	);
+	cy.executeQuery(
+		`SELECT UserFirstName + ' ' + UserLastName as FullName FROM[GLP].[dbo].[UM_User] where LoginID = '${user}'`
+	).then((result) => {
+		return result[0].FullName;
+	});
 });
 
 Cypress.Commands.add('getCustomerIDFromDB', (user) => {
