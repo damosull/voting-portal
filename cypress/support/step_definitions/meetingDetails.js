@@ -31,8 +31,8 @@ When('I navigate to the meeting details page for the meeting {string}', (meeting
 	//check if user passed the meetingId or a constant from constants.js
 	if (meetingID.includes('environment variable')) {
 		cy.visit('MeetingDetails/Index/' + Cypress.env('meetingId'));
-	} else if (meetingId.match(/^[0-9]+$/) != null) {
-		cy.visit('MeetingDetails/Index/' + meetingId);
+	} else if (meetingID.match(/^[0-9]+$/) != null) {
+		cy.visit('MeetingDetails/Index/' + meetingID);
 	} else {
 		cy.visit('MeetingDetails/Index/' + constants.MEETINGID[meetingID]);
 	}

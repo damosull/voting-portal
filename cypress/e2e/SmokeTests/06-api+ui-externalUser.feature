@@ -25,7 +25,7 @@ Feature: Checking API calls and UI Page load with External user
 
     @56800
     Scenario: MeetingDetails page API's and UI page are loading successfully
-        When I navigate to the meeting details page for the meeting "1173535"
+        When I navigate to the meeting details page for the meeting "1213326"
         Then I verify that all the relevant API calls for meeting details page are made for "external" user
         And I verify all the meeting sections have loaded
 
