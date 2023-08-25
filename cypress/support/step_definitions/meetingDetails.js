@@ -1144,7 +1144,6 @@ Then('the meeting id should match the expected current meeting id and previous m
     first meeting id*/
 	meetingDetailsPage.previousMeetingLink().click({ force: true });
 	cy.location('href').should('include', idMeeting[0]);
-	cy.statusCode204('@LOGGER');
 });
 
 Then('the company id should match the expected company id', () => {
