@@ -50,7 +50,8 @@ Feature: Partial Vote Enhancement Tests
     Then A toast message appears for "PARTIAL_VOTE_INPUT_SAVED"
     When I close the partial vote modal
     Then I can see the Clear Partial Vote link
-    When I quick vote "For" on the meeting
+    When I click on the Change Vote or Rationale button if it exists
+    And I quick vote "For" on the meeting
     And I click on the Vote button
     And I handle the override pop-up if it exists
     Then I can see a Vote success message

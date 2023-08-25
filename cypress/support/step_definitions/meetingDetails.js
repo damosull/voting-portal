@@ -1737,7 +1737,7 @@ Then('I can see the Clear Partial Vote link', () => {
 
 When('I click on the Clear Partial Vote link', () => {
 	meetingDetailsPage.clearPartialVoteButton().click({ scrollBehavior: false });
-	Cypress.env('partialVoteNominalAmount', 'null');
+	Cypress.env('partialVoteNominalAmount', null);
 });
 
 Then('I click on the Clear Partial Vote link if it exists', () => {
