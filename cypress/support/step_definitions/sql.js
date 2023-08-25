@@ -15,8 +15,7 @@ Then('I capture meeting ID by running the query {string}', (queryType) => {
 			"SELECT TOP 1 m.MeetingID from PX_Meeting m with (nolock)\
     join PX_Agenda a with (nolock)on a.MeetingID= m.MeetingID join PX_Ballot b with (nolock)on b.AgendaID = a.AgendaID\
     join am_account acc with(nolock)on acc.accountid = b.accountid join AA_customer cus with(nolock)on cus.customerid = acc.customerid\
-    where m.IsAllowPartialVote ='1' AND Cus.CustomerID = 196 AND YEAR (votedeadlinedate)= 2023\
-    order by MeetingDate desc";
+    where m.IsAllowPartialVote ='1' AND Cus.CustomerID = 196 AND votedeadlinedate between DATEADD(DAY, 0, getdatE()) AND DATEADD(DAY, 30, getdatE())";
 	}
 
 	cy.executeQuery(query).then((result) => {

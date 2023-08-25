@@ -304,7 +304,7 @@ When('I select {int} meetings from the top', (noOfMeetings) => {
 
 Then('I scroll to the end of the meetings table', () => {
 	for (let n = 0; n < 11; n++) {
-		workflowPage.scrollEndButton().click({ waitForAnimations: false });
+		workflowPage.scrollEndButton().click({ scrollBehavior: false, waitForAnimations: false });
 	}
 });
 
