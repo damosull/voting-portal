@@ -2,7 +2,7 @@ Feature: Customised Fields
     #Test Suite - https://dev.azure.com/glasslewis/Development/_testPlans/execute?planId=9215&suiteId=9680
 
     #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/4573
-    @4573 @focus
+    @4573
     Scenario: Verify a user can create a Custom Field Type of Picklist Multi Select & verify the Label Name is not displayed on workflow grid
         Given I set the setting "Permission.CompanyPage.ViewInteraction" to "Allow" for the user "ROBECO"
         When I am logged in as the "ROBECO" user
