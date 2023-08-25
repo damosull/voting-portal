@@ -84,11 +84,12 @@ Using Cucumber tags gives great advantage to run the test cases of your choice. 
 
 # CI
 
-All CI Pipelines are available in the `pipelines` folder. Currently we have 3:
+All CI Pipelines are available in the `pipelines` folder. Below are the Voting Portal pipelines:
 
-- [`nightlyBuild`](https://dev.azure.com/glasslewis/Development/_build?definitionId=98) - This pipeline runs all the smoke tests on qa environment. It runs for every PR merge to master & once daily at a specific time.
-- [`runAdhocTests`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430) - This pipeline can be used to run any specific tests. The parameter accepts different configs which can be amended as needed.
-- [`loadTestDocker`](https://dev.azure.com/glasslewis/Development/_build?definitionId=407) - This pipeline is being used to run load tests on qa environment. It takes the number of parallel instances as input and then runs a test which logs in with a random user, chooses a random meeting and votes.
+- [`DailySmokeTestAqua`](https://dev.azure.com/glasslewis/Development/_build?definitionId=98) - This pipeline runs all the smoke tests on qa environment. It runs on every weekday morning at 8 AM Irish Time.
+- [`DailySmokeTestUltra`](https://dev.azure.com/glasslewis/Development/_build?definitionId=465) - This pipeline runs all the smoke tests on uat environment. It runs on every weekday morning at 8:15 AM Irish Time.
+- [`RunAdhocTests`](https://dev.azure.com/glasslewis/Development/_build?definitionId=430) - This pipeline can be used to run any specific tests. The parameter accepts different configs which can be amended as needed.
+- [`LoadTestDocker`](https://dev.azure.com/glasslewis/Development/_build?definitionId=407) - This pipeline is being used to run load tests on qa environment. It takes the number of parallel instances as input and then runs a test which logs in with a random user, chooses a random meeting and votes.
 
 <br/>
 

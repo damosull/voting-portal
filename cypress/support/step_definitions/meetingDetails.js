@@ -353,7 +353,8 @@ Then('I should be able to use the Instruct functionality on the meeting', () => 
 			meetingDetailsPage.proceedButton().click();
 		}
 	});
-	toastContains('success');
+	toastContains('Instruct request in progress. We will notify you when completed.');
+	toastContains('Instructions saved successfully');
 });
 
 Then('I should be able to use the Take No Action functionality on the meeting', () => {
@@ -368,7 +369,8 @@ Then('I should be able to use the Take No Action functionality on the meeting', 
 			meetingDetailsPage.proceedButton().click();
 		}
 	});
-	toastContains('success');
+	toastContains('Vote request in progress. We will notify you when completed.');
+	toastContains('Votes saved successfully');
 });
 
 Then('I should get a popup window with a warning and OK and Cancel buttons', () => {
@@ -437,7 +439,9 @@ Then('The Proceed button should be enabled', () => {
 });
 
 Then('I can see a Vote success message', () => {
-	toastContains('success');
+	toastContains('Vote request in progress. We will notify you when completed.');
+	toastContains('Votes saved successfully');
+	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 });
 
 Then('I verify the vote tally section by checking the total votes and hyperlinks', () => {
@@ -1240,7 +1244,6 @@ Then('I verify that the request to share meeting was saved in the database', () 
 });
 
 Then('the vote tally should be updated', () => {
-	cy.contains('Instructed successfully');
 	// Step 11 - Verify Vote Tally gets updated
 	cy.get('@totalNotVoted').then((vote) => {
 		cy.contains('Review Required');
@@ -1778,7 +1781,9 @@ Then('I should be able to verify the Take No Action functionality for a partiall
 			meetingDetailsPage.proceedButton().click();
 		}
 	});
-	toastContains('success');
+	toastContains('Vote request in progress. We will notify you when completed.');
+	toastContains('Votes saved successfully');
+	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 });
 
 Then('I can verify that I cannot enter alphanumeric values in percentage and nominal textboxes', () => {
@@ -1860,5 +1865,4 @@ function arraysEqual(a1, a2) {
 function toastContains(msg) {
 	meetingDetailsPage.toastMessageDiv().should('be.visible');
 	meetingDetailsPage.toastMessageDiv().should('contain.text', msg);
-	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 }
