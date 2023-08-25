@@ -62,7 +62,7 @@ Then('the subscription is available in the database', () => {
 		expect(result[0].IsActive).to.be.true;
 		// SubscriberID
 		cy.get('@userid').then((uidResult) => {
-			expect(result[0].UserID).to.equal(uidResult[0].UserID);
+			expect(result[0].UserID).to.equal(uidResult);
 		});
 		// Customer ID
 		expect(result[0].CustomerID).to.equal(397);
@@ -74,7 +74,7 @@ Then('the subscription is available in the database', () => {
 		cy.compare2Dates(result[0].LastModifiedDate, dateUtils.getCurrentTime());
 		// Created by
 		cy.get('@userid').then((uidResult) => {
-			expect(result[0].LastModifiedBy).to.equal(uidResult[0].UserID);
+			expect(result[0].LastModifiedBy).to.equal(uidResult);
 		});
 		// Total Fields
 		expect(Object.keys(result[0]).length).to.equal(19);

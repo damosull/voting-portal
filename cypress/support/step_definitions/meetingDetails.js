@@ -1235,7 +1235,7 @@ Then('I verify that the request to share meeting was saved in the database', () 
 	cy.executeQuery('SELECT TOP 1 * FROM PX_ShareMeeting ORDER BY ShareMeetingID DESC').then((result) => {
 		//Step 12 - Verify PX_ShareMeeting table Column data for correct data
 		cy.get('@userid').then((uidResult) => {
-			expect(result[0].SharerID).to.equal(uidResult[0].UserID); //verify Auatomation QaUat User id
+			expect(result[0].SharerID).to.equal(uidResult); //verify Auatomation QaUat User id
 		});
 		cy.compare2Dates(result[0].CreationDate, dateUtils.getCurrentTime()); //Verify Created date
 		expect(result[0].Comments).to.equal('This is a test comment'); //verify Comment
