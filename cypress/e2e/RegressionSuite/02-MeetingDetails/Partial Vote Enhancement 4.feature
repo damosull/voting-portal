@@ -33,7 +33,7 @@ Feature: Partial Vote Enhancement Tests
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28738
   #Will Fail - to be fixed by https://dev.azure.com/glasslewis/Development/_workitems/edit/56201
-  @28738 @ignore
+  @28738 @skip
   Scenario: BUG-4886 - New Partial Voting Default Percent on Customer Level Changes TC3
     Given I am logged in as the "CALPERS" user
     And I capture meeting ID by running the query "for meetings with partial vote"
