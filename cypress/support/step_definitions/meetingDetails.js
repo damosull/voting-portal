@@ -441,6 +441,7 @@ Then('The Proceed button should be enabled', () => {
 Then('I can see a Vote success message', () => {
 	toastContains('Vote request in progress. We will notify you when completed.');
 	toastContains('Votes saved successfully');
+	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 });
 
 Then('I verify the vote tally section by checking the total votes and hyperlinks', () => {
@@ -1782,6 +1783,7 @@ Then('I should be able to verify the Take No Action functionality for a partiall
 	});
 	toastContains('Vote request in progress. We will notify you when completed.');
 	toastContains('Votes saved successfully');
+	meetingDetailsPage.getLoadingSpinner().should('not.exist');
 });
 
 Then('I can verify that I cannot enter alphanumeric values in percentage and nominal textboxes', () => {
