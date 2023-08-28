@@ -70,7 +70,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28740
   @28740
   Scenario: BUG-4886 - New Partial Voting Default Percent on Customer Level Changes TC5
-    Given I am logged in as the "RUSSELL" user
+    Given I am logged in as the "EVELYN" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
