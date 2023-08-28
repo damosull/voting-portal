@@ -704,7 +704,7 @@ Then('I verify Column data for UserIds and Filename', () => {
 		expect(result[0].IsActive).to.be.true;
 		// SubscriberID
 		cy.get('@userid').then((uidResult) => {
-			expect(result[0].SubscriberID).to.equal(uidResult[0].UserID);
+			expect(result[0].SubscriberID).to.equal(uidResult);
 		});
 		// Deliver to Everyone = false
 		expect(result[0].DeliverToEveryone).to.be.false;
@@ -712,10 +712,10 @@ Then('I verify Column data for UserIds and Filename', () => {
 		expect(result[0].FileName).to.equal('SubscribeTest');
 		// Created by
 		cy.get('@userid').then((uidResult) => {
-			expect(result[0].LastModifiedBy).to.equal(uidResult[0].UserID);
+			expect(result[0].LastModifiedBy).to.equal(uidResult);
 		});
 		// Customer ID
-		expect(result[0].CustomerID).to.equal(196);
+		expect(result[0].CustomerID).to.equal(constants.USERID[Cypress.env('username')]);
 		// Total Fields
 		expect(Object.keys(result[0]).length).to.equal(19);
 	});

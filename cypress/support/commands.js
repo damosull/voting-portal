@@ -315,8 +315,8 @@ Cypress.Commands.add('deleteMyConfiguration', (reportToDelete) => {
 });
 
 Cypress.Commands.add('getAutomationUserIDFromDB', (user) => {
-	cy.executeQuery(`SELECT TOP 1 [UserID] FROM [GLP].[dbo].[UM_User] WHERE LoginID = '${user}'`).then((result) => {
-		return result;
+	cy.executeQuery(`SELECT TOP 1 UserID FROM [GLP].[dbo].[UM_User] WHERE LoginID = '${user}'`).then((result) => {
+		return result[0].UserID;
 	});
 });
 

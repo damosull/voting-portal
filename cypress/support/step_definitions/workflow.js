@@ -112,8 +112,8 @@ Then('I have added the criteria for {string} {string}', (criteria, value) => {
 			workflowPage.filterSearchInput().type('{enter}');
 			workflowPage.updateComanyName().click({ scrollBehavior: false });
 		});
-	cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 });
 	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.tableData().should('be.visible');
 });
 
 Then('I have added the criteria for {string} with status {string}', (criteria, status) => {
@@ -133,8 +133,8 @@ Then('I have added the criteria for {string} with status {string}', (criteria, s
 			workflowPage.containsText(status).click({ scrollBehavior: false });
 			workflowPage.updateButtonForCheckbox().click({ scrollBehavior: false });
 		});
-	cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 });
 	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.tableData().should('be.visible');
 });
 
 Then('I have added the criteria for {string} and checking the checkbox for {string}', (criteria, status) => {
@@ -152,8 +152,8 @@ Then('I have added the criteria for {string} and checking the checkbox for {stri
 			workflowPage.containsText(status).click({ scrollBehavior: false });
 			workflowPage.updateButtonForCheckbox().click({ scrollBehavior: false });
 		});
-	cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 });
 	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.tableData().should('be.visible');
 });
 
 Then('I have added the criteria for {string} and selecting the radio button for {string}', (criteria, status) => {
@@ -162,8 +162,8 @@ Then('I have added the criteria for {string} and selecting the radio button for 
 	workflowPage.criteriaHeadings().contains(criteria).next().invoke('attr', 'style', 'display: block;');
 	workflowPage.criteriaOption().contains(status).next().check({ scrollBehavior: false });
 	workflowPage.updateButton().click({ scrollBehavior: false });
-	cy.wait('@WORKFLOW_EXPANSION', { responseTimeout: 150000 });
 	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.tableData().should('be.visible');
 });
 
 When('I click on the Meeting Date radio button', () => {
@@ -304,7 +304,7 @@ When('I select {int} meetings from the top', (noOfMeetings) => {
 
 Then('I scroll to the end of the meetings table', () => {
 	for (let n = 0; n < 11; n++) {
-		workflowPage.scrollEndButton().click({ waitForAnimations: false });
+		workflowPage.scrollEndButton().click({ scrollBehavior: false, waitForAnimations: false });
 	}
 });
 

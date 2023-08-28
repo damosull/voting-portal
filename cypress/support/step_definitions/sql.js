@@ -8,15 +8,14 @@ Then('I capture meeting ID by running the query {string}', (queryType) => {
 			"SELECT TOP 1 a.MeetingID from PX_ProposalRecommendations rec\
   	join PX_AgendaItem ai on rec.AgendaItemID = ai.AgendaItemID	join PX_Agenda a on a.AgendaID = ai.AgendaID\
     join PX_Ballot b on b.AgendaID = a.AgendaID and b.NoOfShares>0	join AM_Account ac on ac.AccountID = b.AccountID\
-    where RecommendedVoteCode like 'inv%' and ProposalTypeCode <> 'D' and RecommendedByCode = 'Management' and CustomerID = '196'\
-    order by meetingid desc";
+    where RecommendedVoteCode like 'inv%' and ProposalTypeCode <> 'D' and RecommendedByCode = 'Management'\
+	and CustomerID = ${constants.USERID[Cypress.env('username')]} order by meetingid desc";
 	} else if (queryType.includes('for meetings with partial vote')) {
-		query =
-			"SELECT TOP 1 m.MeetingID from PX_Meeting m with (nolock)\
+		query = `SELECT TOP 1 m.MeetingID from PX_Meeting m with (nolock)\
     join PX_Agenda a with (nolock)on a.MeetingID= m.MeetingID join PX_Ballot b with (nolock)on b.AgendaID = a.AgendaID\
     join am_account acc with(nolock)on acc.accountid = b.accountid join AA_customer cus with(nolock)on cus.customerid = acc.customerid\
-    where m.IsAllowPartialVote ='1' AND Cus.CustomerID = 196 AND YEAR (votedeadlinedate)= 2023\
-    order by MeetingDate desc";
+    where m.IsAllowPartialVote ='1' AND Cus.CustomerID = ${constants.USERID[Cypress.env('username')]}\
+	AND votedeadlinedate between DATEADD(DAY, 0, getdatE())	AND DATEADD(DAY, 29, getdatE())	order by NEWID()`;
 	}
 
 	cy.executeQuery(query).then((result) => {
@@ -28,10 +27,14 @@ Then('I verify that the DB has updated with the absolute amount', () => {
 	query = `SELECT TOP 1 b.AbsoluteAmount from PX_Meeting m with (nolock)\
   join PX_Agenda a with (nolock)on a.MeetingID= m.MeetingID join PX_Ballot b with (nolock)on b.AgendaID = a.AgendaID\
   join am_account acc with(nolock)on acc.accountid = b.accountid join AA_customer cus with(nolock)on cus.customerid = acc.customerid\
-  where m.IsAllowPartialVote ='1' AND Cus.CustomerID = 196 AND YEAR (votedeadlinedate)= 2023\
+  where m.IsAllowPartialVote ='1' AND Cus.CustomerID = ${constants.USERID[Cypress.env('username')]}\
+  AND votedeadlinedate between DATEADD(DAY, 0, getdatE()) AND DATEADD(DAY, 29, getdatE())\
   and b.AbsoluteAmount = ${Cypress.env('partialVoteNominalAmount')}`;
 
 	cy.executeQuery(query).then((result) => {
+		console.log(Cypress.env('partialVoteNominalAmount'));
+		console.log(result[0].AbsoluteAmount);
+		console.log(result[0].AbsoluteAmount.toString());
 		expect(result[0].AbsoluteAmount.toString()).to.equal(Cypress.env('partialVoteNominalAmount'));
 	});
 });
@@ -40,11 +43,12 @@ Then('I verify that the absolute amount for the current meeting is correct', () 
 	query = `SELECT TOP 1 b.AbsoluteAmount from PX_Meeting m with (nolock)\
   join PX_Agenda a with (nolock)on a.MeetingID= m.MeetingID join PX_Ballot b with (nolock)on b.AgendaID = a.AgendaID\
   join am_account acc with(nolock)on acc.accountid = b.accountid join AA_customer cus with(nolock)on cus.customerid = acc.customerid\
-  where m.IsAllowPartialVote ='1' AND Cus.CustomerID = 196 AND YEAR (votedeadlinedate)= 2023\
+  where m.IsAllowPartialVote ='1' AND Cus.CustomerID = ${constants.USERID[Cypress.env('username')]}\
+  AND votedeadlinedate between DATEADD(DAY, 0, getdatE()) AND DATEADD(DAY, 29, getdatE())
   and m.MeetingID = ${Cypress.env('meetingId')}`;
 
 	cy.executeQuery(query).then((result) => {
-		expect(Cypress.env('partialVoteNominalAmount')).to.equal(result[0].AbsoluteAmount.toString());
+		expect(Cypress.env('partialVoteNominalAmount')).to.equal(result[0].AbsoluteAmount);
 	});
 });
 
@@ -82,14 +86,9 @@ When('I delete all existing Vote Execution Profiles for the customer with id {in
 });
 
 When('I verify all Voting Groups in the DB are visible on the UI', () => {
-	query =
-		"SELECT DISTINCT \
-  CAST(AG.AccountGroupId AS NVARCHAR) AS Code, \
-  AG.GroupName AS Name, \
-  AG.CustomerID \
-  FROM AM_AccountGroup AG \
-  INNER JOIN AM_Account A ON A.VotingGroupId = AG.AccountGroupId \
-  INNER JOIN UM_UserPreferences UP ON A.VotingGroupId=UP.PurposeID AND PurposeCode='VotingGroup' AND AG.CustomerID=187;";
+	query = `SELECT DISTINCT CAST(AG.AccountGroupId AS NVARCHAR) AS Code, AG.GroupName AS Name,AG.CustomerID\
+  FROM AM_AccountGroup AG INNER JOIN AM_Account A ON A.VotingGroupId = AG.AccountGroupId \
+  INNER JOIN UM_UserPreferences UP ON A.VotingGroupId=UP.PurposeID AND PurposeCode='VotingGroup' AND AG.CustomerID=187`;
 	cy.executeQuery(query).then((result) => {
 		result.forEach((dbRecord) => {
 			cy.contains(dbRecord.Name).should('be.visible');

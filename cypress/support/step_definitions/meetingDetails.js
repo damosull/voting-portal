@@ -1144,7 +1144,6 @@ Then('the meeting id should match the expected current meeting id and previous m
     first meeting id*/
 	meetingDetailsPage.previousMeetingLink().click({ force: true });
 	cy.location('href').should('include', idMeeting[0]);
-	cy.statusCode204('@LOGGER');
 });
 
 Then('the company id should match the expected company id', () => {
@@ -1236,7 +1235,7 @@ Then('I verify that the request to share meeting was saved in the database', () 
 	cy.executeQuery('SELECT TOP 1 * FROM PX_ShareMeeting ORDER BY ShareMeetingID DESC').then((result) => {
 		//Step 12 - Verify PX_ShareMeeting table Column data for correct data
 		cy.get('@userid').then((uidResult) => {
-			expect(result[0].SharerID).to.equal(uidResult[0].UserID); //verify Auatomation QaUat User id
+			expect(result[0].SharerID).to.equal(uidResult); //verify Auatomation QaUat User id
 		});
 		cy.compare2Dates(result[0].CreationDate, dateUtils.getCurrentTime()); //Verify Created date
 		expect(result[0].Comments).to.equal('This is a test comment'); //verify Comment
@@ -1738,7 +1737,7 @@ Then('I can see the Clear Partial Vote link', () => {
 
 When('I click on the Clear Partial Vote link', () => {
 	meetingDetailsPage.clearPartialVoteButton().click({ scrollBehavior: false });
-	Cypress.env('partialVoteNominalAmount', 'null');
+	Cypress.env('partialVoteNominalAmount', null);
 });
 
 Then('I click on the Clear Partial Vote link if it exists', () => {

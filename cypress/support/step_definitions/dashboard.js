@@ -89,12 +89,12 @@ Then('I connect to Aqua Database and verify new row has been added to SB_Subscri
 		expect(result[0].IsActive).to.be.true;
 		// SubscriberID
 		cy.get('@userid').then((uidResult) => {
-			expect(result[0].SubscriberID).to.equal(uidResult[0].UserID);
+			expect(result[0].SubscriberID).to.equal(uidResult);
 		});
 		// Check Frequency XML for schedule
 		expect(result[0].Frequency).to.include('<EveryHours>5</EveryHours>');
 		// Customer ID
-		expect(result[0].CustomerID).to.equal(196);
+		expect(result[0].CustomerID).to.equal(constants.USERID[Cypress.env('username')]);
 		// Deliver to Everyone = false
 		expect(result[0].DeliverToEveryone).to.be.false;
 		// Created date
@@ -103,7 +103,7 @@ Then('I connect to Aqua Database and verify new row has been added to SB_Subscri
 		cy.compare2Dates(result[0].LastModifiedDate, dateUtils.getCurrentTime());
 		// Created by
 		cy.get('@userid').then((uidResult) => {
-			expect(result[0].LastModifiedBy).to.equal(uidResult[0].UserID);
+			expect(result[0].LastModifiedBy).to.equal(uidResult);
 		});
 		// Verify Filename
 		expect(result[0].FileName).to.equal('DashboardTest');
