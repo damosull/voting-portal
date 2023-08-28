@@ -86,14 +86,9 @@ When('I delete all existing Vote Execution Profiles for the customer with id {in
 });
 
 When('I verify all Voting Groups in the DB are visible on the UI', () => {
-	query =
-		"SELECT DISTINCT \
-  CAST(AG.AccountGroupId AS NVARCHAR) AS Code, \
-  AG.GroupName AS Name, \
-  AG.CustomerID \
-  FROM AM_AccountGroup AG \
-  INNER JOIN AM_Account A ON A.VotingGroupId = AG.AccountGroupId \
-  INNER JOIN UM_UserPreferences UP ON A.VotingGroupId=UP.PurposeID AND PurposeCode='VotingGroup' AND AG.CustomerID=187;";
+	query = `SELECT DISTINCT CAST(AG.AccountGroupId AS NVARCHAR) AS Code, AG.GroupName AS Name,AG.CustomerID\
+  FROM AM_AccountGroup AG INNER JOIN AM_Account A ON A.VotingGroupId = AG.AccountGroupId \
+  INNER JOIN UM_UserPreferences UP ON A.VotingGroupId=UP.PurposeID AND PurposeCode='VotingGroup' AND AG.CustomerID=187`;
 	cy.executeQuery(query).then((result) => {
 		result.forEach((dbRecord) => {
 			cy.contains(dbRecord.Name).should('be.visible');

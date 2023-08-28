@@ -4,7 +4,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28715
   @28715
   Scenario: Verify No Warning Message displayed when the user has set a combination partial vote & then navigated away from the Meeting Details page when the user has VOTED
-    Given I am logged in as the "CALPERS" user
+    Given I am logged in as the "WELLINGTON" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
@@ -37,7 +37,7 @@ Feature: Partial Vote Enhancement Tests
     When I scroll to the end of the meetings table
     Then I can verify that the voted shares value matches the saved value
     And I should logout from the application
-    When I am logged in as the "CALPERS" user
+    When I am logged in as the "WELLINGTON" user
     And I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
     And I can see the Partial Vote Applied button

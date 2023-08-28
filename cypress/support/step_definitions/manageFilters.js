@@ -65,7 +65,7 @@ Then('the subscription is available in the database', () => {
 			expect(result[0].UserID).to.equal(uidResult);
 		});
 		// Customer ID
-		expect(result[0].CustomerID).to.equal(397);
+		expect(result[0].CustomerID).to.equal(constants.USERID[Cypress.env('username')]);
 		// Deliver to Everyone = false
 		expect(result[0].IsEveryone).to.be.false;
 		// Created date
