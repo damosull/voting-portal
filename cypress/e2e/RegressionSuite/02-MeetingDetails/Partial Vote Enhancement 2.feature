@@ -121,7 +121,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28727
   @28727
   Scenario: Verify warning message displays when user has set partial vote and navigates away from Meeting Details page WITHOUT VOTING
-    Given I am logged in as the "CALPERS" user
+    Given I am logged in as the "RUSSELL" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page

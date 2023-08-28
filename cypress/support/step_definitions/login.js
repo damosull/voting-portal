@@ -10,6 +10,7 @@ Given('I am on the login page of Viewpoint', () => {
 });
 
 Given('I am logged in as the {string} user', (username) => {
+	Cypress.env('username', username);
 	cy.loginWithAdmin(constants.USER[username]);
 });
 

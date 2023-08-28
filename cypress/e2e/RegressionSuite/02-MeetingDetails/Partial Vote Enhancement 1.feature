@@ -47,7 +47,7 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28716
   @28716
   Scenario: Verify User can choose to 'Vote' where user has chosen a 'NOMINAL' value in the  'Set Partial Vote' modal
-    Given I am logged in as the "CALPERS" user
+    Given I am logged in as the "RUSSELL" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page

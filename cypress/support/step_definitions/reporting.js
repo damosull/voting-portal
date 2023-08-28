@@ -715,7 +715,7 @@ Then('I verify Column data for UserIds and Filename', () => {
 			expect(result[0].LastModifiedBy).to.equal(uidResult);
 		});
 		// Customer ID
-		expect(result[0].CustomerID).to.equal(196);
+		expect(result[0].CustomerID).to.equal(constants.USERID[Cypress.env('username')]);
 		// Total Fields
 		expect(Object.keys(result[0]).length).to.equal(19);
 	});

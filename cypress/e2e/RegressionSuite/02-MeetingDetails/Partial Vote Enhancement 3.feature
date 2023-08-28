@@ -32,10 +32,12 @@ Feature: Partial Vote Enhancement Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28729
   @28729
   Scenario: Verify 'Partial Vote Applied' button is displayed when user filters on one account and sets partial vote, BUT 'Set Partial Vote' button is displayed when user THEN filters on another account that does not have partial vote applied
-    Given I am logged in as the "CALPERS" user
+    Given I am logged in as the "RUSSELL" user
     And I capture meeting ID by running the query "for meetings with partial vote"
     When I navigate to the meeting details page for the meeting "stored as environment variable"
     Then I can view the Meeting Details page
+    When I click on the Clear Partial Vote link if it exists
+    Then I can see the Set Partial Vote button
     When I filter for "first" account
     Then I can see the Set Partial Vote button
     When I click on the Set Partial Vote button
