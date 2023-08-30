@@ -65,8 +65,15 @@ Feature: Vote Card Tests
     Given I am logged in as the "RUSSELL" user
     When I navigate to the workflow page
     Then I can view the workflow page
-    And I have added the criteria for "Decision Status" with status "Manual Vote Required"
+    And I have added the criteria for "Decision Status" with status "Recommendations Pending"
     When I select a random meeting
+    Then I can view the Meeting Details page
+    When I filter for "first" account
+    When I quick vote "For" on the meeting
+    And I click on the Vote button
+    And I handle the override pop-up if it exists
+    Then I can see a Vote success message
+    When I refresh the page
     Then I can view the Meeting Details page
     And I can use the Filter on unvoted ballots functionality
     And I verify the vote tally modal is displayed when user clicks on the total voted hyperlink
