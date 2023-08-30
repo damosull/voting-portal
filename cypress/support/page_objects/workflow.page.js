@@ -50,7 +50,7 @@ class workflowPage {
 		return cy.get('#metaname-CompanyName > div > span > a');
 	}
 	noResultsLabel() {
-		return cy.get('#wf-no-results', { timeout: 15000 });
+		return cy.get('#wf-no-results', { timeout: 5000 });
 	}
 	tableRows() {
 		return cy.get('table > tbody > tr');
