@@ -4,12 +4,11 @@ let query = null;
 
 Then('I capture meeting ID by running the query {string}', (queryType) => {
 	if (queryType.includes('with specific Proposal Type Code and Recommended By Code')) {
-		query =
-			"SELECT TOP 1 a.MeetingID from PX_ProposalRecommendations rec\
+		query = `SELECT TOP 1 a.MeetingID from PX_ProposalRecommendations rec\
   	join PX_AgendaItem ai on rec.AgendaItemID = ai.AgendaItemID	join PX_Agenda a on a.AgendaID = ai.AgendaID\
     join PX_Ballot b on b.AgendaID = a.AgendaID and b.NoOfShares>0	join AM_Account ac on ac.AccountID = b.AccountID\
     where RecommendedVoteCode like 'inv%' and ProposalTypeCode <> 'D' and RecommendedByCode = 'Management'\
-	and CustomerID = ${constants.USERID[Cypress.env('username')]} order by meetingid desc";
+	and CustomerID = ${constants.USERID[Cypress.env('username')]} order by meetingid desc`;
 	} else if (queryType.includes('for meetings with partial vote')) {
 		query = `SELECT TOP 1 m.MeetingID from PX_Meeting m with (nolock)\
     join PX_Agenda a with (nolock)on a.MeetingID= m.MeetingID join PX_Ballot b with (nolock)on b.AgendaID = a.AgendaID\

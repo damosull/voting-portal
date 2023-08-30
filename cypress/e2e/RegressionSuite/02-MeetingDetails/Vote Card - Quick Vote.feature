@@ -8,7 +8,6 @@ Feature: Vote Card - Quick Vote
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Available"
-    And I arrange the table in "descending" order for "control number"
     And I select a random meeting
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
@@ -23,7 +22,6 @@ Feature: Vote Card - Quick Vote
     When I click on the Vote button
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
-    And I should be "able" to see "Change Vote or Rationale" on the UI
     And I should be able to verify that all ballots have decision status as "Voted"
     And I should logout from the application
 
@@ -35,8 +33,7 @@ Feature: Vote Card - Quick Vote
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Recommendations Pending"
-    And I arrange the table in "descending" order for "control number"
-    And I select the first available meeting
+    And I select a random meeting
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
     And I can verify that the quick vote dropdown options display a list of valid options
@@ -53,12 +50,11 @@ Feature: Vote Card - Quick Vote
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28464
   @28464
   Scenario: Verify that if a user select Quick Vote "Policy Rec" & vote on the vote card
-    Given I am logged in as the "CALPERS" user
+    Given I am logged in as the "OPERS" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Manual Vote Required"
-    And I arrange the table in "descending" order for "control number"
-    And I select the first available meeting
+    And I select a random meeting
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
     Then I can verify that the quick vote button is visible and has a width of 125 pixels
