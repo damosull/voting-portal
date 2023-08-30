@@ -49,6 +49,9 @@ class workflowPage {
 	meeting() {
 		return cy.get('#metaname-CompanyName > div > span > a');
 	}
+	noResultsLabel() {
+		return cy.get('#wf-no-results', { timeout: 15000 });
+	}
 	tableRows() {
 		return cy.get('table > tbody > tr');
 	}

@@ -4,12 +4,13 @@ Feature: Vote Decision Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28476
   @28476
   Scenario: Verify that warning message  "You are voting against your custom policy for items xx.xx" is not be displayed when Policy Rec = Manual
-    Given I am logged in as the "RUSSELL" user
+    Given I am logged in as the "NEUBERGER" user
     And I navigate to the workflow page
     Then I can view the workflow page
     And I have added the criteria for "Decision Status" with status "Manual Vote Required"
     When I select a random meeting
     Then I can view the Meeting Details page
+    And I click on the Change Vote or Rationale button if it exists
     When I vote for an item which had no previous vote with Glass Lewis Recommendations
     And I click on the Vote button
     And I handle the override pop-up if it exists
@@ -33,7 +34,7 @@ Feature: Vote Decision Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28473 https://dev.azure.com/glasslewis/Development/_workitems/edit/28475
   @28473 @28475
   Scenario Outline: Verify Validation Messages
-    Given I am logged in as the "CALPERS" user
+    Given I am logged in as the "ROYALLONDON" user
     And I navigate to the workflow page
     Then I can view the workflow page
     And I have added the criteria for "Decision Status" with status <decision_staus>
