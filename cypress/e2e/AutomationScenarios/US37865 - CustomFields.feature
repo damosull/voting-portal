@@ -16,8 +16,8 @@ Feature: Custom Fields
     And I navigate to the workflow page
     Then I can view the workflow page
     And I remove all existing selected criteria
-    When I have added the criteria for <column_name> and checking the checkbox for <column_value>
     And I filter for meetings without ballots
+    When I have added the criteria for <column_name> and checking the checkbox for <column_value>
     And I have added the column <column_name>
     And I can view the workflow page
     And I scroll to the end of the meetings table
