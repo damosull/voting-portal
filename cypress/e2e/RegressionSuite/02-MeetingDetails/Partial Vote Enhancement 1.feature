@@ -29,8 +29,8 @@ Feature: Partial Vote Enhancement Tests
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
     When I click on the home button
-    Then I can view the workflow page
     And I remove all existing selected criteria
+    Then I can view the workflow page
     And I have added the column "Voted Shares"
     When I have added the criteria for "Company Name" "from this test"
     Then I can view the workflow page
@@ -69,8 +69,8 @@ Feature: Partial Vote Enhancement Tests
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
     When I click on the home button
-    Then I can view the workflow page
     And I remove all existing selected criteria
+    Then I can view the workflow page
     When I have added the criteria for "Company Name" "from this test"
     Then I can view the workflow page
     And I have added the column "Voted Shares"
