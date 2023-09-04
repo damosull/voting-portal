@@ -113,6 +113,7 @@ Then('I have added the criteria for {string} {string}', (criteria, value) => {
 			workflowPage.updateComanyName().click({ scrollBehavior: false });
 		});
 	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.noResultsLabel().should('not.be.visible');
 	workflowPage.tableData().should('be.visible');
 });
 
@@ -134,6 +135,7 @@ Then('I have added the criteria for {string} with status {string}', (criteria, s
 			workflowPage.updateButtonForCheckbox().click({ scrollBehavior: false });
 		});
 	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.noResultsLabel().should('not.be.visible');
 	workflowPage.tableData().should('be.visible');
 });
 
@@ -153,6 +155,7 @@ Then('I have added the criteria for {string} and checking the checkbox for {stri
 			workflowPage.updateButtonForCheckbox().click({ scrollBehavior: false });
 		});
 	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.noResultsLabel().should('not.be.visible');
 	workflowPage.tableData().should('be.visible');
 });
 
@@ -163,6 +166,7 @@ Then('I have added the criteria for {string} and selecting the radio button for 
 	workflowPage.criteriaOption().contains(status).next().check({ scrollBehavior: false });
 	workflowPage.updateButton().click({ scrollBehavior: false });
 	workflowPage.waitForWorkflowPageLoad();
+	workflowPage.noResultsLabel().should('not.be.visible');
 	workflowPage.tableData().should('be.visible');
 });
 

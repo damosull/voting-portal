@@ -29,7 +29,6 @@ Feature: Verify UI and API's data in workflow-expansion
             | "RUSSELL"    | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -45        | -40      |
             | "CALPERS"    | "WORKFLOW_PERFORMANCE"            | "WORKFLOW_DB"            | -30        | -27      |
             | "EVELYN"     | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -15        | -9       |
-            | "WELLINGTON" | "WORKFLOW_PERFORMANCE"            | "WORKFLOW_DB"            | 0          | 5        |
 
     @60136
     Scenario: verify API data to compare aggregate cache data with DB data

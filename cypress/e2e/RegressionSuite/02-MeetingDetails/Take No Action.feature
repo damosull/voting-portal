@@ -37,7 +37,7 @@ Feature: Take No Action Folder Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3293
   @3293
   Scenario: Verify a user can Take No Action on Vote Card page & verify correct vote string should display in "Last Vote" field
-    Given I am logged in as the "CALPERS" user
+    Given I am logged in as the "WELLINGTON" user
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Manual Vote Required"
@@ -63,7 +63,7 @@ Feature: Take No Action Folder Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3295
   @3295
   Scenario: Verify a user can Revote on Vote Card page
-    Given I am logged in as the "CALPERS" user
+    Given I am logged in as the "WELLINGTON" user
     And I navigate to the workflow page
     Then I can view the workflow page
     And I have added the criteria for "Decision Status" with status "Take No Action"
@@ -91,7 +91,7 @@ Feature: Take No Action Folder Tests
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/3306
   @3306
   Scenario: Verify no validation messages displayed
-    Given I am logged in as the "CALPERS" user
+    Given I am logged in as the "RUSSELL" user
     And I navigate to the workflow page
     Then I can view the workflow page
     And I have added the criteria for "Decision Status" with status "Manual Vote Required"
@@ -104,7 +104,7 @@ Feature: Take No Action Folder Tests
     When I quick vote with the first available option on the dropdown
     Then I should be able to use the Take No Action functionality on the meeting
     When I navigate to the workflow page
-    Then I can view the workflow page
+    And I set the filter to Upcoming Meetings
     And I should be "unable" to see the text "requires a vote decision" on the UI
     And I should be "unable" to see the text "you are voting contrary to your custom policy" on the UI
     And I remove all existing selected criteria

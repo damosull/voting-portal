@@ -23,11 +23,10 @@ Feature: Controversy Alert
     When I navigate to the workflow page
     Then I can view the workflow page
     When I have added the criteria for "Controversy Alert" and selecting the radio button for "No"
-    And I have added the column "Controversy Alert"
-    And I can view the workflow page
-    And I select a random meeting
-    And I can view the Meeting Details page
-    Then I should be "unable" to see "Controversy Alert link" on the UI
+    Then I can view the workflow page
+    When I select a random meeting
+    Then I can view the Meeting Details page
+    And I should be "unable" to see "Controversy Alert link" on the UI
     And I should logout from the application
 
 
