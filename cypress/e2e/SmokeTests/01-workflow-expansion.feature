@@ -25,10 +25,10 @@ Feature: Verify UI and API's data in workflow-expansion
         Then the data from <cache> table and <database> table are equal
 
         Examples:
-            | customer     | cache                             | database                 | start_date | end_date |
-            | "RUSSELL"    | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -45        | -40      |
-            | "CALPERS"    | "WORKFLOW_PERFORMANCE"            | "WORKFLOW_DB"            | -30        | -27      |
-            | "EVELYN"     | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -15        | -11      |
+            | customer  | cache                             | database                 | start_date | end_date |
+            | "OPERS"   | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -45        | -42      |
+            | "CALPERS" | "WORKFLOW_PERFORMANCE"            | "WORKFLOW_DB"            | -30        | -27      |
+            | "EVELYN"  | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -15        | -12      |
 
     @60136
     Scenario: verify API data to compare aggregate cache data with DB data
