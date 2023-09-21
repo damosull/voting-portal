@@ -86,7 +86,7 @@ Feature: Checking API calls and UI Page load with Internal user
 
     @59808
     Scenario: MeetingDetails page API's and UI page are loading successfully
-        When I navigate to the URL "/MeetingDetails/Index/196/1173535"
+        When I navigate to the URL "/MeetingDetails/Index/196/1212349"
         Then I verify that all the relevant API calls for meeting details page are made for "internal" user
         And I verify all the meeting sections have loaded
 
