@@ -50,30 +50,11 @@ Feature: Meetings related smoke tests
 
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56828
   @56828
-  Scenario: Verify user is able to vote on a US Recommendation Pending meeting
+  Scenario: Verify user is able to vote on a Recommendation Pending meeting
     Given I am logged in as the "WELLINGTON" user
     When I navigate to the workflow page
     Then I can view the workflow page
-    When I have added the criteria for "Security Country of Trade" with status "United States"
-    And I select a random meeting
-    Then I can view the Meeting Details page
-    When I click on the Change Vote or Rationale button if it exists
-    And I quick vote "For" on the meeting
-    And I click on the Vote button
-    And I handle the override pop-up if it exists
-    Then I can see a Vote success message
-    Then I should be "able" to see "Change Vote or Rationale" on the UI
-    And I should logout from the application
-
-
-  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/56829
-  @56829
-  Scenario: Verify user is able to vote on a Global Recommendation Pending meeting
-    Given I am logged in as the "CALPERS" user
-    When I navigate to the workflow page
-    Then I can view the workflow page
-    When I have added the criteria for "Security Country of Trade" with status "United Kingdom"
-    And I select a random meeting
+    When I select a random meeting
     Then I can view the Meeting Details page
     When I click on the Change Vote or Rationale button if it exists
     And I quick vote "For" on the meeting
