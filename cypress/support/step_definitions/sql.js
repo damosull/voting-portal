@@ -2,20 +2,12 @@ import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
 const constants = require('../constants');
 let query = null;
 
-Then('I capture meeting ID by running the query {string}', (queryType) => {
-	if (queryType.includes('with specific Proposal Type Code and Recommended By Code')) {
-		query = `SELECT TOP 1 a.MeetingID from PX_ProposalRecommendations rec\
-  	join PX_AgendaItem ai on rec.AgendaItemID = ai.AgendaItemID	join PX_Agenda a on a.AgendaID = ai.AgendaID\
-    join PX_Ballot b on b.AgendaID = a.AgendaID and b.NoOfShares>0	join AM_Account ac on ac.AccountID = b.AccountID\
-    where RecommendedVoteCode like 'inv%' and ProposalTypeCode <> 'D' and RecommendedByCode = 'Management'\
-	and CustomerID = ${constants.USERID[Cypress.env('username')]} order by meetingid desc`;
-	} else if (queryType.includes('for meetings with partial vote')) {
-		query = `SELECT TOP 1 m.MeetingID from PX_Meeting m with (nolock)\
+Then('I capture meeting ID by running the query {string}', () => {
+	query = `SELECT TOP 1 m.MeetingID from PX_Meeting m with (nolock)\
     join PX_Agenda a with (nolock)on a.MeetingID= m.MeetingID join PX_Ballot b with (nolock)on b.AgendaID = a.AgendaID\
     join am_account acc with(nolock)on acc.accountid = b.accountid join AA_customer cus with(nolock)on cus.customerid = acc.customerid\
     where m.IsAllowPartialVote ='1' AND Cus.CustomerID = ${constants.USERID[Cypress.env('username')]}\
 	AND votedeadlinedate between DATEADD(DAY, 0, getdatE())	AND DATEADD(DAY, 29, getdatE())	order by NEWID()`;
-	}
 
 	cy.executeQuery(query).then((result) => {
 		Cypress.env('meetingId', result[0].MeetingID);

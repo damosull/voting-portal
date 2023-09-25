@@ -28,7 +28,7 @@ Feature: Verify UI and API's data in workflow-expansion
             | customer  | cache                             | database                 | start_date | end_date |
             | "OPERS"   | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -45        | -42      |
             | "CALPERS" | "WORKFLOW_PERFORMANCE"            | "WORKFLOW_DB"            | -30        | -27      |
-            | "EVELYN"  | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -15        | -12      |
+            | "ROBECO"  | "WORKFLOW_PERFORMANCE_AGGREGATED" | "WORKFLOW_DB_AGGREGATED" | -15        | -12      |
 
     @60136
     Scenario: verify API data to compare aggregate cache data with DB data
@@ -42,7 +42,7 @@ Feature: Verify UI and API's data in workflow-expansion
 
     @59998
     Scenario: Verify API data to compare NonAggregated cache data with DB data
-        Given I am logged in as the "ROBECO" user
+        Given I am logged in as the "EVELYN" user
         When I navigate to the workflow page
         And I arrange the table in 'ascending' order for 'control number'
         Then I can view the workflow page

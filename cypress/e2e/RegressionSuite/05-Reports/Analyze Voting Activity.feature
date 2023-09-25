@@ -69,7 +69,6 @@ Feature: Analyze Voting Activity
         Given I am logged in as the "AUTOMATIONINTERNAL" user
         When I navigate to the Reporting page
         And I navigate to the report type page for "Voting Activity"
-        When I search for the customer "California Public Employee Retirement System"
         Then I verify the default expanded and collapsed sections
         And I should be "able" to see "Past 90 Days" on the UI
         When I select the dates between -4000 and -2 days from today
