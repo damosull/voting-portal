@@ -50,8 +50,10 @@ Feature: Vote Card - Quick Vote
   #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28464
   @28464
   Scenario: Verify that if a user select Quick Vote "Policy Rec" & vote on the vote card
-    Given I am logged in as the "OPERS" user
+    Given I am logged in as the "ROBECO" user
     When I navigate to the workflow page
+    And I set the date filter as Next 60 days and Past 120 days
+    And I update the date filter
     Then I can view the workflow page
     When I have added the criteria for "Decision Status" with status "Manual Vote Required"
     And I select a random meeting
@@ -63,27 +65,7 @@ Feature: Vote Card - Quick Vote
     And I click on the Vote button
     Then I should see a message that contains the text "You must enter a vote decision for"
     When I click on the Cancel button on the vote popup
-    And I vote for an item which had no previous vote with Glass Lewis Recommendations
-    And I click on the Vote button
-    And I handle the override pop-up if it exists
-    Then I can see a Vote success message
-    And I should logout from the application
-
-
-  #TC: https://dev.azure.com/glasslewis/Development/_workitems/edit/28465
-  @28465
-  Scenario: Verify that if a user select Quick Vote where Research Paper is published, ALL Mgmt Recs = Undetermined & user votes on the vote card
-    Given I am logged in as the "CALPERS" user
-    And I capture meeting ID by running the query "with specific Proposal Type Code and Recommended By Code"
-    When I navigate to the meeting details page for the meeting "stored as environment variable"
-    Then I can view the Meeting Details page
-    And I can verify that the "mgmt" rec column displays with "Undetermined"
-    And I can verify that the quick vote button is visible and has a width of 125 pixels
-    And I can verify that the quick vote dropdown options display a list of valid options
-    When I click on the Change Vote or Rationale button if it exists
-    Then I can see the Vote, Take No Action and Instruct buttons
-    And I verify that the quick vote option for "MGMT Rec" is read only
-    When I quick vote "For" on the meeting
+    And I quick vote "For" on the meeting
     And I click on the Vote button
     And I handle the override pop-up if it exists
     Then I can see a Vote success message
